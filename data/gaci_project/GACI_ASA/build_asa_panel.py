@@ -25,7 +25,8 @@ for _, r in us.iterrows():
     y, how = start_year(r.date_in_force, r.provisional_application, r.date_signed)
     if y: rows.append(("US", p, y, "open_us", how))
 # --- EU and regional agreements ---
-eu = pd.read_csv(here/"data_external/agreements/eu_regional_agreements.csv", dtype=str, keep_default_na=False)
+eu_path = here/"data_external/agreements/eu_regional_agreements.csv"
+eu = pd.read_csv(eu_path, dtype=str, keep_default_na=False) if eu_path.exists() else pd.DataFrame(columns=["bloc_or_party_a","party_b_iso3","agreement_type","date_signed","date_provisional","date_in_force"])
 for _, r in eu.iterrows():
     y, how = start_year(r.date_in_force, r.date_provisional, r.date_signed)
     p = iso3to2.get(r.party_b_iso3.strip().upper())
@@ -61,5 +62,5 @@ fy = sym.groupby(["a","b"]).year.min().rename("first_year").reset_index().rename
 wide = wide.merge(fy, on=["o_iso","d_iso"], how="left")
 wide.to_csv(here/"asa_pair_year.csv", index=False)
 print("pair-years:", len(wide), "| pairs:", wide.groupby(["o_iso","d_iso"]).ngroups, "| first years by kind:")
-print(first.groupby("kind").year.describe()[["count","min","50%","max"]].to_string())
+print(first.groupby("kind").year.agg(["count","min","median","max"]).to_string())
 print("date basis:", df.how.value_counts().to_dict())

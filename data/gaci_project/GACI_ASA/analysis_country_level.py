@@ -47,6 +47,8 @@ B = Y.merge(X, on=["iso","year"], how="left").fillna({"exp_any":0,"exp_us":0,"ex
 print("\n=== B. exposure index (share of world intl seats covered by an agreement in force), country FE + region x year FE ===")
 for y in ["ln_seats","ln_co2","ln_stage","ln_int","ln_gaci","ln_deg"]:
     d = B.dropna(subset=[y]); m = run(f"B {y}", f"{y} ~ exp_any | iso + ry", d); t = m.tidy().loc["exp_any"]
-    m3 = run(f"B3 {y}", f"{y} ~ exp_us + exp_eu + exp_reg | iso + ry", d); t3 = m3.tidy()
-    print(f"{y:9s} exp_any {t['Estimate']:+.3f} ({t['Std. Error']:.3f}) p={t['Pr(>|t|)']:.2f} | us {t3.loc['exp_us','Estimate']:+.2f} eu {t3.loc['exp_eu','Estimate']:+.2f} reg {t3.loc['exp_reg','Estimate']:+.2f}  N={m._N}")
+    kinds = [k for k in ["exp_us","exp_eu","exp_reg"] if d[k].abs().sum() > 0]
+    m3 = run(f"B3 {y}", f"{y} ~ {' + '.join(kinds)} | iso + ry", d); t3 = m3.tidy()
+    by = " ".join(f"{k[4:]} {t3.loc[k,'Estimate']:+.2f}({t3.loc[k,'Std. Error']:.2f})" for k in kinds)
+    print(f"{y:9s} exp_any {t['Estimate']:+.3f} ({t['Std. Error']:.3f}) p={t['Pr(>|t|)']:.2f} | {by}  N={m._N}")
 pd.DataFrame(res).to_csv(here/"_res_asa_country.csv", index=False)
