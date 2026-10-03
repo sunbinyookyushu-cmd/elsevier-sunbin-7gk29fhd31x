@@ -1,0 +1,41 @@
+sample,outcome,term,b,se_type,se,n,airports
+"annual, 8 events, European controls, k=-3..0",ln_gaci,tp,-0.01520220879146175,HC1,0.002727295754044608,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_gaci,bp,-0.0015495407302404292,HC1,0.0026213463758715605,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_gaci,tp,-0.01520220879146175,cluster country (G=32),0.005997417732061407,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_gaci,bp,-0.0015495407302404292,cluster country (G=32),0.00488426511904506,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_gaci,tp,-0.01520220879146175,"Conley 300 km, lag 2",0.004947030143448573,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_gaci,bp,-0.0015495407302404292,"Conley 300 km, lag 2",0.0029195928344533245,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_gaci,tp,-0.01520220879146175,"Conley 500 km, lag 2",0.005235657243012579,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_gaci,bp,-0.0015495407302404292,"Conley 500 km, lag 2",0.0030168175135244046,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_gaci,tp,-0.01520220879146175,"Conley 1000 km, lag 2",0.004868072250077485,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_gaci,bp,-0.0015495407302404292,"Conley 1000 km, lag 2",0.0027022336908473234,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_deg,tp,-0.10108834957118336,HC1,0.019311976539433607,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_deg,bp,0.02855241392887275,HC1,0.021380673699257977,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_deg,tp,-0.10108834957118336,cluster country (G=32),0.03989992586429538,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_deg,bp,0.02855241392887275,cluster country (G=32),0.03889851864869346,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_deg,tp,-0.10108834957118336,"Conley 300 km, lag 2",0.02509867550228578,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_deg,bp,0.02855241392887275,"Conley 300 km, lag 2",0.02587886048649084,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_deg,tp,-0.10108834957118336,"Conley 500 km, lag 2",0.026576726538648454,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_deg,bp,0.02855241392887275,"Conley 500 km, lag 2",0.020867897500626464,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_deg,tp,-0.10108834957118336,"Conley 1000 km, lag 2",0.030580529226199173,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_deg,bp,0.02855241392887275,"Conley 1000 km, lag 2",0.02399196645244565,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_eigen,tp,-0.15251699646586367,HC1,0.02939080933469064,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_eigen,bp,0.024822006383962137,HC1,0.031117517968516334,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_eigen,tp,-0.15251699646586367,cluster country (G=32),0.037675124730886266,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_eigen,bp,0.024822006383962137,cluster country (G=32),0.036025260093007994,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_eigen,tp,-0.15251699646586367,"Conley 300 km, lag 2",0.03192842201539349,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_eigen,bp,0.024822006383962137,"Conley 300 km, lag 2",0.030918496733311884,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_eigen,tp,-0.15251699646586367,"Conley 500 km, lag 2",0.030409161571089326,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_eigen,bp,0.024822006383962137,"Conley 500 km, lag 2",0.02444473310497461,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_eigen,tp,-0.15251699646586367,"Conley 1000 km, lag 2",0.026132261777654237,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_eigen,bp,0.024822006383962137,"Conley 1000 km, lag 2",0.02342441201974533,8085,503
+"annual, 8 events, European controls, k=-3..0",ln_co2,tp,-0.09595078923390829,HC1,0.021312309365121733,8273,514
+"annual, 8 events, European controls, k=-3..0",ln_co2,bp,0.033869585596436345,HC1,0.02829431147537078,8273,514
+"annual, 8 events, European controls, k=-3..0",ln_co2,tp,-0.09595078923390829,cluster country (G=32),0.048663383625928466,8273,514
+"annual, 8 events, European controls, k=-3..0",ln_co2,bp,0.033869585596436345,cluster country (G=32),0.036909046607369114,8273,514
+"annual, 8 events, European controls, k=-3..0",ln_co2,tp,-0.09595078923390829,"Conley 300 km, lag 2",0.02790189268876418,8273,514
+"annual, 8 events, European controls, k=-3..0",ln_co2,bp,0.033869585596436345,"Conley 300 km, lag 2",0.02901198451228974,8273,514
+"annual, 8 events, European controls, k=-3..0",ln_co2,tp,-0.09595078923390829,"Conley 500 km, lag 2",0.029892590527840816,8273,514
+"annual, 8 events, European controls, k=-3..0",ln_co2,bp,0.033869585596436345,"Conley 500 km, lag 2",0.030819449365222296,8273,514
+"annual, 8 events, European controls, k=-3..0",ln_co2,tp,-0.09595078923390829,"Conley 1000 km, lag 2",0.03266359361346074,8273,514
+"annual, 8 events, European controls, k=-3..0",ln_co2,bp,0.033869585596436345,"Conley 1000 km, lag 2",0.031988469752006664,8273,514
