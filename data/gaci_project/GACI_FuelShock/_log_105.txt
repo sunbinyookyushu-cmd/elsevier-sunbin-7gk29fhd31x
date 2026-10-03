@@ -1,0 +1,66 @@
+﻿decomposition done
+                                   table        outcome     term       b     se      p    n  clusters
+              decomposition, all treated         ln_co2       tp -0.1001 0.0462 0.0377 8489        33
+              decomposition, all treated         ln_co2       bp -0.0422 0.0637 0.5123 8489        33
+                  decomposition, by size         ln_co2 tp_small -0.1856 0.0785 0.0243 8489        33
+                  decomposition, by size         ln_co2   tp_mid -0.0655 0.0430 0.1373 8489        33
+                  decomposition, by size         ln_co2 tp_large -0.0643 0.0399 0.1165 8489        33
+                  decomposition, by size         ln_co2       bp -0.0425 0.0636 0.5087 8489        33
+              decomposition, all treated         ln_deg       tp -0.0970 0.0394 0.0193 8489        33
+              decomposition, all treated         ln_deg       bp  0.0193 0.0369 0.6043 8489        33
+                  decomposition, by size         ln_deg tp_small -0.1607 0.0600 0.0116 8489        33
+                  decomposition, by size         ln_deg   tp_mid -0.0834 0.0248 0.0020 8489        33
+                  decomposition, by size         ln_deg tp_large -0.0509 0.0535 0.3489 8489        33
+                  decomposition, by size         ln_deg       bp  0.0194 0.0368 0.6016 8489        33
+              decomposition, all treated ln_fl_per_dest       tp -0.0097 0.0439 0.8260 8489        33
+              decomposition, all treated ln_fl_per_dest       bp -0.0349 0.0464 0.4583 8489        33
+                  decomposition, by size ln_fl_per_dest tp_small -0.0517 0.1100 0.6419 8489        33
+                  decomposition, by size ln_fl_per_dest   tp_mid  0.0246 0.0305 0.4254 8489        33
+                  decomposition, by size ln_fl_per_dest tp_large -0.0114 0.0385 0.7692 8489        33
+                  decomposition, by size ln_fl_per_dest       bp -0.0352 0.0463 0.4526 8489        33
+              decomposition, all treated  ln_co2_per_fl       tp  0.0066 0.0224 0.7693 8489        33
+              decomposition, all treated  ln_co2_per_fl       bp -0.0266 0.0203 0.1995 8489        33
+                  decomposition, by size  ln_co2_per_fl tp_small  0.0267 0.0532 0.6189 8489        33
+                  decomposition, by size  ln_co2_per_fl   tp_mid -0.0067 0.0166 0.6878 8489        33
+                  decomposition, by size  ln_co2_per_fl tp_large -0.0020 0.0193 0.9163 8489        33
+                  decomposition, by size  ln_co2_per_fl       bp -0.0267 0.0203 0.1974 8489        33
+              decomposition, all treated       ln_gauge       tp  0.0083 0.0152 0.5891 8489        33
+              decomposition, all treated       ln_gauge       bp -0.0360 0.0206 0.0910 8489        33
+                  decomposition, by size       ln_gauge tp_small -0.0074 0.0396 0.8539 8489        33
+                  decomposition, by size       ln_gauge   tp_mid  0.0212 0.0155 0.1799 8489        33
+                  decomposition, by size       ln_gauge tp_large  0.0103 0.0096 0.2919 8489        33
+                  decomposition, by size       ln_gauge       bp -0.0360 0.0206 0.0906 8489        33
+              decomposition, all treated       ln_stage       tp -0.0133 0.0155 0.3947 8489        33
+              decomposition, all treated       ln_stage       bp  0.0165 0.0167 0.3290 8489        33
+                  decomposition, by size       ln_stage tp_small  0.0074 0.0330 0.8231 8489        33
+                  decomposition, by size       ln_stage   tp_mid -0.0357 0.0183 0.0593 8489        33
+                  decomposition, by size       ln_stage tp_large -0.0102 0.0181 0.5761 8489        33
+                  decomposition, by size       ln_stage       bp  0.0166 0.0167 0.3272 8489        33
+              decomposition, all treated         ln_int       tp  0.0117 0.0106 0.2792 8489        33
+              decomposition, all treated         ln_int       bp -0.0071 0.0094 0.4543 8489        33
+                  decomposition, by size         ln_int tp_small  0.0267 0.0221 0.2370 8489        33
+                  decomposition, by size         ln_int   tp_mid  0.0078 0.0149 0.6054 8489        33
+                  decomposition, by size         ln_int tp_large -0.0021 0.0115 0.8547 8489        33
+                  decomposition, by size         ln_int       bp -0.0073 0.0094 0.4409 8489        33
+                   channel: CO2 baseline         ln_co2 tp_small -0.1856 0.0785 0.0243 8489        33
+                   channel: CO2 baseline         ln_co2   tp_mid -0.0655 0.0430 0.1373 8489        33
+                   channel: CO2 baseline         ln_co2 tp_large -0.0643 0.0399 0.1165 8489        33
+                   channel: CO2 baseline         ln_co2       bp -0.0425 0.0636 0.5087 8489        33
+          channel: CO2 | ln destinations         ln_co2 tp_small -0.1042 0.0650 0.1187 8489        33
+          channel: CO2 | ln destinations         ln_co2   tp_mid -0.0232 0.0327 0.4826 8489        33
+          channel: CO2 | ln destinations         ln_co2 tp_large -0.0385 0.0219 0.0882 8489        33
+          channel: CO2 | ln destinations         ln_co2       bp -0.0523 0.0580 0.3739 8489        33
+          channel: CO2 | ln destinations         ln_co2   ln_deg  0.5069 0.1070 0.0000 8489        33
+channel: CO2 | ln destinations + ln GACI         ln_co2 tp_small -0.0906 0.0666 0.1832 8489        33
+channel: CO2 | ln destinations + ln GACI         ln_co2   tp_mid  0.0029 0.0344 0.9338 8489        33
+channel: CO2 | ln destinations + ln GACI         ln_co2 tp_large -0.0393 0.0251 0.1275 8489        33
+channel: CO2 | ln destinations + ln GACI         ln_co2       bp -0.0451 0.0571 0.4362 8489        33
+channel: CO2 | ln destinations + ln GACI         ln_co2   ln_deg  0.3688 0.0984 0.0007 8489        33
+channel: CO2 | ln destinations + ln GACI         ln_co2  ln_gaci  1.7531 0.5465 0.0030 8489        33
+
+check: ln_deg + ln_fl_per_dest + ln_co2_per_fl vs ln_co2 (by size):
+term
+bp         -0.0
+tp_large    0.0
+tp_mid      0.0
+tp_small    0.0

@@ -1,0 +1,107 @@
+% ===== tab:exclusion =====
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Extended Data Table: Exclusion-restriction diagnostics for the Feyrer instrument}
+\label{tab:exclusion}
+\scriptsize
+\begin{tabular}{lcccc}
+\toprule
+ & Reduced form & 2SLS & KP $F$ & $N$ \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel A. Outcomes: coefficient on the instrument (reduced form) and on log GACI (2SLS)}} \\
+  Aviation CO$_2$ (total, our series) & 0.726$^{***}$ (0.057) & 5.67$^{***}$ (0.41) & 153.6 & 4,634 \\
+  Aviation CO$_2$ (international) & 0.725$^{***}$ (0.058) & 5.69$^{***}$ (0.42) & 152.7 & 4,633 \\
+  Territorial fossil CO$_2$ excl.\ domestic aviation (GCP/OWID) & 0.049 (0.039) & 0.39 (0.31) & 145.1 & 4,576 \\
+  Oil CO$_2$ excl.\ domestic aviation (OWID) & -0.115$^{***}$ (0.036) & -0.91$^{***}$ (0.29) & 145.1 & 4,576 \\
+  Transport CO$_2$ excl.\ domestic aviation (EDGAR) & 0.111$^{***}$ (0.039) & 0.90$^{***}$ (0.31) & 136.7 & 4,461 \\
+  Power industry CO$_2$ (EDGAR) & -0.365$^{***}$ (0.109) & -2.96$^{***}$ (0.93) & 133.3 & 4,409 \\
+  Buildings CO$_2$ (EDGAR) & -0.140$^{***}$ (0.051) & -1.13$^{***}$ (0.41) & 136.7 & 4,460 \\
+  Industrial combustion CO$_2$ (EDGAR) & 0.182$^{***}$ (0.055) & 1.53$^{***}$ (0.48) & 126.3 & 4,432 \\
+  Coal CO$_2$ (OWID) & 0.896$^{***}$ (0.119) & 15.72$^{***}$ (3.69) & 20.7 & 3,030 \\
+  Gas CO$_2$ (OWID) & -0.333$^{***}$ (0.102) & -4.28$^{***}$ (1.60) & 31.4 & 2,863 \\
+  Cement CO$_2$ (OWID) & 0.665$^{***}$ (0.079) & 6.07$^{***}$ (0.90) & 77.8 & 3,476 \\
+  Agriculture CO$_2$ (EDGAR) & -0.421$^{***}$ (0.087) & -4.06$^{***}$ (1.00) & 58.0 & 2,667 \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel B. Content of the global cycle: first stage of the aviation-technology instrument with rival cycle $\times$ geography added}} \\
+ & First-stage $\pi$ & 2SLS & Partial $F$ & $N$ \\
+  Aviation technology $\times$ air geography (baseline) & 0.128$^{***}$ (0.010) & 5.67$^{***}$ (0.41) & 153.6 & 4,634 \\
+  \quad plus oil price $\times$ geography & 0.089$^{***}$ (0.012) & 5.61$^{***}$ (0.68) & 54.2 & 4,121 \\
+  \quad plus world GDP $\times$ geography & 0.005 (0.022) & 12.46 (44.22) & 0.1 & 4,121 \\
+  \quad plus world exports $\times$ geography & -0.011 (0.023) & 3.49 (8.23) & 0.2 & 4,121 \\
+  \quad plus all three & -0.024 (0.025) & 4.53 (4.59) & 0.9 & 4,121 \\
+  World GDP $\times$ geography alone & 0.153$^{***}$ (0.012) & RF 0.887$^{***}$ (0.065) & 152.4 & 4,121 \\
+  Oil price $\times$ geography alone & 0.102$^{***}$ (0.009) & RF 0.639$^{***}$ (0.051) & 115.8 & 4,121 \\
+  World exports $\times$ geography alone & 0.152$^{***}$ (0.012) & RF 0.890$^{***}$ (0.063) & 166.6 & 4,121 \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel C. Placebo instrument: aviation technology $\times$ 1996 sea market access}} \\
+ & First-stage $\pi$ & Reduced form & Partial $F$ & $N$ \\
+  Sea-geography instrument alone & 0.119$^{***}$ (0.013) & 0.598$^{***}$ (0.071) & 86.7 & 4,121 \\
+  Sea-geography instrument, air-geography instrument included & 0.058$^{***}$ (0.019) & 0.079 (0.105) & 9.1 & 4,121 \\
+  Air-geography instrument, sea-geography instrument included & 0.075$^{***}$ (0.016) & 0.636$^{***}$ (0.077) & 23.4 & 4,121 \\
+  \quad 2SLS with the sea interaction as a control & \multicolumn{2}{c}{8.47$^{***}$ (1.59)} & 23.4 & 4,121 \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel D. Zero-first-stage test by baseline connectivity tercile}} \\
+ & First-stage $\pi$ & Reduced form (CO$_2$) & Partial $F$ & $N$ \\
+  Low baseline connectivity & 0.263$^{***}$ (0.024) & 2.223$^{***}$ (0.184) & 117.6 & 1,453 \\
+  Middle & 0.081$^{***}$ (0.015) & 0.411$^{***}$ (0.083) & 29.9 & 1,526 \\
+  High (instrument does not move GACI) & 0.024 (0.017) & 0.095 (0.060) & 1.8 & 1,655 \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel E. Development-channel controls added sequentially (2SLS coefficient on log GACI)}} \\
+ & 2SLS & & KP $F$ & $N$ \\
+  Baseline (log population, log sea market access) & 5.67$^{***}$ (0.41) & & 153.6 & 4,634 \\
+  \quad plus log GDP & 4.81$^{***}$ (0.46) & & 98.4 & 4,634 \\
+  \quad plus trade/GDP & 4.77$^{***}$ (0.53) & & 79.9 & 4,618 \\
+  \quad plus urban share & 4.72$^{***}$ (0.53) & & 83.3 & 4,618 \\
+  \quad plus FDI/GDP & 4.82$^{***}$ (0.49) & & 95.8 & 4,432 \\
+  \quad plus log tourist arrivals & 4.88$^{***}$ (0.56) & & 69.3 & 3,460 \\
+  Baseline on the common sample of the last row & 5.99$^{***}$ (0.48) & & 131.9 & 3,460 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\scriptsize
+\item All regressions include country and year fixed effects, log population and log sea market access; heteroskedasticity-robust standard errors in parentheses. Panel A: the reduced form regresses each log outcome on the Feyrer interaction; non-aviation series are Global Carbon Project territorial CO$_2$ via Our World in Data (domestic aviation subtracted, since international bunkers are excluded from territorial totals) and EDGAR v2024 sectoral CO$_2$ (1996--2023). Panel B: rival cycles are world real GDP, the annual Brent price and world real exports, each min-max scaled like the aviation index and interacted with log 1996 air market access; the aviation index correlates 0.82, 0.53 and 0.84 with the three. Panel C: the placebo instrument replaces air market access by sea market access in the interaction. Panel D: terciles of 1996 capacity-weighted GACI. $^{***}$ $p<0.01$, $^{**}$ $p<0.05$, $^{*}$ $p<0.1$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+% ===== tab:exclusion2 =====
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Supplementary Table: Alternative instrument constructions, leads, overidentification and inference}
+\label{tab:exclusion2}
+\scriptsize
+\begin{tabular}{lcccc}
+\toprule
+ & First-stage $\pi$ & 2SLS & KP $F$ & $N$ \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel A. Technology series in the interaction (all $\times$ log 1996 air market access)}} \\
+  World seat capacity (baseline) & 0.128$^{***}$ (0.010) & 5.67$^{***}$ (0.41) & 153.6 & 4,634 \\
+  World flights & 0.121$^{***}$ (0.013) & 5.96$^{***}$ (0.55) & 90.7 & 4,121 \\
+  World seat-km & 0.135$^{***}$ (0.011) & 5.90$^{***}$ (0.44) & 137.7 & 4,121 \\
+  World sum of GACI & 0.123$^{***}$ (0.010) & 5.96$^{***}$ (0.40) & 161.4 & 4,121 \\
+  World fuel-efficiency index (CO$_2$ per seat-km, inverted) & 0.145$^{***}$ (0.011) & 5.89$^{***}$ (0.39) & 172.7 & 4,121 \\
+  Baseline geography recomputed ($\theta = 1$) & 0.127$^{***}$ (0.010) & 5.92$^{***}$ (0.42) & 159.3 & 4,623 \\
+  Distance decay $\theta = 0.5$ & 0.273$^{***}$ (0.022) & 5.81$^{***}$ (0.42) & 151.5 & 4,623 \\
+  Distance decay $\theta = 1.5$ & 0.073$^{***}$ (0.006) & 6.09$^{***}$ (0.45) & 146.4 & 4,623 \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel B. Leads of the instrument (reduced form on log CO$_2$)}} \\
+ & Current & Lead & & $N$ \\
+  Three-year lead & 0.578$^{***}$ (0.063) & 0.413$^{***}$ (0.063) & & 4,078 \\
+  Five-year lead & 0.724$^{***}$ (0.081) & 0.317$^{***}$ (0.069) & & 3,715 \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel C. Overidentification and inference (2SLS on log CO$_2$)}} \\
+ & 2SLS & s.e. & KP $F$ & $N$ \\
+  Feyrer and tourism-heritage instruments jointly & 4.96$^{***}$ & (0.35) & 97.2 & 4,634 \\
+  \quad Hansen $J$ (p-value) & \multicolumn{2}{c}{21.63 (0.000)} & & \\
+  Tourism-heritage instrument alone & 1.17 & (0.83) & 19.7 & 4,634 \\
+  Heteroskedasticity-robust (baseline) & 5.67$^{***}$ & (0.41) & 153.6 & 4,634 \\
+  Clustered by country & 5.67$^{***}$ & (1.12) & 18.4 & 4,634 \\
+  Two-way clustered (country, year) & 5.67$^{***}$ & (1.11) & 15.6 & 4,634 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\scriptsize
+\item Specification as in Table~\ref{tab:main}, column 1. Panel A replaces the world seat-capacity index by other min-max scaled world aviation series, or recomputes 1996 air market access with a different distance-decay exponent. Panel B enters the instrument dated $t+3$ or $t+5$ alongside its current value; because the technology index is a smooth global trend, the lead is mechanically collinear with the current value and this test is informative only about differential trends by geography. Panel C: the tourism-heritage instrument fails the size-by-cycle stress test (Methods) and is shown for reference; the Hansen test rejects equality of the two just-identified estimates. $^{***}$ $p<0.01$, $^{**}$ $p<0.05$, $^{*}$ $p<0.1$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

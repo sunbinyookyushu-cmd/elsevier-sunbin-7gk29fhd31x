@@ -1,0 +1,48 @@
+\begin{table}[p]
+\centering
+\caption{The subsample with survey-based Gini coefficients (166 economies, 3{,}716 country-years).}
+\label{tab:a_swiid}
+\begin{threeparttable}
+\small
+\begin{tabular}{lcc}
+\toprule
+ & OLS & 2SLS \\
+\midrule
+\multicolumn{3}{l}{\emph{Panel A. Survey-based Gini coefficients (SWIID)}}\\
+ln market-income Gini & 0.061\sym{***} (0.023) & 0.499\sym{**} (0.196) \\
+ln disposable-income Gini & 0.050\sym{*} (0.026) & 0.656\sym{***} (0.244) \\
+\addlinespace
+\multicolumn{3}{l}{\emph{Panel B. WID outcomes on the same subsample}}\\
+Mean income & 0.668\sym{***} (0.124) & 1.219\sym{**} (0.491) \\
+Top-30\% income & 0.709\sym{***} (0.118) & 1.377\sym{***} (0.504) \\
+Bottom-30\% income & 0.619\sym{***} (0.150) & -0.265 (0.816) \\
+Bottom-30\% share & -0.048 (0.072) & -1.483\sym{*} (0.766) \\
+Bottom-50\% income & 0.586\sym{***} (0.144) & 0.445 (0.593) \\
+Bottom-50\% share & -0.082 (0.054) & -0.774\sym{*} (0.417) \\
+Top-30 minus bottom-30 & 0.090 (0.091) & 1.642\sym{*} (0.856) \\
+Top half minus bottom half & 0.100 (0.064) & 0.868\sym{*} (0.472) \\
+\addlinespace
+\multicolumn{3}{l}{\emph{Panel C. Decile incomes and shares, 2SLS}}\\
+p0--10: income 0.155 (1.695); share -1.061 (1.546) & & \\
+p10--20: income -1.931 (2.204); share -3.146 (2.240) & & \\
+p20--30: income -0.021 (0.698); share -1.240\sym{**} (0.619) & & \\
+p30--40: income 0.537 (0.578); share -0.681\sym{*} (0.376) & & \\
+p40--50: income 0.693 (0.549); share -0.526\sym{*} (0.307) & & \\
+p50--60: income 0.887 (0.548); share -0.331 (0.241) & & \\
+p60--70: income 1.052\sym{*} (0.546); share -0.167 (0.184) & & \\
+p70--80: income 1.194\sym{**} (0.537); share -0.024 (0.141) & & \\
+p80--90: income 1.335\sym{**} (0.537); share 0.116 (0.128) & & \\
+p90--100: income 1.443\sym{***} (0.513); share 0.224 (0.192) & & \\
+Top 1\%: income 1.285\sym{**} (0.541); share 0.067 (0.384) & & \\
+Bottom 50\%: income 0.445 (0.593); share -0.774\sym{*} (0.417) & & \\
+All adults: income 1.219\sym{**} (0.491) & & \\
+\midrule
+KP $F$ & & 10.5 \\
+Observations & 3{,}716 & 3{,}716 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\small
+\item The Standardized World Income Inequality Database \citep{Solt_2020} provides market- and disposable-income Gini coefficients for 166 of the 178 economies. Panel A uses them as outcomes; Panels B and C re-estimate the WID outcomes on the same subsample. Country-year panel of 178 economies, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments $\ln\mathrm{GACI}_{max}$ with the Feyrer interaction $Z_{ct}=a_t\times\ln\mathrm{MA}^{air}_{c,1996}$; KP $F$ is the Kleibergen--Paap $rk$ Wald statistic. Group incomes are the log average pretax national income of the group (WID, equal-split adults); shares are log income shares, computed as log group income minus log mean income so that all groups use the same sample. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

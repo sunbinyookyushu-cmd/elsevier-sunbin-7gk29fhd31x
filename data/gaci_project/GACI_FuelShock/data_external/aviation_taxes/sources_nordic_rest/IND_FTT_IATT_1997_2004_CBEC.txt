@@ -1,0 +1,29 @@
+India: Foreign Travel Tax (Finance Act 1979, Chapter V) and Inland Air Travel Tax (Finance Act 1989, Chapter V)
+Source: archived CBEC (Central Board of Excise and Customs) FTT/IATT pages via web.archive.org (2005 captures). Accessed 2026-10-02.
+
+[1] FTT Act page: http://cbec.gov.in/ftt/ftt-acts.htm (https://web.archive.org/web/2005id_/http://cbec.gov.in/ftt/ftt-acts.htm)
+"Notification number 1/2004-FTT dated 8 th January, 2004 exempts all exempts all passengers embarking on international journey from the payment of foreign travel tax leviable under sub-section (1) of section 35 of the said Act. Therefore, there is no foreign travel tax presently levied on passengers embarking on international journey."
+s.34(e): "passenger means any person boarding, at any customs port or customs airport, a ship or an aircraft for performing an international journey, but does not include- ... a person who has arrived at such customs port or customs airport from a place outside India and is in transit through India: Provided that he continues his journey to a place outside India - ... (ii) by the same aircraft and the flight having the same number by which he arrived"
+s.35(1): "(i) at the rate of [five hundred rupees]* for every such journey to any place outside India other than a place in a neighbouring country; (ii) at the rate of one hundred and fifty rupees for every such journey, where such journey is to any place in a neighbouring country."
+Finance Act 1989, s.51: "for the words one hundred rupees, the words three hundred rupees shall be substituted"
+"AMENDMENT EFFECTED VIDE THE FINANCE ACTS (AMENDMENT) ORDINANCE, 1997, ISSUED ON 16 th September,1997. ... in clause (i), for the words three hundred rupees, the words seven hundred and fifty rupees shall be substituted."
+"THE FINANCE (SECOND AMENDMENT) ORDINANCE, 1997 (NO. 24 OF 1997) Issued on 24 th December, 1997 ... (a) at the rate of seven hundred and fifty rupees on or after the 26 th day of September, 1997 but before the 1 st day of January, 1998; (b) at the rate of five hundred rupees on or after the 1 st day of January, 1998"
+
+[2] FTT notifications index: http://cbec.gov.in/ftt/notfns/ftt-notfns-idx.htm
+"25/FTT/90 , dated 20 th August, 1990 Amend the notification No. 6/FTT/79, dated 11 th June, 1979 to provide exemption to transit passengers if the stay of such passenger in India is less than 24 hours."
+"3/FTT/79 dated 11 th June, 1979 Notify seven countries as neighbouring countries" (text lists Afghanistan, Bangladesh, Bhutan, Burma, Nepal, Pakistan, Sri Lanka, The Maldives)
+Notification 6/FTT/79 (http://cbec.gov.in/ftt/notfns/ftt_6-79.htm): "hereby exempts every passenger in transit who leaves India by the next available flight for onward travel to a place outside India from the payment of foreign travel tax"
+Notification 25/FTT/90 (http://cbec.gov.in/ftt/notfns/ftt_25-90.htm): "the words provided the stay of such passenger in India is less than 24 hours shall be substituted."
+
+[3] Notification No. 1/2004-Foreign Travel Tax (http://www.cbec.gov.in/cae/js-notfns/ftt1-2k4.doc)
+"New Delhi, dated the 8th January, 2004 ... hereby exempts all passengers embarking on international journey from the payment of foreign travel tax leviable under sub-section (1) of section 35 of the said Act. 2. This notification shall come into force on the 9th day of January, 2004."
+
+[4] IATT Act page: http://cbec.gov.in/ftt/iatt-acts.htm
+"Notification number 1/2004-Inland travel tax dated 8 th January, 2004 exempts all passengers embarking on inland journey from the payment of inland air travel tax"
+s.41(f): "passenger ... does not include,- (i) a person who performs an inland journey on a through international ticket and which precedes, or forms part of a series of journeys preceding, or follows, or forms part of a series of journeys following, a journey to or from a place outside India on the same ticket"
+s.42(1): "there shall be levied on all passengers embarking on every inland journey, a tax ... at the rate of **[ fifteen per cent. ] of the fare paid by such passengers for every such journey." Note: "the rate of tax was increased from 10% to 15%" by section 71 of Finance Act, 1990.
+
+[5] Notification No. 1/2004-Inland Air Travel Tax (http://www.cbec.gov.in:80/cae/js-notfns/iatt1-2k4.doc)
+"hereby exempts all passengers embarking on inland journey from the payment of inland air travel tax leviable under sub-section (1) of section 42 of the said Act. 2. This notification shall come into force on the 9th day of January, 2004."
+
+[6] Union Budget 2002-03 speech Part A para 37 (https://www.indiabudget.gov.in/budget_archive/ub2002-03/bs/speech_a.htm): "Exemption from levy of Inland Air Travel Tax (IATT) and Foreign Travel Tax (FTT) on departing passengers for projects located in States that charge sales tax on Aviation Turbine Fuel (ATF) at Central Sales Tax (CST) rate."

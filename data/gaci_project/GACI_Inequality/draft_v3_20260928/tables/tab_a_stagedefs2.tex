@@ -1,0 +1,44 @@
+\begin{table}[p]
+\centering
+\caption{Development-stage split under alternative baseline connectivity measures (2SLS elasticities to $\ln\mathrm{GACI}_{max}$).}
+\label{tab:a_stagedefs2}
+\begin{minipage}{\linewidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lccccccc}
+\toprule
+ & ln market Gini & Mean income & Top half minus bottom half & Bottom-50 share & Top-10 share & KP $F$ & N \\
+\midrule
+\multicolumn{8}{l}{\emph{$\mathrm{GACI}_{cwm}$ in 1996, terciles}}\\
+\quad Low & 0.116 & 1.667\sym{***} & 0.176 & 0.028 & -0.142 & 20.3 & 1{,}067 \\
+ & (0.091) & (0.339) & (0.348) & (0.311) & (0.195) \\
+\quad Middle & 2.154 & 2.304 & 7.621 & -3.911 & 1.213 & 0.7 & 1{,}288 \\
+ & (2.468) & (2.820) & (9.239) & (4.573) & (1.311) \\
+\quad High & 0.340 & 0.859 & -0.613 & -0.191 & 0.012 & 1.5 & 1{,}380 \\
+ & (0.450) & (1.103) & (1.902) & (1.075) & (0.490) \\
+\multicolumn{8}{l}{\emph{$\mathrm{GACI}_{sum}$ in 1996, terciles}}\\
+\quad Low & 0.378\sym{**} & 0.998\sym{**} & 0.592 & -0.911\sym{***} & 0.381\sym{***} & 13.0 & 1{,}134 \\
+ & (0.170) & (0.483) & (0.619) & (0.289) & (0.144) \\
+\quad Middle & 0.334\sym{*} & 0.313 & 1.034 & -0.316 & 0.059 & 8.8 & 1{,}191 \\
+ & (0.201) & (0.764) & (0.759) & (0.458) & (0.275) \\
+\quad High & 0.655 & 1.603 & 1.969 & -1.016 & 0.205 & 1.7 & 1{,}410 \\
+ & (0.566) & (1.146) & (2.110) & (1.072) & (0.468) \\
+\multicolumn{8}{l}{\emph{Top-airport share of national GACI, 1996, terciles}}\\
+\quad Low & 0.483 & 2.871 & 1.667 & -0.706 & -0.088 & 1.8 & 1{,}383 \\
+ & (0.486) & (1.903) & (2.099) & (1.010) & (0.507) \\
+\quad Middle & 0.805 & -0.827 & 1.902 & -0.873 & 0.412 & 2.8 & 1{,}221 \\
+ & (0.525) & (1.513) & (1.679) & (0.997) & (0.555) \\
+\quad High & 0.359\sym{**} & 0.814\sym{*} & 0.685 & -0.952\sym{***} & 0.413\sym{***} & 17.0 & 1{,}131 \\
+ & (0.152) & (0.457) & (0.568) & (0.270) & (0.140) \\
+\multicolumn{8}{l}{\emph{$\mathrm{GACI}_{max}$ in 1996, terciles within continent}}\\
+\quad Low & 0.356\sym{**} & 0.773\sym{**} & 1.312\sym{***} & -0.803\sym{***} & 0.357\sym{***} & 12.5 & 1{,}199 \\
+ & (0.143) & (0.380) & (0.433) & (0.230) & (0.101) \\
+\quad Middle & 0.763 & 2.140 & 0.699 & -1.019 & 0.387 & 2.0 & 1{,}225 \\
+ & (0.604) & (1.677) & (1.572) & (1.177) & (0.607) \\
+\quad High & 0.846 & 0.269 & 2.701 & -1.132 & 0.080 & 2.2 & 1{,}234 \\
+ & (0.737) & (1.078) & (2.827) & (1.413) & (0.546) \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}\begin{flushleft}\footnotesize Groups are formed over countries on the stated baseline variable. The instrument has power only in groups with small-to-moderate baseline hubs; wherever it has power the distributional pattern is the same. Country-year panel, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments ln GACI with the Feyrer interaction $Z_{ct}=a_t\times\ln \mathrm{MA}^{air}_{c,1996}$. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{flushleft}
+\end{minipage}
+\end{table}

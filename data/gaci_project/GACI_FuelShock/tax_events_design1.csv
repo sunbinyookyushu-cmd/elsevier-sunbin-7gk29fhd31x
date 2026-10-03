@@ -1,0 +1,17 @@
+iso3,date,kind,what,t0,E
+NLD,2008-07-01,increase,intro EUR 11.25/45,24103,2009
+IRL,2009-03-30,increase,intro EUR 2/10,24111,2009
+DEU,2011-01-01,increase,intro EUR 8/25/45,24133,2011
+AUT,2011-04-01,increase,intro EUR 8/20/35,24136,2011
+NOR,2016-06-01,increase,intro NOK 80,24198,2016
+SWE,2018-04-01,increase,intro SEK 60/250/400,24220,2018
+GBR,2007-02-01,increase,APD doubled,24086,2007
+DNK,1998-01-01,increase,"domestic added, DKK 75",23977,1998
+MLT,2005-08-01,increase,Lm10 -> Lm20,24068,2006
+NLD,2009-07-01,cut,rate set to zero,24115,2010
+DNK,2007-01-01,cut,abolished,24085,2007
+MLT,2008-11-01,cut,abolished,24107,2009
+IRL,2014-04-01,cut,abolished,24172,2014
+ISL,2011-05-18,cut,abolished,24137,2011
+AUT,2018-01-01,cut,halved,24217,2018
+NOR,2002-04-01,cut,abolished,24028,2002

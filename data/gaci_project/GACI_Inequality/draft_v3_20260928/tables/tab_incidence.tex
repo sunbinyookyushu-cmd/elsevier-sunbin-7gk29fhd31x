@@ -1,0 +1,44 @@
+\begin{table}[H]
+\centering
+\caption{Incidence of hub connectivity across the income distribution (2SLS, Feyrer instrument).}
+\label{tab:incidence}
+\begin{threeparttable}
+\small
+\begin{tabular}{lcccc}
+\toprule
+ & \multicolumn{2}{c}{Average income of the group} & \multicolumn{2}{c}{Income share of the group} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+WID group & Coef. & (s.e.) & Coef. & (s.e.) \\
+\midrule
+\multicolumn{5}{l}{\emph{Panel A. Elasticity to $\ln\mathrm{GACI}_{max}$, 2SLS}}\\
+p0--10 & 0.155 & (1.695) & -1.061 & (1.545) \\
+p10--20 & -1.931 & (2.204) & -3.146 & (2.239) \\
+p20--30 & -0.021 & (0.698) & -1.240\sym{**} & (0.619) \\
+p30--40 & 0.537 & (0.578) & -0.681\sym{*} & (0.376) \\
+p40--50 & 0.693 & (0.549) & -0.526\sym{*} & (0.307) \\
+p50--60 & 0.887 & (0.548) & -0.331 & (0.241) \\
+p60--70 & 1.052\sym{*} & (0.546) & -0.167 & (0.184) \\
+p70--80 & 1.194\sym{**} & (0.537) & -0.024 & (0.141) \\
+p80--90 & 1.335\sym{**} & (0.537) & 0.116 & (0.128) \\
+p90--100 & 1.443\sym{***} & (0.513) & 0.224 & (0.192) \\
+Top 1\% & 1.285\sym{**} & (0.541) & 0.067 & (0.384) \\
+Top 0.1\% & 0.578 & (0.695) & -0.640 & (0.676) \\
+Bottom 50\% & 0.445 & (0.593) & -0.774\sym{*} & (0.417) \\
+Middle 40\% & 1.179\sym{**} & (0.534) & -0.039 & (0.136) \\
+All adults (mean income) & 1.219\sym{**} & (0.491) & -- &  \\
+\addlinespace
+\multicolumn{5}{l}{\emph{Panel B. Differences between groups (difference outcomes)}}\\
+p90--100 minus bottom 50\% & 0.998\sym{*} & (0.588) & & \\
+Top half (p50--100) minus bottom half (p0--50) & 1.259\sym{*} & (0.755) & & \\
+p90--100 minus p0--10 & 1.281 & (1.615) & & \\
+Top 1\% minus p90--100 & -0.157 & (0.274) & & \\
+\midrule
+First-stage KP $F$ & \multicolumn{2}{c}{10.5} & \multicolumn{2}{c}{10.5} \\
+Observations & \multicolumn{2}{c}{3{,}714} & \multicolumn{2}{c}{3{,}714} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\small
+\item Each cell is a separate regression. Income is the log average pretax national income of the group (WID, equal-split adults); the share is the log income share, computed as log group income minus log mean income so that all groups use the same sample. Panel B regresses the difference of two group outcomes, which gives the exact difference of the two elasticities with its standard error. Country-year panel, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments ln GACI with the Feyrer interaction $Z_{ct}=a_t\times\ln \mathrm{MA}^{air}_{c,1996}$. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

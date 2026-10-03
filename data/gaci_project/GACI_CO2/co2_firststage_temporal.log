@@ -1,0 +1,301 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do co2_firststage_temporal.do 
+
+. *============================================================================
+> ==
+. * co2_firststage_temporal.do
+. * First stage by subperiod + year-specific first-stage slopes
+. * A) reghdfe ln_gaci_cwm feyrer_int lnpop ln_sea_ma, absorb(isocode y) robust
+. *    samples: full / 1996-2005 / 2006-2023 / 2006-2023 exGFC /
+. *             1996-2009 / 2010-2023 / 2010-2023 ex-COVID(drop 2020-21)
+. *    -> _fs_subperiod.csv  (b, se, t, partial F, N)
+. * B) year-specific slopes: c.feyrer_int#i.y (base 1996) + FE
+. *    -> _fs_byyear.csv
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. set seed 20260826
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_CO2"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2
+
+. 
+. * ---- build merged dataset (identical to co2_extensions.do) ----
+. import delimited "co2_country_year.csv", clear varnames(1) encoding("utf-8")
+(20 vars, 6,107 obs)
+
+. keep iso3 year co2_bunker dep_seat_km
+
+. rename iso3 c
+
+. rename year y
+
+. tempfile co2
+
+. save `co2'
+file C:\Users\sunbi\AppData\Local\Temp\ST_6878_000001.tmp saved
+
+. 
+. import delimited "spillover_vars.csv", clear varnames(1) encoding("utf-8")
+(4 vars, 4,624 obs)
+
+. tempfile sp
+
+. save `sp'
+file C:\Users\sunbi\AppData\Local\Temp\ST_6878_000002.tmp saved
+
+. 
+. import delimited "../gaci_panel_combined.csv", clear varnames(1) encoding("utf-8")
+(44 vars, 4,643 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int   feyrer_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum   ln_sea_ma
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y  ln_remote     ln_air_ma
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+feyrer_int already numeric; no replace
+ln_sea_ma already numeric; no replace
+ln_air_ma already numeric; no replace
+
+. merge 1:1 c y using `co2', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                             4,643  
+    -----------------------------------------
+
+. merge 1:1 c y using `sp', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                            19
+        from master                        19  
+        from using                          0  
+
+    matched                             4,624  
+    -----------------------------------------
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. 
+. gen ln_co2_tot = ln(co2_bunker) if co2_bunker > 0
+
+. * keep estimation sample aligned with the 2SLS (outcome non-missing)
+. keep if !missing(ln_co2_tot, ln_gaci_cwm, feyrer_int, lnpop, ln_sea_ma)
+(8 observations deleted)
+
+. 
+. * =====================================================================
+. * A) subperiod first stages
+. * =====================================================================
+. tempname S
+
+. postfile `S' str24 samp double(b se t pF) long(nn) using "_fs_tmp", replace
+(note: file _fs_tmp.dta not found)
+
+. 
+. local cond1 "1"
+
+. local lab1  "full_1996-2023"
+
+. local cond2 "y < 2006"
+
+. local lab2  "1996-2005"
+
+. local cond3 "y >= 2006"
+
+. local lab3  "2006-2023"
+
+. local cond4 "y >= 2006 & y != 2008 & y != 2009"
+
+. local lab4  "2006-2023_exGFC"
+
+. local cond5 "y < 2010"
+
+. local lab5  "1996-2009"
+
+. local cond6 "y >= 2010"
+
+. local lab6  "2010-2023"
+
+. local cond7 "y >= 2010 & y != 2020 & y != 2021"
+
+. local lab7  "2010-2023_exCOVID"
+
+. 
+. forvalues i = 1/7 {
+  2.     quietly reghdfe ln_gaci_cwm feyrer_int lnpop ln_sea_ma if `cond`i'', absorb(isocode y) vce(robust)
+  3.     local bb = _b[feyrer_int]
+  4.     local ss = _se[feyrer_int]
+  5.     quietly test feyrer_int
+  6.     di "FS `lab`i'': b=" %8.4f `bb' " se=" %7.4f `ss' " t=" %6.2f `bb'/`ss' " F=" %8.1f r(F) " N=" e(N)
+  7.     post `S' ("`lab`i''") (`bb') (`ss') (`bb'/`ss') (r(F)) (e(N))
+  8. }
+FS full_1996-2023: b=  0.1280 se= 0.0103 t= 12.40 F=   153.6 N=4634
+FS 1996-2005: b=  0.4197 se= 0.0783 t=  5.36 F=    28.8 N=1551
+FS 2006-2023: b=  0.0588 se= 0.0125 t=  4.69 F=    22.0 N=3081
+FS 2006-2023_exGFC: b=  0.0551 se= 0.0136 t=  4.05 F=    16.4 N=2747
+FS 1996-2009: b=  0.3921 se= 0.0347 t= 11.30 F=   127.7 N=2218
+FS 2010-2023: b=  0.0399 se= 0.0151 t=  2.65 F=     7.0 N=2415
+FS 2010-2023_exCOVID: b=  0.0982 se= 0.0162 t=  6.05 F=    36.7 N=2065
+
+. postclose `S'
+
+. preserve
+
+. use "_fs_tmp", clear
+
+. export delimited "_fs_subperiod.csv", replace
+(note: file _fs_subperiod.csv not found)
+file _fs_subperiod.csv saved
+
+. restore
+
+. erase "_fs_tmp.dta"
+
+. 
+. * =====================================================================
+. * B) year-specific first-stage slopes (base year 1996)
+. * =====================================================================
+. quietly reghdfe ln_gaci_cwm c.feyrer_int#ib1996.y lnpop ln_sea_ma, absorb(isocode y) vce(robust)
+
+. tempname Y
+
+. postfile `Y' int y double(b se) using "_fsy_tmp", replace
+(note: file _fsy_tmp.dta not found)
+
+. forvalues t = 1996/2023 {
+  2.     if `t' == 1996 {
+  3.         post `Y' (1996) (0) (0)
+  4.     }
+  5.     else {
+  6.         capture local bb = _b[c.feyrer_int#`t'.y]
+  7.         capture local ss = _se[c.feyrer_int#`t'.y]
+  8.         di "FSYEAR `t': b_rel1996=" %8.4f `bb' " se=" %7.4f `ss'
+  9.         post `Y' (`t') (`bb') (`ss')
+ 10.     }
+ 11. }
+FSYEAR 1997: b_rel1996=  2.5101 se= 4.1944
+FSYEAR 1998: b_rel1996=  0.0000 se= 0.0000
+FSYEAR 1999: b_rel1996=  0.5615 se= 0.9207
+FSYEAR 2000: b_rel1996=  0.4811 se= 0.3658
+FSYEAR 2001: b_rel1996=  0.5013 se= 0.3274
+FSYEAR 2002: b_rel1996=  2.2089 se= 0.9610
+FSYEAR 2003: b_rel1996=  3.1961 se= 1.6626
+FSYEAR 2004: b_rel1996=  0.6683 se= 0.2554
+FSYEAR 2005: b_rel1996=  0.5363 se= 0.1588
+FSYEAR 2006: b_rel1996=  0.5661 se= 0.1328
+FSYEAR 2007: b_rel1996=  0.4354 se= 0.0879
+FSYEAR 2008: b_rel1996=  0.4154 se= 0.0804
+FSYEAR 2009: b_rel1996=  0.4660 se= 0.0868
+FSYEAR 2010: b_rel1996=  0.3778 se= 0.0634
+FSYEAR 2011: b_rel1996=  0.2872 se= 0.0498
+FSYEAR 2012: b_rel1996=  0.2493 se= 0.0479
+FSYEAR 2013: b_rel1996=  0.2165 se= 0.0432
+FSYEAR 2014: b_rel1996=  0.1832 se= 0.0400
+FSYEAR 2015: b_rel1996=  0.1767 se= 0.0327
+FSYEAR 2016: b_rel1996=  0.1918 se= 0.0301
+FSYEAR 2017: b_rel1996=  0.1782 se= 0.0278
+FSYEAR 2018: b_rel1996=  0.1771 se= 0.0251
+FSYEAR 2019: b_rel1996=  0.1767 se= 0.0241
+FSYEAR 2020: b_rel1996=  1.9018 se= 0.3072
+FSYEAR 2021: b_rel1996=  0.6334 se= 0.1253
+FSYEAR 2022: b_rel1996=  0.2612 se= 0.0454
+FSYEAR 2023: b_rel1996=  0.1866 se= 0.0315
+
+. postclose `Y'
+
+. preserve
+
+. use "_fsy_tmp", clear
+
+. export delimited "_fs_byyear.csv", replace
+(note: file _fs_byyear.csv not found)
+file _fs_byyear.csv saved
+
+. restore
+
+. erase "_fsy_tmp.dta"
+
+. 
+. di "FS TEMPORAL DONE"
+FS TEMPORAL DONE
+
+. 
+end of do-file

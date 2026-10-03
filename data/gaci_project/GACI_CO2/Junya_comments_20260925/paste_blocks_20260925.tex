@@ -1,0 +1,328 @@
+% =====================================================================
+% GACI-CO2: paste-in blocks responding to Junya's comments (2026-09-25)
+% Base = Overleaf main_co2_nature_20260908.tex (the version holding Junya's
+% Methods text). Each block says what to find and what to replace it with.
+% All numbers are final: the two Stata reruns (co2_exclusion_suite_cl_20260925.do,
+% co2_asn_cl_20260925.do) were run on 2026-09-25 and are filled in (BLOCK 4, 5, 10, 13).
+% =====================================================================
+
+
+% ---------------------------------------------------------------------
+% BLOCK 1  Methods > Global Air Connectivity Index, last paragraph
+% FIND:    "The estimation sample covers 184 countries over 1996--2023,
+%           comprising 4,634 country-year observations."
+% REPLACE WITH:
+% ---------------------------------------------------------------------
+The estimation sample covers 182 countries over 1996--2023, comprising 4,634 country-year observations after one singleton observation is dropped. Supplementary Table~\ref{tab:sumstat} reports summary statistics for all variables used in the analysis.
+
+
+% ---------------------------------------------------------------------
+% BLOCK 2  Methods > Estimation (two small edits)
+% (a) FIND "sea market access, respectively," REPLACE WITH:
+% ---------------------------------------------------------------------
+sea market access (equation~\ref{eq:seama}), respectively,
+% ---------------------------------------------------------------------
+% (b) FIND "(184 clusters)" REPLACE WITH:
+% ---------------------------------------------------------------------
+(182 clusters)
+
+
+% ---------------------------------------------------------------------
+% BLOCK 3  Methods > Instruments and validity, second paragraph
+% FIND the paragraph from "To address this endogeneity, we instrument
+% connectivity using a Feyrer-type shifter ..." to "... declines only
+% slightly from 120.1 to 105.8."  REPLACE WITH the two paragraphs below.
+% ---------------------------------------------------------------------
+To address this endogeneity, we instrument connectivity with a shift-share instrument in the spirit of \citet{feyrer2019}, which uses the fact that the growth of aviation shortens the effective distance to foreign markets more for some countries than for others. For each country we compute air and sea market access as distance-weighted sums of foreign population,
+\begin{equation}
+\mathrm{airMA}_{ct}=\sum_{j\neq c}\frac{\mathrm{Pop}_{jt}}{d^{\,\mathrm{air}}_{cj}},
+\qquad
+\mathrm{seaMA}_{ct}=\sum_{j\neq c}\frac{\mathrm{Pop}_{jt}}{d^{\,\mathrm{sea}}_{cj}},
+\label{eq:seama}
+\end{equation}
+where $\mathrm{Pop}_{jt}$ is the population of foreign country $j$ (World Bank World Development Indicators), $d^{\,\mathrm{air}}_{cj}$ is the great-circle distance in kilometres between the aviation centroids of $c$ and $j$, defined as the unweighted mean coordinates of each country's airports in the network, and $d^{\,\mathrm{sea}}_{cj}$ is the port-to-port sea distance from the CERDI-seadistance database \citep{bertoli2016}, which assigns landlocked countries the port of their transit country. Own-country population is excluded, the distance-decay exponent is one, and both sums run over the same set of partner countries. The instrument interacts a world aviation index with air market access fixed at its 1996 value,
+\begin{equation}
+Z_{ct}=a_t\times\ln \mathrm{airMA}_{c,1996},
+\label{eq:feyrer}
+\end{equation}
+where $a_t$ is world scheduled seat capacity in year $t$, the sum of annual seat capacity over the airports of all countries in our panel in the OAG schedules (95 to 98 percent of capacity in the global network, correlation 0.999 with the all-airport total), min--max scaled to $[0,1]$ over 1996--2023. Because $\mathrm{airMA}_{c,1996}$ is computed from 1996 populations, it is also defined for the 32 countries that join the network after 1996. Log sea market access, computed with contemporaneous populations, enters equations~\ref{eq:main} and \ref{eq:firststage} as a control, so that the instrument isolates the aviation-specific gain in market access rather than the general advantage of proximity to foreign populations, including the surface-shipping channel. The global aviation index and the 1996 geography are both external to a country's contemporaneous demand shocks and regulatory decisions.
+
+The instrument is relevant: the first-stage Kleibergen--Paap $F$ is 18.4 (153.6 with heteroskedasticity-robust errors). Because any shifter of the form (global cycle $\times$ baseline characteristic) may proxy for size dynamics (global cycle $\times$ country size), we add interactions of the global cycle with baseline population, GDP and airport capacity to the first stage. On the 4,121 country-years of countries observed in 1996, the heteroskedasticity-robust $F$ declines from 120.1 to 105.8.
+
+
+% ---------------------------------------------------------------------
+% BLOCK 4  Methods > Instruments and validity
+% FIND the paragraph "Six further checks reinforce our findings ..."
+% (ends "... yielded weak first stages ($F$ of 1.0 and 5.6).")
+% REPLACE WITH:
+% ---------------------------------------------------------------------
+Further checks support these results (Extended Data Table~\ref{tab:exclusion} and Supplementary Table~\ref{tab:exclusion2}). Adding development controls keeps the elasticity between 4.4 and 4.7. Replacing world seat capacity with world flights, world seat-kilometres, the world sum of GACI or a fuel-efficiency index, or setting the distance-decay exponent of air market access to 0.5 or 1.5, gives elasticities of 5.2 to 5.8, and two-way clustering by country and year leaves the standard error unchanged. Two caveats remain. First, coal and cement CO$_2$ rise with the instrument (reduced forms of 0.90 and 0.67), indicating some recomposition of non-aviation emissions. Second, the aviation cycle is highly correlated with the world GDP and trade cycles (0.82 and 0.84), and entering either rival cycle interacted with the same geography removes the first stage (Extended Data Table~\ref{tab:exclusion}, Panel B). The instrument therefore cannot separate aviation growth from general world growth; the exclusion restriction rests on the air-market-access geography, and the placebo outcomes in Panel A show that this geography, interacted with the cycle, does not move total non-aviation emissions. Alternative constructions that avoid these caveats, such as the air-minus-sea advantage interacted with the cycle, give weak first stages ($F$ of 1.0 and 5.6).
+
+
+% ---------------------------------------------------------------------
+% BLOCK 5  Methods > Instruments and validity, last paragraph
+% FIND the paragraph "Finally, we consider other potential instruments,
+% but restrict their use ..." including the tourism-heritage sentences
+% (ends "... with a post-2010 first stage.")  REPLACE WITH:
+% ---------------------------------------------------------------------
+Finally, an aviation-accident instrument, lagged fatal accidents and accident deaths from the Aviation Safety Network, is too weak to use on its own (first-stage $F$ of 1.1 to 4.2; 2SLS 5.6 with a standard error of 2.2 for lagged fatal accidents). Entered jointly with the Feyrer instrument it gives an elasticity of 5.1, and the Hansen test does not reject the overidentifying restriction ($p$ = 0.82 and 0.96; Supplementary Table~\ref{tab:accident_iv}).
+
+
+% ---------------------------------------------------------------------
+% BLOCK 6  Methods > Airport-Level Analysis, second paragraph
+% FIND the paragraph "We initially explored an instrumental variable
+% strategy for this airport-level analysis. ..." (ends "... rather than
+% strictly causal effects.")  REPLACE WITH:
+% ---------------------------------------------------------------------
+We also piloted an instrumental-variable strategy for the airport-level analysis. The piloted instrument is the airport analogue of equation~\ref{eq:feyrer}: the world aviation index $a_t$ interacted with the log of each airport's 1996 air market access, $\sum_{j\neq c(i)}\mathrm{Pop}_{j,1996}/d_{ij}$, where $d_{ij}$ is the great-circle distance from airport $i$ to the aviation centroid of foreign country $j$. Because airports in the same country face nearly the same foreign markets, this term varies little within countries (mean within-country standard deviation 0.04), and the instrument has no first stage once country-by-year fixed effects are included (partial $F$ of 0.3 to 0.7, with or without baseline-size-by-cycle controls; Supplementary Table~\ref{tab:airport_iv}). The airport-level estimates are therefore reported as within-country descriptive evidence.
+
+
+% ---------------------------------------------------------------------
+% BLOCK 7  Methods > Spatial Econometric Specifications, last paragraph
+% FIND the paragraph "Finally, we implement robust inference procedures
+% to account for potential weak identification ..." REPLACE WITH:
+% ---------------------------------------------------------------------
+Finally, the joint first stage is weak under country clustering (Kleibergen--Paap $F$ of 3.3 for contiguity, with Sanderson--Windmeijer conditional $F$ of 6.7 for own and 13.0 for neighbour connectivity). We therefore also conduct inference on the neighbour coefficient with Anderson--Rubin confidence sets, obtained by inverting the cluster-robust test over a grid of null values; for contiguity the 95 percent set is [0.2, 3.0] and excludes zero (Extended Data Table~\ref{tab:spillover}). To check that the spillover is not a mechanical product of the weighting, we run a permutation placebo: countries are randomly reassigned in the weight matrix, the spatial exposures are rebuilt and the specification is re-estimated 500 times. The placebo $p$-value is the share of draws whose absolute $t$-statistic on the neighbour term exceeds the actual one.
+
+
+% ---------------------------------------------------------------------
+% BLOCK 8  Extended Data Table "Connectivity spillovers" (tab:spillover)
+% REPLACE THE WHOLE TABLE with the version below: the middle block of
+% Panel A is removed; the contiguity AR set moves to the note.
+% ---------------------------------------------------------------------
+\begin{table}[H]
+\centering
+\resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+\begin{threeparttable}
+\caption{Connectivity spillovers: own and neighbouring countries' connectivity, jointly instrumented}
+\label{tab:spillover}
+\footnotesize
+\begin{tabular}{lccccc}
+\toprule
+\multicolumn{6}{l}{\textit{Panel A. Log bunker CO$_2$; own and neighbour connectivity both instrumented}} \\
+Neighbour definition & Own ln GACI & Neighbour ln GACI & SW $F$ (own / nbr) & KP $F$ & $N$ \\
+\midrule
+  Contiguous countries (land border) & 3.21$^{***}$ (1.23) & 1.85$^{***}$ (0.66) & 7 / 13 & 3.3 & 4,634 \\
+  Five nearest countries & 1.13 (1.78) & 3.26$^{*}$ (1.82) & 7 / 7 & 3.4 & 4,634 \\
+  Countries within 500 km & 4.29$^{***}$ (1.22) & 0.82 (0.62) & 13 / 26 & 6.6 & 4,634 \\
+  Kernel $\exp(-d/1000\,\mathrm{km})$ & -0.26 (1.94) & 4.75$^{**}$ (2.25) & 5 / 6 & 2.7 & 4,634 \\
+  Inverse distance, all countries & -2.10 (4.32) & 14.62 (9.22) & 1 / 2 & 0.7 & 4,634 \\
+\midrule
+\multicolumn{6}{l}{\textit{Panel B. Margins of the response, contiguity definition, joint 2SLS}} \\
+Outcome & Own ln GACI & Neighbour ln GACI & & KP $F$ & $N$ \\
+\midrule
+  Bunker CO$_2$ & 3.21$^{***}$ (1.23) & 1.85$^{***}$ (0.66) & & 3.3 & 4,634 \\
+  International CO$_2$ & 2.82$^{**}$ (1.16) & 2.06$^{***}$ (0.59) & & 3.3 & 4,634 \\
+  Domestic CO$_2$ & -2.78 (4.68) & 1.96 (2.37) & & 2.7 & 3,567 \\
+  Seat-km & 2.82$^{**}$ (1.33) & 2.45$^{***}$ (0.66) & & 3.3 & 4,634 \\
+  Flights & 5.43$^{***}$ (2.06) & 1.16 (1.38) & & 3.3 & 4,634 \\
+  Seats per flight & -0.69 (0.84) & 0.30 (0.61) & & 3.3 & 4,634 \\
+  Km per flight & -1.92 (1.23) & 0.99 (0.73) & & 3.3 & 4,634 \\
+  CO$_2$ per seat-km & 0.40 (0.40) & -0.60$^{**}$ (0.24) & & 3.3 & 4,634 \\
+  International share of seat-km & -0.02 (0.16) & 0.04 (0.09) & & 3.3 & 4,634 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: Neighbour connectivity is the leave-out average of other countries' log GACI under the stated weighting, instrumented by the identically weighted average of their Feyrer shifters; own connectivity is instrumented by the own shifter. All specifications include country and year fixed effects, log population, log sea market access and an indicator for countries with no neighbour under the definition. SW $F$ is the Sanderson--Windmeijer conditional first-stage statistic for each endogenous regressor. Because the joint first stage is weak, inference on the neighbour coefficient in the contiguity specification also uses the Anderson--Rubin test: the 95 percent set, obtained by inverting the cluster-robust test over a grid, is [0.2, 3.0] (Methods). Specifications with sub-region $\times$ year fixed effects are in Extended Data Table~\ref{tab:spill_ext}. Standard errors clustered by country in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+
+% ---------------------------------------------------------------------
+% BLOCK 9  Supplementary Table "Alternative instrument constructions,
+% leads, overidentification and inference" (tab:exclusion2)
+% REPLACE THE WHOLE TABLE: old Panel B (leads) and the two
+% tourism-heritage rows + Hansen row of old Panel C are removed.
+% ---------------------------------------------------------------------
+\begin{table}[H]
+\centering
+\resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+\begin{threeparttable}
+\caption{Alternative technology series, distance decay and inference}
+\label{tab:exclusion2}
+\scriptsize
+\begin{tabular}{lcccc}
+\toprule
+ & First-stage $\pi$ & 2SLS & KP $F$ & $N$ \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel A. Technology series in the interaction (all $\times$ log 1996 air market access)}} \\
+  World seat capacity (baseline) & 0.128$^{***}$ (0.030) & 5.35$^{***}$ (1.08) & 18.4 & 4,634 \\
+  World flights & 0.128$^{***}$ (0.031) & 5.25$^{***}$ (1.17) & 17.2 & 4,634 \\
+  World seat-km & 0.147$^{***}$ (0.033) & 5.38$^{***}$ (1.05) & 19.6 & 4,634 \\
+  World sum of GACI & 0.137$^{***}$ (0.031) & 5.64$^{***}$ (1.02) & 19.5 & 4,634 \\
+  World fuel-efficiency index (CO$_2$ per seat-km, inverted) & 0.160$^{***}$ (0.035) & 5.62$^{***}$ (0.98) & 21.3 & 4,634 \\
+  Baseline geography recomputed ($\theta = 1$) & 0.127$^{***}$ (0.029) & 5.55$^{***}$ (1.10) & 19.3 & 4,634 \\
+  Distance decay $\theta = 0.5$ & 0.274$^{***}$ (0.064) & 5.36$^{***}$ (1.09) & 18.2 & 4,634 \\
+  Distance decay $\theta = 1.5$ & 0.073$^{***}$ (0.017) & 5.82$^{***}$ (1.18) & 18.0 & 4,634 \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel B. Inference (2SLS on log CO$_2$)}} \\
+ & 2SLS & s.e. & KP $F$ & $N$ \\
+  Heteroskedasticity-robust & 5.35$^{***}$ & (0.40) & 153.6 & 4,634 \\
+  Clustered by country (baseline) & 5.35$^{***}$ & (1.08) & 18.4 & 4,634 \\
+  Two-way clustered (country, year) & 5.35$^{***}$ & (1.07) & 15.6 & 4,634 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\scriptsize
+\item Specification as in Table~\ref{tab:main}, column 1. Panel A replaces the world seat-capacity index $a_t$ by other world aviation series, each min--max scaled over 1996--2023: world departing flights, world departing seat-kilometres and the world sum of airport GACI from the OAG schedules, and a fuel-efficiency index equal to minus the log of world CO$_2$ per seat-kilometre in our inventory; the last three rows recompute 1996 air market access with the stated distance-decay exponent $\theta$ (baseline $\theta=1$; equation~\ref{eq:seama}). Panel B compares standard-error estimators for the baseline specification. $^{***}$ $p<0.01$, $^{**}$ $p<0.05$, $^{*}$ $p<0.1$.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+
+% ---------------------------------------------------------------------
+% BLOCK 10  Supplementary Table "Aviation-accident instrument" (tab:accident_iv)
+% The old numbers were estimated with heteroskedasticity-robust errors
+% (co2_measures_asn.do uses `robust`) while the note says clustered.
+% Re-estimated with country clustering by co2_asn_cl_20260925.do
+% (_asn_iv_results_cl.csv). REPLACE THE WHOLE TABLE:
+% ---------------------------------------------------------------------
+\begin{table}[H]
+\centering
+\resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+\begin{threeparttable}
+\caption{Aviation-accident instrument (Aviation Safety Network), pilot}
+\label{tab:accident_iv}
+\footnotesize
+\begin{tabular}{lcccc}
+\toprule
+ & Bunker CO$_2$ & Intl.\ CO$_2$ & Intensity & KP $F$ \\
+\midrule
+  2SLS, Lagged fatal accidents & 5.59$^{**}$ (2.24) & 4.57$^{**}$ (1.82) & $-$0.92 (0.69) & 4.2 \\
+  2SLS, Lagged accident deaths & 5.26 (3.41) & 4.24 (3.02) & $-$0.28 (0.94) & 1.5 \\
+  2SLS, Lagged any-fatal-accident indicator & 6.05 (4.83) & 5.34 (4.28) & $-$1.02 (1.30) & 1.1 \\
+  Feyrer and lagged fatal accidents jointly & 5.09$^{***}$ (1.07) & 4.90$^{***}$ (1.03) & $-$0.34 (0.30) & 9.2 \\
+  \quad Hansen $J$ $p$-value & 0.82 & 0.87 & 0.37 & \\
+  Feyrer and lagged accident deaths jointly & 5.08$^{***}$ (1.07) & 4.89$^{***}$ (1.03) & $-$0.33 (0.30) & 8.4 \\
+  \quad Hansen $J$ $p$-value & 0.96 & 0.84 & 0.96 & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: Country-year accident counts and deaths from the Aviation Safety Network, lagged one year, as instruments for log GACI; accident deaths enter as the inverse hyperbolic sine. Specification otherwise as in Table~\ref{tab:main}; the lag reduces the sample to 4,446 country-years. The accident instruments are weak (first-stage $F$ of 1.1 to 4.2) and are not used on their own; the joint specification with the Feyrer instrument is reported for the overidentification test. Standard errors clustered by country in parentheses; the Kleibergen--Paap $F$ and Hansen $J$ statistics are cluster-robust. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+
+% ---------------------------------------------------------------------
+% BLOCK 13  Extended Data Table "Exclusion-restriction diagnostics"
+% (tab:exclusion), Panel E, after setting Venezuela's zero trade shares to
+% missing (co2_exclusion_suite_cl_20260925.do). Panels A-D are unchanged.
+% (a) REPLACE the seven rows under "Panel E. Development-channel controls
+%     added sequentially" WITH:
+% ---------------------------------------------------------------------
+  Baseline (log population, log sea market access) & 5.35$^{***}$ (1.08) & & 18.4 & 4,634 \\
+  \quad plus log GDP & 4.45$^{***}$ (1.13) & & 11.8 & 4,634 \\
+  \quad plus trade/GDP & 4.45$^{***}$ (1.40) & & 8.9 & 4,602 \\
+  \quad plus urban share & 4.38$^{***}$ (1.38) & & 9.6 & 4,602 \\
+  \quad plus FDI/GDP & 4.57$^{***}$ (1.27) & & 11.1 & 4,416 \\
+  \quad plus log tourist arrivals & 4.72$^{***}$ (1.50) & & 8.9 & 3,444 \\
+  Baseline on the common sample of the last row & 5.69$^{***}$ (1.32) & & 16.9 & 3,444 \\
+% ---------------------------------------------------------------------
+% (b) In the same table note, FIND "Panel D: terciles of 1996
+%     capacity-weighted GACI." REPLACE WITH:
+% ---------------------------------------------------------------------
+Panel D: terciles of 1996 capacity-weighted GACI. Panel E: controls from the World Bank World Development Indicators; Venezuela's trade share for 1996--2011, reported as zero, is treated as missing.
+% ---------------------------------------------------------------------
+% (c) Results, first subsection (Table 1 paragraph):
+%     FIND "between 4.4 and 4.6 when income, trade, urbanisation,"
+%     REPLACE WITH:
+% ---------------------------------------------------------------------
+between 4.4 and 4.7 when income, trade, urbanisation,
+
+
+% ---------------------------------------------------------------------
+% BLOCK 11  NEW Supplementary Table: summary statistics.
+% Place it FIRST under "\section*{Supplementary Tables}" (it is cited
+% first, in the GACI subsection). Built from the Table 1 estimation sample
+% by sumstat_co2.py (this folder).
+% ---------------------------------------------------------------------
+\begin{table}[H]
+\centering
+\resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+\begin{threeparttable}
+\caption{Summary statistics, estimation sample}
+\label{tab:sumstat}
+\scriptsize
+\begin{tabular}{lrrrrr}
+\toprule
+Variable & $N$ & Mean & s.d. & Min & Max \\
+\midrule
+\multicolumn{6}{l}{\textit{Panel A. Aviation outcomes}} \\
+  Aviation CO$_2$, bunker convention (Mt) & 4,634 & 3.82 & 15.49 & $<$0.01 & 206.14 \\
+  International aviation CO$_2$ (Mt) & 4,634 & 2.29 & 6.21 & $<$0.01 & 77.75 \\
+  Domestic aviation CO$_2$ (Mt) & 3,575 & 1.98 & 11.55 & $<$0.01 & 148.11 \\
+  Aviation CO$_2$, territorial LTO rule (Mt) & 4,634 & 0.47 & 1.95 & $<$0.01 & 28.26 \\
+  Aviation CO$_2$, 50/50 rule (Mt) & 4,634 & 3.82 & 15.47 & $<$0.01 & 205.87 \\
+  Departing seat-km (billion) & 4,634 & 38.24 & 152.02 & $<$0.01 & 2,267.76 \\
+  Departing flights (thousand) & 4,634 & 182.4 & 847.2 & $<$0.1 & 12,213.7 \\
+  Seats per flight & 4,634 & 121.2 & 43.1 & 12.0 & 281.1 \\
+  Km per seat (average stage length) & 4,634 & 1,591 & 705 & 248 & 5,178 \\
+  CO$_2$ per seat-km (g) & 4,634 & 112.0 & 63.9 & 58.7 & 1,176.1 \\
+  LTO share of CO$_2$ & 4,634 & 0.150 & 0.052 & 0.047 & 0.443 \\
+  International share of seat-km & 4,634 & 0.882 & 0.168 & 0.024 & 1.000 \\
+\multicolumn{6}{l}{\textit{Panel B. Connectivity (log GACI)}} \\
+  ln GACI, capacity-weighted mean (headline) & 4,634 & 0.025 & 0.323 & $-$0.628 & 1.103 \\
+  ln GACI, sum & 4,634 & 1.534 & 1.357 & $-$0.606 & 6.234 \\
+  ln GACI, maximum & 4,634 & 0.138 & 0.402 & $-$0.628 & 1.288 \\
+  ln GACI, unweighted mean & 4,634 & $-$0.280 & 0.227 & $-$0.819 & 1.081 \\
+\multicolumn{6}{l}{\textit{Panel C. Instrument and baseline controls}} \\
+  Instrument $Z_{ct}=a_t\times\ln \mathrm{airMA}_{c,1996}$ & 4,634 & 4.863 & 4.381 & 0.000 & 14.667 \\
+  World aviation index $a_t$ (0--1) & 4,634 & 0.352 & 0.317 & 0.000 & 1.000 \\
+  ln air market access, 1996 & 4,634 & 13.822 & 0.367 & 12.996 & 14.667 \\
+  ln sea market access & 4,634 & 13.766 & 0.365 & 12.832 & 14.806 \\
+  Population (million) & 4,634 & 39.39 & 144.65 & 0.01 & 1,438.07 \\
+\multicolumn{6}{l}{\textit{Panel D. Development controls}} \\
+  GDP (billion current US\$) & 4,634 & 375.6 & 1,575.1 & 0.1 & 27,292.2 \\
+  Trade (\% of GDP) & 4,602 & 86.8 & 52.9 & 2.5 & 442.6 \\
+  Urban population (\% of total) & 4,634 & 59.4 & 22.8 & 10.3 & 100.0 \\
+  FDI net inflows (\% of GDP) & 4,449 & 5.2 & 22.2 & $-$391.6 & 452.2 \\
+  International tourist arrivals (million) & 3,584 & 10.02 & 24.86 & $<$0.01 & 217.88 \\
+\multicolumn{6}{l}{\textit{Panel E. Non-aviation placebo outcomes (log Mt CO$_2$)}} \\
+  Territorial fossil CO$_2$ excl.\ domestic aviation (GCP/OWID) & 4,576 & 2.683 & 2.423 & $-$3.851 & 9.377 \\
+  Oil CO$_2$ excl.\ domestic aviation (OWID) & 4,576 & 2.046 & 2.123 & $-$3.851 & 7.828 \\
+  Transport CO$_2$ excl.\ domestic aviation (EDGAR) & 4,461 & 1.450 & 2.147 & $-$6.989 & 7.426 \\
+  Power industry CO$_2$ (EDGAR) & 4,409 & 1.246 & 2.866 & $-$10.516 & 8.775 \\
+  Buildings CO$_2$ (EDGAR) & 4,460 & 0.343 & 2.557 & $-$8.699 & 6.586 \\
+  Industrial combustion CO$_2$ (EDGAR) & 4,432 & 0.622 & 2.562 & $-$6.082 & 8.037 \\
+  Coal CO$_2$ (OWID) & 3,034 & 1.255 & 3.122 & $-$6.908 & 9.054 \\
+  Gas CO$_2$ (OWID) & 2,864 & 2.130 & 2.523 & $-$6.908 & 7.471 \\
+  Cement CO$_2$ (OWID) & 3,476 & 0.237 & 1.880 & $-$6.908 & 6.745 \\
+  Agriculture CO$_2$ (EDGAR) & 2,667 & $-$1.529 & 2.032 & $-$8.471 & 3.438 \\
+\multicolumn{6}{l}{\textit{Panel F. Spatial exposures (row-normalised land contiguity)}} \\
+  Neighbours' ln GACI, $W\ln\mathrm{GACI}$ & 3,725 & 0.091 & 0.249 & $-$0.396 & 0.858 \\
+  Neighbours' instrument, $WZ$ & 3,725 & 4.817 & 4.375 & 0.000 & 14.373 \\
+  Has a land neighbour (0/1) & 4,634 & 0.804 & 0.397 & 0.000 & 1.000 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\scriptsize
+\item Notes: Estimation sample of Table~\ref{tab:main} (182 countries, 1996--2023, 4,634 country-years). Aviation variables are computed from the OAG flight-level inventory (Methods); km per seat is departing seat-kilometres divided by departing seats, and domestic CO$_2$ is reported for country-years with positive domestic emissions. GACI aggregations follow equations~\ref{eq:nature_18}--\ref{eq:nature_21}; air and sea market access follow equation~\ref{eq:seama}, and $a_t$ is world scheduled seat capacity (OAG), min--max scaled over 1996--2023. Development controls are from the World Bank World Development Indicators; Venezuela's trade share for 1996--2011, reported as zero, is treated as missing. Placebo outcomes are from the Global Carbon Project via Our World in Data and from EDGAR (2024 edition), with domestic aviation CO$_2$ from our inventory subtracted where stated. Neighbour exposures are reported for the 3,725 country-years with at least one land neighbour. Minima below display precision are shown as $<$0.01.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+
+% ---------------------------------------------------------------------
+% BLOCK 12  refs_co2.bib: add these two entries
+% ---------------------------------------------------------------------
+% @article{feyrer2019,
+%   author  = {Feyrer, James},
+%   title   = {Trade and Income---Exploiting Time Series in Geography},
+%   journal = {American Economic Journal: Applied Economics},
+%   volume  = {11},
+%   number  = {4},
+%   pages   = {1--35},
+%   year    = {2019},
+%   doi     = {10.1257/app.20170616}
+% }
+% @techreport{bertoli2016,
+%   author      = {Bertoli, Simone and Goujon, Micha{\"e}l and Santoni, Olivier},
+%   title       = {The {CERDI}-seadistance database},
+%   institution = {CERDI},
+%   type        = {Working Paper},
+%   number      = {2016/7},
+%   year        = {2016}
+% }

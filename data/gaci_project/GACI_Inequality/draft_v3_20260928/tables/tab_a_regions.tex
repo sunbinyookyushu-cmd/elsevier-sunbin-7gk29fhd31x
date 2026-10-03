@@ -1,0 +1,35 @@
+\begin{table}[H]
+\centering
+\caption{Heterogeneity by macro region and by baseline inequality (2SLS on subsamples).}
+\label{tab:a_regions}
+\begin{threeparttable}
+\footnotesize
+\begin{tabular}{lcccccc}
+\toprule
+ & ln market Gini & ln disp. Gini & Top half minus bottom half & Bottom-50 share & KP $F$ & N \\
+\midrule
+\multicolumn{7}{l}{\emph{Panel A. Macro region}}\\
+Europe & -0.094 & -0.328\sym{*} & -0.942\sym{*} & 0.662\sym{**} & 7.2 & 1{,}131 \\
+ & (0.211) & (0.199) & (0.500) & (0.328) \\
+Asia-Pacific & 0.479\sym{*} & 0.365 & 0.572 & -0.912\sym{**} & 4.5 & 625 \\
+ & (0.257) & (0.277) & (0.377) & (0.461) \\
+Africa & -0.211 & -0.146 & -0.981 & 1.407 & 7.4 & 945 \\
+ & (0.204) & (0.193) & (1.153) & (1.429) \\
+Latin America & -0.079 & -0.515 & -3.217 & -0.076 & 0.7 & 556 \\
+ & (0.950) & (0.961) & (8.727) & (1.982) \\
+Middle East & 0.739 & 0.402 & -4.619 & 1.707 & 0.1 & 237 \\
+ & (2.213) & (1.432) & (13.061) & (5.388) \\
+\multicolumn{7}{l}{\emph{Panel B. Baseline market-Gini tercile}}\\
+Low & 0.001 & 0.143 & -0.240 & 0.424 & 1.4 & 1{,}235 \\
+ & (0.286) & (0.206) & (0.499) & (0.628) \\
+Middle & 0.361 & 0.482 & 1.112 & -1.136 & 7.4 & 1{,}256 \\
+ & (0.318) & (0.347) & (1.594) & (0.747) \\
+High & 1.003 & 1.241 & 2.245 & -0.748 & 2.6 & 1{,}244 \\
+ & (0.747) & (0.871) & (2.024) & (0.935) \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\small
+\item Split-sample 2SLS. Regional first stages are weak outside Europe and Africa. Country-year panel, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments ln GACI with the Feyrer interaction $Z_{ct}=a_t\times\ln \mathrm{MA}^{air}_{c,1996}$. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

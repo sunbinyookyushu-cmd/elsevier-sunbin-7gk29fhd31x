@@ -1,0 +1,28 @@
+Iceland: flugvallagjald / flugvallaskattur / varaflugvallagjald (lög nr. 31/1987) and varaflugvallargjald (lög nr. 65/2023)
+Accessed 2026-10-02
+
+[1] Lagasafn, lög nr. 31/1987 um flugmálaáætlun og fjáröflun til flugmála, historical editions (althingi.is):
+ - Útgáfa 119 (1. október 1995), 120a (febrúar 1996), 122a (1. febrúar 1998), 125a (1. febrúar 2000), 128b (1. júlí 2003):
+   "Flugvallagjald skal vera 750,00 kr. fyrir hvern farþega sem ferðast frá Íslandi til annarra landa."
+   Domestic / Faroe / Greenland: "greiða gjald er nemi 100,00 kr. á hvern farþega er ferðast á þeim leiðum"
+   Exempt: "þeir sem viðkomu hafa á Íslandi samkvæmt farseðli milli annarra Evrópulanda og Norður-Ameríku"; domestic: "Einungis skal greitt eitt gjald þó að millilent sé ... enda vari viðdvöl ekki lengur en sex klukkustundir."
+   URLs: https://www.althingi.is/lagas/119/1987031.html ; https://www.althingi.is/lagas/120a/1987031.html ; https://www.althingi.is/lagas/122a/1987031.html ; https://www.althingi.is/lagas/125a/1987031.html ; https://www.althingi.is/lagas/128b/1987031.html
+ - Útgáfa 131a (1. janúar 2005) and 138b (1. október 2010):
+   5. gr. "Greiða skal sérstakan skatt, flugvallaskatt, vegna hvers manns sem ferðast með loftfari í flutningaflugi innan lands eða frá Íslandi til annarra landa. Flugvallaskattur skal vera 382 kr. fyrir hvern farþega."
+   6. gr. "... skal greiða sérstakt gjald, varaflugvallagjald, vegna hvers manns sem ferðast með loftfari í flutningaflugi frá Íslandi til annarra landa. Varaflugvallagjald skal vera 598 kr. fyrir hvern farþega."
+   Exempt: "þeir sem viðkomu hafa á Íslandi samkvæmt farseðli eða ígildi hans milli annarra Evrópulanda og Norður-Ameríku". Children 2-12 half.
+   URLs: https://www.althingi.is/lagas/131a/1987031.html ; https://www.althingi.is/lagas/138b/1987031.html
+
+[2] Lög nr. 95/2004 (https://www.althingi.is/altext/stjt/2004.095.html): "Flugvallaskattur skal vera 382 kr. fyrir hvern farþega." "Varaflugvallagjald skal vera 598 kr. fyrir hvern farþega." "Lög þessi öðlast gildi 1. október 2004." Samþykkt á Alþingi 28. maí 2004.
+
+[3] Lög nr. 45/2011 (https://www.althingi.is/altext/stjt/2011.045.html ; gazette A_nr_45_2011): "Lög nr. 31/1987, um flugmálaáætlun og fjáröflun til flugmála, með síðari breytingum, falla úr gildi." "Lög þessi öðlast gildi 18. maí 2011." Fjáraukalög 2011 (A 150/2011) cut 2011 revenue: Flugvallaskattur -234,2 m.kr., Varaflugvallagjald -231,8 m.kr.
+
+[4] Lög nr. 65/2023 um uppbyggingu og rekstur flugvalla og þjónustu við flugumferð (signed 22. júní 2023; Stjórnartíðindi A 65/2023, https://adverts.stjornartidindi.is/A_nr_65_2023.pdf ; API https://api.stjornartidindi.is/api/v1/adverts/7c2dec5f-f23d-4cea-ba71-fdbf431e7b0b)
+ 8. gr. Varaflugvallargjald: "Isavia ohf. annast innheimtu gjaldsins og skal það renna í ríkissjóð."
+ 9. gr.: "Þrátt fyrir 1. mgr. öðlast 10. gr., er varðar breytingu á lögum um aukatekjur ríkissjóðs, gildi 1. nóvember 2023."
+ 10. gr. (new 16. gr. b in lög nr. 88/1991): "Við afgreiðslu loftfars, sem flytur farþega í atvinnuskyni í flugi til eða frá Íslandi eða innan lands, skal Isavia ohf. af hverjum fluglegg innheimta af flugrekanda/umráðanda loftfars 200 kr. fyrir hvern farþega sem er yfir tveggja ára aldri. Gjald vegna farþega sem koma inn til millilendingar, sem varir ekki lengur en 12 klukkustundir, skal aðeins innheimta vegna flugs þeirra frá landinu."
+
+[5] Stjórnarráðið news: 2022-06-09 fiscal plan "varaflugvallagjald verði lagt á"; 2022-11-28 draft bill in consultation; 2023-06-14 "Varaflugvallagjald til uppbyggingar á innanlandsflugvöllum orðið að lögum" ("200 kr. gjald verður lagt á alla farþega. Tengifarþegar greiða þó aðeins fyrir annan fluglegginn þegar þeir millilenda.")
+ URL: https://www.stjornarradid.is/efst-a-baugi/frettir/stok-frett/2023-06-14-Varaflugvallagjald-til-uppbyggingar-a-innanlandsflugvollum-ordid-ad-logum/
+
+[6] CE Delft for European Commission DG MOVE (June 2019), Taxes in the field of aviation and their impact, Annex A: "Iceland No aviation tax".

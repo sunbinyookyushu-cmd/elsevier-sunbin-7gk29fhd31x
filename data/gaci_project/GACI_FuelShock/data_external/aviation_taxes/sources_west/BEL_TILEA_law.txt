@@ -1,0 +1,44 @@
+Short verbatim text snapshots collected 2026-10-02 for taxes_west_europe.csv. File: BEL_TILEA_law.txt
+
+================================================================================
+SOURCE: https://etaamb.openjustice.be/fr/loi-du-28-mars-2022_n2022031434.html (copy of Moniteur belge 31 Mar 2022, loi du 28 mars 2022, arts 28-42)
+--------------------------------------------------------------------------------
+ loi du 26 janvier 2021  0 , est rétabli dans la rédaction suivante : " Art. 160. § 1er. Une taxe sur l'embarquement dans un aéronef est perçue sur le départ d'un passager à partir d'un aéroport situé en Belgique.
+ Est aussi considéré comme départ d'un passager depuis un aéroport situé en Belgique, le départ d'un passager en hélicoptère, depuis un endroit situé en Belgique autre qu'un aéroport.
+ N'est pas considéré comme départ d'un passager le départ depuis un aéroport lorsque : 1° ce départ a lieu, dans le cadre d'un seul contrat de transport, après l'arrivée du passager par aéronef dans cet aéroport ; 2° la correspondance est la raison principale de l'utilisation de l'aéroport ; et 3° le passager n'a pas quitté, pendant plus de 24 heures entre le moment de son arrivée et celui de son départ, la zone de l'aéroport dans laquelle un passager en partance ne peut entrer qu'avec un billet de transport valide. § 2. La taxe ne s'applique pas en cas de départ par aéronef : 1° inscrit à la matricule aéronautique militaire belge ou tout aéronef étranger similaire ; 2° affecté à un service d'Etat, tel que la police et la douane ; 3° pour un vol local visé à l'article 1er de l'arrêté royal du 10 juin 2014 fixant les conditions particulières imposées pour l'admission à la circulation aérienne des paramoteurs ; 4° pour un vol partant d'un aéroport et y revenant, sans escale ; 5° en vue de l'exercice d'une activité professionnelle dans l'espace aérien pour laquelle l'usage d'un aéronef est nécessaire ou le plus efficient.". Art. 31. L'article 161 du même Code, abrogé par la 
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+ loi du 26 janvier 2021  0 , est rétabli dans la rédaction suivante : " Art. 162. La taxe est de : 1° 10 euros pour un passager dont la destination n'est pas située à plus de 500 km à vol d'oiseau à partir de l'ARP de l'aéroport ayant le plus grand nombre annuel de passagers dans le pays ; 2° 2 euros pour un passager dont la destination est plus éloignée que sous 1° mais est située dans l'Espace économique européen, le Royaume-Uni ou la Suisse ; 3° 4 euros pour un passager dont la destination est plus éloignée que sous 1° et est située en dehors de l'Espace économique européen, du Royaume-Uni ou de la Suisse.". Art. 33. L'article 163 du même Code, abrogé par la 
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+ loi du 27 juin 2021  , les mots "taxes visées à l'article 198, § 1er, 4°, et 6° " sont remplacés par les mots "taxes visées aux articles 53, 30°, et 198, § 1er, 4°, et 6° ". Art. 42. Le présent chapitre entre en vigueur le 1er avril 2022, à l'exception de l'article 166, § 2, du Code des droits et taxes divers, rétabli par l'article 36, qui entre en vigueur à une date à déterminer par le Roi et au plus tard le 31 mai 2022. CHAPITRE 4. - Accises sur le tabac Art. 43. A l'article 3 de la 
+================================================================================
+SOURCE: https://fr.const-court.be/public/f/2023/2023-165f.pdf (Cour constitutionnelle, arret 165/2023)
+--------------------------------------------------------------------------------
+ « L’alinéa 3 du paragraphe 1er exclut du champ d’application de la taxe les passagers en 
+transfert. La taxe est applicable aux passagers qui partent d’un aéroport situé en Belgique. Ici, 
+seul le premier départ dans le cadre d’un contrat de transport est pris en compte. Lorsqu’un 
+départ suit l’arrivée du passager par aéronef dans cet aéroport et que ce départ fait  partie d’un 
+seul contrat de transport, il n’est pas considéré comme un départ d’un passager depuis un 
+aéroport situé en Belgique pour l’application de cette taxe. Comme pour la détermination de la 
+destination, le contrat de transport est donc déterminant pour la détermination du point de 
+départ. 
+ 
+ On peut également noter que les taxes d’embarquement aux Pays -Bas, en France, en 
+Allemagne, au Royaume-Uni et en Autriche prévoient une telle exclusion. La raison est double : 
+le maintien de la position de concurrence de leurs aéroports en tant que hubs internationaux et 
+l’évitement d’une double imposition  » (Doc. parl., Chambre, 2021 -2022, DOC 55-2522/001, 
+p. 38). 
+================================================================================
+SOURCE: https://www.adde.be/images/2025/nl220/Loi_programme_18_juillet_2025.pdf (Moniteur belge, loi-programme du 18 juillet 2025)
+--------------------------------------------------------------------------------
+Art. 2. À l’article 162 du Code des droits et taxes divers, rétabli par
+la loi du 28 mars 2022, les modiﬁcations suivantes sont apportées:
+a) le 2° est remplacé par ce qui suit:
+“2° 5 euros pour un passager dont la destination est plus éloignée que
+sous 1°.”;
+b) le 3° est abrogé.
+Art. 3. Le présent chapitre entre en vigueur le jour de la publication
+de la présente loi au Moniteur belge.

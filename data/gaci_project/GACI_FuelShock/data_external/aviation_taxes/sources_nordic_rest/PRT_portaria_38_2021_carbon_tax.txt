@@ -1,0 +1,30 @@
+PRT carbon tax on air travel (taxa de carbono sobre viagens aereas)
+Sources:
+ (1) Portaria n.º 38/2021, de 16 de fevereiro, original text, https://diariodarepublica.pt/dr/detalhe/portaria/38-2021-157567893 (rendered in browser, accessed 2026-10-02)
+ (2) ANAC consolidated version (versao a data de 28-7-2023), https://www.anac.pt/SiteCollectionDocuments/Tx%20Carbono/Consolidacao_Portaria_38_2021.pdf (accessed 2026-10-02)
+ (3) Portaria n.º 110/2023, de 21 de abril, https://diariodarepublica.pt/dr/detalhe/portaria/110-2023-212137580 (accessed 2026-10-02)
+ (4) Lei n.º 82/2023 (OE 2024), arts. 49.º-Q and 49.º-R added to Lei 82-D/2014, PDF via https://www.anac.pt/SiteCollectionDocuments/Tx%20Carbono/Lei_82_2023.pdf (pp. 147-149, accessed 2026-10-02)
+
+Key paragraphs (verbatim, Portaria 38/2021 original):
+Artigo 9.º Nos termos do n.º 1 do artigo 390.º da Lei n.º 75-B/2020, de 31 de dezembro, é criada uma taxa de carbono sobre os bilhetes do transporte aéreo comercial de passageiros com partida dos aeroportos e aeródromos situados em território português, doravante designada por taxa.
+Artigo 11.º 1 - A taxa incide sobre todos os negócios jurídicos que atribuam a um passageiro um título de transporte aéreo comercial que lhe permita deslocar-se a bordo de uma aeronave movida a energia fóssil com partida de um aeroporto ou aeródromo situado em território português.
+Artigo 12.º 2 - No caso de um voo comercializado numa única transação legal, que envolva várias etapas operadas por diferentes transportadoras aéreas, a taxa é cobrada pela transportadora aérea que opera a partida de Portugal.
+Artigo 13.º A taxa tem o valor fixo de 2 (dois) euros, por cada passageiro transportado nos termos dos artigos anteriores.
+Artigo 14.º Isenções: ficam isentos da taxa os títulos de transporte que sejam utilizados: a) Por crianças com menos de dois anos; b) Para voos realizados com destino nos aeroportos e aeródromos situados nas Regiões Autónomas da Madeira e dos Açores; c) Para voos com destino ao território nacional e partida nos aeroportos e aeródromos situados nas Regiões Autónomas da Madeira e dos Açores; d) Por passageiros de aeronaves que, por motivos de ordem técnica, meteorológica ou contingência similar, sejam forçados a aterrar num aeroporto ou aeródromo situado em território português; e) Por serviços de transporte aéreo abrangidos por obrigações de serviço público.
+(No transit/transfer exemption appears in Art. 14.)
+Artigo 16.º 1 - A taxa é liquidada e cobrada pelas transportadoras aéreas referidas no artigo 11.º no momento da emissão do título de transporte.
+Artigo 21.º O presente regime produz efeitos a partir de 1 de julho de 2021, sendo as taxas de carbono sobre viagens marítimas e aéreas devidas relativamente aos factos tributários ocorridos em ou após aquela data.
+
+Portaria 110/2023 (verbatim):
+Art. 9.º b) Taxa de carbono sobre o consumidor de viagens aéreas em voo comercial ou não comercial com partida dos aeroportos e aeródromos situados em território português, em aeronaves com capacidade máxima para passageiros de até 19 lugares
+Art. 13.º 2 - A taxa a que se refere a alínea b) do artigo 9.º é apurada através da aplicação da seguinte fórmula: valor final = TC x CP x L x (D + 1). [TC = 2 EUR; CP = 10; L = max seats; D = thousands of km to final destination]
+Art. 3.º A presente portaria entra em vigor e produz efeitos a partir de 1 de julho de 2023, sendo as taxas de carbono devidas relativamente a todos os voos, comerciais ou não comerciais, realizados em ou após aquela data.
+Consolidated Art. 16.º 3 (after 110/2023): As taxas mencionadas nos números anteriores são devidas após a realização dos respetivos voos.
+
+Lei 82/2023 art. 49.º-Q n.º 1 (verbatim): A taxa de carbono para o consumidor de viagens aéreas, marítimas e fluviais, no valor de 2 € por passageiro, incide sobre a emissão de títulos de transporte aéreo comercial de passageiros com partida dos aeroportos e aeródromos situados em território português ...
+n.º 4 adds exemption for "voos com fins humanitários devidamente comprovados".
+
+Security fee (taxa de seguranca), Portaria 77-B/2014 consolidated (ANAC PDF https://www.anac.pt/SiteCollectionDocuments/PerfilGenerico/legislacao_sector/C15.19-Taxas%20cobradas%20pelo%20INAC/VC_Portaria_77_B_2014.pdf, versao 12-9-2022):
+Art. 1.º (state component, INAC/ANAC + security forces, ANA network, per embarked passenger): Schengen 0,87 EUR; intra-EU non-Schengen 2,36 EUR; international 5,09 EUR.
+Art. 3.º (airport operator component, receita da ANA): 3,54 EUR por passageiro embarcado (Portaria 235/2022, em vigor 2022-09-13); 2,95 EUR (Portaria 92/2022, em vigor 2022-02-10).
+Portaria 235/2014 preamble: "... não resultando qualquer aumento do valor global da taxa de segurança."

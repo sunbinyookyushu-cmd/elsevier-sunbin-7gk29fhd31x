@@ -1,0 +1,37 @@
+\begin{tabular}{lccccc}
+\toprule
+ & GDP per capita & Average income & Top 10\% average & Bottom 50\% average & Top/bottom gap \\
+ & $\ln y$ & $\ln \bar{y}$ & $\ln \bar{y}^{t10}$ & $\ln \bar{y}^{b50}$ & $\ln(\bar{y}^{t10}/\bar{y}^{b50})$ \\
+\midrule
+\multicolumn{6}{l}{\emph{Panel A. Hub connectivity, $\ln\mathrm{GACI}_{max}$ (headline)}}\\
+OLS & 0.747\sym{***} (0.042) & 0.668\sym{***} (0.043) & 0.747\sym{***} (0.042) & 0.586\sym{***} (0.051) & 0.161\sym{***} (0.034) \\
+2SLS, Feyrer IV & 1.294\sym{***} (0.152) & 1.219\sym{***} (0.173) & 1.443\sym{***} (0.184) & 0.445\sym{**} (0.200) & 0.998\sym{***} (0.189) \\
+ & [0.428]\sym{***} & [0.491]\sym{**} & [0.513]\sym{***} & [0.593] & [0.588]\sym{*} \\
+2SLS, tourism IV & -0.133 (0.559) & -0.394 (0.573) & -0.013 (0.557) & -0.506 (0.622) & 0.493 (0.414) \\
+ & [1.127] & [1.142] & [1.120] & [1.268] & [0.975] \\
+First-stage KP $F$ (Feyrer; tourism) & 98; 14 & 97; 13 & 97; 13 & 97; 13 & 97; 13 \\
+\addlinespace
+\multicolumn{6}{l}{\emph{Panel B. Hub quality, $\ln\mathrm{GACI}_{cwm}$}}\\
+OLS & 0.775\sym{***} (0.043) & 0.708\sym{***} (0.044) & 0.774\sym{***} (0.046) & 0.656\sym{***} (0.050) & 0.118\sym{***} (0.037) \\
+2SLS, Feyrer IV & 1.556\sym{***} (0.194) & 1.462\sym{***} (0.214) & 1.731\sym{***} (0.229) & 0.533\sym{**} (0.241) & 1.197\sym{***} (0.231) \\
+ & [0.548]\sym{***} & [0.611]\sym{**} & [0.633]\sym{***} & [0.715] & [0.709]\sym{*} \\
+2SLS, tourism IV & -0.206 (0.882) & -0.612 (0.932) & -0.019 (0.866) & -0.785 (1.025) & 0.766 (0.682) \\
+ & [1.748] & [1.791] & [1.738] & [2.027] & [1.603] \\
+First-stage KP $F$ (Feyrer; tourism) & 83; 7 & 83; 7 & 83; 7 & 83; 7 & 83; 7 \\
+\addlinespace
+\multicolumn{6}{l}{\emph{Panel C. Total connectivity, $\ln\mathrm{GACI}_{sum}$}}\\
+OLS & 0.185\sym{***} (0.012) & 0.172\sym{***} (0.012) & 0.178\sym{***} (0.013) & 0.166\sym{***} (0.013) & 0.013 (0.010) \\
+2SLS, Feyrer IV & 0.520\sym{***} (0.067) & 0.497\sym{***} (0.076) & 0.589\sym{***} (0.082) & 0.181\sym{**} (0.084) & 0.407\sym{***} (0.075) \\
+ & [0.173]\sym{***} & [0.200]\sym{**} & [0.213]\sym{***} & [0.246] & [0.233]\sym{*} \\
+2SLS, tourism IV & -0.074 (0.312) & -0.223 (0.331) & -0.007 (0.315) & -0.286 (0.360) & 0.279 (0.238) \\
+ & [0.628] & [0.657] & [0.633] & [0.749] & [0.597] \\
+First-stage KP $F$ (Feyrer; tourism) & 113; 9 & 109; 9 & 109; 9 & 109; 9 & 109; 9 \\
+\addlinespace
+\multicolumn{6}{l}{\emph{Panel D. Both instruments, $\ln\mathrm{GACI}_{max}$ (over-identified)}}\\
+2SLS, Feyrer and tourism & 1.045\sym{***} (0.133) & 0.937\sym{***} (0.150) & 1.188\sym{***} (0.163) & 0.279 (0.175) & 0.910\sym{***} (0.157) \\
+Hansen $J$ ($p$) & 0.002 & 0.000 & 0.004 & 0.090 & 0.328 \\
+\midrule
+Country, Year FE & Yes & Yes & Yes & Yes & Yes \\
+Observations & 3,735 & 3,714 & 3,714 & 3,714 & 3,714 \\
+\bottomrule
+\end{tabular}

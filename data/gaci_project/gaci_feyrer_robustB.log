@@ -1,0 +1,213 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do gaci_feyrer_robustB.do 
+
+. *============================================================================
+> ==
+. * gaci_feyrer_robustB.do  --  Robustness B: EXOGENOUS (Bartik) maritime contr
+> ol
+. *   Concern (co-author): contemporaneous MA_sea (ln_sea_ma) is a "bad control
+> "
+. *     (endogenous, correlated with eps); since Z shares geography with sea ac
+> cess,
+. *     conditioning on an endogenous MA_sea does not purge the maritime->trade
+>  path
+. *     and can break the exclusion restriction.
+. *   Fix B: replace ln_sea_ma with an EXOGENOUS maritime Bartik control
+. *     sea_int = a_t * ln(sea_MA_1996)  = feyrer_int - adv_int   (no time-vary
+> ing foreign pop)
+. *   Test: does the instrument feyrer_int still identify (KP F) and does beta 
+> survive,
+. *         once the maritime channel is absorbed by an exogenous control?
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI
+
+. import delimited "gaci_panel_feyrer.csv", clear varnames(1) encoding("utf-8")
+(40 vars, 4,714 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       ln_sea_ma     feyrer_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      ln_feyrer     adv_int
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   ln_air_ma     a_t
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+ln_air_ma already numeric; no replace
+ln_sea_ma already numeric; no replace
+ln_feyrer already numeric; no replace
+a_t already numeric; no replace
+feyrer_int already numeric; no replace
+adv_int already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. gen trade_intensity = ln_tradevol - lngdp
+
+. 
+. * exogenous maritime Bartik control = a_t * ln(sea_MA_1996)
+. gen sea_int = feyrer_int - adv_int
+(12 missing values generated)
+
+. label var sea_int   "a_t x ln(sea MA 1996), exogenous maritime control"
+
+. label var feyrer_int "a_t x ln(air MA 1996), instrument"
+
+. 
+. di _n "==== how much independent variation? correlations ===="
+
+==== how much independent variation? correlations ====
+
+. pwcorr feyrer_int sea_int ln_sea_ma, obs
+
+             | feyrer~t  sea_int ln_sea~a
+-------------+---------------------------
+  feyrer_int |   1.0000 
+             |     4702
+             |
+     sea_int |   0.9997   1.0000 
+             |     4702     4702
+             |
+   ln_sea_ma |   0.2403   0.2460   1.0000 
+             |     4702     4702     4702
+             |
+
+. 
+. capture program drop _runB
+
+. program define _runB
+  1.     args lbl ctrl
+  2.     foreach yv in trade_share trade_intensity ln_tradevol {
+  3.         local extra ""
+  4.         if "`yv'" == "ln_tradevol" local extra "lngdp"
+  5.         capture noisily quietly ivreghdfe `yv' lnpop `extra' `ctrl' (lng = feyrer_int), absorb(isocode y) robust
+  6.         if _rc == 0 {
+  7.             noisily di "RESB|`lbl'|`yv'|" _b[lng] "|" _se[lng] "|" 2*ttail(e(df_r), abs(_b[lng]/_se[lng])) "|" e(widstat) "|" e(N)
+  8.         }
+  9.     }
+ 10. end
+
+. 
+. di _n "######## B1: control = sea_int (EXOGENOUS Bartik) -- the fix ########"
+
+######## B1: control = sea_int (EXOGENOUS Bartik) -- the fix ########
+
+. _runB exo_seaint "sea_int"
+RESB|exo_seaint|trade_share|174.39038|50.688637|.0005861|15.150353|4701
+RESB|exo_seaint|trade_intensity|.79844718|.26992881|.00311267|15.150353|4701
+RESB|exo_seaint|ln_tradevol|3.12991|2.1563598|.14671658|2.1443359|4701
+
+. di _n "######## B0: control = ln_sea_ma (original, possibly endogenous) ########"
+
+######## B0: control = ln_sea_ma (original, possibly endogenous) ########
+
+. _runB orig_seama "ln_sea_ma"
+RESB|orig_seama|trade_share|60.373497|10.580545|1.230e-08|94.603421|4701
+RESB|orig_seama|trade_intensity|.18778916|.07559083|.01301739|94.603421|4701
+RESB|orig_seama|ln_tradevol|.49340703|.11303241|.00001299|50.770938|4701
+
+. di _n "######## B2: control = sea_int + ln_sea_ma (both) ########"
+
+######## B2: control = sea_int + ln_sea_ma (both) ########
+
+. _runB both "sea_int ln_sea_ma"
+RESB|both|trade_share|167.13948|48.123338|.00051925|15.737782|4701
+RESB|both|trade_intensity|.75626268|.25597883|.00314911|15.737782|4701
+RESB|both|ln_tradevol|2.9494136|1.9596639|.13237882|2.3092821|4701
+
+. di _n "######## B3: no maritime control (reference) ########"
+
+######## B3: no maritime control (reference) ########
+
+. _runB none ""
+RESB|none|trade_share|65.830339|10.856689|1.441e-09|97.054442|4701
+RESB|none|trade_intensity|.22066652|.07593685|.00367965|97.054442|4701
+RESB|none|ln_tradevol|.53938147|.1155948|3.158e-06|51.98472|4701
+
+. 
+. di _n "######## also: treatment = hub quality (cwm) with sea_int ########"
+
+######## also: treatment = hub quality (cwm) with sea_int ########
+
+. foreach yv in trade_share trade_intensity ln_tradevol {
+  2.     local extra ""
+  3.     if "`yv'" == "ln_tradevol" local extra "lngdp"
+  4.     capture noisily quietly ivreghdfe `yv' lnpop `extra' sea_int (ln_gaci_cwm = feyrer_int), absorb(isocode y) robust
+  5.     if _rc == 0 {
+  6.         noisily di "RESB|exo_cwm|`yv'|" _b[ln_gaci_cwm] "|" _se[ln_gaci_cwm] "|" 2*ttail(e(df_r), abs(_b[ln_gaci_cwm]/_se[ln_gaci_cwm])) "|" e(widstat) "|" e(N)
+  7.     }
+  8. }
+RESB|exo_cwm|trade_share|300.2201|53.653648|2.330e-08|56.175365|4701
+RESB|exo_cwm|trade_intensity|1.3745591|.33159356|.00003456|56.175365|4701
+RESB|exo_cwm|ln_tradevol|3.0063618|.65810676|5.051e-06|25.74021|4701
+
+. di "ROBUSTB_DONE"
+ROBUSTB_DONE
+
+. 
+end of do-file

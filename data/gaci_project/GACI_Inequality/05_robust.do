@@ -1,0 +1,152 @@
+capture log close _all
+log using "05_robust_run.log", replace text
+do "_prep.doh"
+tempname fh
+file open `fh' using "_robust_results.csv", write replace
+file write `fh' "block,outcome,spec,b,se,p,kpf,hansenp,N" _n
+foreach yv in ln_gini_mkt ln_gini_disp {
+    * A. controls sensitivity
+    local i = 0
+    foreach ctrl in "none" "ln_gdppc" "urban" "ter_enr" "trade_gdp" "tax_gdp" "ln_sea_ma" "ln_gdppc urban ter_enr trade_gdp" {
+        local i = `i' + 1
+        local cv = "`ctrl'"
+        if "`ctrl'"=="none" local cv = ""
+        ivreghdfe `yv' lnpop `cv' (ln_gaci_max = feyrer_int), absorb(isocode y) robust
+        local b = _b[ln_gaci_max]
+        local se = _se[ln_gaci_max]
+        local p = 2*normal(-abs(`b'/`se'))
+        local kp = e(widstat)
+        local nn = e(N)
+        file write `fh' "controls,`yv',ctrl`i',`b',`se',`p',`kp',.,`nn'" _n
+    }
+    * B. instrument set: over-identified (Feyrer + tourism), Hansen J
+    ivreghdfe `yv' lnpop (ln_gaci_max = feyrer_int tourism_int), absorb(isocode y) robust
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local jp = e(jp)
+    local nn = e(N)
+    file write `fh' "overid,`yv',feyrer_tourism,`b',`se',`p',`kp',`jp',`nn'" _n
+    ivreghdfe `yv' lnpop (ln_gaci_max = tourism_int), absorb(isocode y) robust
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local nn = e(N)
+    file write `fh' "overid,`yv',tourism_only,`b',`se',`p',`kp',.,`nn'" _n
+    * C. reduced form
+    reghdfe `yv' feyrer_int lnpop, absorb(isocode y) vce(robust)
+    local b = _b[feyrer_int]
+    local se = _se[feyrer_int]
+    local p = 2*ttail(e(df_r), abs(`b'/`se'))
+    local nn = e(N)
+    file write `fh' "rf,`yv',feyrer_rf,`b',`se',`p',.,.,`nn'" _n
+    * D. SE variants
+    ivreghdfe `yv' lnpop (ln_gaci_max = feyrer_int), absorb(isocode y) cluster(isocode)
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local nn = e(N)
+    file write `fh' "se,`yv',cluster_country,`b',`se',`p',`kp',.,`nn'" _n
+    ivreghdfe `yv' lnpop (ln_gaci_max = feyrer_int), absorb(isocode y) cluster(contid y)
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local nn = e(N)
+    file write `fh' "se,`yv',cluster_cont_year,`b',`se',`p',`kp',.,`nn'" _n
+    ivreghdfe `yv' lnpop (ln_gaci_max = feyrer_int), absorb(isocode y) dkraay(3)
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local nn = e(N)
+    file write `fh' "se,`yv',driscoll_kraay3,`b',`se',`p',`kp',.,`nn'" _n
+    * E. sample exclusions
+    ivreghdfe `yv' lnpop (ln_gaci_max = feyrer_int) if tophub==0, absorb(isocode y) robust
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local nn = e(N)
+    file write `fh' "sample,`yv',drop_top10_hubs,`b',`se',`p',`kp',.,`nn'" _n
+    ivreghdfe `yv' lnpop (ln_gaci_max = feyrer_int) if y<=2019, absorb(isocode y) robust
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local nn = e(N)
+    file write `fh' "sample,`yv',pre2020,`b',`se',`p',`kp',.,`nn'" _n
+    ivreghdfe `yv' lnpop (ln_gaci_max = feyrer_int) if !inlist(y,2008,2009,2020,2021), absorb(isocode y) robust
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local nn = e(N)
+    file write `fh' "sample,`yv',drop_crises,`b',`se',`p',`kp',.,`nn'" _n
+    levelsof cont, local(cl)
+    foreach cc of local cl {
+        ivreghdfe `yv' lnpop (ln_gaci_max = feyrer_int) if cont!="`cc'", absorb(isocode y) robust
+        local b = _b[ln_gaci_max]
+        local se = _se[ln_gaci_max]
+        local p = 2*normal(-abs(`b'/`se'))
+        local kp = e(widstat)
+        local nn = e(N)
+        file write `fh' "loo_cont,`yv',drop_`cc',`b',`se',`p',`kp',.,`nn'" _n
+    }
+    * F. alternative FE: continent x year
+    ivreghdfe `yv' lnpop (ln_gaci_max = feyrer_int), absorb(isocode contid#y) robust
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local nn = e(N)
+    file write `fh' "fe,`yv',cont_x_year,`b',`se',`p',`kp',.,`nn'" _n
+    * G. country-specific linear trends
+    ivreghdfe `yv' lnpop (ln_gaci_max = feyrer_int), absorb(isocode y isocode#c.y) robust
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local nn = e(N)
+    file write `fh' "fe,`yv',country_trends,`b',`se',`p',`kp',.,`nn'" _n
+}
+* H. alternative outcomes (WB survey-based, levels)
+foreach yv in gini_wb top10_wb bot20_wb gini_mkt gini_disp {
+    ivreghdfe `yv' lnpop (ln_gaci_max = feyrer_int), absorb(isocode y) robust
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local nn = e(N)
+    file write `fh' "altdv,`yv',IV,`b',`se',`p',`kp',.,`nn'" _n
+    reghdfe `yv' ln_gaci_max lnpop, absorb(isocode y) vce(robust)
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*ttail(e(df_r), abs(`b'/`se'))
+    local nn = e(N)
+    file write `fh' "altdv,`yv',OLS,`b',`se',`p',.,.,`nn'" _n
+}
+* I. RF quintile: reduced-form by quintile of baseline gini and baseline income
+foreach base in basegini basepc {
+    preserve
+    bysort isocode: keep if _n==1
+    xtile q5_`base' = `base', nq(5)
+    keep isocode q5_`base'
+    tempfile qq
+    save `qq'
+    restore
+    merge m:1 isocode using `qq', nogen
+    forvalues q = 1/5 {
+        reghdfe ln_gini_mkt feyrer_int lnpop if q5_`base'==`q', absorb(isocode y) vce(robust)
+        local b = _b[feyrer_int]
+        local se = _se[feyrer_int]
+        local p = 2*ttail(e(df_r), abs(`b'/`se'))
+        local nn = e(N)
+        file write `fh' "rfq_`base',ln_gini_mkt,q`q',`b',`se',`p',.,.,`nn'" _n
+    }
+}
+file close `fh'
+log close

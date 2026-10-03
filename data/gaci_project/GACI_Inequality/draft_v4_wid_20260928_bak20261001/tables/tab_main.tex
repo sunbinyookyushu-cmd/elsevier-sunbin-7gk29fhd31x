@@ -1,0 +1,41 @@
+\begin{table}[H]
+\centering
+\caption{Main results: OLS, first stage, and 2SLS, by connectivity measure.}
+\label{tab:main}
+\begin{minipage}{\linewidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lccccc}
+\toprule
+ & Mean income & Top-30\% income & Bottom-30\% income & Bottom-30\% share & Top-30 minus bottom-30 \\
+ & $\ln y$ & $\ln y_{70-100}$ & $\ln y_{0-30}$ & $\ln s_{0-30}$ & $\ln y_{70-100}-\ln y_{0-30}$ \\
+\midrule
+\multicolumn{6}{l}{\emph{Panel A. Hub connectivity, $\ln\mathrm{GACI}_{max}$ (headline)}}\\
+First stage: instrument coef. & \multicolumn{5}{l}{0.163\sym{***}\ \ (0.036),\ \ KP $F=21.1$} \\
+OLS & 0.731\sym{***} & 0.752\sym{***} & 0.728\sym{***} & -0.003 & 0.023 \\
+ & (0.122) & (0.117) & (0.148) & (0.065) & (0.084) \\
+2SLS & 1.320\sym{***} & 1.361\sym{***} & 0.410 & -0.910\sym{*} & 0.951\sym{*} \\
+ & (0.420) & (0.415) & (0.631) & (0.498) & (0.573) \\
+\addlinespace
+\multicolumn{6}{l}{\emph{Panel B. Hub quality, $\ln\mathrm{GACI}_{cwm}$}}\\
+First stage: instrument coef. & \multicolumn{5}{l}{0.140\sym{***}\ \ (0.033),\ \ KP $F=18.6$} \\
+OLS & 0.761\sym{***} & 0.773\sym{***} & 0.811\sym{***} & 0.050 & -0.038 \\
+ & (0.129) & (0.126) & (0.156) & (0.073) & (0.093) \\
+2SLS & 1.539\sym{***} & 1.586\sym{***} & 0.477 & -1.061\sym{*} & 1.108 \\
+ & (0.498) & (0.491) & (0.735) & (0.587) & (0.673) \\
+\addlinespace
+\multicolumn{6}{l}{\emph{Panel C. Total connectivity, $\ln\mathrm{GACI}_{sum}$}}\\
+First stage: instrument coef. & \multicolumn{5}{l}{0.306\sym{***}\ \ (0.083),\ \ KP $F=13.5$} \\
+OLS & 0.179\sym{***} & 0.180\sym{***} & 0.173\sym{***} & -0.006 & 0.007 \\
+ & (0.032) & (0.032) & (0.038) & (0.018) & (0.023) \\
+2SLS & 0.704\sym{***} & 0.725\sym{***} & 0.218 & -0.485\sym{*} & 0.507\sym{*} \\
+ & (0.264) & (0.264) & (0.346) & (0.265) & (0.305) \\
+\addlinespace
+\midrule
+Country, Year FE & Yes & Yes & Yes & Yes & Yes \\
+Observations & 4{,}537 & 4{,}537 & 4{,}537 & 4{,}537 & 4{,}537 \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}\begin{flushleft}\footnotesize Each panel instruments its connectivity measure with the Feyrer interaction. The first-stage row regresses the connectivity measure on the instrument with log population and two-way fixed effects. The last column is a difference outcome and gives the exact difference of the two elasticities with its standard error. Country-year panel of 178 economies, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments $\ln\mathrm{GACI}_{max}$ with the Feyrer interaction $Z_{ct}=a_t\times\ln\mathrm{MA}^{air}_{c,1996}$; KP $F$ is the Kleibergen--Paap $rk$ Wald statistic. Group incomes are the log average pretax national income of the group (WID, equal-split adults); shares are log income shares, computed as log group income minus log mean income so that all groups use the same sample. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{flushleft}
+\end{minipage}
+\end{table}

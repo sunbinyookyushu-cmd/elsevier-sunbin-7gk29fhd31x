@@ -1,0 +1,104 @@
+﻿IRL 2009-03-30: treated airports 9, control countries 20
+DEU 2011-01-01: treated airports 48, control countries 17
+AUT 2011-04-01: treated airports 6, control countries 18
+NOR 2016-06-01: treated airports 52, control countries 20
+SWE 2018-04-01: treated airports 39, control countries 19
+GBR 2007-02-01: treated airports 66, control countries 21
+DNK 1998-01-01: treated airports 13, control countries 23
+MLT 2005-08-01: treated airports 2, control countries 18
+AUS 2001-07-01: treated airports 219, control countries 21
+AUS 2008-07-01: treated airports 171, control countries 21
+AUS 2012-07-01: treated airports 145, control countries 18
+CAN 2002-04-01: treated airports 288, control countries 22
+CAN 2010-04-01: treated airports 272, control countries 20
+JPN 2019-01-07: treated airports 82, control countries 19
+KOR 2004-07-01: treated airports 17, control countries 21
+SGP 2009-10-01: treated airports 2, control countries 21
+SGP 2018-07-01: treated airports 2, control countries 20
+NZL 2016-01-01: treated airports 30, control countries 21
+ARE 2010-05-27: treated airports 6, control countries 19
+all 19 events done
+Europe 8 done
+outside Europe 11 done
+                sample    fe  outcome           term       b     se      p      n  clusters  events
+         all 19 events  fe_t ln_seats     T_pre36_25  0.0366 0.0396 0.3597 782735        55      19
+         all 19 events  fe_t ln_seats     T_pre24_13  0.0396 0.0206 0.0599 782735        55      19
+         all 19 events  fe_t ln_seats     T_post0_11 -0.0384 0.0275 0.1689 782735        55      19
+         all 19 events  fe_t   ln_co2     T_pre36_25  0.0157 0.0388 0.6880 782735        55      19
+         all 19 events  fe_t   ln_co2     T_pre24_13  0.0348 0.0213 0.1089 782735        55      19
+         all 19 events  fe_t   ln_co2     T_post0_11 -0.0459 0.0245 0.0668 782735        55      19
+         all 19 events  fe_t  ln_gaci          T_km3  0.0050 0.0059 0.3995  78282        55      19
+         all 19 events  fe_t  ln_gaci          T_km2 -0.0015 0.0042 0.7306  78282        55      19
+         all 19 events  fe_t  ln_gaci           T_k0 -0.0119 0.0029 0.0001  78282        55      19
+         all 19 events  fe_t  ln_gaci           T_k1 -0.0197 0.0040 0.0000  78282        55      19
+         all 19 events fe_rt ln_seats     T_pre36_25 -0.0160 0.0463 0.7310 782440        55      19
+         all 19 events fe_rt ln_seats     T_pre24_13  0.0182 0.0213 0.3958 782440        55      19
+         all 19 events fe_rt ln_seats     T_post0_11 -0.0467 0.0250 0.0670 782440        55      19
+         all 19 events fe_rt   ln_co2     T_pre36_25 -0.0337 0.0476 0.4817 782440        55      19
+         all 19 events fe_rt   ln_co2     T_pre24_13  0.0159 0.0221 0.4744 782440        55      19
+         all 19 events fe_rt   ln_co2     T_post0_11 -0.0536 0.0258 0.0430 782440        55      19
+         all 19 events fe_rt  ln_gaci          T_km3 -0.0026 0.0065 0.6924  78253        55      19
+         all 19 events fe_rt  ln_gaci          T_km2 -0.0014 0.0025 0.5799  78253        55      19
+         all 19 events fe_rt  ln_gaci           T_k0 -0.0140 0.0034 0.0001  78253        55      19
+         all 19 events fe_rt  ln_gaci           T_k1 -0.0150 0.0024 0.0000  78253        55      19
+              Europe 8  fe_t ln_seats     T_pre36_25  0.0215 0.0612 0.7273 263290        46       8
+              Europe 8  fe_t ln_seats     T_pre24_13  0.0134 0.0323 0.6791 263290        46       8
+              Europe 8  fe_t ln_seats     T_post0_11 -0.1634 0.0517 0.0028 263290        46       8
+              Europe 8  fe_t   ln_co2     T_pre36_25 -0.0027 0.0617 0.9658 263290        46       8
+              Europe 8  fe_t   ln_co2     T_pre24_13  0.0148 0.0339 0.6646 263290        46       8
+              Europe 8  fe_t   ln_co2     T_post0_11 -0.1537 0.0498 0.0035 263290        46       8
+              Europe 8  fe_t  ln_gaci          T_km3 -0.0001 0.0097 0.9881  28355        46       8
+              Europe 8  fe_t  ln_gaci          T_km2  0.0014 0.0045 0.7639  28355        46       8
+              Europe 8  fe_t  ln_gaci           T_k0 -0.0128 0.0062 0.0425  28355        46       8
+              Europe 8  fe_t  ln_gaci           T_k1 -0.0219 0.0086 0.0141  28355        46       8
+              Europe 8 fe_rt ln_seats     T_pre36_25 -0.0439 0.0477 0.3631 263153        46       8
+              Europe 8 fe_rt ln_seats     T_pre24_13 -0.0244 0.0215 0.2629 263153        46       8
+              Europe 8 fe_rt ln_seats     T_post0_11 -0.1234 0.0316 0.0003 263153        46       8
+              Europe 8 fe_rt   ln_co2     T_pre36_25 -0.0599 0.0499 0.2364 263153        46       8
+              Europe 8 fe_rt   ln_co2     T_pre24_13 -0.0149 0.0267 0.5803 263153        46       8
+              Europe 8 fe_rt   ln_co2     T_post0_11 -0.1216 0.0277 0.0001 263153        46       8
+              Europe 8 fe_rt  ln_gaci          T_km3 -0.0012 0.0086 0.8865  28338        46       8
+              Europe 8 fe_rt  ln_gaci          T_km2  0.0005 0.0027 0.8616  28338        46       8
+              Europe 8 fe_rt  ln_gaci           T_k0 -0.0149 0.0053 0.0076  28338        46       8
+              Europe 8 fe_rt  ln_gaci           T_k1 -0.0184 0.0038 0.0000  28338        46       8
+     outside Europe 11  fe_t ln_seats     T_pre36_25  0.0424 0.0407 0.3031 519445        42      11
+     outside Europe 11  fe_t ln_seats     T_pre24_13  0.0458 0.0209 0.0340 519445        42      11
+     outside Europe 11  fe_t ln_seats     T_post0_11 -0.0097 0.0206 0.6412 519445        42      11
+     outside Europe 11  fe_t   ln_co2     T_pre36_25  0.0226 0.0402 0.5778 519445        42      11
+     outside Europe 11  fe_t   ln_co2     T_pre24_13  0.0400 0.0224 0.0812 519445        42      11
+     outside Europe 11  fe_t   ln_co2     T_post0_11 -0.0216 0.0172 0.2160 519445        42      11
+     outside Europe 11  fe_t  ln_gaci          T_km3  0.0061 0.0061 0.3265  49927        42      11
+     outside Europe 11  fe_t  ln_gaci          T_km2 -0.0021 0.0047 0.6587  49927        42      11
+     outside Europe 11  fe_t  ln_gaci           T_k0 -0.0117 0.0033 0.0012  49927        42      11
+     outside Europe 11  fe_t  ln_gaci           T_k1 -0.0196 0.0037 0.0000  49927        42      11
+     outside Europe 11 fe_rt ln_seats     T_pre36_25  0.0072 0.0654 0.9134 519287        42      11
+     outside Europe 11 fe_rt ln_seats     T_pre24_13  0.0417 0.0279 0.1420 519287        42      11
+     outside Europe 11 fe_rt ln_seats     T_post0_11 -0.0209 0.0255 0.4164 519287        42      11
+     outside Europe 11 fe_rt   ln_co2     T_pre36_25 -0.0097 0.0670 0.8860 519287        42      11
+     outside Europe 11 fe_rt   ln_co2     T_pre24_13  0.0359 0.0289 0.2219 519287        42      11
+     outside Europe 11 fe_rt   ln_co2     T_post0_11 -0.0316 0.0288 0.2789 519287        42      11
+     outside Europe 11 fe_rt  ln_gaci          T_km3 -0.0044 0.0094 0.6406  49915        42      11
+     outside Europe 11 fe_rt  ln_gaci          T_km2 -0.0021 0.0035 0.5638  49915        42      11
+     outside Europe 11 fe_rt  ln_gaci           T_k0 -0.0134 0.0047 0.0063  49915        42      11
+     outside Europe 11 fe_rt  ln_gaci           T_k1 -0.0163 0.0043 0.0004  49915        42      11
+all 19 events, by size fe_rt ln_seats small_pre24_13  0.0389 0.0145 0.0095 782440        55      19
+all 19 events, by size fe_rt ln_seats small_post0_11 -0.0125 0.0695 0.8583 782440        55      19
+all 19 events, by size fe_rt ln_seats   mid_pre24_13  0.0291 0.0073 0.0002 782440        55      19
+all 19 events, by size fe_rt ln_seats   mid_post0_11 -0.0550 0.0483 0.2599 782440        55      19
+all 19 events, by size fe_rt ln_seats large_pre24_13  0.0152 0.0140 0.2814 782440        55      19
+all 19 events, by size fe_rt ln_seats large_post0_11 -0.0280 0.0339 0.4125 782440        55      19
+all 19 events, by size fe_rt   ln_co2 small_pre24_13  0.0505 0.0175 0.0056 782440        55      19
+all 19 events, by size fe_rt   ln_co2 small_post0_11  0.0066 0.0730 0.9283 782440        55      19
+all 19 events, by size fe_rt   ln_co2   mid_pre24_13  0.0334 0.0065 0.0000 782440        55      19
+all 19 events, by size fe_rt   ln_co2   mid_post0_11 -0.0611 0.0511 0.2371 782440        55      19
+all 19 events, by size fe_rt   ln_co2 large_pre24_13  0.0157 0.0101 0.1266 782440        55      19
+all 19 events, by size fe_rt   ln_co2 large_post0_11 -0.0378 0.0386 0.3314 782440        55      19
+all 19 events, by size fe_rt  ln_gaci      small_km2 -0.0029 0.0025 0.2604  78253        55      19
+all 19 events, by size fe_rt  ln_gaci       small_k0 -0.0169 0.0075 0.0280  78253        55      19
+all 19 events, by size fe_rt  ln_gaci       small_k1 -0.0173 0.0042 0.0001  78253        55      19
+all 19 events, by size fe_rt  ln_gaci        mid_km2  0.0009 0.0025 0.7330  78253        55      19
+all 19 events, by size fe_rt  ln_gaci         mid_k0 -0.0168 0.0046 0.0006  78253        55      19
+all 19 events, by size fe_rt  ln_gaci         mid_k1 -0.0168 0.0036 0.0000  78253        55      19
+all 19 events, by size fe_rt  ln_gaci      large_km2  0.0012 0.0017 0.4822  78253        55      19
+all 19 events, by size fe_rt  ln_gaci       large_k0 -0.0058 0.0054 0.2934  78253        55      19
+all 19 events, by size fe_rt  ln_gaci       large_k1 -0.0092 0.0035 0.0121  78253        55      19

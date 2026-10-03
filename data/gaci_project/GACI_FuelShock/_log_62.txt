@@ -1,0 +1,90 @@
+﻿C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 918 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+      event  control_countries
+PHL 2001-01                 84
+LBR 2002-09                 95
+SWZ 2008-10                159
+TJK 2009-11                158
+MOZ 2010-08                154
+MWI 2012-05                163
+CHE 2012-08                163
+BRA 2012-08                163
+SRB 2012-08                163
+JPN 2013-06                165
+SUR 2016-08                155
+GBR 2016-10                156
+EGY 2016-11                156
+UZB 2017-07                157
+
+Pooled stacked event study, country x month (reference = 12 months before onset; log points):
+            outcome       bin       b     se      p      n  treated_events  treated_countries  clusters  airport_level_b  airport_level_p
+     domestic seats [-24,-19]  0.0265 0.0488 0.5882  71221              10                 10       161          -0.0863           0.2326
+     domestic seats [-18,-13]  0.0626 0.0490 0.2036  71221              10                 10       161          -0.0475           0.0853
+     domestic seats     [0,5] -0.0468 0.0661 0.4801  71221              10                 10       161           0.0247           0.3449
+     domestic seats    [6,11] -0.0291 0.0457 0.5257  71221              10                 10       161           0.0310           0.3045
+     domestic seats   [12,17]  0.0119 0.0354 0.7383  71221              10                 10       161           0.0158           0.7156
+     domestic seats   [18,24]  0.1126 0.0868 0.1967  71221              10                 10       161           0.0013           0.9850
+        total seats [-24,-19]  0.0761 0.0763 0.3201 103142              14                 14       178          -0.0890           0.1662
+        total seats [-18,-13]  0.0500 0.0260 0.0562 103142              14                 14       178          -0.0466           0.1071
+        total seats     [0,5] -0.0506 0.0280 0.0718 103142              14                 14       178           0.0263           0.2912
+        total seats    [6,11] -0.0065 0.0272 0.8104 103142              14                 14       178           0.0282           0.3775
+        total seats   [12,17]  0.0048 0.0472 0.9187 103142              14                 14       178           0.0188           0.6829
+        total seats   [18,24]  0.1076 0.0636 0.0924 103142              14                 14       178           0.0028           0.9678
+international seats [-24,-19]  0.0852 0.0760 0.2637 103140              14                 14       178          -0.0678           0.0717
+international seats [-18,-13]  0.0474 0.0227 0.0388 103140              14                 14       178          -0.0268           0.5080
+international seats     [0,5] -0.0385 0.0263 0.1449 103140              14                 14       178           0.0044           0.9110
+international seats    [6,11]  0.0075 0.0295 0.7995 103140              14                 14       178          -0.0247           0.2385
+international seats   [12,17]  0.0248 0.0482 0.6080 103140              14                 14       178           0.0043           0.9052
+international seats   [18,24]  0.1207 0.0544 0.0279 103140              14                 14       178          -0.0005           0.9942
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 20 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 87 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\models\feols_.py:2466: UserWarning: 
+            2 variables dropped due to multicollinearity.
+            The following variables are dropped: ['pre', 'post2'].
+            
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 59 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 68 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 68 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 68 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 98 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 58 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 57 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 61 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+
+By event (point estimates, one treated country each):
+      event        outcome  local_fuel_peak    pre  post_0_11  post_12_24
+PHL 2001-01 domestic seats             0.29 -0.142      0.030       0.015
+PHL 2001-01    total seats             0.29 -0.032      0.024      -0.019
+LBR 2002-09    total seats             0.29  0.593     -0.009       0.343
+SWZ 2008-10    total seats             0.23  0.003     -0.243      -0.087
+TJK 2009-11 domestic seats             0.55    NaN     -1.390         NaN
+TJK 2009-11    total seats             0.55 -0.040      0.102       0.404
+MOZ 2010-08 domestic seats             0.30 -0.073      0.119      -0.013
+MOZ 2010-08    total seats             0.30 -0.011      0.064      -0.008
+MWI 2012-05 domestic seats             0.55  0.097     -0.399       0.384
+MWI 2012-05    total seats             0.55  0.121     -0.126       0.270
+CHE 2012-08 domestic seats             0.27  0.101      0.023      -0.019
+CHE 2012-08    total seats             0.27  0.025      0.009      -0.050
+BRA 2012-08 domestic seats             0.24 -0.054     -0.034      -0.135
+BRA 2012-08    total seats             0.24 -0.050     -0.019      -0.097
+SRB 2012-08    total seats             0.27  0.034     -0.003       0.194
+JPN 2013-06 domestic seats             0.24 -0.016      0.043       0.038
+JPN 2013-06    total seats             0.24 -0.041      0.041       0.041
+SUR 2016-08    total seats             0.80  0.024     -0.154      -0.281
+GBR 2016-10 domestic seats             0.25  0.086     -0.044      -0.063
+GBR 2016-10    total seats             0.25  0.015     -0.030      -0.067
+EGY 2016-11 domestic seats             1.16  0.251      0.020       0.133
+EGY 2016-11    total seats             1.16  0.129     -0.047      -0.034
+UZB 2017-07 domestic seats             1.16  0.149      0.005       0.162
+UZB 2017-07    total seats             1.16  0.114     -0.009       0.238

@@ -1,0 +1,65 @@
+baseline geography recovered for 185 countries
+world series corr with a_t:
+ a_t        1.000
+g_gdp      0.815
+g_oil      0.533
+g_trade    0.839
+g_fl       0.968
+g_skm      0.994
+g_eff      0.867
+g_gaci     0.891
+theta variants corr with ln_air96 (canonical):
+ln_air96         1.000
+ln_sea96         0.782
+ln_air96_th05    0.977
+ln_air96_th10    0.986
+ln_air96_th15    0.958
+EDGAR columns: ['Substance', 'Sector', 'EDGAR Country Code', 'Country', 1970, 1971]
+substances: ['CO2', 'GWP_100_AR5_CH4', 'GWP_100_AR5_F-gases', 'GWP_100_AR5_N2O']
+sectors: ['Agriculture', 'Buildings', 'Fuel Exploitation', 'Industrial Combustion', 'Power Industry', 'Processes', 'Transport', 'Waste']
+saved placebo_covariates.csv (4714, 44)
+                    count      mean
+y                  4714.0  2009.895
+ln_air96           4702.0    13.816
+ln_sea96           4702.0    13.585
+ln_air96_th05      4706.0    18.111
+ln_air96_th10      4706.0    13.875
+ln_air96_th15      4706.0     9.825
+a_t                4714.0     0.352
+g_gdp              4714.0     0.472
+g_oil              4714.0     0.482
+g_trade            4714.0     0.519
+g_fl               4714.0     0.410
+g_skm              4714.0     0.404
+g_eff              4714.0     0.493
+g_gaci             4714.0     0.441
+fey_gdp            4702.0     6.518
+fey_oil            4702.0     6.652
+fey_trade          4702.0     7.168
+fey_fl             4702.0     5.651
+fey_skm            4702.0     5.568
+fey_eff            4702.0     6.809
+fey_gaci           4702.0     6.077
+fey_sea            4702.0     4.776
+fey_th05           4706.0     6.370
+fey_th15           4706.0     3.454
+fey_th10chk        4706.0     4.879
+ln_co2_exav        4598.0     2.669
+ln_co2_all         4598.0     2.677
+ln_coal            3035.0     1.255
+ln_gas             2868.0     2.124
+ln_cement          3477.0     0.236
+ln_oil_exav        4596.0     2.037
+ln_ed_power        4438.0     1.254
+ln_ed_build        4489.0     0.336
+ln_ed_indcomb      4461.0     0.609
+ln_ed_transp       4490.0     1.470
+ln_ed_agri         2667.0    -1.529
+ln_ed_waste        2363.0    -5.238
+ln_ed_transp_exav  4490.0     1.446
+urban              4714.0    59.844
+fdi                4462.0     5.231
+ln_arrivals        3646.0    14.325
+trade_gdp          4698.0    87.928
+ln_gdp_kd          4714.0    24.306
+DONE_22

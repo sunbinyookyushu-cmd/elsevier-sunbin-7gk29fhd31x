@@ -1,0 +1,1107 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1"><title>
+	Press Release Page | Press Information Bureau
+</title><link href="css/style.css" rel="stylesheet" type="text/css" /><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="alternate stylesheet" href="css/change.css" media="screen" title="change" /><link rel="alternate stylesheet" href="css/green.css" media="screen" title="green" /><link rel="alternate stylesheet" href="css/yellow.css" media="screen" title="yellow" /><link rel="stylesheet" type="text/css" href="css/prtint.css" media="print" /><link rel="stylesheet" href="css/style3.1.css" type="text/css" /><link id="pibA11yCss" rel="stylesheet" href="/css/accessibility.css?v=3" type="text/css" />
+      <script type="text/javascript">
+        /* Stamps the saved theme on <html> before the page paints. The
+           switcher in js/accessibility.js settles the rest, but on inner
+           pages it does not run until the end of the body and inside the
+           release frame it is a separate download - either way the reader
+           would otherwise watch a light page turn dark in front of them. */
+        (function (d) {
+            var t = "";
+            try {
+                t = window.localStorage.getItem("pibStyle") || "";
+            } catch (e) {
+                t = "";
+            }
+            if (t === "orange") {
+                t = "yellow";
+            }
+            var c = t === "change" ? " pib-hc"
+                : t === "green" ? " pib-theme-green"
+                : t === "yellow" ? " pib-theme-yellow" : "";
+            d.documentElement.className += c + " pib-a11y-content";
+        }(document));
+      </script>
+
+
+      <script src="js/jquery.min.js" type="text/javascript"></script>
+      <script type="text/javascript" src="/js/accessibility.js?v=7"></script>
+
+      <script type="text/javascript">
+            $(document).ready(function () {
+                  function getParameterByName(name) {
+                        var url = window.location.href;
+                        name = name.replace(/[\[\]]/g, '\\$&');
+                        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                              results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                  }
+                  // Get the IDs from the current page's URL
+                  let prid = parseInt(getParameterByName('PRID'), 10);
+
+                  if (!isNaN(prid) && prid > 0) {
+                        $.ajax({
+                              type: "POST",
+                              url: "AjaxMethod.aspx/UpdatePRHitCount",
+                              async: false,
+                              data: JSON.stringify({ 'PermId': prid }),
+                              contentType: "application/json; charset=utf-8",
+                              dataType: "json",
+                              success: function (response) {
+                                    console.log(response);
+                              },
+                              error: function (error) {
+                                    console.log("Error in AJAX request", error);
+                              }
+                        });
+                  } else {
+                        console.log("Invalid parameters:", prid);
+                  }
+
+            });
+      </script>
+      <style type="text/css">
+            .table-responsive {
+                  width: 100%;
+                  overflow-x: auto;
+            }
+
+            .banner {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  background-color: #000;
+                  color: #fff;
+                  padding: 20px;
+            }
+
+            full-width {
+                  width: 100%;
+            }
+
+            .logo-left, .logo-center, .countdown {
+                  display: flex;
+                  align-items: center;
+            }
+
+                  .logo-left img, .logo-center img {
+                        height: 70px;
+                  }
+
+            .countdown {
+                  text-align: center;
+                  background-color: #444;
+                  border-radius: 10px;
+                  padding: 10px;
+                  border: 2px solid grey;
+            }
+
+            .firstnumber {
+                  color: #000000;
+                  position: absolute;
+                  top: 50px;
+                  right: 90px;
+                  font-size: 30px;
+            }
+
+            .secondnumber {
+                  position: absolute;
+                  color: #000000;
+                  right: 45px;
+                  top: 50px;
+                  font-size: 30px;
+            }
+
+            .countdown .days {
+                  font-size: 35px;
+                  color: gold;
+            }
+
+            .countdown p {
+                  margin: 0;
+            }
+
+            .countdown .text {
+                  font-size: 16px;
+            }
+
+            a {
+                  word-break: break-all;
+            }
+
+            iframe, img {
+                  max-width: 100%;
+            }
+
+            @media(max-width:1199px) {
+                  .firstnumber {
+                        top: 40px;
+                        right: 72px;
+                        font-size: 30px;
+                  }
+
+                  .secondnumber {
+                        right: 35px;
+                        top: 40px;
+                        font-size: 30px;
+                  }
+            }
+
+            @media(max-width:990px) {
+                  .firstnumber {
+                        top: 25px;
+                        right: 54px;
+                        font-size: 30px;
+                  }
+
+                  .secondnumber {
+                        right: 25px;
+                        top: 25px;
+                        font-size: 30px;
+                  }
+            }
+
+            @media(max-width:768px) {
+                  .countdown, .days {
+                        font-size: 12px !important;
+                  }
+
+
+                  .firstnumber {
+                        top: 25%;
+                        right: 8%;
+                        font-size: 30px;
+                  }
+
+                  .secondnumber {
+                        right: 4.5%;
+                        top: 25%;
+                        font-size: 30px;
+                  }
+            }
+
+            @media(max-width:475px) {
+                  .countdown, .days {
+                        font-size: 10px !important;
+                        top: 20%;
+                  }
+
+                  .bannerimgdiv {
+                        padding: 0 !important;
+                  }
+
+                  .bannerimg {
+                        width: 108% !important;
+                  }
+            }
+      </style>
+      <script type="text/javascript">
+            $(function () {
+                  $("[id*=printPDF]").click(function () {
+                        $("[id*=hfGridHtml]").val($("#PdfDiv").html());
+                  });
+            });
+            $(function () {
+                  $("[id*=printPDFEvent]").click(function () {
+                        $("[id*=hfGridHtml]").val($("#PdfDiv").html());
+                  });
+            });
+      </script>
+
+      
+
+      <link id="pibConsentCss" href="/css/consent.css?v=1" rel="stylesheet" type="text/css" /><meta property="og:title" content="Civil Aviation Minister Ram Mohan Naidu launches Challenge Mode for Aerodrome Development" /><meta property="og:url" content="www.pib.gov.in/Pressreleaseshare.aspx?PRID=2313612" /><meta property="og:description" content="The Ministry of Civil Aviation today took a major step towards strengthening regional air connectivi" /><meta property="og:image" content="https:/pib.gov.in/images/indian-emblem.png" />
+                                <script>!function(e){var n="https://s.go-mpulse.net/boomerang/";if("False"=="True")e.BOOMR_config=e.BOOMR_config||{},e.BOOMR_config.PageParams=e.BOOMR_config.PageParams||{},e.BOOMR_config.PageParams.pci=!0,n="https://s2.go-mpulse.net/boomerang/";if(window.BOOMR_API_key="C4E7H-KSCMC-422L4-W3EM5-U36MF",function(){function e(){if(!i){var e=document.createElement("script");e.id="boomr-scr-as",e.src=window.BOOMR.url,e.async=!0,o.parentNode.appendChild(e),i=!0}}function t(e){i=!0;var n,t,a,r,d=document,O=window;if(window.BOOMR.snippetMethod=e?"if":"i",t=function(e,n){var t=d.createElement("script");t.id=n||"boomr-if-as",t.src=window.BOOMR.url,BOOMR_lstart=(new Date).getTime(),e=e||d.body,e.appendChild(t)},!window.addEventListener&&window.attachEvent&&navigator.userAgent.match(/MSIE [67]\./))return window.BOOMR.snippetMethod="s",void t(o.parentNode,"boomr-async");a=document.createElement("IFRAME"),a.src="about:blank",a.title="",a.role="presentation",a.loading="eager",r=(a.frameElement||a).style,r.width=0,r.height=0,r.border=0,r.display="none",o.parentNode.appendChild(a);try{O=a.contentWindow,d=O.document.open()}catch(_){n=document.domain,a.src="javascript:var d=document.open();d.domain='"+n+"';void(0);",O=a.contentWindow,d=O.document.open()}if(n)d._boomrl=function(){this.domain=n,t()},d.write("<bo"+"dy onload='document._boomrl();'>");else if(O._boomrl=function(){t()},O.addEventListener)O.addEventListener("load",O._boomrl,!1);else if(O.attachEvent)O.attachEvent("onload",O._boomrl);d.close()}function a(e){window.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(!window.BOOMR||!window.BOOMR.version&&!window.BOOMR.snippetExecuted){window.BOOMR=window.BOOMR||{},window.BOOMR.snippetStart=(new Date).getTime(),window.BOOMR.snippetExecuted=!0,window.BOOMR.snippetVersion=12,window.BOOMR.url=n+"C4E7H-KSCMC-422L4-W3EM5-U36MF";var o=document.currentScript||document.getElementsByTagName("script")[0],i=!1,r=document.createElement("link");if(r.relList&&"function"==typeof r.relList.supports&&r.relList.supports("preload")&&"as"in r)window.BOOMR.snippetMethod="p",r.href=window.BOOMR.url,r.rel="preload",r.as="script",r.addEventListener("load",e),r.addEventListener("error",function(){t(!0)}),setTimeout(function(){if(!i)t(!0)},3e3),BOOMR_lstart=(new Date).getTime(),o.parentNode.appendChild(r);else t(!1);if(window.addEventListener)window.addEventListener("load",a,!1);else if(window.attachEvent)window.attachEvent("onload",a)}}(),"".length>0)if(e&&"performance"in e&&e.performance&&"function"==typeof e.performance.setResourceTimingBufferSize)e.performance.setResourceTimingBufferSize();!function(){if(BOOMR=e.BOOMR||{},BOOMR.plugins=BOOMR.plugins||{},!BOOMR.plugins.AK){var n=""=="true"?1:0,t="",a="ooi3xxyxyc74w2v7emja-f-922cb8c94-clientnsv4-s.akamaihd.net",o="false"=="true"?2:1,i={"ak.v":"41","ak.cp":"1825201","ak.ai":parseInt("1215205",10),"ak.ol":"0","ak.cr":302,"ak.ipv":4,"ak.proto":"http/1.1","ak.rid":"1e1f2e4b","ak.r":48139,"ak.a2":n,"ak.m":"dscb","ak.n":"ff","ak.cport":57495,"ak.gh":"23.192.191.199","ak.quicv":"","ak.tlsv":"tls1.3","ak.0rtt":"","ak.0rtt.ed":"","ak.csrc":"-","ak.acc":"bbr","ak.t":"1790911250","ak.ak":"hOBiQwZUYzCg5VSAfCLimQ==P+QBGwvkyjLwgTEUqMPvWTGL6Hhkv0MsXIOCvAarDqvszFJ7AYU/KvYPb02ijjNRohCnHi9Ks8tMNie2rtLedwX3LoI6Ok4t/oE94qJuHEB7NkxSgT+YE6VvQrwP6rLCW2s2bbhnvsd6rqNc/69mQ7uSiClUSi5/9Rs7KfeJbel+/DS+FbopQEDnjI2zpeoTzDctD6uzgJLvnanWBoIR+BgPC80AhfvyZ404vFQXvrDJQGO7iT2oxxyoIbmLyWlmEcryoj2bVmZnrQL0VdNzSN7ZB5XSlRxznjgkDBrhA51DoI8Oitx4wClxXXoo1Efsit+e+4PN2QrmCDjRiQtLd/CTf4MXZ5F+WZJ5ebCGgRYmHnkQAYOjN7pDiGDnE15wplfrnPGaD32AU7tRrr8RuHFecyixKaz8BvTdATJ/Y8A=","ak.pv":"9","ak.dpoabenc":"","ak.tf":o};if(""!==t)i["ak.ruds"]=t;var r={i:!1,av:function(n){var t="http.initiator";if(n&&(!n[t]||"spa_hard"===n[t]))i["ak.feo"]=void 0!==e.aFeoApplied?1:0,BOOMR.addVar(i)},rv:function(){var e=["ak.cport","ak.cr","ak.csrc","ak.gh","ak.ipv","ak.m","ak.n","ak.ol","ak.proto","ak.quicv","ak.tlsv","ak.0rtt","ak.0rtt.ed","ak.r","ak.acc","ak.t","ak.tf"];BOOMR.removeVar(e)}};BOOMR.plugins.AK={akVars:i,akDNSPreFetchDomain:a,init:function(){if(!r.i){var e=BOOMR.subscribe;e("before_beacon",r.av,null,null),e("onbeacon",r.rv,null,null),r.i=!0}return this},is_complete:function(){return!0}}}}()}(window);</script></head>
+<body>
+    
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+     style="position:absolute;width:0;height:0;overflow:hidden" id="dbim-icon-sprite">
+    <defs>
+        <symbol id="icon-angle-double-left" viewBox="0 0 24 24"><path d="M11.6 4.6 4.2 12l7.4 7.4 2.2-2.2L8.6 12l5.2-5.2z"/><path d="M19 4.6 11.6 12 19 19.4l2.2-2.2L16 12l5.2-5.2z"/></symbol>
+        <symbol id="icon-angle-double-right" viewBox="0 0 24 24"><path d="M12.4 4.6 10.2 6.8 15.4 12l-5.2 5.2 2.2 2.2L19.8 12z"/><path d="M5 4.6 2.8 6.8 8 12l-5.2 5.2L5 19.4 12.4 12z"/></symbol>
+        <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="M20.8 10.6H9.6v2.8h11.2z"/><path d="M10.8 5.6 3.2 12l7.6 6.4z"/></symbol>
+        <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M3.2 10.6h11.2v2.8H3.2z"/><path d="M13.2 5.6 20.8 12l-7.6 6.4z"/></symbol>
+        <symbol id="icon-calendar" viewBox="0 0 24 24"><path d="M7.6 2.4H10v2.4H7.6z"/><path d="M14 2.4h2.4v2.4H14z"/><path fill-rule="evenodd" d="M4 4.8h16a1.6 1.6 0 0 1 1.6 1.6v13.2a1.6 1.6 0 0 1-1.6 1.6H4a1.6 1.6 0 0 1-1.6-1.6V6.4A1.6 1.6 0 0 1 4 4.8zm.4 5.6v8.4h15.2v-8.4z"/><path d="M6.4 12.4h3.2v3.2H6.4z"/></symbol>
+        <symbol id="icon-chevron-left" viewBox="0 0 24 24"><path d="M15.4 4.6 8 12l7.4 7.4 2.2-2.2L12.4 12l5.2-5.2z"/></symbol>
+        <symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M8.6 4.6 6.4 6.8 11.6 12l-5.2 5.2 2.2 2.2L16 12z"/></symbol>
+        <symbol id="icon-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/></symbol>
+        <symbol id="icon-download" viewBox="0 0 24 24"><path d="M10.8 3h2.4v7.6h3.4L12 16.6l-4.6-6h3.4z"/><path d="M4 17.2h2.4v2.4h11.2v-2.4H20v3.2a1.4 1.4 0 0 1-1.4 1.4H5.4A1.4 1.4 0 0 1 4 20.4z"/></symbol>
+        <symbol id="icon-facebook" viewBox="0 0 24 24"><path d="M13.6 21.6v-8.4h2.8l.42-3.3h-3.22V7.8c0-.95.27-1.6 1.64-1.6h1.74V3.26a23 23 0 0 0-2.54-.13c-2.5 0-4.22 1.53-4.22 4.34v2.43H7.4v3.3h2.82v8.4z"/></symbol>
+        <symbol id="icon-hashtag" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M8.8 3h2.4l-1 6h3.2l1-6h2.4l-1 6h3.4v2.4h-3.8l-.6 3.2h3.6V17h-4l-1 5h-2.4l1-5h-3.2l-1 5H5.4l1-5H3V14.6h3.8l.6-3.2H3.8V9h4zm.6 8.4-.6 3.2h3.2l.6-3.2z"/></symbol>
+        <symbol id="icon-home" viewBox="0 0 24 24"><path d="M12 3.4 2.8 11.6h2.4v8.4a1 1 0 0 0 1 1h3.3v-5.4h5v5.4h3.3a1 1 0 0 0 1-1v-8.4h2.4z"/></symbol>
+        <symbol id="icon-instagram" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7.6 2.4h8.8a5.2 5.2 0 0 1 5.2 5.2v8.8a5.2 5.2 0 0 1-5.2 5.2H7.6a5.2 5.2 0 0 1-5.2-5.2V7.6a5.2 5.2 0 0 1 5.2-5.2zm0 2.4a2.8 2.8 0 0 0-2.8 2.8v8.8a2.8 2.8 0 0 0 2.8 2.8h8.8a2.8 2.8 0 0 0 2.8-2.8V7.6a2.8 2.8 0 0 0-2.8-2.8z"/><path fill-rule="evenodd" d="M12 6.8a5.2 5.2 0 1 0 0 10.4 5.2 5.2 0 0 0 0-10.4zm0 2.4a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 0 1 0-5.6z"/><circle cx="17.3" cy="6.7" r="1.3"/></symbol>
+        <symbol id="icon-linkedin" viewBox="0 0 24 24"><path d="M4.8 8.8h3.6v12H4.8z"/><circle cx="6.6" cy="5.4" r="2.1"/><path d="M10.8 8.8h3.45v1.65h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.35 4.3 5.4v6.6h-3.6v-5.85c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1v5.95h-3.6z"/></symbol>
+        <symbol id="icon-mail" viewBox="0 0 24 24"><path d="M2.4 7.6v9.2a1.6 1.6 0 0 0 1.6 1.6h16a1.6 1.6 0 0 0 1.6-1.6V7.6L12 14z"/><path d="M21.2 5.4H2.8L12 11.8z"/></symbol>
+        <symbol id="icon-mail-open" viewBox="0 0 24 24"><path d="M2.4 9.8h19.2v9.6A1.6 1.6 0 0 1 20 21H4a1.6 1.6 0 0 1-1.6-1.6z"/><path d="M12 2.6 21.6 9.2h-3.8L12 5.3 6.2 9.2H2.4z"/><path d="m3.9 11.2 8.1 5.4 8.1-5.4 1.5 1.3-9.6 6.4-9.6-6.4z"/></symbol>
+        <symbol id="icon-map-marker" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.4a7 7 0 0 0-7 7c0 5.2 7 12.2 7 12.2s7-7 7-12.2a7 7 0 0 0-7-7zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2z"/></symbol>
+        <symbol id="icon-newspaper" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M2.8 4.4h14.8v15.2H2.8zm2 2v11.2h10.8V6.4z"/><path d="M6 7.6h8.4v1.6H6z"/><path d="M6 10.8h8.4v1.6H6z"/><path d="M6 14h5.2v1.6H6z"/><path d="M18.4 8.4h2.8v9.6a1.4 1.4 0 0 1-2.8 0z"/></symbol>
+        <symbol id="icon-pause" viewBox="0 0 24 24"><rect x="7.4" y="4" width="3.6" height="16" rx="0.9"/><rect x="13" y="4" width="3.6" height="16" rx="0.9"/></symbol>
+        <symbol id="icon-picture" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M2.4 5.2h19.2v13.6H2.4zm2 2v9.6h15.2V7.2z"/><path d="M5.6 16.4 10 11l2.6 3 2-2.2 4 4.6z"/><circle cx="8" cy="10.4" r="1.5"/></symbol>
+        <symbol id="icon-press-conference" viewBox="0 0 24 24"><circle cx="12" cy="5.2" r="2.6"/><path d="M7.6 12.2a4.4 4.4 0 0 1 8.8 0z"/><circle cx="4.9" cy="9.6" r="2.2"/><path d="M1.8 15.2a3.1 3.1 0 0 1 6.2 0z"/><circle cx="19.1" cy="9.6" r="2.2"/><path d="M16 15.2a3.1 3.1 0 0 1 6.2 0z"/><path d="M6.6 13.6h10.8l2.2 7.8H4.4z"/></symbol>
+        <symbol id="icon-print" viewBox="0 0 24 24"><path d="M6.4 2.8h11.2v4.4H6.4z"/><path d="M4 8.4h16a1.6 1.6 0 0 1 1.6 1.6v5.6a1.6 1.6 0 0 1-1.6 1.6h-1.6v-2.8H6v2.8H4a1.6 1.6 0 0 1-1.6-1.6V10A1.6 1.6 0 0 1 4 8.4z"/><path d="M7.2 15.6h9.6v5.6H7.2z"/></symbol>
+        <symbol id="icon-rss" viewBox="0 0 24 24"><circle cx="4.8" cy="19.2" r="2.4"/><path d="M2.4 11.2v3.2a6.4 6.4 0 0 1 6.4 6.4H12A9.6 9.6 0 0 0 2.4 11.2z"/><path d="M2.4 4.8V8A13.6 13.6 0 0 1 16 21.6h3.2A16.8 16.8 0 0 0 2.4 4.8z"/></symbol>
+        <symbol id="icon-search-plus" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M10 2.8a7.2 7.2 0 1 0 0 14.4 7.2 7.2 0 0 0 0-14.4zm0 2.4a4.8 4.8 0 1 1 0 9.6 4.8 4.8 0 0 1 0-9.6z"/><path d="M15.3 14.6 21.2 20.5l-1.5 1.5-5.9-5.9z"/><path d="M9.2 6.8h1.6v2.4h2.4v1.6h-2.4v2.4H9.2v-2.4H6.8V9.2h2.4z"/></symbol>
+        <symbol id="icon-share" viewBox="0 0 24 24"><circle cx="18" cy="5.6" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="18.4" r="3"/><path d="M8.3 10.9 15.7 7.2l.9 1.8-7.4 3.7z"/><path d="M9.2 13.1 16.6 16.8l-.9 1.8-7.4-3.7z"/></symbol>
+        <symbol id="icon-twitter" viewBox="0 0 24 24"><path d="M4.2 3h4.3l11.3 18h-4.3z"/><path d="M19.3 3h-2.6L4.2 21h2.6z"/></symbol>
+        <symbol id="icon-university" viewBox="0 0 24 24"><path d="M12 2.4 21.6 7.2v1.6H2.4V7.2z"/><path d="M4.8 10.4h2.4v8H4.8z"/><path d="M9.2 10.4h2.4v8H9.2z"/><path d="M13.4 10.4h2.4v8h-2.4z"/><path d="M17.6 10.4H20v8h-2.4z"/><path d="M3.2 19.8h17.6v1.8H3.2z"/></symbol>
+        <symbol id="icon-volume-up" viewBox="0 0 24 24"><path d="M3.2 9.2h3.3l5-4.2v14l-5-4.2H3.2z"/><path d="M14.6 8.4a5 5 0 0 1 0 7.2l1.6 1.6a7.2 7.2 0 0 0 0-10.4z"/><path d="M17.4 5.6a8.8 8.8 0 0 1 0 12.8l1.5 1.5a10.9 10.9 0 0 0 0-15.8z"/></symbol>
+    </defs>
+</svg>
+
+      <form method="post" action="./PressReleasePage.aspx?PRID=2313612&amp;reg=48&amp;lang=2" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="sc_HiddenField" id="sc_HiddenField" value="" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZPQet1wIx1Q48y3xJY2k25Y7qxH5RrQ9qQcN-OiTC9guZtri9w2&amp;t=639246310055090729" type="text/javascript"></script>
+
+
+<script src="/ScriptResource.axd?d=x6wALODbMJK5e0eRC_p1LdIxBJXt0U_WW5GWfJqHAqo6frgCmGRfEywglicTersO2OKrFhK1gAIp0Wk2al2YrpdR3uWqH6f4nfjBsCyRUfTUUVmb0&amp;t=ffffffffecf8d3f2" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=P5lTttoqSeZXoYRLQMIScH645UK3RD852IErF2548Wz9Ssv0rLjB4fhVKnHcMpqkaMHpNAGOeWY02Lf4aBYN9-dVBme_SNK5KJwmFQNpMixYDZ7M0&amp;t=ffffffffecf8d3f2" type="text/javascript"></script>
+<script src="/PressReleasePage.aspx?_TSM_HiddenField_=sc_HiddenField&amp;_TSM_CombinedScripts_=%3b%3bAjaxControlToolkit%2c+Version%3d3.5.7.123%2c+Culture%3dneutral%2c+PublicKeyToken%3d28f01b0e84b6d53e%3aen-US%3a5a4df314-b4a2-4da2-a207-9284f1b1e96c%3ade1feab2%3af2c8e708%3a8613aea7%3af9cec9bc%3a3202a5a2%3aab09e3fe%3a87104b7c%3a720a52bf%3a589eaa30%3aa67c2700%3abe6fb298" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="59B53027" />
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="Z/HJ5GtQiR0YE90eOLkdJ2krtOcM8jwsLfRmEqfO3LXfNEgDIgZsN3nClr2lR6ov0ZHMU516yi+5q6QUjV9uZcqau/xdXJQL/AnJvg/ynPdJsBgQCsHiAoxfhho2jKVrpGmvFXslPtvJgtezYFWpnNPOyJsjyOxRjPtNRgdndgJVQloaT+B+gwQc9vgn8tPLTOPqc/XRUN9mjjRxT1N6pguoEt3i7q+MfyCNEvTHJjw+GGkKvgeH6e1MoGjGRH0ltiKjkyrjI/KPsBs87RG8h3jg5o0=" />
+</div>
+                              
+            <div id="templateCss"></div>
+            <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('sc', 'form1', ['tupdate12','update12'], [], [], 90, '');
+//]]>
+</script>
+
+            <input type="hidden" name="hfGridHtml" id="hfGridHtml" />
+            <div class="container" style='margin-bottom: 50px;'>
+                  <div id="accessories">
+
+                        
+                        <div class="pull-right" style="display: flex">
+                              <div id="voll"></div>
+                              <div id="vollDT"></div>
+                              
+                              
+<div class="print-icons">
+<input type="image" name="Print1$print" id="Print1_print" aria-label="Print" src="images/printer_icon.png" alt="print page button" style="padding: 5px 10px 5px 10px;" />
+</div>
+                        </div>
+                  </div>
+                  <input type="hidden" name="hydpermid" id="hydpermid" value="2313612" />
+                  
+
+
+
+                  <div class="innner-page-main-about-us-content-right-part">
+
+                        <div id="MinistryName" class="MinistryNameSubhead text-center">
+                              Ministry of Civil Aviation
+                        </div>
+                        
+                        <div id="lg_g"><div class='log_oo'>  <img src='https://static.pib.gov.in/WriteReadData/specificdocs/photo/2026/sep/ph_9768_20260902_10000501.png' alt='azadi ka amrit mahotsav' /> </div></div>
+
+
+
+
+
+                        <div class="text-center event-heading-background">
+                              
+                              <h1 id="Titleh2">
+                                    Civil Aviation Minister Ram Mohan Naidu launches Challenge Mode for Aerodrome Development
+                              </h1>
+                              <h3 id="Subtitleh3">
+                                    <span id="ltrSubtitle"><br/>Next Phase of UDAN Takes Off with MoUs Signed with 21 States/UTs</span>
+                              </h3>
+                        </div>
+
+                        <div id="PrDateTime" class="ReleaseDateSubHeaddateTime text-center pt20">
+                              Posted On:
+                22 SEP 2026 7:10PM by PIB Delhi
+                        </div>
+                        
+                        <div class='pt20'>
+                        </div>
+                        <input type="hidden" name="hydphotoUrl" id="hydphotoUrl" />
+                        
+                        <p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">The Ministry of Civil Aviation today took a major step towards strengthening regional air connectivity across the country with the signing of 21 Memoranda of Understanding (MoUs) with States and Union Territories under the next phase of the UDAN (Ude Desh ka Aam Nagrik) Scheme. The MoUs mark a significant milestone in Centre&ndash;State/UT cooperation for the development of aviation infrastructure and expansion of air connectivity to underserved and unserved regions.</span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img src="https://static.pib.gov.in/WriteReadData/userfiles/image/2026/sep/image001_20260922191203_dc938d.jpg" style="height:399px; width:629px" /></span></span></p>
+
+<p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">The ceremony, held at The Ashok, Chanakyapuri, New Delhi, was inaugurated by Shri Kinjarapu Ram Mohan Naidu, Minister of Civil Aviation, in the presence of Shri Murlidhar Mohol, Minister of State for Civil Aviation; Shri Samir Kumar Sinha, Secretary, Ministry of Civil Aviation; Shri Vipin Kumar, Chairman, Airports Authority of India (AAI), and senior officials of the Ministry.</span></span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">&quot;With these MoUs, Team Bharat is joining hands to take India&#39;s regional aviation to greater heights. Under the leadership of Prime Minister Shri Narendra Modi, Viksit Rajya is the foundation of Viksit Bharat, with every State as an equal partner in this journey,&quot; said Shri Ram Mohan Naidu Kinjarapu.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">Talking about the impact of UDAN, the Minister added, &quot;Since its launch, UDAN has operationalized 687 routes and 95 aerodromes, with more than 3.66 lakh flights carrying around 1.71 crore passengers. But the numbers that matter most to me are the numbers of impact, aviation-sector jobs have grown from around 3 million in 2014 to nearly 7.7 million today, with the potential to reach 25 million by 2040. Airports like Tezu in Arunachal Pradesh and Purnea in Bihar, once cut off from air connectivity by hundreds of kilometers, are today becoming drivers of regional prosperity&rdquo;.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">The launch of the next phase of UDAN builds on the inauguration by the Prime Minister at Jodhpur on 4</span><sup style="font-family:&quot;Times New Roman&quot;,Times,serif">th</sup><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px"> July 2026 and the UDAN Workshop held on 16</span><sup style="font-family:&quot;Times New Roman&quot;,Times,serif">th</sup><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px"> July 2026, which brought together civil aviation stakeholders to deliberate on the roadmap for the next phase of the scheme.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">&quot;Modified UDAN rests on four pillars; affordability for passengers, sustainability of operations, transparent Challenge Mode framework for projects and the promotion of indigenous manufacturing. Together, we are building an ecosystem towards the larger ambition of Made in India Civil aircraft. That is the direction in which this next phase of UDAN is taking us&quot;, Shri Ram Mohan Naidu added.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">With today&rsquo;s launch, the next phase of UDAN moves from policy and stakeholder consultations towards on-ground implementation, with a three-pronged focus on strengthening Centre&ndash;State/UT partnerships, creating aviation infrastructure and expanding regional air connectivity.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">Speaking at the event, Minister of State for Civil Aviation Shri Murlidhar Mohol said, &ldquo;Under the able leadership of Prime Minister Shri Narendra Modi, UDAN has come a long way since 2016 expanding regional and remote connectivity across the country. Now, with Modified UDAN, we are looking at 120 new destinations and 4 crore more passengers over the next ten years. With more than 20 States coming together, we are taking this journey forward and opening a new chapter in India&rsquo;s civil aviation sector.&rdquo;</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">A total of 21 MoUs were signed between the Ministry of Civil Aviation, participating States/UTs and the Airports Authority of India (AAI), the implementing agency under the UDAN Scheme. The MoUs establish a structured framework for coordinated action between the Centre, States/UTs and AAI for identification, development and operationalisation of aviation assets, aligned with the connectivity requirements and priorities of States and UTs.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">The Civil Aviaation Minister also launched the Challenge Mode Portal for Aerodrome Development and released the Scheme Document for the next phase of UDAN Route Bidding.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">Under the Challenge Mode, State Governments and UT Administrations will now be able to nominate airstrips and helipads for development under the next phase of UDAN through the dedicated portal. This will enable States/UTs to proactively identify locations with potential for aviation connectivity and facilitate the creation and upgradation of aviation infrastructure based on local requirements.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">The route bidding round will invite airlines to bid for identified UDAN routes, enabling transparent and competitive selection of routes and operators. The process will facilitate the expansion of air services to unserved and underserved regions, improving accessibility and mobility and supporting wider economic activity, tourism, trade and employment.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">The event also featured a technical session on the next phase of UDAN, covering the Challenge Mode for aerodrome development and the upcoming bidding round for selection of UDAN routes. The session provided an opportunity for States/UTs, AAI, airlines and other civil aviation stakeholders to deliberate on the implementation framework and way forward.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">The next phase of UDAN seeks to build on the gains achieved under the scheme and further deepen the aviation ecosystem across the country, ensuring that the benefits of air connectivity and aviation infrastructure reach more regions, communities and citizens.</span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">***</span></span></p>
+
+<p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Divyanshu Kumar </strong></span></span></p>
+
+
+                        
+                        <div id="reel_pic">
+                        </div>
+
+
+
+                        
+                        <br />
+                        <span id="ReleaseId">(Release ID: 2313612)</span>
+                        <span id="lblViews">Visitor Counter : 3277</span>
+                        <div>
+                              
+                        </div>
+                        
+
+                        <span id="lblRefPhoto"></span>
+
+                        <div class="BackgroundRelease">
+                              
+                        </div>
+                        <div>
+                              
+                        </div>
+                        <div class="ReleaseLang">Read this release in: 
+                        
+                                    
+                                    <a href='https://pib.gov.in/PressReleasePage.aspx?PRID=2313636' target="_blank">
+                                          Urdu </a>
+                              
+                                    ,
+                              
+                                    
+                                    <a href='https://pib.gov.in/PressReleasePage.aspx?PRID=2313616' target="_blank">
+                                          हिन्दी </a>
+                              
+                                    ,
+                              
+                                    
+                                    <a href='https://pib.gov.in/PressReleasePage.aspx?PRID=2313652' target="_blank">
+                                          Marathi </a>
+                              
+                                    ,
+                              
+                                    
+                                    <a href='https://pib.gov.in/PressReleasePage.aspx?PRID=2313791' target="_blank">
+                                          Bengali </a>
+                              
+                                    ,
+                              
+                                    
+                                    <a href='https://pib.gov.in/PressReleasePage.aspx?PRID=2313830' target="_blank">
+                                          Tamil </a>
+                              
+                                    ,
+                              
+                                    
+                                    <a href='https://pib.gov.in/PressReleasePage.aspx?PRID=2313713' target="_blank">
+                                          Telugu </a>
+                              
+                        </div>
+
+                        <div class="RelTag">
+                              <ul>
+                                    
+                              </ul>
+                        </div>
+                        <div class="clear">
+                        </div>
+                        <div id="RelLink" class="RelLink">
+                              <ul>
+                                    
+                                    
+                              </ul>
+                        </div>
+                        <center>
+                              
+                        </center>
+                  </div>
+
+                  <div id="update12">
+	
+                              
+                              <input type="hidden" name="Hidden" id="Hidden" />
+                              <div id="P_CategoryManagement" class="ModalWindow" style="border-width:0px;height:60%;width:60%;overflow:auto;display: none">
+		
+                                    <div>
+                                          <input type="image" name="btnClose" id="btnClose" src="images/close_flat_icon.png" />
+                                    </div>
+                                    <div id="description">
+                                    </div>
+                                    <div class="text-center">
+                                          <h2>
+                                                
+                                                <br>
+                                                
+                                          </h2>
+                                    </div>
+                                    <br />
+                                    <div class="clear">
+                                    </div>
+                                    
+                              
+	</div>
+                        
+</div>
+            </div>
+            
+            <div id="PdfDiv" style="display: none;">
+                  <table width="100%">
+                        <tr>
+                              <td style="font-weight: 200; text-align: center">
+                                    Ministry of Civil Aviation
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                                    <div style="font-weight: 200; text-align: center; font-size: 30px;">
+                                          Civil Aviation Minister Ram Mohan Naidu launches Challenge Mode for Aerodrome Development
+                                    </div>
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                                    <div style="font-weight: 200; text-align: center; font-size: 30px;">
+                                          <div style='height:30px;width:100%;'></div>Next Phase of UDAN Takes Off with MoUs Signed with 21 States/UTs
+                                    </div>
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                                    <div style="text-align: center; font-size: 14px;">
+                                          Posted On:
+                        22 SEP 2026 7:10PM by PIB Delhi
+                                    </div>
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                                    <div style="font-weight: 200; text-align: left; font-size: 16px;">
+                                          <p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">The Ministry of Civil Aviation today took a major step towards strengthening regional air connectivity across the country with the signing of 21 Memoranda of Understanding (MoUs) with States and Union Territories under the next phase of the UDAN (Ude Desh ka Aam Nagrik) Scheme. The MoUs mark a significant milestone in Centre&ndash;State/UT cooperation for the development of aviation infrastructure and expansion of air connectivity to underserved and unserved regions.</span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img src="https://static.pib.gov.in/WriteReadData/userfiles/image/2026/sep/image001_20260922191203_dc938d.jpg" style="height:399px; width:629px" /></span></span></p>
+
+<p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">The ceremony, held at The Ashok, Chanakyapuri, New Delhi, was inaugurated by Shri Kinjarapu Ram Mohan Naidu, Minister of Civil Aviation, in the presence of Shri Murlidhar Mohol, Minister of State for Civil Aviation; Shri Samir Kumar Sinha, Secretary, Ministry of Civil Aviation; Shri Vipin Kumar, Chairman, Airports Authority of India (AAI), and senior officials of the Ministry.</span></span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">&quot;With these MoUs, Team Bharat is joining hands to take India&#39;s regional aviation to greater heights. Under the leadership of Prime Minister Shri Narendra Modi, Viksit Rajya is the foundation of Viksit Bharat, with every State as an equal partner in this journey,&quot; said Shri Ram Mohan Naidu Kinjarapu.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">Talking about the impact of UDAN, the Minister added, &quot;Since its launch, UDAN has operationalized 687 routes and 95 aerodromes, with more than 3.66 lakh flights carrying around 1.71 crore passengers. But the numbers that matter most to me are the numbers of impact, aviation-sector jobs have grown from around 3 million in 2014 to nearly 7.7 million today, with the potential to reach 25 million by 2040. Airports like Tezu in Arunachal Pradesh and Purnea in Bihar, once cut off from air connectivity by hundreds of kilometers, are today becoming drivers of regional prosperity&rdquo;.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">The launch of the next phase of UDAN builds on the inauguration by the Prime Minister at Jodhpur on 4</span><sup style="font-family:&quot;Times New Roman&quot;,Times,serif">th</sup><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px"> July 2026 and the UDAN Workshop held on 16</span><sup style="font-family:&quot;Times New Roman&quot;,Times,serif">th</sup><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px"> July 2026, which brought together civil aviation stakeholders to deliberate on the roadmap for the next phase of the scheme.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">&quot;Modified UDAN rests on four pillars; affordability for passengers, sustainability of operations, transparent Challenge Mode framework for projects and the promotion of indigenous manufacturing. Together, we are building an ecosystem towards the larger ambition of Made in India Civil aircraft. That is the direction in which this next phase of UDAN is taking us&quot;, Shri Ram Mohan Naidu added.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">With today&rsquo;s launch, the next phase of UDAN moves from policy and stakeholder consultations towards on-ground implementation, with a three-pronged focus on strengthening Centre&ndash;State/UT partnerships, creating aviation infrastructure and expanding regional air connectivity.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">Speaking at the event, Minister of State for Civil Aviation Shri Murlidhar Mohol said, &ldquo;Under the able leadership of Prime Minister Shri Narendra Modi, UDAN has come a long way since 2016 expanding regional and remote connectivity across the country. Now, with Modified UDAN, we are looking at 120 new destinations and 4 crore more passengers over the next ten years. With more than 20 States coming together, we are taking this journey forward and opening a new chapter in India&rsquo;s civil aviation sector.&rdquo;</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">A total of 21 MoUs were signed between the Ministry of Civil Aviation, participating States/UTs and the Airports Authority of India (AAI), the implementing agency under the UDAN Scheme. The MoUs establish a structured framework for coordinated action between the Centre, States/UTs and AAI for identification, development and operationalisation of aviation assets, aligned with the connectivity requirements and priorities of States and UTs.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">The Civil Aviaation Minister also launched the Challenge Mode Portal for Aerodrome Development and released the Scheme Document for the next phase of UDAN Route Bidding.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">Under the Challenge Mode, State Governments and UT Administrations will now be able to nominate airstrips and helipads for development under the next phase of UDAN through the dedicated portal. This will enable States/UTs to proactively identify locations with potential for aviation connectivity and facilitate the creation and upgradation of aviation infrastructure based on local requirements.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">The route bidding round will invite airlines to bid for identified UDAN routes, enabling transparent and competitive selection of routes and operators. The process will facilitate the expansion of air services to unserved and underserved regions, improving accessibility and mobility and supporting wider economic activity, tourism, trade and employment.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">The event also featured a technical session on the next phase of UDAN, covering the Challenge Mode for aerodrome development and the upcoming bidding round for selection of UDAN routes. The session provided an opportunity for States/UTs, AAI, airlines and other civil aviation stakeholders to deliberate on the implementation framework and way forward.</span></p>
+
+<p style="text-align:justify"><span style="font-family:&quot;Times New Roman&quot;,Times,serif; font-size:16px">The next phase of UDAN seeks to build on the gains achieved under the scheme and further deepen the aviation ecosystem across the country, ensuring that the benefits of air connectivity and aviation infrastructure reach more regions, communities and citizens.</span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">***</span></span></p>
+
+<p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Divyanshu Kumar </strong></span></span></p>
+
+                                    </div>
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                                    <div style="font-weight: 100; text-align: left; font-size: 16px;">
+                                          (Release ID: 2313612)
+                                    </div>
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                              </td>
+                        </tr>
+                        <tr>
+                              <td style="font-weight: 200; text-align: center; font-size: 24px;"></td>
+                        </tr>
+                  </table>
+            </div>
+            <div class="clearfix">
+            </div>
+
+            
+
+            <div class="section1">
+                  <div id="frst_t">
+                        <div id="arr_rm"><div class='sticky-social_mb'><ul class='social_mb'><a href='http://www.facebook.com/share.php?u=https://pib.gov.in/PressReleasePage.aspx?PRID=2313612' target='_blank'><li class='fb_b'   ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/facebook.jpg' alt='Share on facebook'  width='40' /></li></a><a href='https://twitter.com/intent/tweet?url=https://pib.gov.in/PressReleasePage.aspx?PRID=2313612&text=Civil Aviation Minister Ram Mohan Naidu launches Challenge Mode for Aerodrome Development' target='_blank'><li class='twitter_r'  ><img  src='https://static.pib.gov.in/WriteReadData/specificdocs/photo/2023/aug/ph2023818240601.jpg' alt='Share on twitter' width='40' /> </li></a><a href='https://api.whatsapp.com/send?text=https://pib.gov.in/PressReleasePage.aspx?PRID=2313612' target='_blank'><li class='whatsapp_r'  ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/whatsapp1.png' alt='Share on whatsapp' width='40' /></li></a><a href='https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=&su=Civil Aviation Minister Ram Mohan Naidu launches Challenge Mode for Aerodrome Development&body=https://pib.gov.in/PressReleasePage.aspx?PRID=2313612&ui=2&tf=1&pli=1' title='Share by Email' target='_blank'><li class='fa-envelope_r' ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/email1.png' alt='Share on email'  width='40' /></li></a><a href='https://www.linkedin.com/shareArticle?mini=true&url=https://pib.gov.in/PressReleasePage.aspx?PRID=2313612&title=Civil Aviation Minister Ram Mohan Naidu launches Challenge Mode for Aerodrome Development&summary=My%20favorite%20developer%20program&source=LinkedIn' target='_blank'><li class='fa-linkedin_r'  ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/linkedin.png' alt='Share on linkedin' width='40' /></li></a></ul></div></div>
+                  </div>
+                  <div id="second_t">
+                        <div id="sndr_rm"><div class='sticky-social'><ul class='social'><a href='http://www.facebook.com/share.php?u=https://pib.gov.in/PressReleasePage.aspx?PRID=2313612' target='_blank'><li class='fb_b'   ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/facebook.jpg' alt='Share on facebook'  width='35' /></li></a><a href='https://twitter.com/intent/tweet?url=https://pib.gov.in/PressReleasePage.aspx?PRID=2313612&text=Civil Aviation Minister Ram Mohan Naidu launches Challenge Mode for Aerodrome Development' target='_blank'><li class='twitter_r'  ><img  src='https://static.pib.gov.in/WriteReadData/specificdocs/photo/2023/aug/ph2023818240601.jpg' alt='Share on twitter' width='35' /> </li></a><a href='https://api.whatsapp.com/send?text=https://pib.gov.in/PressReleasePage.aspx?PRID=2313612' target='_blank'><li class='whatsapp_r'  ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/whatsapp1.png' alt='Share on whatsapp' width='35' /></li></a><a href='https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=&su=Civil Aviation Minister Ram Mohan Naidu launches Challenge Mode for Aerodrome Development&body=https://pib.gov.in/PressReleasePage.aspx?PRID=2313612&ui=2&tf=1&pli=1' title='Share by Email' target='_blank'><li class='fa-envelope_r' ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/email1.png' alt='Share on email'  width='35' /></li></a><a href='https://www.linkedin.com/shareArticle?mini=true&url=https://pib.gov.in/PressReleasePage.aspx?PRID=2313612&title=Civil Aviation Minister Ram Mohan Naidu launches Challenge Mode for Aerodrome Development&summary=My%20favorite%20developer%20program&source=LinkedIn' target='_blank'><li class='fa-linkedin_r'  ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/linkedin.png' alt='Share on linkedin' width='35' /></li></a></ul></div></div>
+                  </div>
+            </div>
+            <input type="hidden" name="ltrTitlee" id="ltrTitlee" value="Civil Aviation Minister Ram Mohan Naidu launches Challenge Mode for Aerodrome Development" />
+            <input type="hidden" name="ltrSubtitlee" id="ltrSubtitlee" value="&lt;br/>Next Phase of UDAN Takes Off with MoUs Signed with 21 States/UTs" />
+            <input type="hidden" name="ltrDescriptionn" id="ltrDescriptionn" value="&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>The Ministry of Civil Aviation today took a major step towards strengthening regional air connectivity across the country with the signing of 21 Memoranda of Understanding (MoUs) with States and Union Territories under the next phase of the UDAN (Ude Desh ka Aam Nagrik) Scheme. The MoUs mark a significant milestone in Centre&amp;ndash;State/UT cooperation for the development of aviation infrastructure and expansion of air connectivity to underserved and unserved regions.&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;img src=&quot;https://static.pib.gov.in/WriteReadData/userfiles/image/2026/sep/image001_20260922191203_dc938d.jpg&quot; style=&quot;height:399px; width:629px&quot; />&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>The ceremony, held at The Ashok, Chanakyapuri, New Delhi, was inaugurated by Shri Kinjarapu Ram Mohan Naidu, Minister of Civil Aviation, in the presence of Shri Murlidhar Mohol, Minister of State for Civil Aviation; Shri Samir Kumar Sinha, Secretary, Ministry of Civil Aviation; Shri Vipin Kumar, Chairman, Airports Authority of India (AAI), and senior officials of the Ministry.&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;>&amp;quot;With these MoUs, Team Bharat is joining hands to take India&amp;#39;s regional aviation to greater heights. Under the leadership of Prime Minister Shri Narendra Modi, Viksit Rajya is the foundation of Viksit Bharat, with every State as an equal partner in this journey,&amp;quot; said Shri Ram Mohan Naidu Kinjarapu.&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;>Talking about the impact of UDAN, the Minister added, &amp;quot;Since its launch, UDAN has operationalized 687 routes and 95 aerodromes, with more than 3.66 lakh flights carrying around 1.71 crore passengers. But the numbers that matter most to me are the numbers of impact, aviation-sector jobs have grown from around 3 million in 2014 to nearly 7.7 million today, with the potential to reach 25 million by 2040. Airports like Tezu in Arunachal Pradesh and Purnea in Bihar, once cut off from air connectivity by hundreds of kilometers, are today becoming drivers of regional prosperity&amp;rdquo;.&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;>The launch of the next phase of UDAN builds on the inauguration by the Prime Minister at Jodhpur on 4&lt;/span>th&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;> July 2026 and the UDAN Workshop held on 16&lt;/span>th&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;> July 2026, which brought together civil aviation stakeholders to deliberate on the roadmap for the next phase of the scheme.&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;>&amp;quot;Modified UDAN rests on four pillars; affordability for passengers, sustainability of operations, transparent Challenge Mode framework for projects and the promotion of indigenous manufacturing. Together, we are building an ecosystem towards the larger ambition of Made in India Civil aircraft. That is the direction in which this next phase of UDAN is taking us&amp;quot;, Shri Ram Mohan Naidu added.&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;>With today&amp;rsquo;s launch, the next phase of UDAN moves from policy and stakeholder consultations towards on-ground implementation, with a three-pronged focus on strengthening Centre&amp;ndash;State/UT partnerships, creating aviation infrastructure and expanding regional air connectivity.&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;>Speaking at the event, Minister of State for Civil Aviation Shri Murlidhar Mohol said, &amp;ldquo;Under the able leadership of Prime Minister Shri Narendra Modi, UDAN has come a long way since 2016 expanding regional and remote connectivity across the country. Now, with Modified UDAN, we are looking at 120 new destinations and 4 crore more passengers over the next ten years. With more than 20 States coming together, we are taking this journey forward and opening a new chapter in India&amp;rsquo;s civil aviation sector.&amp;rdquo;&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;>A total of 21 MoUs were signed between the Ministry of Civil Aviation, participating States/UTs and the Airports Authority of India (AAI), the implementing agency under the UDAN Scheme. The MoUs establish a structured framework for coordinated action between the Centre, States/UTs and AAI for identification, development and operationalisation of aviation assets, aligned with the connectivity requirements and priorities of States and UTs.&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;>The Civil Aviaation Minister also launched the Challenge Mode Portal for Aerodrome Development and released the Scheme Document for the next phase of UDAN Route Bidding.&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;>Under the Challenge Mode, State Governments and UT Administrations will now be able to nominate airstrips and helipads for development under the next phase of UDAN through the dedicated portal. This will enable States/UTs to proactively identify locations with potential for aviation connectivity and facilitate the creation and upgradation of aviation infrastructure based on local requirements.&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;>The route bidding round will invite airlines to bid for identified UDAN routes, enabling transparent and competitive selection of routes and operators. The process will facilitate the expansion of air services to unserved and underserved regions, improving accessibility and mobility and supporting wider economic activity, tourism, trade and employment.&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;>The event also featured a technical session on the next phase of UDAN, covering the Challenge Mode for aerodrome development and the upcoming bidding round for selection of UDAN routes. The session provided an opportunity for States/UTs, AAI, airlines and other civil aviation stakeholders to deliberate on the implementation framework and way forward.&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:&amp;quot;Times New Roman&amp;quot;,Times,serif; font-size:16px&quot;>The next phase of UDAN seeks to build on the gains achieved under the scheme and further deepen the aviation ecosystem across the country, ensuring that the benefits of air connectivity and aviation infrastructure reach more regions, communities and citizens.&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>***&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>Divyanshu Kumar &lt;/strong>&lt;/span>&lt;/span>&lt;/p>
+" />
+            <script type="text/javascript">
+                  var mPlayer = document.getElementById("background_music");
+                  var mPlayAction = document.getElementById("playbutton");
+
+                  var isPlaying = false;
+
+                  function playAudio() {
+                        mPlayer.play();
+                        isPlaying = true;
+                        document.getElementById('stopA').style.display = "block";
+                        document.getElementById('playA').style.display = "none";
+                  }
+
+                  function pauseAudio() {
+                        mPlayer.pause();
+                        isPlaying = false;
+                        document.getElementById('playA').style.display = "block";
+                        document.getElementById('stopA').style.display = "none";
+                  }
+                  //function HandleAudio() {
+                  //    if (isPlaying == true) {
+                  //        //Playing already Pause it
+                  //        pauseAudio();
+                  //    } else {
+                  //        //Play the music
+                  //        playAudio();
+                  //    }
+                  //}
+            </script>
+            <script type="text/javascript">
+                  var synth = window.speechSynthesis;
+
+            
+                  function CleanHtml(html) {
+
+                        html = html.replace(/<script[\s\S]*?<\/script>/gi, '');
+
+                        return html;
+                  }
+                  function stripHtml(html) {
+                        let tmp = document.createElement("DIV");
+                        tmp.innerHTML = CleanHtml(html);
+                        return tmp.textContent || tmp.innerText || "";
+                  }
+            </script>
+            <script type="text/javascript">
+                  $(document).ready(function () {
+                        //for responsive tables
+                        $("table").each(function () {
+                              if (!$(this).closest(".table-responsive").length) {
+                                    $(this).wrap("<div class='table-responsive'></div>");
+                              }
+                        });
+
+                        var width = $(window).width();
+                        if (width < 768) {
+
+                              // Extra Small Device
+                              document.getElementById('frst_t').style.display = "block";
+                              document.getElementById('second_t').style.display = "none";
+
+                        } else if (width < 991) {
+                              document.getElementById('frst_t').style.display = "block";
+                              document.getElementById('second_t').style.display = "none";
+                              // Small Device
+
+                        } else if (width < 1199) {
+                              document.getElementById('frst_t').style.display = "none";
+                              document.getElementById('second_t').style.display = "block";
+                              // Medium Device
+
+                        } else {
+                              document.getElementById('frst_t').style.display = "none";
+                              document.getElementById('second_t').style.display = "block";
+                              // Large Device
+
+                        }
+                  });
+            </script>
+            <script type="text/javascript">
+                  $(document).ready(function () {
+                        var width = $(window).width();
+                        if (width < 768) {
+
+                              // Extra Small Device
+                              document.getElementById('frst_t').style.display = "block";
+                              document.getElementById('second_t').style.display = "none";
+
+                        } else if (width < 991) {
+                              document.getElementById('frst_t').style.display = "block";
+                              document.getElementById('second_t').style.display = "none";
+                              // Small Device
+
+                        } else if (width < 1199) {
+                              document.getElementById('frst_t').style.display = "none";
+                              document.getElementById('second_t').style.display = "block";
+                              // Medium Device
+
+                        } else {
+                              document.getElementById('frst_t').style.display = "none";
+                              document.getElementById('second_t').style.display = "block";
+                              // Large Device
+
+                        }
+                  });
+            </script>
+            
+            <style type="text/css">
+                  @media print {
+                        .sticky-social, .sticky-social_mb, .pull-right, #printPDF {
+                              display: none !important;
+                        }
+                  }
+
+                  .f_vl {
+                        padding-right: 30px;
+                        font-size: 17px;
+                        cursor: pointer;
+                  }
+
+                  .log_oo {
+                        // width: 20%;
+                        display: flex;
+                        justify-content: space-between;
+                  }
+
+                        .log_oo img {
+                              width: 150px;
+                              /*width: 100%;
+                    height: auto;*/
+                        }
+
+                  .sticky-social_mb {
+                        position: fixed;
+                        bottom: 0px;
+                        padding: 0px;
+                        margin: 0px;
+                        width: 100%;
+                  }
+
+                  .social_mb {
+                        list-style: none;
+                        display: flex;
+                        width: 100%;
+                        margin-bottom: -8px;
+                  }
+
+                        .social_mb a {
+                              padding: 8px 0px;
+                              font-size: 30px;
+                              transition: all 0.8s ease-in-out;
+                              width: 20% !important;
+                              text-align: center;
+                        }
+            </style>
+            <style type="text/css">
+                  .section1 {
+                        position: relative;
+                        padding: 10px 0px;
+                        width: 100%;
+                  }
+
+
+
+                  .sticky-social {
+                        position: fixed;
+                        top: 20px;
+                        left: 0px;
+                        padding: 0px;
+                        margin: 0px;
+                  }
+
+                  .social {
+                        list-style: none;
+                  }
+
+                        .social a li {
+                              padding: 8px 12px;
+                              font-size: 25px;
+                              transition: all 0.8s ease-in-out;
+                        }
+
+                              .social a li:hover {
+                                    margin-right: -30px;
+                                    box-shadow: 2px 5px 10px grey;
+                              }
+
+                                    .social a li:hover .fa {
+                                          margin-left: 20px;
+                                    }
+
+                  .fb_b {
+                        /* background-color: rgb(59, 89, 152);*/
+                        background-color: rgba(65,103,178,255);
+                  }
+
+                  .twitter_r {
+                        /* background-color: rgb(29, 161, 242);*/
+                        background-color: #000000;
+                  }
+
+                  .whatsapp_r {
+                        /* background-color: rgb(77, 194, 71);*/
+                        background-color: rgba(13,191,67,255);
+                  }
+
+                  .fa-envelope_r {
+                        /* background-color: rgb(219, 68, 55);*/
+                        background-color: #e2123d;
+                  }
+
+                  .fa-linkedin_r {
+                        background-color: rgb(0, 119, 181);
+                  }
+            </style>
+            <style type="text/css">
+                  @media only screen and (max-device-width: 767px) {
+                        p span img {
+                              max-width: 90% !important;
+                              height: auto !important;
+                        }
+
+                        p img {
+                              max-width: 90% !important;
+                              height: auto !important;
+                        }
+
+                        h2 {
+                              font-size: var(--dbim-h2, 20px);   /* was 20px !important - the !important blocked A+/A- */
+                              font-weight: 600 !important;
+                        }
+
+                        h3 {
+                              font-size: var(--dbim-h3, 16px);   /* was 16px !important */
+                              font-weight: 600 !important;
+                        }
+                  }
+            </style>
+            <style type="text/css">
+                  /* === Film Roll Badge Styling(IFFI2025 countdown) === */
+                  .film-roll-badge {
+                        position: absolute;
+                        top:82%;
+                        right: 20px;
+                        width: 230px;
+                        height: 70px;
+                        background: repeating-linear-gradient( to right, #9a2375 0px, #9a2375 18px, #6e2b8b 18px, #6e2b8b 36px );
+                        border-top: 8px solid #9a2375;
+                        border-bottom: 8px solid #9a2375;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+                        animation: moveFilm 8s linear infinite;
+                        z-index: 10;
+                  }
+
+                        /* film sprocket holes */
+                        .film-roll-badge::before,
+                        .film-roll-badge::after {
+                              content: "";
+                              position: absolute;
+                              width: 100%;
+                              height: 10px;
+                              background: repeating-linear-gradient( to right, #9a2375 0px, #9a2375 10px, #fff 10px, #fff 20px );
+                              left: 0;
+                              z-index: 2;
+                        }
+
+                        .film-roll-badge::before {
+                              top: -4px;
+                        }
+
+                        .film-roll-badge::after {
+                              bottom: -4px;
+                        }
+
+                  .film-roll-inner {
+                        position: relative;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        animation: flicker 2s infinite ease-in-out;
+                  }
+
+                  .countdown-text {
+                        font-size: 1.3rem;
+                        font-weight: 700;
+                        color: #fff;
+                        text-shadow: 0 0 6px rgba(255, 255, 255, 0.4), 0 0 10px #000;
+                        white-space: nowrap;
+                  }
+
+                  /* === Animations === */
+                  @keyframes moveFilm {
+                        0% {
+                              background-position: 0 0;
+                        }
+
+                        100% {
+                              background-position: 120px 0;
+                        }
+                  }
+
+                  @keyframes flicker {
+                        0%, 100% {
+                              opacity: 1;
+                        }
+
+                        50% {
+                              opacity: 0.9;
+                        }
+
+                        25% {
+                              opacity: 0.95;
+                        }
+
+                        75% {
+                              opacity: 0.85;
+                        }
+                  }
+
+                  /* === Responsive Adjustments === */
+                  @media (max-width: 1500px) {
+                        .film-roll-badge {
+                              top: 68%;
+                              right: 18px;
+                              /* width: 220px; */
+                              height: 65px;
+                              font-size: 0.85rem;
+                        }
+
+                        .press-section {
+                              margin-top: 35px;
+                        }
+                  }
+
+                  @media (max-width: 992px) {
+                        .film-roll-badge {
+                              top: 52%;
+                              right: 10px;
+                               width: 200px; 
+                              height: 60px;
+                        }
+                  }
+
+                  @media (max-width: 768px) {
+                        .film-roll-badge {
+                              top: 56%;
+                              right: 10px;
+                               width: 124px; 
+                              height: 55px;
+                        }
+
+                        .countdown-text {
+                              font-size: 0.9rem;
+                        }
+                  }
+
+                  @media (max-width: 576px) {
+                        .film-roll-badge {
+                              top: 59%;
+                              right: 5px;
+                              /* width: 160px; */
+                              height: 50px;
+                        }
+
+                        .countdown-text {
+                              font-size: 0.85rem;
+                        }
+                  }
+            </style>
+          <script type="text/javascript">
+                const festivalStart = new Date("2025-11-20T00:00:00").getTime();
+                const festivalEnd = new Date("2025-11-28T23:59:59").getTime();
+
+                const countdownElement = document.getElementById("countdown");
+
+                const interval = setInterval(() => {
+                      const now = new Date().getTime();
+
+                      // BEFORE FESTIVAL — show days + hours left
+                      if (now < festivalStart) {
+                            const diff = festivalStart - now;
+                            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+                            countdownElement.innerHTML = `
+              ${days} Day${days !== 1 ? 's' : ''} 
+              ${hours} Hour${hours !== 1 ? 's' : ''} to go
+          `;
+
+                      }
+
+                      // DURING FESTIVAL — show 56th IFFI - Day X
+                      else if (now >= festivalStart && now <= festivalEnd) {
+                            const dayNumber = Math.floor((now - festivalStart) / (1000 * 60 * 60 * 24)) + 1;
+                            countdownElement.innerHTML = `56th IFFI - Day ${dayNumber}`;
+                      }
+
+                      // AFTER FESTIVAL — new message
+                      else {
+                            countdownElement.innerHTML = `✨ IFFI closes but never ends…`;
+
+                            // Width change logic
+                            const elements = document.querySelectorAll('.film-roll-badge');
+                            elements.forEach(el => el.style.width = "350px");
+
+                            clearInterval(interval);
+                      }
+
+                }, 1000);
+          </script>
+ <script type="text/javascript">
+
+               const miffStart = new Date("2026-06-15T00:00:00").getTime();
+               const miffEnd = new Date("2026-06-15T23:59:59").getTime();
+
+               const miffElement = document.getElementById("miff");
+
+               if (miffElement) {
+
+                   const miffInterval = setInterval(() => {
+
+                       const now = new Date().getTime();
+
+                       // Before MIFF
+                       if (now < miffStart) {
+
+                           const diff = miffStart - now;
+                           const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                           const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+        
+
+                   /*  miffElement.innerHTML = `${days} Day${days !== 1 ? 's' : ''} ${hours} Hour${hours !== 1 ? 's' : ''} to MIFF`;*/
+                           miffElement.innerHTML = `${days} Day${days === 1 ? '' : 's'} to MIFF ...`;
+
+
+                     }
+
+                       // During MIFF
+                       else if (now >= miffStart && now <= miffEnd) {
+
+                           const dayNumber =
+                               Math.floor((now - miffStart) / (1000 * 60 * 60 * 24)) + 1;
+
+                           miffElement.innerHTML = `19th MIFF - Day ${dayNumber}`;
+                       }
+
+                       // After MIFF
+                       else {
+
+                           miffElement.innerHTML = `✨ MIFF concludes, cinema lives on...`;
+
+                           document.querySelectorAll('.film-roll-badge')
+                               .forEach(el => el.style.width = "350px");
+
+                           clearInterval(miffInterval);
+                       }
+
+                   }, 1000);
+               }
+
+</script>
+
+      
+
+<script type="text/javascript">
+//<![CDATA[
+(function() {var fn = function() {$get("sc_HiddenField").value = '';Sys.Application.remove_init(fn);};Sys.Application.add_init(fn);})();Sys.Application.add_init(function() {
+    $create(Sys.Extended.UI.ModalPopupBehavior, {"BackgroundCssClass":"modalBackground","PopupControlID":"P_CategoryManagement","dynamicServicePath":"/PressReleasePage.aspx","id":"mpe"}, null, null, $get("Hidden"));
+});
+//]]>
+</script>
+<input type="hidden" name="__ncforminfo" value="yzO0GgBOFtNMnlzgneMeVS0IK7zjApUGbkA5opV30_RxFNzB5yMn2k9n1cqUd7Yv0sse6J9byGVRYiSXvsoeYYVnGk4SukjJRajwSPAhkbDcj2kjcqYd7g=="/></form>
+      
+      
+
+<script type="application/json" id="pibConsentConfig">{"ga4Id":"G-Q414Y0X6EE,G-QJJ6LZ8LHV","policyUrl":"/CookiePolicy.aspx","text":{"bannerLabel":"Cookie consent","title":"Cookies on this website","body":"We use essential cookies to make this website work. We also set analytics cookies when you arrive, so we can see how the site is used and improve it - you can switch these off below or at any time from the Cookie Policy page. Cookies from embedded social media content are set only if you allow them.","policyLink":"Read our Cookie Policy","accept":"Accept all","reject":"Reject optional","customize":"Customise","prefsTitle":"Cookie preferences","prefsIntro":"Choose which cookies this website may set. Essential cookies cannot be switched off because the site does not work without them. Analytics cookies are on unless you turn them off. Social media cookies stay off until you allow them. You can change these choices at any time from the Cookie Policy page.","essentialName":"Essential cookies","essentialDesc":"Needed for the site to function. These remember your session, your language and region, your text size and colour theme, and verify the security check on forms. They are always on.","analyticsName":"Analytics cookies","analyticsDesc":"Help us understand how visitors use the site - which pages are read and how long people stay - so it can be improved. The information is collected in a form that does not directly identify you. These are on when you arrive; switching them off here stops them and deletes the ones already set.","socialName":"Social media cookies","socialDesc":"Set by content embedded from X, Facebook and YouTube, such as timelines and videos. These platforms may use them to track you across websites. They stay off until you allow them.","save":"Save preferences","cancel":"Cancel"}}</script>
+<script type="text/javascript" src='/js/consent.js?v=9'></script>
+
+<script type="text/javascript" src='/js/consent-embeds.js?v=9'></script>
+
+</body>
+</html>
+

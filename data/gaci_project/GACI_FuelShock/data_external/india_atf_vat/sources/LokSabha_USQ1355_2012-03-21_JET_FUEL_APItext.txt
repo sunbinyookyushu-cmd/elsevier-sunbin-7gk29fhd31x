@@ -1,0 +1,76 @@
+Source: Lok Sabha Q&A API (sansad.in) record retrieved 2026-10-02
+Lok Sabha: 15; Session: 10; Question No: 1355; Type: UNSTARRED; Date: 21.03.2012
+Ministry: CIVIL AVIATION
+Subject: JET FUEL
+Members: ['PRALHAD VENKATESH JOSHI', 'VILAS BABURAO MUTTEMWAR', 'HEMANAND  BISWAL']
+Official file path (if any):  
+API: https://sansad.in/api_ls/question/qetFilteredQuestionsAns?loksabhaNo=15&pageNo=1&locale=en&keyWord=...  (record: LS 15, Q 1355, UNSTARRED, date 21.03.2012)
+
+QUESTION:
+
+
+(a) whether the country is surplus in jet fuel and have also been exporting the 
+same to foreign airlines; 
+ 
+
+
+(b) if so, the cost difference in indigenous and imported oil; 
+ 
+
+
+(c) whether Aviation Turbine Fuel (ATF) prices in the country are highest in the 
+world; 
+ 
+
+
+(d) if so, the details thereof and the prices of ATF during each of the last three 
+years alongwith annual increase in prices; and 
+ 
+
+
+(e) the steps taken by the Government to ease the taxation burden on the 
+aviation sector? 
+
+ANSWER:
+
+
+
+
+MINISTER OF CIVIL AVIATION (SHRI AJIT SINGH) 
+
+
+
+(a) and (b):- The information is being collected. 
+
+
+
+(c) and (d):- The Aviation Turbine Fuel (ATF) prices in India is higher 
+than in other countries. ATF prices in India and foreign countries 
+(as on 09.3.2012) are as under: 
+
+ 
+Cities abroad Cost of ATF Cities in India Cost of ATF 
+ (in Rs.) (in Rs.) 
+
+
+Sharjah 45574 Kolkata 72866 
+Bangkok 44168 Chennai 68765 
+Dubai 44384 Mumbai 65399 
+Singapore 43208 Delhi 63469 
+
+
+(1$=50.1600 sources: Yahoo Finance) 
+
+
+
+Prices of ATF in four metropolitan cities in India since 1st January 2009 are 
+Annexed. 
+
+
+
+(e):- The issue of reduction of VAT on ATF has been taken up with the State 
+Governments. Govt. of Chhattisgarh has reduced the VAT on ATF to 4%. Govt. 
+of Maharashtra has also reduced VAT on ATF to 4%, except flight originating 
+from Mumbai and Pune. Government of Rajasthan has also reduced VAT on 
+ATF to 4%, applicable with certain conditions.
+

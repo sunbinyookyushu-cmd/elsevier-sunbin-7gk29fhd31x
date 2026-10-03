@@ -1,0 +1,26 @@
+USA: September 11th Security Fee (Passenger Civil Aviation Security Service Fee), 49 U.S.C. 44940, 49 CFR part 1510
+Accessed 2026-10-02
+
+[1] TSA interim final rule, 66 FR 67698 (Monday, December 31, 2001)
+URL: https://www.govinfo.gov/link/fr/66/67698
+"announces the imposition of a security service fee in the amount of $2.50 per enplanement on passengers of domestic and foreign air carriers in air transportation, foreign air transportation, and intrastate air transportation originating at airports in the United States. Passengers will not be charged for more than two enplanements per one-way trip or four enplanements per round trip."
+"Direct air carriers and foreign air carriers must collect the security service fees on air transportation sold on or after February 1, 2002."
+"Security service fees will not be imposed on passengers enplaning on flight segments outside the United States, but will be imposed on all flight segments originating in the United States."
+"DATES: This interim final rule is effective on December 31, 2001."
+
+[2] TSA interim final rule, 79 FR 35462 (June 20, 2014), FR Doc. 2014-14488
+URL: https://www.govinfo.gov/content/pkg/FR-2014-06-20/html/2014-14488.htm
+"This IFR is effective at 12:00 a.m. (Eastern Daylight Time) on July 21, 2014."
+"A fee of $2.50 is imposed for a Paris-New York-Chicago itinerary (one enplanement in air transportation originating in the United States)."
+"a fee of $5.60 will be imposed for both itineraries as they both have air transportation originating at an airport in the United States."
+
+[3] TSA passenger fees FAQ
+URL: https://www.tsa.gov/for-industry/passenger-fees-faq
+"The imposition and collection of the September 11 Security Fee will change from $2.50 per enplanement, with a maximum of $5.00 per one-way and maximum of $10.00 per round trip to $5.60 per one-way trip on air transportation sold on or after 12:00AM Eastern Standard Time July 21, 2014."
+"The imposition and collection of the September 11 Security Fee will remain at $5.60 per one-way trip on air transportation sold on or after 12:01 AM Eastern Standard Time December 19, 2014, except that the fee imposed per round trip shall not exceed $11.20."
+"Stopover means a break in travel of more than: four hours (4) for continental interstate and intrastate air transportation [and] twelve hours (12) for non-continental interstate and intrastate air transportation as well as foreign air transportation."
+
+[4] 49 U.S.C. 44940 notes (govinfo USCODE 2022)
+URL: https://www.govinfo.gov/content/pkg/USCODE-2022-title49/html/USCODE-2022-title49-subtitleVII-partA-subpartiii-chap449-subchapII-sec44940.htm
+2013 amendment: "Pub. L. 113-67, §601(b), amended subsec. (c) generally. Prior to amendment, text read as follows: 'Fees imposed under subsection (a)(1) may not exceed $2.50 per enplanement ... except that the total amount of such fees may not exceed $5.00 per one-way trip.'"
+2014 amendment (Pub. L. 113-294): "The amendment made by subsection (a) shall apply with respect to a trip in air transportation or intrastate air transportation that is purchased on or after the date of the enactment of this Act [Dec. 19, 2014]."

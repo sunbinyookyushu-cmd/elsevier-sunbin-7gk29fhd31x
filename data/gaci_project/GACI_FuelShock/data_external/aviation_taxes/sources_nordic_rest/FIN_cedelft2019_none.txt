@@ -1,0 +1,11 @@
+Finland: no national air passenger tax (secondary source)
+Accessed 2026-10-02
+
+CE Delft for European Commission, DG MOVE (June 2019). Taxes in the field of aviation and their impact. Final report.
+URL (download handler): https://op.europa.eu/o/opportal-service/download-handler?identifier=0b1c6cdd-88d3-11e9-9369-01aa75ed71a1&format=pdf&language=en&productionSystem=cellar&part=
+Publication page: https://op.europa.eu/en/publication-detail/-/publication/0b1c6cdd-88d3-11e9-9369-01aa75ed71a1
+
+Section 4.9 Finland, CURRENT TAX REGIME: "Finland does not impose a ticket tax on air passengers. The country levies a VAT of 10% on domestic flights, but no excise duty on kerosene."
+Annex A also lists "Denmark No aviation tax" and "Iceland No aviation tax" (status 2018/2019).
+
+Note: Finnish government portals (vm.fi, valtioneuvosto.fi) returned HTTP 403 to automated access, so no Finnish primary source could be opened. Statement is point-in-time (2019).

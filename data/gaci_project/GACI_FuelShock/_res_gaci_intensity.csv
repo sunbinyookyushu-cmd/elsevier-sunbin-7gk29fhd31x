@@ -1,0 +1,40 @@
+table,spec,outcome,term,b,se,p,n,note
+1 within-airport elasticity to ln GACI,airport + year FE,ln_co2,ln GACI,4.721675015249133,0.28877254306609196,0.0,81302,
+1 within-airport elasticity to ln GACI,airport + country x year FE,ln_co2,ln GACI,3.6297009455404545,0.28236570548586265,0.0,79613,
+1 within-airport elasticity to ln GACI,airport + year FE,ln_co2_seat,ln GACI,0.12974572923093303,0.05830297320586031,0.027006153476136996,81302,
+1 within-airport elasticity to ln GACI,airport + country x year FE,ln_co2_seat,ln GACI,0.2633970138350173,0.05755710149894139,8.607853712705449e-06,79613,
+1 within-airport elasticity to ln GACI,airport + year FE,ln_int,ln GACI,-0.531984575684709,0.08200005410468304,5.106952638556095e-10,81302,
+1 within-airport elasticity to ln GACI,airport + country x year FE,ln_int,ln GACI,-0.4990607007069119,0.07158440712986955,5.222910992586094e-11,79613,
+1 within-airport elasticity to ln GACI,airport + year FE,ln_gauge,ln GACI,0.4875561858207203,0.08726801155748624,6.37565986671973e-08,81302,
+1 within-airport elasticity to ln GACI,airport + country x year FE,ln_gauge,ln GACI,0.5118768441932293,0.07193673856262364,2.3070434451710753e-11,79613,
+1 within-airport elasticity to ln GACI,airport + year FE,ln_stage,ln GACI,0.6617303049156804,0.09883075147979303,1.5656675955710853e-10,81302,
+1 within-airport elasticity to ln GACI,airport + country x year FE,ln_stage,ln GACI,0.76245771454188,0.08291052472014841,0.0,79613,
+1 within-airport elasticity to ln GACI,airport + year FE,ln_deg,ln GACI,4.39557590297654,0.20581124845563087,0.0,81302,
+1 within-airport elasticity to ln GACI,airport + country x year FE,ln_deg,ln GACI,4.177696277212673,0.3107150016463328,0.0,79613,
+2 Gelbach: total CO2,small,ln_co2,total tax effect,-0.185620664297753,0.07852280004151319,0.024320095506064288,8574,
+2 Gelbach: total CO2,small,ln_co2,direct (GACI held fixed),-0.11633008825612427,0.07388649941890062,0.12522130956580746,8574,
+2 Gelbach: total CO2,small,ln_co2,indirect via GACI = (tax->GACI) x (GACI->Y),-0.06929057604162873,,,8574,tax->GACI -0.0204; GACI->Y 3.401 (p 0.000); check total-direct -0.0693
+2 Gelbach: total CO2,mid,ln_co2,total tax effect,-0.06547923627534075,0.0429593620133621,0.137278451261311,8574,
+2 Gelbach: total CO2,mid,ln_co2,direct (GACI held fixed),0.0074902577686002695,0.03672278856291006,0.8396704929136547,8574,
+2 Gelbach: total CO2,mid,ln_co2,indirect via GACI = (tax->GACI) x (GACI->Y),-0.07296949404394104,,,8574,tax->GACI -0.0215; GACI->Y 3.401 (p 0.000); check total-direct -0.0730
+2 Gelbach: total CO2,large,ln_co2,total tax effect,-0.06431859256493797,0.03986231862552031,0.11645151716605961,8574,
+2 Gelbach: total CO2,large,ln_co2,direct (GACI held fixed),-0.05208432831296007,0.03035762836956294,0.09588721065112571,8574,
+2 Gelbach: total CO2,large,ln_co2,indirect via GACI = (tax->GACI) x (GACI->Y),-0.012234264251977895,,,8574,tax->GACI -0.0036; GACI->Y 3.401 (p 0.000); check total-direct -0.0122
+2 Gelbach: CO2 per seat-km,small,ln_int,total tax effect,0.026658201894374563,0.02211950965607855,0.23696724767744115,8574,
+2 Gelbach: CO2 per seat-km,small,ln_int,direct (GACI held fixed),0.013930794662064655,0.020680517825735333,0.5053901664153722,8574,
+2 Gelbach: CO2 per seat-km,small,ln_int,indirect via GACI = (tax->GACI) x (GACI->Y),0.01272740723230991,,,8574,tax->GACI -0.0204; GACI->Y -0.625 (p 0.003); check total-direct 0.0127
+2 Gelbach: CO2 per seat-km,mid,ln_int,total tax effect,0.007754925690274837,0.01486130229285676,0.6053890635703636,8574,
+2 Gelbach: CO2 per seat-km,mid,ln_int,direct (GACI held fixed),-0.005648231265367924,0.015812920905556915,0.7232938541273837,8574,
+2 Gelbach: CO2 per seat-km,mid,ln_int,indirect via GACI = (tax->GACI) x (GACI->Y),0.013403156955642764,,,8574,tax->GACI -0.0215; GACI->Y -0.625 (p 0.003); check total-direct 0.0134
+2 Gelbach: CO2 per seat-km,large,ln_int,total tax effect,-0.002122543235830523,0.011496247878162329,0.8546850140744215,8574,
+2 Gelbach: CO2 per seat-km,large,ln_int,direct (GACI held fixed),-0.004369753061724676,0.008100322969077131,0.5933076146814291,8574,
+2 Gelbach: CO2 per seat-km,large,ln_int,indirect via GACI = (tax->GACI) x (GACI->Y),0.0022472098258941526,,,8574,tax->GACI -0.0036; GACI->Y -0.625 (p 0.003); check total-direct 0.0022
+2 Gelbach: CO2 per seat,small,ln_co2_seat,total tax effect,0.034085771508268095,0.021921798588951824,0.12981036645240351,8574,
+2 Gelbach: CO2 per seat,small,ln_co2_seat,direct (GACI held fixed),0.03396963252435994,0.022257634141549965,0.13678402867161776,8574,
+2 Gelbach: CO2 per seat,small,ln_co2_seat,indirect via GACI = (tax->GACI) x (GACI->Y),0.00011613898390815915,,,8574,tax->GACI -0.0204; GACI->Y -0.006 (p 0.983); check total-direct 0.0001
+2 Gelbach: CO2 per seat,mid,ln_co2_seat,total tax effect,-0.02795289665544159,0.008014830786467139,0.0014400035165829106,8574,
+2 Gelbach: CO2 per seat,mid,ln_co2_seat,direct (GACI held fixed),-0.02807520192953059,0.00844350271060211,0.002226201294879715,8574,
+2 Gelbach: CO2 per seat,mid,ln_co2_seat,indirect via GACI = (tax->GACI) x (GACI->Y),0.00012230527408899544,,,8574,tax->GACI -0.0215; GACI->Y -0.006 (p 0.983); check total-direct 0.0001
+2 Gelbach: CO2 per seat,large,ln_co2_seat,total tax effect,-0.012321801898277255,0.012835201130386312,0.344252857731838,8574,
+2 Gelbach: CO2 per seat,large,ln_co2_seat,direct (GACI held fixed),-0.012342307933877753,0.012526861106477754,0.33188418558967636,8574,
+2 Gelbach: CO2 per seat,large,ln_co2_seat,indirect via GACI = (tax->GACI) x (GACI->Y),2.0506035600497637e-05,,,8574,tax->GACI -0.0036; GACI->Y -0.006 (p 0.983); check total-direct 0.0000

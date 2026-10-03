@@ -1,0 +1,666 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\gaci_mediation_dfh.log
+  log type:  text
+ opened on:   2 Jul 2026, 11:38:42
+
+. 
+. import delimited "gaci_panel_mechanism.csv", clear varnames(1) encoding("utf-8")
+(87 vars, 4,643 obs)
+
+. ds c reg, not
+y             ln_gaci_cwm   ln_unesco     lnpc          deg_sum       close_mean    cap_sum       merch_inte~y  mix_e         tr_total      ln_tr_ref     tr_ref_lib    ln_tr_interm  tr_hivw       ln_nflow      x_interm      ln_x_hivw3
+trade_share   ln_gaci_mean  unesco_cum    lnpop         deg_mean      betw_sum      cap_mean      tourism_int   cult_e        ln_tr_total   tr_homog      ln_tr_ref_~b  tr_consum     ln_tr_hivw    tr_hivw3      x_consum      ln_x_lovw3
+ln_tradevol   lncap         unesco_cum~t  lnland        eig_sum       betw_mean     tour_shift    tourism_cum   z_nat         tr_diff       ln_tr_homog   tr_homog_lib  ln_tr_consum  tr_lovw       tr_lovw3      x_total       ln_x_interm
+lngdp         gaci_cwmean   lnz           abslat        eig_mean      regimp_sum    nat_endow     ln_remote     z_mix         ln_tr_diff    tr_diff_lib   ln_tr_homo~b  tr_capital    ln_tr_lovw    x_hivw3       ln_tr_hivw3   ln_x_consum
+lng           gaci_mean     lnz_own       n_air         close_sum     regimp_mean   merch_share   nat_e         z_cult        tr_ref        ln_tr_diff~b  tr_interm     ln_tr_capi~l  ln_nprod      x_lovw3       ln_tr_lovw3   ln_x_total
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+nat_e already numeric; no replace
+mix_e already numeric; no replace
+cult_e already numeric; no replace
+z_nat already numeric; no replace
+z_mix already numeric; no replace
+z_cult already numeric; no replace
+tr_total already numeric; no replace
+ln_tr_total already numeric; no replace
+tr_diff already numeric; no replace
+ln_tr_diff already numeric; no replace
+tr_ref already numeric; no replace
+ln_tr_ref already numeric; no replace
+tr_homog already numeric; no replace
+ln_tr_homog already numeric; no replace
+tr_diff_lib already numeric; no replace
+ln_tr_diff_lib already numeric; no replace
+tr_ref_lib already numeric; no replace
+ln_tr_ref_lib already numeric; no replace
+tr_homog_lib already numeric; no replace
+ln_tr_homog_lib already numeric; no replace
+tr_interm already numeric; no replace
+ln_tr_interm already numeric; no replace
+tr_consum already numeric; no replace
+ln_tr_consum already numeric; no replace
+tr_capital already numeric; no replace
+ln_tr_capital already numeric; no replace
+tr_hivw already numeric; no replace
+ln_tr_hivw already numeric; no replace
+tr_lovw already numeric; no replace
+ln_tr_lovw already numeric; no replace
+ln_nprod already numeric; no replace
+ln_nflow already numeric; no replace
+tr_hivw3 already numeric; no replace
+tr_lovw3 already numeric; no replace
+x_hivw3 already numeric; no replace
+x_lovw3 already numeric; no replace
+x_interm already numeric; no replace
+x_consum already numeric; no replace
+x_total already numeric; no replace
+ln_tr_hivw3 already numeric; no replace
+ln_tr_lovw3 already numeric; no replace
+ln_x_hivw3 already numeric; no replace
+ln_x_lovw3 already numeric; no replace
+ln_x_interm already numeric; no replace
+ln_x_consum already numeric; no replace
+ln_x_total already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+
+Panel variable: isocode (unbalanced)
+ Time variable: y, 1996 to 2023, but with gaps
+         Delta: 1 unit
+
+. 
+. * ---- outcomes and mediators ----
+. gen g_int = merch_intensity                       // openness  ln(g/Y)
+
+. gen g_vol = merch_intensity + lngdp               // volume    ln g
+
+. gen r_bec = ln_tr_interm - ln_tr_consum           // M1: GVC composition
+(28 missing values generated)
+
+. gen r_vw  = ln_tr_hivw   - ln_tr_lovw             // M2: value/weight comp.
+(28 missing values generated)
+
+. 
+. * ---- common estimation samples ----
+. gen byte obsok  = !missing(g_int, g_vol, r_bec, r_vw, ///
+>                   ln_gaci_cwm, tourism_int, lnpop)
+
+. gen byte sfull  = obsok                             // MAIN: full 1996-2023
+
+. gen byte sdrop  = obsok & !inlist(y, 2020, 2021)    // robustness: drop acute
+
+. count if sfull
+  4,615
+
+. count if sdrop
+  4,267
+
+. 
+. * ---- package ----
+. capture which ivmediate
+
+. if _rc {
+.     ssc install ivmediate, replace
+. }
+
+. 
+. * =====================================================================
+. * ivmediate: sample x Y x M grid  (full = show intermediate regressions)
+. * =====================================================================
+. foreach s in sfull sdrop {
+  2.     local slab = cond("`s'"=="sfull", "FULL 1996-2023 MAIN", "drop 2020-21 acute-pandemic")
+  3.     foreach yv in g_int g_vol {
+  4.         foreach m in r_bec r_vw {
+  5.             di _n "================================================================"
+  6.             di    " ivmediate: Y = `yv'   M = `m'   (`slab', robust)"
+  7.             di    "================================================================"
+  8.             ivmediate `yv' lnpop i.y if `s', ///
+>                 mediator(`m') treatment(ln_gaci_cwm) instrument(tourism_int) ///
+>                 absorb(isocode) vce(robust) full
+  9.         }
+ 10.     }
+ 11. }
+
+================================================================
+ ivmediate: Y = g_int   M = r_bec   (FULL 1996-2023 MAIN, robust)
+================================================================
+Intermediate Output
+----------------------------
+Effect of the treatment on the outcome
+IV regression of g_int on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+g_int           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   1.268463   .6409289     1.98   0.048     .0122656    2.524661
+---------------------------------------------------------------------------------
+
+Effect of the treatment on the mediator
+IV regression of r_bec on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+r_bec           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   1.115685    .676689     1.65   0.099    -.2106009    2.441971
+---------------------------------------------------------------------------------
+
+Effect of the mediator on the outcome, controlling for the treatment
+IV regression of g_int on r_bec (instrumented with tourism_int) controlling for ln_gaci_cwm
+---------------------------------------------------------------------------------
+g_int           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |  -.0463101   .1656068    -0.28   0.780    -.3708935    .2782732
+r_bec           |   1.178445   .8948357     1.32   0.188    -.5754009     2.93229
+---------------------------------------------------------------------------------
+Note: All other exogenous controls are partialled out.
+      Standard errors robust to heteroscedasticity.
+
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   g_int                                             Number of obs = 4615
+Treatment: ln_gaci_cwm
+Mediator:  r_bec
+---------------------------------------------------------------------------------
+                |               robust
+g_int           | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   1.268463   .6409289     1.98   0.048     .0122656    2.524661
+direct effect   |  -.0463101   .1656068    -0.28   0.780    -.3708935    .2782732
+indirect effect |   1.314773   1.277742     1.03   0.303    -1.189554    3.819101
+---------------------------------------------------------------------------------
+Mediator r_bec explains 103.65% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   18.105
+- first stage two (M on Z|T):  2.095
+Excluded instruments: tourism_int
+Standard errors robust to heteroscedasticity.
+---------------------------------------------------------------------------------
+
+================================================================
+ ivmediate: Y = g_int   M = r_vw   (FULL 1996-2023 MAIN, robust)
+================================================================
+Intermediate Output
+----------------------------
+Effect of the treatment on the outcome
+IV regression of g_int on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+g_int           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   1.268463   .6409289     1.98   0.048     .0122656    2.524661
+---------------------------------------------------------------------------------
+
+Effect of the treatment on the mediator
+IV regression of r_vw on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+r_vw            | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   1.713636   .7359664     2.33   0.020     .2711683    3.156104
+---------------------------------------------------------------------------------
+
+Effect of the mediator on the outcome, controlling for the treatment
+IV regression of g_int on r_vw (instrumented with tourism_int) controlling for ln_gaci_cwm
+---------------------------------------------------------------------------------
+g_int           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   .0343557   .1048441     0.33   0.743    -.1711349    .2398464
+r_vw            |    .720169   .4747247     1.52   0.129    -.2102744    1.650612
+---------------------------------------------------------------------------------
+Note: All other exogenous controls are partialled out.
+      Standard errors robust to heteroscedasticity.
+
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   g_int                                             Number of obs = 4615
+Treatment: ln_gaci_cwm
+Mediator:  r_vw
+---------------------------------------------------------------------------------
+                |               robust
+g_int           | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   1.268463   .6409289     1.98   0.048     .0122656    2.524661
+direct effect   |   .0343557   .1048441     0.33   0.743    -.1711349    .2398464
+indirect effect |   1.234107   .9709338     1.27   0.204    -.6688878    3.137103
+---------------------------------------------------------------------------------
+Mediator r_vw explains 97.29% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   18.105
+- first stage two (M on Z|T):  5.316
+Excluded instruments: tourism_int
+Standard errors robust to heteroscedasticity.
+---------------------------------------------------------------------------------
+
+================================================================
+ ivmediate: Y = g_vol   M = r_bec   (FULL 1996-2023 MAIN, robust)
+================================================================
+Intermediate Output
+----------------------------
+Effect of the treatment on the outcome
+IV regression of g_vol on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+g_vol           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   2.296852   .7573497     3.03   0.002     .8124734     3.78123
+---------------------------------------------------------------------------------
+
+Effect of the treatment on the mediator
+IV regression of r_bec on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+r_bec           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   1.115685    .676689     1.65   0.099    -.2106009    2.441971
+---------------------------------------------------------------------------------
+
+Effect of the mediator on the outcome, controlling for the treatment
+IV regression of g_vol on r_bec (instrumented with tourism_int) controlling for ln_gaci_cwm
+---------------------------------------------------------------------------------
+g_vol           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   .9317719   .1678672     5.55   0.000     .6027582    1.260786
+r_bec           |   1.223535   .8860957     1.38   0.167    -.5131806    2.960251
+---------------------------------------------------------------------------------
+Note: All other exogenous controls are partialled out.
+      Standard errors robust to heteroscedasticity.
+
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   g_vol                                             Number of obs = 4615
+Treatment: ln_gaci_cwm
+Mediator:  r_bec
+---------------------------------------------------------------------------------
+                |               robust
+g_vol           | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   2.296852   .7573497     3.03   0.002     .8124734     3.78123
+direct effect   |   .9317719   .1678672     5.55   0.000     .6027582    1.260786
+indirect effect |    1.36508   1.289513     1.06   0.290    -1.162319    3.892478
+---------------------------------------------------------------------------------
+Mediator r_bec explains 59.43% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   18.105
+- first stage two (M on Z|T):  2.095
+Excluded instruments: tourism_int
+Standard errors robust to heteroscedasticity.
+---------------------------------------------------------------------------------
+
+================================================================
+ ivmediate: Y = g_vol   M = r_vw   (FULL 1996-2023 MAIN, robust)
+================================================================
+Intermediate Output
+----------------------------
+Effect of the treatment on the outcome
+IV regression of g_vol on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+g_vol           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   2.296852   .7573497     3.03   0.002     .8124734     3.78123
+---------------------------------------------------------------------------------
+
+Effect of the treatment on the mediator
+IV regression of r_vw on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+r_vw            | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   1.713636   .7359664     2.33   0.020     .2711683    3.156104
+---------------------------------------------------------------------------------
+
+Effect of the mediator on the outcome, controlling for the treatment
+IV regression of g_vol on r_vw (instrumented with tourism_int) controlling for ln_gaci_cwm
+---------------------------------------------------------------------------------
+g_vol           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   1.015524   .1297574     7.83   0.000     .7612044    1.269844
+r_vw            |   .7477244   .5701458     1.31   0.190    -.3697409     1.86519
+---------------------------------------------------------------------------------
+Note: All other exogenous controls are partialled out.
+      Standard errors robust to heteroscedasticity.
+
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   g_vol                                             Number of obs = 4615
+Treatment: ln_gaci_cwm
+Mediator:  r_vw
+---------------------------------------------------------------------------------
+                |               robust
+g_vol           | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   2.296852   .7573497     3.03   0.002     .8124734     3.78123
+direct effect   |   1.015524   .1297574     7.83   0.000     .7612044    1.269844
+indirect effect |   1.281327    1.12134     1.14   0.253    -.9164581    3.479113
+---------------------------------------------------------------------------------
+Mediator r_vw explains 55.79% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   18.105
+- first stage two (M on Z|T):  5.316
+Excluded instruments: tourism_int
+Standard errors robust to heteroscedasticity.
+---------------------------------------------------------------------------------
+
+================================================================
+ ivmediate: Y = g_int   M = r_bec   (drop 2020-21 acute-pandemic, robust)
+================================================================
+Intermediate Output
+----------------------------
+Effect of the treatment on the outcome
+IV regression of g_int on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+g_int           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   3.067063   1.425105     2.15   0.031     .2739086    5.860218
+---------------------------------------------------------------------------------
+
+Effect of the treatment on the mediator
+IV regression of r_bec on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+r_bec           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   6.308847   2.232466     2.83   0.005     1.933293     10.6844
+---------------------------------------------------------------------------------
+
+Effect of the mediator on the outcome, controlling for the treatment
+IV regression of g_int on r_bec (instrumented with tourism_int) controlling for ln_gaci_cwm
+---------------------------------------------------------------------------------
+g_int           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   .0332582   .0585089     0.57   0.570    -.0814171    .1479334
+r_bec           |   .4808811   .1632075     2.95   0.003     .1610003    .8007619
+---------------------------------------------------------------------------------
+Note: All other exogenous controls are partialled out.
+      Standard errors robust to heteroscedasticity.
+
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   g_int                                             Number of obs = 4267
+Treatment: ln_gaci_cwm
+Mediator:  r_bec
+---------------------------------------------------------------------------------
+                |               robust
+g_int           | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   3.067063   1.425105     2.15   0.031     .2739086    5.860218
+direct effect   |   .0332582   .0585089     0.57   0.570    -.0814171    .1479334
+indirect effect |   3.033805   1.487512     2.04   0.041     .1183347    5.949276
+---------------------------------------------------------------------------------
+Mediator r_bec explains 98.92% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):    9.024
+- first stage two (M on Z|T): 28.191
+Excluded instruments: tourism_int
+Standard errors robust to heteroscedasticity.
+---------------------------------------------------------------------------------
+
+================================================================
+ ivmediate: Y = g_int   M = r_vw   (drop 2020-21 acute-pandemic, robust)
+================================================================
+Intermediate Output
+----------------------------
+Effect of the treatment on the outcome
+IV regression of g_int on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+g_int           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   3.067063   1.425105     2.15   0.031     .2739086    5.860218
+---------------------------------------------------------------------------------
+
+Effect of the treatment on the mediator
+IV regression of r_vw on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+r_vw            | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   6.044195   2.197228     2.75   0.006     1.737708    10.35068
+---------------------------------------------------------------------------------
+
+Effect of the mediator on the outcome, controlling for the treatment
+IV regression of g_int on r_vw (instrumented with tourism_int) controlling for ln_gaci_cwm
+---------------------------------------------------------------------------------
+g_int           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   .0548893    .067806     0.81   0.418    -.0780081    .1877867
+r_vw            |   .4983582   .1847171     2.70   0.007     .1363194    .8603969
+---------------------------------------------------------------------------------
+Note: All other exogenous controls are partialled out.
+      Standard errors robust to heteroscedasticity.
+
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   g_int                                             Number of obs = 4267
+Treatment: ln_gaci_cwm
+Mediator:  r_vw
+---------------------------------------------------------------------------------
+                |               robust
+g_int           | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   3.067063   1.425105     2.15   0.031     .2739086    5.860218
+direct effect   |   .0548893    .067806     0.81   0.418    -.0780081    .1877867
+indirect effect |   3.012174   1.563821     1.93   0.054    -.0528581    6.077206
+---------------------------------------------------------------------------------
+Mediator r_vw explains 98.21% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):    9.024
+- first stage two (M on Z|T): 24.898
+Excluded instruments: tourism_int
+Standard errors robust to heteroscedasticity.
+---------------------------------------------------------------------------------
+
+================================================================
+ ivmediate: Y = g_vol   M = r_bec   (drop 2020-21 acute-pandemic, robust)
+================================================================
+Intermediate Output
+----------------------------
+Effect of the treatment on the outcome
+IV regression of g_vol on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+g_vol           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   7.044449   2.142441     3.29   0.001     2.845342    11.24356
+---------------------------------------------------------------------------------
+
+Effect of the treatment on the mediator
+IV regression of r_bec on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+r_bec           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   6.308847   2.232466     2.83   0.005     1.933293     10.6844
+---------------------------------------------------------------------------------
+
+Effect of the mediator on the outcome, controlling for the treatment
+IV regression of g_vol on r_bec (instrumented with tourism_int) controlling for ln_gaci_cwm
+---------------------------------------------------------------------------------
+g_vol           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   .9413258   .0862358    10.92   0.000     .7723067    1.110345
+r_bec           |   .9673912   .2261758     4.28   0.000     .5240948    1.410688
+---------------------------------------------------------------------------------
+Note: All other exogenous controls are partialled out.
+      Standard errors robust to heteroscedasticity.
+
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   g_vol                                             Number of obs = 4267
+Treatment: ln_gaci_cwm
+Mediator:  r_bec
+---------------------------------------------------------------------------------
+                |               robust
+g_vol           | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   7.044449   2.142441     3.29   0.001     2.845342    11.24356
+direct effect   |   .9413258   .0862358    10.92   0.000     .7723067    1.110345
+indirect effect |   6.103123   2.588481     2.36   0.018     1.029793    11.17645
+---------------------------------------------------------------------------------
+Mediator r_bec explains 86.64% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):    9.024
+- first stage two (M on Z|T): 28.191
+Excluded instruments: tourism_int
+Standard errors robust to heteroscedasticity.
+---------------------------------------------------------------------------------
+
+================================================================
+ ivmediate: Y = g_vol   M = r_vw   (drop 2020-21 acute-pandemic, robust)
+================================================================
+Intermediate Output
+----------------------------
+Effect of the treatment on the outcome
+IV regression of g_vol on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+g_vol           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   7.044449   2.142441     3.29   0.001     2.845342    11.24356
+---------------------------------------------------------------------------------
+
+Effect of the treatment on the mediator
+IV regression of r_vw on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+r_vw            | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   6.044195   2.197228     2.75   0.006     1.737708    10.35068
+---------------------------------------------------------------------------------
+
+Effect of the mediator on the outcome, controlling for the treatment
+IV regression of g_vol on r_vw (instrumented with tourism_int) controlling for ln_gaci_cwm
+---------------------------------------------------------------------------------
+g_vol           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   .9848414   .1075227     9.16   0.000     .7741007    1.195582
+r_vw            |    1.00255   .2788671     3.60   0.000     .4559804    1.549119
+---------------------------------------------------------------------------------
+Note: All other exogenous controls are partialled out.
+      Standard errors robust to heteroscedasticity.
+
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   g_vol                                             Number of obs = 4267
+Treatment: ln_gaci_cwm
+Mediator:  r_vw
+---------------------------------------------------------------------------------
+                |               robust
+g_vol           | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   7.044449   2.142441     3.29   0.001     2.845342    11.24356
+direct effect   |   .9848414   .1075227     9.16   0.000     .7741007    1.195582
+indirect effect |   6.059607   2.773709     2.18   0.029     .6232369    11.49598
+---------------------------------------------------------------------------------
+Mediator r_vw explains 86.02% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):    9.024
+- first stage two (M on Z|T): 24.898
+Excluded instruments: tourism_int
+Standard errors robust to heteroscedasticity.
+---------------------------------------------------------------------------------
+
+. 
+. * cluster-robust variant for the headline pair (openness x GVC mediator)
+. di _n "================================================================"
+
+================================================================
+
+. di    " ivmediate: Y = g_int   M = r_bec   FULL sample, vce(cluster isocode)"
+ ivmediate: Y = g_int   M = r_bec   FULL sample, vce(cluster isocode)
+
+. di    "================================================================"
+================================================================
+
+. ivmediate g_int lnpop i.y if sfull, ///
+>     mediator(r_bec) treatment(ln_gaci_cwm) instrument(tourism_int) ///
+>     absorb(isocode) vce(cluster isocode) full
+Intermediate Output
+----------------------------
+Effect of the treatment on the outcome
+IV regression of g_int on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+g_int           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   1.268463   1.248493     1.02   0.310    -1.178538    3.715464
+---------------------------------------------------------------------------------
+
+Effect of the treatment on the mediator
+IV regression of r_bec on ln_gaci_cwm (instrumented with tourism_int)
+---------------------------------------------------------------------------------
+r_bec           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |   1.115685   1.240767     0.90   0.369    -1.316173    3.547544
+---------------------------------------------------------------------------------
+
+Effect of the mediator on the outcome, controlling for the treatment
+IV regression of g_int on r_bec (instrumented with tourism_int) controlling for ln_gaci_cwm
+---------------------------------------------------------------------------------
+g_int           | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+ln_gaci_cwm     |  -.0463101   .3208972    -0.14   0.885    -.6752571    .5826368
+r_bec           |   1.178445   1.686622     0.70   0.485    -2.127274    4.484163
+---------------------------------------------------------------------------------
+Note: All other exogenous controls are partialled out.
+      Standard errors clustered on isocode
+
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   g_int                                             Number of obs = 4615
+Treatment: ln_gaci_cwm                         Number of clusters (isocode) = 183
+Mediator:  r_bec
+                                 (Std. err. adjusted for 183 clusters in isocode)
+---------------------------------------------------------------------------------
+                |               cluster
+g_int           | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   1.268463   1.248493     1.02   0.310    -1.178538    3.715464
+direct effect   |  -.0463101   .3208972    -0.14   0.885    -.6752571    .5826368
+indirect effect |   1.314773   2.383044     0.55   0.581    -3.355907    5.985454
+---------------------------------------------------------------------------------
+Mediator r_bec explains 103.65% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):    6.537
+- first stage two (M on Z|T):  0.645
+Excluded instruments: tourism_int
+Standard errors clustered on isocode
+---------------------------------------------------------------------------------
+
+. 
+. di _n "DONE_MEDIATION_DFH"
+
+DONE_MEDIATION_DFH
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\gaci_mediation_dfh.log
+  log type:  text
+ closed on:   2 Jul 2026, 11:38:46
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

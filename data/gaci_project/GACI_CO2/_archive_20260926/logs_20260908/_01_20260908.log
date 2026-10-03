@@ -1,0 +1,37 @@
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2\01_build_co2_panel.py:92: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  print(f"global dep-cruise / arr-cruise ratio {chk[0]/chk[1]:.6f} (should be ~1)")
+rows total 1,628,920; dropping 2024-07 partial rows: 4,864
+airport codes: 6,356; matched to ISO3: 6,196
+unmatched share of rows 0.40% | of dep flights 0.06% | of dep CO2 0.02%
+largest unmatched codes by flights: {'JCA': np.int64(85464), 'BAK': np.int64(59956), 'NHA': np.int64(38786), 'PLB': np.int64(34300), 'JMM': np.int64(30501), 'JHE': np.int64(25693), 'TSO': np.int64(15991), 'HEX': np.int64(15852), 'DCG': np.int64(13441), 'SHP': np.int64(13378), 'JSZ': np.int64(12963), 'UCA': np.int64(12680)}
+assignment sources: {'patch': 9, 'ourairports': 6122, 'coords_name': 65, 'none': 160}
+wrote C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2\co2_country_year.csv: 6,777 country-years, 236 countries, 1996-2024
+
+Global totals (Gt CO2):
+      co2_lto  co2_bunker  co2_5050
+year                               
+1996    0.064       0.466     0.466
+2000    0.072       0.546     0.546
+2005    0.074       0.595     0.595
+2010    0.080       0.653     0.653
+2015    0.093       0.777     0.777
+2019    0.110       0.931     0.931
+2020    0.064       0.502     0.502
+2023    0.100       0.848     0.848
+
+2019 bunker total 0.931 Gt (ICCT benchmark ~0.92 Gt commercial aviation)
+2019 LTO share 11.8%
+global dep-cruise / arr-cruise ratio 1.000009 (should be ~1)
+
+Top-10 countries 2019, bunker (Mt):
+iso3    Mt
+ USA 203.3
+ CHN 105.2
+ GBR  36.4
+ JPN  32.1
+ DEU  28.6
+ ARE  28.3
+ AUS  24.8
+ IND  24.3
+ ESP  21.7
+ RUS  21.3

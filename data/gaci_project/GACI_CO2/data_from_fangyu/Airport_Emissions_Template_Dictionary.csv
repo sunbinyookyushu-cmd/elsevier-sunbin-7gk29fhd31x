@@ -1,0 +1,18 @@
+column,description
+airport_iata,IATA airport code (same coding as Origin/Destination in the flight-level data)
+year,Calendar year (1996-2024)
+month,Calendar month (1-12; 2024 covers months 1-6 only)
+dom_intl,"Domestic or International, classified by the flight's InternationalDomestic field"
+n_dep_flights,Number of departing flights from this airport in this cell
+dep_seats,Total seats on departing flights
+dep_seat_km,Total seats x distance (KM) summed over departing flights
+dep_co2_taxi_out_kg,Sum of co2_taxi_out_kg over departing flights
+dep_co2_takeoff_kg,Sum of co2_takeoff_kg over departing flights
+dep_co2_climbout_kg,Sum of co2_climbout_kg over departing flights
+dep_co2_cruise_kg,Sum of CO2_Cruise over DEPARTING flights (cruise assigned to origin side; kept separate so any allocation rule can be built later)
+n_arr_flights,Number of arriving flights at this airport in this cell
+arr_seats,Total seats on arriving flights
+arr_seat_km,Total seats x distance (KM) summed over arriving flights
+arr_co2_approach_kg,Sum of co2_approach_kg over arriving flights
+arr_co2_taxi_in_kg,Sum of co2_taxi_in_kg over arriving flights
+arr_co2_cruise_kg,Sum of CO2_Cruise over ARRIVING flights (same flights' cruise counted once on each side; users pick ONE side or a weighted split, never both)

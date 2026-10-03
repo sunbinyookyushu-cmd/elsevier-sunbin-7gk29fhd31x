@@ -1,0 +1,167 @@
+[
+ {
+  "n": 1,
+  "title": "Title",
+  "notes": "Thank you for the introduction. I am Sunbin Yoo from SKKU, and this is joint work with Junya Kumagai, Longfei Zheng, Chunan Wang, Jinwoo Lee and Anming Zhang.\nThe paper does two things. First, it builds a long panel of global air connectivity, every year from 1996 to 2024. The background map is the 2024 network: every airport with scheduled service, sized by its connectivity score. Second, it asks whether a country's position in this network causally raises its goods trade, through which goods, and for whom."
+ },
+ {
+  "n": 2,
+  "title": "About me",
+  "notes": "저는 연세대에서 경제학 석사, 도쿄대에서 박사를 받고 규슈대 공학부를 거쳐 성균관대에 왔습니다. 올해 9월부터는 게이오대 미디어디자인연구과에도 공동으로 적을 두고 있습니다. 주제는 오른쪽 네 갈래이고, 오늘은 그중 가장 재미있는 결과 위주로 보여드리겠습니다. (약 30초)\n\n\n[English] I did my M.A. in economics at Yonsei, my PhD at the University of Tokyo, then worked at Kyushu University's Faculty of Engineering before moving to SKKU. Since this September I also hold a joint appointment at Keio's Graduate School of Media Design. My work falls into the four themes on the right; today's paper belongs to the first one, transport infrastructure and decarbonization."
+ },
+ {
+  "n": 3,
+  "title": "From railway networks to the world air network",
+  "notes": "A word on how this project started. Most of our earlier work is on railways and market access. We simply wanted to graduate from railway research. We then had the chance to meet Professor Anming Zhang, and he suggested that we look at aviation.\nAviation turned out to be a good laboratory for the same network questions. A railway is a corridor inside one country. The air network is one global system, it is rewired every year as airlines add and drop routes, and, as 2020 showed, it can contract within months."
+ },
+ {
+  "n": 4,
+  "title": "Why aviation? One global network, rebuilt every year and recorded seat by seat",
+  "notes": "Why aviation? For an economist the air network is an unusually good laboratory, for one main reason: it is a single global network, it is rebuilt every year, and every scheduled seat is on record.\nOn the left are world scheduled seats, with 2019 set to 100. Seats grew steadily for two decades, then fell by 44 percent in a single year, 2020, and by 2024 were back to 98. A shock like that hits every country at the same time, and we can see it airport by airport.\nOn the right, airports come and go. 5,428 airports had scheduled flights in at least one year since 1996, but only 2,253 had them in every one of the 29 years.\nAt the bottom, the top spot changes hands. Los Angeles and Frankfurt traded first place until 2013, Beijing held it from 2015 to 2020, and in 2024 Dubai is number one. Six different airports in 29 years.\nRailways and roads change slowly and inside one country. Here the whole world network moves every year. That movement is the variation we use."
+ },
+ {
+  "n": 5,
+  "title": "Does a country’s place in the air network raise its goods trade?",
+  "notes": "Our question is simple to state: does a country's position in the world air network raise its goods trade?\nWe split it in two. First, whether and how. Is the effect causal? Does connectivity raise openness, meaning trade relative to GDP, or does it only make the economy bigger? And which goods respond?\nSecond, who gains and when. Do richer or poorer countries, better or less connected countries, gain more? And what happens when connectivity collapses rather than grows?\nWe look at trade because it is the most direct measure of integration and the proximate margin on which connectivity acts. Income is at the far end of a long and confounded chain."
+ },
+ {
+  "n": 6,
+  "title": "Most trade moves by sea, yet air carries about a third of its value",
+  "notes": "The first objection we always hear is that trade travels by sea. By weight, that is right: more than 80 percent of world trade volume moves by ship.\nBy value the picture is different. Roughly one third of world trade by value moves by air.\nAnd our measure is built from passenger networks. Those matter even for goods that are later shipped by sea, because they move the people who make trade happen: buyers meeting sellers, managers inspecting suppliers, engineers servicing production lines. Passenger connectivity lowers the cost of the transaction, whichever mode then carries the cargo."
+ },
+ {
+  "n": 7,
+  "title": "Three channels, each with a prediction we can test",
+  "notes": "This gives three channels, each with a prediction we can test.\nFirst, transaction costs. Face-to-face contact lowers the cost of finding and trusting partners, so trade should rise relative to GDP. That is hypothesis one.\nSecond, the belly hold. Much of air cargo flies in passenger aircraft, and for time-sensitive goods each day in transit costs roughly 0.6 to 2.1 percent of their value. So connectivity should raise the share of high value-to-weight goods. Hypothesis two.\nThird, value chains. Engineers, samples and urgent components move by air, so intermediate goods should rise relative to consumption goods. Hypothesis three.\nTwo and three are about composition, and we test them with product-level data after the main results."
+ },
+ {
+  "n": 8,
+  "title": "01  Building the index",
+  "notes": "Part one: how we measure connectivity."
+ },
+ {
+  "n": 9,
+  "title": "Connectivity is a position in the network, not a count of routes",
+  "notes": "The first design point is that connectivity is not a count.\nLook at these two countries. Each has three international routes. Country A connects to Dubai, Frankfurt and Singapore, and through them reaches most of the world within two legs. Country B connects to three small regional fields that lead nowhere. Same count, very different access. A route to Incheon or Haneda is not the same as a route to Kitakyushu.\nThe network is also extremely concentrated: in 2024 only 106 airports, 2.7 percent of the total, carried half of all scheduled seats. So the measure has to weight by capacity and by the importance of partners."
+ },
+ {
+  "n": 10,
+  "title": "We rebuild the network every year from airline schedules",
+  "notes": "We rebuild the network from airline schedules, OAG route-segment data, every year from 1996 to 2024.\nEach row is one scheduled flight segment, with its carrier, airports, seats by cabin and frequency. We aggregate segments into airport pairs and form two matrices for every year: A records which airports are connected, and W how much seat capacity links them. From these we build a link intensity, the geometric mean of capacity per connection at the two ends.\nAcross the 29 years the network has between 3,171 and 3,863 active airports. Airports enter and leave as service starts and stops, so the network is genuinely rebuilt every year."
+ },
+ {
+  "n": 11,
+  "title": "Five indicators describe each airport’s position and flow",
+  "notes": "On each annual network we compute five centrality indicators, following Cheung, Wong and Zhang in Transportation Research Part E.\nTake this toy network. Haneda links to every other airport directly: degree three, closeness one. Fukuoka reaches Atlanta only through Haneda, two legs, so its closeness is 0.60. Eigenvector centrality rewards links to airports that are themselves central.\nThose three describe position. The other two describe flow. Flow betweenness treats passengers like current in an electrical circuit and measures how much of it passes through the airport: the transfer-hub role. In the toy network nothing routes through Fukuoka, so it is zero. Regional importance is the average intensity of the airport's links within its own region."
+ },
+ {
+  "n": 12,
+  "title": "One index: the first principal component, stable over 29 years",
+  "notes": "The five indicators are correlated, with rank correlations between 0.74 and 0.92 in 2024, but they are not redundant. We combine them by principal components, re-estimated every year.\nThe first component explains between 63 and 77 percent of the variance, depending on the year. The loadings are all positive and almost the same size: about 0.49 for degree, 0.48 for regional importance, 0.43 for flow betweenness and eigenvector, and 0.39 for closeness. They barely move over 29 years; the whiskers are one standard deviation across years.\nWhy re-estimate every year rather than once? Because the network itself changes: airports enter and exit and the scale of the indicators shifts. Re-estimating keeps the weights right for each year's network, and because the weights barely move, nothing is lost in comparability.\nSo GACI is close to an equal-weighted summary of the five indicators, and a single pooled PCA gives almost the same index, correlation 0.98. That is what makes the index comparable over time."
+ },
+ {
+  "n": 13,
+  "title": "From airports to countries: hub quality is the headline measure",
+  "notes": "We then move from airports to countries, in three ways.\nOur headline is hub quality: the capacity-weighted mean of airport GACI. It uses the entire airport system but puts most weight on the airports that carry the seats.\nWe also use the maximum, the quality of the single best gateway, and the sum, the total network footprint.\nThe illustration on the right shows why hub quality is the headline. Adding ten small airfields doubles the sum, but hardly changes hub quality. We do not want to reward a country for opening many tiny airfields.\nAll three measures give the same pattern of results, so I will show hub quality and mention the others as robustness."
+ },
+ {
+  "n": 14,
+  "title": "The index tracks the rise of Gulf, Turkish and East Asian hubs",
+  "notes": "Here is what the index shows. These are the rank paths of the fifteen highest-ranked airports of 2024; the gold lines are airports that were outside the top twenty in 1996.\nDubai goes from 92nd to first, Istanbul from 98th to second, Guangzhou from 155th to tenth, and Shanghai Pudong, Beijing, Singapore and Incheon climb into the top fifteen. The large American and European hubs drift down.\nAt the country level, Singapore, the UAE, the Netherlands, Qatar and Hong Kong lead on hub quality in 2024.\nThis is also a face-validity check: the index reproduces what anyone in the industry would recognise, the rise of the Gulf carriers, Istanbul and the Chinese hubs.\nNotice that most of this reshuffling happens after 2010. That timing will matter for identification."
+ },
+ {
+  "n": 15,
+  "title": "In 2024 the best-connected hubs sit in Singapore, the Gulf and Western Europe",
+  "notes": "This is hub quality in 2024, computed from every airport with scheduled service. The darkest shades are the Gulf states, Western European gateway countries, Turkey and the East and Southeast Asian hubs. Most of Africa and Central Asia is light.\nLevels differ a lot across countries, but our design does not use these differences. With country fixed effects, identification comes from changes within a country over time."
+ },
+ {
+  "n": 16,
+  "title": "Northeast Asia’s hub race: Chinese hubs rose to the top, Incheon and Haneda climbed",
+  "notes": "A closer look at our own neighbourhood. These are the world ranks of nine Northeast Asian airports, out of roughly 3,800 airports, on a log scale.\nThe Chinese hubs rose fastest. Guangzhou was 155th in 1996 and Beijing 47th. Beijing was number one in the world from 2015 to 2020. In 2020 Beijing, Guangzhou and Shanghai Pudong were first, second and third, as China's large domestic network restarted early while most international routes were shut.\nIncheon entered at 42nd when it opened in 2001 and is 15th in 2024. Haneda climbed from 151st to 31st, most of it after it reopened to regular international flights around 2010. Narita and Kansai moved the other way; Kansai fell from 41st to 88th.\nKeep Korea in mind. It comes back on the next slide, and again in the results."
+ },
+ {
+  "n": 17,
+  "title": "Hub quality rose in three of every four economies; Qatar, South Korea and the UAE gained most",
+  "notes": "The same index at the country level. The map shows how hub quality changed between 1996 and 2024. It rose in three of every four economies, and the darkest areas are the Gulf, Ethiopia, Türkiye and South Korea.\nThe largest gains are Qatar, up 159 percent, South Korea, up 139 percent, and the UAE, up 121 percent. Ethiopia, Türkiye and Saudi Arabia follow.\nSouth Korea also climbed further in rank than any other economy, from 108th to 12th. Much of that happened in a single year: in 2001, when Incheon opened, Korea went from 106th to 42nd. It dipped during the pandemic and was back to 12th by 2024.\nFalls are few. The largest are Ukraine and Syria.\nRemember Korea: in the results it has the second-largest trade gain from better connectivity, after China."
+ },
+ {
+  "n": 18,
+  "title": "02  Identification",
+  "notes": "Part two: identification."
+ },
+ {
+  "n": 19,
+  "title": "Airlines add capacity where trade is already growing",
+  "notes": "Why not simply regress trade on connectivity? Because airlines add capacity where trade and income are already growing, and both respond to common shocks such as a commodity boom or a financial crisis. OLS mixes the effect we want with demand-driven route entry.\nA difference-in-differences design does not fit either. Large airport openings are rare and lumpy, while a country's network position changes every year through frequencies, partners and re-routing.\nSo we need variation in connectivity that goods-trade fundamentals did not create. That is the gold box: an instrument that moves connectivity, with no direct path to goods trade."
+ },
+ {
+  "n": 20,
+  "title": "The instrument: natural heritage × the global tourism cycle",
+  "notes": "Our instrument is a shift-share design.\nThe share is each country's stock of natural and mixed UNESCO World Heritage sites: reefs, mountain ranges, national parks. These are endowments of geography rather than of economic activity. The median country has one; the richest has nineteen.\nThe shift is the global cycle in international tourist arrivals, scaled between zero and one. You can see the long rise and the collapse in 2020.\nThe logic is airline route allocation. When world tourism grows, airlines put marginal aircraft where leisure demand grows most, which is in heritage-rich destinations. Country fixed effects absorb the endowment, year fixed effects absorb the cycle, so only their interaction identifies the effect.\nWhy natural and mixed sites, and not all heritage? Cultural sites tend to sit in old urban and manufacturing centres, which could affect trade directly. I will come back to this in two slides, because the data themselves reject cultural sites as an instrument."
+ },
+ {
+  "n": 21,
+  "title": "Strength test passed: heritage-rich countries gained connections as world tourism grew",
+  "notes": "Does the instrument actually move connectivity? Yes. Each dot groups about 240 country-years. Where the heritage-times-tourism signal rises, hub quality rises too.\nThe usual strength test gives 21.9, well above the rule-of-thumb threshold of 10.\nOne caveat, stated openly. The instrument has almost no bite before 2010, and a lot from 2010 onward. That is when low-cost long-haul flights and the Gulf and Asian hubs took off. So our answers describe the recent era of aviation, and I come back to this at the end."
+ },
+ {
+  "n": 22,
+  "title": "Why tourism should affect goods trade only through air links",
+  "notes": "The key assumption is that heritage tourism affects goods trade only through air links. Three choices make this plausible.\nFirst, we only count goods trade. Tourist spending is counted as a services export, so it never enters our outcome.\nSecond, we only use natural and mixed sites. Cultural sites sit in old cities and could affect trade directly. When we try them anyway, the data reject them.\nThird, we compare each country with itself over time, so the amount of heritage a country has, and the world tourism cycle, both cancel out.\nWhat could still go wrong? A tourism boom can strengthen the currency and hurt exports, but that would make our estimate smaller. Tourism raises income and income raises imports, but holding GDP fixed the estimate hardly moves. No test can prove the assumption; these checks make a violation hard to explain."
+ },
+ {
+  "n": 23,
+  "title": "03  Results",
+  "notes": "Part three: results."
+ },
+ {
+  "n": 24,
+  "title": "10% better air links raise trade relative to GDP by about 12%",
+  "notes": "Here is the main result. The first row is the simple correlation. The second row is our causal estimate, using the instrument.\nThe easiest way to read it: if a country's air connections improve by 10 percent, its trade relative to GDP rises by about 12 percent, and its total trade by about 22 percent.\nThe bar on the right splits the total into two parts: the country becomes more open, and the economy becomes bigger. The bigger-economy part is positive, but not statistically clear. So our headline is the first part: better-connected countries trade more for their size.\nThe last two rows measure connectivity in other ways, using only the best airport, or summing all airports. The numbers are on different scales, but the story is the same: positive and significant."
+ },
+ {
+  "n": 25,
+  "title": "The answer holds when we change the controls or the instrument",
+  "notes": "Is this result fragile? We tried two kinds of checks.\nOn the left, we change what else we control for. The effect on trade relative to GDP stays between 1.21 and 1.54 every time. Adding GDP is a tough test, because GDP itself responds to connectivity.\nOn the right, we check the instrument. Splitting heritage into natural and mixed sites gives the same answer. Cultural heritage, which we expect to fail, does fail, which tells us the test has teeth. A completely different instrument, built from geography, air versus sea distance, gives almost the same number: 2.30, against our 2.13 for total trade.\nFinally, if we allow the instrument to affect trade directly a little, the total-trade result survives unless that direct effect is more than a third of its total effect. For trade relative to GDP the margin is thinner, about 4 percent."
+ },
+ {
+  "n": 26,
+  "title": "What changes: better-connected countries trade more parts and more high-value goods",
+  "notes": "So how does connectivity raise trade? We look inside trade using product-level data: about 5,000 products for about 200 countries.\nWe build two simple ratios. The parts ratio: intermediate inputs relative to final consumer goods. The value ratio: high-value relative to low-value goods, measured in dollars per kilogram. These are the goods that tend to fly. Because they are ratios, anything that moves all of a country's trade up or down together cancels out.\nBoth ratios rise with connectivity. With 10 percent better connections, the parts ratio rises by about 15 percent and the value ratio by about 19 percent. In other words, better-connected countries trade more of the goods that fly."
+ },
+ {
+  "n": 27,
+  "title": "Accounting for the goods mix shrinks the effect by about 30%",
+  "notes": "Next: does this change in the mix explain the trade gain? We run the main regression again and add the two ratios, keeping exactly the same countries and years.\nThe connectivity effect drops from 1.18 to 0.83, about 30 percent smaller, and it is no longer statistically clear. Meanwhile the mix of goods itself strongly predicts how open a country is.\nIf connectivity simply made all trade a bit cheaper, the mix would not change, and adding the ratios would change nothing. That is not what we see. The trade gain comes with, and runs through, a shift toward goods that fly.\nOne caution: the mix is itself an outcome, so this supports the channel but does not prove it."
+ },
+ {
+  "n": 28,
+  "title": "Poorer and less-connected countries gain the most",
+  "notes": "Who gains most? We split countries by how rich and how well connected they were in 1996.\nThe pattern is the same in both panels: the gain shrinks as we move to richer and better-connected countries. With 10 percent better connections, trade relative to GDP rises about 16 percent in the poorest quarter of countries, and about 7 percent in the richest. By connectivity, it is about 26 percent for the least connected quarter and 15 percent for the best connected.\nThese estimates are less precise, so the downward slope matters more than each number. A simpler check that avoids this weakness shows the same slope.\nThe message: an extra air link is worth most where links are scarce."
+ },
+ {
+  "n": 29,
+  "title": "Better air links since 1996 add about $10 trillion to 2024 trade",
+  "notes": "How much does this add up to? For each country we take its own improvement in connectivity since 1996 and ask how much of its 2024 trade that improvement accounts for, keeping everything else fixed.\nAdded up, it comes to about 10 trillion dollars: about a fifth of world goods trade, or about 9 percent of world GDP.\nPlease treat this as a rough number. The plausible range is wide, from half a trillion to 16 trillion. It holds other countries and prices fixed. And it applies an effect we measure after 2010 back to 1996.\nThe chart on the left shows where the gains go: mostly to Asia and the Middle East, which pull away from the rest after 2005."
+ },
+ {
+  "n": 30,
+  "title": "China gains most, then Korea and Japan; 18 countries lost ground",
+  "notes": "Country by country, China gains the most, about 2.7 trillion dollars, followed by Korea, Japan, the United States, Hong Kong and Singapore.\nNot everyone gained. In 18 countries connectivity fell, and the biggest implied loss is Germany, about 200 billion dollars, then Ukraine and Belgium.\nOne data note: countries without 2024 trade data, including the UAE and Qatar, are grey and count as zero."
+ },
+ {
+  "n": 31,
+  "title": "The same logic in reverse: the 2020 collapse",
+  "notes": "The same logic should work in reverse. In 2020, connections fell in 154 of 175 countries.\nRunning the same calculation backwards gives a one-year trade loss of about 7 trillion dollars on our main measure, and less on the others, down to 1.7 trillion.\nPlease read this as an upper range. Our effect is a long-run effect, and in 2020 the pandemic cut trade and flights at the same time, so not all of this loss is due to fewer flights."
+ },
+ {
+  "n": 32,
+  "title": "Better air links raise trade, through goods that fly, most where links are scarce",
+  "notes": "Let me sum up in four points.\nOne: better air links cause more trade. Ten percent better connections mean about 12 percent more trade relative to GDP.\nTwo: they work through what is traded, more parts and more high-value goods, the goods that fly.\nThree: poorer and less-connected countries gain the most.\nFour: the total is large, roughly 10 trillion dollars of 2024 trade since 1996.\nFor policy, investing in airports and routes, and opening air markets, are practical ways to raise trade, especially where connections are poor.\nThe limits: the totals are rough, the evidence comes mainly from 2010 onward, and the rich-versus-poor comparison is less precise. Next, we want to look at trade between country pairs, and at a full model where prices and partners adjust. Thank you."
+ },
+ {
+  "n": 33,
+  "title": "Thank you",
+  "notes": "Thank you. I look forward to your comments and questions."
+ }
+]

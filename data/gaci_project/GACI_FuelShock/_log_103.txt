@@ -1,0 +1,40 @@
+﻿M2 done
+M4 done
+M3 done
+M1 done
+                                        table       outcome                                                                  term       b     se      p        n  clusters
+                                M2 tax per km      ln_seats                                                                    tp -0.0975 0.0476 0.0491 112306.0      33.0
+                                M2 tax per km      ln_seats                                                            tp_dose_km -0.0008 0.0005 0.1202 112306.0      33.0
+                     M2 short-haul (<1000 km)      ln_seats                                                                    tp -0.1056 0.0460 0.0288 112876.0      33.0
+                     M2 short-haul (<1000 km)      ln_seats                                                             tp_short0  0.0324 0.0319 0.3176 112876.0      33.0
+                           M4 flights by size         ln_fl                                                              tp_small -0.2374 0.0801 0.0058 112876.0      33.0
+                           M4 flights by size         ln_fl                                                                tp_mid -0.0525 0.0652 0.4269 112876.0      33.0
+                           M4 flights by size         ln_fl                                                              tp_large -0.0730 0.0423 0.0945 112876.0      33.0
+                           M4 flights by size         ln_fl                                                                    bp  0.0188 0.0281 0.5090 112876.0      33.0
+                  M4 seats per flight by size      ln_gauge                                                              tp_small -0.0021 0.0387 0.9577 112876.0      33.0
+                  M4 seats per flight by size      ln_gauge                                                                tp_mid  0.0361 0.0225 0.1179 112876.0      33.0
+                  M4 seats per flight by size      ln_gauge                                                              tp_large  0.0249 0.0109 0.0292 112876.0      33.0
+                  M4 seats per flight by size      ln_gauge                                                                    bp -0.0087 0.0134 0.5208 112876.0      33.0
+M4 service loss by size (at-risk months, LPM)          loss                                                              tp_small  0.0444 0.0214 0.0469 105659.0      31.0
+M4 service loss by size (at-risk months, LPM)          loss                                                                tp_mid -0.0057 0.0067 0.3992 105659.0      31.0
+M4 service loss by size (at-risk months, LPM)          loss                                                              tp_large -0.0029 0.0071 0.6864 105659.0      31.0
+M4 service loss by size (at-risk months, LPM)          loss                                                                    bp  0.0146 0.0087 0.1051 105659.0      31.0
+     M3 LCC-type gauge (150-200 seats/flight)      ln_seats                                                                    tp -0.1024 0.0458 0.0327 112876.0      33.0
+     M3 LCC-type gauge (150-200 seats/flight)      ln_seats                                                               tp_lcc0 -0.0583 0.0746 0.4409 112876.0      33.0
+                       M3 seat growth 2002-07      ln_seats                                                                    tp -0.0784 0.0459 0.0986  99954.0      29.0
+                       M3 seat growth 2002-07      ln_seats                                                              tp_g0207 -0.0080 0.0685 0.9082  99954.0      29.0
+                           M3 LCC-type x size      ln_seats                                                              tp_small -0.2486 0.0646 0.0006 112876.0      33.0
+                           M3 LCC-type x size      ln_seats                                                                tp_mid -0.0097 0.0551 0.8619 112876.0      33.0
+                           M3 LCC-type x size      ln_seats                                                              tp_large -0.0411 0.0511 0.4274 112876.0      33.0
+                           M3 LCC-type x size      ln_seats                                                                    bp  0.0100 0.0271 0.7133 112876.0      33.0
+                           M3 LCC-type x size      ln_seats                                                               tp_lcc0 -0.1215 0.0599 0.0510 112876.0      33.0
+                       M1 transfer-taxed SDID     hub seats               NOR 1998-04-01 per-seat tax, transfers taxed (increase)     NaN    NaN    NaN      NaN       NaN
+                       M1 transfer-taxed SDID non-hub seats               NOR 1998-04-01 per-seat tax, transfers taxed (increase) -0.2206 0.1394 0.1429     14.0       NaN
+                       M1 transfer-taxed SDID     hub seats      ITA 2013-07-01 surcharge +EUR 2, intl transfers taxed (increase) -0.0491 0.0404 0.2727     11.0       NaN
+                       M1 transfer-taxed SDID non-hub seats      ITA 2013-07-01 surcharge +EUR 2, intl transfers taxed (increase) -0.0128 0.0865 0.8462     13.0       NaN
+                       M1 transfer-taxed SDID     hub seats FRA 2016-01-01 TAC connecting passengers exempted (cut for transfers) -0.0545 0.0407 0.2727     11.0       NaN
+                       M1 transfer-taxed SDID non-hub seats FRA 2016-01-01 TAC connecting passengers exempted (cut for transfers) -0.1733 0.1747 0.2000     15.0       NaN
+                       M1 transfer-taxed SDID     hub seats                    DEU 2011-01-01 reference: transfer-exempt increase  0.0299 0.0747 0.5556      9.0       NaN
+                       M1 transfer-taxed SDID non-hub seats                    DEU 2011-01-01 reference: transfer-exempt increase -0.1550 0.1929 0.4000     10.0       NaN
+                       M1 transfer-taxed SDID     hub seats                    SWE 2018-04-01 reference: transfer-exempt increase  0.0006 0.0662 1.0000      9.0       NaN
+                       M1 transfer-taxed SDID non-hub seats                    SWE 2018-04-01 reference: transfer-exempt increase -0.0470 0.1904 0.6154     13.0       NaN

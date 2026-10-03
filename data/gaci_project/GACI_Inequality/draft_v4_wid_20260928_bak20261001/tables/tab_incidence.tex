@@ -1,0 +1,46 @@
+\begin{table}[p]
+\centering
+\caption{Incidence of hub connectivity across the income distribution (2SLS, Feyrer instrument).}
+\label{tab:incidence}
+\begin{threeparttable}
+\small
+\begin{tabular}{lcccc}
+\toprule
+ & \multicolumn{2}{c}{Average income of the group} & \multicolumn{2}{c}{Income share of the group} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+WID group & Coef. & (s.e.) & Coef. & (s.e.) \\
+\midrule
+\multicolumn{5}{l}{\emph{Panel A. Elasticity to $\ln\mathrm{GACI}_{max}$, 2SLS}}\\
+p0--10 & 0.245 & (1.167) & -1.743\sym{**} & (0.718) \\
+p10--20 & -0.677 & (1.375) & -1.619 & (1.110) \\
+p20--30 & 0.590 & (0.575) & -0.727\sym{*} & (0.415) \\
+p30--40 & 0.974\sym{*} & (0.523) & -0.345 & (0.290) \\
+p40--50 & 1.073\sym{**} & (0.498) & -0.245 & (0.246) \\
+p50--60 & 1.195\sym{**} & (0.486) & -0.124 & (0.201) \\
+p60--70 & 1.275\sym{***} & (0.474) & -0.045 & (0.157) \\
+p70--80 & 1.346\sym{***} & (0.461) & 0.026 & (0.118) \\
+p80--90 & 1.363\sym{***} & (0.448) & 0.043 & (0.091) \\
+p90--100 & 1.381\sym{***} & (0.418) & 0.061 & (0.165) \\
+Top 1\% & 1.359\sym{***} & (0.445) & 0.039 & (0.297) \\
+Top 0.1\% & 0.924\sym{*} & (0.546) & -0.397 & (0.483) \\
+Bottom 30\% & 0.410 & (0.631) & -0.910\sym{*} & (0.498) \\
+Middle 40\% (p30--70) & 1.166\sym{**} & (0.487) & -0.154 & (0.206) \\
+Top 30\% & 1.361\sym{***} & (0.415) & 0.041 & (0.093) \\
+Bottom 50\% & 0.901\sym{*} & (0.526) & -0.419 & (0.309) \\
+All adults (mean income) & 1.320\sym{***} & (0.420) & -- &  \\
+\addlinespace
+\multicolumn{5}{l}{\emph{Panel B. Differences between groups (difference outcomes)}}\\
+Top 30\% minus bottom 30\% & 0.951\sym{*} & (0.573) & & \\
+Top half minus bottom half & 0.452 & (0.354) & & \\
+p90--100 minus bottom 50\% & 0.481 & (0.462) & & \\
+Top 1\% minus p90--100 & -0.022 & (0.186) & & \\
+\midrule
+First-stage KP $F$ & \multicolumn{2}{c}{21.1} & \multicolumn{2}{c}{21.1} \\
+Observations & \multicolumn{2}{c}{4{,}537} & \multicolumn{2}{c}{4{,}537} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\small
+\item Each cell is a separate regression on the same sample (the bottom two deciles' shares use the country-years with a positive recorded share). Panel B regresses the difference of two group outcomes on instrumented connectivity. Country-year panel of 178 economies, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments $\ln\mathrm{GACI}_{max}$ with the Feyrer interaction $Z_{ct}=a_t\times\ln\mathrm{MA}^{air}_{c,1996}$; KP $F$ is the Kleibergen--Paap $rk$ Wald statistic. Group incomes are the log average pretax national income of the group (WID, equal-split adults); shares are log income shares, computed as log group income minus log mean income so that all groups use the same sample. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

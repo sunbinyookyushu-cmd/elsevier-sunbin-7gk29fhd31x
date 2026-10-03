@@ -1,0 +1,20 @@
+cc,osm_name_regex,date,rule,uic_section,note
+FR,Combs-la-Ville à Saint-Louis,2001-06-10,lat < 44.95,LN5 LGV Méditerranée (UIC 2018: 2001),OSM per-way start_date takes precedence; rule fills undated ways south of Valence
+FR,Combs-la-Ville à Saint-Louis,1992-07-01,lat >= 44.95 and lat < 45.9 and lon > 4.85,LN4 LGV Rhône-Alpes (UIC 2018: 1992 / 1994),Lyon bypass; year precision
+FR,Combs-la-Ville à Saint-Louis,1981-09-27,lat >= 45.9 or lon <= 4.85,LN1 LGV Paris Sud-Est (UIC 2018: 1981 / 1983),pre-window
+FR,Paris à Strasbourg,2007-06-10,lon <= 6.62,LN6 LGV Est Europe first phase (UIC 2018: 2007),Vaires - Baudrecourt; day from SNCF opening (to verify)
+FR,Paris à Strasbourg,2016-07-03,lon > 6.62,LN6 LGV Est Europe second phase (UIC 2018: 2016),Baudrecourt - Vendenheim; day to verify
+FR,SEA-Atlantique,2017-07-02,,LGV Sud Europe Atlantique (UIC 2018: 2017.07.02),exact date from UIC
+FR,Paris-Montparnasse à Monts,1989-09-24,,LN2 LGV Atlantique (UIC 2018: 1989 / 1990),pre-window
+FR,Courtalain à Connerré,1989-09-24,,LN2 LGV Atlantique (UIC 2018: 1989 / 1990),pre-window
+FR,Gonesse à Lille-Frontière,1994-07-01,,LN3 LGV Nord (UIC 2018: 1994 / 1996),UIC year; widely reported 1993; pre-window either way
+FR,Fretin à Fréthun,1994-07-01,,LN3 LGV Nord (UIC 2018: 1994 / 1996),pre-window
+FR,Connerré à Rennes,2017-07-02,,LGV Bretagne Pays de la Loire (UIC 2018: 2017.07.02),exact date from UIC
+FR,Rhin-Rhône,2011-12-11,,LN7 LGV Rhin-Rhône Branche Est (UIC 2018: 2011),day to verify
+FR,Angles à Lattes,2018-07-08,,Contournement Nîmes - Montpellier (UIC 2018: 2018.07.08),exact date from UIC; mixed line 220 km/h
+FR,nterconnexion,1994-07-01,,LN3 bis LGV Interconnexion Est IDF (UIC 2018: 1994 / 1996),pre-window
+FR,Perpignan-Figueras,2010-07-01,,(Figueres -) Frontière (UIC 2018: 2010),year precision
+FR,Marne la Vallee,1994-07-01,,LN3 bis LGV Interconnexion Est IDF,pre-window
+GB,High Speed 1|Channel Tunnel Rail Link|CTRL,2003-09-28,lon > 0.32,Fawkham Junction - Tunnel (UIC 2018: 2003),day to verify
+GB,High Speed 1|Channel Tunnel Rail Link|CTRL,2007-11-14,lon <= 0.32,London - Southfleet Junction (UIC 2018: 2007),day to verify
+NL,HSL|Hogesnelheidslijn,2006-07-01,,Schiphol - Rotterdam / Rotterdam - Belgian border (UIC 2018: 2006),UIC gives infrastructure year; commercial service started 2009 (decision item)

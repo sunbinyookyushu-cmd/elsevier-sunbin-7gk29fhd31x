@@ -1,0 +1,2711 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do co2_spill_supp.do 
+
+. *============================================================================
+> ==
+. * co2_spill_supp.do   (2026-09-03) clustered inference for the spillover spec
+> s
+. * that are the candidates for the headline (joint IV under contiguity / knn5 
+> /
+. * <500 km / k1000 W; region-by-year FE variants), plus neighbour mechanisms
+. * under the contiguity W. Cluster: country; UN sub-region; two-way country+ye
+> ar.
+. * Export: _spill_supp.csv (panel item var b se p kpf nn)
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_CO2"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2
+
+. 
+. import delimited "co2_country_year.csv", clear varnames(1) encoding("utf-8")
+(20 vars, 6,777 obs)
+
+. keep iso3 year co2_bunker co2_bunker_intl dep_seat_km n_dep_flights dep_seats dep_seat_km_intl
+
+. rename iso3 c
+
+. rename year y
+
+. tempfile co2
+
+. save `co2'
+file C:\Users\sunbi\AppData\Local\Temp\ST_42b0_000001.tmp saved
+
+. import delimited "spillover_bands.csv", clear varnames(1) encoding("utf-8")
+(48 vars, 4,635 obs)
+
+. ds c subregion unregion bloc, not
+y             nbr_g_inv     nbr_f_contig  nbr_g_b2      nbr_f_b3      nbr_g_b5      nbr_f_k250    nbr_g_k1000   nbr_f_k2000   nbr_g_knn5    nbr_f_inreg   nbr_g_inbloc  nbr_f_outb~c  has_b1        has_b4
+has_contig    nbr_f_inv     nbr_g_b1      nbr_f_b2      nbr_g_b4      nbr_f_b5      nbr_g_k500    nbr_f_k1000   nbr_g_k5000   nbr_f_knn5    nbr_g_outreg  nbr_f_inbloc  has_inreg     has_b2        has_b5
+has_bloc      nbr_g_contig  nbr_f_b1      nbr_g_b3      nbr_f_b4      nbr_g_k250    nbr_f_k500    nbr_g_k2000   nbr_f_k5000   nbr_g_inreg   nbr_f_outreg  nbr_g_outb~c  has_inbloc    has_b3
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+has_contig already numeric; no replace
+has_bloc already numeric; no replace
+nbr_g_inv already numeric; no replace
+nbr_f_inv already numeric; no replace
+nbr_g_contig already numeric; no replace
+nbr_f_contig already numeric; no replace
+nbr_g_b1 already numeric; no replace
+nbr_f_b1 already numeric; no replace
+nbr_g_b2 already numeric; no replace
+nbr_f_b2 already numeric; no replace
+nbr_g_b3 already numeric; no replace
+nbr_f_b3 already numeric; no replace
+nbr_g_b4 already numeric; no replace
+nbr_f_b4 already numeric; no replace
+nbr_g_b5 already numeric; no replace
+nbr_f_b5 already numeric; no replace
+nbr_g_k250 already numeric; no replace
+nbr_f_k250 already numeric; no replace
+nbr_g_k500 already numeric; no replace
+nbr_f_k500 already numeric; no replace
+nbr_g_k1000 already numeric; no replace
+nbr_f_k1000 already numeric; no replace
+nbr_g_k2000 already numeric; no replace
+nbr_f_k2000 already numeric; no replace
+nbr_g_k5000 already numeric; no replace
+nbr_f_k5000 already numeric; no replace
+nbr_g_knn5 already numeric; no replace
+nbr_f_knn5 already numeric; no replace
+nbr_g_inreg already numeric; no replace
+nbr_f_inreg already numeric; no replace
+nbr_g_outreg already numeric; no replace
+nbr_f_outreg already numeric; no replace
+nbr_g_inbloc already numeric; no replace
+nbr_f_inbloc already numeric; no replace
+nbr_g_outbloc already numeric; no replace
+nbr_f_outbloc already numeric; no replace
+has_inreg already numeric; no replace
+has_inbloc already numeric; no replace
+has_b1 already numeric; no replace
+has_b2 already numeric; no replace
+has_b3 already numeric; no replace
+has_b4 already numeric; no replace
+has_b5 already numeric; no replace
+
+. tempfile sb
+
+. save `sb'
+file C:\Users\sunbi\AppData\Local\Temp\ST_42b0_000002.tmp saved
+
+. import delimited "../gaci_panel_combined.csv", clear varnames(1) encoding("utf-8")
+(44 vars, 4,643 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int   feyrer_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum   ln_sea_ma
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y  ln_remote     ln_air_ma
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+feyrer_int already numeric; no replace
+ln_sea_ma already numeric; no replace
+ln_air_ma already numeric; no replace
+
+. merge 1:1 c y using `co2', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                             4,643  
+    -----------------------------------------
+
+. merge 1:1 c y using `sb', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             8
+        from master                         8  
+        from using                          0  
+
+    matched                             4,635  
+    -----------------------------------------
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. gen ln_co2_tot = ln(co2_bunker) if co2_bunker > 0
+
+. gen ln_co2_intl = ln(co2_bunker_intl) if co2_bunker_intl > 0
+
+. gen co2_dom = co2_bunker - co2_bunker_intl
+
+. gen ln_co2_dom = ln(co2_dom) if co2_dom > 0
+(1,066 missing values generated)
+
+. gen ln_skm = ln(dep_seat_km) if dep_seat_km > 0
+
+. gen ln_intensity = ln_co2_tot - ln_skm
+
+. gen ln_flights = ln(n_dep_flights) if n_dep_flights > 0
+
+. gen ln_gauge = ln(dep_seats/n_dep_flights) if n_dep_flights > 0 & dep_seats > 0
+
+. gen ln_stage = ln(dep_seat_km/dep_seats) if dep_seats > 0 & dep_seat_km > 0
+
+. gen intl_share = dep_seat_km_intl/dep_seat_km if dep_seat_km > 0
+
+. replace intl_share = 1 if intl_share > 1 & !missing(intl_share)
+(0 real changes made)
+
+. encode subregion, gen(srid)
+
+. egen sry = group(srid y)
+(8 missing values generated)
+
+. 
+. tempname R
+
+. postfile `R' str12 panel str32 item str16 var double(b se p kpf) long(nn) using "_spsupp_tmp", replace
+(note: file _spsupp_tmp.dta not found)
+
+. global RH `R'
+
+. program define postone
+  1.     args panel item v
+  2.     local bb = _b[`v']
+  3.     local sse = _se[`v']
+  4.     local pp = 2*normal(-abs(`bb'/`sse'))
+  5.     di "SUP [`panel'] `item' `v': b = " %9.3f `bb' " (se " %8.3f `sse' ")  KP F = " %7.1f e(widstat) "  N = " %7.0f e(N)
+  6.     post $RH ("`panel'") ("`item'") ("`v'") (`bb') (`sse') (`pp') (e(widstat)) (e(N))
+  7. end
+
+. 
+. * joint IV specs under three clusterings
+. foreach W in contig knn5 b1 k1000 {
+  2.     foreach cl in robust country subregion twoway {
+  3.         if "`cl'" == "robust" local vo "robust"
+  4.         if "`cl'" == "country" local vo "cluster(isocode)"
+  5.         if "`cl'" == "subregion" local vo "cluster(srid)"
+  6.         if "`cl'" == "twoway" local vo "cluster(isocode y)"
+  7.         capture noisily ivreghdfe ln_co2_tot lnpop ln_sea_ma has_contig (ln_gaci_cwm nbr_g_`W' = feyrer_int nbr_f_`W'), absorb(isocode y) `vo'
+  8.         if _rc == 0 {
+  9.             postone JOINT `W'_`cl' ln_gaci_cwm
+ 10.             postone JOINT `W'_`cl' nbr_g_`W'
+ 11.         }
+ 12.     }
+ 13. }
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4634
+                                                      F(  5,  4420) =    77.92
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.3712
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.3712
+Residual SS             =  487.9356262                Root MSE      =    .3323
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   3.212629   .4599521     6.98   0.000     2.310893    4.114365
+nbr_g_contig |   1.854442   .2645226     7.01   0.000     1.335846    2.373039
+       lnpop |  -.0485682   .1235424    -0.39   0.694    -.2907731    .1936367
+   ln_sea_ma |   2.270667   .5352761     4.24   0.000     1.221257    3.320076
+  has_contig |  -.6273087   .1103235    -5.69   0.000    -.8435981   -.4110194
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             61.592
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               43.211
+                         (Kleibergen-Paap rk Wald F statistic):         32.460
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [JOINT] contig_robust ln_gaci_cwm: b =     3.213 (se    0.460)  KP F =    32.5  N =    4634
+SUP [JOINT] contig_robust nbr_g_contig: b =     1.854 (se    0.265)  KP F =    32.5  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+                                                      F(  5,   181) =    31.48
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.3712
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.3712
+Residual SS             =  487.9356262                Root MSE      =    .3256
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   3.212629   1.234496     2.60   0.010     .7767743    5.648484
+nbr_g_contig |   1.854442   .6593129     2.81   0.005     .5535144     3.15537
+       lnpop |  -.0485682   .2953999    -0.16   0.870    -.6314386    .5343022
+   ln_sea_ma |   2.270667   1.380565     1.64   0.102    -.4534051    4.994739
+  has_contig |  -.6273087   .1624593    -3.86   0.000    -.9478665    -.306751
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              5.868
+                                                   Chi-sq(1) P-val =    0.0154
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               44.990
+                         (Kleibergen-Paap rk Wald F statistic):          3.287
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [JOINT] contig_country ln_gaci_cwm: b =     3.213 (se    1.234)  KP F =     3.3  N =    4634
+SUP [JOINT] contig_country nbr_g_contig: b =     1.854 (se    0.659)  KP F =     3.3  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on srid
+
+Number of clusters (srid) =         22                Number of obs =     4634
+                                                      F(  5,    21) =    38.66
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.3712
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.3712
+Residual SS             =  487.9356262                Root MSE      =    .3256
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   3.212629    1.49368     2.15   0.043      .106352    6.318906
+nbr_g_contig |   1.854442   .6651427     2.79   0.011     .4712024    3.237682
+       lnpop |  -.0485682   .3174161    -0.15   0.880     -.708671    .6115346
+   ln_sea_ma |   2.270667   1.619675     1.40   0.176    -1.097632    5.638966
+  has_contig |  -.6273087    .174425    -3.60   0.002    -.9900453   -.2645721
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              7.021
+                                                   Chi-sq(1) P-val =    0.0081
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               44.990
+                         (Kleibergen-Paap rk Wald F statistic):          7.151
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [JOINT] contig_subregion ln_gaci_cwm: b =     3.213 (se    1.494)  KP F =     7.2  N =    4634
+SUP [JOINT] contig_subregion nbr_g_contig: b =     1.854 (se    0.665)  KP F =     7.2  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode and y
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+Number of clusters (y) =            28                F(  5,    27) =    10.72
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.3712
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.3712
+Residual SS             =  487.9356262                Root MSE      =    .3247
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   3.212629   1.203051     2.67   0.013     .7441721    5.681086
+nbr_g_contig |   1.854442   .7316675     2.53   0.017     .3531845      3.3557
+       lnpop |  -.0485682   .2915127    -0.17   0.869    -.6467029    .5495665
+   ln_sea_ma |   2.270667   1.401101     1.62   0.117    -.6041551    5.145489
+  has_contig |  -.6273087   .1896995    -3.31   0.003     -1.01654   -.2380775
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              4.443
+                                                   Chi-sq(1) P-val =    0.0350
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               45.244
+                         (Kleibergen-Paap rk Wald F statistic):          3.353
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Warning: estimated covariance matrix of moment conditions not of full rank.
+         overidentification statistic not reported, and standard errors and
+         model tests should be interpreted with caution.
+Possible causes:
+         number of clusters insufficient to calculate robust covariance matrix
+         singleton dummy variable (dummy with one 1 and N-1 0s or vice versa)
+partial option may address problem.
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28          28           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [JOINT] contig_twoway ln_gaci_cwm: b =     3.213 (se    1.203)  KP F =     3.4  N =    4634
+SUP [JOINT] contig_twoway nbr_g_contig: b =     1.854 (se    0.732)  KP F =     3.4  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4634
+                                                      F(  5,  4420) =    52.83
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.1389
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.1389
+Residual SS             =  668.2333437                Root MSE      =    .3888
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   1.130408   .6175207     1.83   0.067    -.0802419    2.341058
+  nbr_g_knn5 |   3.264871   .6231321     5.24   0.000      2.04322    4.486522
+       lnpop |   .4827602   .1733096     2.79   0.005     .1429867    .8225337
+   ln_sea_ma |   .1106347    .659077     0.17   0.867    -1.181486    1.402756
+  has_contig |   -.892837   .1761947    -5.07   0.000    -1.238267   -.5474072
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             50.908
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               24.314
+                         (Kleibergen-Paap rk Wald F statistic):         24.488
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_knn5
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_knn5
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [JOINT] knn5_robust ln_gaci_cwm: b =     1.130 (se    0.618)  KP F =    24.5  N =    4634
+SUP [JOINT] knn5_robust nbr_g_knn5: b =     3.265 (se    0.623)  KP F =    24.5  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+                                                      F(  5,   181) =    19.26
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.1389
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.1389
+Residual SS             =  668.2333437                Root MSE      =    .3811
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   1.130408   1.782858     0.63   0.527     -2.38745    4.648266
+  nbr_g_knn5 |   3.264871   1.819777     1.79   0.074    -.3258338    6.855576
+       lnpop |   .4827602   .4744827     1.02   0.310    -.4534687    1.418989
+   ln_sea_ma |   .1106347   1.918395     0.06   0.954    -3.674661     3.89593
+  has_contig |   -.892837   .3872517    -2.31   0.022    -1.656945   -.1287286
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              6.552
+                                                   Chi-sq(1) P-val =    0.0105
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               25.315
+                         (Kleibergen-Paap rk Wald F statistic):          3.393
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_knn5
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_knn5
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [JOINT] knn5_country ln_gaci_cwm: b =     1.130 (se    1.783)  KP F =     3.4  N =    4634
+SUP [JOINT] knn5_country nbr_g_knn5: b =     3.265 (se    1.820)  KP F =     3.4  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on srid
+
+Number of clusters (srid) =         22                Number of obs =     4634
+                                                      F(  5,    21) =    55.76
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.1389
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.1389
+Residual SS             =  668.2333437                Root MSE      =    .3811
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   1.130408   1.912802     0.59   0.561    -2.847481    5.108297
+  nbr_g_knn5 |   3.264871   2.164065     1.51   0.146    -1.235547     7.76529
+       lnpop |   .4827602    .534328     0.90   0.377    -.6284358    1.593956
+   ln_sea_ma |   .1106347   2.436655     0.05   0.964    -4.956667    5.177937
+  has_contig |   -.892837   .4558508    -1.96   0.064    -1.840831    .0551566
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              4.044
+                                                   Chi-sq(1) P-val =    0.0443
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               25.315
+                         (Kleibergen-Paap rk Wald F statistic):          3.608
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_knn5
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_knn5
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [JOINT] knn5_subregion ln_gaci_cwm: b =     1.130 (se    1.913)  KP F =     3.6  N =    4634
+SUP [JOINT] knn5_subregion nbr_g_knn5: b =     3.265 (se    2.164)  KP F =     3.6  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode and y
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+Number of clusters (y) =            28                F(  5,    27) =     5.61
+                                                      Prob > F      =   0.0011
+Total (centered) SS     =   776.026185                Centered R2   =   0.1389
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.1389
+Residual SS             =  668.2333437                Root MSE      =      .38
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   1.130408   1.747867     0.65   0.523    -2.455919    4.716735
+  nbr_g_knn5 |   3.264871   1.764434     1.85   0.075    -.3554476     6.88519
+       lnpop |   .4827602   .4736426     1.02   0.317    -.4890742    1.454595
+   ln_sea_ma |   .1106347   1.923034     0.06   0.955    -3.835106    4.056375
+  has_contig |   -.892837   .3712348    -2.41   0.023    -1.654548   -.1311262
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              4.781
+                                                   Chi-sq(1) P-val =    0.0288
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               25.458
+                         (Kleibergen-Paap rk Wald F statistic):          3.492
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Warning: estimated covariance matrix of moment conditions not of full rank.
+         overidentification statistic not reported, and standard errors and
+         model tests should be interpreted with caution.
+Possible causes:
+         number of clusters insufficient to calculate robust covariance matrix
+         singleton dummy variable (dummy with one 1 and N-1 0s or vice versa)
+partial option may address problem.
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_knn5
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_knn5
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28          28           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [JOINT] knn5_twoway ln_gaci_cwm: b =     1.130 (se    1.748)  KP F =     3.5  N =    4634
+SUP [JOINT] knn5_twoway nbr_g_knn5: b =     3.265 (se    1.764)  KP F =     3.5  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4634
+                                                      F(  5,  4420) =    65.11
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.3554
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.3554
+Residual SS             =  500.2338969                Root MSE      =    .3364
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   4.294524   .5012783     8.57   0.000     3.311767     5.27728
+    nbr_g_b1 |   .8181641   .2454563     3.33   0.001     .3369468    1.299381
+       lnpop |  -.2778422    .125901    -2.21   0.027    -.5246713   -.0310131
+   ln_sea_ma |   3.042464   .5676417     5.36   0.000     1.929602    4.155326
+  has_contig |  -.1826229   .0895218    -2.04   0.041    -.3581304   -.0071154
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             97.339
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               64.271
+                         (Kleibergen-Paap rk Wald F statistic):         51.992
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_b1
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_b1
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [JOINT] b1_robust ln_gaci_cwm: b =     4.295 (se    0.501)  KP F =    52.0  N =    4634
+SUP [JOINT] b1_robust nbr_g_b1: b =     0.818 (se    0.245)  KP F =    52.0  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+                                                      F(  5,   181) =    27.00
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.3554
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.3554
+Residual SS             =  500.2338969                Root MSE      =    .3297
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   4.294524    1.21673     3.53   0.001     1.893724    6.695324
+    nbr_g_b1 |   .8181641   .6151087     1.33   0.185    -.3955418     2.03187
+       lnpop |  -.2778422   .2840441    -0.98   0.329    -.8383058    .2826214
+   ln_sea_ma |   3.042464   1.366213     2.23   0.027      .346711    5.738216
+  has_contig |  -.1826229   .0326218    -5.60   0.000    -.2469909   -.1182549
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             11.180
+                                                   Chi-sq(1) P-val =    0.0008
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               66.918
+                         (Kleibergen-Paap rk Wald F statistic):          6.650
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_b1
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_b1
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [JOINT] b1_country ln_gaci_cwm: b =     4.295 (se    1.217)  KP F =     6.6  N =    4634
+SUP [JOINT] b1_country nbr_g_b1: b =     0.818 (se    0.615)  KP F =     6.6  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on srid
+
+Number of clusters (srid) =         22                Number of obs =     4634
+                                                      F(  5,    21) =    29.65
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.3554
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.3554
+Residual SS             =  500.2338969                Root MSE      =    .3297
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   4.294524   1.542707     2.78   0.011     1.086289    7.502759
+    nbr_g_b1 |   .8181641   .5896886     1.39   0.180    -.4081604    2.044489
+       lnpop |  -.2778422   .3282862    -0.85   0.407    -.9605507    .4048663
+   ln_sea_ma |   3.042464    1.61201     1.89   0.073    -.3098943    6.394822
+  has_contig |  -.1826229   .0333898    -5.47   0.000    -.2520608    -.113185
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              8.237
+                                                   Chi-sq(1) P-val =    0.0041
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               66.918
+                         (Kleibergen-Paap rk Wald F statistic):          7.262
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_b1
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_b1
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [JOINT] b1_subregion ln_gaci_cwm: b =     4.295 (se    1.543)  KP F =     7.3  N =    4634
+SUP [JOINT] b1_subregion nbr_g_b1: b =     0.818 (se    0.590)  KP F =     7.3  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode and y
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+Number of clusters (y) =            28                F(  5,    27) =     9.49
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.3554
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.3554
+Residual SS             =  500.2338969                Root MSE      =    .3288
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   4.294524   1.236881     3.47   0.002     1.756654    6.832394
+    nbr_g_b1 |   .8181641   .6256186     1.31   0.202    -.4654992    2.101827
+       lnpop |  -.2778422   .3037232    -0.91   0.368    -.9010308    .3453464
+   ln_sea_ma |   3.042464   1.475849     2.06   0.049     .0142717    6.070656
+  has_contig |  -.1826229   .0208825    -8.75   0.000    -.2254702   -.1397756
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              6.796
+                                                   Chi-sq(1) P-val =    0.0091
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               67.296
+                         (Kleibergen-Paap rk Wald F statistic):          6.596
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Warning: estimated covariance matrix of moment conditions not of full rank.
+         overidentification statistic not reported, and standard errors and
+         model tests should be interpreted with caution.
+Possible causes:
+         number of clusters insufficient to calculate robust covariance matrix
+         singleton dummy variable (dummy with one 1 and N-1 0s or vice versa)
+partial option may address problem.
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_b1
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_b1
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28          28           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [JOINT] b1_twoway ln_gaci_cwm: b =     4.295 (se    1.237)  KP F =     6.6  N =    4634
+SUP [JOINT] b1_twoway nbr_g_b1: b =     0.818 (se    0.626)  KP F =     6.6  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4634
+                                                      F(  5,  4420) =    42.17
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =  -0.0139
+Total (uncentered) SS   =   776.026185                Uncentered R2 =  -0.0139
+Residual SS             =  786.8021988                Root MSE      =    .4219
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   -.257514   .6568727    -0.39   0.695    -1.545313    1.030285
+ nbr_g_k1000 |   4.749825    .751194     6.32   0.000     3.277109    6.222542
+       lnpop |   .6737986   .1792487     3.76   0.000     .3223814    1.025216
+   ln_sea_ma |  -.9382038   .6534278    -1.44   0.151    -2.219249    .3428419
+  has_contig |  -.5636547    .133967    -4.21   0.000    -.8262973   -.3010122
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             42.139
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               27.978
+                         (Kleibergen-Paap rk Wald F statistic):         21.441
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_k1000
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_k1000
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [JOINT] k1000_robust ln_gaci_cwm: b =    -0.258 (se    0.657)  KP F =    21.4  N =    4634
+SUP [JOINT] k1000_robust nbr_g_k1000: b =     4.750 (se    0.751)  KP F =    21.4  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+                                                      F(  5,   181) =    16.83
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =  -0.0139
+Total (uncentered) SS   =   776.026185                Uncentered R2 =  -0.0139
+Residual SS             =  786.8021988                Root MSE      =    .4135
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   -.257514   1.940636    -0.13   0.895    -4.086694    3.571666
+ nbr_g_k1000 |   4.749825    2.24547     2.12   0.036     .3191599    9.180491
+       lnpop |   .6737986   .5069368     1.33   0.185    -.3264673    1.674064
+   ln_sea_ma |  -.9382038   1.845048    -0.51   0.612    -4.578774    2.702366
+  has_contig |  -.5636547   .1761566    -3.20   0.002    -.9112393   -.2160701
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              4.696
+                                                   Chi-sq(1) P-val =    0.0302
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               29.130
+                         (Kleibergen-Paap rk Wald F statistic):          2.655
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_k1000
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_k1000
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [JOINT] k1000_country ln_gaci_cwm: b =    -0.258 (se    1.941)  KP F =     2.7  N =    4634
+SUP [JOINT] k1000_country nbr_g_k1000: b =     4.750 (se    2.245)  KP F =     2.7  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on srid
+
+Number of clusters (srid) =         22                Number of obs =     4634
+                                                      F(  5,    21) =    51.17
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =  -0.0139
+Total (uncentered) SS   =   776.026185                Uncentered R2 =  -0.0139
+Residual SS             =  786.8021988                Root MSE      =    .4135
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   -.257514   1.989203    -0.13   0.898    -4.394288     3.87926
+ nbr_g_k1000 |   4.749825    2.43149     1.95   0.064    -.3067352    9.806386
+       lnpop |   .6737986   .4825197     1.40   0.177    -.3296561    1.677253
+   ln_sea_ma |  -.9382038   2.284579    -0.41   0.685    -5.689246    3.812838
+  has_contig |  -.5636547   .1799284    -3.13   0.005    -.9378363   -.1894732
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              3.700
+                                                   Chi-sq(1) P-val =    0.0544
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               29.130
+                         (Kleibergen-Paap rk Wald F statistic):          2.148
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_k1000
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_k1000
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [JOINT] k1000_subregion ln_gaci_cwm: b =    -0.258 (se    1.989)  KP F =     2.1  N =    4634
+SUP [JOINT] k1000_subregion nbr_g_k1000: b =     4.750 (se    2.431)  KP F =     2.1  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode and y
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+Number of clusters (y) =            28                F(  5,    27) =     4.39
+                                                      Prob > F      =   0.0047
+Total (centered) SS     =   776.026185                Centered R2   =  -0.0139
+Total (uncentered) SS   =   776.026185                Uncentered R2 =  -0.0139
+Residual SS             =  786.8021988                Root MSE      =    .4123
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   -.257514    1.87727    -0.14   0.892    -4.109354    3.594326
+ nbr_g_k1000 |   4.749825   2.165047     2.19   0.037     .3075161    9.192135
+       lnpop |   .6737986   .4933324     1.37   0.183    -.3384358    1.686033
+   ln_sea_ma |  -.9382038    1.80452    -0.52   0.607    -4.640773    2.764365
+  has_contig |  -.5636547    .170617    -3.30   0.003    -.9137319   -.2135776
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              3.847
+                                                   Chi-sq(1) P-val =    0.0498
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               29.294
+                         (Kleibergen-Paap rk Wald F statistic):          2.718
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Warning: estimated covariance matrix of moment conditions not of full rank.
+         overidentification statistic not reported, and standard errors and
+         model tests should be interpreted with caution.
+Possible causes:
+         number of clusters insufficient to calculate robust covariance matrix
+         singleton dummy variable (dummy with one 1 and N-1 0s or vice versa)
+partial option may address problem.
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_k1000
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_k1000
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28          28           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [JOINT] k1000_twoway ln_gaci_cwm: b =    -0.258 (se    1.877)  KP F =     2.7  N =    4634
+SUP [JOINT] k1000_twoway nbr_g_k1000: b =     4.750 (se    2.165)  KP F =     2.7  N =    4634
+
+. * region-by-year FE, contiguity, clustered
+. foreach cl in robust country subregion {
+  2.     if "`cl'" == "robust" local vo "robust"
+  3.     if "`cl'" == "country" local vo "cluster(isocode)"
+  4.     if "`cl'" == "subregion" local vo "cluster(srid)"
+  5.     capture noisily ivreghdfe ln_co2_tot lnpop ln_sea_ma has_contig (ln_gaci_cwm nbr_g_contig = feyrer_int nbr_f_contig), absorb(isocode sry) `vo'
+  6.     if _rc == 0 {
+  7.         postone RXY contig_`cl' ln_gaci_cwm
+  8.         postone RXY contig_`cl' nbr_g_contig
+  9.     }
+ 10. }
+(dropped 3 singleton observations)
+(MWFE estimator converged in 8 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4632
+                                                      F(  5,  3853) =    13.80
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   625.459737                Centered R2   =  -0.5737
+Total (uncentered) SS   =   625.459737                Uncentered R2 =  -0.5737
+Residual SS             =  984.3109187                Root MSE      =    .5054
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |  -2.106436   2.577233    -0.82   0.414    -7.159307    2.946435
+nbr_g_contig |   1.914214    .449938     4.25   0.000     1.032074    2.796353
+       lnpop |   1.273339   .6319691     2.01   0.044     .0343134    2.512365
+   ln_sea_ma |  -2.930571    1.79265    -1.63   0.102    -6.445205    .5840635
+  has_contig |  -.7331533   .1732752    -4.23   0.000    -1.072873   -.3934334
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              8.067
+                                                   Chi-sq(1) P-val =    0.0045
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                3.751
+                         (Kleibergen-Paap rk Wald F statistic):          3.419
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+         sry |       614          22         592     |
+-----------------------------------------------------+
+SUP [RXY] contig_robust ln_gaci_cwm: b =    -2.106 (se    2.577)  KP F =     3.4  N =    4632
+SUP [RXY] contig_robust nbr_g_contig: b =     1.914 (se    0.450)  KP F =     3.4  N =    4632
+(dropped 3 singleton observations)
+(MWFE estimator converged in 8 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4632
+                                                      F(  5,   181) =     1.63
+                                                      Prob > F      =   0.1542
+Total (centered) SS     =   625.459737                Centered R2   =  -0.5737
+Total (uncentered) SS   =   625.459737                Uncentered R2 =  -0.5737
+Residual SS             =  984.3109187                Root MSE      =    .4952
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |  -2.106436    6.93727    -0.30   0.762    -15.79476    11.58189
+nbr_g_contig |   1.914214   1.318912     1.45   0.148    -.6882064    4.516634
+       lnpop |   1.273339   1.730325     0.74   0.463    -2.140863    4.687541
+   ln_sea_ma |  -2.930571   4.758489    -0.62   0.539    -12.31982    6.458676
+  has_contig |  -.7331533   .3586938    -2.04   0.042    -1.440912   -.0253942
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              1.165
+                                                   Chi-sq(1) P-val =    0.2805
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                3.908
+                         (Kleibergen-Paap rk Wald F statistic):          0.539
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+         sry |       614           1         613     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [RXY] contig_country ln_gaci_cwm: b =    -2.106 (se    6.937)  KP F =     0.5  N =    4632
+SUP [RXY] contig_country nbr_g_contig: b =     1.914 (se    1.319)  KP F =     0.5  N =    4632
+(dropped 3 singleton observations)
+(MWFE estimator converged in 8 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on srid
+
+Number of clusters (srid) =         22                Number of obs =     4632
+                                                      F(  5,    21) =     1.79
+                                                      Prob > F      =   0.1587
+Total (centered) SS     =   625.459737                Centered R2   =  -0.5737
+Total (uncentered) SS   =   625.459737                Uncentered R2 =  -0.5737
+Residual SS             =  984.3109187                Root MSE      =    .4613
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |  -2.106436   6.716743    -0.31   0.757    -16.07467     11.8618
+nbr_g_contig |   1.914214   1.037032     1.85   0.079    -.2424114    4.070839
+       lnpop |   1.273339   1.550649     0.82   0.421    -1.951412    4.498091
+   ln_sea_ma |  -2.930571   5.055797    -0.58   0.568    -13.44468    7.583534
+  has_contig |  -.7331533   .1947963    -3.76   0.001    -1.138254   -.3280523
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.964
+                                                   Chi-sq(1) P-val =    0.3261
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                4.504
+                         (Kleibergen-Paap rk Wald F statistic):          0.441
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Warning: estimated covariance matrix of moment conditions not of full rank.
+         overidentification statistic not reported, and standard errors and
+         model tests should be interpreted with caution.
+Possible causes:
+         number of clusters insufficient to calculate robust covariance matrix
+         singleton dummy variable (dummy with one 1 and N-1 0s or vice versa)
+partial option may address problem.
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+         sry |       614         614           0    *|
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [RXY] contig_subregion ln_gaci_cwm: b =    -2.106 (se    6.717)  KP F =     0.4  N =    4632
+SUP [RXY] contig_subregion nbr_g_contig: b =     1.914 (se    1.037)  KP F =     0.4  N =    4632
+
+. * neighbour mechanisms under contiguity W (joint IV, own controlled), robust and country-clustered
+. foreach yv in ln_co2_tot ln_co2_intl ln_co2_dom ln_skm ln_flights ln_gauge ln_stage ln_intensity intl_share {
+  2.     capture noisily ivreghdfe `yv' lnpop ln_sea_ma has_contig (ln_gaci_cwm nbr_g_contig = feyrer_int nbr_f_contig), absorb(isocode y) robust
+  3.     if _rc == 0 {
+  4.         postone MECH `yv'_robust ln_gaci_cwm
+  5.         postone MECH `yv'_robust nbr_g_contig
+  6.     }
+  7.     capture noisily ivreghdfe `yv' lnpop ln_sea_ma has_contig (ln_gaci_cwm nbr_g_contig = feyrer_int nbr_f_contig), absorb(isocode y) cluster(isocode)
+  8.     if _rc == 0 {
+  9.         postone MECH `yv'_country ln_gaci_cwm
+ 10.         postone MECH `yv'_country nbr_g_contig
+ 11.     }
+ 12. }
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4634
+                                                      F(  5,  4420) =    77.92
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.3712
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.3712
+Residual SS             =  487.9356262                Root MSE      =    .3323
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   3.212629   .4599521     6.98   0.000     2.310893    4.114365
+nbr_g_contig |   1.854442   .2645226     7.01   0.000     1.335846    2.373039
+       lnpop |  -.0485682   .1235424    -0.39   0.694    -.2907731    .1936367
+   ln_sea_ma |   2.270667   .5352761     4.24   0.000     1.221257    3.320076
+  has_contig |  -.6273087   .1103235    -5.69   0.000    -.8435981   -.4110194
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             61.592
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               43.211
+                         (Kleibergen-Paap rk Wald F statistic):         32.460
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [MECH] ln_co2_tot_robust ln_gaci_cwm: b =     3.213 (se    0.460)  KP F =    32.5  N =    4634
+SUP [MECH] ln_co2_tot_robust nbr_g_contig: b =     1.854 (se    0.265)  KP F =    32.5  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+                                                      F(  5,   181) =    31.48
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   776.026185                Centered R2   =   0.3712
+Total (uncentered) SS   =   776.026185                Uncentered R2 =   0.3712
+Residual SS             =  487.9356262                Root MSE      =    .3256
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_tot |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   3.212629   1.234496     2.60   0.010     .7767743    5.648484
+nbr_g_contig |   1.854442   .6593129     2.81   0.005     .5535144     3.15537
+       lnpop |  -.0485682   .2953999    -0.16   0.870    -.6314386    .5343022
+   ln_sea_ma |   2.270667   1.380565     1.64   0.102    -.4534051    4.994739
+  has_contig |  -.6273087   .1624593    -3.86   0.000    -.9478665    -.306751
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              5.868
+                                                   Chi-sq(1) P-val =    0.0154
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               44.990
+                         (Kleibergen-Paap rk Wald F statistic):          3.287
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [MECH] ln_co2_tot_country ln_gaci_cwm: b =     3.213 (se    1.234)  KP F =     3.3  N =    4634
+SUP [MECH] ln_co2_tot_country nbr_g_contig: b =     1.854 (se    0.659)  KP F =     3.3  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4634
+                                                      F(  5,  4420) =    78.29
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  796.8170565                Centered R2   =   0.3762
+Total (uncentered) SS   =  796.8170565                Uncentered R2 =   0.3762
+Residual SS             =  497.0692432                Root MSE      =    .3353
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_co2_intl |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |    2.81841   .4387081     6.42   0.000     1.958323    3.678498
+nbr_g_contig |   2.062421   .2491211     8.28   0.000     1.574019    2.550823
+       lnpop |   .0418535   .1251363     0.33   0.738    -.2034764    .2871834
+   ln_sea_ma |   1.621339   .5341163     3.04   0.002     .5742031    2.668474
+  has_contig |  -.7591952   .1184143    -6.41   0.000    -.9913464   -.5270439
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             61.592
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               43.211
+                         (Kleibergen-Paap rk Wald F statistic):         32.460
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [MECH] ln_co2_intl_robust ln_gaci_cwm: b =     2.818 (se    0.439)  KP F =    32.5  N =    4634
+SUP [MECH] ln_co2_intl_robust nbr_g_contig: b =     2.062 (se    0.249)  KP F =    32.5  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+                                                      F(  5,   181) =    50.20
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  796.8170565                Centered R2   =   0.3762
+Total (uncentered) SS   =  796.8170565                Uncentered R2 =   0.3762
+Residual SS             =  497.0692432                Root MSE      =    .3287
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_co2_intl |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |    2.81841   1.158995     2.43   0.016     .5315305     5.10529
+nbr_g_contig |   2.062421   .5899057     3.50   0.001     .8984447    3.226398
+       lnpop |   .0418535    .290675     0.14   0.886     -.531694    .6154009
+   ln_sea_ma |   1.621339   1.319864     1.23   0.221    -.9829597    4.225637
+  has_contig |  -.7591952   .1455061    -5.22   0.000    -1.046302   -.4720888
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              5.868
+                                                   Chi-sq(1) P-val =    0.0154
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               44.990
+                         (Kleibergen-Paap rk Wald F statistic):          3.287
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [MECH] ln_co2_intl_country ln_gaci_cwm: b =     2.818 (se    1.159)  KP F =     3.3  N =    4634
+SUP [MECH] ln_co2_intl_country nbr_g_contig: b =     2.062 (se    0.590)  KP F =     3.3  N =    4634
+(dropped 9 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     3567
+                                                      F(  5,  3377) =     9.71
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  2156.685239                Centered R2   =  -0.1032
+Total (uncentered) SS   =  2156.685239                Uncentered R2 =  -0.1032
+Residual SS             =  2379.355875                Root MSE      =    .8394
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_dom |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |  -2.783817   1.783779    -1.56   0.119    -6.281214    .7135798
+nbr_g_contig |   1.962116   .9025196     2.17   0.030     .1925757    3.731656
+       lnpop |   .7821099   .3801871     2.06   0.040     .0366897     1.52753
+   ln_sea_ma |   .4904285   1.888325     0.26   0.795    -3.211948    4.192805
+  has_contig |   .2577544   .2685758     0.96   0.337    -.2688333    .7843421
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             48.697
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               40.714
+                         (Kleibergen-Paap rk Wald F statistic):         25.848
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       158           0         158     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [MECH] ln_co2_dom_robust ln_gaci_cwm: b =    -2.784 (se    1.784)  KP F =    25.8  N =    3567
+SUP [MECH] ln_co2_dom_robust nbr_g_contig: b =     1.962 (se    0.903)  KP F =    25.8  N =    3567
+(dropped 9 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     158                Number of obs =     3567
+                                                      F(  5,   157) =    32.28
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  2156.685239                Centered R2   =  -0.1032
+Total (uncentered) SS   =  2156.685239                Uncentered R2 =  -0.1032
+Residual SS             =  2379.355875                Root MSE      =    .8204
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_co2_dom |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |  -2.783817   4.679258    -0.59   0.553    -12.02624    6.458602
+nbr_g_contig |   1.962116   2.365495     0.83   0.408    -2.710184    6.634415
+       lnpop |   .7821099   1.043731     0.75   0.455    -1.279457    2.843677
+   ln_sea_ma |   .4904285   5.034852     0.10   0.923    -9.454356    10.43521
+  has_contig |   .2577544   .5153293     0.50   0.618    -.7601186    1.275627
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              4.689
+                                                   Chi-sq(1) P-val =    0.0304
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               42.619
+                         (Kleibergen-Paap rk Wald F statistic):          2.733
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       158         158           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [MECH] ln_co2_dom_country ln_gaci_cwm: b =    -2.784 (se    4.679)  KP F =     2.7  N =    3567
+SUP [MECH] ln_co2_dom_country nbr_g_contig: b =     1.962 (se    2.365)  KP F =     2.7  N =    3567
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4634
+                                                      F(  5,  4420) =    77.94
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  910.2152703                Centered R2   =   0.3434
+Total (uncentered) SS   =  910.2152703                Uncentered R2 =   0.3434
+Residual SS             =  597.6844229                Root MSE      =    .3677
+
+------------------------------------------------------------------------------
+             |               Robust
+      ln_skm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   2.817299   .4800402     5.87   0.000     1.876179    3.758418
+nbr_g_contig |   2.453447   .2617963     9.37   0.000     1.940195    2.966699
+       lnpop |   -.102452    .133314    -0.77   0.442    -.3638143    .1589103
+   ln_sea_ma |   2.094369   .5749985     3.64   0.000     .9670845    3.221654
+  has_contig |  -.8213832   .1206546    -6.81   0.000    -1.057927   -.5848398
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             61.592
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               43.211
+                         (Kleibergen-Paap rk Wald F statistic):         32.460
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [MECH] ln_skm_robust ln_gaci_cwm: b =     2.817 (se    0.480)  KP F =    32.5  N =    4634
+SUP [MECH] ln_skm_robust nbr_g_contig: b =     2.453 (se    0.262)  KP F =    32.5  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+                                                      F(  5,   181) =    38.72
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  910.2152703                Centered R2   =   0.3434
+Total (uncentered) SS   =  910.2152703                Uncentered R2 =   0.3434
+Residual SS             =  597.6844229                Root MSE      =    .3604
+
+------------------------------------------------------------------------------
+             |               Robust
+      ln_skm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   2.817299   1.332609     2.11   0.036     .1878514    5.446746
+nbr_g_contig |   2.453447   .6585402     3.73   0.000     1.154044     3.75285
+       lnpop |   -.102452   .3235393    -0.32   0.752    -.7408458    .5359418
+   ln_sea_ma |   2.094369   1.485487     1.41   0.160    -.8367297    5.025469
+  has_contig |  -.8213832   .1653815    -4.97   0.000    -1.147707   -.4950595
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              5.868
+                                                   Chi-sq(1) P-val =    0.0154
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               44.990
+                         (Kleibergen-Paap rk Wald F statistic):          3.287
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [MECH] ln_skm_country ln_gaci_cwm: b =     2.817 (se    1.333)  KP F =     3.3  N =    4634
+SUP [MECH] ln_skm_country nbr_g_contig: b =     2.453 (se    0.659)  KP F =     3.3  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4634
+                                                      F(  5,  4420) =    45.74
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   963.997444                Centered R2   =   0.0274
+Total (uncentered) SS   =   963.997444                Uncentered R2 =   0.0274
+Residual SS             =  937.5525635                Root MSE      =    .4606
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_flights |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   5.427575    .777351     6.98   0.000     3.903578    6.951573
+nbr_g_contig |   1.155591   .5303551     2.18   0.029     .1158295    2.195353
+       lnpop |  -.4629972   .1853149    -2.50   0.013    -.8263072   -.0996872
+   ln_sea_ma |   5.845558   .7704086     7.59   0.000     4.335171    7.355945
+  has_contig |  -.0309042   .1564285    -0.20   0.843    -.3375824    .2757741
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             61.592
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               43.211
+                         (Kleibergen-Paap rk Wald F statistic):         32.460
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [MECH] ln_flights_robust ln_gaci_cwm: b =     5.428 (se    0.777)  KP F =    32.5  N =    4634
+SUP [MECH] ln_flights_robust nbr_g_contig: b =     1.156 (se    0.530)  KP F =    32.5  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+                                                      F(  5,   181) =    15.10
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   963.997444                Centered R2   =   0.0274
+Total (uncentered) SS   =   963.997444                Uncentered R2 =   0.0274
+Residual SS             =  937.5525635                Root MSE      =    .4514
+
+------------------------------------------------------------------------------
+             |               Robust
+  ln_flights |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   5.427575    2.06377     2.63   0.009     1.355433    9.499718
+nbr_g_contig |   1.155591    1.37941     0.84   0.403    -1.566201    3.877383
+       lnpop |  -.4629972   .5352667    -0.86   0.388    -1.519162     .593168
+   ln_sea_ma |   5.845558   2.105274     2.78   0.006     1.691522    9.999594
+  has_contig |  -.0309042   .3334227    -0.09   0.926    -.6887995    .6269912
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              5.868
+                                                   Chi-sq(1) P-val =    0.0154
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               44.990
+                         (Kleibergen-Paap rk Wald F statistic):          3.287
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [MECH] ln_flights_country ln_gaci_cwm: b =     5.428 (se    2.064)  KP F =     3.3  N =    4634
+SUP [MECH] ln_flights_country nbr_g_contig: b =     1.156 (se    1.379)  KP F =     3.3  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4634
+                                                      F(  5,  4420) =    41.71
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  167.5044366                Centered R2   =  -0.0919
+Total (uncentered) SS   =  167.5044366                Uncentered R2 =  -0.0919
+Residual SS             =   182.897944                Root MSE      =    .2034
+
+------------------------------------------------------------------------------
+             |               Robust
+    ln_gauge |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |  -.6854964   .3389101    -2.02   0.043     -1.34993   -.0210629
+nbr_g_contig |   .3038217    .252046     1.21   0.228    -.1903148    .7979582
+       lnpop |  -.1292056   .0794294    -1.63   0.104    -.2849269    .0265157
+   ln_sea_ma |  -1.554968   .3325716    -4.68   0.000    -2.206975   -.9029615
+  has_contig |   -.191263   .0706571    -2.71   0.007    -.3297863   -.0527397
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             61.592
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               43.211
+                         (Kleibergen-Paap rk Wald F statistic):         32.460
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [MECH] ln_gauge_robust ln_gaci_cwm: b =    -0.685 (se    0.339)  KP F =    32.5  N =    4634
+SUP [MECH] ln_gauge_robust nbr_g_contig: b =     0.304 (se    0.252)  KP F =    32.5  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+                                                      F(  5,   181) =    25.81
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  167.5044366                Centered R2   =  -0.0919
+Total (uncentered) SS   =  167.5044366                Uncentered R2 =  -0.0919
+Residual SS             =   182.897944                Root MSE      =    .1994
+
+------------------------------------------------------------------------------
+             |               Robust
+    ln_gauge |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |  -.6854964   .8392103    -0.82   0.415     -2.34139    .9703974
+nbr_g_contig |   .3038217   .6146799     0.49   0.622    -.9090384    1.516682
+       lnpop |  -.1292056   .2256681    -0.57   0.568    -.5744842     .316073
+   ln_sea_ma |  -1.554968   .8874158    -1.75   0.081    -3.305979    .1960423
+  has_contig |   -.191263   .1485333    -1.29   0.200    -.4843425    .1018165
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              5.868
+                                                   Chi-sq(1) P-val =    0.0154
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               44.990
+                         (Kleibergen-Paap rk Wald F statistic):          3.287
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [MECH] ln_gauge_country ln_gaci_cwm: b =    -0.685 (se    0.839)  KP F =     3.3  N =    4634
+SUP [MECH] ln_gauge_country nbr_g_contig: b =     0.304 (se    0.615)  KP F =     3.3  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4634
+                                                      F(  5,  4420) =    10.40
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  160.8745078                Centered R2   =  -0.8928
+Total (uncentered) SS   =  160.8745078                Uncentered R2 =  -0.8928
+Residual SS             =  304.4967355                Root MSE      =    .2625
+
+------------------------------------------------------------------------------
+             |               Robust
+    ln_stage |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   -1.92478   .4097075    -4.70   0.000    -2.728012   -1.121548
+nbr_g_contig |   .9940333   .2523033     3.94   0.000     .4993924    1.488674
+       lnpop |   .4897508    .108837     4.50   0.000     .2763758    .7031258
+   ln_sea_ma |   -2.19622   .4357433    -5.04   0.000    -3.050495   -1.341945
+  has_contig |  -.5992149   .0949511    -6.31   0.000    -.7853666   -.4130633
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             61.592
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               43.211
+                         (Kleibergen-Paap rk Wald F statistic):         32.460
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [MECH] ln_stage_robust ln_gaci_cwm: b =    -1.925 (se    0.410)  KP F =    32.5  N =    4634
+SUP [MECH] ln_stage_robust nbr_g_contig: b =     0.994 (se    0.252)  KP F =    32.5  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+                                                      F(  5,   181) =    68.40
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  160.8745078                Centered R2   =  -0.8928
+Total (uncentered) SS   =  160.8745078                Uncentered R2 =  -0.8928
+Residual SS             =  304.4967355                Root MSE      =    .2572
+
+------------------------------------------------------------------------------
+             |               Robust
+    ln_stage |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   -1.92478   1.229826    -1.57   0.119     -4.35142    .5018598
+nbr_g_contig |   .9940333   .7327149     1.36   0.177    -.4517284    2.439795
+       lnpop |   .4897508    .338962     1.44   0.150    -.1790744    1.158576
+   ln_sea_ma |   -2.19622   1.297964    -1.69   0.092    -4.757307     .364868
+  has_contig |  -.5992149   .1808877    -3.31   0.001    -.9561347   -.2422951
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              5.868
+                                                   Chi-sq(1) P-val =    0.0154
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               44.990
+                         (Kleibergen-Paap rk Wald F statistic):          3.287
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [MECH] ln_stage_country ln_gaci_cwm: b =    -1.925 (se    1.230)  KP F =     3.3  N =    4634
+SUP [MECH] ln_stage_country nbr_g_contig: b =     0.994 (se    0.733)  KP F =     3.3  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4634
+                                                      F(  5,  4420) =    13.61
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  66.90864822                Centered R2   =  -0.1416
+Total (uncentered) SS   =  66.90864822                Uncentered R2 =  -0.1416
+Residual SS             =  76.38026136                Root MSE      =    .1315
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_intensity |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   .3953304   .1576463     2.51   0.012     .0862647    .7043961
+nbr_g_contig |  -.5990045   .0998329    -6.00   0.000     -.794727    -.403282
+       lnpop |   .0538838    .043762     1.23   0.218    -.0319117    .1396793
+   ln_sea_ma |   .1762973   .1922095     0.92   0.359    -.2005296    .5531243
+  has_contig |   .1940745   .0422549     4.59   0.000     .1112337    .2769153
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             61.592
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               43.211
+                         (Kleibergen-Paap rk Wald F statistic):         32.460
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [MECH] ln_intensity_robust ln_gaci_cwm: b =     0.395 (se    0.158)  KP F =    32.5  N =    4634
+SUP [MECH] ln_intensity_robust nbr_g_contig: b =    -0.599 (se    0.100)  KP F =    32.5  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+                                                      F(  5,   181) =    12.36
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  66.90864822                Centered R2   =  -0.1416
+Total (uncentered) SS   =  66.90864822                Uncentered R2 =  -0.1416
+Residual SS             =  76.38026136                Root MSE      =    .1288
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_intensity |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   .3953304   .4041401     0.98   0.329    -.4021014    1.192762
+nbr_g_contig |  -.5990045   .2354619    -2.54   0.012    -1.063608   -.1344012
+       lnpop |   .0538838   .1125208     0.48   0.633    -.1681374     .275905
+   ln_sea_ma |   .1762973   .4923372     0.36   0.721    -.7951612    1.147756
+  has_contig |   .1940745   .0565517     3.43   0.001     .0824892    .3056598
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              5.868
+                                                   Chi-sq(1) P-val =    0.0154
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               44.990
+                         (Kleibergen-Paap rk Wald F statistic):          3.287
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [MECH] ln_intensity_country ln_gaci_cwm: b =     0.395 (se    0.404)  KP F =     3.3  N =    4634
+SUP [MECH] ln_intensity_country nbr_g_contig: b =    -0.599 (se    0.235)  KP F =     3.3  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4634
+                                                      F(  5,  4420) =     4.47
+                                                      Prob > F      =   0.0005
+Total (centered) SS     =  10.41864177                Centered R2   =  -0.0079
+Total (uncentered) SS   =  10.41864177                Uncentered R2 =  -0.0079
+Residual SS             =  10.50121582                Root MSE      =   .04874
+
+------------------------------------------------------------------------------
+             |               Robust
+  intl_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |  -.0244363   .0632673    -0.39   0.699    -.1484718    .0995992
+nbr_g_contig |   .0378686   .0377062     1.00   0.315    -.0360544    .1117915
+       lnpop |   .0179506   .0156699     1.15   0.252    -.0127702    .0486715
+   ln_sea_ma |   -.185869   .0769882    -2.41   0.016    -.3368044   -.0349336
+  has_contig |  -.0310968   .0133168    -2.34   0.020    -.0572043   -.0049892
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             61.592
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               43.211
+                         (Kleibergen-Paap rk Wald F statistic):         32.460
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SUP [MECH] intl_share_robust ln_gaci_cwm: b =    -0.024 (se    0.063)  KP F =    32.5  N =    4634
+SUP [MECH] intl_share_robust nbr_g_contig: b =     0.038 (se    0.038)  KP F =    32.5  N =    4634
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     4634
+                                                      F(  5,   181) =    11.43
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  10.41864177                Centered R2   =  -0.0079
+Total (uncentered) SS   =  10.41864177                Uncentered R2 =  -0.0079
+Residual SS             =  10.50121582                Root MSE      =   .04777
+
+------------------------------------------------------------------------------
+             |               Robust
+  intl_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |  -.0244363   .1580681    -0.15   0.877    -.3363296     .287457
+nbr_g_contig |   .0378686   .0860194     0.44   0.660    -.1318611    .2075983
+       lnpop |   .0179506    .037327     0.48   0.631    -.0557014    .0916027
+   ln_sea_ma |   -.185869   .2039137    -0.91   0.363    -.5882228    .2164848
+  has_contig |  -.0310968   .0215498    -1.44   0.151     -.073618    .0114245
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              5.868
+                                                   Chi-sq(1) P-val =    0.0154
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               44.990
+                         (Kleibergen-Paap rk Wald F statistic):          3.287
+Stock-Yogo weak ID test critical values: 10% maximal IV size              7.03
+                                         15% maximal IV size              4.58
+                                         20% maximal IV size              3.95
+                                         25% maximal IV size              3.63
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm nbr_g_contig
+Included instruments: lnpop ln_sea_ma has_contig
+Excluded instruments: feyrer_int nbr_f_contig
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+SUP [MECH] intl_share_country ln_gaci_cwm: b =    -0.024 (se    0.158)  KP F =     3.3  N =    4634
+SUP [MECH] intl_share_country nbr_g_contig: b =     0.038 (se    0.086)  KP F =     3.3  N =    4634
+
+. * first stages of the contiguity joint spec (for the text)
+. reghdfe ln_gaci_cwm feyrer_int nbr_f_contig lnpop ln_sea_ma has_contig, absorb(isocode y) vce(cluster isocode)
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,634
+Absorbing 2 HDFE groups                           F(   5,    181) =       9.79
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9500
+                                                  Adj R-squared   =     0.9476
+                                                  Within R-sq.    =     0.0895
+Number of clusters (isocode) =        182         Root MSE        =     0.0740
+
+                              (Std. Err. adjusted for 182 clusters in isocode)
+------------------------------------------------------------------------------
+             |               Robust
+ ln_gaci_cwm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  feyrer_int |   .1264745   .0330342     3.83   0.000     .0612929    .1916561
+nbr_f_contig |   .0003516   .0022811     0.15   0.878    -.0041493    .0048526
+       lnpop |   .2018447   .0843167     2.39   0.018     .0354747    .3682147
+   ln_sea_ma |  -.8452246   .2520262    -3.35   0.001    -1.342512   -.3479374
+  has_contig |  -.0294631   .0077952    -3.78   0.000    -.0448443   -.0140818
+       _cons |   7.896539   2.507574     3.15   0.002     2.948701    12.84438
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. di "FS own: feyrer_int = " %8.4f _b[feyrer_int] " (se " %7.4f _se[feyrer_int] ")  nbr_f_contig = " %8.4f _b[nbr_f_contig] " (se " %7.4f _se[nbr_f_contig] ")"
+FS own: feyrer_int =   0.1265 (se  0.0330)  nbr_f_contig =   0.0004 (se  0.0023)
+
+. post $RH ("FS") ("own_eq") ("feyrer_int") (_b[feyrer_int]) (_se[feyrer_int]) (2*normal(-abs(_b[feyrer_int]/_se[feyrer_int]))) (.) (e(N))
+
+. post $RH ("FS") ("own_eq") ("nbr_f_contig") (_b[nbr_f_contig]) (_se[nbr_f_contig]) (2*normal(-abs(_b[nbr_f_contig]/_se[nbr_f_contig]))) (.) (e(N))
+
+. reghdfe nbr_g_contig feyrer_int nbr_f_contig lnpop ln_sea_ma has_contig, absorb(isocode y) vce(cluster isocode)
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,634
+Absorbing 2 HDFE groups                           F(   5,    181) =    1267.47
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9524
+                                                  Adj R-squared   =     0.9501
+                                                  Within R-sq.    =     0.2028
+Number of clusters (isocode) =        182         Root MSE        =     0.0506
+
+                              (Std. Err. adjusted for 182 clusters in isocode)
+------------------------------------------------------------------------------
+             |               Robust
+nbr_g_contig |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  feyrer_int |   .0982837   .0197718     4.97   0.000     .0592709    .1372965
+nbr_f_contig |    .010854   .0008375    12.96   0.000     .0092015    .0125065
+       lnpop |   .0180591   .0435832     0.41   0.679    -.0679374    .1040556
+   ln_sea_ma |  -.2483398   .1542085    -1.61   0.109    -.5526174    .0559377
+  has_contig |    .185774   .0050415    36.85   0.000     .1758262    .1957217
+       _cons |   2.538587   1.698812     1.49   0.137    -.8134367     5.89061
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. di "FS nbr: feyrer_int = " %8.4f _b[feyrer_int] " (se " %7.4f _se[feyrer_int] ")  nbr_f_contig = " %8.4f _b[nbr_f_contig] " (se " %7.4f _se[nbr_f_contig] ")"
+FS nbr: feyrer_int =   0.0983 (se  0.0198)  nbr_f_contig =   0.0109 (se  0.0008)
+
+. post $RH ("FS") ("nbr_eq") ("feyrer_int") (_b[feyrer_int]) (_se[feyrer_int]) (2*normal(-abs(_b[feyrer_int]/_se[feyrer_int]))) (.) (e(N))
+
+. post $RH ("FS") ("nbr_eq") ("nbr_f_contig") (_b[nbr_f_contig]) (_se[nbr_f_contig]) (2*normal(-abs(_b[nbr_f_contig]/_se[nbr_f_contig]))) (.) (e(N))
+
+. * sample facts
+. quietly count if has_contig == 0 & y == 2023
+
+. di "countries without a land neighbour in 2023: " r(N)
+countries without a land neighbour in 2023: 31
+
+. 
+. postclose `R'
+
+. preserve
+
+. use "_spsupp_tmp", clear
+
+. list, clean noobs
+
+    panel                   item            var            b          se           p         kpf     nn  
+    JOINT          contig_robust    ln_gaci_cwm    3.2126291   .45995207   2.855e-12   32.459818   4634  
+    JOINT          contig_robust   nbr_g_contig    1.8544423   .26452258   2.374e-12   32.459818   4634  
+    JOINT         contig_country    ln_gaci_cwm    3.2126291   1.2344961    .0092579   3.2866097   4634  
+    JOINT         contig_country   nbr_g_contig    1.8544423   .65931287   .00491291   3.2866097   4634  
+    JOINT       contig_subregion    ln_gaci_cwm    3.2126291   1.4936798   .03149079   7.1514554   4634  
+    JOINT       contig_subregion   nbr_g_contig    1.8544423   .66514265   .00530285   7.1514554   4634  
+    JOINT          contig_twoway    ln_gaci_cwm    3.2126291   1.2030511   .00757607   3.3533565   4634  
+    JOINT          contig_twoway   nbr_g_contig    1.8544423   .73166754   .01125944   3.3533565   4634  
+    JOINT            knn5_robust    ln_gaci_cwm     1.130408   .61752075   .06716643   24.487717   4634  
+    JOINT            knn5_robust     nbr_g_knn5    3.2648712   .62313208   1.611e-07   24.487717   4634  
+    JOINT           knn5_country    ln_gaci_cwm     1.130408   1.7828578   .52605294   3.3932158   4634  
+    JOINT           knn5_country     nbr_g_knn5    3.2648712   1.8197766   .07279633   3.3932158   4634  
+    JOINT         knn5_subregion    ln_gaci_cwm     1.130408   1.9128016   .55454065   3.6079893   4634  
+    JOINT         knn5_subregion     nbr_g_knn5    3.2648712   2.1640646   .13138173   3.6079893   4634  
+    JOINT            knn5_twoway    ln_gaci_cwm     1.130408   1.7478671   .51780304   3.4918911   4634  
+    JOINT            knn5_twoway     nbr_g_knn5    3.2648712   1.7644337   .06425892   3.4918911   4634  
+    JOINT              b1_robust    ln_gaci_cwm    4.2945238    .5012783   1.061e-17   51.991958   4634  
+    JOINT              b1_robust       nbr_g_b1    .81816414   .24545633   .00085842   51.991958   4634  
+    JOINT             b1_country    ln_gaci_cwm    4.2945238   1.2167302   .00041625   6.6496507   4634  
+    JOINT             b1_country       nbr_g_b1    .81816414   .61510866   .18348098   6.6496507   4634  
+    JOINT           b1_subregion    ln_gaci_cwm    4.2945238   1.5427071    .0053733   7.2621177   4634  
+    JOINT           b1_subregion       nbr_g_b1    .81816414    .5896886   .16530423   7.2621177   4634  
+    JOINT              b1_twoway    ln_gaci_cwm    4.2945238    1.236881   .00051648   6.5958793   4634  
+    JOINT              b1_twoway       nbr_g_b1    .81816414   .62561861   .19095193   6.5958793   4634  
+    JOINT           k1000_robust    ln_gaci_cwm   -.25751402   .65687268   .69503579   21.441107   4634  
+    JOINT           k1000_robust    nbr_g_k1000    4.7498254   .75119403   2.565e-10   21.441107   4634  
+    JOINT          k1000_country    ln_gaci_cwm   -.25751402   1.9406363   .89443407   2.6548352   4634  
+    JOINT          k1000_country    nbr_g_k1000    4.7498254   2.2454703   .03440507   2.6548352   4634  
+    JOINT        k1000_subregion    ln_gaci_cwm   -.25751402   1.9892029   .89699693   2.1482141   4634  
+    JOINT        k1000_subregion    nbr_g_k1000    4.7498254   2.4314902   .05076479   2.1482141   4634  
+    JOINT           k1000_twoway    ln_gaci_cwm   -.25751402   1.8772702   .89089269   2.7179976   4634  
+    JOINT           k1000_twoway    nbr_g_k1000    4.7498254   2.1650469   .02824496   2.7179976   4634  
+      RXY          contig_robust    ln_gaci_cwm   -2.1064361    2.577233   .41374291   3.4194982   4632  
+      RXY          contig_robust   nbr_g_contig    1.9142139   .44993803   .00002096   3.4194982   4632  
+      RXY         contig_country    ln_gaci_cwm   -2.1064361   6.9372704   .76140181   .53886652   4632  
+      RXY         contig_country   nbr_g_contig    1.9142139   1.3189119   .14668008   .53886652   4632  
+      RXY       contig_subregion    ln_gaci_cwm   -2.1064361   6.7167429   .75381745   .44112524   4632  
+      RXY       contig_subregion   nbr_g_contig    1.9142139   1.0370316   .06491271   .44112524   4632  
+     MECH      ln_co2_tot_robust    ln_gaci_cwm    3.2126291   .45995207   2.855e-12   32.459818   4634  
+     MECH      ln_co2_tot_robust   nbr_g_contig    1.8544423   .26452258   2.374e-12   32.459818   4634  
+     MECH     ln_co2_tot_country    ln_gaci_cwm    3.2126291   1.2344961    .0092579   3.2866097   4634  
+     MECH     ln_co2_tot_country   nbr_g_contig    1.8544423   .65931287   .00491291   3.2866097   4634  
+     MECH     ln_co2_intl_robust    ln_gaci_cwm    2.8184104   .43870812   1.324e-10   32.459818   4634  
+     MECH     ln_co2_intl_robust   nbr_g_contig    2.0624213    .2491211   1.244e-16   32.459818   4634  
+     MECH    ln_co2_intl_country    ln_gaci_cwm    2.8184104   1.1589954   .01502524   3.2866097   4634  
+     MECH    ln_co2_intl_country   nbr_g_contig    2.0624213   .58990572   .00047196   3.2866097   4634  
+     MECH      ln_co2_dom_robust    ln_gaci_cwm   -2.7838172   1.7837795   .11861142   25.848174   3567  
+     MECH      ln_co2_dom_robust   nbr_g_contig    1.9621158   .90251961   .02970196   25.848174   3567  
+     MECH     ln_co2_dom_country    ln_gaci_cwm   -2.7838172   4.6792577    .5518922    2.732506   3567  
+     MECH     ln_co2_dom_country   nbr_g_contig    1.9621158   2.3654946   .40683636    2.732506   3567  
+     MECH          ln_skm_robust    ln_gaci_cwm    2.8172987   .48004022   4.387e-09   32.459818   4634  
+     MECH          ln_skm_robust   nbr_g_contig    2.4534468   .26179629   7.145e-21   32.459818   4634  
+     MECH         ln_skm_country    ln_gaci_cwm    2.8172987   1.3326092   .03450484   3.2866097   4634  
+     MECH         ln_skm_country   nbr_g_contig    2.4534468   .65854022   .00019486   3.2866097   4634  
+     MECH      ln_flights_robust    ln_gaci_cwm    5.4275755   .77735101   2.907e-12   32.459818   4634  
+     MECH      ln_flights_robust   nbr_g_contig    1.1555912   .53035512   .02933904   32.459818   4634  
+     MECH     ln_flights_country    ln_gaci_cwm    5.4275755     2.06377   .00854019   3.2866097   4634  
+     MECH     ln_flights_country   nbr_g_contig    1.1555912   1.3794097   .40217491   3.2866097   4634  
+     MECH        ln_gauge_robust    ln_gaci_cwm   -.68549641   .33891008   .04310926   32.459818   4634  
+     MECH        ln_gauge_robust   nbr_g_contig    .30382171   .25204603   .22804062   32.459818   4634  
+     MECH       ln_gauge_country    ln_gaci_cwm   -.68549641   .83921034    .4140227   3.2866097   4634  
+     MECH       ln_gauge_country   nbr_g_contig    .30382171   .61467995   .62111108   3.2866097   4634  
+     MECH        ln_stage_robust    ln_gaci_cwm   -1.9247801   .40970753   2.628e-06   32.459818   4634  
+     MECH        ln_stage_robust   nbr_g_contig    .99403326   .25230333   .00008154   32.459818   4634  
+     MECH       ln_stage_country    ln_gaci_cwm   -1.9247801   1.2298261   .11756339   3.2866097   4634  
+     MECH       ln_stage_country   nbr_g_contig    .99403326   .73271494   .17489438   3.2866097   4634  
+     MECH    ln_intensity_robust    ln_gaci_cwm     .3953304   .15764631   .01215182   32.459818   4634  
+     MECH    ln_intensity_robust   nbr_g_contig   -.59900451    .0998329   1.972e-09   32.459818   4634  
+     MECH   ln_intensity_country    ln_gaci_cwm     .3953304   .40414006   .32797469   3.2866097   4634  
+     MECH   ln_intensity_country   nbr_g_contig   -.59900451   .23546192   .01096052   3.2866097   4634  
+     MECH      intl_share_robust    ln_gaci_cwm   -.02443627   .06326725   .69931981   32.459818   4634  
+     MECH      intl_share_robust   nbr_g_contig    .03786859   .03770615   .31523027   32.459818   4634  
+     MECH     intl_share_country    ln_gaci_cwm   -.02443627   .15806815   .87714199   3.2866097   4634  
+     MECH     intl_share_country   nbr_g_contig    .03786859   .08601936   .65976815   3.2866097   4634  
+       FS                 own_eq     feyrer_int    .12647451   .03303415   .00012887           .   4634  
+       FS                 own_eq   nbr_f_contig    .00035165   .00228111   .87748622           .   4634  
+       FS                 nbr_eq     feyrer_int    .09828372   .01977177   6.664e-07           .   4634  
+       FS                 nbr_eq   nbr_f_contig    .01085401   .00083749   2.059e-38           .   4634  
+
+. export delimited "_spill_supp.csv", replace
+file _spill_supp.csv saved
+
+. restore
+
+. erase "_spsupp_tmp.dta"
+
+. di _n "DONE_SPILL_SUPP"
+
+DONE_SPILL_SUPP
+
+. 
+end of do-file

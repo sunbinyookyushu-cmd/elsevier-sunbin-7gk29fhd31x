@@ -1,0 +1,77 @@
+Short verbatim text snapshots collected 2026-10-02 for taxes_west_europe.csv. File: AUT_Flugabgabe_findok_IHS.txt
+
+================================================================================
+SOURCE: https://irihs.ihs.ac.at/id/eprint/2887/1/IHSPR6541150.pdf (IHS evaluation of the Flugabgabe, 2014)
+--------------------------------------------------------------------------------
+Das heute bestehende Flugabgabegesetz FlugAbgG ( BGBl. I N r. 111/2010, zuletzt geändert durch 
+das Bundesgesetz BGBl. I, Nr. 13, ausgegeben am 28. Februar 2014)  trat mit dem 1. Jänner 2011 in 
+Kraft, jedoch unterlagen erst Abflüge von Passagieren ab dem 1. April 2011 der Abgabe. Mit 1. Jänner 
+2013 erfolgte eine Änderung der zu erhebenden Abgabenbeträge.  
+In den Erläuterungen zum Gesetz wird verlangt, dass falls es zu einer allfälligen zusätzlichen 
+================================================================================
+SOURCE: same IHS report
+--------------------------------------------------------------------------------
+Seit dem 01.04.2011 gibt es die Flugabgabe in der jetzigen Form in Österreich. Vom Design her 
+gleicht sie der deutschen Luftverkehrsabgabe. In der Stammfassung  beträgt die Flugabgabe in 
+Österreich 7,27 Euro im Inland  (8,00 Euro inkl USt) und 8, Euro, 20 Euro und 35 Euro, analog zur 
+Länderklassifikation Deutschlands. Seit dem 01.01.2013 beträgt die Flugabgabe 6,36 Euro im Inland 
+(7 Euro inkl USt) und 7 Euro, 15 Euro und 35 Euro. 
+Das Einheben der Flugabgabe in Österreich führt planmäßig zu folgendem Mehraufkommen (in 
+================================================================================
+SOURCE: https://findok.bmf.gv.at/findok/resources/pdf/0b995a40-959d-42fd-a4b8-016a78917b6a/74910.1.X.X.pdf (BMF FlugAbgR Wartungserlass 2018)
+--------------------------------------------------------------------------------
+FlugAbgR – Wartungserlass 2018 
+Mit dem Wartungserlass 2018 werden insbesondere die Halbierung der Flugabgabe (BGBl. I 
+Nr. 44/2017) und die Erleichterungen betreffend der Namhaftmachung eines Fiskalvertreters 
+durch das AbgÄG 2014 (BGBl. I Nr. 13/2014) in die Flugabgaberichtlinien eingearbeitet. 
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+Kurzstrecke gemäß Anlage 1 FlugAbgG (ab 1.1.2018: 3,50 Euro; 1.1.2013 
+bis 31.12.2017: 7 Euro; bis 31.12.2012: 8 Euro) 
+Diese Tabelle zeigt den Steuersatz der Flugabgabe pro Abflug, abhängig von der 
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+Mittelstrecke gemäß Anlage 2 FlugAbgG (ab 1.1.2018: 7,50 Euro; 1.1.2013 
+bis 31.12.2017: 15 Euro; bis 31.12.2012: 20 Euro) 
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+Langstrecke (ab 1.1.2018: 17,50 Euro; bis 31.12.2017: 35 Euro) 
+================================================================================
+SOURCE: https://findok.bmf.gv.at/findok/resources/pdf/53ff2e04-255b-4da0-9627-f21a988ee064/78838.1.1.pdf (BMF FlugAbgR Wartungserlass 2020)
+--------------------------------------------------------------------------------
+ Der Abflug eines Transitpassagiers. Unter Transitpassagieren versteht man Passagiere, 
+die auf einem inländischen Flughafen planmäßig zwischenlanden (zB zum Auftanken des 
+Luftfahrzeuges) und dabei das Luftfahrzeug nicht verlassen. 
+ Der Abflug eines Transferpassagiers. Transferpassagiere sind Passagiere, die im Rahmen 
+eines einheitlichen Buchungsvorganges auf einem inländischen Flughafen planmäßig 
+zwischenlanden, das Luftfahrzeug wechseln und ihre Flugreise innerhalb von 24 Stunden 
+fortsetzen (siehe Beispiel 5 in Rz 10). Die 24-stündige Frist bezieht sich auf den 
+geplanten Abflug nach der Zwischenlandung. Die Frist ist als eingehalten anzusehen, 
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+Rechtslage ab 1. September 2020: 
+Ab 1. September 2020 beträgt die Flugabgabe je Passagier im Regelfall 12 Euro.  
+6. In die neue Rz 19b wird der Tarif für die Kürzeststreckenflüge, sowie die 
+Methode zu deren Berechnung aufgenommen und in der neuen Rz 19c werden 
+diesbez. Beispiele angeführt. 
+Rz 19b lautet 
+Für jene Flüge, bei denen die Entfernung zwischen dem inländischen Abflug-
+Flughafen und dem Zielflugplatz weniger als 350 km beträgt 
+(„Kürzeststreckenflüge“), beträgt die Flugabgabe 30 Euro je Passagier. Die 
+Entfernung wird nach der Methode der Großkreisentfernung („path distance“) 
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+Flughafen nach dem 31. August 2020 anzuwenden. Auf Abflüge bis zu diesem 
+Zeitpunkt sind die bisherigen Tarife (§ 5 und § 10 Abs. 3 Z 5 Flugabgabegesetz, 
+jeweils in der Fassung des Bundesgesetzes BGBl. I Nr. 104/2019), weiter 
+anzuwenden. Letzteres gilt zudem in Fällen, in denen einem Abflug nach dem 
+31. August 2020 ein Rechtsgeschäft zu Grunde liegt, das vor dem 
+1. September 2020 abgeschlossen worden ist. Demnach bleibt es für vor dem 
+1. September 2020 erworbene Flugtickets bei der im Erwerbszeitpunkt geltenden 
+Besteuerung, eine Anpassung an den neuen Tarif ist nicht vorgesehen, auch wenn 
+der Abflug erst zu einem Zeitpunkt erfolgt, zu dem dieser neue Tarif bereits 

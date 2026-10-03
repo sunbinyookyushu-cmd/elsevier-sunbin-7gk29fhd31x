@@ -1,0 +1,63 @@
+﻿NLD eff 2008-07-01 ann 2007-02-01 lead 17 m; controls 13
+IRL eff 2009-03-30 ann 2008-10-01 lead 5 m; controls 13
+DEU eff 2011-01-01 ann 2010-06-01 lead 7 m; controls 13
+AUT eff 2011-04-01 ann 2011-01-01 lead 3 m; controls 13
+NOR eff 2016-06-01 ann 2015-12-01 lead 6 m; controls 13
+SWE eff 2018-04-01 ann 2017-06-01 lead 10 m; controls 14
+GBR eff 2007-02-01 ann 2006-12-01 lead 2 m; controls 14
+DNK eff 1998-01-01 ann 1997-05-01 lead 8 m; controls 15
+MLT eff 2005-08-01 ann 2004-12-01 lead 8 m; controls 14
+S1 done
+S2 done
+S3 done
+iso3        eff        ann  lead_months  ann_verified
+ NLD 2008-07-01 2007-02-01           17             1
+ IRL 2009-03-30 2008-10-01            5             0
+ DEU 2011-01-01 2010-06-01            7             1
+ AUT 2011-04-01 2011-01-01            3             0
+ NOR 2016-06-01 2015-12-01            6             1
+ SWE 2018-04-01 2017-06-01           10             1
+ GBR 2007-02-01 2006-12-01            2             0
+ DNK 1998-01-01 1997-05-01            8             1
+ MLT 2005-08-01 2004-12-01            8             0
+                                                   spec               term       b     se      p        n  clusters  p_wild   ci_lo   ci_hi  breakdown_M
+                         S1 effective date, annual bins       T_pre_E24_13 -0.0112 0.0195 0.5691 113501.0      27.0     NaN     NaN     NaN          NaN
+                         S1 effective date, annual bins       B_pre_E24_13  0.0023 0.0289 0.9366 113501.0      27.0     NaN     NaN     NaN          NaN
+                         S1 effective date, annual bins        T_post_0_11 -0.1145 0.0243 0.0001 113501.0      27.0     NaN     NaN     NaN          NaN
+                         S1 effective date, annual bins        B_post_0_11  0.0030 0.0236 0.8995 113501.0      27.0     NaN     NaN     NaN          NaN
+                         S1 effective date, annual bins       T_post_12_23 -0.1557 0.0339 0.0001 113501.0      27.0     NaN     NaN     NaN          NaN
+                         S1 effective date, annual bins       B_post_12_23 -0.0159 0.0430 0.7140 113501.0      27.0     NaN     NaN     NaN          NaN
+            S1 effective date, annual bins | single DiD                 tp -0.1284 0.0361 0.0014 113501.0      27.0   0.007     NaN     NaN          NaN
+            S1 effective date, annual bins | single DiD                 bp -0.0072 0.0312 0.8184 113501.0      27.0     NaN     NaN     NaN          NaN
+                                  S2 announcement donut       T_pre_A24_13 -0.0332 0.0222 0.1472 111063.0      27.0     NaN     NaN     NaN          NaN
+                                  S2 announcement donut       B_pre_A24_13 -0.0161 0.0265 0.5496 111063.0      27.0     NaN     NaN     NaN          NaN
+                                  S2 announcement donut        T_post_0_11 -0.1256 0.0303 0.0003 111063.0      27.0     NaN     NaN     NaN          NaN
+                                  S2 announcement donut        B_post_0_11 -0.0020 0.0293 0.9460 111063.0      27.0     NaN     NaN     NaN          NaN
+                                  S2 announcement donut       T_post_12_23 -0.1639 0.0393 0.0003 111063.0      27.0     NaN     NaN     NaN          NaN
+                                  S2 announcement donut       B_post_12_23 -0.0218 0.0474 0.6489 111063.0      27.0     NaN     NaN     NaN          NaN
+                     S2 announcement donut | single DiD                 tp -0.1278 0.0398 0.0035 111063.0      27.0   0.015     NaN     NaN          NaN
+                     S2 announcement donut | single DiD                 bp -0.0041 0.0414 0.9217 111063.0      27.0     NaN     NaN     NaN          NaN
+                  S3 donut + airport pre-trends removed       T_pre_A24_13 -0.0303 0.0183 0.1102 107904.0      27.0     NaN     NaN     NaN          NaN
+                  S3 donut + airport pre-trends removed       B_pre_A24_13 -0.0047 0.0078 0.5463 107904.0      27.0     NaN     NaN     NaN          NaN
+                  S3 donut + airport pre-trends removed        T_post_0_11 -0.1382 0.0250 0.0000 107904.0      27.0     NaN     NaN     NaN          NaN
+                  S3 donut + airport pre-trends removed        B_post_0_11  0.0008 0.0369 0.9818 107904.0      27.0     NaN     NaN     NaN          NaN
+                  S3 donut + airport pre-trends removed       T_post_12_23 -0.2002 0.0442 0.0001 107904.0      27.0     NaN     NaN     NaN          NaN
+                  S3 donut + airport pre-trends removed       B_post_12_23  0.0022 0.0583 0.9703 107904.0      27.0     NaN     NaN     NaN          NaN
+     S3 donut + airport pre-trends removed | single DiD                 tp -0.1528 0.0365 0.0003 107904.0      27.0   0.004     NaN     NaN          NaN
+     S3 donut + airport pre-trends removed | single DiD                 bp  0.0036 0.0451 0.9376 107904.0      27.0     NaN     NaN     NaN          NaN
+                S4 sensitivity on S2 announcement donut    T_post_0_11 M=0 -0.1256 0.0303    NaN      NaN       NaN     NaN -0.1850 -0.0662       1.9957
+                S4 sensitivity on S2 announcement donut  T_post_0_11 M=0.5 -0.1256 0.0303    NaN      NaN       NaN     NaN -0.2016 -0.0496       1.9957
+                S4 sensitivity on S2 announcement donut    T_post_0_11 M=1 -0.1256 0.0303    NaN      NaN       NaN     NaN -0.2182 -0.0330       1.9957
+                S4 sensitivity on S2 announcement donut    T_post_0_11 M=2 -0.1256 0.0303    NaN      NaN       NaN     NaN -0.2514  0.0001       1.9957
+                S4 sensitivity on S2 announcement donut   T_post_12_23 M=0 -0.1639 0.0393    NaN      NaN       NaN     NaN -0.2410 -0.0868       2.6164
+                S4 sensitivity on S2 announcement donut T_post_12_23 M=0.5 -0.1639 0.0393    NaN      NaN       NaN     NaN -0.2576 -0.0702       2.6164
+                S4 sensitivity on S2 announcement donut   T_post_12_23 M=1 -0.1639 0.0393    NaN      NaN       NaN     NaN -0.2742 -0.0536       2.6164
+                S4 sensitivity on S2 announcement donut   T_post_12_23 M=2 -0.1639 0.0393    NaN      NaN       NaN     NaN -0.3073 -0.0204       2.6164
+S4 sensitivity on S3 donut + airport pre-trends removed    T_post_0_11 M=0 -0.1382 0.0250    NaN      NaN       NaN     NaN -0.1872 -0.0893       2.9490
+S4 sensitivity on S3 donut + airport pre-trends removed  T_post_0_11 M=0.5 -0.1382 0.0250    NaN      NaN       NaN     NaN -0.2023 -0.0741       2.9490
+S4 sensitivity on S3 donut + airport pre-trends removed    T_post_0_11 M=1 -0.1382 0.0250    NaN      NaN       NaN     NaN -0.2175 -0.0590       2.9490
+S4 sensitivity on S3 donut + airport pre-trends removed    T_post_0_11 M=2 -0.1382 0.0250    NaN      NaN       NaN     NaN -0.2477 -0.0287       2.9490
+S4 sensitivity on S3 donut + airport pre-trends removed   T_post_12_23 M=0 -0.2002 0.0442    NaN      NaN       NaN     NaN -0.2869 -0.1135       3.7505
+S4 sensitivity on S3 donut + airport pre-trends removed T_post_12_23 M=0.5 -0.2002 0.0442    NaN      NaN       NaN     NaN -0.3020 -0.0984       3.7505
+S4 sensitivity on S3 donut + airport pre-trends removed   T_post_12_23 M=1 -0.2002 0.0442    NaN      NaN       NaN     NaN -0.3171 -0.0833       3.7505
+S4 sensitivity on S3 donut + airport pre-trends removed   T_post_12_23 M=2 -0.2002 0.0442    NaN      NaN       NaN     NaN -0.3474 -0.0530       3.7505

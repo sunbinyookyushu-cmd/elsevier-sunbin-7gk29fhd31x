@@ -1,0 +1,43 @@
+\begin{table}[H]
+\centering
+\caption{Mechanism (III): where does connectivity-induced growth arrive? Channel decomposition.}
+\label{tab:channels}
+\begin{minipage}{\linewidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+ & $a$: $\mathrm{GACI}_{max}\rightarrow M$ & Mean & Top 30\% & Middle 40\% & Bottom 30\% & KP $F$ ($M$) \\
+\midrule
+\multicolumn{7}{l}{\emph{Panel A. Average income of the group}}\\
+ln GDP per capita & 1.471\sym{***} & 0.898\sym{***} & 0.925\sym{***} & 0.793\sym{***} & 0.279 & 12.8 \\
+ & (0.410) & (0.122) & (0.135) & (0.189) & (0.391) \\
+ln differentiated-goods trade & 2.333\sym{***} & 0.562\sym{***} & 0.581\sym{***} & 0.489\sym{**} & 0.158 & 8.4 \\
+ & (0.875) & (0.182) & (0.184) & (0.199) & (0.261) \\
+ln high value-to-weight trade & 2.093\sym{**} & 0.626\sym{***} & 0.647\sym{***} & 0.544\sym{**} & 0.177 & 6.0 \\
+ & (0.891) & (0.227) & (0.233) & (0.234) & (0.288) \\
+ln international tourist arrivals & 3.749\sym{**} & 0.395\sym{***} & 0.408\sym{***} & 0.350\sym{**} & 0.094 & 7.5 \\
+ & (1.478) & (0.149) & (0.154) & (0.155) & (0.202) \\
+Employment in industry, \% & 15.96\sym{*} & 0.07\sym{*} & 0.08\sym{*} & 0.06\sym{*} & 0.01 & 4.2 \\
+ & (8.38) & (0.04) & (0.04) & (0.04) & (0.04) \\
+Reference: $\ln\mathrm{GACI}_{max}$ itself &  & 1.320\sym{***} & 1.361\sym{***} & 1.166\sym{**} & 0.410 & 21.1 \\
+ &  & (0.420) & (0.415) & (0.487) & (0.631) \\
+\addlinespace
+\multicolumn{7}{l}{\emph{Panel B. Income share of the group}}\\
+ln GDP per capita &  &  & 0.028 & -0.105 & -0.619\sym{*} \\
+ &  &  & (0.065) & (0.147) & (0.372) \\
+ln differentiated-goods trade &  &  & 0.019 & -0.073 & -0.403\sym{*} \\
+ &  &  & (0.040) & (0.090) & (0.242) \\
+ln high value-to-weight trade &  &  & 0.021 & -0.082 & -0.449 \\
+ &  &  & (0.046) & (0.103) & (0.291) \\
+ln international tourist arrivals &  &  & 0.013 & -0.046 & -0.301 \\
+ &  &  & (0.032) & (0.073) & (0.203) \\
+Employment in industry, \% &  &  & 0.00 & -0.01 & -0.06 \\
+ &  &  & (0.01) & (0.02) & (0.05) \\
+Reference: $\ln\mathrm{GACI}_{max}$ itself &  &  & 0.041 & -0.154 & -0.910\sym{*} \\
+ &  &  & (0.093) & (0.206) & (0.498) \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}\begin{flushleft}\footnotesize Column $a$ is the 2SLS effect of $\ln\mathrm{GACI}_{max}$ on the channel variable $M$. The remaining columns regress the group outcome on $M$, instrumented by the Feyrer interaction without the hub in the equation: each is the reduced-form effect of connectivity scaled by that channel's first stage, so the columns show which part of the distribution the connectivity-induced change in $M$ reaches, not which channel dominates. KP $F$ is the first stage of $M$ on the instrument. Mediators from the World Development Indicators and BACI. Country-year panel of 178 economies, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments $\ln\mathrm{GACI}_{max}$ with the Feyrer interaction $Z_{ct}=a_t\times\ln\mathrm{MA}^{air}_{c,1996}$; KP $F$ is the Kleibergen--Paap $rk$ Wald statistic. Group incomes are the log average pretax national income of the group (WID, equal-split adults); shares are log income shares, computed as log group income minus log mean income so that all groups use the same sample. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{flushleft}
+\end{minipage}
+\end{table}

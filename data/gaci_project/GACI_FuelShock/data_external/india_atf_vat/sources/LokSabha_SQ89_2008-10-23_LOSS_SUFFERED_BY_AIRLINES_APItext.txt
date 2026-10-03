@@ -1,0 +1,108 @@
+Source: Lok Sabha Q&A API (sansad.in) record retrieved 2026-10-02
+Lok Sabha: 14; Session: 14; Question No: 89; Type: STARRED; Date: 23.10.2008
+Ministry: CIVIL AVIATION
+Subject: LOSS SUFFERED BY AIRLINES
+Members: ['CHANDRAMANI TRIPATHI', 'SATHYANARAYANA SARVEY']
+Official file path (if any):  
+API: https://sansad.in/api_ls/question/qetFilteredQuestionsAns?loksabhaNo=14&pageNo=1&locale=en&keyWord=...  (record: LS 14, Q 89, STARRED, date 23.10.2008)
+
+QUESTION:
+ 
+ 
+ 
+ 
+
+(a) whether several airlines in the country are presently 
+ running at heavy losses; 
+ 
+
+(b) if so, the reasons therefor; 
+ 
+
+(c) whether these airlines have submitted any memoranda to 
+ the Government in this regard; and 
+ 
+
+(d) if so, the details thereof and the steps taken by the 
+ Government in this regard? 
+ 
+ 
+
+ANSWER:
+ 
+ 
+ 
+ MINISTER OF STATE (INDEPENDENT CHARGE) OF THE MINISTRY OF CIVIL AVIATION 
+ ( SHRI PRAFUL PATEL ) 
+ 
+
+
+
+
+ (a),(b),(c) and (d):- A statement is laid on the table of 
+ the Sabha. 
+
+
+
+ 
+ STATEMENT IN REPLY TO LOK SABHA STARRED QUESTION NO. 89 FOR 
+ 23.10.2008 TABLED BY SHRI CHANDRA MANI TRIPATHI AND SHRI 
+ SARVEY SATHYANARAYANA REGARDING LOSS SUFFERED BY AIRLINES. 
+ 
+
+
+
+ (a):-Yes, Sir. 
+
+
+ 
+ 
+ (b):- The spiralling cost of Aviation Turbine Fuel (ATF) 
+ coupled with economic slow down and low load factor have 
+ contributed greatly to losses. 
+
+
+
+ 
+ (c) & (d): Airlines and concerned organization have 
+ requested for support of the Govt. to overcome the financial 
+ crisis being faced by airlines. Various steps have been 
+ taken by the Govt. to reduce the ATF cost. In this regard, 
+ State Governments have been requested to consider moderation 
+ of the rate of sales tax imposed on Aviation Turbine Fuel 
+ (ATF) and align it with the `Declared Goods` rate. Empowered 
+ Committee of State Finance Ministers was also requested to 
+ consider moderation of the rate of sales tax imposed on ATF 
+ and reduce it to the `Declared Goods` rate. The matter of 
+ ATF was also discussed in the national conference on Civil 
+ Aviation held on 18.01.2008 at New Delhi with the 
+ representatives of all State Governments and Union 
+ Territories. Based on the deliberations held in the 
+ Conference, a group of officers has been constituted with a 
+ view to present the ATF taxation issues to the Empowered 
+ Committee of State Finance Ministers as well as the Ministry 
+ of Finance. 
+ 
+ 
+
+
+ Government of Andhra Pradesh has since reduced the sales tax 
+ on ATF to 4%. Government of Rajasthan has also reduced the 
+ sales tax on ATF to 4% in certain cases. 
+ Government of Maharashtra has also reduced Sales tax on ATF 
+ from 25% to 4% for flights from airports other than Pune and 
+ Mumbai. 
+
+
+
+ 
+ A Committee headed by Cabinet Secretary has also been 
+ constituted to examine various issues relating to the 
+ current financial crisis being faced by domestic airlines. 
+ The first meeting of the Committee was held on 14.08.2008. 
+
+
+
+
+ 
+

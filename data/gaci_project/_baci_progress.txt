@@ -1,0 +1,59 @@
+pass1 1996: rows=5,337,010 -> exp cells=389,527 imp cells=673,716
+pass1 1997: rows=5,616,781 -> exp cells=397,475 imp cells=685,392
+pass1 1998: rows=5,847,753 -> exp cells=404,447 imp cells=689,665
+pass1 1999: rows=5,994,574 -> exp cells=411,740 imp cells=702,868
+pass1 2000: rows=7,272,709 -> exp cells=476,021 imp cells=770,709
+pass1 2001: rows=7,517,476 -> exp cells=479,766 imp cells=776,444
+pass1 2002: rows=7,726,247 -> exp cells=487,304 imp cells=780,852
+pass1 2003: rows=7,981,414 -> exp cells=492,208 imp cells=788,056
+pass1 2004: rows=8,359,779 -> exp cells=503,947 imp cells=796,746
+pass1 2005: rows=8,656,742 -> exp cells=511,919 imp cells=805,608
+pass1 2006: rows=9,002,200 -> exp cells=521,071 imp cells=812,301
+pass1 2007: rows=9,194,704 -> exp cells=525,014 imp cells=809,930
+pass1 2008: rows=9,347,080 -> exp cells=525,627 imp cells=802,077
+pass1 2009: rows=9,218,581 -> exp cells=520,274 imp cells=795,767
+pass1 2010: rows=9,470,765 -> exp cells=517,993 imp cells=795,394
+pass1 2011: rows=9,640,712 -> exp cells=523,164 imp cells=800,434
+pass1 2012: rows=9,937,050 -> exp cells=524,078 imp cells=807,089
+pass1 2013: rows=10,098,942 -> exp cells=522,026 imp cells=806,841
+pass1 2014: rows=10,145,672 -> exp cells=519,552 imp cells=801,163
+pass1 2015: rows=10,499,686 -> exp cells=542,622 imp cells=807,786
+pass1 2016: rows=10,569,571 -> exp cells=527,124 imp cells=803,677
+pass1 2017: rows=10,821,738 -> exp cells=533,379 imp cells=810,905
+pass1 2018: rows=10,924,964 -> exp cells=534,428 imp cells=810,263
+pass1 2019: rows=11,016,660 -> exp cells=530,810 imp cells=805,998
+pass1 2020: rows=10,638,241 -> exp cells=515,166 imp cells=795,365
+pass1 2021: rows=11,146,476 -> exp cells=533,949 imp cells=797,051
+pass1 2022: rows=11,154,874 -> exp cells=536,812 imp cells=798,719
+pass1 2023: rows=11,194,668 -> exp cells=534,517 imp cells=799,501
+concordance: 5,021 HS92 codes | rauch matched=100.0%
+unit values: 5,017 products, median=5.55 $1000/ton (=5.55 $/kg); high-V/W products=2,509
+pass2 1996: countries=214
+pass2 1997: countries=213
+pass2 1998: countries=214
+pass2 1999: countries=214
+pass2 2000: countries=223
+pass2 2001: countries=223
+pass2 2002: countries=223
+pass2 2003: countries=222
+pass2 2004: countries=222
+pass2 2005: countries=222
+pass2 2006: countries=223
+pass2 2007: countries=223
+pass2 2008: countries=223
+pass2 2009: countries=223
+pass2 2010: countries=223
+pass2 2011: countries=225
+pass2 2012: countries=226
+pass2 2013: countries=227
+pass2 2014: countries=226
+pass2 2015: countries=226
+pass2 2016: countries=226
+pass2 2017: countries=226
+pass2 2018: countries=226
+pass2 2019: countries=226
+pass2 2020: countries=226
+pass2 2021: countries=226
+pass2 2022: countries=226
+pass2 2023: countries=226
+WROTE C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\baci_mechanism_panel.csv: 6,243 country-years, 232 countries, 1996-2023

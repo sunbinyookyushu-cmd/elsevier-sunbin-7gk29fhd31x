@@ -1,0 +1,32 @@
+\begin{table}[t]
+\centering
+\caption{Main results: OLS, first stage, and 2SLS, by connectivity measure (robust SE).}
+\label{tab:main}
+\begin{threeparttable}
+\small
+\begin{tabular}{lccc}
+\toprule
+ & Goods openness & Goods volume & GDP \\
+ & $\ln(g/Y)$ & $\ln g$ & $\ln Y$ \\
+\midrule
+\multicolumn{4}{l}{\emph{Panel A. Hub quality, $\ln\mathrm{GACI}_{cwm}$ (headline)}}\\
+First stage: instrument coef. & \multicolumn{3}{l}{0.032***\ \ (0.007),\ \ KP $F=18.9$} \\
+OLS & 0.157*** & 1.144*** & 0.987*** \\
+2SLS & 1.302** & 2.303*** & 1.001 \\
+ & (0.662) & (0.776) & (0.680) \\
+\addlinespace
+\multicolumn{4}{l}{\emph{Panel B. Total connectivity, $\ln\mathrm{GACI}_{sum}$}}\\
+First stage: instrument coef. & \multicolumn{3}{l}{0.064***\ \ (0.020),\ \ KP $F=10.2$} \\
+OLS & -0.027 & 0.237*** & 0.264*** \\
+2SLS & 0.659* & 1.166*** & 0.507 \\
+ & (0.365) & (0.432) & (0.341) \\
+\midrule
+Country, Year FE & Yes & Yes & Yes \\
+Observations & 4{,}643 & 4{,}643 & 4{,}643 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Robust (heteroskedasticity-consistent) SE in parentheses. Each panel instruments its connectivity measure with the tourism-heritage instrument (global tourism demand $\times$ fixed natural+mixed heritage). The first-stage row regresses the connectivity measure on the instrument (with population and two-way FE); KP $F$ is the first-stage Kleibergen--Paap statistic. Goods volume $=$ openness $+$ GDP by the identity $\ln g=\ln(g/Y)+\ln Y$. Connectivity raises goods openness and volume in both panels; the income (GDP) effect is positive but imprecise. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

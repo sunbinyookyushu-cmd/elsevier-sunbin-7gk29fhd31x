@@ -1,0 +1,42 @@
+\begin{table}[H]
+\centering
+\caption{Main results: OLS, first stage, and 2SLS, by connectivity measure.}
+\label{tab:main}
+\begin{threeparttable}
+\small
+\begin{tabular}{lcc}
+\toprule
+ & Market-income Gini & Disposable-income Gini \\
+ & $\ln G^{mkt}$ & $\ln G^{disp}$ \\
+\midrule
+\multicolumn{3}{l}{\emph{Panel A. Hub connectivity, $\ln\mathrm{GACI}_{max}$ (headline)}}\\
+First stage: instrument coef. & \multicolumn{2}{l}{0.146\sym{***}\ \ (0.045),\ \ KP $F=10.6$} \\
+OLS & 0.061\sym{***} & 0.050\sym{*} \\
+ & (0.023) & (0.026) \\
+2SLS & 0.495\sym{**} & 0.651\sym{***} \\
+ & (0.194) & (0.241) \\
+\addlinespace
+\multicolumn{3}{l}{\emph{Panel B. Hub quality, $\ln\mathrm{GACI}_{cwm}$}}\\
+First stage: instrument coef. & \multicolumn{2}{l}{0.122\sym{***}\ \ (0.041),\ \ KP $F=8.8$} \\
+OLS & 0.079\sym{***} & 0.060\sym{**} \\
+ & (0.026) & (0.030) \\
+2SLS & 0.595\sym{**} & 0.783\sym{***} \\
+ & (0.240) & (0.302) \\
+\addlinespace
+\multicolumn{3}{l}{\emph{Panel C. Total connectivity, $\ln\mathrm{GACI}_{sum}$}}\\
+First stage: instrument coef. & \multicolumn{2}{l}{0.364\sym{***}\ \ (0.086),\ \ KP $F=18.0$} \\
+OLS & 0.008 & 0.009 \\
+ & (0.007) & (0.009) \\
+2SLS & 0.199\sym{***} & 0.262\sym{***} \\
+ & (0.077) & (0.090) \\
+\addlinespace
+\midrule
+Country, Year FE & Yes & Yes \\
+Observations & 3{,}735 & 3{,}735 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\small
+\item Each panel instruments its connectivity measure with the Feyrer interaction. The first-stage row regresses the connectivity measure on the instrument with log population and two-way fixed effects; KP $F$ is the Kleibergen--Paap $rk$ Wald statistic with country-clustered errors. Country-year panel, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments ln GACI with the Feyrer interaction $Z_{ct}=a_t\times\ln \mathrm{MA}^{air}_{c,1996}$. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

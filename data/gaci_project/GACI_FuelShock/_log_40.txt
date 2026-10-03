@@ -1,0 +1,328 @@
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:153: UserWarning: near-collinear regressors in fit(d12_ln_seats): condition number 1.43e+15
+  warnings.warn("near-collinear regressors in fit(%s): condition number %.2e" % (y, np.linalg.cond(XtX)))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:189: RuntimeWarning: invalid value encountered in sqrt
+  se2 = np.sqrt(np.diag(V2))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:153: UserWarning: near-collinear regressors in fit(d12_ln_seats): condition number 1.80e+15
+  warnings.warn("near-collinear regressors in fit(%s): condition number %.2e" % (y, np.linalg.cond(XtX)))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:153: UserWarning: near-collinear regressors in fit(d12_ln_seats): condition number 3.06e+15
+  warnings.warn("near-collinear regressors in fit(%s): condition number %.2e" % (y, np.linalg.cond(XtX)))
+D1 d12_ln_seats done
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:153: UserWarning: near-collinear regressors in fit(d12_ln_co2): condition number 2.78e+15
+  warnings.warn("near-collinear regressors in fit(%s): condition number %.2e" % (y, np.linalg.cond(XtX)))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:189: RuntimeWarning: invalid value encountered in sqrt
+  se2 = np.sqrt(np.diag(V2))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:153: UserWarning: near-collinear regressors in fit(d12_ln_co2): condition number 2.73e+15
+  warnings.warn("near-collinear regressors in fit(%s): condition number %.2e" % (y, np.linalg.cond(XtX)))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:153: UserWarning: near-collinear regressors in fit(d12_ln_co2): condition number 8.05e+14
+  warnings.warn("near-collinear regressors in fit(%s): condition number %.2e" % (y, np.linalg.cond(XtX)))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:189: RuntimeWarning: invalid value encountered in sqrt
+  se2 = np.sqrt(np.diag(V2))
+D1 d12_ln_co2 done
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:153: UserWarning: near-collinear regressors in fit(d12_ln_int): condition number 1.43e+15
+  warnings.warn("near-collinear regressors in fit(%s): condition number %.2e" % (y, np.linalg.cond(XtX)))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:189: RuntimeWarning: invalid value encountered in sqrt
+  se2 = np.sqrt(np.diag(V2))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:153: UserWarning: near-collinear regressors in fit(d12_ln_int): condition number 1.80e+15
+  warnings.warn("near-collinear regressors in fit(%s): condition number %.2e" % (y, np.linalg.cond(XtX)))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:189: RuntimeWarning: invalid value encountered in sqrt
+  se2 = np.sqrt(np.diag(V2))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:153: UserWarning: near-collinear regressors in fit(d12_ln_int): condition number 3.06e+15
+  warnings.warn("near-collinear regressors in fit(%s): condition number %.2e" % (y, np.linalg.cond(XtX)))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:189: RuntimeWarning: invalid value encountered in sqrt
+  se2 = np.sqrt(np.diag(V2))
+D1 d12_ln_int done
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:153: UserWarning: near-collinear regressors in fit(d12_ln_gauge): condition number 1.43e+15
+  warnings.warn("near-collinear regressors in fit(%s): condition number %.2e" % (y, np.linalg.cond(XtX)))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:153: UserWarning: near-collinear regressors in fit(d12_ln_gauge): condition number 1.80e+15
+  warnings.warn("near-collinear regressors in fit(%s): condition number %.2e" % (y, np.linalg.cond(XtX)))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:189: RuntimeWarning: invalid value encountered in sqrt
+  se2 = np.sqrt(np.diag(V2))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:153: UserWarning: near-collinear regressors in fit(d12_ln_gauge): condition number 3.06e+15
+  warnings.warn("near-collinear regressors in fit(%s): condition number %.2e" % (y, np.linalg.cond(XtX)))
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_est.py:189: RuntimeWarning: invalid value encountered in sqrt
+  se2 = np.sqrt(np.diag(V2))
+D1 d12_ln_gauge done
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_prep_airport.py:40: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  f["d12_" + v + "_l3"] = f[v + "_l3"] - f[v + "_l3"].shift(12)
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_prep_airport.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  f[v + "_l3"] = f[v].shift(3)
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_prep_airport.py:40: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  f["d12_" + v + "_l3"] = f[v + "_l3"] - f[v + "_l3"].shift(12)
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_prep_airport.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  f[v + "_l3"] = f[v].shift(3)
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_prep_airport.py:40: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  f["d12_" + v + "_l3"] = f[v + "_l3"] - f[v + "_l3"].shift(12)
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_prep_airport.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  f[v + "_l3"] = f[v].shift(3)
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_prep_airport.py:40: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  f["d12_" + v + "_l3"] = f[v + "_l3"] - f[v + "_l3"].shift(12)
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_prep_airport.py:42: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  f[s + "_s12_l3"] = f[s].rolling(12, min_periods=12).sum().shift(3)
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_prep_airport.py:42: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  f[s + "_s12_l3"] = f[s].rolling(12, min_periods=12).sum().shift(3)
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_prep_airport.py:42: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  f[s + "_s12_l3"] = f[s].rolling(12, min_periods=12).sum().shift(3)
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\_prep_airport.py:43: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  f["jet_real_l3"] = f.jet_real.shift(3)
+D2 H_g done
+D2 z_fuelseat done
+D3 H_g done
+D3 z_fuelseat done
+D4-5 H_g done
+D4-5 z_fuelseat done
+table                                 panel                                          col      outcome                                                label       b          se      p          F      n
+   D1                            z_fuelseat                                          OLS d12_ln_seats                          Fuel burn per seat 1996 (z)  0.0129      0.0081 0.1136        NaN 765267
+   D1                            z_fuelseat                                      2SLS-KZ d12_ln_seats                          Fuel burn per seat 1996 (z)  0.0008      0.0117 0.9471    26.9789 765267
+   D1                            z_fuelseat                                      2SLS-BH d12_ln_seats                          Fuel burn per seat 1996 (z)  0.0150      0.0127 0.2363   146.2654 765267
+   D1                                 z_int                                          OLS d12_ln_seats                             CO2 per seat-km 1996 (z) -0.0115      0.0077 0.1356        NaN 765267
+   D1                                 z_int                                      2SLS-KZ d12_ln_seats                             CO2 per seat-km 1996 (z) -0.0077      0.0100 0.4427    27.4373 765267
+   D1                                 z_int                                      2SLS-BH d12_ln_seats                             CO2 per seat-km 1996 (z) -0.0075      0.0078 0.3371   145.0124 765267
+   D1                               z_stage                                          OLS d12_ln_seats                                Stage length 1996 (z)  0.0148      0.0067 0.0272        NaN 765267
+   D1                               z_stage                                      2SLS-KZ d12_ln_seats                                Stage length 1996 (z)  0.0045      0.0119 0.7073    27.4867 765267
+   D1                               z_stage                                      2SLS-BH d12_ln_seats                                Stage length 1996 (z)  0.0143      0.0101 0.1566   145.2042 765267
+  D1j                      fuel/seat + GACI                                          OLS d12_ln_seats                                         x_z_fuelseat  0.0157      0.0103 0.1300        NaN 765267
+  D1j                      fuel/seat + GACI                                          OLS d12_ln_seats                                                x_H_g -0.0051      0.0078 0.5149        NaN 765267
+  D1j                      fuel/seat + GACI                                      2SLS-KZ d12_ln_seats                                         x_z_fuelseat  0.0109      0.0150 0.4692    26.4490 765267
+  D1j                      fuel/seat + GACI                                      2SLS-KZ d12_ln_seats                                                x_H_g -0.0184      0.0110 0.0954    26.4490 765267
+  D1j                      fuel/seat + GACI                                      2SLS-BH d12_ln_seats                                         x_z_fuelseat  0.0206      0.0148 0.1650   146.2316 765267
+  D1j                      fuel/seat + GACI                                      2SLS-BH d12_ln_seats                                                x_H_g -0.0101      0.0094 0.2830   146.2316 765267
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS d12_ln_seats                                         x_z_fuelseat  0.0058   1675.0634 1.0000        NaN 765267
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS d12_ln_seats                                              x_z_int -0.0039    566.8081 1.0000        NaN 765267
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS d12_ln_seats                                            x_z_stage  0.0108   1008.0374 1.0000        NaN 765267
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS d12_ln_seats                                                x_H_g -0.0069      0.0075 0.3585        NaN 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ d12_ln_seats                                         x_z_fuelseat -0.0001  21804.5368 1.0000    26.9525 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ d12_ln_seats                                              x_z_int -0.0067  31377.2308 1.0000    26.9525 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ d12_ln_seats                                            x_z_stage  0.0112  33288.8045 1.0000    26.9525 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ d12_ln_seats                                                x_H_g -0.0207      0.0115 0.0729    26.9525 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH d12_ln_seats                                         x_z_fuelseat  0.0092  47127.7832 1.0000   153.8315 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH d12_ln_seats                                              x_z_int  0.0023  26925.1428 1.0000   153.8315 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH d12_ln_seats                                            x_z_stage  0.0143  61082.0306 1.0000   153.8315 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH d12_ln_seats                                                x_H_g -0.0111      0.0094 0.2380   153.8315 765267
+  D1j  fuel/seat + GACI, country x month FE                                          OLS d12_ln_seats                                         x_z_fuelseat  0.0071      0.0109 0.5194        NaN 765267
+  D1j  fuel/seat + GACI, country x month FE                                          OLS d12_ln_seats                                                x_H_g -0.0006      0.0075 0.9408        NaN 765267
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-KZ d12_ln_seats                                         x_z_fuelseat  0.0078      0.0157 0.6190    27.0839 765267
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-KZ d12_ln_seats                                                x_H_g -0.0078      0.0100 0.4371    27.0839 765267
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-BH d12_ln_seats                                         x_z_fuelseat  0.0037      0.0126 0.7698   146.2971 765267
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-BH d12_ln_seats                                                x_H_g -0.0047      0.0074 0.5301   146.2971 765267
+  D1j        fuel/seat + size + intl + GACI                                          OLS d12_ln_seats                                         x_z_fuelseat  0.0139      0.0121 0.2550        NaN 765267
+  D1j        fuel/seat + size + intl + GACI                                          OLS d12_ln_seats                                             x_z_size  0.0036      0.0145 0.8037        NaN 765267
+  D1j        fuel/seat + size + intl + GACI                                          OLS d12_ln_seats                                             x_z_intl  0.0030      0.0065 0.6407        NaN 765267
+  D1j        fuel/seat + size + intl + GACI                                          OLS d12_ln_seats                                                x_H_g -0.0078      0.0092 0.3976        NaN 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ d12_ln_seats                                         x_z_fuelseat  0.0105      0.0181 0.5638    29.5492 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ d12_ln_seats                                             x_z_size  0.0127      0.0233 0.5848    29.5492 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ d12_ln_seats                                             x_z_intl -0.0031      0.0142 0.8253    29.5492 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ d12_ln_seats                                                x_H_g -0.0260      0.0191 0.1757    29.5492 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH d12_ln_seats                                         x_z_fuelseat  0.0225      0.0163 0.1684   151.6541 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH d12_ln_seats                                             x_z_size -0.0004      0.0157 0.9795   151.6541 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH d12_ln_seats                                             x_z_intl -0.0044      0.0091 0.6256   151.6541 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH d12_ln_seats                                                x_H_g -0.0092      0.0111 0.4062   151.6541 765267
+   D1                            z_fuelseat                                          OLS   d12_ln_co2                          Fuel burn per seat 1996 (z)  0.0126      0.0103 0.2193        NaN 767499
+   D1                            z_fuelseat                                      2SLS-KZ   d12_ln_co2                          Fuel burn per seat 1996 (z)  0.0082      0.0163 0.6131    27.3541 767499
+   D1                            z_fuelseat                                      2SLS-BH   d12_ln_co2                          Fuel burn per seat 1996 (z)  0.0183      0.0131 0.1632   146.3682 767499
+   D1                                 z_int                                          OLS   d12_ln_co2                             CO2 per seat-km 1996 (z) -0.0074      0.0081 0.3646        NaN 767499
+   D1                                 z_int                                      2SLS-KZ   d12_ln_co2                             CO2 per seat-km 1996 (z) -0.0012      0.0114 0.9138    27.8314 767499
+   D1                                 z_int                                      2SLS-BH   d12_ln_co2                             CO2 per seat-km 1996 (z)  0.0008      0.0092 0.9262   146.8101 767499
+   D1                               z_stage                                          OLS   d12_ln_co2                                Stage length 1996 (z)  0.0128      0.0082 0.1192        NaN 767499
+   D1                               z_stage                                      2SLS-KZ   d12_ln_co2                                Stage length 1996 (z)  0.0065      0.0153 0.6718    27.4039 767499
+   D1                               z_stage                                      2SLS-BH   d12_ln_co2                                Stage length 1996 (z)  0.0125      0.0119 0.2950   145.6453 767499
+  D1j                      fuel/seat + GACI                                          OLS   d12_ln_co2                                         x_z_fuelseat  0.0131      0.0141 0.3531        NaN 767499
+  D1j                      fuel/seat + GACI                                          OLS   d12_ln_co2                                                x_H_g -0.0009      0.0089 0.9205        NaN 767499
+  D1j                      fuel/seat + GACI                                      2SLS-KZ   d12_ln_co2                                         x_z_fuelseat  0.0168      0.0202 0.4055    27.0462 767499
+  D1j                      fuel/seat + GACI                                      2SLS-KZ   d12_ln_co2                                                x_H_g -0.0161      0.0107 0.1328    27.0462 767499
+  D1j                      fuel/seat + GACI                                      2SLS-BH   d12_ln_co2                                         x_z_fuelseat  0.0224      0.0164 0.1729   146.3299 767499
+  D1j                      fuel/seat + GACI                                      2SLS-BH   d12_ln_co2                                                x_H_g -0.0077      0.0097 0.4292   146.3299 767499
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS   d12_ln_co2                                         x_z_fuelseat -0.0049   2806.3740 1.0000        NaN 767499
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS   d12_ln_co2                                              x_z_int  0.0082    813.4412 1.0000        NaN 767499
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS   d12_ln_co2                                            x_z_stage  0.0241   1488.1921 1.0000        NaN 767499
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS   d12_ln_co2                                                x_H_g -0.0018      0.0086 0.8377        NaN 767499
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ   d12_ln_co2                                         x_z_fuelseat  0.0486 280358.5511 1.0000    27.0898 767499
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ   d12_ln_co2                                              x_z_int -0.0254 186967.9536 1.0000    27.0898 767499
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ   d12_ln_co2                                            x_z_stage -0.0453 401595.7977 1.0000    27.0898 767499
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ   d12_ln_co2                                                x_H_g -0.0165      0.0112 0.1412    27.0898 767499
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH   d12_ln_co2                                         x_z_fuelseat  0.0129  12458.5604 1.0000 23892.2361 767499
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH   d12_ln_co2                                              x_z_int  0.0133   8222.7004 1.0000 23892.2361 767499
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH   d12_ln_co2                                            x_z_stage  0.0149  15131.6804 1.0000 23892.2361 767499
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH   d12_ln_co2                                                x_H_g -0.0065      0.0098 0.5070 23892.2361 767499
+  D1j  fuel/seat + GACI, country x month FE                                          OLS   d12_ln_co2                                         x_z_fuelseat  0.0047      0.0122 0.7042        NaN 767499
+  D1j  fuel/seat + GACI, country x month FE                                          OLS   d12_ln_co2                                                x_H_g  0.0020      0.0075 0.7866        NaN 767499
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-KZ   d12_ln_co2                                         x_z_fuelseat  0.0143      0.0164 0.3841    27.8704 767499
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-KZ   d12_ln_co2                                                x_H_g -0.0089      0.0086 0.3033    27.8704 767499
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-BH   d12_ln_co2                                         x_z_fuelseat  0.0083      0.0126 0.5119   146.2534 767499
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-BH   d12_ln_co2                                                x_H_g -0.0061      0.0076 0.4224   146.2534 767499
+  D1j        fuel/seat + size + intl + GACI                                          OLS   d12_ln_co2                                         x_z_fuelseat  0.0099      0.0172 0.5641        NaN 767499
+  D1j        fuel/seat + size + intl + GACI                                          OLS   d12_ln_co2                                             x_z_size  0.0067      0.0174 0.7003        NaN 767499
+  D1j        fuel/seat + size + intl + GACI                                          OLS   d12_ln_co2                                             x_z_intl  0.0055      0.0074 0.4626        NaN 767499
+  D1j        fuel/seat + size + intl + GACI                                          OLS   d12_ln_co2                                                x_H_g -0.0060      0.0105 0.5729        NaN 767499
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ   d12_ln_co2                                         x_z_fuelseat  0.0141      0.0238 0.5547    28.7144 767499
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ   d12_ln_co2                                             x_z_size  0.0113      0.0240 0.6394    28.7144 767499
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ   d12_ln_co2                                             x_z_intl  0.0030      0.0156 0.8477    28.7144 767499
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ   d12_ln_co2                                                x_H_g -0.0237      0.0187 0.2062    28.7144 767499
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH   d12_ln_co2                                         x_z_fuelseat  0.0254      0.0186 0.1743   156.8079 767499
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH   d12_ln_co2                                             x_z_size -0.0031      0.0183 0.8659   156.8079 767499
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH   d12_ln_co2                                             x_z_intl -0.0060      0.0096 0.5329   156.8079 767499
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH   d12_ln_co2                                                x_H_g -0.0048      0.0126 0.7009   156.8079 767499
+   D1                            z_fuelseat                                          OLS   d12_ln_int                          Fuel burn per seat 1996 (z)  0.0026      0.0048 0.5928        NaN 765267
+   D1                            z_fuelseat                                      2SLS-KZ   d12_ln_int                          Fuel burn per seat 1996 (z) -0.0036      0.0085 0.6688    26.9789 765267
+   D1                            z_fuelseat                                      2SLS-BH   d12_ln_int                          Fuel burn per seat 1996 (z)  0.0077      0.0053 0.1464   146.2654 765267
+   D1                                 z_int                                          OLS   d12_ln_int                             CO2 per seat-km 1996 (z)  0.0046      0.0052 0.3701        NaN 765267
+   D1                                 z_int                                      2SLS-KZ   d12_ln_int                             CO2 per seat-km 1996 (z)  0.0119      0.0076 0.1193    27.4373 765267
+   D1                                 z_int                                      2SLS-BH   d12_ln_int                             CO2 per seat-km 1996 (z)  0.0074      0.0089 0.4028   145.0124 765267
+   D1                               z_stage                                          OLS   d12_ln_int                                Stage length 1996 (z) -0.0006      0.0043 0.8896        NaN 765267
+   D1                               z_stage                                      2SLS-KZ   d12_ln_int                                Stage length 1996 (z) -0.0086      0.0062 0.1646    27.4867 765267
+   D1                               z_stage                                      2SLS-BH   d12_ln_int                                Stage length 1996 (z)  0.0016      0.0063 0.8046   145.2042 765267
+  D1j                      fuel/seat + GACI                                          OLS   d12_ln_int                                         x_z_fuelseat  0.0024      0.0061 0.6880        NaN 765267
+  D1j                      fuel/seat + GACI                                          OLS   d12_ln_int                                                x_H_g  0.0002      0.0036 0.9550        NaN 765267
+  D1j                      fuel/seat + GACI                                      2SLS-KZ   d12_ln_int                                         x_z_fuelseat -0.0062      0.0101 0.5408    26.4490 765267
+  D1j                      fuel/seat + GACI                                      2SLS-KZ   d12_ln_int                                                x_H_g  0.0047      0.0055 0.3932    26.4490 765267
+  D1j                      fuel/seat + GACI                                      2SLS-BH   d12_ln_int                                         x_z_fuelseat  0.0082      0.0066 0.2128   146.2316 765267
+  D1j                      fuel/seat + GACI                                      2SLS-BH   d12_ln_int                                                x_H_g -0.0010      0.0039 0.8056   146.2316 765267
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS   d12_ln_int                                         x_z_fuelseat  0.0012  11384.2279 1.0000        NaN 765267
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS   d12_ln_int                                              x_z_int  0.0085   8719.7262 1.0000        NaN 765267
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS   d12_ln_int                                            x_z_stage  0.0040  19709.5366 1.0000        NaN 765267
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS   d12_ln_int                                                x_H_g  0.0014      0.0035 0.6840        NaN 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ   d12_ln_int                                         x_z_fuelseat  0.0009  44355.4597 1.0000    26.9525 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ   d12_ln_int                                              x_z_int  0.0107  30479.7232 1.0000    26.9525 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ   d12_ln_int                                            x_z_stage -0.0054  61269.8644 1.0000    26.9525 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ   d12_ln_int                                                x_H_g  0.0072      0.0055 0.1876    26.9525 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH   d12_ln_int                                         x_z_fuelseat  0.0173  11459.4630 1.0000   153.8315 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH   d12_ln_int                                              x_z_int  0.0068     13.8174 0.9996   153.8315 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH   d12_ln_int                                            x_z_stage -0.0091    963.1183 1.0000   153.8315 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH   d12_ln_int                                                x_H_g  0.0012      0.0038 0.7551   153.8315 765267
+  D1j  fuel/seat + GACI, country x month FE                                          OLS   d12_ln_int                                         x_z_fuelseat -0.0023      0.0101 0.8193        NaN 765267
+  D1j  fuel/seat + GACI, country x month FE                                          OLS   d12_ln_int                                                x_H_g  0.0013      0.0049 0.7849        NaN 765267
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-KZ   d12_ln_int                                         x_z_fuelseat -0.0080      0.0163 0.6248    27.0839 765267
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-KZ   d12_ln_int                                                x_H_g  0.0048      0.0073 0.5067    27.0839 765267
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-BH   d12_ln_int                                         x_z_fuelseat  0.0079      0.0123 0.5212   146.2971 765267
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-BH   d12_ln_int                                                x_H_g -0.0034      0.0055 0.5325   146.2971 765267
+  D1j        fuel/seat + size + intl + GACI                                          OLS   d12_ln_int                                         x_z_fuelseat  0.0015      0.0073 0.8403        NaN 765267
+  D1j        fuel/seat + size + intl + GACI                                          OLS   d12_ln_int                                             x_z_size -0.0018      0.0057 0.7479        NaN 765267
+  D1j        fuel/seat + size + intl + GACI                                          OLS   d12_ln_int                                             x_z_intl  0.0028      0.0032 0.3739        NaN 765267
+  D1j        fuel/seat + size + intl + GACI                                          OLS   d12_ln_int                                                x_H_g  0.0010      0.0030 0.7449        NaN 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ   d12_ln_int                                         x_z_fuelseat -0.0094      0.0121 0.4362    29.5492 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ   d12_ln_int                                             x_z_size -0.0083      0.0094 0.3765    29.5492 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ   d12_ln_int                                             x_z_intl  0.0101      0.0065 0.1210    29.5492 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ   d12_ln_int                                                x_H_g  0.0085      0.0052 0.1006    29.5492 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH   d12_ln_int                                         x_z_fuelseat  0.0088      0.0074 0.2388   151.6541 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH   d12_ln_int                                             x_z_size -0.0003      0.0062 0.9651   151.6541 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH   d12_ln_int                                             x_z_intl -0.0012      0.0029 0.6871   151.6541 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH   d12_ln_int                                                x_H_g -0.0006      0.0034 0.8559   151.6541 765267
+   D1                            z_fuelseat                                          OLS d12_ln_gauge                          Fuel burn per seat 1996 (z) -0.0023      0.0043 0.5955        NaN 765267
+   D1                            z_fuelseat                                      2SLS-KZ d12_ln_gauge                          Fuel burn per seat 1996 (z) -0.0048      0.0071 0.4981    26.9789 765267
+   D1                            z_fuelseat                                      2SLS-BH d12_ln_gauge                          Fuel burn per seat 1996 (z) -0.0036      0.0044 0.4113   146.2654 765267
+   D1                                 z_int                                          OLS d12_ln_gauge                             CO2 per seat-km 1996 (z) -0.0006      0.0042 0.8835        NaN 765267
+   D1                                 z_int                                      2SLS-KZ d12_ln_gauge                             CO2 per seat-km 1996 (z)  0.0023      0.0060 0.7053    27.4373 765267
+   D1                                 z_int                                      2SLS-BH d12_ln_gauge                             CO2 per seat-km 1996 (z) -0.0025      0.0050 0.6166   145.0124 765267
+   D1                               z_stage                                          OLS d12_ln_gauge                                Stage length 1996 (z) -0.0013      0.0044 0.7741        NaN 765267
+   D1                               z_stage                                      2SLS-KZ d12_ln_gauge                                Stage length 1996 (z) -0.0045      0.0066 0.4925    27.4867 765267
+   D1                               z_stage                                      2SLS-BH d12_ln_gauge                                Stage length 1996 (z) -0.0012      0.0046 0.7890   145.2042 765267
+  D1j                      fuel/seat + GACI                                          OLS d12_ln_gauge                                         x_z_fuelseat -0.0009      0.0044 0.8382        NaN 765267
+  D1j                      fuel/seat + GACI                                          OLS d12_ln_gauge                                                x_H_g -0.0025      0.0029 0.3878        NaN 765267
+  D1j                      fuel/seat + GACI                                      2SLS-KZ d12_ln_gauge                                         x_z_fuelseat -0.0001      0.0078 0.9848    26.4490 765267
+  D1j                      fuel/seat + GACI                                      2SLS-KZ d12_ln_gauge                                                x_H_g -0.0085      0.0052 0.1036    26.4490 765267
+  D1j                      fuel/seat + GACI                                      2SLS-BH d12_ln_gauge                                         x_z_fuelseat -0.0028      0.0045 0.5440   146.2316 765267
+  D1j                      fuel/seat + GACI                                      2SLS-BH d12_ln_gauge                                                x_H_g -0.0015      0.0031 0.6221   146.2316 765267
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS d12_ln_gauge                                         x_z_fuelseat -0.0022   6574.0930 1.0000        NaN 765267
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS d12_ln_gauge                                              x_z_int -0.0016   4045.2609 1.0000        NaN 765267
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS d12_ln_gauge                                            x_z_stage  0.0011  11805.8699 1.0000        NaN 765267
+  D1j fuel/seat + efficiency + stage + GACI                                          OLS d12_ln_gauge                                                x_H_g -0.0029      0.0029 0.3194        NaN 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ d12_ln_gauge                                         x_z_fuelseat  0.0030    139.5054 1.0000    26.9525 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ d12_ln_gauge                                              x_z_int -0.0035   4002.6949 1.0000    26.9525 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ d12_ln_gauge                                            x_z_stage -0.0048   1713.4869 1.0000    26.9525 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-KZ d12_ln_gauge                                                x_H_g -0.0087      0.0054 0.1097    26.9525 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH d12_ln_gauge                                         x_z_fuelseat -0.0116  14407.6639 1.0000   153.8315 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH d12_ln_gauge                                              x_z_int  0.0010   5617.2462 1.0000   153.8315 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH d12_ln_gauge                                            x_z_stage  0.0109  23220.7965 1.0000   153.8315 765267
+  D1j fuel/seat + efficiency + stage + GACI                                      2SLS-BH d12_ln_gauge                                                x_H_g -0.0024      0.0031 0.4375   153.8315 765267
+  D1j  fuel/seat + GACI, country x month FE                                          OLS d12_ln_gauge                                         x_z_fuelseat  0.0011      0.0062 0.8569        NaN 765267
+  D1j  fuel/seat + GACI, country x month FE                                          OLS d12_ln_gauge                                                x_H_g -0.0041      0.0034 0.2352        NaN 765267
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-KZ d12_ln_gauge                                         x_z_fuelseat  0.0041      0.0137 0.7663    27.0839 765267
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-KZ d12_ln_gauge                                                x_H_g -0.0097      0.0060 0.1082    27.0839 765267
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-BH d12_ln_gauge                                         x_z_fuelseat -0.0060      0.0064 0.3499   146.2971 765267
+  D1j  fuel/seat + GACI, country x month FE                                      2SLS-BH d12_ln_gauge                                                x_H_g -0.0013      0.0037 0.7221   146.2971 765267
+  D1j        fuel/seat + size + intl + GACI                                          OLS d12_ln_gauge                                         x_z_fuelseat  0.0008      0.0049 0.8686        NaN 765267
+  D1j        fuel/seat + size + intl + GACI                                          OLS d12_ln_gauge                                             x_z_size -0.0037      0.0058 0.5213        NaN 765267
+  D1j        fuel/seat + size + intl + GACI                                          OLS d12_ln_gauge                                             x_z_intl -0.0028      0.0030 0.3504        NaN 765267
+  D1j        fuel/seat + size + intl + GACI                                          OLS d12_ln_gauge                                                x_H_g  0.0002      0.0033 0.9480        NaN 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ d12_ln_gauge                                         x_z_fuelseat  0.0028      0.0101 0.7785    29.5492 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ d12_ln_gauge                                             x_z_size -0.0070      0.0070 0.3176    29.5492 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ d12_ln_gauge                                             x_z_intl -0.0046      0.0079 0.5595    29.5492 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-KZ d12_ln_gauge                                                x_H_g -0.0035      0.0063 0.5830    29.5492 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH d12_ln_gauge                                         x_z_fuelseat -0.0013      0.0048 0.7912   151.6541 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH d12_ln_gauge                                             x_z_size -0.0088      0.0079 0.2663   151.6541 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH d12_ln_gauge                                             x_z_intl -0.0007      0.0025 0.7756   151.6541 765267
+  D1j        fuel/seat + size + intl + GACI                                      2SLS-BH d12_ln_gauge                                                x_H_g  0.0042      0.0040 0.2954   151.6541 765267
+   D2                                   H_g      RF, per 1 SD of each 12-month shock sum d12_ln_seats                                    Supply (BH, x -1) -0.0016      0.0021 0.4658        NaN 765267
+   D2                                   H_g      RF, per 1 SD of each 12-month shock sum d12_ln_seats                               Economic activity (BH)  0.0037      0.0016 0.0191        NaN 765267
+   D2                                   H_g      RF, per 1 SD of each 12-month shock sum d12_ln_seats                          Oil consumption demand (BH) -0.0010      0.0017 0.5748        NaN 765267
+   D2                                   H_g      RF, per 1 SD of each 12-month shock sum d12_ln_seats                            Oil inventory demand (BH) -0.0000      0.0013 0.9760        NaN 765267
+   D2                                   H_g      RF, per 1 SD of each 12-month shock sum   d12_ln_co2                                    Supply (BH, x -1) -0.0009      0.0022 0.6925        NaN 767499
+   D2                                   H_g      RF, per 1 SD of each 12-month shock sum   d12_ln_co2                               Economic activity (BH)  0.0032      0.0018 0.0796        NaN 767499
+   D2                                   H_g      RF, per 1 SD of each 12-month shock sum   d12_ln_co2                          Oil consumption demand (BH)  0.0000      0.0019 0.9949        NaN 767499
+   D2                                   H_g      RF, per 1 SD of each 12-month shock sum   d12_ln_co2                            Oil inventory demand (BH)  0.0003      0.0014 0.8503        NaN 767499
+   D2                            z_fuelseat      RF, per 1 SD of each 12-month shock sum d12_ln_seats                                    Supply (BH, x -1)  0.0029      0.0046 0.5340        NaN 765267
+   D2                            z_fuelseat      RF, per 1 SD of each 12-month shock sum d12_ln_seats                               Economic activity (BH)  0.0052      0.0026 0.0487        NaN 765267
+   D2                            z_fuelseat      RF, per 1 SD of each 12-month shock sum d12_ln_seats                          Oil consumption demand (BH) -0.0017      0.0028 0.5558        NaN 765267
+   D2                            z_fuelseat      RF, per 1 SD of each 12-month shock sum d12_ln_seats                            Oil inventory demand (BH)  0.0029      0.0024 0.2260        NaN 765267
+   D2                            z_fuelseat      RF, per 1 SD of each 12-month shock sum   d12_ln_co2                                    Supply (BH, x -1)  0.0052      0.0049 0.2831        NaN 767499
+   D2                            z_fuelseat      RF, per 1 SD of each 12-month shock sum   d12_ln_co2                               Economic activity (BH)  0.0001      0.0032 0.9788        NaN 767499
+   D2                            z_fuelseat      RF, per 1 SD of each 12-month shock sum   d12_ln_co2                          Oil consumption demand (BH) -0.0001      0.0037 0.9803        NaN 767499
+   D2                            z_fuelseat      RF, per 1 SD of each 12-month shock sum   d12_ln_co2                            Oil inventory demand (BH)  0.0023      0.0035 0.5262        NaN 767499
+   D3                                   H_g                 (a) expected vs spot premium d12_ln_seats    D12 ln expected WTI, 12 months ahead (persistent)  0.0029      0.0107 0.7872        NaN 765267
+   D3                                   H_g                 (a) expected vs spot premium d12_ln_seats         D12 (ln spot WTI - ln expected) (transitory) -0.0005      0.0086 0.9530        NaN 765267
+   D3                                   H_g               (b) 12-month mean vs deviation d12_ln_seats D12 of 12-month trailing mean of ln jet (persistent) -0.0002      0.0072 0.9776        NaN 765267
+   D3                                   H_g               (b) 12-month mean vs deviation d12_ln_seats     D12 of deviation from trailing mean (transitory)  0.0038      0.0051 0.4637        NaN 765267
+   D3                                   H_g (c) Kaenzig news vs BH supply (RF, per 1 SD) d12_ln_seats            Kaenzig news shock, 12-month sum (per SD) -0.0032      0.0013 0.0175        NaN 765267
+   D3                                   H_g (c) Kaenzig news vs BH supply (RF, per 1 SD) d12_ln_seats          BH supply shock x -1, 12-month sum (per SD)  0.0009      0.0017 0.6034        NaN 765267
+   D3                                   H_g                 (a) expected vs spot premium   d12_ln_co2    D12 ln expected WTI, 12 months ahead (persistent)  0.0103      0.0101 0.3064        NaN 767499
+   D3                                   H_g                 (a) expected vs spot premium   d12_ln_co2         D12 (ln spot WTI - ln expected) (transitory) -0.0033      0.0096 0.7359        NaN 767499
+   D3                                   H_g               (b) 12-month mean vs deviation   d12_ln_co2 D12 of 12-month trailing mean of ln jet (persistent)  0.0049      0.0063 0.4424        NaN 767499
+   D3                                   H_g               (b) 12-month mean vs deviation   d12_ln_co2     D12 of deviation from trailing mean (transitory)  0.0048      0.0056 0.3860        NaN 767499
+   D3                                   H_g (c) Kaenzig news vs BH supply (RF, per 1 SD)   d12_ln_co2            Kaenzig news shock, 12-month sum (per SD) -0.0024      0.0013 0.0709        NaN 767499
+   D3                                   H_g (c) Kaenzig news vs BH supply (RF, per 1 SD)   d12_ln_co2          BH supply shock x -1, 12-month sum (per SD)  0.0015      0.0017 0.3734        NaN 767499
+   D3                            z_fuelseat                 (a) expected vs spot premium d12_ln_seats    D12 ln expected WTI, 12 months ahead (persistent)  0.0063      0.0150 0.6726        NaN 765267
+   D3                            z_fuelseat                 (a) expected vs spot premium d12_ln_seats         D12 (ln spot WTI - ln expected) (transitory)  0.0239      0.0176 0.1776        NaN 765267
+   D3                            z_fuelseat               (b) 12-month mean vs deviation d12_ln_seats D12 of 12-month trailing mean of ln jet (persistent)  0.0069      0.0090 0.4420        NaN 765267
+   D3                            z_fuelseat               (b) 12-month mean vs deviation d12_ln_seats     D12 of deviation from trailing mean (transitory)  0.0188      0.0092 0.0419        NaN 765267
+   D3                            z_fuelseat (c) Kaenzig news vs BH supply (RF, per 1 SD) d12_ln_seats            Kaenzig news shock, 12-month sum (per SD) -0.0017      0.0028 0.5528        NaN 765267
+   D3                            z_fuelseat (c) Kaenzig news vs BH supply (RF, per 1 SD) d12_ln_seats          BH supply shock x -1, 12-month sum (per SD)  0.0048      0.0039 0.2212        NaN 765267
+   D3                            z_fuelseat                 (a) expected vs spot premium   d12_ln_co2    D12 ln expected WTI, 12 months ahead (persistent)  0.0027      0.0206 0.8971        NaN 767499
+   D3                            z_fuelseat                 (a) expected vs spot premium   d12_ln_co2         D12 (ln spot WTI - ln expected) (transitory)  0.0280      0.0206 0.1770        NaN 767499
+   D3                            z_fuelseat               (b) 12-month mean vs deviation   d12_ln_co2 D12 of 12-month trailing mean of ln jet (persistent)  0.0085      0.0104 0.4126        NaN 767499
+   D3                            z_fuelseat               (b) 12-month mean vs deviation   d12_ln_co2     D12 of deviation from trailing mean (transitory)  0.0167      0.0129 0.1975        NaN 767499
+   D3                            z_fuelseat (c) Kaenzig news vs BH supply (RF, per 1 SD)   d12_ln_co2            Kaenzig news shock, 12-month sum (per SD) -0.0002      0.0036 0.9564        NaN 767499
+   D3                            z_fuelseat (c) Kaenzig news vs BH supply (RF, per 1 SD)   d12_ln_co2          BH supply shock x -1, 12-month sum (per SD)  0.0051      0.0039 0.1895        NaN 767499
+   D4                                   H_g                        crude vs jet-specific d12_ln_seats                                     D12 ln Brent x H  0.0015      0.0051 0.7652        NaN 765267
+   D4                                   H_g                        crude vs jet-specific d12_ln_seats                              D12 ln crack spread x H  0.0231      0.0162 0.1548        NaN 765267
+   D5                                   H_g                                    asymmetry d12_ln_seats                                      price rises x H -0.0046      0.0073 0.5320        NaN 765267
+   D5                                   H_g                                    asymmetry d12_ln_seats                                      price falls x H  0.0076      0.0089 0.3930        NaN 765267
+   D5                                   H_g                                       regime d12_ln_seats               D12 ln P x H, real jet > USD 2.5 (t-3) -0.0140      0.0088 0.1154        NaN 765267
+   D5                                   H_g                                       regime d12_ln_seats                    D12 ln P x H, real jet <= USD 2.5  0.0042      0.0054 0.4336        NaN 765267
+   D4                                   H_g                        crude vs jet-specific   d12_ln_co2                                     D12 ln Brent x H  0.0046      0.0042 0.2794        NaN 767499
+   D4                                   H_g                        crude vs jet-specific   d12_ln_co2                              D12 ln crack spread x H  0.0259      0.0171 0.1321        NaN 767499
+   D5                                   H_g                                    asymmetry   d12_ln_co2                                      price rises x H -0.0014      0.0053 0.7955        NaN 767499
+   D5                                   H_g                                    asymmetry   d12_ln_co2                                      price falls x H  0.0105      0.0079 0.1822        NaN 767499
+   D5                                   H_g                                       regime   d12_ln_co2               D12 ln P x H, real jet > USD 2.5 (t-3) -0.0093      0.0086 0.2768        NaN 767499
+   D5                                   H_g                                       regime   d12_ln_co2                    D12 ln P x H, real jet <= USD 2.5  0.0070      0.0048 0.1453        NaN 767499
+   D4                            z_fuelseat                        crude vs jet-specific d12_ln_seats                                     D12 ln Brent x H  0.0131      0.0082 0.1123        NaN 765267
+   D4                            z_fuelseat                        crude vs jet-specific d12_ln_seats                              D12 ln crack spread x H -0.0036      0.0224 0.8712        NaN 765267
+   D5                            z_fuelseat                                    asymmetry d12_ln_seats                                      price rises x H -0.0040      0.0091 0.6590        NaN 765267
+   D5                            z_fuelseat                                    asymmetry d12_ln_seats                                      price falls x H  0.0286      0.0145 0.0490        NaN 765267
+   D5                            z_fuelseat                                       regime d12_ln_seats               D12 ln P x H, real jet > USD 2.5 (t-3)  0.0086      0.0205 0.6743        NaN 765267
+   D5                            z_fuelseat                                       regime d12_ln_seats                    D12 ln P x H, real jet <= USD 2.5  0.0135      0.0078 0.0843        NaN 765267
+   D4                            z_fuelseat                        crude vs jet-specific   d12_ln_co2                                     D12 ln Brent x H  0.0131      0.0103 0.2042        NaN 767499
+   D4                            z_fuelseat                        crude vs jet-specific   d12_ln_co2                              D12 ln crack spread x H -0.0240      0.0253 0.3440        NaN 767499
+   D5                            z_fuelseat                                    asymmetry   d12_ln_co2                                      price rises x H -0.0053      0.0124 0.6711        NaN 767499
+   D5                            z_fuelseat                                    asymmetry   d12_ln_co2                                      price falls x H  0.0295      0.0143 0.0398        NaN 767499
+   D5                            z_fuelseat                                       regime   d12_ln_co2               D12 ln P x H, real jet > USD 2.5 (t-3)  0.0103      0.0195 0.5973        NaN 767499
+   D5                            z_fuelseat                                       regime   d12_ln_co2                    D12 ln P x H, real jet <= USD 2.5  0.0130      0.0105 0.2182        NaN 767499
+             design          dep              term      b     se   p   sd_x   n     r2
+D2 BH decomposition d12_lnjet_l3     bh_neg_s12_l3 0.0309 0.0037 0.0 5.3401 276 0.9246
+D2 BH decomposition d12_lnjet_l3     bh_act_s12_l3 0.0396 0.0044 0.0 2.1899 276 0.9246
+D2 BH decomposition d12_lnjet_l3    bh_cons_s12_l3 0.0189 0.0022 0.0 8.8705 276 0.9246
+D2 BH decomposition d12_lnjet_l3     bh_inv_s12_l3 0.0423 0.0049 0.0 2.3712 276 0.9246
+   D3a expectations d12_lnjet_l3     d12_ln_e12_l3 1.1752 0.0579 0.0 0.1938 276 0.9346
+   D3a expectations d12_lnjet_l3   d12_ln_trans_l3 0.7663 0.0647 0.0 0.1808 276 0.9346
+ D3b moving average d12_lnjet_l3 d12_lnjet_ma12_l3 1.0000 0.0000 0.0 0.2750 276 1.0000
+ D3b moving average d12_lnjet_l3  d12_lnjet_dev_l3 1.0000 0.0000 0.0 0.2759 276 1.0000
+       D3c KZ vs BH d12_lnjet_l3         kz_s12_l3 0.0641 0.0149 0.0 1.9601 276 0.7602
+       D3c KZ vs BH d12_lnjet_l3     bh_neg_s12_l3 0.0423 0.0071 0.0 5.3401 276 0.7602

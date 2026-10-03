@@ -1,0 +1,113 @@
+capture log close _all
+log using "04_longdiff_run.log", replace text
+do "_prep.doh"
+tempname fh
+file open `fh' using "_longdiff_results.csv", write replace
+file write `fh' "block,outcome,spec,b,se,p,kpf,N" _n
+foreach yv in ln_gini_mkt ln_gini_disp {
+    * A. horizon: lagged connectivity k=0..10, instrument lagged k
+    forvalues k = 0/10 {
+        ivreghdfe `yv' lnpop (L`k'.ln_gaci_max = L`k'.feyrer_int), absorb(isocode y) robust
+        local b = _b[L`k'.ln_gaci_max]
+        local se = _se[L`k'.ln_gaci_max]
+        local p = 2*normal(-abs(`b'/`se'))
+        local kp = e(widstat)
+        local nn = e(N)
+        file write `fh' "lag,`yv',k`k',`b',`se',`p',`kp',`nn'" _n
+    }
+    * A2. leads (placebo): future connectivity
+    forvalues k = 1/5 {
+        ivreghdfe `yv' lnpop (F`k'.ln_gaci_max = F`k'.feyrer_int), absorb(isocode y) robust
+        local b = _b[F`k'.ln_gaci_max]
+        local se = _se[F`k'.ln_gaci_max]
+        local p = 2*normal(-abs(`b'/`se'))
+        local kp = e(widstat)
+        local nn = e(N)
+        file write `fh' "lead,`yv',f`k',`b',`se',`p',`kp',`nn'" _n
+    }
+    * A3. lead conditional on current
+    ivreghdfe `yv' lnpop (ln_gaci_max F3.ln_gaci_max = feyrer_int F3.feyrer_int), absorb(isocode y) robust
+    local kp = e(widstat)
+    local nn = e(N)
+    local b = _b[F3.ln_gaci_max]
+    local se = _se[F3.ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    file write `fh' "lead_cond,`yv',f3_given_t,`b',`se',`p',`kp',`nn'" _n
+    local b = _b[ln_gaci_max]
+    local se = _se[ln_gaci_max]
+    local p = 2*normal(-abs(`b'/`se'))
+    file write `fh' "lead_cond,`yv',t_given_f3,`b',`se',`p',`kp',`nn'" _n
+    * B. long differences (cross-section of changes, continent FE, robust)
+    foreach pair in "1996 2019" "1996 2023" "2000 2019" "2005 2019" "2010 2019" {
+        local y0 : word 1 of `pair'
+        local y1 : word 2 of `pair'
+        preserve
+        keep if inlist(y, `y0', `y1')
+        bysort isocode: keep if _N==2
+        bysort isocode (y): gen dY = `yv'[2]-`yv'[1]
+        bysort isocode (y): gen dX = ln_gaci_max[2]-ln_gaci_max[1]
+        bysort isocode (y): gen dZ = feyrer_int[2]-feyrer_int[1]
+        bysort isocode (y): gen dP = lnpop[2]-lnpop[1]
+        bysort isocode (y): gen dT = tourism_int[2]-tourism_int[1]
+        bysort isocode (y): keep if _n==1
+        reg dY dX dP i.contid, robust
+        local b = _b[dX]
+        local se = _se[dX]
+        local p = 2*ttail(e(df_r), abs(`b'/`se'))
+        local nn = e(N)
+        file write `fh' "LD_OLS,`yv',`y0'_`y1',`b',`se',`p',.,`nn'" _n
+        ivreg2 dY dP i.contid (dX = dZ), robust
+        local b = _b[dX]
+        local se = _se[dX]
+        local p = 2*normal(-abs(`b'/`se'))
+        local kp = e(widstat)
+        local nn = e(N)
+        file write `fh' "LD_IV,`yv',`y0'_`y1',`b',`se',`p',`kp',`nn'" _n
+        ivreg2 dY dP i.contid (dX = dT), robust
+        local b = _b[dX]
+        local se = _se[dX]
+        local p = 2*normal(-abs(`b'/`se'))
+        local kp = e(widstat)
+        local nn = e(N)
+        file write `fh' "LD_IVtour,`yv',`y0'_`y1',`b',`se',`p',`kp',`nn'" _n
+        ivreg2 dY dP i.contid (dX = dZ dT), robust
+        local b = _b[dX]
+        local se = _se[dX]
+        local p = 2*normal(-abs(`b'/`se'))
+        local kp = e(widstat)
+        local nn = e(N)
+        file write `fh' "LD_IVboth,`yv',`y0'_`y1',`b',`se',`p',`kp',`nn'" _n
+        restore
+    }
+    * C. stacked 5-year differences
+    preserve
+    gen dY = `yv' - L5.`yv'
+    gen dX = ln_gaci_max - L5.ln_gaci_max
+    gen dZ = feyrer_int - L5.feyrer_int
+    gen dP = lnpop - L5.lnpop
+    gen dT = tourism_int - L5.tourism_int
+    keep if !missing(dY, dX, dZ)
+    ivreghdfe dY dP (dX = dZ), absorb(y contid) cluster(isocode)
+    local b = _b[dX]
+    local se = _se[dX]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local nn = e(N)
+    file write `fh' "D5_IV,`yv',stacked5,`b',`se',`p',`kp',`nn'" _n
+    ivreghdfe dY dP (dX = dT), absorb(y contid) cluster(isocode)
+    local b = _b[dX]
+    local se = _se[dX]
+    local p = 2*normal(-abs(`b'/`se'))
+    local kp = e(widstat)
+    local nn = e(N)
+    file write `fh' "D5_IVtour,`yv',stacked5,`b',`se',`p',`kp',`nn'" _n
+    reghdfe dY dX dP, absorb(y contid) cluster(isocode)
+    local b = _b[dX]
+    local se = _se[dX]
+    local p = 2*ttail(e(df_r), abs(`b'/`se'))
+    local nn = e(N)
+    file write `fh' "D5_OLS,`yv',stacked5,`b',`se',`p',.,`nn'" _n
+    restore
+}
+file close `fh'
+log close

@@ -1,0 +1,40 @@
+\begin{table}[H]
+\centering
+\caption{Growth and its incidence under alternative baseline groupings (2SLS).}
+\label{tab:a_stagedefs}
+\begin{minipage}{\linewidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+ & ln GDP p.c. & Mean income & Bottom-30\% income & Bottom-30\% share & Top-30 minus bottom-30 & KP $F$ / N \\
+\midrule
+\multicolumn{7}{l}{\emph{Panel A. Quartiles of $\mathrm{GACI}_{max}$ in 1996}}\\
+Q1 (smallest): 2SLS & 2.166\sym{***} & 1.965\sym{***} & 2.418\sym{***} & 0.453 & -0.703\sym{*} & 18.9 \\
+ & (0.561) & (0.455) & (0.577) & (0.305) & (0.406) & N = 1{,}029 \\
+\quad OLS & 1.165\sym{***} & 1.245\sym{***} & 1.450\sym{***} & 0.205 & -0.293 \\
+ & (0.129) & (0.128) & (0.200) & (0.146) & (0.187) \\
+Q2: 2SLS & 1.180\sym{*} & 1.173\sym{*} & -0.260 & -1.433\sym{**} & 1.703\sym{***} & 14.7 \\
+ & (0.636) & (0.604) & (0.810) & (0.543) & (0.626) & N = 1{,}141 \\
+\quad OLS & 0.534\sym{**} & 0.620\sym{**} & 0.330 & -0.290\sym{***} & 0.410\sym{***} \\
+ & (0.227) & (0.266) & (0.304) & (0.075) & (0.101) \\
+Q3: 2SLS & 1.948 & 1.184 & -2.429 & -3.614 & 4.031 & 0.7 \\
+ & (2.666) & (3.057) & (6.166) & (5.222) & (5.867) & N = 1{,}131 \\
+\quad OLS & 0.885\sym{***} & 0.687\sym{***} & 0.687\sym{**} & 0.000 & 0.039 \\
+ & (0.208) & (0.250) & (0.281) & (0.142) & (0.165) \\
+Q4 (largest): 2SLS & 1.102 & 1.814 & -3.468 & -5.282 & 5.758 & 0.6 \\
+ & (1.548) & (2.012) & (7.250) & (7.901) & (8.656) & N = 1{,}236 \\
+\quad OLS & 0.820\sym{***} & 0.704\sym{***} & 0.651\sym{***} & -0.053 & 0.082 \\
+ & (0.250) & (0.251) & (0.218) & (0.125) & (0.149) \\
+\addlinespace\multicolumn{7}{l}{\emph{Panel B. Terciles of baseline GDP per capita}}\\
+Low: 2SLS & 3.006\sym{**} & 3.723\sym{**} & 2.578\sym{*} & -1.145 & 1.286 & 3.3 \\
+ & (1.354) & (1.531) & (1.410) & (0.841) & (0.998) & N = 1{,}540 \\
+Middle: 2SLS & 1.512\sym{**} & 1.266\sym{**} & 0.837 & -0.429 & 0.282 & 6.8 \\
+ & (0.618) & (0.607) & (0.976) & (0.795) & (0.905) & N = 1{,}491 \\
+High: 2SLS & 1.107\sym{*} & 1.003 & -1.190 & -2.193\sym{*} & 2.507\sym{*} & 9.7 \\
+ & (0.620) & (0.642) & (1.380) & (1.207) & (1.387) & N = 1{,}506 \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}\begin{flushleft}\footnotesize Groups are formed over countries on the stated baseline variable. The instrument has no power in the two largest quartiles, shown for completeness. Country-year panel of 178 economies, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments $\ln\mathrm{GACI}_{max}$ with the Feyrer interaction $Z_{ct}=a_t\times\ln\mathrm{MA}^{air}_{c,1996}$; KP $F$ is the Kleibergen--Paap $rk$ Wald statistic. Group incomes are the log average pretax national income of the group (WID, equal-split adults); shares are log income shares, computed as log group income minus log mean income so that all groups use the same sample. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{flushleft}
+\end{minipage}
+\end{table}

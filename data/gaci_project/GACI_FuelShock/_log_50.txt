@@ -1,0 +1,9 @@
+﻿Sep-2008 rows scaled: 3,456 | rows created: 14 | Sep-2008 rows left as observed: 117 (no Aug+Oct seats or 0 seats)
+scale factor k (interpolated / observed seats): quantiles {0.1: 1.015, 0.25: 1.099, 0.5: 1.147, 0.75: 1.199, 0.9: 1.318}
+airports using the all-airport median ratio (no reference year): 14
+usual September seat ratio, all-airport median: 0.968
+world seats 2008-08 YoY: before +1.2%  after +1.2%
+world seats 2008-09 YoY: before -13.4%  after +0.7%
+world seats 2008-10 YoY: before -0.4%  after -0.4%
+world seats 2009-09 YoY: before +16.9%  after +0.5%
+rows before/after: 1,280,596 1,280,610

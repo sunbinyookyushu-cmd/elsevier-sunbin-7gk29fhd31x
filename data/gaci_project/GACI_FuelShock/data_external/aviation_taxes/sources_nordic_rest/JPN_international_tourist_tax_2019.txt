@@ -1,0 +1,23 @@
+Japan: 国際観光旅客税 (International Tourist Tax)
+Accessed 2026-10-02
+
+Source 1: e-Gov law API, 国際観光旅客税法 (平成三十年法律第十六号), as of 2019-01-07
+https://laws.e-gov.go.jp/api/2/law_data/430AC0000000016?asof=2019-01-07&response_format=xml
+- 第十五条: 国際観光旅客税の税率は、本邦からの出国一回につき、千円とする。
+- 附則第一条: この法律は、平成三十一年一月七日から施行する。ただし、附則第五条の規定は、公布の日から施行する。
+- 附則第二条: 第四条、第五条及び第三章の規定は、国際旅客運送事業に係る国際観光旅客等の本邦からの出国のうちこの法律の施行の日（以下「施行日」という。）前に締結された運送契約（施行日前に当該出国の日を定めたものに限る。）によるものに係る国際観光旅客税については、適用しない。ただし、運送契約その他の契約において運賃の領収とは別に徴収することとされている国際観光旅客税については、この限りでない。
+- Promulgated 2018-04-18 (公布).
+
+Source 2: e-Gov law API, current text
+https://laws.e-gov.go.jp/api/1/lawdata/430AC0000000016
+- 第六条 一: 国際旅客運送事業に使用される航空機により本邦を経由して外国に赴く旅客であって本邦に入国後二十四時間以内に本邦から出国するものとして政令で定めるもの
+- 第六条 三: 本邦から出国する日における年齢が二歳未満の者
+- Current 第十五条 rate is 三千円 (amended by 令和八年法律第一二号, 2026-03-31; applies to contracts concluded on or after 2026-07-01).
+
+Source 3: NTA English Q&A (April 2018, revised April 2026)
+https://www.nta.go.jp/english/taxes/indirect/pdf/leaflet3.pdf
+- Q12: transit passengers non-taxable only if a single air ticket is issued and the itinerary shows departure from Japan within 24 hours after arrival (Order art. 4(1)); not non-taxable if the airport before entering Japan equals the airport after leaving Japan; ship transit not exempt (Q13).
+- Q19: "The tax rate of the "International Tourist Tax" will be increased from 1,000 yen to 3,000 yen on July 1, 2026"
+
+Source 4: NTA pamphlet https://www.nta.go.jp/publication/pamph/kansetsu/kanko/pdf/03.pdf
+- 「日本からの出国１回につき 1,000 円」「平成 31 年１月７日以降」

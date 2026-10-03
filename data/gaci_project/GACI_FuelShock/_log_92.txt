@@ -1,0 +1,58 @@
+﻿NLD 2008-07-01 increase: control countries 14, treated airports 5, border airports 17
+IRL 2009-03-30 increase: control countries 16, treated airports 9, border airports 6
+DEU 2011-01-01 increase: control countries 14, treated airports 41, border airports 28
+AUT 2011-04-01 increase: control countries 14, treated airports 6, border airports 16
+NOR 2016-06-01 increase: control countries 16, treated airports 52, border airports 3
+SWE 2018-04-01 increase: control countries 16, treated airports 38, border airports 19
+GBR 2007-02-01 increase: control countries 16, treated airports 62, border airports 9
+DNK 1998-01-01 increase: control countries 16, treated airports 13, border airports 15
+MLT 2005-08-01 increase: control countries 16, treated airports 2, border airports 0
+NLD 2009-07-01 cut: control countries 16, treated airports 5, border airports 17
+DNK 2007-01-01 cut: control countries 16, treated airports 9, border airports 16
+MLT 2008-11-01 cut: control countries 15, treated airports 1, border airports 0
+IRL 2014-04-01 cut: control countries 17, treated airports 7, border airports 6
+ISL 2011-05-18 cut: control countries 14, treated airports 7, border airports 0
+AUT 2018-01-01 cut: control countries 14, treated airports 6, border airports 13
+NOR 2002-04-01 cut: control countries 17, treated airports 49, border airports 4
+    kind                 outcome                                   event            term       b     se      p     n  clusters
+increase      ln seats (monthly)                                  pooled   taxed country -0.1147 0.0241 0.0001 66818        27
+increase      ln seats (monthly)                                  pooled border airports  0.0095 0.0220 0.6690 66818        27
+increase      ln seats (monthly)     NLD 2008-07-01 (intro EUR 11.25/45)   taxed country -0.2422 0.1165 0.0384  6560       298
+increase      ln seats (monthly)     NLD 2008-07-01 (intro EUR 11.25/45) border airports  0.0218 0.0500 0.6629  6560       298
+increase      ln seats (monthly)         IRL 2009-03-30 (intro EUR 2/10)   taxed country -0.1075 0.0561 0.0563  8364       391
+increase      ln seats (monthly)         IRL 2009-03-30 (intro EUR 2/10) border airports -0.0106 0.0743 0.8867  8364       391
+increase      ln seats (monthly)      DEU 2011-01-01 (intro EUR 8/25/45)   taxed country -0.1445 0.0406 0.0004  7962       367
+increase      ln seats (monthly)      DEU 2011-01-01 (intro EUR 8/25/45) border airports  0.0532 0.0374 0.1559  7962       367
+increase      ln seats (monthly)      AUT 2011-04-01 (intro EUR 8/20/35)   taxed country -0.0919 0.0393 0.0201  7288       333
+increase      ln seats (monthly)      AUT 2011-04-01 (intro EUR 8/20/35) border airports  0.0023 0.0703 0.9740  7288       333
+increase      ln seats (monthly)           NOR 2016-06-01 (intro NOK 80)   taxed country -0.1259 0.0358 0.0005  5752       274
+increase      ln seats (monthly)           NOR 2016-06-01 (intro NOK 80) border airports -0.1119 0.0283 0.0001  5752       274
+increase      ln seats (monthly)   SWE 2018-04-01 (intro SEK 60/250/400)   taxed country -0.1314 0.0415 0.0017  7546       353
+increase      ln seats (monthly)   SWE 2018-04-01 (intro SEK 60/250/400) border airports -0.0079 0.0304 0.7947  7546       353
+increase      ln seats (monthly)            GBR 2007-02-01 (APD doubled)   taxed country -0.0274 0.0253 0.2799  8104       371
+increase      ln seats (monthly)            GBR 2007-02-01 (APD doubled) border airports  0.0040 0.0825 0.9611  8104       371
+increase      ln seats (monthly) DNK 1998-01-01 (domestic added, DKK 75)   taxed country -0.2530 0.0615 0.0000  7348       350
+increase      ln seats (monthly) DNK 1998-01-01 (domestic added, DKK 75) border airports -0.0271 0.0537 0.6145  7348       350
+increase      ln seats (monthly)           MLT 2005-08-01 (Lm10 -> Lm20)   taxed country -0.2489 0.1806 0.1690  7894       361
+increase        ln GACI (annual)                                  pooled   taxed country -0.0213 0.0041 0.0000 13746        27
+increase        ln GACI (annual)                                  pooled border airports  0.0037 0.0064 0.5666 13746        27
+increase ln eigenvector (annual)                                  pooled   taxed country -0.2801 0.0484 0.0000 13746        27
+increase ln eigenvector (annual)                                  pooled border airports  0.0939 0.0686 0.1824 13746        27
+     cut      ln seats (monthly)                                  pooled   taxed country -0.0408 0.0283 0.1624 49684        25
+     cut      ln seats (monthly)                                  pooled border airports -0.0321 0.0197 0.1158 49684        25
+     cut      ln seats (monthly)       NLD 2009-07-01 (rate set to zero)   taxed country  0.0786 0.1328 0.5541  8120       384
+     cut      ln seats (monthly)       NLD 2009-07-01 (rate set to zero) border airports  0.0254 0.0428 0.5532  8120       384
+     cut      ln seats (monthly)              DNK 2007-01-01 (abolished)   taxed country  0.0250 0.0903 0.7822  6892       315
+     cut      ln seats (monthly)              DNK 2007-01-01 (abolished) border airports -0.0423 0.0443 0.3405  6892       315
+     cut      ln seats (monthly)              MLT 2008-11-01 (abolished)   taxed country  0.0037 0.0120 0.7567  7826       363
+     cut      ln seats (monthly)              IRL 2014-04-01 (abolished)   taxed country -0.0696 0.0512 0.1751  8062       375
+     cut      ln seats (monthly)              IRL 2014-04-01 (abolished) border airports -0.1294 0.0334 0.0001  8062       375
+     cut      ln seats (monthly)              ISL 2011-05-18 (abolished)   taxed country  0.0216 0.0467 0.6441  7040       321
+     cut      ln seats (monthly)                 AUT 2018-01-01 (halved)   taxed country -0.0896 0.0358 0.0132  4144       195
+     cut      ln seats (monthly)                 AUT 2018-01-01 (halved) border airports -0.0554 0.0430 0.1991  4144       195
+     cut      ln seats (monthly)              NOR 2002-04-01 (abolished)   taxed country -0.0646 0.0272 0.0180  7600       356
+     cut      ln seats (monthly)              NOR 2002-04-01 (abolished) border airports  0.0496 0.1055 0.6390  7600       356
+     cut        ln GACI (annual)                                  pooled   taxed country -0.0006 0.0052 0.9048 10361        25
+     cut        ln GACI (annual)                                  pooled border airports -0.0028 0.0053 0.6033 10361        25
+     cut ln eigenvector (annual)                                  pooled   taxed country -0.0150 0.0533 0.7810 10361        25
+     cut ln eigenvector (annual)                                  pooled border airports  0.0187 0.1170 0.8744 10361        25

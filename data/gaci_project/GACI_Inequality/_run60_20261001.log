@@ -1,0 +1,14 @@
+WID sample: 4537 country-years, 178 countries
+results rows: 837
+{'channels': 328, 'components': 15, 'growth_stage': 100, 'hub_network': 44, 'incidence': 74, 'lags': 33, 'main': 30, 'measures': 54, 'redistribution': 12, 'robust': 27, 'spill': 8, 'splits': 52, 'stagedefs': 15, 'swiid_subsample': 45}
+                       dln  implied_all_pct  actual_all_pct  implied_top30_pct  implied_b30_pct  actual_b30_pct  implied_b30sh_pts  actual_b30sh_pts      n
+cont                                                                                                                                                       
+AF                    0.08            11.95           52.47              12.38             3.34           78.13              -0.30              0.55   42.0
+AS                    0.24            43.76          120.79              45.59            10.92          114.65              -1.19             -0.40   27.0
+EU                    0.22            40.32           99.28              42.02             9.85          120.10              -1.16              0.11   43.0
+LA                    0.07            11.98           26.44              12.45             3.14           72.26              -0.07              0.54   23.0
+ME                    0.25            50.84           -9.52              53.17            11.57          -10.36              -0.66              0.10   13.0
+NA                    0.07            10.91           38.00              11.30             3.04           24.77              -0.33             -0.56    3.0
+SW                    0.03             5.10           15.59               5.29             1.34            2.01              -0.13             -1.07   11.0
+ALL (unweighted)      0.15            27.42           64.84              28.56             6.82           81.27              -0.66              0.11  162.0
+WORLD (pop-weighted)  0.23            41.17          138.92              42.85            10.32          110.62              -1.05             -0.69  162.0

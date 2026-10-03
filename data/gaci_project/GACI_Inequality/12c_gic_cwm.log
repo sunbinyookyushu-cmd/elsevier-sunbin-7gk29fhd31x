@@ -1,0 +1,397 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 16 May 2027
+Serial number: 401909343485
+  Licensed to: Sunbin Yoo
+               SKKU
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do 12c_gic_cwm.do 
+
+. * 12c_gic_cwm.do : incidence curve with the capacity-weighted-mean treatment 
+> (ln GACI_cwm).
+. * Same specification as 12_gic_dose.do: ln pop, country + year FE, Feyrer IV,
+>  country-clustered SE.
+. * Outcomes: ln avg pretax income of each WID group; log share via the identit
+> y; three difference outcomes.
+. capture log close _all
+
+. log using "12c_gic_cwm_run.log", replace text
+(file C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box
+    ^-^\2026\GACI\GACI_Inequality\12c_gic_cwm_run.log not found)
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026
+> \GACI\GACI_Inequality\12c_gic_cwm_run.log
+  log type:  text
+ opened on:  28 Sep 2026, 17:55:59
+
+. clear all
+
+. set more off
+
+. set linesize 255
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_Inequality"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_Inequality
+
+. import delimited "ineq_panel_ext.csv", clear varnames(1) encoding("utf-8")
+(196 vars, 4,643 obs)
+
+. ds c reg, not
+y             unesco_cum    eig_sum       nat_endow     gaci_cwm2     gini_wb       urban         ln_gdppc      avg_top10_~d  ln_avg_all~d  ln_apt_d3     ln_spt_b50    ln_spt_m40    spt_d6        ln_adi_d2     ln_sdi_all    ln_sdi_d9     ln_theil_reg
+trade_share   unesco_cum~t  eig_mean      merch_share   share_max     top10_wb      trade_gdp     top10_wid     avg_all_wid   ratio_t10~50  ln_apt_d4     ln_spt_d1     ln_spt_t01    spt_d7        ln_adi_d3     ln_sdi_b50    ln_sdi_m40    ln_gini_reg
+ln_tradevol   lnz           close_sum     merch_inte~y  hhi           bot20_wb      fdi_gdp       top1_wid      ln_top10_wid  a_t           ln_apt_d5     ln_spt_d10    ln_spt_t1     spt_d8        ln_adi_d4     ln_sdi_d1     ln_sdi_t01    ln_cv_reg
+lngdp         lnz_own       close_mean    tourism_int   n_air2        top20_wb      unemp         bot50_wid     ln_top1_wid   os_year       ln_apt_d6     ln_spt_d2     spt_all       spt_d9        ln_adi_d5     ln_sdi_d10    ln_sdi_t1     ln_share_t~g
+lng           lnpc          betw_sum      tourism_cum   gaci_2nd      emp_srv       surv_inc_pc   mid40_wid     ln_bot50_wid  post_os       ln_apt_d7     ln_spt_d3     spt_b50       spt_m40       ln_adi_d6     ln_sdi_d2     n_reg         ln_ratio_t~g
+ln_gaci_cwm   lnpop         betw_mean     ln_remote     gini_disp     emp_ind       ln_gaci_max   top10_post~d  ln_gini_pr~d  os_evt        ln_apt_d8     ln_spt_d4     spt_d1        spt_t01       ln_adi_d7     ln_sdi_d3     theil_reg     n_reg_mode
+ln_gaci_mean  lnland        regimp_sum    feyrer_int    gini_disp_se  emp_agr       ln_gaci_sum   bot50_post~d  ln_gini_po~d  ln_apt_all    ln_apt_d9     ln_spt_d5     spt_d10       spt_t1        ln_adi_d8     ln_sdi_d4     gini_reg      stable_reg
+lncap         abslat        regimp_mean   ln_sea_ma     gini_mkt      primacy       ln_gini_mkt   top1_post_~d  ln_top10_p~d  ln_apt_b50    ln_apt_m40    ln_spt_d6     spt_d2        ln_adi_all    ln_adi_d9     ln_sdi_d5     cv_reg
+gaci_cwmean   n_air         cap_sum       ln_air_ma     gini_mkt_se   gdppc_kd      ln_gini_disp  gini_pre_wid  ln_bot50_p~d  ln_apt_d1     ln_apt_t01    ln_spt_d7     spt_d3        ln_adi_b50    ln_adi_m40    ln_sdi_d6     share_topreg
+gaci_mean     deg_sum       cap_mean      gaci_max      abs_red       ter_enr       ln_share_max  gini_post_~d  ln_avg_bot~d  ln_apt_d10    ln_apt_t1     ln_spt_d8     spt_d4        ln_adi_d1     ln_adi_t01    ln_sdi_d7     ratio_topreg
+ln_unesco     deg_mean      tour_shift    gaci_sum      rel_red       tax_gdp       ln_hhi        avg_bot50_~d  ln_avg_top~d  ln_apt_d2     ln_spt_all    ln_spt_d9     spt_d5        ln_adi_d10    ln_adi_t1     ln_sdi_d8     structchange
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+feyrer_int already numeric; no replace
+ln_sea_ma already numeric; no replace
+ln_air_ma already numeric; no replace
+gaci_max already numeric; no replace
+gaci_sum already numeric; no replace
+gaci_cwm2 already numeric; no replace
+share_max already numeric; no replace
+hhi already numeric; no replace
+n_air2 already numeric; no replace
+gaci_2nd already numeric; no replace
+gini_disp already numeric; no replace
+gini_disp_se already numeric; no replace
+gini_mkt already numeric; no replace
+gini_mkt_se already numeric; no replace
+abs_red already numeric; no replace
+rel_red already numeric; no replace
+gini_wb already numeric; no replace
+top10_wb already numeric; no replace
+bot20_wb already numeric; no replace
+top20_wb already numeric; no replace
+emp_srv already numeric; no replace
+emp_ind already numeric; no replace
+emp_agr already numeric; no replace
+primacy already numeric; no replace
+gdppc_kd already numeric; no replace
+ter_enr already numeric; no replace
+tax_gdp already numeric; no replace
+urban already numeric; no replace
+trade_gdp already numeric; no replace
+fdi_gdp already numeric; no replace
+unemp already numeric; no replace
+surv_inc_pc already numeric; no replace
+ln_gaci_max already numeric; no replace
+ln_gaci_sum already numeric; no replace
+ln_gini_mkt already numeric; no replace
+ln_gini_disp already numeric; no replace
+ln_share_max already numeric; no replace
+ln_hhi already numeric; no replace
+ln_gdppc already numeric; no replace
+top10_wid already numeric; no replace
+top1_wid already numeric; no replace
+bot50_wid already numeric; no replace
+mid40_wid already numeric; no replace
+top10_post_wid already numeric; no replace
+bot50_post_wid already numeric; no replace
+top1_post_wid already numeric; no replace
+gini_pre_wid already numeric; no replace
+gini_post_wid already numeric; no replace
+avg_bot50_wid already numeric; no replace
+avg_top10_wid already numeric; no replace
+avg_all_wid already numeric; no replace
+ln_top10_wid already numeric; no replace
+ln_top1_wid already numeric; no replace
+ln_bot50_wid already numeric; no replace
+ln_gini_pre_wid already numeric; no replace
+ln_gini_post_wid already numeric; no replace
+ln_top10_post_wid already numeric; no replace
+ln_bot50_post_wid already numeric; no replace
+ln_avg_bot50_wid already numeric; no replace
+ln_avg_top10_wid already numeric; no replace
+ln_avg_all_wid already numeric; no replace
+ratio_t10_b50 already numeric; no replace
+a_t already numeric; no replace
+os_year already numeric; no replace
+post_os already numeric; no replace
+os_evt already numeric; no replace
+ln_apt_all already numeric; no replace
+ln_apt_b50 already numeric; no replace
+ln_apt_d1 already numeric; no replace
+ln_apt_d10 already numeric; no replace
+ln_apt_d2 already numeric; no replace
+ln_apt_d3 already numeric; no replace
+ln_apt_d4 already numeric; no replace
+ln_apt_d5 already numeric; no replace
+ln_apt_d6 already numeric; no replace
+ln_apt_d7 already numeric; no replace
+ln_apt_d8 already numeric; no replace
+ln_apt_d9 already numeric; no replace
+ln_apt_m40 already numeric; no replace
+ln_apt_t01 already numeric; no replace
+ln_apt_t1 already numeric; no replace
+ln_spt_all already numeric; no replace
+ln_spt_b50 already numeric; no replace
+ln_spt_d1 already numeric; no replace
+ln_spt_d10 already numeric; no replace
+ln_spt_d2 already numeric; no replace
+ln_spt_d3 already numeric; no replace
+ln_spt_d4 already numeric; no replace
+ln_spt_d5 already numeric; no replace
+ln_spt_d6 already numeric; no replace
+ln_spt_d7 already numeric; no replace
+ln_spt_d8 already numeric; no replace
+ln_spt_d9 already numeric; no replace
+ln_spt_m40 already numeric; no replace
+ln_spt_t01 already numeric; no replace
+ln_spt_t1 already numeric; no replace
+spt_all already numeric; no replace
+spt_b50 already numeric; no replace
+spt_d1 already numeric; no replace
+spt_d10 already numeric; no replace
+spt_d2 already numeric; no replace
+spt_d3 already numeric; no replace
+spt_d4 already numeric; no replace
+spt_d5 already numeric; no replace
+spt_d6 already numeric; no replace
+spt_d7 already numeric; no replace
+spt_d8 already numeric; no replace
+spt_d9 already numeric; no replace
+spt_m40 already numeric; no replace
+spt_t01 already numeric; no replace
+spt_t1 already numeric; no replace
+ln_adi_all already numeric; no replace
+ln_adi_b50 already numeric; no replace
+ln_adi_d1 already numeric; no replace
+ln_adi_d10 already numeric; no replace
+ln_adi_d2 already numeric; no replace
+ln_adi_d3 already numeric; no replace
+ln_adi_d4 already numeric; no replace
+ln_adi_d5 already numeric; no replace
+ln_adi_d6 already numeric; no replace
+ln_adi_d7 already numeric; no replace
+ln_adi_d8 already numeric; no replace
+ln_adi_d9 already numeric; no replace
+ln_adi_m40 already numeric; no replace
+ln_adi_t01 already numeric; no replace
+ln_adi_t1 already numeric; no replace
+ln_sdi_all already numeric; no replace
+ln_sdi_b50 already numeric; no replace
+ln_sdi_d1 already numeric; no replace
+ln_sdi_d10 already numeric; no replace
+ln_sdi_d2 already numeric; no replace
+ln_sdi_d3 already numeric; no replace
+ln_sdi_d4 already numeric; no replace
+ln_sdi_d5 already numeric; no replace
+ln_sdi_d6 already numeric; no replace
+ln_sdi_d7 already numeric; no replace
+ln_sdi_d8 already numeric; no replace
+ln_sdi_d9 already numeric; no replace
+ln_sdi_m40 already numeric; no replace
+ln_sdi_t01 already numeric; no replace
+ln_sdi_t1 already numeric; no replace
+n_reg already numeric; no replace
+theil_reg already numeric; no replace
+gini_reg already numeric; no replace
+cv_reg already numeric; no replace
+share_topreg already numeric; no replace
+ratio_topreg already numeric; no replace
+structchange already numeric; no replace
+ln_theil_reg already numeric; no replace
+ln_gini_reg already numeric; no replace
+ln_cv_reg already numeric; no replace
+ln_share_topreg already numeric; no replace
+ln_ratio_topreg already numeric; no replace
+n_reg_mode already numeric; no replace
+stable_reg already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+
+Panel variable: isocode (unbalanced)
+ Time variable: y, 1996 to 2023, but with gaps
+         Delta: 1 unit
+
+. keep if !missing(gini_mkt)
+(906 observations deleted)
+
+. set varabbrev off
+
+. 
+. tempname fh
+
+. file open `fh' using "_gic_cwm_results.csv", write replace
+(file _gic_cwm_results.csv not found)
+
+. file write `fh' "block,outcome,spec,b,se,p,kpf,N" _n
+
+. 
+. local GRP "d1 d2 d3 d4 d5 d6 d7 d8 d9 d10 t1 t01 b50 m40 all"
+
+. foreach g of local GRP {
+  2.     local yv ln_apt_`g'
+  3.     capture confirm variable `yv'
+  4.     if _rc continue
+  5.     quietly reghdfe `yv' ln_gaci_cwm lnpop, absorb(isocode y) vce(cluster isocode)
+  6.     local b = _b[ln_gaci_cwm]
+  7.     local se = _se[ln_gaci_cwm]
+  8.     local p = 2*ttail(e(df_r), abs(`b'/`se'))
+  9.     local nn = e(N)
+ 10.     file write `fh' "gic,`yv',OLS,`b',`se',`p',.,`nn'" _n
+ 11.     quietly ivreghdfe `yv' lnpop (ln_gaci_cwm = feyrer_int), absorb(isocode y) cluster(isocode)
+ 12.     local b = _b[ln_gaci_cwm]
+ 13.     local se = _se[ln_gaci_cwm]
+ 14.     local p = 2*normal(-abs(`b'/`se'))
+ 15.     local kp = e(widstat)
+ 16.     local nn = e(N)
+ 17.     file write `fh' "gic,`yv',IV,`b',`se',`p',`kp',`nn'" _n
+ 18. }
+
+. foreach g of local GRP {
+  2.     if "`g'"=="all" continue
+  3.     capture confirm variable ln_apt_`g'
+  4.     if _rc continue
+  5.     capture drop ln_spt_`g'
+  6.     gen ln_spt_`g' = ln_apt_`g' - ln_apt_all
+  7.     local yv ln_spt_`g'
+  8.     quietly reghdfe `yv' ln_gaci_cwm lnpop, absorb(isocode y) vce(cluster isocode)
+  9.     local b = _b[ln_gaci_cwm]
+ 10.     local se = _se[ln_gaci_cwm]
+ 11.     local p = 2*ttail(e(df_r), abs(`b'/`se'))
+ 12.     local nn = e(N)
+ 13.     file write `fh' "gic_share,`yv',OLS,`b',`se',`p',.,`nn'" _n
+ 14.     quietly ivreghdfe `yv' lnpop (ln_gaci_cwm = feyrer_int), absorb(isocode y) cluster(isocode)
+ 15.     local b = _b[ln_gaci_cwm]
+ 16.     local se = _se[ln_gaci_cwm]
+ 17.     local p = 2*normal(-abs(`b'/`se'))
+ 18.     local kp = e(widstat)
+ 19.     local nn = e(N)
+ 20.     file write `fh' "gic_share,`yv',IV,`b',`se',`p',`kp',`nn'" _n
+ 21. }
+(24 missing values generated)
+(22 missing values generated)
+(21 missing values generated)
+(21 missing values generated)
+(21 missing values generated)
+(21 missing values generated)
+(21 missing values generated)
+(21 missing values generated)
+(21 missing values generated)
+(21 missing values generated)
+(21 missing values generated)
+(21 missing values generated)
+(21 missing values generated)
+(21 missing values generated)
+
+. gen ln_apt_d10_d1 = ln_apt_d10 - ln_apt_d1
+(24 missing values generated)
+
+. gen ln_apt_d10_b50 = ln_apt_d10 - ln_apt_b50
+(21 missing values generated)
+
+. gen ln_apt_t1_d10 = ln_apt_t1 - ln_apt_d10
+(21 missing values generated)
+
+. gen ln_apt_top_bot = (ln_apt_d6 + ln_apt_d7 + ln_apt_d8 + ln_apt_d9 + ln_apt_d10)/5 - (ln_apt_d1 + ln_apt_d2 + ln_apt_d3 + ln_apt_d4 + ln_apt_d5)/5
+(24 missing values generated)
+
+. foreach yv in ln_apt_d10_d1 ln_apt_d10_b50 ln_apt_t1_d10 ln_apt_top_bot {
+  2.     quietly ivreghdfe `yv' lnpop (ln_gaci_cwm = feyrer_int), absorb(isocode y) cluster(isocode)
+  3.     local b = _b[ln_gaci_cwm]
+  4.     local se = _se[ln_gaci_cwm]
+  5.     local p = 2*normal(-abs(`b'/`se'))
+  6.     local kp = e(widstat)
+  7.     local nn = e(N)
+  8.     file write `fh' "gic_gap,`yv',IV,`b',`se',`p',`kp',`nn'" _n
+  9.     quietly reghdfe `yv' ln_gaci_cwm lnpop, absorb(isocode y) vce(cluster isocode)
+ 10.     local b = _b[ln_gaci_cwm]
+ 11.     local se = _se[ln_gaci_cwm]
+ 12.     local p = 2*ttail(e(df_r), abs(`b'/`se'))
+ 13.     local nn = e(N)
+ 14.     file write `fh' "gic_gap,`yv',OLS,`b',`se',`p',.,`nn'" _n
+ 15. }
+
+. * top-half minus bottom-half contrast for the headline treatment too (missing from 12_gic_dose)
+. quietly ivreghdfe ln_apt_top_bot lnpop (ln_gaci_max = feyrer_int), absorb(isocode y) cluster(isocode)
+
+. local b = _b[ln_gaci_max]
+
+. local se = _se[ln_gaci_max]
+
+. local p = 2*normal(-abs(`b'/`se'))
+
+. local kp = e(widstat)
+
+. local nn = e(N)
+
+. file write `fh' "gic_gap_max,ln_apt_top_bot,IV,`b',`se',`p',`kp',`nn'" _n
+
+. file close `fh'
+
+. log close _all
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_Inequality\12c_gic_cwm_run.log
+  log type:  text
+ closed on:  28 Sep 2026, 17:56:04
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+. 
+end of do-file

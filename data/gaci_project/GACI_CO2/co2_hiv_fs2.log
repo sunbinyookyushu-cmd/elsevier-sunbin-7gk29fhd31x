@@ -1,0 +1,294 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do co2_hiv_fs2.do 
+
+. *============================================================================
+> ==
+. * co2_hiv_firststage.do
+. * PILOT: first stage of the airport-level heritage-proximity instrument.
+. *   z_jt = a_t (global tourism cycle) x fixed natural+mixed-site exposure of
+. *   airport j (n100 / n200 / inverse-distance within 300km).
+. *   Spec 1: airport FE + year FE           (cross-country + within variation)
+. *   Spec 2: airport FE + country x year FE (within-country only, demanding)
+. *   SE clustered by airport; F = cluster-robust F on the instrument.
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_CO2"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2
+
+. 
+. import delimited "airport_hiv_panel2.csv", clear varnames(1) encoding("utf-8")
+(23 vars, 97,165 obs)
+
+. ds airport_iata iso3 region, not
+year          ln_gaci       co2_lto       ln_skm        intl_share~m  dep_seat_km   exp_n200      a_t           z_n200        exp_gw
+gaci          co2_bunker    ln_co2        ln_intensity  n_dep_flig~s  exp_n100      exp_invd      z_n100        z_invd        z_gw
+
+. destring `r(varlist)', replace force
+year already numeric; no replace
+gaci already numeric; no replace
+ln_gaci already numeric; no replace
+co2_bunker already numeric; no replace
+co2_lto already numeric; no replace
+ln_co2 already numeric; no replace
+ln_skm already numeric; no replace
+ln_intensity already numeric; no replace
+intl_share_skm already numeric; no replace
+n_dep_flights already numeric; no replace
+dep_seat_km already numeric; no replace
+exp_n100 already numeric; no replace
+exp_n200 already numeric; no replace
+exp_invd already numeric; no replace
+a_t already numeric; no replace
+z_n100 already numeric; no replace
+z_n200 already numeric; no replace
+z_invd already numeric; no replace
+exp_gw already numeric; no replace
+z_gw already numeric; no replace
+
+. encode airport_iata, gen(apid)
+
+. encode iso3, gen(cid)
+
+. egen cyr = group(cid year)
+(2,245 missing values generated)
+
+. 
+. capture which reghdfe
+
+. if _rc {
+.     ssc install ftools, replace
+.     ssc install reghdfe, replace
+. }
+
+. 
+. foreach z in z_gw z_n200 {
+  2.     reghdfe ln_gaci `z', absorb(apid year) vce(cluster apid)
+  3.     test `z'
+  4.     local f1 = r(F)
+  5.     local b1 = _b[`z']
+  6.     local s1 = _se[`z']
+  7.     local n1 = e(N)
+  8.     reghdfe ln_gaci `z', absorb(apid cyr) vce(cluster apid)
+  9.     test `z'
+ 10.     di "FS `z': ap+yr  b = " %9.4f `b1' " (se " %8.4f `s1' ")  F = " %8.1f `f1' " N = " %9.0f `n1'
+ 11.     di "FS `z': ap+cxy b = " %9.4f _b[`z'] " (se " %8.4f _se[`z'] ")  F = " %8.1f r(F) " N = " %9.0f e(N)
+ 12. }
+(dropped 375 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+HDFE Linear regression                            Number of obs   =     96,790
+Absorbing 2 HDFE groups                           F(   1,   4978) =      45.81
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9388
+                                                  Adj R-squared   =     0.9355
+                                                  Within R-sq.    =     0.0030
+Number of clusters (apid)    =      4,979         Root MSE        =     0.0775
+
+                               (Std. Err. adjusted for 4,979 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        z_gw |   .0594133   .0087779     6.77   0.000     .0422047    .0766219
+       _cons |  -.3660455    .000247 -1481.86   0.000    -.3665298   -.3655613
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      4979        4979           0    *|
+        year |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+ ( 1)  z_gw = 0
+
+       F(  1,  4978) =   45.81
+            Prob > F =    0.0000
+(dropped 1869 singleton observations)
+(MWFE estimator converged in 13 iterations)
+
+HDFE Linear regression                            Number of obs   =     93,051
+Absorbing 2 HDFE groups                           F(   1,   4788) =      59.51
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9600
+                                                  Adj R-squared   =     0.9556
+                                                  Within R-sq.    =     0.0029
+Number of clusters (apid)    =      4,789         Root MSE        =     0.0645
+
+                               (Std. Err. adjusted for 4,789 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        z_gw |   .0496204   .0064323     7.71   0.000     .0370102    .0622306
+       _cons |  -.3673219   .0001785 -2058.35   0.000    -.3676717    -.366972
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      4789        4789           0    *|
+         cyr |      4358           1        4357     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+ ( 1)  z_gw = 0
+
+       F(  1,  4788) =   59.51
+            Prob > F =    0.0000
+FS z_gw: ap+yr  b =    0.0594 (se   0.0088)  F =     45.8 N =     96790
+FS z_gw: ap+cxy b =    0.0496 (se   0.0064)  F =     59.5 N =     93051
+(dropped 347 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+HDFE Linear regression                            Number of obs   =     96,486
+Absorbing 2 HDFE groups                           F(   1,   4925) =       6.19
+Statistics robust to heteroskedasticity           Prob > F        =     0.0129
+                                                  R-squared       =     0.9386
+                                                  Adj R-squared   =     0.9353
+                                                  Within R-sq.    =     0.0003
+Number of clusters (apid)    =      4,926         Root MSE        =     0.0776
+
+                               (Std. Err. adjusted for 4,926 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      z_n200 |   .0086529   .0034777     2.49   0.013     .0018351    .0154708
+       _cons |  -.3653315   .0005863  -623.10   0.000     -.366481   -.3641821
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      4926        4926           0    *|
+        year |        28           1          27     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+ ( 1)  z_n200 = 0
+
+       F(  1,  4925) =    6.19
+            Prob > F =    0.0129
+(dropped 1869 singleton observations)
+(MWFE estimator converged in 13 iterations)
+
+HDFE Linear regression                            Number of obs   =     93,017
+Absorbing 2 HDFE groups                           F(   1,   4786) =       0.09
+Statistics robust to heteroskedasticity           Prob > F        =     0.7614
+                                                  R-squared       =     0.9599
+                                                  Adj R-squared   =     0.9555
+                                                  Within R-sq.    =     0.0000
+Number of clusters (apid)    =      4,787         Root MSE        =     0.0646
+
+                               (Std. Err. adjusted for 4,787 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      z_n200 |  -.0011804   .0038871    -0.30   0.761    -.0088008    .0064401
+       _cons |  -.3658612   .0006523  -560.88   0.000    -.3671401   -.3645824
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      4787        4787           0    *|
+         cyr |      4358           1        4357     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+ ( 1)  z_n200 = 0
+
+       F(  1,  4786) =    0.09
+            Prob > F =    0.7614
+FS z_n200: ap+yr  b =    0.0087 (se   0.0035)  F =      6.2 N =     96486
+FS z_n200: ap+cxy b =   -0.0012 (se   0.0039)  F =      0.1 N =     93017
+
+. 
+. * horse race: all three (collinearity check)
+. reghdfe ln_gaci z_gw z_n200, absorb(apid cyr) vce(cluster apid)
+(dropped 1869 singleton observations)
+(MWFE estimator converged in 13 iterations)
+
+HDFE Linear regression                            Number of obs   =     93,017
+Absorbing 2 HDFE groups                           F(   2,   4786) =      30.67
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9600
+                                                  Adj R-squared   =     0.9556
+                                                  Within R-sq.    =     0.0031
+Number of clusters (apid)    =      4,787         Root MSE        =     0.0644
+
+                               (Std. Err. adjusted for 4,787 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        z_gw |   .0525581   .0067102     7.83   0.000      .039403    .0657132
+      z_n200 |  -.0072343    .003799    -1.90   0.057     -.014682    .0002135
+       _cons |   -.366304   .0006195  -591.29   0.000    -.3675185   -.3650895
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      4787        4787           0    *|
+         cyr |      4358           1        4357     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. test z_gw z_n200
+
+ ( 1)  z_gw = 0
+ ( 2)  z_n200 = 0
+
+       F(  2,  4786) =   30.67
+            Prob > F =    0.0000
+
+. di "JOINT (ap+cxy): F = " %8.1f r(F)
+JOINT (ap+cxy): F =     30.7
+
+. 
+. di _n "DONE_HIV_FS"
+
+DONE_HIV_FS
+
+. 
+end of do-file

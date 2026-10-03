@@ -1,0 +1,40 @@
+﻿                                  part       outcome                         shock                   spec       b     se      p     n  countries  effect_1sd
+          A average response 1997-2019         total jet fuel price (D12 ln, real)                    NaN  0.0452 0.0168 0.0077 64191        236      0.0154
+          A average response 1997-2019      domestic jet fuel price (D12 ln, real)                    NaN  0.0401 0.0253 0.1147 41304        191      0.0137
+          A average response 1997-2019 international jet fuel price (D12 ln, real)                    NaN  0.0412 0.0148 0.0060 63930        236      0.0140
+          A average response 1997-2019         total Kaenzig oil supply news shock                    NaN  0.0020 0.0022 0.3723 64191        236      0.0039
+          A average response 1997-2019      domestic Kaenzig oil supply news shock                    NaN  0.0025 0.0030 0.4064 41304        191      0.0048
+          A average response 1997-2019 international Kaenzig oil supply news shock                    NaN  0.0025 0.0021 0.2365 63930        236      0.0049
+          A average response 1997-2019         total           BH oil supply shock                    NaN  0.0014 0.0011 0.2189 64191        236      0.0073
+          A average response 1997-2019      domestic           BH oil supply shock                    NaN  0.0008 0.0018 0.6529 41304        191      0.0043
+          A average response 1997-2019 international           BH oil supply shock                    NaN  0.0012 0.0010 0.2296 63930        236      0.0064
+                  B two-step 2008-2019         total jet fuel price (D12 ln, real)    (1) resilience only -0.0002 0.0068 0.9793   202        202     -0.0001
+                  B two-step 2008-2019         total jet fuel price (D12 ln, real) (2) + GACI + region FE  0.0031 0.0071 0.6624   202        202      0.0011
+                  B two-step 2008-2019         total Kaenzig oil supply news shock    (1) resilience only  0.0002 0.0010 0.8193   202        202      0.0004
+                  B two-step 2008-2019         total Kaenzig oil supply news shock (2) + GACI + region FE  0.0001 0.0010 0.9053   202        202      0.0002
+                  B two-step 2008-2019         total           BH oil supply shock    (1) resilience only  0.0001 0.0004 0.8560   202        202      0.0004
+                  B two-step 2008-2019         total           BH oil supply shock (2) + GACI + region FE  0.0002 0.0004 0.6473   202        202      0.0011
+                  B two-step 2008-2019      domestic jet fuel price (D12 ln, real)    (1) resilience only -0.0065 0.0161 0.6855   120        120     -0.0022
+                  B two-step 2008-2019      domestic jet fuel price (D12 ln, real) (2) + GACI + region FE -0.0147 0.0220 0.5036   120        120     -0.0050
+                  B two-step 2008-2019      domestic Kaenzig oil supply news shock    (1) resilience only  0.0016 0.0020 0.4181   120        120      0.0032
+                  B two-step 2008-2019      domestic Kaenzig oil supply news shock (2) + GACI + region FE  0.0019 0.0025 0.4452   120        120      0.0037
+                  B two-step 2008-2019      domestic           BH oil supply shock    (1) resilience only -0.0006 0.0010 0.5727   120        120     -0.0029
+                  B two-step 2008-2019      domestic           BH oil supply shock (2) + GACI + region FE -0.0005 0.0012 0.6679   120        120     -0.0027
+                  B two-step 2008-2019 international jet fuel price (D12 ln, real)    (1) resilience only  0.0021 0.0063 0.7414   202        202      0.0007
+                  B two-step 2008-2019 international jet fuel price (D12 ln, real) (2) + GACI + region FE  0.0059 0.0067 0.3810   202        202      0.0020
+                  B two-step 2008-2019 international Kaenzig oil supply news shock    (1) resilience only -0.0015 0.0011 0.1558   202        202     -0.0030
+                  B two-step 2008-2019 international Kaenzig oil supply news shock (2) + GACI + region FE -0.0011 0.0010 0.2580   202        202     -0.0022
+                  B two-step 2008-2019 international           BH oil supply shock    (1) resilience only  0.0002 0.0004 0.5857   202        202      0.0011
+                  B two-step 2008-2019 international           BH oil supply shock (2) + GACI + region FE  0.0003 0.0004 0.5075   202        202      0.0014
+C panel 2008-2019 (country + month FE)         total jet fuel price (D12 ln, real)                    NaN -0.0059 0.0098 0.5505 30065        209     -0.0020
+C panel 2008-2019 (country + month FE)      domestic jet fuel price (D12 ln, real)                    NaN -0.0118 0.0334 0.7257 19713        164     -0.0040
+C panel 2008-2019 (country + month FE) international jet fuel price (D12 ln, real)                    NaN -0.0009 0.0122 0.9394 30038        209     -0.0003
+C panel 2008-2019 (country + month FE)         total Kaenzig oil supply news shock                    NaN -0.0013 0.0016 0.4157 30065        209     -0.0026
+C panel 2008-2019 (country + month FE)      domestic Kaenzig oil supply news shock                    NaN  0.0013 0.0040 0.7392 19713        164      0.0026
+C panel 2008-2019 (country + month FE) international Kaenzig oil supply news shock                    NaN -0.0028 0.0016 0.0775 30038        209     -0.0055
+C panel 2008-2019 (country + month FE)         total           BH oil supply shock                    NaN -0.0003 0.0006 0.6313 30065        209     -0.0015
+C panel 2008-2019 (country + month FE)      domestic           BH oil supply shock                    NaN -0.0006 0.0019 0.7697 19713        164     -0.0030
+C panel 2008-2019 (country + month FE) international           BH oil supply shock                    NaN  0.0000 0.0007 0.9691 30038        209      0.0002
+
+R_c coverage (share of 2007 seats at airports with a pre-2008 score): {'count': 234.0, 'mean': 0.765, 'std': 0.355, 'min': 0.0, '25%': 0.704, '50%': 0.959, '75%': 1.0, 'max': 1.0}
+countries with R_c: 209  with region: 234

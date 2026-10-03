@@ -1,0 +1,697 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_gpr\gpr_stacked_v2_run.log
+  log type:  text
+ opened on:   2 Oct 2026, 18:12:43
+
+. 
+. cap which reghdfe
+
+. if _rc ssc install reghdfe
+
+. cap which ftools
+
+. if _rc ssc install ftools
+
+. cap which esttab
+
+. if _rc ssc install estout
+
+. 
+. estimates clear
+
+. 
+. * ---------------- A. 30 events, one moderator at a time ----------------
+. use "gpr_stack_seats.dta", clear
+
+. corr G Sz if e == 0 & treat == 1
+(obs=1,030)
+
+             |        G       Sz
+-------------+------------------
+           G |   1.0000
+          Sz |   0.8333   1.0000
+
+
+. reghdfe ln_seats tp tpG pG, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 11416 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =  2,500,997
+Absorbing 2 HDFE groups                           F(   3,     43) =       0.08
+Statistics robust to heteroskedasticity           Prob > F        =     0.9729
+                                                  R-squared       =     0.9840
+                                                  Adj R-squared   =     0.9786
+                                                  Within R-sq.    =     0.0000
+Number of clusters (iso3n)   =         44         Root MSE        =     0.3160
+
+                                 (Std. err. adjusted for 44 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+    ln_seats | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0056431   .0614297     0.09   0.927    -.1182416    .1295278
+         tpG |  -.0087467   .0235783    -0.37   0.712    -.0562968    .0388035
+          pG |   .0013464   .0064633     0.21   0.836    -.0116881     .014381
+       _cons |   9.445405   .0006411  1.5e+04   0.000     9.444112    9.446698
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |    631249      631249           0    *|
+        fe_t |      1470           1        1469     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo A_S_G
+
+. reghdfe ln_seats tp tpS pS, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 19428 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+HDFE Linear regression                            Number of obs   =  2,690,683
+Absorbing 2 HDFE groups                           F(   3,     43) =       2.55
+Statistics robust to heteroskedasticity           Prob > F        =     0.0680
+                                                  R-squared       =     0.9853
+                                                  Adj R-squared   =     0.9802
+                                                  Within R-sq.    =     0.0003
+Number of clusters (iso3n)   =         44         Root MSE        =     0.3260
+
+                                 (Std. err. adjusted for 44 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+    ln_seats | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0247285   .0608503     0.41   0.686    -.0979879    .1474448
+         tpS |  -.0468447   .0180848    -2.59   0.013    -.0833163   -.0103732
+          pS |   .0084506   .0078437     1.08   0.287    -.0073677    .0242689
+       _cons |   9.185343   .0008051  1.1e+04   0.000      9.18372    9.186967
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |    683085      683085           0    *|
+        fe_t |      1470           1        1469     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo A_S_S
+
+. 
+. use "gpr_stack_routes.dta", clear
+
+. reghdfe ln_deg tp tpG pG, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 555 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =    260,452
+Absorbing 2 HDFE groups                           F(   3,     43) =       1.81
+Statistics robust to heteroskedasticity           Prob > F        =     0.1590
+                                                  R-squared       =     0.9569
+                                                  Adj R-squared   =     0.9457
+                                                  Within R-sq.    =     0.0003
+Number of clusters (iso3n)   =         44         Root MSE        =     0.3376
+
+                                 (Std. err. adjusted for 44 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_deg | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0369162   .0381793     0.97   0.339    -.0400796     .113912
+         tpG |  -.0098756   .0162615    -0.61   0.547    -.0426702    .0229189
+          pG |   -.008418   .0075772    -1.11   0.273    -.0236989    .0068628
+       _cons |    2.02909   .0004365  4648.45   0.000     2.028209     2.02997
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     53607       53607           0    *|
+        fe_t |       150           1         149     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo A_R_G
+
+. reghdfe ln_deg tp tpS pS, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 808 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =    261,622
+Absorbing 2 HDFE groups                           F(   3,     43) =       1.94
+Statistics robust to heteroskedasticity           Prob > F        =     0.1369
+                                                  R-squared       =     0.9571
+                                                  Adj R-squared   =     0.9458
+                                                  Within R-sq.    =     0.0003
+Number of clusters (iso3n)   =         44         Root MSE        =     0.3371
+
+                                 (Std. err. adjusted for 44 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_deg | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0387488   .0382835     1.01   0.317    -.0384573    .1159549
+         tpS |  -.0180691   .0097139    -1.86   0.070     -.037659    .0015208
+          pS |   .0093837    .005188     1.81   0.077    -.0010789    .0198464
+       _cons |   2.023555   .0004746  4263.55   0.000     2.022598    2.024512
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     54126       54126           0    *|
+        fe_t |       150           1         149     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo A_R_S
+
+. 
+. esttab A_S_G A_S_S A_R_G A_R_S, b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(tp tpG tpS pG pS) order(tp tpG tpS pG pS) stats(N N_clust, labels("Observations" "
+> Countries")) mtitles("Seats G" "Seats size" "Routes G" "Routes size")
+
+----------------------------------------------------------------------------
+                      (1)             (2)             (3)             (4)   
+                  Seats G      Seats size        Routes G     Routes size   
+----------------------------------------------------------------------------
+tp                 0.0056          0.0247          0.0369          0.0387   
+                 (0.0614)        (0.0609)        (0.0382)        (0.0383)   
+
+tpG               -0.0087                         -0.0099                   
+                 (0.0236)                        (0.0163)                   
+
+tpS                               -0.0468**                       -0.0181*  
+                                 (0.0181)                        (0.0097)   
+
+pG                 0.0013                         -0.0084                   
+                 (0.0065)                        (0.0076)                   
+
+pS                                 0.0085                          0.0094*  
+                                 (0.0078)                        (0.0052)   
+----------------------------------------------------------------------------
+Observations 2500997.0000    2690683.0000     260452.0000     261622.0000   
+Countries         44.0000         44.0000         44.0000         44.0000   
+----------------------------------------------------------------------------
+Standard errors in parentheses
+* p<0.10, ** p<0.05, *** p<0.01
+
+. esttab A_S_G A_S_S A_R_G A_R_S using "gpr_v2_A_single_moderator.rtf", replace b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(tp tpG tpS pG pS) order(tp tpG tpS p
+> G pS) stats(N N_clust, labels("Observations" "Countries")) mtitles("Seats G" "Seats size" "Routes G" "Routes size")
+(file gpr_v2_A_single_moderator.rtf not found)
+(output written to gpr_v2_A_single_moderator.rtf)
+
+. 
+. * ---------------- B. 13 larger events (z above 3.0) ----------------
+. use "gpr_events_z30.dta", clear
+
+. list stk iso3 onset z, noobs
+
+  +----------------------------------+
+  | stk   iso3     onset           z |
+  |----------------------------------|
+  |   0    ISR   2002-04   3.0258759 |
+  |   1    IDN   2002-10   3.2126662 |
+  |   2    IND   2008-12    3.186689 |
+  |   3    PRT   2010-11   3.0871829 |
+  |   4    TUN   2011-03   3.0145491 |
+  |----------------------------------|
+  |   5    POL   2014-03    3.006419 |
+  |   6    UKR   2014-03   3.1417856 |
+  |   7    MYS   2014-07   4.3533377 |
+  |   8    NLD   2014-07   3.3734568 |
+  |   9    CHE   2015-03   3.1932052 |
+  |----------------------------------|
+  |  10    FRA   2015-11   3.7983285 |
+  |  11    BEL   2016-03   3.3981744 |
+  |  12    KOR   2017-08   3.0737398 |
+  +----------------------------------+
+
+. 
+. use "gpr_stack_seats_z30.dta", clear
+
+. reghdfe ln_seats tp, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 23667 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+HDFE Linear regression                            Number of obs   =  1,403,244
+Absorbing 2 HDFE groups                           F(   1,     43) =       0.06
+Statistics robust to heteroskedasticity           Prob > F        =     0.8041
+                                                  R-squared       =     0.9847
+                                                  Adj R-squared   =     0.9793
+                                                  Within R-sq.    =     0.0000
+Number of clusters (iso3n)   =         44         Root MSE        =     0.3345
+
+                                 (Std. err. adjusted for 44 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+    ln_seats | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0178331   .0714427     0.25   0.804    -.1262449    .1619111
+       _cons |   9.226406   .0003923  2.4e+04   0.000     9.225615    9.227197
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |    361417      361417           0    *|
+        fe_t |       637           1         636     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo B_S1
+
+. reghdfe ln_seats tp tpG tpS pG pS, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 6604 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =  1,292,426
+Absorbing 2 HDFE groups                           F(   5,     43) =       0.37
+Statistics robust to heteroskedasticity           Prob > F        =     0.8661
+                                                  R-squared       =     0.9836
+                                                  Adj R-squared   =     0.9781
+                                                  Within R-sq.    =     0.0001
+Number of clusters (iso3n)   =         44         Root MSE        =     0.3218
+
+                                 (Std. err. adjusted for 44 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+    ln_seats | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0219717   .0730331     0.30   0.765    -.1253136     .169257
+         tpG |   .0046058   .0439901     0.10   0.917    -.0841087    .0933202
+         tpS |  -.0334738   .0514805    -0.65   0.519    -.1372942    .0703465
+          pG |  -.0035174   .0298281    -0.12   0.907    -.0636714    .0566366
+          pS |   .0074643   .0425381     0.18   0.862    -.0783219    .0932504
+       _cons |   9.497946   .0040589  2340.03   0.000      9.48976    9.506131
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |    327010      327010           0    *|
+        fe_t |       637           1         636     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo B_S2
+
+. reghdfe ln_seats tp tpG pG, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 6691 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =  1,292,661
+Absorbing 2 HDFE groups                           F(   3,     43) =       0.50
+Statistics robust to heteroskedasticity           Prob > F        =     0.6834
+                                                  R-squared       =     0.9836
+                                                  Adj R-squared   =     0.9780
+                                                  Within R-sq.    =     0.0000
+Number of clusters (iso3n)   =         44         Root MSE        =     0.3220
+
+                                 (Std. err. adjusted for 44 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+    ln_seats | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0127418   .0717527     0.18   0.860    -.1319613    .1574448
+         tpG |  -.0201415   .0244193    -0.82   0.414    -.0693878    .0291047
+          pG |   .0019948   .0080072     0.25   0.804    -.0141533    .0181429
+       _cons |   9.498304   .0003904  2.4e+04   0.000     9.497517    9.499092
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |    327119      327119           0    *|
+        fe_t |       637           1         636     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo B_S3
+
+. reghdfe ln_seats tp tpS pS, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 9985 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =  1,381,831
+Absorbing 2 HDFE groups                           F(   3,     43) =       0.64
+Statistics robust to heteroskedasticity           Prob > F        =     0.5929
+                                                  R-squared       =     0.9849
+                                                  Adj R-squared   =     0.9797
+                                                  Within R-sq.    =     0.0003
+Number of clusters (iso3n)   =         44         Root MSE        =     0.3306
+
+                                 (Std. err. adjusted for 44 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+    ln_seats | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0199669    .070389     0.28   0.778    -.1219861      .16192
+         tpS |  -.0270662   .0213976    -1.26   0.213    -.0702186    .0160861
+          pS |    .009723   .0127708     0.76   0.451    -.0160318    .0354777
+       _cons |   9.258478   .0008851  1.0e+04   0.000     9.256693    9.260263
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |    351559      351559           0    *|
+        fe_t |       637           1         636     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo B_S4
+
+. 
+. use "gpr_stack_routes_z30.dta", clear
+
+. reghdfe ln_deg tp, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 1965 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =    140,339
+Absorbing 2 HDFE groups                           F(   1,     43) =       2.08
+Statistics robust to heteroskedasticity           Prob > F        =     0.1567
+                                                  R-squared       =     0.9549
+                                                  Adj R-squared   =     0.9427
+                                                  Within R-sq.    =     0.0001
+Number of clusters (iso3n)   =         44         Root MSE        =     0.3470
+
+                                 (Std. err. adjusted for 44 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_deg | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0636755   .0441702     1.44   0.157    -.0254021    .1527531
+       _cons |   1.992083   .0002971  6704.78   0.000     1.991484    1.992682
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     29829       29829           0    *|
+        fe_t |        65           1          64     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo B_R1
+
+. reghdfe ln_deg tp tpG tpS pG pS, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 377 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =    134,532
+Absorbing 2 HDFE groups                           F(   5,     43) =       3.64
+Statistics robust to heteroskedasticity           Prob > F        =     0.0078
+                                                  R-squared       =     0.9554
+                                                  Adj R-squared   =     0.9438
+                                                  Within R-sq.    =     0.0046
+Number of clusters (iso3n)   =         44         Root MSE        =     0.3438
+
+                                 (Std. err. adjusted for 44 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_deg | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0524895   .0415216     1.26   0.213    -.0312468    .1362257
+         tpG |  -.0032681   .0491911    -0.07   0.947    -.1024713    .0959352
+         tpS |   .0068613   .0573265     0.12   0.905    -.1087486    .1224712
+          pG |  -.0791585   .0312335    -2.53   0.015    -.1421468   -.0161702
+          pS |   .0742532   .0313709     2.37   0.023     .0109878    .1375186
+       _cons |   2.040893   .0012141  1681.00   0.000     2.038444    2.043341
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     27753       27753           0    *|
+        fe_t |        65           1          64     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo B_R2
+
+. reghdfe ln_deg tp tpG pG, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 383 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =    134,669
+Absorbing 2 HDFE groups                           F(   3,     43) =       2.29
+Statistics robust to heteroskedasticity           Prob > F        =     0.0921
+                                                  R-squared       =     0.9553
+                                                  Adj R-squared   =     0.9436
+                                                  Within R-sq.    =     0.0011
+Number of clusters (iso3n)   =         44         Root MSE        =     0.3445
+
+                                 (Std. err. adjusted for 44 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_deg | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0603239   .0430119     1.40   0.168    -.0264178    .1470656
+         tpG |   .0044464   .0202091     0.22   0.827    -.0363091     .045202
+          pG |  -.0201463   .0112573    -1.79   0.081    -.0428489    .0025563
+       _cons |   2.042061   .0002433  8394.82   0.000     2.041571    2.042552
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     27786       27786           0    *|
+        fe_t |        65           1          64     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo B_R3
+
+. reghdfe ln_deg tp tpS pS, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 551 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =    135,176
+Absorbing 2 HDFE groups                           F(   3,     43) =       0.89
+Statistics robust to heteroskedasticity           Prob > F        =     0.4543
+                                                  R-squared       =     0.9553
+                                                  Adj R-squared   =     0.9436
+                                                  Within R-sq.    =     0.0001
+Number of clusters (iso3n)   =         44         Root MSE        =     0.3443
+
+                                 (Std. err. adjusted for 44 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_deg | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0562127   .0434107     1.29   0.202    -.0313333    .1437588
+         tpS |    .006429   .0245346     0.26   0.795    -.0430497    .0559076
+          pS |   .0030491   .0073409     0.42   0.680    -.0117552    .0178535
+       _cons |   2.037242   .0003947  5161.36   0.000     2.036446    2.038038
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     27987       27987           0    *|
+        fe_t |        65           1          64     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo B_R4
+
+. 
+. esttab B_S1 B_S2 B_S3 B_S4 B_R1 B_R2 B_R3 B_R4, b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(tp tpG tpS pG pS) order(tp tpG tpS pG pS) stats(N N_clust, labels(
+> "Observations" "Countries")) mtitles("Seats" "Seats" "Seats G" "Seats size" "Routes" "Routes" "Routes G" "Routes size")
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+                      (1)             (2)             (3)             (4)             (5)             (6)             (7)             (8)   
+                    Seats           Seats         Seats G      Seats size          Routes          Routes        Routes G     Routes size   
+--------------------------------------------------------------------------------------------------------------------------------------------
+tp                 0.0178          0.0220          0.0127          0.0200          0.0637          0.0525          0.0603          0.0562   
+                 (0.0714)        (0.0730)        (0.0718)        (0.0704)        (0.0442)        (0.0415)        (0.0430)        (0.0434)   
+
+tpG                                0.0046         -0.0201                                         -0.0033          0.0044                   
+                                 (0.0440)        (0.0244)                                        (0.0492)        (0.0202)                   
+
+tpS                               -0.0335                         -0.0271                          0.0069                          0.0064   
+                                 (0.0515)                        (0.0214)                        (0.0573)                        (0.0245)   
+
+pG                                -0.0035          0.0020                                         -0.0792**       -0.0201*                  
+                                 (0.0298)        (0.0080)                                        (0.0312)        (0.0113)                   
+
+pS                                 0.0075                          0.0097                          0.0743**                        0.0030   
+                                 (0.0425)                        (0.0128)                        (0.0314)                        (0.0073)   
+--------------------------------------------------------------------------------------------------------------------------------------------
+Observations 1403244.0000    1292426.0000    1292661.0000    1381831.0000     140339.0000     134532.0000     134669.0000     135176.0000   
+Countries         44.0000         44.0000         44.0000         44.0000         44.0000         44.0000         44.0000         44.0000   
+--------------------------------------------------------------------------------------------------------------------------------------------
+Standard errors in parentheses
+* p<0.10, ** p<0.05, *** p<0.01
+
+. esttab B_S1 B_S2 B_S3 B_S4 B_R1 B_R2 B_R3 B_R4 using "gpr_v2_B_large_events.rtf", replace b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(tp tpG tpS pG pS) order(
+> tp tpG tpS pG pS) stats(N N_clust, labels("Observations" "Countries")) mtitles("Seats" "Seats" "Seats G" "Seats size" "Routes" "Routes" "Routes G" "Routes size"
+> )
+(file gpr_v2_B_large_events.rtf not found)
+(output written to gpr_v2_B_large_events.rtf)
+
+. 
+. * ---------------- C. each of the 30 events ----------------
+. * b_tp, se_tp: average effect (tp only)
+. * b_tp2 ... se_tpS: model with tp tpG tpS pG pS
+. cap postclose pfh
+
+. postfile pfh str6 outcome stk b_tp se_tp b_tp2 se_tp2 b_tpG se_tpG b_tpS se_tpS n using "gpr_byevent.dta", replace
+(file gpr_byevent.dta not found)
+
+. 
+. use "gpr_stack_seats.dta", clear
+
+. forvalues k = 0/29 {
+  2.     scalar b1 = .
+  3.     scalar s1 = .
+  4.     capture quietly reghdfe ln_seats tp if stk == `k', absorb(fe_u fe_t) vce(cluster airport_n)
+  5.     if _rc == 0 {
+  6.         scalar b1 = _b[tp]
+  7.         scalar s1 = _se[tp]
+  8.     }
+  9.     capture quietly reghdfe ln_seats tp tpG tpS pG pS if stk == `k', absorb(fe_u fe_t) vce(cluster airport_n)
+ 10.     if _rc == 0 {
+ 11.         post pfh ("seats") (`k') (scalar(b1)) (scalar(s1)) (_b[tp]) (_se[tp]) (_b[tpG]) (_se[tpG]) (_b[tpS]) (_se[tpS]) (e(N))
+ 12.     }
+ 13.     else {
+ 14.         post pfh ("seats") (`k') (scalar(b1)) (scalar(s1)) (.) (.) (.) (.) (.) (.) (.)
+ 15.     }
+ 16. }
+
+. 
+. use "gpr_stack_routes.dta", clear
+
+. forvalues k = 0/29 {
+  2.     scalar b1 = .
+  3.     scalar s1 = .
+  4.     capture quietly reghdfe ln_deg tp if stk == `k', absorb(fe_u fe_t) vce(cluster airport_n)
+  5.     if _rc == 0 {
+  6.         scalar b1 = _b[tp]
+  7.         scalar s1 = _se[tp]
+  8.     }
+  9.     capture quietly reghdfe ln_deg tp tpG tpS pG pS if stk == `k', absorb(fe_u fe_t) vce(cluster airport_n)
+ 10.     if _rc == 0 {
+ 11.         post pfh ("routes") (`k') (scalar(b1)) (scalar(s1)) (_b[tp]) (_se[tp]) (_b[tpG]) (_se[tpG]) (_b[tpS]) (_se[tpS]) (e(N))
+ 12.     }
+ 13.     else {
+ 14.         post pfh ("routes") (`k') (scalar(b1)) (scalar(s1)) (.) (.) (.) (.) (.) (.) (.)
+ 15.     }
+ 16. }
+
+. postclose pfh
+
+. 
+. use "gpr_byevent.dta", clear
+
+. merge m:1 stk using "gpr_events.dta", keepusing(iso3 onset z) nogenerate
+(variable stk was float, now double to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                                60  
+    -----------------------------------------
+
+. order outcome stk iso3 onset z
+
+. sort outcome stk
+
+. format b_* se_* %9.4f
+
+. format z %5.2f
+
+. list outcome iso3 onset b_tp se_tp b_tpG se_tpG b_tpS se_tpS n, sepby(outcome) noobs abbreviate(8)
+
+  +--------------------------------------------------------------------------------------------+
+  | outcome   iso3     onset      b_tp    se_tp     b_tpG   se_tpG     b_tpS   se_tpS        n |
+  |--------------------------------------------------------------------------------------------|
+  |  routes    TWN   2001-04   -0.1610   0.0332    0.0819   0.0414   -0.0437   0.0456     2445 |
+  |  routes    NOR   2002-04   -0.1348   0.0409    0.0095   0.1300    0.0324   0.1492     2690 |
+  |  routes    IDN   2002-10    0.0603   0.0503   -0.2899   0.1128    0.3387   0.1307     2471 |
+  |  routes    VEN   2002-12   -0.3210   0.0804    0.2222   0.1671   -0.2208   0.1780     2363 |
+  |  routes    THA   2003-10   -0.0684   0.0701   -0.0781   0.1067    0.1366   0.1231     3031 |
+  |  routes    PHL   2004-07    0.0017   0.0584   -0.0208   0.1177    0.0109   0.1157     4167 |
+  |  routes    GBR   2005-07    0.0784   0.0402   -0.1053   0.0526    0.1219   0.0608     9425 |
+  |  routes    ISR   2006-07   -0.0290   0.1078    0.1304   0.0442    0.1484   0.0476     9762 |
+  |  routes    JPN   2006-10   -0.0314   0.0270    0.0252   0.0450   -0.0300   0.0638    10232 |
+  |  routes    KOR   2006-10   -0.0021   0.0367    0.0698   0.0356   -0.0217   0.0416    10009 |
+  |  routes    IND   2008-12    0.1037   0.0428   -0.1506   0.0792    0.1228   0.0806    10532 |
+  |  routes    BRA   2010-05    0.2597   0.0396   -0.1828   0.1244    0.1100   0.1121    10560 |
+  |  routes    PRT   2010-11   -0.1216   0.0681    0.1149   0.1367   -0.0226   0.0946    10062 |
+  |  routes    SWE   2010-12    0.0773   0.0619   -0.1245   0.1143    0.0863   0.1334    10176 |
+  |  routes    TUN   2011-02    0.1789   0.2528   -3.1582   2.0562    2.2249   1.4259    10570 |
+  |  routes    EGY   2011-02   -0.0683   0.1081   -0.0684   0.2248    0.0182   0.2150    10592 |
+  |  routes    ITA   2011-03   -0.0496   0.0602   -0.1075   0.0626    0.1776   0.0875    10723 |
+  |  routes    CHE   2014-01    0.0002   0.2614   -0.5848   0.6598    0.7650   0.7331    10586 |
+  |  routes    UKR   2014-03   -0.0054   0.1458    0.1441   0.3926   -0.0892   0.2677    10633 |
+  |  routes    POL   2014-03    0.1352   0.0872    0.6065   0.4619   -0.9827   0.7418    10619 |
+  |  routes    RUS   2014-03    0.0627   0.0305   -0.0596   0.0636   -0.0006   0.0582    11274 |
+  |  routes    BEL   2014-03    0.4730   0.2512    0.0334   0.2222   -0.4733   0.3175    10584 |
+  |  routes    NLD   2014-07   -0.1044   0.0498    0.0861   0.0602    0.0150   0.1098    10473 |
+  |  routes    MYS   2014-07    0.0443   0.0431    0.2125   0.0450   -0.2744   0.0646    10599 |
+  |  routes    FRA   2015-01    0.0214   0.0354    0.0759   0.0545   -0.0470   0.0749    10926 |
+  |  routes    HUN   2015-09    0.1140   0.3619   -1.1172   0.0186    1.1718   0.0225     9801 |
+  |  routes    ESP   2017-08   -0.0575   0.0402    0.1200   0.0970   -0.1569   0.1174     8731 |
+  |  routes    JPN   2017-08    0.0589   0.0304   -0.0216   0.0666   -0.0188   0.0667     8893 |
+  |  routes    KOR   2017-08    0.1852   0.0814    0.2734   0.0568   -0.4662   0.0891     8603 |
+  |  routes    VEN   2017-08   -0.0743   0.0926    0.1648   0.1940   -0.3513   0.1322     8626 |
+  |--------------------------------------------------------------------------------------------|
+  |   seats    TWN   2001-04   -0.1608   0.0771    0.0643   0.1055   -0.2196   0.1095    22710 |
+  |   seats    NOR   2002-04   -0.1401   0.0328   -0.2872   0.0906    0.2493   0.1042    25223 |
+  |   seats    IDN   2002-10    0.2741   0.0457   -0.1573   0.1536    0.2609   0.1346    23406 |
+  |   seats    VEN   2002-12   -0.6793   0.1167    0.3065   0.2757   -0.2907   0.3206    22191 |
+  |   seats    THA   2003-10    0.0242   0.0570   -0.1851   0.0835    0.2502   0.1066    28466 |
+  |   seats    PHL   2004-07    0.1587   0.0728    0.0657   0.1226   -0.2234   0.1444    39578 |
+  |   seats    GBR   2005-07    0.1787   0.0398   -0.1531   0.0427    0.2103   0.0557    90865 |
+  |   seats    ISR   2006-07   -0.2472   0.0801   -0.0145   0.0202    0.2551   0.0259    93863 |
+  |   seats    JPN   2006-10   -0.1043   0.0268    0.0533   0.0479   -0.1021   0.0860    98316 |
+  |   seats    KOR   2006-10   -0.2418   0.0494    0.1118   0.0447   -0.0195   0.0679    96167 |
+  |   seats    IND   2008-12   -0.0208   0.0409    0.0965   0.0653   -0.0278   0.0744   100715 |
+  |   seats    BRA   2010-05    0.3812   0.0469   -0.0580   0.1149   -0.0249   0.1271   100269 |
+  |   seats    PRT   2010-11   -0.0349   0.0311    0.0374   0.0635   -0.0280   0.0689    96534 |
+  |   seats    SWE   2010-12    0.0397   0.0357   -0.1296   0.0596    0.2207   0.0675    97648 |
+  |   seats    TUN   2011-02   -0.0531   0.2279   -2.9517   2.0557    2.4389   1.5617   101065 |
+  |   seats    EGY   2011-02   -0.1385   0.1393    0.2900   0.4204   -0.3456   0.5720   101241 |
+  |   seats    ITA   2011-03   -0.0926   0.0606   -0.0008   0.0739    0.0732   0.1781   102545 |
+  |   seats    CHE   2014-01   -0.2033   0.1171   -0.3423   0.2538    0.6898   0.3410   101868 |
+  |   seats    UKR   2014-03   -0.2167   0.1677    0.4104   0.3041   -0.6633   0.3551   102161 |
+  |   seats    POL   2014-03    0.0271   0.0498    0.0996   0.2972   -0.0878   0.5131   102100 |
+  |   seats    RUS   2014-03    0.0842   0.0324    0.1572   0.0696   -0.1981   0.0783   107976 |
+  |   seats    BEL   2014-03    0.1443   0.0664    0.2603   0.0374   -0.5229   0.0701   101773 |
+  |   seats    NLD   2014-07   -0.0900   0.1857    0.0930   0.2611   -0.0177   0.5564   101628 |
+  |   seats    MYS   2014-07    0.0663   0.0326    0.1432   0.0683   -0.2440   0.1070   102853 |
+  |   seats    FRA   2015-01   -0.0396   0.0254    0.0218   0.0526    0.0270   0.0863   105482 |
+  |   seats    HUN   2015-09    0.0822   0.3373   -1.3497   0.0127    1.5309   0.0189    96208 |
+  |   seats    ESP   2017-08    0.0761   0.0299    0.1013   0.0994   -0.1875   0.1540    84559 |
+  |   seats    JPN   2017-08   -0.0865   0.0165   -0.0125   0.0289    0.0557   0.0462    86181 |
+  |   seats    KOR   2017-08    0.1939   0.0788    0.0782   0.1077   -0.1769   0.1761    83338 |
+  |   seats    VEN   2017-08   -0.9375   0.1048    0.6372   0.2375   -0.6013   0.1751    83570 |
+  +--------------------------------------------------------------------------------------------+
+
+. export delimited using "gpr_byevent.csv", replace
+(file gpr_byevent.csv not found)
+file gpr_byevent.csv saved
+
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_gpr\gpr_stacked_v2_run.log
+  log type:  text
+ closed on:   2 Oct 2026, 18:13:38
+------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,73 @@
+﻿episodes 189 in 112 countries; events used 14 (15 pass the criteria, 1 without panel airports)
+iso3   onset  months  peak_dep  peak_local_fuel  world_at_onset  gdp_g_onset  gdp_g_next  treated_airports  control_countries  control_airports
+python : Traceback (most recent call last):
+At line:1 char:418
++ ... GACI_FuelShock"; python -W ignore 60_fx_stacked_event.py 2>&1 | Tee-O ...
++                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ PHL 2001-01       1     0.217            0.288           0.071        0.008       0.016                27                 85              1744
+ LBR 2002-09       1     0.227            0.292           0.066          NaN         NaN                 1                 95              1920
+ SWZ 2008-10       1     0.295            0.234          -0.061          NaN         NaN                 1                160              2529
+ TJK 2009-11       2     0.212            0.548           0.036        0.018       0.042                 1                159              2496
+ MOZ 2010-08       1     0.212            0.300           0.088        0.038       0.041                 7                155              2369
+ MWI 2012-05      12     0.639            0.549          -0.054          NaN         NaN                 3                164              2437
+ CHE 2012-08       1     0.239            0.270           0.031        0.001       0.006                 5                164              2433
+ BRA 2012-08       1     0.204            0.235           0.031        0.011       0.022                93                164              2433
+ SRB 2012-08       1     0.234            0.265           0.031        0.000       0.009                 1                164              2433
+ JPN 2013-06       2     0.248            0.236           0.016        0.021       0.004                66                166              2458
+ SUR 2016-08       8     0.459            0.797          -0.081          NaN         NaN                 1                156              2422
+ GBR 2016-10       2     0.220            0.250           0.030        0.014       0.024                40                157              2423
+ EGY 2016-11      12     0.699            1.161           0.006        0.022       0.021                 9                157              2422
+ UZB 2017-07      14     0.872            1.161           0.091        0.026       0.037                10                158              2418
+
+Pooled stacked event study (reference = 12 months before onset; log points):
+            outcome       bin       b     se      p       n  treated_airports  treated_countries  clusters
+     domestic seats [-24,-19] -0.0863 0.0720 0.2326 1469643               259                 10       160
+     domestic seats [-18,-13] -0.0475 0.0274 0.0853 1469643               259                 10       160
+     domestic seats     [0,5]  0.0247 0.0261 0.3449 1469643               259                 10       160
+     domestic seats    [6,11]  0.0310 0.0301 0.3045 1469643               259                 10       160
+     domestic seats   [12,17]  0.0158 0.0433 0.7156 1469643               259                 10       160
+     domestic seats   [18,24]  0.0013 0.0671 0.9850 1469643               259                 10       160
+        total seats [-24,-19] -0.0890 0.0640 0.1662 1531613               265                 14       177
+        total seats [-18,-13] -0.0466 0.0288 0.1071 1531613               265                 14       177
+        total seats     [0,5]  0.0263 0.0248 0.2912 1531613               265                 14       177
+        total seats    [6,11]  0.0282 0.0319 0.3775 1531613               265                 14       177
+        total seats   [12,17]  0.0188 0.0459 0.6829 1531613               265                 14       177
+        total seats   [18,24]  0.0028 0.0698 0.9678 1531613               265                 14       177
+international seats [-24,-19] -0.0678 0.0374 0.0717  554046               131                 14       177
+international seats [-18,-13] -0.0268 0.0405 0.5080  554046               131                 14       177
+international seats     [0,5]  0.0044 0.0397 0.9110  554046               131                 14       177
+international seats    [6,11] -0.0247 0.0209 0.2385  554046               131                 14       177
+international seats   [12,17]  0.0043 0.0363 0.9052  554046               131                 14       177
+international seats   [18,24] -0.0005 0.0660 0.9942  554046               131                 14       177
+  File "C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py", line 364
+1, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 168, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 197, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7668, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7676, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'pre'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\60_fx_stacked_event.py",
+ line 140, in <module>
+    local_fuel_peak=round(ev.peak_local_fuel, 2), pre=td.loc["pre", "Estimate"],
+                                                      ~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexing.py", line 1199, i
+n __getitem__
+    return self.obj._get_value(*key, takeable=self._takeable)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\frame.py", line 4495, in _
+get_value
+    row = self.index.get_loc(index)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py", line 364
+8, in get_loc
+    raise KeyError(key) from err
+KeyError: 'pre'

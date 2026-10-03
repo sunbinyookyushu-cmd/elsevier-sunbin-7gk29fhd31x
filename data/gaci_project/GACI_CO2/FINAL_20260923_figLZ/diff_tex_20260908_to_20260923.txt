@@ -1,0 +1,251 @@
+--- main_co2_nature_20260908.tex
++++ main_co2_nature_20260923.tex
+@@ -13,8 +13,17 @@
+ %     airport regressions (ED Table 'airport_het', Supplementary Table
+ %     'airport_iv', Methods airport subsection) and the concentration result
+ %     (ED Fig 'airportconc', ED Table 'airport_conc') are retained.
+-% Main displays: Tables 1-4 (main, decomposition, spatial, SCC) and Figs 1-3
+-% (heterogeneity, attributed map, SAF). Extended Data: tables 1-13, figures 1-8;
++%   - 09-23: figures replaced by Longfei's combined panels (Figures_LZ_260923.zip).
++%     Fig. 1 = decomposition waterfall + heterogeneity (old Fig. 1 panels A-C and
++%     old ED 'waterfall'); Fig. 2 = attribution bars + attributed map + SAF paths
++%     (old Figs 2-3 and old ED 'bars'); ED Fig. 1 = temporal split + airport
++%     concentration; ED Fig. 2 = gradient; ED Fig. 3 = spillover decay; ED Fig. 4 =
++%     spillover permutation placebo + non-aviation reduced forms. Captions rewritten
++%     to the new panels and every figure reference remapped to figure + panel.
++%     Old intensity-by-income panel (old Fig. 1 D) dropped; the prose sentence now
++%     points to Extended Data Table 'hetero', Panel D.
++% Main displays: Tables 1-4 (main, decomposition, spatial, SCC) and Figs 1-2
++% (decomposition and heterogeneity; attribution and SAF). Extended Data: tables 1-13, figures 1-4;
+ % Supplementary Note 1 and Supplementary tables 1-3. [TODO cite] markers remain outside Main; compile on Overleaf.
+ \documentclass[12pt]{extarticle}
+ \usepackage[margin=2.2cm]{geometry}
+@@ -169,7 +178,7 @@
+ of the sample, at 5.6 in the network-expansion era before 2008 and 2.9 in
+ the mature-network era after 2010, so it halves as networks mature but
+ does not vanish (Extended Data Table~\ref{tab:temporal} and Extended Data
+-Fig.~\ref{fig:temporal}).
++Fig.~\ref{fig:ed_temporal_airport}a).
+ 
+ \begin{table}[H]
+ \centering
+@@ -232,7 +241,7 @@
+ (Methods, equations~\ref{eq:identity} and \ref{eq:decomp}). The response is a frequency response: flights rise by 6.8
+ percent for a one percent gain in connectivity, whereas aircraft size,
+ stage length and carbon intensity each move by less than one percent and
+-not significantly (Extended Data Fig.~\ref{fig:waterfall}). Traffic
++not significantly (Fig.~\ref{fig:decomp_het}a). Traffic
+ expansion accounts for the whole of the emissions response and the
+ efficiency term offsets 6 percent of it. The share of
+ landing-and-take-off emissions and the international share of traffic do
+@@ -285,19 +294,20 @@
+ 
+ \subsection*{The elasticity is concentrated in newly connecting countries}
+ We then ask for whom the elasticity holds. This section splits the sample
+-by 1996 income, baseline connectivity and region (Fig.~\ref{fig:hetero})
++by 1996 income, baseline connectivity and region (Fig.~\ref{fig:decomp_het}b--d)
+ and checks that the gradient survives in levels and in finer splits of the
+ baseline distribution (Extended Data).
+ 
+ The elasticity falls steeply with 1996 income and connectivity
+-(Fig.~\ref{fig:hetero} and Extended Data Table~\ref{tab:hetero}). By
++(Fig.~\ref{fig:decomp_het}b,c and Extended Data Table~\ref{tab:hetero}). By
+ income it falls from 9.4 in the bottom tercile to 6.1 in the middle and
+ 1.9 at the top; by baseline connectivity from 7.5 in the bottom tercile
+ to 5.1 in the middle, while the top tercile is unidentified (Methods). By
+ region it ranges from 5.1 in Asia--Pacific and 4.5 in Africa to 2.9 in
+-Latin America and zero in Europe. The efficiency margin follows the same
++Latin America and zero in Europe (Fig.~\ref{fig:decomp_het}d). The efficiency margin follows the same
+ geography, with the largest decline in emissions per seat-kilometre in
+-the lowest income tercile, but is not significant in any group. The
++the lowest income tercile, but is not significant in any group
++(Extended Data Table~\ref{tab:hetero}, Panel D). The
+ headline elasticity is therefore driven by countries with low baseline
+ income and connectivity and is smaller in mature networks, where
+ additional frequency is offset by smaller aircraft and shorter stages.
+@@ -315,9 +325,9 @@
+ 
+ \begin{figure}[H]
+ \centering
+-\includegraphics[width=0.92\textwidth]{CO2_hetero_coefplot.png}
+-\caption{\textbf{Heterogeneity of the connectivity elasticity} (2SLS, Feyrer instrument; total bunker CO$_2$ in panels A--C, CO$_2$ per seat-km in panel D). Filled markers denote $p<0.05$; bars are 95 percent confidence intervals. The Middle East and North America are omitted as unidentified.}
+-\label{fig:hetero}
++\includegraphics[width=0.98\textwidth]{Figure1.png}
++\caption{\textbf{Decomposition and heterogeneity of the connectivity elasticity.} \textbf{a}, Decomposition of the elasticity of national aviation CO$_2$ on the accounting identity. Each bar is the 2SLS elasticity of one component with respect to connectivity (Feyrer instrument), and the four components add exactly to the total; the scale margin (the sum of the first three bars, seat-km) is 5.64 and the efficiency margin (CO$_2$ per seat-km) is $-$0.29. \textbf{b}--\textbf{d}, Split-sample 2SLS elasticities of total bunker CO$_2$ by 1996 income tercile (\textbf{b}), 1996 connectivity tercile (\textbf{c}) and region (\textbf{d}). Filled red markers denote $p<0.05$ and open blue markers $p\geq0.05$. The Middle East and North America are omitted as unidentified, and the high-connectivity tercile has a weak first stage (KP $F$ = 0.2). Bars are 95 percent confidence intervals with standard errors clustered by country.}
++\label{fig:decomp_het}
+ \end{figure}
+ 
+ \subsection*{Emissions respond to neighbours' connectivity, not to
+@@ -344,7 +354,7 @@
+ B). Contiguity is the relevant neighbour definition; distance-weighted
+ alternatives and placebo relabellings are in Extended Data
+ Tables~\ref{tab:spill_ext} and \ref{tab:spatial_ext} and Extended Data
+-Figs.~\ref{fig:spilldecay} and \ref{fig:spillplacebo}. National estimates
++Figs.~\ref{fig:spilldecay} and \ref{fig:placebos}a--c. National estimates
+ therefore understate the network-wide emissions effect of connectivity
+ growth by 15 to 57 percent of the own effect, and the emissions accrue
+ across borders.
+@@ -409,16 +419,16 @@
+ The remaining sections translate the elasticity into quantities. This
+ section applies it to each country's connectivity change since 1996 to
+ attribute 2023 emissions and value them at social costs of carbon
+-(Fig.~\ref{fig:attributed} and Table~\ref{tab:scc}), and extends the
++(Fig.~\ref{fig:attrib_saf}a,b and Table~\ref{tab:scc}), and extends the
+ attribution to airports.
+ 
+ Connectivity growth since 1996 accounts for 349 Mt, or 41.1 percent, of
+-2023 aviation CO$_2$ (Fig.~\ref{fig:attributed}; Methods). The attributed
++2023 aviation CO$_2$ (Fig.~\ref{fig:attrib_saf}b; Methods). The attributed
+ growth is concentrated in emerging hub countries: China alone accounts
+ for 86 Mt, and the United States, the United Arab Emirates, Japan,
+ Turkey, India and Korea for 14 to 35 Mt each, while Germany's declining
+-connectivity contributes $-$15 Mt (Table~\ref{tab:scc} and Extended Data
+-Fig.~\ref{fig:bars}). At social-cost-of-carbon values of \$51 to \$190
++connectivity contributes $-$15 Mt (Table~\ref{tab:scc} and
++Fig.~\ref{fig:attrib_saf}a). At social-cost-of-carbon values of \$51 to \$190
+ per tonne \citep{iwg2021,rennert2022,epa2023}, these emissions represent
+ an annual external cost of \$18 billion to \$66 billion, of which China
+ accounts for up to \$16 billion and the United States for up to \$7
+@@ -432,15 +442,15 @@
+ airports, some 192 nodes led by Dubai, Doha, Shanghai Pudong, Istanbul and
+ Incheon, hold 85 percent of the 346 Mt attributed across airports, against
+ 78 percent of emissions themselves (Extended Data
+-Fig.~\ref{fig:airportconc} and Extended Data
++Fig.~\ref{fig:ed_temporal_airport}b,c and Extended Data
+ Table~\ref{tab:airport_conc}). An instrument covering those nodes would
+ cover 85 percent of the connectivity-driven total.
+ 
+ \begin{figure}[H]
+ \centering
+-\includegraphics[width=0.92\textwidth]{CO2_map_attributed_2023.png}
+-\caption{\textbf{Aviation CO$_2$ attributed to post-1996 connectivity growth, 2023 (Mt).} White denotes zero; the attribution applies the Feyrer-instrument elasticity to each country's connectivity change.}
+-\label{fig:attributed}
++\includegraphics[width=0.98\textwidth]{Figure2.png}
++\caption{\textbf{Aviation CO$_2$ attributed to connectivity growth since 1996, and world aviation CO$_2$ to 2050 under SAF blending.} \textbf{a}, Aviation CO$_2$ in 2023 attributed to 1996--2023 connectivity growth for the twelve largest positive countries and all countries below $-1$ Mt. \textbf{b}, The same attribution for every country (Mt, arcsinh colour scale; white denotes zero and hatching no data). The attribution applies the Feyrer-instrument elasticity to each country's connectivity change; the world total is 348.7 Mt, 41.1 percent of 2023 aviation CO$_2$, and its social cost is reported in Table~\ref{tab:scc}. \textbf{c},\textbf{d}, World aviation CO$_2$ to 2050 with connectivity growing at its 2010--2019 pace (\textbf{c}) and in a low-growth case (\textbf{d}). Solid lines apply life-cycle savings $r$ of 50, 65 and 80 percent along the ReFuelEU blending milestones (shares on the axis); the dashed grey line is the no-SAF path, the dotted red line the 65 percent path with 2023 traffic held fixed, and the horizontal dashed line marks the 2023 level (848 Mt). Shaded bands are [TODO: band definition from Longfei]. Traffic growth is converted to emissions with the mature-network elasticity (2.9).}
++\label{fig:attrib_saf}
+ \end{figure}
+ 
+ \begin{table}[H]
+@@ -479,7 +489,7 @@
+ 
+ \subsection*{Only fuel switching materially lowers the level}
+ Finally, this section projects world emissions to 2050 under continued
+-connectivity growth and fuel switching (Fig.~\ref{fig:saf}).
++connectivity growth and fuel switching (Fig.~\ref{fig:attrib_saf}c,d).
+ 
+ Because the efficiency margin offsets 6 percent of the scale margin, the
+ level of emissions can be materially lowered only by changing the fuel
+@@ -487,7 +497,7 @@
+ emissions with the mature-network elasticity (Methods), world aviation
+ CO$_2$ reaches 1{,}528 Mt in 2050 without fuel switching, 1.8 times the
+ 2023 level of 848 Mt, and 1{,}213 Mt in a low-growth case
+-(Fig.~\ref{fig:saf}). Along a ReFuelEU-style blending path that reaches
++(Fig.~\ref{fig:attrib_saf}c,d). Along a ReFuelEU-style blending path that reaches
+ 70 percent sustainable aviation fuel in 2050, emissions in 2050 fall from
+ 993 Mt to 672 Mt as the life-cycle saving of the fuel rises from 50 to 80
+ percent, and the 65 percent saving returns emissions to the 2023 level.
+@@ -496,13 +506,6 @@
+ as in a pure accounting exercise, understates 2050 emissions under the
+ same blending paths by 300 to 450 Mt.
+ 
+-\begin{figure}[H]
+-\centering
+-\includegraphics[width=0.98\textwidth]{CO2_saf_growth.png}
+-\caption{\textbf{World aviation CO$_2$ to 2050 under continued connectivity growth and ReFuelEU-style SAF blending.} Left, connectivity growth at its 2010--2019 pace; right, a low-growth case. Solid lines apply life-cycle savings of 50, 65 and 80 percent along the ReFuelEU blending milestones (shares on the axis); the dashed grey line is the no-SAF path, the dotted red line the 65 percent path with 2023 traffic held fixed, and the horizontal lines mark the 2023 level (848 Mt) and the level net of the emissions attributed to 1996--2023 connectivity growth (499 Mt). Traffic growth is converted to emissions with the mature-network elasticity (2.9).}
+-\label{fig:saf}
+-\end{figure}
+-
+ %=======================================================================
+ \section*{Discussion [Jinwoo]}
+ %=======================================================================
+@@ -992,7 +995,7 @@
+ The exclusion restriction requires that the instrument affects aviation
+ CO$_2$ only through air connectivity. Three tests address it directly, and
+ all three pass (Extended Data Table~\ref{tab:exclusion}, Panels A, C and D;
+-Extended Data Fig.~\ref{fig:placeborf}). First, non-aviation emissions do
++Extended Data Fig.~\ref{fig:placebos}d). First, non-aviation emissions do
+ not respond to the instrument: the reduced form on total territorial fossil
+ CO$_2$ excluding domestic aviation is 0.05 (s.e.\ 0.12) against 0.68 (s.e.\
+ 0.15) for aviation CO$_2$, so a general development channel that would
+@@ -1171,7 +1174,7 @@
+ \end{tabular}
+ \begin{tablenotes}[flushleft]
+ \footnotesize
+-\item Notes: 2SLS with the Feyrer instrument; specifications as in Table~\ref{tab:main}. Panels B and C split the sample at its midpoint (2010) and exclude the crisis years: Panel B ends before the global financial crisis (2008--2009) and Panel C drops the COVID-19 collapse (2020--2021). The unrestricted 2010--2023 split (not shown) has a weak first stage (KP $F$ = 3.2), driven by the COVID years, whose exclusion in Panel C restores $F$ to 10.7; its estimates appear in grey in Extended Data Fig.~\ref{fig:temporal}. Standard errors clustered by country in parentheses; Kleibergen--Paap $F$ statistics are cluster-robust. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
++\item Notes: 2SLS with the Feyrer instrument; specifications as in Table~\ref{tab:main}. Panels B and C split the sample at its midpoint (2010) and exclude the crisis years: Panel B ends before the global financial crisis (2008--2009) and Panel C drops the COVID-19 collapse (2020--2021). The unrestricted 2010--2023 split (not shown) has a weak first stage (KP $F$ = 3.2), driven by the COVID years, whose exclusion in Panel C restores $F$ to 10.7; its estimates appear in grey in Extended Data Fig.~\ref{fig:ed_temporal_airport}a. Standard errors clustered by country in parentheses; Kleibergen--Paap $F$ statistics are cluster-robust. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+ \end{tablenotes}
+ \end{threeparttable}}
+ \end{table}
+@@ -1750,62 +1753,30 @@
+ 
+ \begin{figure}[H]
+ \centering
+-\includegraphics[width=0.92\textwidth]{CO2_temporal_coefplot.png}
+-\caption{Temporal split of the connectivity elasticity. Within each outcome, markers show the full sample, the network-expansion era (1996--2007), the mature-network era (2010--2023 excluding the COVID-19 years 2020--2021), and the unrestricted 2010--2023 sample from left to right; gray denotes the unrestricted later sample, whose first stage (KP $F$ = 3.2) is contaminated by the COVID collapse. Bars are 95 percent confidence intervals with standard errors clustered by country.}
+-\label{fig:temporal}
+-\end{figure}
+-
+-\begin{figure}[H]
+-\centering
+-\includegraphics[width=0.85\textwidth]{CO2_decomp_waterfall.png}
+-\caption{\textbf{Decomposition of the CO$_2$ elasticity on the accounting identity.} Each bar is the 2SLS elasticity of the component with respect to connectivity (Feyrer instrument; 95 percent confidence intervals); the components add exactly to the total. Scale is the sum of the first three bars.}
+-\label{fig:waterfall}
++\includegraphics[width=0.95\textwidth]{ED_Fig1.png}
++\caption{\textbf{Temporal split of the connectivity elasticity and concentration of connectivity-attributed emissions across airports.} \textbf{a}, Within each outcome, markers show the full sample, the network-expansion era (1996--2007), the mature-network era (2010--2023 excluding the COVID-19 years 2020--2021), and the unrestricted 2010--2023 sample from left to right. Filled markers denote $p<0.05$; grey denotes the unrestricted later sample, whose first stage (KP $F$ = 3.2) is contaminated by the COVID collapse. Bars are 95 percent confidence intervals with standard errors clustered by country. \textbf{b}, Lorenz curves of 2023 emissions and of emissions attributed to 1996--2023 connectivity growth over 3{,}833 airports with positive emissions, using the country and the airport elasticity. \textbf{c}, The twenty largest attributed contributions in 2023 (Mt and share of the world attributed total); red marks airports in the global top five percent by 1996 capacity and blue the other airports.}
++\label{fig:ed_temporal_airport}
+ \end{figure}
+ 
+ \begin{figure}[H]
+ \centering
+-\includegraphics[width=0.85\textwidth]{CO2_gradient_baseline.png}
+-\caption{\textbf{The elasticity along the baseline-connectivity distribution.} Quintile split-sample 2SLS estimates (points, 95 percent confidence intervals; the fourth quintile is unidentified and omitted) and the fitted elasticity from pooled specifications that interact log GACI with centred log baseline GACI (linear, dashed; quadratic with 95 percent band). Horizontal lines mark zero and one.}
++\includegraphics[width=0.85\textwidth]{ED_Fig2.png}
++\caption{\textbf{The elasticity along the baseline-connectivity distribution.} Quintile split-sample 2SLS estimates for the two lowest quintiles (points, 95 percent confidence intervals; the upper three quintiles have weak first stages, KP $F$ = 4.8, 0.0 and 2.1, and are reported in Extended Data Table~\ref{tab:gradient}) and the fitted elasticity from pooled specifications that interact log GACI with centred log baseline GACI (linear, dashed; quadratic with 95 percent band). The dotted line marks an elasticity of one.}
+ \label{fig:gradient}
+ \end{figure}
+ 
+ \begin{figure}[H]
+ \centering
+-\includegraphics[width=0.92\textwidth]{CO2_attribution_bars.png}
+-\caption{\textbf{Country-level aviation CO$_2$ attributed to 1996--2023
+-connectivity growth, with its social cost.} Top twelve positive countries
+-and all countries below $-1$ Mt; parenthetical values apply the US EPA
+-social cost of carbon (\$190 per tonne). The world total is 348.7 Mt, 41.1
+-percent of 2023 aviation CO$_2$ (\$66.3 billion per year).}
+-\label{fig:bars}
+-\end{figure}
+-
+-\begin{figure}[H]
+-\centering
+-\includegraphics[width=0.98\textwidth]{CO2_airport_concentration.png}
+-\caption{\textbf{Concentration of connectivity-attributed emissions across airports, 2023.} A{,} Lorenz curves of 2023 emissions and of emissions attributed to 1996--2023 connectivity growth over 3{,}833 airports with positive emissions. B, the twenty largest attributed contributions (Mt and share of the world attributed total); blue marks airports in the global top five percent by 1996 capacity.}
+-\label{fig:airportconc}
+-\end{figure}
+-
+-\begin{figure}[H]
+-\centering
+-\includegraphics[width=0.92\textwidth]{CO2_spill_decay.png}
+-\caption{Spatial profile of the spillover. A, coefficient on neighbour connectivity when one distance band at a time defines the neighbours (contiguous countries, then bands of aviation-centroid distance); B, the same with an exponential kernel of widening scale. Neighbour connectivity is instrumented by the identically weighted shifter and the own shifter is controlled. The absence of a smooth decline and the negative but imprecise coefficient beyond 5{,}000 km indicate that wide exposures track global trends rather than a spatial spillover.}
++\includegraphics[width=0.95\textwidth]{ED_Fig3.png}
++\caption{\textbf{Spatial profile of the spillover.} \textbf{a}, Coefficient on neighbour connectivity when one distance band at a time defines the neighbours (contiguous countries, then bands of aviation-centroid distance). \textbf{b}, The same with an exponential kernel of widening scale. Neighbour connectivity is instrumented by the identically weighted shifter and the own shifter is controlled. Filled markers denote $p<0.05$; bars are 95 percent confidence intervals. The absence of a smooth decline and the negative but imprecise coefficient beyond 5{,}000 km indicate that wide exposures track global trends rather than a spatial spillover.}
+ \label{fig:spilldecay}
+ \end{figure}
+ 
+ \begin{figure}[H]
+ \centering
+-\includegraphics[width=0.92\textwidth]{CO2_spill_placebo.png}
+-\caption{Permutation placebo for the spillover. Distributions of the $t$-statistic on the neighbour term over 500 random relabellings of countries in the weight matrix, with the actual statistic in blue, for the inverse-distance reduced form and for the contiguity and five-nearest joint 2SLS specifications.}
+-\label{fig:spillplacebo}
+-\end{figure}
+-
+-\begin{figure}[H]
+-\centering
+-\includegraphics[width=0.92\textwidth]{CO2_placebo_rf.png}
+-\caption{Reduced forms of the Feyrer instrument on aviation CO$_2$ (blue) and on non-aviation emission series (grey), with 95 percent confidence intervals. Specification as in Table~\ref{tab:main}.}
+-\label{fig:placeborf}
++\includegraphics[width=0.95\textwidth]{ED_Fig4.png}
++\caption{\textbf{Placebo tests for the spillover and for the instrument.} \textbf{a}--\textbf{c}, Permutation placebo for the spillover: distributions of the $t$-statistic on the neighbour term over 500 random relabellings of countries in the weight matrix for the inverse-distance reduced form (\textbf{a}) and the contiguity (\textbf{b}) and five-nearest (\textbf{c}) joint 2SLS specifications. The red line is the actual statistic, the shaded tails mark permuted statistics at least as large in absolute value, and $p$ is the permutation $p$-value. \textbf{d}, Reduced forms of the Feyrer instrument on aviation CO$_2$ (red) and on non-aviation emission series (blue), with 95 percent confidence intervals; filled markers denote $p<0.05$. Specification as in Table~\ref{tab:main}.}
++\label{fig:placebos}
+ \end{figure}
+ 
+ \clearpage

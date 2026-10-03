@@ -1,0 +1,45 @@
+part,spec,outcome,term,b,se,p,n,airports
+C monthly seats,month FE,ln_s,carbon price x exposure (area),-0.07319465878378625,0.12463121142904231,0.557954952938416,455206,3647
+C monthly seats,month FE,ln_s,carbon price x closeness (outside),0.4023456364958804,0.23879846015072453,0.09424054097127921,455206,3647
+C monthly seats,region x month FE,ln_s,carbon price x exposure (area),-0.39122626205055444,0.17137846570278495,0.02394744007237337,436951,3647
+C monthly seats,region x month FE,ln_s,carbon price x closeness (outside),-0.12011479996259017,0.19627363350803562,0.5415460750442165,436951,3647
+C monthly seats,region x month FE + exposure trends,ln_s,carbon price x exposure (area),0.025896955547525084,0.09698676740002816,0.7898502627725303,436951,3647
+C monthly seats,region x month FE + exposure trends,ln_s,carbon price x closeness (outside),-0.18277968443410617,0.12906810747200734,0.1589528991434015,436951,3647
+C monthly seats,"placebo 2008-2011, region x month FE",ln_s,carbon price x exposure (area),0.2563425801140324,0.14533249218848748,0.08470232771347086,141795,3583
+C monthly seats,"placebo 2008-2011, region x month FE",ln_s,carbon price x closeness (outside),0.0734499458551759,0.1972172084572692,0.7113593737430499,141795,3583
+D annual connectivity,all airports | year FE,ln_gaci,carbon price x exposure (area),0.03253040207789615,0.024585305725759656,0.2126251976854978,36913,3405
+D annual connectivity,all airports | year FE,ln_gaci,carbon price x closeness (outside),0.06630424238727915,0.04533992148596106,0.17161247317664596,36913,3405
+D annual connectivity,all airports | region x year FE,ln_gaci,carbon price x exposure (area),-0.007894798579315741,0.028022854381327088,0.7833822811401852,36913,3405
+D annual connectivity,all airports | region x year FE,ln_gaci,carbon price x closeness (outside),0.014001792639618156,0.04223583827957038,0.7464859809250424,36913,3405
+D annual connectivity,all airports | region x year FE + trends,ln_gaci,carbon price x exposure (area),0.0024874982076361846,0.018901422169229413,0.8976739386438215,36913,3405
+D annual connectivity,all airports | region x year FE + trends,ln_gaci,carbon price x closeness (outside),0.002810153628349292,0.017931482082333004,0.8783078665119943,36913,3405
+D annual connectivity,all airports | year FE,ln_eigen,carbon price x exposure (area),-0.037530506021391595,0.28798491623489664,0.8986650913419743,36913,3405
+D annual connectivity,all airports | year FE,ln_eigen,carbon price x closeness (outside),0.8095159509650145,0.5013834383032298,0.13469953672462642,36913,3405
+D annual connectivity,all airports | region x year FE,ln_eigen,carbon price x exposure (area),-0.6974262734868376,0.3345784767497574,0.06122094328300287,36913,3405
+D annual connectivity,all airports | region x year FE,ln_eigen,carbon price x closeness (outside),-0.23635449245585238,0.43264036998386096,0.5957615234042208,36913,3405
+D annual connectivity,all airports | region x year FE + trends,ln_eigen,carbon price x exposure (area),0.2703599930834913,0.17962080758082352,0.16044226080268942,36913,3405
+D annual connectivity,all airports | region x year FE + trends,ln_eigen,carbon price x closeness (outside),0.2015892561001006,0.2143556537756082,0.3671840215540847,36913,3405
+D annual connectivity,all airports | year FE,ln_betw,carbon price x exposure (area),0.20195223680864435,0.30267822749248624,0.5183849393369608,36913,3405
+D annual connectivity,all airports | year FE,ln_betw,carbon price x closeness (outside),1.1233940972374477,0.5595099216914988,0.06986147347375127,36913,3405
+D annual connectivity,all airports | region x year FE,ln_betw,carbon price x exposure (area),-0.02349456621499501,0.5013858010700578,0.9634653249406546,36913,3405
+D annual connectivity,all airports | region x year FE,ln_betw,carbon price x closeness (outside),0.9902344742768537,0.7375746557521506,0.20646549989708474,36913,3405
+D annual connectivity,all airports | region x year FE + trends,ln_betw,carbon price x exposure (area),0.3394898639792638,0.3797780280491545,0.3905057015362383,36913,3405
+D annual connectivity,all airports | region x year FE + trends,ln_betw,carbon price x closeness (outside),0.014968093879352157,0.5590027469127989,0.9791176609722401,36913,3405
+D annual connectivity,hubs (>= 5m seats 2007) | year FE,ln_gaci,carbon price x exposure (area),0.037665106208970685,0.05726950868859252,0.5242667240986842,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | year FE,ln_gaci,carbon price x closeness (outside),0.14137251220007163,0.13578613872337333,0.320153099927345,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | region x year FE,ln_gaci,carbon price x exposure (area),-0.005767562800614078,0.0709716850533941,0.9366904425377254,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | region x year FE,ln_gaci,carbon price x closeness (outside),0.03719462044820129,0.11037790860041213,0.7424772981924415,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | region x year FE + trends,ln_gaci,carbon price x exposure (area),0.05431553086476569,0.0471749584388829,0.27399423625741615,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | region x year FE + trends,ln_gaci,carbon price x closeness (outside),0.05890881640188815,0.05131539947863788,0.2753319962953924,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | year FE,ln_eigen,carbon price x exposure (area),-0.011797786409459412,0.2513695768378475,0.9634070762494917,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | year FE,ln_eigen,carbon price x closeness (outside),0.43801171362727065,0.5677470650383731,0.45666949319105843,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | region x year FE,ln_eigen,carbon price x exposure (area),0.07820010071867634,0.1992568656409068,0.7022171104160204,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | region x year FE,ln_eigen,carbon price x closeness (outside),0.18466182050196495,0.2549085262782337,0.4839292631896752,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | region x year FE + trends,ln_eigen,carbon price x exposure (area),0.03084249346562884,0.10654047046613407,0.7775893230370137,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | region x year FE + trends,ln_eigen,carbon price x closeness (outside),-0.05625185493513084,0.12600760785615464,0.6639570025325696,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | year FE,ln_betw,carbon price x exposure (area),-0.057835669835064066,0.04347936532858924,0.21037720757362077,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | year FE,ln_betw,carbon price x closeness (outside),-0.04003054845739543,0.1093576846188197,0.7212692110255872,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | region x year FE,ln_betw,carbon price x exposure (area),0.07770177438514297,0.15386717077129639,0.6235278826601047,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | region x year FE,ln_betw,carbon price x closeness (outside),0.11856447876548078,0.22407770254267034,0.6072329742480034,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | region x year FE + trends,ln_betw,carbon price x exposure (area),0.035901250349778986,0.13958301035174628,0.8017693136981197,2100,175
+D annual connectivity,hubs (>= 5m seats 2007) | region x year FE + trends,ln_betw,carbon price x closeness (outside),-0.06867004247344222,0.15913977576070581,0.6744347277977938,2100,175

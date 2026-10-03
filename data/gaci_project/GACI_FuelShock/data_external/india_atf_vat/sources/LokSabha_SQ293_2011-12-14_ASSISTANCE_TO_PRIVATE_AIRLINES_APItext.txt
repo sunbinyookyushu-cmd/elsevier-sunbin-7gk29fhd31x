@@ -1,0 +1,92 @@
+Source: Lok Sabha Q&A API (sansad.in) record retrieved 2026-10-02
+Lok Sabha: 15; Session: 9; Question No: 293; Type: STARRED; Date: 14.12.2011
+Ministry: CIVIL AVIATION
+Subject: ASSISTANCE TO PRIVATE AIRLINES
+Members: ['EKNATH MAHADEO GAIKWAD', 'SURESH KODIKUNNIL']
+Official file path (if any):  
+API: https://sansad.in/api_ls/question/qetFilteredQuestionsAns?loksabhaNo=15&pageNo=1&locale=en&keyWord=...  (record: LS 15, Q 293, STARRED, date 14.12.2011)
+
+QUESTION:
+
+ 
+
+
+(a) whether the representatives of certain private airline 
+companies have sought assistance/concessions; 
+ 
+
+
+(b) if so, the details thereof; 
+ 
+
+
+(c) the main demands made by these private airlines; 
+ 
+
+
+(d) the reaction of the Government thereto; and 
+ 
+
+
+(e) the steps taken by the Government in this regard? 
+ 
+ 
+
+ANSWER:
+ 
+
+
+
+MINISTER OF OVERSEAS INDIAN AFFAIRS & MINISTER OF CIVIL AVIATION (SHRI VAYALAR RAVI) 
+
+
+
+
+(a)to(e) A Statement is laid on the table of the House. 
+
+
+
+
+STATEMENT TO BE LAID ON THE TABLE OF THE LOK SABHA IN REPLY TO STARRED QUESTION NO. 
+293 DATED 14.12.2011 REGARDING Assistance to Private Airlines. 
+
+
+
+
+(a)to(c):- Airlines have sought policy related dispensation from the Ministry to 
+enable growth and viability of the sector in the areas of lowering of taxes on ATF, 
+review of levying of service tax, increased utilization of bilateral etc. Airlines 
+have also requested Reserve Bank of India for the following: 
+
+
+
+
+1. Special dispensation from Reserve Bank of India (RBI) to 
+reconsider re-financing of rupee loans including the loans related 
+to Working Capital as a permissible end-use for External 
+Commercial Borrowings (ECB) for the airline industry. 
+
+
+
+
+2. RBI should agree to extend aHl the benefits of `infrastructure 
+sector to the Civil Aviation Industry (including the airlines 
+companies) for a sustainable growth. 
+
+
+
+
+3. Special dispensations from RBI to treat Pre-Delivery Payment
+(PDP) loan as secured as presently it is treated as unsecured. 
+
+
+
+
+(d)and(e):- The Ministry has taken up the issue of sales tax on ATF with various 
+State Govts. Governments of Chhattisgarh, Maharashtra (for airports other than Mumbai 
+and Pune) and Rajasthan with certain conditions have reduced the sales tax on ATF and 
+lowered it down to 4%. On other issues, the Government has constantly been responding 
+to changing scenario and formulating sector specific policies to facilitate and enable 
+
+
+

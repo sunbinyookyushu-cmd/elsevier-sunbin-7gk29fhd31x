@@ -1,0 +1,104 @@
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 4906 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 4906 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 1 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+R 50 ln_seats_dom done
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 23109 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 23109 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 338 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+R 50 ln_seats done
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 28994 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 1 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 28993 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 532 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+R 50 ln_seats_intl done
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 23036 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 23036 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 338 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+R 50 ln_co2 done
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 4906 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+event study ln_seats_dom done
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 23109 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+event study ln_seats done
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 23036 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+event study ln_co2 done
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 4826 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+R 30 ln_seats_dom done
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 5071 singleton fixed effect(s) dropped from the model.
+  warnings.warn(
+R 100 ln_seats_dom done
+ radius       outcome                              sample       b  se_airport  p_airport  se_country  p_country      n  n_treated  n_post_obs
+     50  ln_seats_dom                                 all -0.2202      0.0445     0.0000      0.0296     0.0000 731500        165       15555
+     50  ln_seats_dom                               China -0.1891      0.0613     0.0026      0.0613     0.0026  27141         85        6962
+     50  ln_seats_dom                         excl. China -0.2453      0.0637     0.0001      0.0472     0.0000 704265         80        8593
+     50  ln_seats_dom high-quality dates (CN JP KR TW FR) -0.2544      0.0535     0.0000      0.0535     0.0000  56488        119       10526
+     50      ln_seats                                 all -0.1801      0.0508     0.0004      0.0396     0.0000 747358        165       16363
+     50      ln_seats                               China -0.1901      0.0605     0.0022      0.0605     0.0022  27141         85        6962
+     50      ln_seats                         excl. China -0.1726      0.0763     0.0238      0.0683     0.0124 720123         80        9401
+     50      ln_seats high-quality dates (CN JP KR TW FR) -0.1927      0.0597     0.0014      0.0597     0.0014  57887        119       10854
+     50 ln_seats_intl                                 all  0.1387      0.0738     0.0604      0.1968     0.4821 246339        125       11951
+     50 ln_seats_intl                               China  0.5754      0.0888     0.0000      0.0888     0.0000  13302         59        4832
+     50 ln_seats_intl                         excl. China -0.1578      0.0868     0.0694      0.1065     0.1405 233004         66        7119
+     50 ln_seats_intl high-quality dates (CN JP KR TW FR)  0.3858      0.0895     0.0000      0.0895     0.0000  26698         80        6651
+     50        ln_co2                                 all -0.2835      0.0512     0.0000      0.0782     0.0004 749332        165       16363
+     50        ln_co2                               China -0.4104      0.0588     0.0000      0.0588     0.0000  27471         85        6962
+     50        ln_co2                         excl. China -0.1895      0.0763     0.0131      0.0965     0.0514 721761         80        9401
+     50        ln_co2 high-quality dates (CN JP KR TW FR) -0.3236      0.0593     0.0000      0.0593     0.0000  58217        119       10854
+     30  ln_seats_dom                                 all -0.2979      0.0426     0.0000      0.0523     0.0000 733943        145       13212
+    100  ln_seats_dom                                 all -0.1649      0.0456     0.0003      0.0203     0.0000 722316        199       17472
+     outcome  rel_year       b  se_airport      p  se_country
+      ln_co2        -6  0.0301      0.0152 0.0472      0.0146
+      ln_co2        -5 -0.0117      0.0265 0.6584      0.0430
+      ln_co2        -4 -0.0309      0.0263 0.2397      0.0252
+      ln_co2        -3 -0.0589      0.0268 0.0281      0.0238
+      ln_co2        -2 -0.0695      0.0279 0.0126      0.0262
+      ln_co2        -1  0.0000      0.0000    NaN      0.0000
+      ln_co2         0 -0.0941      0.0338 0.0054      0.0229
+      ln_co2         1 -0.2016      0.0411 0.0000      0.0306
+      ln_co2         2 -0.2566      0.0446 0.0000      0.0309
+      ln_co2         3 -0.2835      0.0483 0.0000      0.0421
+      ln_co2         4 -0.3353      0.0559 0.0000      0.0662
+      ln_co2         5 -0.2971      0.0552 0.0000      0.0757
+      ln_co2         6 -0.3098      0.0724 0.0000      0.1268
+    ln_seats        -6 -0.0074      0.0152 0.6270      0.0083
+    ln_seats        -5  0.0237      0.0251 0.3441      0.0159
+    ln_seats        -4  0.0152      0.0250 0.5446      0.0110
+    ln_seats        -3  0.0042      0.0267 0.8763      0.0192
+    ln_seats        -2 -0.0018      0.0278 0.9476      0.0171
+    ln_seats        -1  0.0000      0.0000    NaN      0.0000
+    ln_seats         0 -0.0237      0.0338 0.4836      0.0326
+    ln_seats         1 -0.1069      0.0403 0.0081      0.0361
+    ln_seats         2 -0.1470      0.0437 0.0008      0.0343
+    ln_seats         3 -0.1631      0.0471 0.0005      0.0301
+    ln_seats         4 -0.2099      0.0536 0.0001      0.0543
+    ln_seats         5 -0.1858      0.0515 0.0003      0.0432
+    ln_seats         6 -0.2110      0.0712 0.0031      0.0736
+ln_seats_dom        -6 -0.0050      0.0143 0.7281      0.0062
+ln_seats_dom        -5  0.0163      0.0246 0.5086      0.0098
+ln_seats_dom        -4  0.0206      0.0248 0.4049      0.0139
+ln_seats_dom        -3  0.0100      0.0265 0.7042      0.0143
+ln_seats_dom        -2 -0.0051      0.0250 0.8395      0.0159
+ln_seats_dom        -1  0.0000      0.0000    NaN      0.0000
+ln_seats_dom         0 -0.0519      0.0357 0.1463      0.0461
+ln_seats_dom         1 -0.1372      0.0416 0.0010      0.0553
+ln_seats_dom         2 -0.1741      0.0445 0.0001      0.0558
+ln_seats_dom         3 -0.1749      0.0494 0.0004      0.0376
+ln_seats_dom         4 -0.2189      0.0518 0.0000      0.0455
+ln_seats_dom         5 -0.2193      0.0529 0.0000      0.0429
+ln_seats_dom         6 -0.2710      0.0621 0.0000      0.0535

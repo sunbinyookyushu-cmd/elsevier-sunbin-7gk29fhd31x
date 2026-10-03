@@ -1,0 +1,24 @@
+﻿START 2026-09-02T12:05:49
+gaci_main_table exit=0 4s |  / .  / end of do-file
+gaci_hetero_table exit=0 4s |  / .  / end of do-file
+gaci_temporal_table exit=0 4s |  / .  / end of do-file
+gaci_mechanism exit=0 4s |  / .  / end of do-file
+gaci_mediation exit=0 6s |  / .  / end of do-file
+gaci_controls exit=0 5s |  / .  / end of do-file
+gaci_natmix_overid exit=0 8s |  / .  / end of do-file
+gaci_3iv exit=0 6s |  / .  / end of do-file
+gaci_combined_iv exit=0 6s |  / .  / end of do-file
+gaci_temporal exit=0 5s |  / .  / end of do-file
+gaci_rf_nonlinear exit=0 4s |  / .  / end of do-file
+gaci_conley exit=0 8s |  / .  / end of do-file
+gaci_measures_table exit=0 6s |  / .  / end of do-file
+gaci_tourism_hetero_iv exit=0 10s |  / .  / end of do-file
+DONE 2026-09-02T12:07:11
+gaci_3iv exit=0 1608s
+gaci_combined_iv exit=0 4s
+gaci_temporal exit=0 63s
+gaci_rf_nonlinear exit=0 3s
+gaci_conley exit=0 10s
+gaci_measures_table exit=0 2s
+gaci_tourism_hetero_iv exit=0 2s
+DONE 2026-09-02T12:33:25

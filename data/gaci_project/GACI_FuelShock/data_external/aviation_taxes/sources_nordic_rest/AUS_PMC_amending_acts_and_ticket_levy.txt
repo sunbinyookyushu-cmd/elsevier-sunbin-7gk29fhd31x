@@ -1,0 +1,38 @@
+AUSTRALIA: Passenger Movement Charge (PMC) and Air Passenger Ticket Levy (Ansett levy)
+Accessed 2026-10-02
+
+1) Passenger Movement Charge Act 1978, compilation 1 July 2024
+https://www.legislation.gov.au/C2004A01917/2024-07-01/2024-07-01/text/original/epub/OEBPS/document_1/document_1.html
+s 6: "The rate of charge imposed by this Act in respect of the departure of a person from Australia is $70."
+Legislation history (Act, No., assent, commencement):
+ Passenger Movement Charge Amendment Act 1995, 64/1995, 30 June 1995, 1 July 1995
+ Passenger Movement Charge Amendment Act 1998, 66/1998, 30 June 1998, 1 Jan 1999
+ Passenger Movement Charge Amendment Act 2001, 79/2001, 30 June 2001, 1 July 2001
+ Passenger Movement Charge Amendment Act 2008, 58/2008, 30 June 2008, 1 July 2008
+ Passenger Movement Charge Amendment Act 2012, 94/2012, 29 June 2012, 1 July 2012
+ Passenger Movement Charge Amendment (Norfolk Island) Act 2016, 32/2016, 23 Mar 2016, 1 July 2016
+ Passenger Movement Charge Amendment Act 2016, 91/2016, 2 Dec 2016, 1 July 2017
+ Passenger Movement Charge Amendment Act (No. 2) 2016, 93/2016, 2 Dec 2016, 1 July 2017
+ Passenger Movement Charge Amendment Act 2024, 6/2024, 8 Mar 2024, 1 July 2024
+
+2) Amending acts (as made PDFs on legislation.gov.au), Schedule 1 text:
+ 1998 (C2004A00326): Omit "$27", substitute "$30". Applies to departure on or after 1 January 1999.
+ 2001 (C2004A00847): Omit "$30", substitute "$38". Applies to departure on or after 1 July 2001, unless (a) the person departs using a ticket or equivalent authority; and (b) the ticket or authority was sold or issued before 1 July 2001.
+ 2008 (C2008A00058): Omit "$38", substitute "$47". Same rule, 1 July 2008.
+ 2012 (C2012A00094): Omit "$47", substitute "$55". Same rule, 1 July 2012.
+ 2016 No. 91 (C2016A00091): Omit "$55", substitute "$60". Commences 1 July 2017.
+ 2016 No. 2 (C2016A00093): adds "and does not increase from 1 July 2017 for 5 years thereafter."
+ 2024 (C2024A00006): Omit all the words after "Australia is", substitute "$70". Applies on or after 1 July 2024 unless ticket sold or issued before 1 July 2024.
+ Norfolk Island 2016 (C2016A00032): para 4(3)(a) after "departs from" insert "Norfolk Island or".
+
+3) Passenger Movement Charge Collection Act 1978 (compilation 2015-07-01), s 3 definition:
+https://legislation.gov.au/C2004A01918/2015-07-01/2015-07-01/text/original/epub/OEBPS/document_1/document_1.html
+ transit passenger: a person who arrives in Australia from a place outside Australia for the purpose only of a journey from that place to a place outside Australia and who departs (a) if arriving and departing by aircraft, without being immigration cleared within the meaning of s 172 Migration Act 1958 (or, if cleared for reasons beyond their control, as soon as reasonably practicable), or (b) in any other case, less than 48 hours after arrival.
+ s 5 exemptions include persons under 12, crew, positioning crew, transit passengers, diplomats, certain defence personnel.
+
+4) Air Passenger Ticket Levy (Imposition) Act 2001, No. 133, 2001 (assented 27 September 2001)
+https://www.legislation.gov.au/C2004A00916/asmade/2001-09-27/text/original/pdf
+ s 6(2): "The rate of levy on an air passenger ticket is $10."
+ Collection Act 2001 s 9(1): levy payable on an air passenger ticket that "(a) is purchased on or after 1 October 2001 and before the end of the final levy month; and (b) covers at least one relevant flight." Australian flight = "a flight that takes off from a place in Australia (whether the flight is to another place in Australia or to a place outside Australia)."
+ ANAO Audit Report No. 21 2003-04 (SEESA): "The Levy ... applied to air passenger tickets purchased on or after 1 October 2001 until 30 June 2003."
+ https://www.anao.gov.au/work/performance-audit/special-employee-entitlements-scheme-ansett-group-employees-seesa

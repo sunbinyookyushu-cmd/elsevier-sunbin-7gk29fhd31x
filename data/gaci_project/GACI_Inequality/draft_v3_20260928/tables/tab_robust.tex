@@ -1,0 +1,39 @@
+\begin{table}[H]
+\centering
+\caption{Robustness of the headline estimate: sample, fixed effects and inference (2SLS, Feyrer instrument).}
+\label{tab:robust}
+\begin{threeparttable}
+\small
+\begin{tabular}{lcccc}
+\toprule
+ & ln market Gini & ln disposable Gini & KP $F$ & N \\
+\midrule
+\multicolumn{5}{l}{\emph{Panel A. Baseline}}\\
+2SLS, Feyrer instrument (Table~\ref{tab:main}) & 0.495\sym{**} & 0.651\sym{***} & 10.6 & 3{,}735 \\
+ & (0.194) & (0.241) \\
+\multicolumn{5}{l}{\emph{Panel B. Sample}}\\
+Excluding the ten largest hub economies & 0.565\sym{***} & 0.709\sym{***} & 9.9 & 3{,}472 \\
+ & (0.204) & (0.254) \\
+1996--2019 & 0.439\sym{***} & 0.574\sym{***} & 12.6 & 3{,}344 \\
+ & (0.163) & (0.200) \\
+Excluding 2008--09 and 2020--21 & 0.480\sym{**} & 0.635\sym{***} & 11.3 & 3{,}204 \\
+ & (0.188) & (0.233) \\
+\multicolumn{5}{l}{\emph{Panel C. Exposure trends}}\\
+Baseline exposures $\times$ aviation index & 0.377\sym{**} & 0.506\sym{**} & 9.9 & 3{,}735 \\
+ & (0.187) & (0.229) \\
+\multicolumn{5}{l}{\emph{Panel D. Inference (same point estimates as the baseline)}}\\
+Clustered by country & 0.495\sym{**} & 0.651\sym{***} & 10.7 & 3{,}737 \\
+ & (0.198) & (0.247) \\
+Two-way clustered (country, year) & 0.495\sym{***} & 0.651\sym{***} & 10.7 & 3{,}737 \\
+ & (0.190) & (0.238) \\
+Conley spatial HAC, 1{,}000 km & 0.495\sym{**} & 0.651\sym{***} & 10.7 & 3{,}737 \\
+ & (0.203) & (0.248) \\
+Conley spatial HAC, 2{,}000 km & 0.495\sym{**} & 0.651\sym{**} & 10.7 & 3{,}737 \\
+ & (0.224) & (0.267) \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\small
+\item Panel D re-estimates the baseline with alternative variance estimators; Conley standard errors use a Bartlett kernel in great-circle distance between country centroids with the stated cutoff and allow arbitrary within-country serial correlation. Baseline exposures are ln GDP per capita, the market Gini, ln land area, absolute latitude and ln sea market access in the base year, each interacted with the aviation index. Country-year panel, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments ln GACI with the Feyrer interaction $Z_{ct}=a_t\times\ln \mathrm{MA}^{air}_{c,1996}$. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

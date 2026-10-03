@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+import re, pathlib
+D = pathlib.Path(r"C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2\Junya_comments_20260925\overleaf_20260926")
+out = (D / "main_co2_nature_20260926.tex").read_bytes()
+print("CRLF:", out.count(b"\r\n"), "lines:", out.count(b"\n"))
+t = out.decode("utf-8")
+labels = set(re.findall(r"\\label\{([^}]+)\}", t))
+refs = set(re.findall(r"\\(?:ref|eqref)\{([^}]+)\}", t))
+print("missing labels:", sorted(refs - labels))
+print("unreferenced labels:", sorted(l for l in labels - refs if not l.startswith("eq:nature")))
+print("dup labels:", [l for l in labels if t.count("\\label{" + l + "}") > 1])
+b = (D / "refs_co2.bib").read_text(encoding="utf-8")
+keys = set(re.findall(r"@\w+\{([^,]+),", b))
+cites = set(k.strip() for c in re.findall(r"\\cite[tp]?\*?(?:\[[^\]]*\])*\{([^}]+)\}", t) for k in c.split(","))
+print("missing bib keys:", sorted(cites - keys))
+print("uncited bib keys:", sorted(keys - cites))
+for env in ["table", "tabular", "threeparttable", "tablenotes", "equation", "figure", "abstract", "document"]:
+    print(env, t.count("\\begin{" + env + "}"), t.count("\\end{" + env + "}"))
+print("braces balance:", t.count("{") - t.count("}"))
+print("TODO/TBD lines:", [i + 1 for i, l in enumerate(t.split("\n")) if ("TODO" in l or "TBD" in l) and not l.startswith("%")])

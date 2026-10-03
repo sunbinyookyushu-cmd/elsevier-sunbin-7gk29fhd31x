@@ -1,0 +1,28 @@
+\begin{table}[H]
+\centering
+\caption{Mechanism (V): is the effect offset by redistribution? Pretax and post-tax income shares (WID).}
+\label{tab:redistribution}
+\begin{threeparttable}
+\small
+\begin{tabular}{lcccc}
+\toprule
+ & \multicolumn{2}{c}{OLS} & \multicolumn{2}{c}{2SLS} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+ & Coef. & (s.e.) & Coef. & (s.e.) \\
+\midrule
+Bottom-50\% share, pretax & -0.037 & (0.053) & -0.419 & (0.309) \\
+Bottom-50\% share, post-tax & -0.059 & (0.048) & -0.629\sym{**} & (0.318) \\
+Post-tax minus pretax, bottom 50\% & -0.022 & (0.020) & -0.210 & (0.127) \\
+Top-10\% share, pretax & 0.046 & (0.037) & 0.061 & (0.165) \\
+Top-10\% share, post-tax & 0.049 & (0.038) & 0.181 & (0.186) \\
+Post-tax minus pretax, top 10\% & 0.003 & (0.010) & 0.120\sym{**} & (0.058) \\
+\midrule
+KP $F$ & & & \multicolumn{2}{c}{21.1} \\
+Observations & \multicolumn{2}{c}{4{,}537} & \multicolumn{2}{c}{4{,}537} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\small
+\item Post-tax national income shares from the WID distributional national accounts (after all taxes and transfers). The difference rows are difference outcomes: a negative coefficient for the bottom 50\% means that taxes and transfers redistribute less toward the bottom half after connectivity rises. Country-year panel of 178 economies, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments $\ln\mathrm{GACI}_{max}$ with the Feyrer interaction $Z_{ct}=a_t\times\ln\mathrm{MA}^{air}_{c,1996}$; KP $F$ is the Kleibergen--Paap $rk$ Wald statistic. Group incomes are the log average pretax national income of the group (WID, equal-split adults); shares are log income shares, computed as log group income minus log mean income so that all groups use the same sample. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

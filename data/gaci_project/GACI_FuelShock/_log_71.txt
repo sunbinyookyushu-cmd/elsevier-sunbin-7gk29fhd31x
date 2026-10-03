@@ -1,0 +1,19 @@
+﻿                             price       outcome           method      b     se      p        F     n  countries  first_stage  reduced_form  reduced_form_p
+              world real jet price         total              OLS 0.0452 0.0168 0.0077      NaN 64191        236          NaN           NaN             NaN
+              world real jet price         total   2SLS (Kaenzig) 0.0183 0.0203 0.3687  25.4526 64191        236       0.1077        0.0020          0.3723
+              world real jet price         total 2SLS (BH supply) 0.0268 0.0208 0.1980 146.2910 64191        236       0.0512        0.0014          0.2189
+              world real jet price      domestic              OLS 0.0401 0.0253 0.1147      NaN 41304        191          NaN           NaN             NaN
+              world real jet price      domestic   2SLS (Kaenzig) 0.0227 0.0281 0.4199  27.2634 41304        191       0.1088        0.0025          0.4064
+              world real jet price      domestic 2SLS (BH supply) 0.0158 0.0346 0.6470 143.9526 41304        191       0.0512        0.0008          0.6529
+              world real jet price international              OLS 0.0412 0.0148 0.0060      NaN 63930        236          NaN           NaN             NaN
+              world real jet price international   2SLS (Kaenzig) 0.0234 0.0197 0.2354  25.3854 63930        236       0.1076        0.0025          0.2365
+              world real jet price international 2SLS (BH supply) 0.0233 0.0185 0.2086 147.2711 63930        236       0.0512        0.0012          0.2296
+local real jet price (FX-adjusted)         total              OLS 0.0346 0.0176 0.0512      NaN 46715        179          NaN           NaN             NaN
+local real jet price (FX-adjusted)         total   2SLS (Kaenzig) 0.0074 0.0221 0.7370  21.8058 46715        179       0.0974        0.0007          0.7393
+local real jet price (FX-adjusted)         total 2SLS (BH supply) 0.0277 0.0230 0.2284 122.5824 46715        179       0.0476        0.0013          0.2445
+local real jet price (FX-adjusted)      domestic              OLS 0.0282 0.0221 0.2033      NaN 32539        154          NaN           NaN             NaN
+local real jet price (FX-adjusted)      domestic   2SLS (Kaenzig) 0.0459 0.0351 0.1931  23.1566 32539        154       0.0986        0.0045          0.1686
+local real jet price (FX-adjusted)      domestic 2SLS (BH supply) 0.0245 0.0358 0.4945 122.6194 32539        154       0.0472        0.0012          0.5023
+local real jet price (FX-adjusted) international              OLS 0.0360 0.0172 0.0376      NaN 46713        179          NaN           NaN             NaN
+local real jet price (FX-adjusted) international   2SLS (Kaenzig) 0.0034 0.0231 0.8833  21.8056 46713        179       0.0974        0.0003          0.8841
+local real jet price (FX-adjusted) international 2SLS (BH supply) 0.0271 0.0213 0.2062 122.5854 46713        179       0.0476        0.0013          0.2246

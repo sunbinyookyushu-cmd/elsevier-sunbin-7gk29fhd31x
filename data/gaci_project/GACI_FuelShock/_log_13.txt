@@ -1,0 +1,37 @@
+2022 spike done
+2014 crash done
+2008 spike done
+     event       outcome                       period       b     se      p   p_cl      n  n_air
+2022 spike      ln_seats          spike (2022-03..12)  0.0529 0.0126 0.0001 0.0000 143836   3679
+2022 spike      ln_seats     after (2023-01..2024-06)  0.0817 0.0156 0.0000 0.0000 143836   3679
+2022 spike      ln_seats    continuous: ln P(t-3) x H  0.0944 0.0305 0.0036 0.0000 143836   3679
+2022 spike  ln_seats_dom          spike (2022-03..12)  0.0308 0.0100 0.0036 0.0003 135947   3547
+2022 spike  ln_seats_dom     after (2023-01..2024-06)  0.0417 0.0123 0.0016 0.0000 135947   3547
+2022 spike  ln_seats_dom    continuous: ln P(t-3) x H  0.0571 0.0204 0.0077 0.0000 135947   3547
+2022 spike ln_seats_intl          spike (2022-03..12) -0.0113 0.0139 0.4236 0.3589  46084   1610
+2022 spike ln_seats_intl     after (2023-01..2024-06) -0.0330 0.0156 0.0408 0.0117  46084   1610
+2022 spike ln_seats_intl    continuous: ln P(t-3) x H -0.0316 0.0249 0.2103 0.0669  46084   1610
+2022 spike           rec          spike (2022-03..12)  0.0563 0.0186 0.0042 0.0000 141435   3661
+2022 spike           rec     after (2023-01..2024-06)  0.0794 0.0179 0.0001 0.0000 141435   3661
+2022 spike           rec    continuous: ln P(t-3) x H  0.0977 0.0302 0.0024 0.0000 141435   3661
+2022 spike       rec_dom          spike (2022-03..12)  0.0357 0.0140 0.0147 0.0000 132685   3475
+2022 spike       rec_dom     after (2023-01..2024-06)  0.0408 0.0143 0.0067 0.0000 132685   3475
+2022 spike       rec_dom    continuous: ln P(t-3) x H  0.0629 0.0211 0.0048 0.0000 132685   3475
+2014 crash      ln_seats     transition (2014-10..12)  0.0007 0.0063 0.9101 0.9089 157597   3540
+2014 crash      ln_seats       low (2015-01..2016-12)  0.0053 0.0124 0.6699 0.6657 157597   3540
+2014 crash      ln_seats    continuous: ln P(t-3) x H -0.0076 0.0161 0.6393 0.6348 157597   3540
+2014 crash  ln_seats_dom     transition (2014-10..12) -0.0050 0.0076 0.5156 0.5101 149101   3412
+2014 crash  ln_seats_dom       low (2015-01..2016-12)  0.0008 0.0138 0.9562 0.9557 149101   3412
+2014 crash  ln_seats_dom    continuous: ln P(t-3) x H -0.0035 0.0173 0.8421 0.8403 149101   3412
+2014 crash ln_seats_intl     transition (2014-10..12)  0.0020 0.0062 0.7476 0.7444  59106   1674
+2014 crash ln_seats_intl       low (2015-01..2016-12) -0.0087 0.0078 0.2696 0.2390  59106   1674
+2014 crash ln_seats_intl    continuous: ln P(t-3) x H  0.0154 0.0093 0.1060 0.0979  59106   1674
+2008 spike      ln_seats     spike (2007-10..2008-09)  0.0047 0.0057 0.4164 0.4056 150199   3345
+2008 spike      ln_seats crash+GFC (2008-10..2009-12) -0.0014 0.0074 0.8479 0.8421 150199   3345
+2008 spike      ln_seats    continuous: ln P(t-3) x H  0.0092 0.0040 0.0282 0.0233 150199   3345
+2008 spike  ln_seats_dom     spike (2007-10..2008-09)  0.0007 0.0051 0.8926 0.8913 142669   3246
+2008 spike  ln_seats_dom crash+GFC (2008-10..2009-12) -0.0099 0.0071 0.1689 0.1559 142669   3246
+2008 spike  ln_seats_dom    continuous: ln P(t-3) x H  0.0123 0.0066 0.0669 0.0148 142669   3246
+2008 spike ln_seats_intl     spike (2007-10..2008-09)  0.0011 0.0084 0.8975 0.8955  53035   1396
+2008 spike ln_seats_intl crash+GFC (2008-10..2009-12)  0.0077 0.0141 0.5885 0.5833  53035   1396
+2008 spike ln_seats_intl    continuous: ln P(t-3) x H -0.0103 0.0084 0.2257 0.2170  53035   1396

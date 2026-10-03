@@ -1,0 +1,62 @@
+Source: Lok Sabha Q&A API (sansad.in) record retrieved 2026-10-02
+Lok Sabha: 13; Session: 13; Question No: 2817; Type: UNSTARRED; Date: 11.08.2003
+Ministry: CIVIL AVIATION
+Subject: SALES TAX ON ATF 
+Members: ['M.  JAGANNATH']
+Official file path (if any):  
+API: https://sansad.in/api_ls/question/qetFilteredQuestionsAns?loksabhaNo=13&pageNo=1&locale=en&keyWord=...  (record: LS 13, Q 2817, UNSTARRED, date 11.08.2003)
+
+QUESTION:
+ 
+ 
+ 
+ 
+
+(a) the details of sales tax levied by the States on 
+ aviation turbine fuel, State-wise; 
+ 
+ 
+
+(b) whether the sales tax levied on ATF has been reduced by 
+ the State of Andhra Pradesh and Chhatisgarh for promotion of 
+ civil aviation services in their States; 
+ 
+ 
+
+(c) if so, whether the Government have an proposal to 
+ provide incentives to the States levying minimum sales tax 
+ on aviation turbine fuel in order to compensate the losses 
+ incurred due to reduction of sales tax on ATF; 
+ 
+ 
+
+(d) if so, the details thereof; and 
+ 
+ 
+
+(e) if not the reasons therefor? 
+ 
+ 
+
+ANSWER:
+MINISTER OF STATE OF THE MINISTRY OF CIVIL AVIATION( SHRI RAJIV PRATAP RUDY ) 
+
+
+ 
+ (a): The information is being collected and will be laid on 
+ the Table of the House. 
+ 
+
+ 
+ (b): Andhra Pradesh Government has reduced the sales tax on 
+ Aviation Turbine Fuel (ATF) from the earlier 30.55% to 4% 
+ effective 1.4.2002. Chhatisgarh Government has also reduced 
+ sales tax on ATF from the earlier 20% to 4% effective 
+ 1.5.2003. 
+
+
+ 
+ (c),(d) & (e): The information is being collected and will 
+ be laid on the Table of the House. 
+
+

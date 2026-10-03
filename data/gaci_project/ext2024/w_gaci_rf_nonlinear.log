@@ -1,0 +1,357 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 16 May 2027
+Serial number: 401909343485
+  Licensed to: Sunbin Yoo
+               SKKU
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do "C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\e
+> xt2024\do_ext2024\w_gaci_rf_nonlinear.do" 
+
+. do "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/e
+> xt2024/do_ext2024/gaci_rf_nonlinear.do"
+
+. *============================================================================
+> ==
+. * gaci_rf_nonlinear.do
+. * Flexible (quintile-bin) REDUCED-FORM heterogeneity of the instrument effect
+. * on trade openness, by baseline income, baseline connectivity, remoteness.
+. *   Spec: reghdfe g_int ibn.q#c.tourism_int lnpop, absorb(isocode y) robust
+. *   Bins are country-level quintiles over the estimation sample, so the bin
+. *   main effects are absorbed by the country FE. Reduced form only: no weak-
+. *   instrument issue, read as the shape of the gradient.
+. * Output: gaci_rf_nonlinear.log + _rf_nonlinear.csv
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/ext2024"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\ext2024
+
+. * batch mode (/e) writes gaci_rf_nonlinear.log automatically
+. 
+. import delimited "gaci_panel_3iv.csv", clear varnames(1) encoding("utf-8")
+(47 vars, 4,816 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int   nat_e         z_nat
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum   mix_e         z_mix
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y  ln_remote     cult_e        z_cult
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+nat_e already numeric; no replace
+mix_e already numeric; no replace
+cult_e already numeric; no replace
+z_nat already numeric; no replace
+z_mix already numeric; no replace
+z_cult already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+
+Panel variable: isocode (unbalanced)
+ Time variable: y, 1996 to 2024, but with gaps
+         Delta: 1 unit
+
+. 
+. gen g_int = merch_intensity
+
+. 
+. capture which reghdfe
+
+. if _rc {
+.     ssc install ftools, replace
+.     ssc install reghdfe, replace
+. }
+
+. 
+. * ---- baseline (1996) moderators ----
+. gen tmp = lnpc if y==1996
+(4,665 missing values generated)
+
+. bysort isocode: egen base_lnpc = max(tmp)
+(532 missing values generated)
+
+. drop tmp
+
+. gen tmp = ln_gaci_cwm if y==1996
+(4,665 missing values generated)
+
+. bysort isocode: egen base_cwm = max(tmp)
+(532 missing values generated)
+
+. drop tmp
+
+. 
+. * ---- country-level quintiles over the estimation sample ----
+. gen byte insamp = !missing(g_int) & !missing(lnpop) & !missing(tourism_int)
+
+. preserve
+
+. keep if insamp
+(0 observations deleted)
+
+. collapse (first) base_lnpc base_cwm ln_remote, by(isocode)
+
+. xtile q_inc = base_lnpc, nq(5)
+
+. xtile q_con = base_cwm, nq(5)
+
+. xtile q_rem = ln_remote, nq(5)
+
+. tempfile qq
+
+. save `qq'
+file C:\Users\sunbi\AppData\Local\Temp\ST_ec78_000002.tmp saved as .dta format
+
+. restore
+
+. merge m:1 isocode using `qq', nogen keepusing(q_inc q_con q_rem)
+(label isocode already defined)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                             4,816  
+    -----------------------------------------
+
+. 
+. tempname R
+
+. postfile `R' str8 mod byte bin double(b se) long(nn) using "_rf_tmp", replace
+(file _rf_tmp.dta not found)
+
+. 
+. foreach m in inc con rem {
+  2.     di _n "==================== MODERATOR: `m' ===================="
+  3.     reghdfe g_int ibn.q_`m'#c.tourism_int lnpop, absorb(isocode y) vce(robust)
+  4.     local nn = e(N)
+  5.     forvalues k = 1/5 {
+  6.         local bb = _b[`k'.q_`m'#c.tourism_int]
+  7.         local sse = _se[`k'.q_`m'#c.tourism_int]
+  8.         di "  Q`k': b = " %9.4f `bb' "  se = " %9.4f `sse'
+  9.         post `R' ("`m'") (`k') (`bb') (`sse') (`nn')
+ 10.     }
+ 11. }
+
+==================== MODERATOR: inc ====================
+(MWFE estimator converged in 4 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,284
+Absorbing 2 HDFE groups                           F(   6,   4099) =      13.65
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.8314
+                                                  Adj R-squared   =     0.8238
+                                                  Within R-sq.    =     0.0228
+                                                  Root MSE        =     0.2279
+
+-------------------------------------------------------------------------------------
+                    |               Robust
+              g_int | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+q_inc#c.tourism_int |
+                 1  |   .1879635   .0424434     4.43   0.000     .1047515    .2711756
+                 2  |  -.1082403   .0407245    -2.66   0.008    -.1880825   -.0283981
+                 3  |   .0231205   .0296367     0.78   0.435    -.0349835    .0812246
+                 4  |   .1076499   .0330238     3.26   0.001     .0429054    .1723945
+                 5  |   .0203852   .0172873     1.18   0.238    -.0135072    .0542776
+                    |
+              lnpop |  -.2146364   .0324234    -6.62   0.000    -.2782039   -.1510689
+              _cons |   2.805536   .5174378     5.42   0.000     1.791077    3.819995
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       151           0         151     |
+           y |        29           1          28     |
+-----------------------------------------------------+
+  Q1: b =    0.1880  se =    0.0424
+  Q2: b =   -0.1082  se =    0.0407
+  Q3: b =    0.0231  se =    0.0296
+  Q4: b =    0.1076  se =    0.0330
+  Q5: b =    0.0204  se =    0.0173
+
+==================== MODERATOR: con ====================
+(MWFE estimator converged in 4 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,284
+Absorbing 2 HDFE groups                           F(   6,   4099) =      11.47
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.8303
+                                                  Adj R-squared   =     0.8226
+                                                  Within R-sq.    =     0.0164
+                                                  Root MSE        =     0.2286
+
+-------------------------------------------------------------------------------------
+                    |               Robust
+              g_int | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+q_con#c.tourism_int |
+                 1  |   .2337951   .0579081     4.04   0.000     .1202638    .3473263
+                 2  |   .1192074   .0447012     2.67   0.008     .0315688    .2068459
+                 3  |   .0199291   .0365575     0.55   0.586    -.0517434    .0916016
+                 4  |   .0433009    .032002     1.35   0.176    -.0194405    .1060423
+                 5  |   .0164739   .0183009     0.90   0.368    -.0194059    .0523537
+                    |
+              lnpop |   -.213945   .0318483    -6.72   0.000     -.276385    -.151505
+              _cons |   2.783637   .5082535     5.48   0.000     1.787184     3.78009
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       151           0         151     |
+           y |        29           1          28     |
+-----------------------------------------------------+
+  Q1: b =    0.2338  se =    0.0579
+  Q2: b =    0.1192  se =    0.0447
+  Q3: b =    0.0199  se =    0.0366
+  Q4: b =    0.0433  se =    0.0320
+  Q5: b =    0.0165  se =    0.0183
+
+==================== MODERATOR: rem ====================
+(dropped 2 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,806
+Absorbing 2 HDFE groups                           F(   6,   4590) =       7.78
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.8342
+                                                  Adj R-squared   =     0.8264
+                                                  Within R-sq.    =     0.0099
+                                                  Root MSE        =     0.2305
+
+-------------------------------------------------------------------------------------
+                    |               Robust
+              g_int | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------------+----------------------------------------------------------------
+q_rem#c.tourism_int |
+                 1  |   .0543217   .0248314     2.19   0.029     .0056402    .1030031
+                 2  |   .0501716   .0285901     1.75   0.079    -.0058788     .106222
+                 3  |   .1259247   .0422923     2.98   0.003     .0430115    .2088379
+                 4  |  -.0060681    .029348    -0.21   0.836    -.0636043    .0514681
+                 5  |   .0250257   .0227161     1.10   0.271    -.0195087    .0695602
+                    |
+              lnpop |  -.1796836   .0332489    -5.40   0.000    -.2448674   -.1144997
+              _cons |   2.226207   .5235307     4.25   0.000     1.199835    3.252579
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        29           1          28     |
+-----------------------------------------------------+
+  Q1: b =    0.0543  se =    0.0248
+  Q2: b =    0.0502  se =    0.0286
+  Q3: b =    0.1259  se =    0.0423
+  Q4: b =   -0.0061  se =    0.0293
+  Q5: b =    0.0250  se =    0.0227
+
+. 
+. postclose `R'
+
+. use "_rf_tmp", clear
+
+. list, clean
+
+       mod   bin            b          se     nn  
+  1.   inc     1    .18796352   .04244337   4284  
+  2.   inc     2   -.10824031   .04072453   4284  
+  3.   inc     3    .02312052   .02963671   4284  
+  4.   inc     4    .10764995   .03302379   4284  
+  5.   inc     5    .02038523   .01728725   4284  
+  6.   con     1    .23379505   .05790809   4284  
+  7.   con     2    .11920739   .04470116   4284  
+  8.   con     3    .01992913   .03655747   4284  
+  9.   con     4     .0433009   .03200204   4284  
+ 10.   con     5    .01647394   .01830095   4284  
+ 11.   rem     1    .05432165   .02483139   4806  
+ 12.   rem     2    .05017159   .02859015   4806  
+ 13.   rem     3    .12592472   .04229227   4806  
+ 14.   rem     4   -.00606807     .029348   4806  
+ 15.   rem     5    .02502574   .02271609   4806  
+
+. export delimited "_rf_nonlinear.csv", replace
+(file _rf_nonlinear.csv not found)
+file _rf_nonlinear.csv saved
+
+. erase "_rf_tmp.dta"
+
+. di _n "DONE_RF_NONLINEAR"
+
+DONE_RF_NONLINEAR
+
+. 
+end of do-file
+
+. 
+end of do-file

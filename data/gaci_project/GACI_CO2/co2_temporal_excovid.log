@@ -1,0 +1,249 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do co2_temporal_excovid.do 
+
+. *============================================================================
+> ==
+. * co2_temporal_excovid.do
+. * 2SLS by subperiod with COVID years (2020-2021) excluded
+. * outcomes: ln_co2_tot, ln_co2_intl, ln_skm, ln_intensity
+. * samples: full exCOVID / 1996-2009 / 2010-2023 exCOVID /
+. *          2010-2023 exCOVID+exGFCtail(=same) / 2006-2023 exCOVID /
+. *          2010-2019 (clean pre-COVID later half)
+. * -> _temporal_excovid.csv
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. set seed 20260826
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_CO2"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2
+
+. 
+. * ---- build merged dataset (identical to co2_extensions.do) ----
+. import delimited "co2_country_year.csv", clear varnames(1) encoding("utf-8")
+(20 vars, 6,107 obs)
+
+. keep iso3 year co2_bunker co2_bunker_intl dep_seat_km
+
+. rename iso3 c
+
+. rename year y
+
+. tempfile co2
+
+. save `co2'
+file C:\Users\sunbi\AppData\Local\Temp\ST_e77c_000001.tmp saved
+
+. 
+. import delimited "spillover_vars.csv", clear varnames(1) encoding("utf-8")
+(4 vars, 4,624 obs)
+
+. tempfile sp
+
+. save `sp'
+file C:\Users\sunbi\AppData\Local\Temp\ST_e77c_000002.tmp saved
+
+. 
+. import delimited "../gaci_panel_combined.csv", clear varnames(1) encoding("utf-8")
+(44 vars, 4,643 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int   feyrer_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum   ln_sea_ma
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y  ln_remote     ln_air_ma
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+feyrer_int already numeric; no replace
+ln_sea_ma already numeric; no replace
+ln_air_ma already numeric; no replace
+
+. merge 1:1 c y using `co2', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                             4,643  
+    -----------------------------------------
+
+. merge 1:1 c y using `sp', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                            19
+        from master                        19  
+        from using                          0  
+
+    matched                             4,624  
+    -----------------------------------------
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. 
+. gen ln_co2_tot = ln(co2_bunker) if co2_bunker > 0
+
+. gen ln_co2_intl = ln(co2_bunker_intl) if co2_bunker_intl > 0
+(1 missing value generated)
+
+. gen ln_skm = ln(dep_seat_km) if dep_seat_km > 0
+
+. gen ln_intensity = ln_co2_tot - ln_skm
+
+. 
+. local cond1 "y != 2020 & y != 2021"
+
+. local lab1  "full_exCOVID"
+
+. local cond2 "y < 2010"
+
+. local lab2  "1996-2009"
+
+. local cond3 "y >= 2010 & y != 2020 & y != 2021"
+
+. local lab3  "2010-2023_exCOVID"
+
+. local cond4 "y >= 2010 & y <= 2019"
+
+. local lab4  "2010-2019"
+
+. local cond5 "y >= 2006 & y != 2020 & y != 2021"
+
+. local lab5  "2006-2023_exCOVID"
+
+. local cond6 "y >= 2012 & y != 2020 & y != 2021"
+
+. local lab6  "2012-2023_exCOVID"
+
+. 
+. tempname T
+
+. postfile `T' str24 samp str16 outc double(b se p kpf) long(nn) using "_txc_tmp", replace
+(note: file _txc_tmp.dta not found)
+
+. foreach yv in ln_co2_tot ln_co2_intl ln_skm ln_intensity {
+  2.     forvalues i = 1/6 {
+  3.         quietly ivreghdfe `yv' lnpop ln_sea_ma (ln_gaci_cwm = feyrer_int) if `cond`i'', absorb(isocode y) robust
+  4.         local bb = _b[ln_gaci_cwm]
+  5.         local ss = _se[ln_gaci_cwm]
+  6.         di "XC `lab`i'' `yv': b=" %7.3f `bb' " se=" %6.3f `ss' " F=" %7.1f e(widstat) " N=" e(N)
+  7.         post `T' ("`lab`i''") ("`yv'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (e(widstat)) (e(N))
+  8.     }
+  9. }
+XC full_exCOVID ln_co2_tot: b=  5.920 se= 0.393 F=  177.7 N=4284
+XC 1996-2009 ln_co2_tot: b=  6.109 se= 0.565 F=  127.7 N=2218
+XC 2010-2023_exCOVID ln_co2_tot: b=  3.005 se= 0.635 F=   36.7 N=2065
+XC 2010-2019 ln_co2_tot: b=  3.314 se= 0.747 F=   28.8 N=1725
+XC 2006-2023_exCOVID ln_co2_tot: b=  4.635 se= 0.639 F=   48.7 N=2731
+XC 2012-2023_exCOVID ln_co2_tot: b=  2.681 se= 0.566 F=   47.9 N=1731
+XC full_exCOVID ln_co2_intl: b=  5.919 se= 0.396 F=  176.7 N=4283
+XC 1996-2009 ln_co2_intl: b=  6.262 se= 0.590 F=  126.9 N=2217
+XC 2010-2023_exCOVID ln_co2_intl: b=  2.965 se= 0.610 F=   36.7 N=2065
+XC 2010-2019 ln_co2_intl: b=  3.155 se= 0.699 F=   28.8 N=1725
+XC 2006-2023_exCOVID ln_co2_intl: b=  4.627 se= 0.624 F=   48.7 N=2731
+XC 2012-2023_exCOVID ln_co2_intl: b=  2.624 se= 0.547 F=   47.9 N=1731
+XC full_exCOVID ln_skm: b=  6.356 se= 0.423 F=  177.7 N=4284
+XC 1996-2009 ln_skm: b=  5.537 se= 0.534 F=  127.7 N=2218
+XC 2010-2023_exCOVID ln_skm: b=  3.984 se= 0.668 F=   36.7 N=2065
+XC 2010-2019 ln_skm: b=  4.501 se= 0.806 F=   28.8 N=1725
+XC 2006-2023_exCOVID ln_skm: b=  6.152 se= 0.756 F=   48.7 N=2731
+XC 2012-2023_exCOVID ln_skm: b=  3.169 se= 0.585 F=   47.9 N=1731
+XC full_exCOVID ln_intensity: b= -0.436 se= 0.111 F=  177.7 N=4284
+XC 1996-2009 ln_intensity: b=  0.571 se= 0.192 F=  127.7 N=2218
+XC 2010-2023_exCOVID ln_intensity: b= -0.979 se= 0.248 F=   36.7 N=2065
+XC 2010-2019 ln_intensity: b= -1.187 se= 0.313 F=   28.8 N=1725
+XC 2006-2023_exCOVID ln_intensity: b= -1.517 se= 0.274 F=   48.7 N=2731
+XC 2012-2023_exCOVID ln_intensity: b= -0.488 se= 0.191 F=   47.9 N=1731
+
+. postclose `T'
+
+. preserve
+
+. use "_txc_tmp", clear
+
+. export delimited "_temporal_excovid.csv", replace
+(note: file _temporal_excovid.csv not found)
+file _temporal_excovid.csv saved
+
+. restore
+
+. erase "_txc_tmp.dta"
+
+. 
+. di "EXCOVID TEMPORAL DONE"
+EXCOVID TEMPORAL DONE
+
+. 
+end of do-file

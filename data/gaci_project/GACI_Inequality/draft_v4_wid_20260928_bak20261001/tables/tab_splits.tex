@@ -1,0 +1,42 @@
+\begin{table}[H]
+\centering
+\caption{Mechanism (IV): where is the effect found? Split samples (2SLS, Feyrer instrument).}
+\label{tab:splits}
+\begin{minipage}{\linewidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccccrr}
+\toprule
+ & Bottom-30\% share & Bottom-30\% income & Mean income & Top-30 minus bottom-30 & KP $F$ & RF $p$ & N \\
+\midrule
+Airport network concentrated (above median) & -2.174\sym{**} & -2.231\sym{*} & -0.057 & 2.504\sym{**} & 10.7 & 0.001 & 2{,}180 \\
+ & (0.997) & (1.312) & (0.561) & (1.135) \\
+Airport network dispersed (below median) & 0.388 & 3.402\sym{***} & 3.014\sym{***} & -0.644 & 10.3 & 0.450 & 2{,}018 \\
+ & (0.519) & (1.042) & (0.842) & (0.642) \\
+Urbanisation above median & -2.329\sym{**} & -1.423 & 0.906 & 2.603\sym{**} & 8.0 & 0.003 & 2{,}303 \\
+ & (1.151) & (1.403) & (0.595) & (1.291) \\
+Urbanisation below median & 0.243 & 2.750\sym{***} & 2.507\sym{***} & -0.432 & 11.7 & 0.670 & 2{,}234 \\
+ & (0.567) & (0.905) & (0.703) & (0.679) \\
+Baseline GDP per capita above median & -1.193\sym{*} & -0.548 & 0.646 & 1.359\sym{*} & 16.6 & 0.041 & 2{,}282 \\
+ & (0.664) & (0.813) & (0.399) & (0.766) \\
+Baseline GDP per capita below median & -0.709 & 2.562\sym{**} & 3.270\sym{***} & 0.533 & 5.4 & 0.372 & 2{,}255 \\
+ & (0.915) & (1.173) & (1.155) & (1.035) \\
+Tourism-dependent (above median) & -1.623 & 0.370 & 1.993\sym{**} & 1.600 & 7.2 & 0.090 & 2{,}099 \\
+ & (1.281) & (1.301) & (0.763) & (1.428) \\
+Not tourism-dependent (below median) & -0.369 & 0.337 & 0.706 & 0.452 & 12.1 & 0.349 & 2{,}181 \\
+ & (0.377) & (0.648) & (0.507) & (0.444) \\
+1996--2007 & -1.484\sym{***} & 0.466 & 1.950\sym{***} & 1.619\sym{**} & 19.2 & 0.003 & 1{,}860 \\
+ & (0.557) & (0.654) & (0.488) & (0.630) \\
+2010--2023 excluding 2020--21 & 0.123 & 1.026 & 0.903\sym{*} & -0.108 & 16.1 & 0.780 & 2{,}011 \\
+ & (0.437) & (0.697) & (0.526) & (0.491) \\
+\addlinespace
+\multicolumn{8}{l}{\emph{Own and contiguous neighbours' connectivity, jointly instrumented (bottom-30\% share)}}\\
+Own $\ln\mathrm{GACI}_{max}$ & -1.492\sym{*} & -0.724 & 0.768 & 1.735\sym{*} \\
+ & (0.798) & (0.961) & (0.563) & (0.900) \\
+Neighbours' ln GACI (contiguity, leave-out mean) & 0.639 & 1.246\sym{*} & 0.607 & -0.861 \\
+ & (0.554) & (0.657) & (0.400) & (0.661) \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}\begin{flushleft}\footnotesize Splits at the median of each country's earliest observed value: the Gini of GACI across its airports (network concentration), urbanisation, GDP per capita, and tourism receipts as a share of exports. RF $p$ is the $p$-value of the instrument in the reduced form for the bottom-30\% share, which does not depend on first-stage strength. The last two rows instrument own connectivity with the own shifter and the leave-out mean of contiguous neighbours' ln GACI with their shifters. Country-year panel of 178 economies, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments $\ln\mathrm{GACI}_{max}$ with the Feyrer interaction $Z_{ct}=a_t\times\ln\mathrm{MA}^{air}_{c,1996}$; KP $F$ is the Kleibergen--Paap $rk$ Wald statistic. Group incomes are the log average pretax national income of the group (WID, equal-split adults); shares are log income shares, computed as log group income minus log mean income so that all groups use the same sample. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{flushleft}
+\end{minipage}
+\end{table}

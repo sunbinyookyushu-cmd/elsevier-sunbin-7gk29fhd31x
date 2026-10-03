@@ -1,0 +1,26 @@
+India: Aviation Security Fee (ASF), formerly Passenger Service Fee (Security Component) PSF(SC)
+Accessed 2026-10-02. (Lok Sabha answers are scanned PDFs; text below transcribed from page images.)
+
+[1] Lok Sabha Unstarred Question No. 2136, answered 4 July 2019, Ministry of Civil Aviation ("Increase of Aviation Security Fee")
+URL: https://sansad.in/getFile/lsapps/loksabhaquestions/annex/171/AU2136.pdf?source=lsapps
+"(a): Yes Sir, an enhanced Aviation Security Fee (ASF) is being levied at the rate of Rs.150/- per embarking domestic passenger( earlier Rs.130/- ) and USD 4.85 per embarking international passenger ( earlier USD 3.25 ) w.e.f. 1st July 2019."
+"(f) & (g): Yes, Sir. The PSF (SC), now Aviation Security Fee (ASF), has remained unchanged since 2001."
+
+[2] Lok Sabha Unstarred Question No. 801, answered 17 September 2020 ("Hike in Passenger Service Fee")
+URL: https://sansad.in/getFile/lsapps/loksabhaquestions/annex/174/AU801.pdf?source=lsapps
+"PSF (SC) which has now been termed Aviation Security Fee (ASF) is utilized to meet expenditure on providing security at airports. ASF is implemented since 1st July 2019 at the rate of Rs. 150/- for embarking domestic passenger and USD 4.85 for embarking international passengers. The revision in ASF is linked with annual inflation based on CPI-IW ... The rates of ASF have been revised from Rs.150/- to Rs. 160/- per embarking domestic passenger and USD 4.85 to USD 5.20 per embarking international passenger w.e.f. 01.09.2020."
+
+[3] Airports Authority of India, Annual Report 2020-21 (English), notes to accounts, item 36
+URL: https://www.aai.aero/sites/default/files/Eng_AAI_Annual_Report_2021_for_web.pdf
+"In accordance with MoCA letter no: AV .13024/659/2015-AS dated 29/06/2019, a trust has been formed in the name of 'National Aviation Security Fee Trust' (NASFT) to operate and manage Aviation Security Fee funds. The said Trust has been entrusted with the role of collection of Aviation Security Fees as well as payment related to Aviation Security Expenses w.e.f 01.07.2019 on PAN India basis in respect of all Airport Operators"
+
+[4] AERA Order No. 56/2020-21 (Amritsar airport, first control period), issued 24.12.2020, para 16.1.17-16.1.18
+URL: https://www.aai.aero/sites/default/files/TariffOrderNo562021242021.pdf
+"Aviation Security Fee: Applicable as prescribed by MoCA vide Order No. AV.13024/659/2015-AS dated May 7, 2019"
+"The Ministry of Civil Aviation, Govt. of India vide order no. AV.16011/002/2008-AAI dated 30.11.2011 has directed AAI to exempt the following categories of persons from levy and collection of UDF/ASF: ... f. Transit/transfer passengers (this exemption may be granted to all the passengers transiting up to 24 hours. 'A passenger is treated in transit only if onward travel journey is within 24 hours from arrival into airport and is part of the same ticket, in case 2 separate tickets are issued it would not be treated as transit passenger')."
+
+[5] Aircraft Rules 1937, rule 88 (consolidated text on MoCA site)
+URL: https://www.civilaviation.gov.in/sites/default/files/migration/moca_000947.pdf
+"88. Passenger Service Fee. -The licensee is entitled to collect fees to be called as Passenger Service Fee from the embarking passengers at such rate as the Central Government may specify and is also liable to pay for security component to any security agency designated by the Central Government"
+
+Not verified: any ASF revision after 2020-09-01 (lead: about Rs 200 domestic / USD 12 international from 2021-04-01).

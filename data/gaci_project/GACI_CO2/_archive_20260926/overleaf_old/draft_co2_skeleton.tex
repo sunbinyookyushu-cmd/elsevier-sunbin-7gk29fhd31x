@@ -1,0 +1,239 @@
+% draft_co2_skeleton.tex  (v2, 2026-08-22 late)
+% CO2-ONLY paper: scale-composition-technique framework, Feyrer IV primary.
+% Supersedes v1 (trade-linked "carbon price" framing dropped per Sunbin).
+% Numbers from: co2_feyrer_full.log, co2_main.log (tourism lens),
+%   co2_airport_panel.log, co2_feyrer_sizecheck.log, co2_country_sizecheck2.log,
+%   attribution one-off (356 Mt), 04/09 SAF arithmetic.
+% Figures: CO2_map_levels_2023.png, CO2_map_mismatch_2023.png,
+%   CO2_efficiency_curve.png, CO2_saf_scenarios.png (needs Mt-version rebuild),
+%   CO2_rf_quintile.png (now appendix: flat under Feyrer).
+% TODO blocks marked [TODO]; pending-coauthor [YIFU]/[FANGYU].
+\documentclass[12pt]{article}
+\usepackage{amsmath,graphicx,booktabs,threeparttable,float}
+\newcommand{\sym}[1]{\rlap{$^{#1}$}}
+\title{Scale Beats Efficiency: Global Air Connectivity and the Carbon
+Footprint of Aviation}
+\author{[author order TBD]}
+\date{Skeleton v2, 22 August 2026}
+\begin{document}
+\maketitle
+
+%=======================================================================
+\section{Introduction}
+%=======================================================================
+% Skeleton chain:
+% 1. Hook: aviation is the hardest-to-abate transport sector and the most
+%    network-dependent one. Countries invest in connectivity; what does that
+%    buy in carbon?
+% 2. Theory gap: the emissions consequence of connectivity growth is
+%    ambiguous ex ante. Growth adds traffic (scale), but hubbing consolidates
+%    flying into larger aircraft and longer stages (technique), and shifts
+%    the mix toward international long-haul (composition). Which margin wins
+%    is an empirical question, and no causal estimate exists at global scale.
+% 3. This paper: flight-stage-resolved CO2 for 6,000+ airports x 28 years
+%    (EEA/EMEP methodology) x the GACI network panel, identified with a
+%    Feyrer-type air/sea market-access instrument (KP F = 153).
+% 4. Findings preview:
+%    (i) scale wins: the emissions elasticity of connectivity is 5.7,
+%        far above one (Wald p<0.001), identical across allocation rules;
+%    (ii) technique offsets at the node: traffic rises faster than emissions
+%        (6.1 vs 5.7), so CO2 per seat-km falls (-0.40 country, -0.49
+%        airport, 284 -> 77 kg per 1,000 seat-km across the hub ladder);
+%    (iii) attribution: connectivity growth since 1996 accounts for 42.5%
+%        (356 Mt) of 2023 aviation CO2; China +88 Mt, USA +36, UAE +25,
+%        Germany -16;
+%    (iv) only fuel switching bends the curve: ReFuelEU-style SAF paths cut
+%        the 2023 total from 838 Mt to 457-545 Mt by 2050 depending on
+%        life-cycle savings.
+% 5. Contributions: first causal connectivity-CO2 elasticity; the
+%    scale-composition-technique (SCT) decomposition applied to aviation;
+%    the attribution-versus-physical-emissions mismatch; SAF policy bridge.
+
+%=======================================================================
+\section{Conceptual framework and hypotheses}
+%=======================================================================
+% SCT decomposition (Grossman-Krueger 1995; Copeland-Taylor 2004) applied to
+% aviation: E = seat-km (scale) x mix (composition) x CO2/seat-km (technique).
+% Connectivity growth moves all three margins; the net elasticity is the
+% empirical object. Outcome mapping: scale = ln seat-km; composition =
+% international share / intl vs total emissions; technique = ln CO2/seat-km.
+\paragraph{H1 (scale and proportionality).} Connectivity growth raises
+aviation CO2; the elasticity exceeds one if scale dominates technique.
+% Verdict: supported, beta = 5.67 (SE 0.41), Wald p(beta=1) < 0.001,
+% robust across LTO/fuel-uplift/50-50 allocations (5.6-5.9).
+\paragraph{H2 (technique).} Connectivity lowers emissions per seat-km through
+hub consolidation, larger aircraft, and longer stage lengths.
+% Verdict: supported at both levels: country -0.399 (SE 0.118), airport
+% -0.494 (SE 0.044, within-country), efficiency curve 284 -> 77 kg.
+\paragraph{H3 (composition).} Hub-quality gains internationalise the traffic
+mix.
+% Verdict: supported through the tourism-IV lens (total n.s. vs intl 3.16,
+% SE 0.77) and the airport panel (intl share +0.33, SE 0.02).
+\paragraph{H4 (attribution geography).} The emissions attributable to
+connectivity growth are geographically concentrated and diverge from where
+emissions physically occur, with accounting consequences for CORSIA and
+bunker conventions.
+% Verdict: supported: attributed growth concentrated in China/Gulf/Asia,
+% declines in mature European hubs; attributed-minus-physical LTO share
+% +1.4 pp (USA, UAE) vs -3.5 pp (China).
+
+%=======================================================================
+\section{Data}
+%=======================================================================
+\paragraph{Emissions.} Flight-level CO2 from OAG schedules under the EEA/EMEP
+Guidebook (2023) framework (Section 1.A.3.a): fuel burn by engine type and
+stage length times a fixed emission factor (3.15 kg CO2 per kg Jet A, 3.10
+AvGas). Stage-resolved: airport x month x domestic/international, departure
+(taxi-out, take-off, climb-out, cruise) and arrival (approach, taxi-in,
+cruise) sides, plus flights, seats, seat-km. 1996-2024H1; partial July 2024
+dropped; annual analysis ends 2023. Schedule-based (no load factors) and
+aircraft-only [FANGYU: check description].
+\paragraph{Allocation rules.} Three country aggregations from the stages:
+LTO-territorial, fuel-uplift (cruise to departure; headline), 50/50 split.
+Cruise recorded once per side, used once.
+\paragraph{Validation.} 2019 world total 0.919 Gt vs ICCT 0.92 Gt; LTO share
+11.8 per cent; log-log correlation with OWID/ICCT country series 0.99 in all
+overlapping years; level ratio 1.05-1.10 (full-capacity scheduling); GACI
+airport-year match 100 per cent after crosswalk patches.
+\paragraph{Connectivity and sample.} GACI panel (Cheung et al.\ 2020 method,
+1996-2024), country aggregations cwm/max/sum; estimation sample 184
+countries, 1996-2023, N = 4,634.
+
+%=======================================================================
+\section{Empirical strategy}
+%=======================================================================
+% ln CO2_ct = beta ln GACI_cwm,ct + gamma ln pop_ct + delta ln seaMA_ct
+%             + alpha_c + tau_t + eps_ct   (2SLS, robust SE)
+\paragraph{Primary instrument.} Feyrer-type air/sea market-access shifter:
+feyrer_int = a_t x ln(air market access, 1996 geography), with the sea-distance
+market-access channel controlled directly (ln_sea_ma). KP F = 153.
+% Validity notes for the text: survives interacting the cycle with baseline
+% population, GDP, and capacity (F 120 -> 106), the stress test that kills
+% naive alternatives (Appendix A); Conley breakdown f* = 0.85.
+\paragraph{Secondary instrument (composition lens).} Tourism-heritage shifter
+(natural+mixed endowment x global tourism cycle). Weaker and fragile to
+size-x-cycle controls (F 18 -> 0; disclosed in Appendix A), but its compliers
+are hub-quality changes, which isolates the composition margin and covers the
+post-2010 era (the Feyrer instrument identifies mainly pre-2010: F 127 vs 7).
+\paragraph{Airport level.} Descriptive mechanism evidence only (no valid
+airport-level instrument: a heritage-proximity pilot died under size-x-cycle
+controls, F 59 -> 2.3; noted in Appendix A). Causal language stays at the
+country level. [YIFU: accident-exposure IV would upgrade this block.]
+
+%=======================================================================
+\section{Results}
+%=======================================================================
+\subsection{Main estimates: scale beats efficiency}
+\begin{table}[H]
+\centering
+\caption{2SLS (Feyrer IV): connectivity and aviation CO2.}
+\begin{threeparttable}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+ & Total & LTO & 50/50 & Intl & Seat-km & Intensity \\
+\midrule
+$\ln\mathrm{GACI}_{cwm}$ & 5.669\sym{***} & 5.921\sym{***} & 5.620\sym{***} & 5.690\sym{***} & 6.068\sym{***} & $-0.399$\sym{***} \\
+ & (0.412) & (0.448) & (0.409) & (0.415) & (0.443) & (0.118) \\
+\midrule
+Wald $p(\beta=1)$ & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\
+First-stage KP $F$ & 153.6 & 153.6 & 153.6 & 152.7 & 153.6 & 153.6 \\
+Observations & 4{,}634 & 4{,}634 & 4{,}634 & 4{,}633 & 4{,}634 & 4{,}634 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Country and year FE; controls ln population and ln sea market access;
+robust SE; instrument = air/sea market-access shifter. Intensity =
+$\ln(\mathrm{CO}_2/\mathrm{seat\mbox{-}km})$.
+\sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+% Reading: H1 supported with beta far above one, stable across allocation
+% rules. Traffic (6.07) outruns emissions (5.67): the technique margin
+% (-0.40) offsets roughly 0.4 log points but cannot overturn scale.
+\subsection{Measures and timing}
+% H2 aggregations, intl outcome: cwm 5.690 (0.415), sum 2.291 (0.237),
+% max 4.836 (0.343), all p<0.01, F 90-171.
+% Timing: Feyrer identifies pre-2010 (6.26, F 127); tourism identifies
+% post-2010 (F 27.7). Complementary eras, same sign.
+\subsection{The composition lens (tourism IV)}
+% Under the hub-quality instrument: total emissions n.s. (1.16, SE 0.86) but
+% international emissions 3.16 (SE 0.77), intensity +1.23 (SE 0.46):
+% hub-quality changes recompose traffic toward international long-haul
+% rather than scaling it. Present as H3 evidence with the instrument's
+% fragility disclosed (Appendix A); flat Feyrer quintiles (appendix figure)
+% show the scale response is uniform across income/connectivity/remoteness.
+\subsection{Airport-level technique evidence}
+% (descriptive; airport FE + country x year FE, SE clustered by airport)
+% ln intensity -0.494 (0.044), intl share +0.331 (0.019); CO2 and seat-km
+% columns (+3.7, +4.2) partly mechanical (GACI embeds capacity).
+% Efficiency curve figure: 284 -> 77 kg per 1,000 seat-km across GACI
+% ventiles, intl share 1 -> 60 per cent: the two curves cross.
+% Hub table: DXB 19.7 Mt, LHR 18.6, LAX 16.4 top attributed airports.
+\subsection{Attribution: what connectivity growth built}
+% attributed share = 1 - exp(-beta dln GACI_cwm), applied to 2023 levels
+% (same formula as the trade paper, cited as methodology only):
+% 356 Mt = 42.5% of 2023 aviation CO2 (intl: 212 Mt, 41.2%).
+% Country ranking: CHN +87.7, USA +36.4, ARE +24.7, JPN +17.4, TUR +16.6,
+% IND +15.9, KOR +14.1; DEU -15.8 (declining connectivity).
+% Caveat: beta >> 1 makes country-level attributed shares extreme for fast
+% growers (~96%); world total moderate (42.5%); partial equilibrium.
+% [TODO: attribution map figure]
+\subsection{SAF scenarios: bending the curve}
+% Fuel backed out as CO2/3.15; E(s) = E[(1-s) + s(1-r)], ReFuelEU path
+% (2/6/20/34/42/70%, 2025-2050), life-cycle saving r in {50, 65, 80}%.
+% On the 2023 total of 838 Mt: 2035 mandate -> 754/729/704 Mt; 2050 ->
+% 545/457/369 Mt. Message: the technique margin improves with connectivity
+% but cannot overturn scale (H1 vs H2); fuel switching is the lever that
+% bends the level. [TODO: rebuild CO2_saf_scenarios.png in Mt units]
+
+%=======================================================================
+\section{The geography of attribution}
+%=======================================================================
+% Mismatch descriptives (CO2_map_levels_2023.png, CO2_map_mismatch_2023.png):
+% 1. Round-trip symmetry nets endpoint mismatch (|dep-arr cruise| <= 0.7 Mt);
+%    the binding margin is cruise attribution vs physical LTO.
+% 2. Attributed-minus-physical world share 2023: USA +1.4 pp, ARE +1.4,
+%    GBR +1.0, QAT +0.7, SGP +0.7 vs CHN -3.5, JPN/IDN/IND -0.5.
+%    Airport decomposition: positive at every international mega-hub
+%    (LHR +1.17, DXB +1.11), negative at large domestic hubs (SHA, XIY,
+%    SZX, HGH, KMG, CKG, WUH).
+% 3. Overlay with attribution (5.5): where connectivity-driven emissions
+%    grew (China, Gulf) is not where they are booked under fuel-uplift
+%    accounting: CORSIA/bunker-convention incidence discussion.
+% [FANGYU: base-year bilateral route shares -> spillover regressions.]
+
+%=======================================================================
+\section{Discussion and roadmap}
+%=======================================================================
+% - Scale beats efficiency: connectivity policy cannot rely on hub
+%   efficiency to decarbonise growth; SAF and demand-side measures price
+%   the margin.
+% - Accounting: attribution rules reallocate responsibility across
+%   countries by up to 3.5 pp of the world total; CORSIA design implication.
+% - Limitations: schedule-based emissions (no load factor), pre-2010
+%   identification for the primary IV, no airport-level causal estimate yet,
+%   partial-equilibrium scenarios, non-CO2 effects out of scope.
+% - Roadmap: [YIFU] accident-exposure IV (airline-year and hub-airport-year
+%   panel, ASN/ICAO ADREP 1996-2024, predetermined route-share exposure);
+%   [FANGYU] bilateral base-year shares for network spillovers.
+
+%=======================================================================
+\appendix
+\section{Instrument validity}
+%=======================================================================
+% (a) Size-x-cycle stress test (the discipline device of this paper):
+%     first-stage F when a_t x baseline {pop, GDP, capacity} are controlled:
+%       Feyrer: 120.1 -> 115.5 -> 105.8 (survives)
+%       tourism: 13.8 -> 4.8/4.1 -> 0.0-0.6 (dies; hence secondary/lens)
+%       airport heritage-proximity pilot: 59.5 -> 2.3 (abandoned)
+% (b) Conley plausibly exogenous UCI (gamma in [0, gmax], share of RF):
+%       intl CO2: f* = 0.85, UCI at 30% = [3.25, 4.67+]
+%       total CO2: f* = 0.85; intensity: f* = 0.42
+% (c) Flat Feyrer quintile reduced forms (CO2_rf_quintile appendix figure:
+%     uniform ~0.7): scale response homogeneous; heterogeneity claims are
+%     reserved for the composition lens.
+% (d) [TODO: overidentification combining feyrer_int and tourism_int with
+%     the LATE-difference discussion; H3 lens fragility disclosure.]
+\end{document}

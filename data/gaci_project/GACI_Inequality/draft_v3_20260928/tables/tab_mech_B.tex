@@ -1,0 +1,21 @@
+\begin{table}[H]
+\centering
+\caption{Mechanism (II): who gains? Group incomes and ratios (2SLS).}
+\label{tab:mech_B}
+\begin{minipage}{\linewidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lccccccc}
+\toprule
+\midrule
+ & Mean income & p60--70 & p90--100 & Bottom-50 income & Bottom-50 share & p50/p10 & p90/p50 \\
+\midrule
+$\ln\mathrm{GACI}_{max}$, instrumented & 1.219\sym{**} & 1.052\sym{*} & 1.443\sym{***} & 0.445 & -0.774\sym{*} & 2.260\sym{**} & 0.747 \\
+ & (0.491) & (0.546) & (0.513) & (0.593) & (0.417) & (0.916) & (0.485) \\
+KP $F$ & 10.5 & 10.5 & 10.5 & 10.5 & 10.5 & 10.5 & 10.5 \\
+Observations & 3{,}714 & 3{,}714 & 3{,}714 & 3{,}714 & 3{,}714 & 3{,}716 & 3{,}716 \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}\begin{flushleft}\footnotesize Outcomes in logs: average pretax income of the group, its income share (identity-based), and ratios of decile mean incomes. Country-year panel, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments ln GACI with the Feyrer interaction $Z_{ct}=a_t\times\ln \mathrm{MA}^{air}_{c,1996}$. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{flushleft}
+\end{minipage}
+\end{table}

@@ -1,0 +1,236 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do co2_hiv_fs3.do 
+
+. *============================================================================
+> ==
+. * co2_hiv_fs3.do
+. * CRITICAL CHECK on the gateway heritage instrument: does z_gw survive
+. * size-x-cycle controls? If z_gw only proxies "big airport x aviation boom",
+. * controlling a_t x ln(1996 capacity) and a_t x gateway-dummy should kill it.
+. * Sample: airports observed in 1996 (cap96 nonmissing). FE: airport + country
+. * x year. Cluster by airport.
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_CO2"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2
+
+. 
+. import delimited "airport_hiv_panel3.csv", clear varnames(1) encoding("utf-8")
+(26 vars, 97,165 obs)
+
+. ds airport_iata iso3 region, not
+year          ln_gaci       co2_lto       ln_skm        intl_share~m  dep_seat_km   exp_n200      a_t           z_n200        exp_gw        cap96         gw_dum
+gaci          co2_bunker    ln_co2        ln_intensity  n_dep_flig~s  exp_n100      exp_invd      z_n100        z_invd        z_gw          ln_cap96
+
+. destring `r(varlist)', replace force
+year already numeric; no replace
+gaci already numeric; no replace
+ln_gaci already numeric; no replace
+co2_bunker already numeric; no replace
+co2_lto already numeric; no replace
+ln_co2 already numeric; no replace
+ln_skm already numeric; no replace
+ln_intensity already numeric; no replace
+intl_share_skm already numeric; no replace
+n_dep_flights already numeric; no replace
+dep_seat_km already numeric; no replace
+exp_n100 already numeric; no replace
+exp_n200 already numeric; no replace
+exp_invd already numeric; no replace
+a_t already numeric; no replace
+z_n100 already numeric; no replace
+z_n200 already numeric; no replace
+z_invd already numeric; no replace
+exp_gw already numeric; no replace
+z_gw already numeric; no replace
+cap96 already numeric; no replace
+ln_cap96 already numeric; no replace
+gw_dum already numeric; no replace
+
+. encode airport_iata, gen(apid)
+
+. encode iso3, gen(cid)
+
+. egen cyr = group(cid year)
+(2,245 missing values generated)
+
+. keep if !missing(ln_cap96)
+(17,015 observations deleted)
+
+. 
+. gen at_lncap = a_t * ln_cap96
+
+. gen at_gwdum = a_t * gw_dum
+
+. 
+. capture which reghdfe
+
+. if _rc {
+.     ssc install ftools, replace
+.     ssc install reghdfe, replace
+. }
+
+. 
+. reghdfe ln_gaci z_gw, absorb(apid cyr) vce(cluster apid)
+(dropped 1904 singleton observations)
+(MWFE estimator converged in 11 iterations)
+
+HDFE Linear regression                            Number of obs   =     76,403
+Absorbing 2 HDFE groups                           F(   1,   3141) =      54.64
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9637
+                                                  Adj R-squared   =     0.9600
+                                                  Within R-sq.    =     0.0033
+Number of clusters (apid)    =      3,142         Root MSE        =     0.0634
+
+                               (Std. Err. adjusted for 3,142 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        z_gw |    .048147   .0065134     7.39   0.000     .0353761    .0609179
+       _cons |  -.3402475   .0002139 -1591.01   0.000    -.3406668   -.3398282
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3142        3142           0    *|
+         cyr |      3957           1        3956     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. test z_gw
+
+ ( 1)  z_gw = 0
+
+       F(  1,  3141) =   54.64
+            Prob > F =    0.0000
+
+. di "FS3 baseline (1996 sample):        b = " %8.4f _b[z_gw] " (se " %7.4f _se[z_gw] ")  F = " %8.1f r(F) "  N = " %9.0f e(N)
+FS3 baseline (1996 sample):        b =   0.0481 (se  0.0065)  F =     54.6  N =     76403
+
+. 
+. reghdfe ln_gaci z_gw at_lncap, absorb(apid cyr) vce(cluster apid)
+(dropped 1904 singleton observations)
+(MWFE estimator converged in 11 iterations)
+
+HDFE Linear regression                            Number of obs   =     76,403
+Absorbing 2 HDFE groups                           F(   2,   3141) =     134.40
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9644
+                                                  Adj R-squared   =     0.9608
+                                                  Within R-sq.    =     0.0226
+Number of clusters (apid)    =      3,142         Root MSE        =     0.0628
+
+                               (Std. Err. adjusted for 3,142 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        z_gw |    .016012   .0068973     2.32   0.020     .0024882    .0295358
+    at_lncap |   .0191451   .0013012    14.71   0.000     .0165937    .0216964
+       _cons |  -.4696169   .0087971   -53.38   0.000    -.4868656   -.4523683
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3142        3142           0    *|
+         cyr |      3957           1        3956     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. test z_gw
+
+ ( 1)  z_gw = 0
+
+       F(  1,  3141) =    5.39
+            Prob > F =    0.0203
+
+. di "FS3 + a_t x ln(cap96):             b = " %8.4f _b[z_gw] " (se " %7.4f _se[z_gw] ")  F = " %8.1f r(F) "  N = " %9.0f e(N)
+FS3 + a_t x ln(cap96):             b =   0.0160 (se  0.0069)  F =      5.4  N =     76403
+
+. 
+. reghdfe ln_gaci z_gw at_lncap at_gwdum, absorb(apid cyr) vce(cluster apid)
+(dropped 1904 singleton observations)
+(MWFE estimator converged in 11 iterations)
+
+HDFE Linear regression                            Number of obs   =     76,403
+Absorbing 2 HDFE groups                           F(   3,   3141) =      97.21
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9645
+                                                  Adj R-squared   =     0.9609
+                                                  Within R-sq.    =     0.0245
+Number of clusters (apid)    =      3,142         Root MSE        =     0.0627
+
+                               (Std. Err. adjusted for 3,142 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        z_gw |   .0108869   .0071563     1.52   0.128    -.0031445    .0249184
+    at_lncap |   .0124634   .0017447     7.14   0.000     .0090425    .0158843
+    at_gwdum |   .0410015   .0080825     5.07   0.000     .0251541     .056849
+       _cons |  -.4292074   .0111762   -38.40   0.000    -.4511208    -.407294
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3142        3142           0    *|
+         cyr |      3957           1        3956     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. test z_gw
+
+ ( 1)  z_gw = 0
+
+       F(  1,  3141) =    2.31
+            Prob > F =    0.1283
+
+. di "FS3 + a_t x ln(cap96) + a_t x gw:  b = " %8.4f _b[z_gw] " (se " %7.4f _se[z_gw] ")  F = " %8.1f r(F) "  N = " %9.0f e(N)
+FS3 + a_t x ln(cap96) + a_t x gw:  b =   0.0109 (se  0.0072)  F =      2.3  N =     76403
+
+. 
+. di _n "DONE_FS3"
+
+DONE_FS3
+
+. 
+end of do-file

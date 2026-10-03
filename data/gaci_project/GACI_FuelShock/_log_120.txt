@@ -1,0 +1,22 @@
+﻿NLD 2008-07-01 stack: 1362 airports
+IRL 2009-03-30 stack: 1406 airports
+DEU 2011-01-01 stack: 567 airports
+AUT 2011-04-01 stack: 584 airports
+NOR 2016-06-01 stack: 769 airports
+SWE 2018-04-01 stack: 830 airports
+GBR 2007-02-01 stack: 695 airports
+DNK 1998-01-01 stack: 593 airports
+MLT 2005-08-01 stack: 533 airports
+AUS 2001-07-01 stack: 762 airports
+AUS 2008-07-01 stack: 1601 airports
+AUS 2012-07-01 stack: 718 airports
+CAN 2002-04-01 stack: 954 airports
+CAN 2010-04-01 stack: 1054 airports
+JPN 2019-01-07 stack: 793 airports
+KOR 2004-07-01 stack: 609 airports
+SGP 2009-10-01 stack: 653 airports
+SGP 2018-07-01 stack: 727 airports
+NZL 2016-01-01 stack: 760 airports
+ARE 2010-05-27 stack: 484 airports
+month (889695, 34) | eff (166799, 29) | loss (229003, 22) | year (73694, 39) | sdid month (17084, 13) | sdid year (2296, 7)
+country controls coverage (month): 0.997

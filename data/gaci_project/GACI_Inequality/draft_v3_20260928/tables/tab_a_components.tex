@@ -1,0 +1,38 @@
+\begin{table}[p]
+\centering
+\caption{Components of hub connectivity.}
+\label{tab:a_components}
+\begin{minipage}{\linewidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccccrr}
+\toprule
+ & ln market Gini & ln disp. Gini & Bottom-50 share & Top half minus bottom half & First stage & KP $F$ & N \\
+\midrule
+\multicolumn{8}{l}{\emph{Panel A. One hub component at a time, instrumented}}\\
+GACI (composite) & 0.495\sym{**} & 0.651\sym{***} & -0.774\sym{*} & 1.259\sym{*} & 0.146\sym{***} & 10.6 & 3{,}735 \\
+ & (0.194) & (0.241) & (0.417) & (0.755) & (0.045) \\
+Seat capacity & 0.086\sym{***} & 0.113\sym{***} & -0.134\sym{**} & 0.217\sym{*} & 0.841\sym{***} & 22.9 & 3{,}735 \\
+ & (0.030) & (0.034) & (0.063) & (0.118) & (0.176) \\
+Number of connections & 0.128\sym{***} & 0.168\sym{***} & -0.198\sym{**} & 0.323\sym{*} & 0.567\sym{***} & 20.3 & 3{,}735 \\
+ & (0.043) & (0.050) & (0.096) & (0.179) & (0.126) \\
+Eigenvector centrality & 0.046\sym{***} & 0.060\sym{***} & -0.071\sym{**} & 0.116\sym{*} & 1.582\sym{***} & 37.8 & 3{,}735 \\
+ & (0.015) & (0.016) & (0.032) & (0.061) & (0.257) \\
+Closeness & 1.450\sym{***} & 1.907\sym{***} & -2.276\sym{**} & 3.703\sym{*} & 0.050\sym{***} & 12.2 & 3{,}735 \\
+ & (0.504) & (0.623) & (1.140) & (2.098) & (0.014) \\
+Flow betweenness & 0.348 & 0.457 & -0.530 & 0.852 & 0.208 & 0.7 & 3{,}735 \\
+ & (0.432) & (0.558) & (0.679) & (1.099) & (0.253) \\
+Regional importance & 0.151\sym{**} & 0.197\sym{***} & -0.231\sym{*} & 0.378\sym{*} & 0.477\sym{***} & 14.8 & 3{,}731 \\
+ & (0.061) & (0.071) & (0.124) & (0.226) & (0.124) \\
+\multicolumn{8}{l}{\emph{Panel B. Horse races on ln market Gini (component instrumented, another as control)}}\\
+Eigenvector (IV) with seat capacity & 0.133\sym{**} (0.053) & -0.165\sym{**} (0.072) & \multicolumn{3}{l}{instrumented / control} & 22.2 & 3{,}735 \\
+Seat capacity (IV) with betweenness & 0.089\sym{***} (0.030) & -0.011\sym{*} (0.007) & \multicolumn{3}{l}{instrumented / control} & 26.9 & 3{,}735 \\
+Seat capacity (IV) with closeness & 0.148\sym{**} (0.065) & -1.037\sym{*} (0.543) & \multicolumn{3}{l}{instrumented / control} & 14.5 & 3{,}735 \\
+Seat capacity (IV) with degree & 0.232\sym{*} (0.119) & -0.216\sym{*} (0.122) & \multicolumn{3}{l}{instrumented / control} & 7.3 & 3{,}735 \\
+Degree (IV) with seat capacity & 0.526\sym{*} (0.298) & -0.269\sym{*} (0.157) & \multicolumn{3}{l}{instrumented / control} & 3.2 & 3{,}735 \\
+Betweenness (IV) with seat capacity & -0.141\sym{**} (0.067) & 0.121\sym{**} (0.054) & \multicolumn{3}{l}{instrumented / control} & 6.9 & 3{,}735 \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}\begin{flushleft}\footnotesize Hub $=$ the airport with the highest GACI in the country-year; components from the airport-level GACI panel. A single instrument moves every component (first-stage column), so one-at-a-time estimates are not separately identified; Panel B reports the pairwise horse races. Country-year panel, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments ln GACI with the Feyrer interaction $Z_{ct}=a_t\times\ln \mathrm{MA}^{air}_{c,1996}$. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{flushleft}
+\end{minipage}
+\end{table}

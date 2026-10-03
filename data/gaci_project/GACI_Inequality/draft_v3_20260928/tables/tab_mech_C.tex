@@ -1,0 +1,26 @@
+\begin{table}[H]
+\centering
+\caption{Mechanism (III): not a growth effect.}
+\label{tab:mech_C}
+\begin{threeparttable}
+\small
+\begin{tabular}{lc}
+\toprule
+\midrule
+ & ln market Gini \\
+\midrule
+$\ln\mathrm{GACI}_{max}$, instrumented (direct effect $c'$) & 0.753\sym{**} \\
+ & (0.325) \\
+ln GDP per capita, control ($b$) & -0.199\sym{**} \\
+ & (0.087) \\
+Memo: hub $\rightarrow$ ln GDP per capita, 2SLS ($a$) & 1.294\sym{***} \\
+ & (0.428) \\
+KP $F$ & 6.5 \\
+Observations & 3{,}735 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\small
+\item GDP per capita is itself an outcome of connectivity ($a$-path), so it is not a valid control in the baseline; holding it fixed isolates the distributional effect from the growth effect. Other candidate mediators are reported in Appendix Table~\ref{tab:a_mediators}. Country-year panel, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments ln GACI with the Feyrer interaction $Z_{ct}=a_t\times\ln \mathrm{MA}^{air}_{c,1996}$. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

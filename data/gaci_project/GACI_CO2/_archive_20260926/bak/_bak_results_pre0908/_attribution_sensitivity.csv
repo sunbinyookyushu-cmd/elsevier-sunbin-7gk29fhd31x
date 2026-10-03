@@ -1,0 +1,7 @@
+rule,attributed_mt,share_pct,n
+Common elasticity (5.67),356.43984285886387,42.832004260381645,184
+Baseline-connectivity terciles (8.46 / 5.07 / 4.05),311.76947492314207,37.46413804657779,184
+Baseline-income terciles (10.40 / 6.14 / 1.83),293.5144830375871,35.27050592076371,184
+"Continuous, linear interaction",323.4132565837383,38.863326480995,184
+"Continuous, quadratic interaction",314.3172371190136,37.77029282532742,184
+Semi-log slope (4.09 per GACI unit) on the absolute change,353.228680762195,42.44613126845644,166

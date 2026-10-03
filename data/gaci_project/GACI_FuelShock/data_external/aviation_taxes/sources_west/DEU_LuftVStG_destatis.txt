@@ -1,0 +1,60 @@
+Short verbatim text snapshots collected 2026-10-02 for taxes_west_europe.csv. File: DEU_LuftVStG_destatis.txt
+
+================================================================================
+SOURCE: https://www.statistischebibliothek.de/mir/servlets/MCRFileNodeServlet/DEHeft_derivate_00010267/2140960127004.pdf (Destatis Fachserie 14 Reihe 9.6, 2012)
+--------------------------------------------------------------------------------
+Die Steuersätze knüpfen an die pauschalierte Entfernung zum Zielort an und sind in drei Distanzklassen gegliedert. 
+ 
+Der Steuersatz von 7,50 Euro (in 2011: 8 Euro) ist anwendbar auf Inlandsflüge, Flüge in EU-Mitgliedstaaten, EU-
+Beitrittskandidaten, EFTA-Mitgliedstaaten und in diesem Entfernungskreis liegende Drittstaaten (insbesondere Türkei, 
+Russland, Marokko, Tunesien, Algerien), siehe Anlage 1 des LuftVStG. 
+ 
+ 
+Der Steuersatz von 23,43 Euro (in 2011: 25 Euro) ist anwendbar auf Länder, die nicht in Anlage 1 genannt sind bis zu einer 
+Entfernung von 6 000 km (andere nord- und mittelafrikanisc he Staaten, arabische Staaten , mittelasiatische Staaten), 
+siehe Anlage 2 des LuftVStG. 
+ 
+Alle übrigen Flugziele mit einer Entfernung von über 6 000 km unterliegen einem Steuersatz von 42,18 Euro (in 2011: 45 
+Euro). 
+================================================================================
+SOURCE: https://www.statistischebibliothek.de/mir/servlets/MCRFileNodeServlet/DEHeft_derivate_00071350/2140960207004.pdf (Destatis Fachserie 14 Reihe 9.6, 2020)
+--------------------------------------------------------------------------------
+9.2 Steuertarif (§ 11 LuftVStG) 
+Die Steuersätze knüpfen an die pauschalierte Entfernung zum Zielort an und sind in drei Distanzklassen gegliedert. 
+Der Steuersatz von 12,90 Euro (ab 01.04.2020), 7,37 Euro bis 31.03.2020 (2019: 7,38 Euro, 2018: 7,46 Euro, 2017: 7,47 
+Euro, 2016: 7,38 Euro, 2012 bis 2015: 7,50 Euro ) ist anwendbar auf Inlandsflüge, Flüge in EU- Mitgliedstaaten, EU -
+Beitrittskandidaten, EFTA -Mitgliedstaaten und in diesem Entfernungskreis liegende Drittstaaten (insbesondere Türkei, 
+Russland, Marokko, Tunesien, Algerien), siehe Anlage 1 des LuftVStG. 
+Der Steuersatz von 32,67 Euro (ab 01.04.2020), 23,01 Euro bis 31.03.2020 (2019: 23,05 Euro, 2018: 23,31  Euro, 2017: 
+23,32 Euro, 2016: 23,05 Euro, 2012 bis 2015: 23,43 Euro) ist anwendbar auf Länder, die nicht in Anlage 1 genannt sind bis 
+zu einer Entfernung von 6 000 km (andere nord - und mittelafrikanische Staaten, arabische Staaten, mittelasiatische 
+Staaten), siehe Anlage 2 des LuftVStG. 
+Alle übrigen Flugziele mit einer Entfernung von über 6 000 km unterliegen einem Steuersatz von 58,82 Euro (ab 01.04.2020), 
+41,43 Euro bis 31.03.2020 ( 2019: 41,49 Euro, 2018: 41,97 Euro, 2017: 41,99 Euro, 2016: 41,49 Euro, 2012 bis 2015: 
+42,18 Euro). 
+================================================================================
+SOURCE: https://dserver.bundestag.de/btd/20/101/2010150.pdf (BT-Drs. 20/10150, Zweites Haushaltsfinanzierungsgesetz 2024)
+--------------------------------------------------------------------------------
+Durch die Änderungen in § 11 Absatz 1 Nummer 1 bis 3 des Luftverkehrsteuer-
+gesetzes werden die Steuern je Fluggast bei Flügen mit einem Zielort nach Anlage 
+1 von 13,03 Euro auf 15,53 Euro, nach Anlage 2 von 33,01 Euro auf 39,34 Euro 
+und in andere Länder von 59,43 Euro auf 70,83 Euro ab dem 1. Mai 2024 ange-
+hoben. Die volle Jahreswirkung (Wirkung für einen vollen Veranlagungszeitraum 
+von zwölf Monaten) beträgt 580 Millionen Euro; im Kassenjahr 2024 betragen 
+die Steuermehreinnahmen für den Bund 400 Millionen Euro, in den Folgejahren 
+betragen die Steuermehreinnahmen für den Bund jeweils 580 Millionen Euro. 
+Durch die Änderung in § 11 Absatz 2 des Luftverkehrsteuergesetzes und damit 
+die Aufhebung der Luftverkehrsteuer-Absenkungsverordnung 2024 ab dem 
+1. Mai 2024 betragen die Steuermehreinnahmen im Jahr 2024 für den Bund 
+45 Millionen Euro. 
+Im Ergebnis werden durch die Änderungen im Luftverkehrsteuergesetz im Jahr 
+================================================================================
+SOURCE: https://dserver.bundestag.de/btd/21/056/2105688.pdf (BT-Drs. 21/5688, 2026 reduction bill)
+--------------------------------------------------------------------------------
+3. In Nummer 3 wird die Angabe „70,83 Euro“ durch die Angabe „59,43 Euro“ ersetzt. 
+Artikel 2 
+Inkrafttreten 
+Dieses Gesetz tritt am 1. Juli 2026 in Kraft. 
+=== PAGE 6 ===
+Drucksache 21/5688 – 6 – Deutscher Bundestag – 21. Wahlperiode 
+Begründung 

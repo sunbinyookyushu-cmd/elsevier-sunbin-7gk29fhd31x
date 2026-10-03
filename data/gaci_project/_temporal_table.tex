@@ -1,0 +1,51 @@
+\begin{table}[t]
+\centering
+\caption{Temporal heterogeneity: pre/post-2010 split and interaction (robust SE).}
+\label{tab:temporal}
+\begin{threeparttable}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{2}{c}{Openness} & \multicolumn{2}{c}{Volume} & \multicolumn{2}{c}{GDP} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+ & pre & post & pre & post & pre & post \\
+\midrule
+\multicolumn{7}{l}{\emph{Panel A. Split at 2010 (separate samples), treatment $\ln\mathrm{GACI}_{cwm}$}}\\
+Connectivity & $-30.61$ & 0.196 & $-33.83$ & $-0.320$ & $-3.219$ & $-0.515$ \\
+             & (57.09)  & (0.366) & (66.86) & (0.412) & (12.28) & (0.413) \\
+First-stage KP $F$ & 0.29 & 27.66 & 0.29 & 27.66 & 0.29 & 27.66 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.6em}
+\begin{tabular}{lccc}
+\toprule
+\emph{Panel B. Interaction with post-2010} & Openness & Volume & GDP \\
+\midrule
+\multicolumn{4}{l}{Treatment $=\ln\mathrm{GACI}_{cwm}$ (hub quality)}\\
+Connectivity (pre-2010) & 1.247   & 0.496   & $-0.751$ \\
+                        & (0.771) & (0.877) & (0.983) \\
+$\times$ post-2010      & 0.012   & 0.377\sym{***} & 0.366\sym{***} \\
+                        & (0.076) & (0.088) & (0.091) \\
+\addlinespace
+\multicolumn{4}{l}{Treatment $=\ln\mathrm{GACI}_{sum}$ (total connectivity)}\\
+Connectivity (pre-2010) & 6.456   & 4.272   & $-2.184$ \\
+                        & (22.75) & (13.65) & (10.26) \\
+$\times$ post-2010      & $-0.334$ & $-0.179$ & 0.155 \\
+                        & (1.205) & (0.724) & (0.542) \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Country and year FE; robust SE in parentheses. \emph{Panel A}: the
+instrument has almost no relevance before 2010 (KP $F=0.29$), so the pre-2010
+estimates are not identified and the large coefficients are uninformative; the
+post-2010 first stage is strong ($F=27.7$). \emph{Panel B}: a formal
+interaction. Under hub quality (cwm), the effect on volume and GDP is
+significantly larger after 2010, confirming that identification is concentrated
+in the post-2010 period. Under total connectivity (sum) the post-2010 first
+stage collapses (Section~\ref{sec:robust}), so the sum interaction is not
+identified---reported here with its (very large) standard errors rather than
+omitted. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

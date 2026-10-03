@@ -1,0 +1,68 @@
+﻿ln_co2 A done
+ln_co2_seat A done
+ln_int A done
+ln_stage A done
+ln_seats A done
+ln_co2 B done
+ln_seats B done
+                        table     outcome     term       b     se      p     n  clusters
+    A all treated, unweighted      ln_co2       tp -0.1039 0.0468 0.0340 99669        33
+    A all treated, unweighted      ln_co2       bp  0.0078 0.0336 0.8181 99669        33
+ A all treated, seat-weighted      ln_co2       tp -0.0213 0.0205 0.3071 99129        31
+ A all treated, seat-weighted      ln_co2       bp -0.0231 0.0189 0.2303 99129        31
+            A by size tercile      ln_co2 tp_small -0.2119 0.0562 0.0007 99669        33
+            A by size tercile      ln_co2   tp_mid -0.0313 0.0660 0.6381 99669        33
+            A by size tercile      ln_co2 tp_large -0.0636 0.0507 0.2184 99669        33
+            A by size tercile      ln_co2       bp  0.0087 0.0335 0.7963 99669        33
+    A all treated, unweighted ln_co2_seat       tp  0.0013 0.0144 0.9304 99669        33
+    A all treated, unweighted ln_co2_seat       bp  0.0120 0.0122 0.3336 99669        33
+ A all treated, seat-weighted ln_co2_seat       tp  0.0207 0.0081 0.0162 99129        31
+ A all treated, seat-weighted ln_co2_seat       bp  0.0007 0.0111 0.9471 99129        31
+            A by size tercile ln_co2_seat tp_small  0.0243 0.0257 0.3517 99669        33
+            A by size tercile ln_co2_seat   tp_mid -0.0048 0.0111 0.6643 99669        33
+            A by size tercile ln_co2_seat tp_large -0.0154 0.0147 0.3000 99669        33
+            A by size tercile ln_co2_seat       bp  0.0119 0.0122 0.3379 99669        33
+    A all treated, unweighted      ln_int       tp  0.0080 0.0108 0.4658 99669        33
+    A all treated, unweighted      ln_int       bp -0.0078 0.0137 0.5704 99669        33
+ A all treated, seat-weighted      ln_int       tp  0.0132 0.0066 0.0549 99129        31
+ A all treated, seat-weighted      ln_int       bp -0.0002 0.0066 0.9782 99129        31
+            A by size tercile      ln_int tp_small  0.0521 0.0237 0.0360 99669        33
+            A by size tercile      ln_int   tp_mid -0.0063 0.0125 0.6173 99669        33
+            A by size tercile      ln_int tp_large -0.0118 0.0160 0.4644 99669        33
+            A by size tercile      ln_int       bp -0.0076 0.0136 0.5791 99669        33
+    A all treated, unweighted    ln_stage       tp -0.0067 0.0148 0.6550 99669        33
+    A all treated, unweighted    ln_stage       bp  0.0198 0.0136 0.1540 99669        33
+ A all treated, seat-weighted    ln_stage       tp  0.0075 0.0097 0.4499 99129        31
+ A all treated, seat-weighted    ln_stage       bp  0.0009 0.0106 0.9307 99129        31
+            A by size tercile    ln_stage tp_small -0.0278 0.0275 0.3211 99669        33
+            A by size tercile    ln_stage   tp_mid  0.0015 0.0189 0.9384 99669        33
+            A by size tercile    ln_stage tp_large -0.0036 0.0202 0.8595 99669        33
+            A by size tercile    ln_stage       bp  0.0195 0.0136 0.1630 99669        33
+    A all treated, unweighted    ln_seats       tp -0.1052 0.0485 0.0379 99669        33
+    A all treated, unweighted    ln_seats       bp -0.0042 0.0262 0.8743 99669        33
+ A all treated, seat-weighted    ln_seats       tp -0.0420 0.0244 0.0951 99129        31
+ A all treated, seat-weighted    ln_seats       bp -0.0239 0.0175 0.1816 99129        31
+            A by size tercile    ln_seats tp_small -0.2362 0.0679 0.0015 99669        33
+            A by size tercile    ln_seats   tp_mid -0.0265 0.0622 0.6733 99669        33
+            A by size tercile    ln_seats tp_large -0.0482 0.0516 0.3571 99669        33
+            A by size tercile    ln_seats       bp -0.0031 0.0261 0.9050 99669        33
+   B by pre-year GACI tercile      ln_co2  tp_lowG -0.1361 0.0648 0.0439 99669        33
+   B by pre-year GACI tercile      ln_co2  tp_midG -0.0483 0.0545 0.3831 99669        33
+   B by pre-year GACI tercile      ln_co2 tp_highG -0.0558 0.0553 0.3209 99669        33
+   B by pre-year GACI tercile      ln_co2       bp  0.0116 0.0341 0.7352 99669        33
+B GACI beyond size (residual)      ln_co2       tp -0.1022 0.0476 0.0402 99129        31
+B GACI beyond size (residual)      ln_co2  tp_lnw0  0.0287 0.0113 0.0163 99129        31
+B GACI beyond size (residual)      ln_co2  tp_gres -0.0004 0.0751 0.9963 99129        31
+   B by pre-year GACI tercile    ln_seats  tp_lowG -0.1369 0.0673 0.0506 99669        33
+   B by pre-year GACI tercile    ln_seats  tp_midG -0.0428 0.0649 0.5139 99669        33
+   B by pre-year GACI tercile    ln_seats tp_highG -0.0511 0.0489 0.3041 99669        33
+   B by pre-year GACI tercile    ln_seats       bp  0.0002 0.0265 0.9931 99669        33
+B GACI beyond size (residual)    ln_seats       tp -0.1021 0.0492 0.0469 99129        31
+B GACI beyond size (residual)    ln_seats  tp_lnw0  0.0297 0.0115 0.0148 99129        31
+B GACI beyond size (residual)    ln_seats  tp_gres -0.1187 0.1302 0.3693 99129        31
+
+Abatement accounting, first tax year, pooled treated airports (load factor 0.80):
+ size  airports  co2_coef  co2_avoided_kt  gaci_coef  gaci_lost  destinations_lost  revenue_mEUR  eur_per_t  gaci_per_kt  destinations_per_kt
+small        72    -0.212          42.276     -0.023      0.869             42.558        20.475    484.322        0.021                1.007
+  mid        67    -0.031          53.049     -0.022      1.002             93.951       137.801   2597.607        0.019                1.771
+large        70    -0.064        3836.449     -0.003      0.263            167.531      3727.653    971.642        0.000                0.044

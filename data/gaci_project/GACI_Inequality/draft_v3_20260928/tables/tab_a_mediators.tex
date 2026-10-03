@@ -1,0 +1,34 @@
+\begin{table}[H]
+\centering
+\caption{Candidate mediators: does the hub move them, and do they transmit the effect? (ln market Gini)}
+\label{tab:a_mediators}
+\begin{minipage}{\linewidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lccccc}
+\toprule
+Mediator & $a$: hub $\rightarrow$ mediator (2SLS) & $c'$: hub with mediator held fixed & $b$: mediator & KP $F$ & N \\
+\midrule
+ln international tourist arrivals & 3.90\sym{**} (1.70) & 0.586\sym{**} (0.237) & -0.0272\sym{**} (0.0108) & 8.4 & 3{,}067 \\
+Employment in industry, \% & 18.71\sym{*} (9.65) & 0.617\sym{**} (0.240) & -0.0058\sym{***} (0.0018) & 8.4 & 3{,}651 \\
+Employment in agriculture, \% & -21.94\sym{*} (11.94) & 0.579\sym{**} (0.232) & 0.0032\sym{**} (0.0014) & 8.3 & 3{,}651 \\
+Employment in services, \% & 3.23 (9.85) & 0.510\sym{**} (0.201) & -0.0004 (0.0012) & 9.9 & 3{,}651 \\
+Urban population, \% & 12.13 (15.19) & 0.504\sym{***} (0.196) & -0.0007 (0.0013) & 10.8 & 3{,}735 \\
+Trade, \% of GDP & 109.32\sym{*} (62.98) & 0.486\sym{**} (0.192) & 0.0001 (0.0001) & 10.0 & 3{,}725 \\
+FDI inflows, \% of GDP & 27.49 (39.12) & 0.470\sym{***} (0.177) & 0.0000 (0.0000) & 12.1 & 3{,}679 \\
+Wage and salaried workers, \% & 10.82 (8.17) & 0.549\sym{**} (0.222) & -0.0038\sym{*} (0.0020) & 9.1 & 3{,}651 \\
+Unemployment rate, \% & 6.40 (6.29) & 0.479\sym{***} (0.182) & 0.0046\sym{***} (0.0014) & 11.2 & 3{,}651 \\
+ln GDP per capita & 1.29\sym{***} (0.43) & 0.753\sym{**} (0.325) & -0.199\sym{**} (0.087) & 6.5 & 3{,}735 \\
+Differentiated-goods share of trade & 0.33\sym{*} (0.17) & 0.533\sym{***} (0.205) & -0.084\sym{*} (0.047) & 10.4 & 3{,}723 \\
+ln differentiated-goods trade & 2.97\sym{***} (1.11) & 0.705\sym{**} (0.300) & -0.067\sym{**} (0.027) & 6.5 & 3{,}723 \\
+ln high value-to-weight trade & 2.66\sym{**} (1.04) & 0.652\sym{**} (0.269) & -0.055\sym{**} (0.022) & 7.3 & 3{,}723 \\
+ln number of export partners & 1.94\sym{**} (0.96) & 0.586\sym{**} (0.250) & -0.0416\sym{*} (0.0232) & 7.5 & 3{,}723 \\
+ln largest-city share of urban population & -0.18 (0.31) & 0.512\sym{**} (0.215) & -0.0053 (0.0573) & 9.3 & 3{,}270 \\
+Labour share of income (PWT) & -0.12 (0.13) & 0.426\sym{***} (0.159) & -0.0272 (0.0906) & 14.8 & 2{,}655 \\
+ln private credit, \% of GDP & 0.12 (0.92) & 0.514\sym{***} (0.196) & -0.0105 (0.0107) & 11.5 & 3{,}081 \\
+Natural resource rents, \% of GDP & -9.92\sym{*} (5.24) & 0.472\sym{**} (0.189) & 0.0001 (0.0006) & 10.4 & 3{,}548 \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}\begin{flushleft}\footnotesize $a$ is the 2SLS effect of $\ln\mathrm{GACI}_{max}$ on the mediator; $c'$ and $b$ come from the outcome equation with the mediator as a control and the hub instrumented. Mediators from the World Development Indicators, BACI (Rauch classification and unit values), and the Penn World Table. Country-year panel, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments ln GACI with the Feyrer interaction $Z_{ct}=a_t\times\ln \mathrm{MA}^{air}_{c,1996}$. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{flushleft}
+\end{minipage}
+\end{table}

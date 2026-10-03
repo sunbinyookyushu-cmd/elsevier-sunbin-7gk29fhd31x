@@ -1,0 +1,547 @@
+cc,edition,section,date,precision,uic_km,stops,stops_matched,path_km,ok
+AT,2018,Linz －Wels (after opening new line: V 200->230),1990-07-01,year,24.0,2,2,0.0,False
+AT,2018,St. Pölten －Ybbs,2001-07-01,year,47.0,2,2,0.0,False
+AT,2018,Amstetten －St. Valentin,2003-07-01,year,39.0,2,2,0.0,False
+AT,2018,St. Valentin －Linz,2007-07-01,year,24.0,2,2,16.4,True
+AT,2018,Wien Knoten Hadersdorf －St. Pölten,2012-12-09,day,50.0,2,1,0.0,False
+AT,2018,Wörgl －Volders-Baumkirchen,2012-12-09,day,36.0,2,2,0.0,False
+AT,2018,Wels －Attnang-Puchheim,2012-12-09,day,31.0,2,2,26.1,True
+AT,2018,Ybbs －Amstetten,2016-12-11,day,17.0,2,2,15.9,True
+AT,2022,Linz - Wels,1990-07-01,year,24.0,2,2,0.0,False
+AT,2022,St. Pölten - Ybbs,2001-07-01,year,44.0,2,2,0.0,False
+AT,2022,Amstetten - St. Valentin,2003-07-01,year,37.0,2,2,0.0,False
+AT,2022,St. Valentin - Asten-St. Florian,2007-07-01,year,16.0,2,1,0.0,False
+AT,2022,Vienna Knot Hadersdorf - St. Pölten,2012-07-01,year,50.0,2,1,0.0,False
+AT,2022,Radfeld Knot - Baumkirchen Knot,2012-07-01,year,36.0,2,0,0.0,False
+AT,2022,Wels - Attnang-Puchheim,2012-07-01,year,30.0,2,2,26.1,True
+AT,2022,Ybbs - Amstetten,2016-07-01,year,17.0,2,2,15.9,True
+BE,2018,Brussels －French Border (L1),1997-12-14,day,72.0,2,0,0.0,False
+BE,2018,Leuven －Liège (L2),2002-12-15,day,65.0,2,2,0.0,False
+BE,2018,Liège －German Border (L3),2009-06-14,day,36.0,2,1,0.0,False
+BE,2018,Antwerp －Dutch border (L4),2009-12-13,day,36.0,2,1,0.0,False
+BE,2022,Brussels - French border,1997-07-01,year,72.0,2,0,0.0,False
+BE,2022,Leuven - Liège,2002-07-01,year,65.0,2,2,0.0,False
+BE,2022,Liège - German border,2009-07-01,year,36.0,2,1,0.0,False
+BE,2022,Antwerp - Dutch border,2009-07-01,year,36.0,2,1,0.0,False
+CH,2018,Mattstetten －Rothrist,2004-07-01,year,52.0,2,1,0.0,False
+CH,2018,Frutigen －Visp (Lötschberg base tunnel),2007-07-01,year,35.0,2,2,35.5,True
+CH,2018,Erstfeld －Biasca (Gotthard base tunnel),2016-07-01,year,57.0,2,2,61.9,True
+CH,2022,Mattstetten - Rothrist,2004-07-01,year,41.7,2,1,0.0,False
+CH,2022,Solothurn - Wanzwil,2004-07-01,year,10.6,2,1,0.0,False
+CH,2022,Frutigen - Visp (Lötschberg base tunnel),2007-07-01,year,38.4,2,2,35.5,True
+CH,2022,Erstfeld - Biasca (Gotthard base tunnel),2016-07-01,year,67.1,2,2,61.9,True
+CH,2022,Giubiasco/S. Antonino - Vezia (Ceneri base tunnel),2020-07-01,year,18.1,2,0,0.0,False
+CN,2018,Qinhuangdao －Shenyang North,2003-12-31,day,404.9,2,2,405.8,True
+CN,2018,Nanjing South －Hefei,2008-04-18,day,148.0,2,2,243.8,True
+CN,2018,Beijing South －Tianjing,2008-08-01,day,118.0,2,2,131.0,True
+CN,2018,Qingdao －Jinan,2009-01-10,day,393.0,2,2,566.7,True
+CN,2018,Hefei East －Hankou,2009-04-01,day,380.0,2,2,413.5,True
+CN,2018,Shijiazhuang North －Taiyuan,2009-04-18,day,227.0,2,2,215.5,True
+CN,2018,Suining －Chengdu East,2009-07-01,day,146.0,2,2,1579.1,True
+CN,2018,Ningbo －Cangnan,2009-09-28,day,351.0,2,1,0.0,False
+CN,2018,Wuhan －Guangzhou South,2009-12-26,day,1079.4,2,2,967.7,True
+CN,2018,Zhengzhou East －Xi’an North,2010-02-06,day,553.0,2,2,474.1,True
+CN,2018,Cangnan －Fuzhou,2010-04-26,day,211.0,2,1,0.0,False
+CN,2018,Fuzhou －Xiamenbei,2010-04-26,day,234.0,2,1,0.0,False
+CN,2018,Chengdu －Qingchengshan,2010-05-10,day,65.4,2,2,0.0,False
+CN,2018,Shanghai －Nanjing,2010-07-01,day,323.5,2,2,1115.7,True
+CN,2018,Jiujiang －Nanchang West,2010-08-28,day,138.0,2,2,139.6,True
+CN,2018,Shanghai Hongqiao －Hangzhou South,2010-10-26,day,173.0,2,2,200.3,True
+CN,2018,Haikou －Sanya (East Ring),2010-12-30,day,308.1,2,2,308.5,True
+CN,2018,Guangzhou South －Zhuhai,2011-01-07,day,142.9,2,2,119.4,True
+CN,2018,Changchun －Jilin,2011-01-11,day,110.9,2,2,110.6,True
+CN,2018,Beijing South －Shanghai Hongqiao,2011-06-03,day,1318.3,2,2,1309.6,True
+CN,2018,Guangzhou South －Shenzhen North,2011-12-26,day,111.0,2,2,102.4,True
+CN,2018,Longyan －Zhangzhou,2012-06-29,day,113.5,2,2,113.5,True
+CN,2018,Hankou －Yichang East,2012-07-01,day,292.1,2,2,295.8,True
+CN,2018,Zhengzhou East －Wuhan,2012-09-28,day,525.6,2,2,472.7,True
+CN,2018,Bengbu South －Hefei,2012-10-16,day,130.6,2,2,136.7,True
+CN,2018,Dalian North －Harbin West,2012-12-01,day,921.2,2,2,0.0,False
+CN,2018,Taigemu －Baotou,2012-12-15,day,145.0,2,2,145.5,True
+CN,2018,Beijing West －Zhengzhou East,2012-12-26,day,676.2,2,2,657.5,True
+CN,2018,Taishansuo(block station) －Liuzhou,2012-12-28,day,498.0,2,1,0.0,False
+CN,2018,Nanjing South －Hangzhou East,2013-07-01,day,254.0,2,2,255.6,True
+CN,2018,Hangzhou South －Ningbo,2013-07-01,day,155.0,2,2,153.0,True
+CN,2018,Panjin North －Yingkou East,2013-09-12,day,90.0,2,0,0.0,False
+CN,2018,Nanchang West －Fuzhou,2013-09-26,day,547.0,2,2,546.7,True
+CN,2018,Yongtai －Putian,2013-09-26,day,59.0,2,2,161.6,True
+CN,2018,Tianjin －Qinhuangdao,2013-12-01,day,288.0,2,2,261.8,True
+CN,2018,Xi’an North －Baoji South,2013-12-28,day,137.0,2,2,162.6,True
+CN,2018,Xiamen North －Shenzhen North,2013-12-28,day,513.0,2,2,2472.1,True
+CN,2018,Nanhu East －Xianning South,2013-12-28,day,76.0,2,1,0.0,False
+CN,2018,Liuzhou －Nanning,2013-12-28,day,223.0,2,2,223.5,True
+CN,2018,Qinzhou North －Fangchenggang,2013-12-28,day,62.0,2,2,0.0,False
+CN,2018,Nanning East －Beihai,2013-12-28,day,197.0,2,2,198.3,True
+CN,2018,Pixian West －Pengzhou,2013-12-28,day,21.0,2,2,0.0,False
+CN,2018,Chongqing North －Liangwu,2013-12-28,day,265.0,2,2,262.7,True
+CN,2018,Nanning －Genzhu,2014-04-16,day,143.0,2,2,149.9,True
+CN,2018,Genzhu －Guangzhou South,2014-04-16,day,431.0,2,2,430.2,True
+CN,2018,Wuhan －Dayebei,2014-06-18,day,91.0,2,2,769.6,True
+CN,2018,Gedian South －Huanggangdong,2014-06-18,day,36.0,2,2,36.5,True
+CN,2018,Taiyuan South －Xi’an North,2014-07-01,day,571.0,2,2,587.0,True
+CN,2018,Hangzhou South －Changsha South,2014-12-10,day,911.0,2,2,1102.8,True
+CN,2018,Changsha South －Xinhuang West,2014-12-16,day,420.0,2,1,0.0,False
+CN,2018,Jiangyou －Chengdu East,2014-12-20,day,153.0,2,2,165.0,True
+CN,2018,Chengdu East －Leshan,2014-12-20,day,135.0,2,2,139.2,True
+CN,2018,Leshan －Emeishan,2014-12-20,day,27.0,2,2,27.4,True
+CN,2018,Lanzhou West －Ürümqi South,2014-12-26,day,1785.0,2,2,1786.2,True
+CN,2018,Longlibei －Guangzhou South,2014-12-26,day,857.0,2,2,826.0,True
+CN,2018,Qingdao －Rongcheng,2014-12-28,day,301.0,2,2,292.3,True
+CN,2018,Zhengzhou East －Songchenglu,2014-12-28,day,50.0,2,2,54.4,True
+CN,2018,Ximotang －Yantai,2015-02-19,day,19.0,2,1,0.0,False
+CN,2018,Nanyangzhai －Jiaozuo,2015-06-16,day,70.0,2,2,69.8,True
+CN,2018,Xinhuang West －Guiyang North,2015-06-18,day,286.0,2,1,0.0,False
+CN,2018,Hefeibeicheng －Fuzhou,2015-06-28,day,850.0,2,1,0.0,False
+CN,2018,Harbin North －Qiqihaer South,2015-08-17,day,269.0,2,2,268.2,True
+CN,2018,Shenyang South －Dandong,2015-09-01,day,208.0,2,2,207.5,True
+CN,2018,Tianjin －Yujiapu,2015-09-20,day,43.0,2,1,0.0,False
+CN,2018,Jilin －Huichun,2015-09-20,day,361.0,2,1,0.0,False
+CN,2018,Nanjing East －Anqing,2015-12-06,day,257.0,2,2,788.5,True
+CN,2018,Nanning －Baise,2015-12-11,day,223.0,2,2,432.8,True
+CN,2018,Dandong －Dalian North,2015-12-17,day,293.0,2,2,302.4,True
+CN,2018,Chengdu East －Banbishan(block station),2015-12-25,day,296.0,2,1,0.0,False
+CN,2018,Tangyasuo(block station) －Wenzhou South,2015-12-26,day,190.0,2,1,0.0,False
+CN,2018,Ganxian －Longyan,2015-12-26,day,248.0,2,2,247.7,True
+CN,2018,Tianjin West －Bazhou West,2015-12-28,day,73.0,2,2,76.4,True
+CN,2018,Bazhou West －Xushui,2015-12-28,day,65.0,2,2,64.7,True
+CN,2018,Haikou －Sanya (West Ring),2015-12-30,day,345.0,2,2,308.5,True
+CN,2018,Zhengzhou East －Xinzheng Airport,2015-12-31,day,27.0,2,2,42.7,True
+CN,2018,Foshan West －Zhaoqing,2016-03-30,day,81.0,2,2,153.5,True
+CN,2018,Changping East －Xiaojinkou,2016-03-30,day,53.0,2,2,2902.8,True
+CN,2018,Zhengzhou －Xuzhou,2016-09-10,day,357.0,2,2,373.8,True
+CN,2018,Chongqing North －Wanzhou North,2016-11-25,day,246.0,2,1,0.0,False
+CN,2018,Hankou －Xiaogan East,2016-11-25,day,61.0,2,2,618.5,True
+CN,2018,Changsha －Zhuzhou Xiangtan,2016-12-26,day,82.0,2,2,45.7,True
+CN,2018,Guiyang North －Kunming,2016-12-28,day,463.0,2,2,0.0,False
+CN,2018,Kunming －Baise,2016-12-28,day,487.0,2,2,0.0,False
+CN,2018,Daye North －Yangxin,2017-06-11,day,37.0,2,2,169.0,True
+CN,2018,Baoji South －Lanzhou West,2017-07-09,day,401.0,2,2,388.2,True
+CN,2018,Ulanqab －Hohht East,2017-08-03,day,128.0,2,0,0.0,False
+CN,2018,Yangxin －K23 Block Station,2017-09-25,day,82.0,2,1,0.0,False
+CN,2018,Xi’an North －Jinangyou,2017-12-06,day,505.0,2,1,0.0,False
+CN,2018,Huaibei North －Xiaoxian North,2017-12-26,day,25.0,2,1,0.0,False
+CN,2018,Shijiazhuang －Ji'nan West,2017-12-28,day,298.0,2,2,345.4,True
+CN,2018,Quzhou －Jiujiang,2017-12-28,day,334.0,2,2,332.8,True
+CN,2018,Dongguan －Changping East,2017-12-28,day,48.0,2,1,0.0,False
+CN,2018,Changsha West －Changsha,2017-12-28,day,21.0,2,2,0.0,True
+CN,2018,Chongqing －Guiyang,2018-01-25,day,345.0,2,2,1905.1,True
+CN,2018,Jiangmen －Maoming,2018-07-31,day,357.0,2,2,265.1,True
+CN,2018,Harbin －Jiamusi,2018-09-30,day,344.0,2,2,671.7,True
+CN,2018,Taipei －Kaohsiung,2007-07-01,year,345.0,2,0,0.0,False
+CN,2018,Taipei －Nangang,2016-07-01,year,9.0,2,1,0.0,False
+CN,2022,Qinhuangdao - Shenyang North,2003-07-01,year,405.0,2,2,405.8,True
+CN,2022,Taipei - Kaohsiung,2007-07-01,year,345.0,2,0,0.0,False
+CN,2022,Nanjing - Hefei,2008-07-01,year,148.0,2,2,1075.1,True
+CN,2022,Beijing South - Tianjin,2008-07-01,year,118.0,2,2,131.0,True
+CN,2022,Qingdao - Jinan,2009-07-01,year,393.0,2,2,566.7,True
+CN,2022,Hefei East - Hankou,2009-07-01,year,380.0,2,2,413.5,True
+CN,2022,Shijiazhuang North - Taiyuan,2009-07-01,year,228.0,2,2,215.5,True
+CN,2022,Chongqing - Liangwu,2009-07-01,year,263.0,2,2,1246.6,True
+CN,2022,Ningbo - Cangnan,2009-07-01,year,351.0,2,1,0.0,False
+CN,2022,Wuhan - Guangzhou South,2009-07-01,year,1079.0,2,2,967.7,True
+CN,2022,Zhengzhou East - Xi’an North,2010-07-01,year,553.0,2,2,474.1,True
+CN,2022,Cangnan - Fuzhou,2010-07-01,year,211.0,2,1,0.0,False
+CN,2022,Fuzhou - Xiamen North,2010-07-01,year,234.0,2,2,244.8,True
+CN,2022,Chengdu - Qingchengshan,2010-07-01,year,65.0,2,2,0.0,False
+CN,2022,Shanghai - Nanjing,2010-07-01,year,323.0,2,2,1115.7,True
+CN,2022,Jiujiang - Nanchang West,2010-07-01,year,138.0,2,2,139.6,True
+CN,2022,Shanghai Hongqiao - Hangzhou South,2010-07-01,year,174.0,2,2,200.3,True
+CN,2022,Haikou - Sanya,2010-07-01,year,308.0,2,2,308.5,True
+CN,2022,Guangzhou South - Zhuhai,2011-07-01,year,143.0,2,2,119.4,True
+CN,2022,Changchun - Jilin,2011-07-01,year,111.0,2,2,110.6,True
+CN,2022,Beijing South - Shanghai Hongqiao,2011-07-01,year,1318.0,2,2,1309.6,True
+CN,2022,Guangzhou South - Shenzhen North,2011-07-01,year,111.0,2,2,102.4,True
+CN,2022,Longyan - Zhangzhou,2012-07-01,year,114.0,2,2,113.5,True
+CN,2022,Hankou - Yichang East,2012-07-01,year,292.0,2,2,295.8,True
+CN,2022,Zhengzhou East - Wuhan,2012-07-01,year,526.0,2,2,472.7,True
+CN,2022,Bengbu South - Hefei,2012-07-01,year,131.0,2,2,136.7,True
+CN,2022,Dalian North - Shenyang North,2012-07-01,year,383.0,2,2,369.2,True
+CN,2022,Shenyang North - Harbin,2012-07-01,year,546.0,2,2,0.0,False
+CN,2022,Suining - Chengdu East,2012-07-01,year,151.0,2,2,1579.1,True
+CN,2022,Beijing West - Zhengzhou East,2012-07-01,year,676.0,2,2,657.5,True
+CN,2022,Taishansuo (block station) - Liuzhou,2012-07-01,year,498.0,2,1,0.0,False
+CN,2022,Taigemu - Baotou,2013-07-01,year,146.0,2,2,145.5,True
+CN,2022,Nanjing South - Hangzhou East,2013-07-01,year,254.0,2,2,255.6,True
+CN,2022,Hangzhou South - Ningbo,2013-07-01,year,157.0,2,2,153.0,True
+CN,2022,Panjin North -Yingxiajiahe (block station),2013-07-01,year,90.0,1,0,0.0,False
+CN,2022,Nanchang West  - Fuzhou,2013-07-01,year,547.0,2,2,546.7,True
+CN,2022,Yongtai - Putian,2013-07-01,year,59.0,2,2,161.6,True
+CN,2022,Jinhu (b.s.) - Longjiaying (b.s.),2013-07-01,year,288.0,2,2,1537.2,True
+CN,2022,Xi’an North - Baoji South,2013-07-01,year,184.0,2,2,162.6,True
+CN,2022,Xiamen North - Shenzhen North,2013-07-01,year,513.0,2,2,2472.1,True
+CN,2022,Nanhu East - Xianning South,2013-07-01,year,76.0,2,1,0.0,False
+CN,2022,Liuzhou - Nanning,2013-07-01,year,223.0,2,2,223.5,True
+CN,2022,Qinzhou North - Fangchenggang,2013-07-01,year,62.0,2,2,0.0,False
+CN,2022,Nanning East - Beihai,2013-07-01,year,197.0,2,2,198.3,True
+CN,2022,Pixian West - Pengzhou,2013-07-01,year,21.0,2,2,0.0,False
+CN,2022,Nanning - Guangzhou South,2014-07-01,year,574.0,2,2,580.0,True
+CN,2022,Xiaomayang (block station) - Daye North,2014-07-01,year,91.0,2,1,0.0,False
+CN,2022,Gedian South - Huanggangdong,2014-07-01,year,36.0,2,2,36.5,True
+CN,2022,Changfengjie (block station) - Xi’an North,2014-07-01,year,574.0,2,1,0.0,False
+CN,2022,Hangzhou South - Changsha South,2014-07-01,year,911.0,2,2,1102.8,True
+CN,2022,Changsha South - Xinhuang West,2014-07-01,year,420.0,2,1,0.0,False
+CN,2022,Jiangyou - Chengdu East,2014-07-01,year,153.0,2,2,165.0,True
+CN,2022,Chengdu East - Leshan,2014-07-01,year,135.0,2,2,139.2,True
+CN,2022,Leshan -  Emeishan,2014-07-01,year,27.0,2,2,27.4,True
+CN,2022,Lanzhou West - Ürümqi South,2014-07-01,year,1785.0,2,2,1786.2,True
+CN,2022,Guizhou East - Guangzhou South,2014-07-01,year,860.0,2,1,0.0,False
+CN,2022,Qingdao - Rongcheng,2014-07-01,year,301.0,2,2,292.3,True
+CN,2022,Zhengzhou East - Songchenglu,2014-07-01,year,50.0,2,2,54.4,True
+CN,2022,Ximotang - Yantai,2015-07-01,year,19.0,2,1,0.0,False
+CN,2022,Nanyangzhai - Jiaozuo,2015-07-01,year,70.0,2,2,69.8,True
+CN,2022,Xinhuang West - Guiyang North,2015-07-01,year,286.0,2,1,0.0,False
+CN,2022,Hefei North City - Fuzhou,2015-07-01,year,850.0,2,2,875.6,True
+CN,2022,Harbin North - Qiqihar South,2015-07-01,year,264.0,2,1,0.0,False
+CN,2022,Shenyang South - Dandong,2015-07-01,year,208.0,2,2,207.5,True
+CN,2022,Tianjin - Haibin,2015-07-01,year,43.0,2,1,0.0,False
+CN,2022,Jilin - Hunchun,2015-07-01,year,361.0,2,2,359.9,True
+CN,2022,Nanjing South - Anqing,2015-07-01,year,257.0,2,2,257.4,True
+CN,2022,Nanning - Yangxu,2015-07-01,year,257.0,2,1,0.0,False
+CN,2022,Dandong - Dalian North,2015-07-01,year,293.0,2,2,302.4,True
+CN,2022,Chengdu East - Shapingba,2015-07-01,year,300.0,2,2,302.0,True
+CN,2022,Tangyasuo (block station) - Wenzhou South,2015-07-01,year,190.0,2,1,0.0,False
+CN,2022,Ganxian - Longyan,2015-07-01,year,248.0,2,2,247.7,True
+CN,2022,Tianjin West - Bazhou West,2015-07-01,year,72.0,2,2,76.4,True
+CN,2022,Bazhou West - Xushui,2015-07-01,year,65.0,2,2,64.7,True
+CN,2022,Hainan West Circle (Haikou-Sanya),2015-07-01,year,345.0,1,0,0.0,False
+CN,2022,Zhengzhou East - Xinzheng Airport,2015-07-01,year,28.0,2,2,42.7,True
+CN,2022,Taipei - Nangang,2016-07-01,year,9.0,2,1,0.0,False
+CN,2022,Foshan West - Zhaoqing,2016-07-01,year,81.0,2,2,153.5,True
+CN,2022,Changping East - Xiaojinkou,2016-07-01,year,53.0,2,2,2902.8,True
+CN,2022,Zhengzhou East- Xuzhou East,2016-07-01,year,362.0,1,1,0.0,False
+CN,2022,Chongqing North - Wanzhou North,2016-07-01,year,246.0,2,1,0.0,False
+CN,2022,Hankou - Xiaogan East,2016-07-01,year,61.0,2,2,618.5,True
+CN,2022,Changsha - Zhuzhou South,2016-07-01,year,58.0,2,2,45.7,True
+CN,2022,Muyun - Xiangtan,2016-07-01,year,24.0,2,2,11.7,True
+CN,2022,Guiyang North - Kunming South,2016-07-01,year,463.0,2,2,478.0,True
+CN,2022,Yangxu - Kunming East,2016-07-01,year,452.0,2,1,0.0,False
+CN,2022,Daye North - Yangxin,2017-07-01,year,37.0,2,2,169.0,True
+CN,2022,Baoji South - Lanzhou West,2017-07-01,year,353.0,2,2,388.2,True
+CN,2022,Wulanchabu - Hohhot East,2017-07-01,year,128.0,2,2,126.6,True
+CN,2022,Yangxin - K23 block station,2017-07-01,year,82.0,2,1,0.0,False
+CN,2022,Xi’an North - Jiangyou,2017-07-01,year,505.0,2,2,505.2,True
+CN,2022,Huaibei North - Xiaoxian North,2017-07-01,year,25.0,2,1,0.0,False
+CN,2022,Shijiazhuang - Jinan East,2017-07-01,year,308.0,2,2,345.4,True
+CN,2022,Quzhou - Jiujiang,2017-07-01,year,334.0,2,2,332.8,True
+CN,2022,Dongguan - Changping East,2017-07-01,year,48.0,2,1,0.0,False
+CN,2022,Changsha West - Changsha,2017-07-01,year,22.0,2,2,0.0,True
+CN,2022,Tongjiaxi (block station) - Guiyang,2018-07-01,year,380.0,2,1,0.0,False
+CN,2022,Jiangmen - Zhanjiang West,2018-07-01,year,355.0,2,2,344.6,True
+CN,2022,Harbin - Jiamusi,2018-07-01,year,343.0,2,2,671.7,True
+CN,2022,Fanjiazhuang (b.s.) - Changfengjie (b.s.),2018-07-01,year,122.0,2,0,0.0,False
+CN,2022,Guangtong North - Dali,2018-07-01,year,175.0,2,2,174.6,True
+CN,2022,Xinhui - Jiangmen,2018-07-01,year,3.0,2,2,3.5,True
+CN,2022,Shenzhen North - Futian,2018-07-01,year,4.0,2,2,8.8,True
+CN,2022,Harbin - Harbin North,2018-07-01,year,18.0,2,2,13.4,True
+CN,2022,Hangzhou South - Huangshan North,2018-07-01,year,272.0,2,2,633.8,True
+CN,2022,Harbin - Mudanjiang,2018-07-01,year,300.0,2,2,302.0,True
+CN,2022,Qingdao North - Ganyu North,2018-07-01,year,197.0,2,2,218.4,True
+CN,2022,Ganyu North - Weiyang (block station),2018-07-01,year,234.0,2,2,1058.6,True
+CN,2022,Huaihua South - Hengyang East,2018-07-01,year,319.0,2,2,332.9,True
+CN,2022,Mayuan - Yanjialong,2018-07-01,year,5.0,2,0,0.0,False
+CN,2022,Changtang (block station) - Hengyang North,2018-07-01,year,5.0,2,1,0.0,False
+CN,2022,Changtang (block station) - Chashan'ao,2018-07-01,year,5.0,2,1,0.0,False
+CN,2022,Qihe - Jinan West,2018-07-01,year,21.0,2,2,193.1,True
+CN,2022,Dazhengzhuang (b.s.) - Damoliu (b.s.),2018-07-01,year,3.0,2,0,0.0,False
+CN,2022,Beixindian (b.s.) - Wulitang (b.s.),2018-07-01,year,21.0,2,0,0.0,False
+CN,2022,Jinan East - Hongdao,2018-07-01,year,305.0,2,2,527.3,True
+CN,2022,Tongren - Dazongping,2018-07-01,year,46.0,2,2,47.9,True
+CN,2022,Chengdu West - Chaoyang Lake,2018-07-01,year,100.0,2,2,0.0,False
+CN,2022,Yanping North - Longyan,2018-07-01,year,247.0,2,2,248.0,True
+CN,2022,Houling (block station) - Hongxing (block station),2018-07-01,year,8.0,2,0,0.0,False
+CN,2022,Huyi (block station) - Aibei (block station),2018-07-01,year,2.0,2,1,0.0,False
+CN,2022,Chengde South - Pingquan North,2018-07-01,year,67.0,2,2,68.2,True
+CN,2022,Pingquan North - Shenyang,2018-07-01,year,435.0,2,2,472.1,True
+CN,2022,Dingxiang Lake 2 (b.s.) - Da'erhuan 1 (b.s.),2018-07-01,year,2.0,2,0,0.0,False
+CN,2022,Dingxiang Lake 1 (b.s.) - Da'erhuan 2 (b.s.),2018-07-01,year,2.0,2,0,0.0,False
+CN,2022,Tongliao - Xinmin North,2018-07-01,year,197.0,2,2,198.0,True
+CN,2022,Yaojiawopu (block station) - Tianjiawopu (b.s.),2018-07-01,year,6.0,2,0,0.0,False
+CN,2022,Tuancun (block station) - Daguhe (block station),2018-07-01,year,4.0,2,0,0.0,False
+CN,2022,Leshan - Yibin West,2019-07-01,year,145.0,2,2,151.0,True
+CN,2022,Liying - Daxing Airport,2019-07-01,year,32.0,2,1,0.0,False
+CN,2022,Meizhou West - Chaoshan,2019-07-01,year,121.0,2,2,178.9,True
+CN,2022,Rizhao West - Dawangzhuang (block station),2019-07-01,year,226.0,2,1,0.0,False
+CN,2022,Qufu East - Dawangzhuang (block station),2019-07-01,year,10.0,2,2,433.8,True
+CN,2022,Qufu East - Nanxiasong (block station),2019-07-01,year,4.0,2,1,0.0,False
+CN,2022,Xiaogan East - Yunmeng East,2019-07-01,year,21.0,2,2,19.1,True
+CN,2022,Yunmeng East - Shiyan East,2019-07-01,year,377.0,2,2,1706.2,True
+CN,2022,Shangqiu - Hefei North City,2019-07-01,year,378.0,2,2,402.8,True
+CN,2022,Zhengzhou East - Xiangyang East,2019-07-01,year,389.0,2,2,406.1,True
+CN,2022,Zhengzhou South - Fuyang West,2019-07-01,year,280.0,2,2,1009.3,True
+CN,2022,Yinchuan - Zhongwei South,2019-07-01,year,207.0,2,2,205.1,True
+CN,2022,Xintang South - Shenzhen Airport,2019-07-01,year,73.0,2,1,0.0,False
+CN,2022,Xintang South - Xintang,2019-07-01,year,3.0,2,2,0.0,True
+CN,2022,Xuzhou (Lanxu o.s.) - Yancheng (Yanxu o.s.),2019-07-01,year,313.0,2,2,314.0,True
+CN,2022,Dongji - Huai'an East,2019-07-01,year,105.0,2,2,1429.1,True
+CN,2022,Yibin West -  Guiyang East,2019-07-01,year,368.0,2,2,388.2,True
+CN,2022,Jianpo (block station) - Guiyang North,2019-07-01,year,9.0,2,1,0.0,False
+CN,2022,Hejia (block station) - Yangtaishan (b.s.),2019-07-01,year,385.0,2,0,0.0,False
+CN,2022,Henggang - Hejia (block station),2019-07-01,year,11.0,2,1,0.0,False
+CN,2022,Dongcun (block station) - Pushu (block station),2019-07-01,year,5.0,2,0,0.0,False
+CN,2022,Fanjia (block station) - Nanjie (block station),2019-07-01,year,2.0,2,1,0.0,False
+CN,2022,Ganxian North - Pingjiang (block station),2019-07-01,year,3.0,2,1,0.0,False
+CN,2022,Qianjiang - Changde,2019-07-01,year,333.0,2,2,0.0,False
+CN,2022,Beijing North - Zhangjiakou,2019-07-01,year,174.0,2,2,1075.6,True
+CN,2022,Zhangjiakou - Wulanchabu,2019-07-01,year,159.0,2,2,160.0,True
+CN,2022,Xiahuayuan - Taizicheng,2019-07-01,year,52.0,2,2,53.0,True
+CN,2022,Huai'an - Taishancun (block station),2019-07-01,year,136.0,2,1,0.0,False
+CN,2022,Kazuo - Chifeng,2020-07-01,year,156.0,2,2,154.9,True
+CN,2022,Sunjiagou (b.s.) - Zhengzhangzi (b.s.),2020-07-01,year,5.0,2,0,0.0,False
+CN,2022,Feidong - Huzhou,2020-07-01,year,309.0,2,1,0.0,False
+CN,2022,Zhaodian - Huangdu,2020-07-01,year,143.0,2,1,0.0,False
+CN,2022,Pingdong (b.s.) - Nantong West,2020-07-01,year,5.0,2,2,1901.0,True
+CN,2022,Anshun West - Shuicheng,2020-07-01,year,120.0,2,2,126.0,True
+CN,2022,Guangzhou North - Qingyuan,2020-07-01,year,38.0,2,2,82.0,True
+CN,2022,Weifang North - Laixi East,2020-07-01,year,124.0,2,2,226.2,True
+CN,2022,Langjiazhuang (b.s.) - Pangjiatun (b.s.),2020-07-01,year,3.0,2,0,0.0,False
+CN,2022,Huai'an East - Dantu,2020-07-01,year,199.0,2,2,1735.0,True
+CN,2022,Shaobo (b.s.) - Jiangdu,2020-07-01,year,4.0,2,1,0.0,False
+CN,2022,Shaobo (b.s.) - Tai'anzhen,2020-07-01,year,5.0,2,0,0.0,False
+CN,2022,Hengshan (b.s.) - Zhenjiang (Intercity o.s.),2020-07-01,year,12.0,2,2,1926.3,True
+CN,2022,Jiaozuo - Changfengjie (b.s.),2020-07-01,year,362.0,2,1,0.0,False
+CN,2022,Feixi Jinggang o.s. - Shuangling (b.s.),2020-07-01,year,134.0,2,0,0.0,False
+CN,2022,Shuangling (b.s.) - Longshan (b.s.),2020-07-01,year,4.0,2,1,0.0,False
+CN,2022,Longshan (b.s.) - Anqing,2020-07-01,year,22.0,2,2,0.0,False
+CN,2022,Fuzhou - Pingtan,2020-07-01,year,88.0,2,2,87.8,True
+CN,2022,Xi'an North - Wuzhong,2020-07-01,year,545.0,2,2,546.5,True
+CN,2022,Huwang (b.s.) - Liquan South,2020-07-01,year,6.0,2,1,0.0,False
+CN,2022,Daxing Airport - Xiong'an,2020-07-01,year,59.0,2,2,66.8,True
+CN,2022,Yancheng (Yanxu o.s.) - Nantong West,2020-07-01,year,158.0,2,2,157.9,True
+CN,2022,Guodaocun (b.s.) - Chenqiao (b.s.),2020-07-01,year,6.0,2,0,0.0,False
+CN,2022,Jixianlu (b.s) - Feixi Jinggang o.s.,2020-07-01,year,10.0,2,0,0.0,False
+CN,2022,Dafu - Xiantao,2020-07-01,year,17.0,2,1,0.0,False
+CN,2022,Beijing - Chengde South,2021-07-01,year,192.0,2,2,931.8,True
+CN,2022,Xuzhou East - Houmazhuang,2021-07-01,year,185.0,2,2,5.3,True
+CN,2022,Shenxu (b.s.) - Lianyungang (Xuzhou o.s.),2021-07-01,year,5.0,2,1,0.0,False
+CN,2022,Neijiang North - Luzhou,2021-07-01,year,129.0,2,2,115.7,True
+CN,2022,Chaoyang - Linghai South,2021-07-01,year,107.0,2,2,526.3,True
+CN,2022,Zhangjiajie West - Huaihua South,2021-07-01,year,245.0,2,2,250.5,True
+CN,2022,Zhangjiajie West - Shadi (b.s.),2021-07-01,year,3.0,2,2,2235.4,True
+CN,2022,Longxingcun (b.s.) - Huaihua South,2021-07-01,year,4.0,2,1,0.0,False
+CN,2022,Mudanjiang - Jiamusi,2021-07-01,year,372.0,2,2,372.7,True
+CN,2022,Changbaishan - Dunhua South,2021-07-01,year,99.0,2,2,110.7,True
+CN,2022,Dunhua - Dunhua South,2021-07-01,year,12.0,2,2,0.0,True
+CN,2022,Hejia (b.s.) - Yangtaishan (b.s.),2021-07-01,year,431.0,2,0,0.0,False
+CN,2022,Shuangling (b.s.) - Lushan,2021-07-01,year,176.0,2,1,0.0,False
+CN,2022,Tangxia (b.s.) - Dongguan South,2021-07-01,year,3.0,2,0,0.0,False
+CN,2022,Dongguan South - Tangxia (b.s.),2021-07-01,year,2.0,2,0,0.0,False
+CN,2022,Yangtaishan (b.s.) - Shenzhen North,2021-07-01,year,8.0,2,1,0.0,False
+CN,2022,Anqing West - Longshan (b.s.),2021-07-01,year,7.0,2,2,0.0,False
+CN,2022,Dawang. (b.s.) (-Qufu) - Zhuangzhai (Cao County),2021-07-01,year,199.0,2,1,0.0,False
+CN,2022,Xiaobeishan (b.s.) - Nanxiasong (b.s.),2021-07-01,year,5.0,2,0,0.0,False
+DE,2018,Hannover －Würzburg,1991-07-01,year,327.0,2,2,327.1,True
+DE,2018,Mannheim －Stuttgart,1991-07-01,year,109.0,2,2,99.1,True
+DE,2018,Hannover －Berlin,1998-07-01,year,189.0,2,2,0.0,False
+DE,2018,(Köln) -Siegburg －Frankfurt,2002-07-01,year,144.0,2,1,0.0,False
+DE,2018,Köln －Düren,2003-07-01,year,39.0,2,2,36.9,True
+DE,2018,Hamburg －Berlin,2004-07-01,year,286.0,2,2,0.0,False
+DE,2018,(Karlsruhe -) Rastatt Süd －Offenburg (- Basel),2004-07-01,year,44.0,2,2,47.5,True
+DE,2018,Nürenberg －Ingolstadt,2006-07-01,year,89.0,2,1,0.0,False
+DE,2018,München －Augsburg,2011-07-01,year,62.0,2,2,0.0,False
+DE,2018,(Karlsruhe) - Katzenberg Tunnel －(-Basel),2012-07-01,year,18.0,1,0,0.0,False
+DE,2018,Erfurt －Leipzig/Halle,2015-12-09,day,123.0,2,2,101.9,True
+DE,2018,Ebensfeld －Erfurt,2017-12-10,day,107.0,2,2,108.2,True
+DE,2018,Nürnberg －Ebensfeld,2017-12-10,day,83.0,2,2,0.0,False
+DE,2022,Hannover - Würzburg,1991-07-01,year,327.0,2,2,327.1,True
+DE,2022,Mannheim - Stuttgart,1991-07-01,year,99.0,2,2,99.1,True
+DE,2022,(Hannover) - Oebisfelde - Berlin,1998-07-01,year,150.0,2,2,0.0,False
+DE,2022,(Cologne) - Siegburg - Frankfurt,2002-07-01,year,144.0,2,1,0.0,False
+DE,2022,Cologne - Düren,2003-07-01,year,39.0,2,2,36.9,True
+DE,2022,Hamburg - Berlin,2004-07-01,year,286.0,2,2,0.0,False
+DE,2022,(Karlsruhe) - Rastatt Süd - Offenburg - (Basel),2004-07-01,year,44.0,2,2,47.5,True
+DE,2022,Nuremberg - Ingolstadt,2006-07-01,year,89.0,2,2,82.3,True
+DE,2022,Munich - Augsburg,2011-07-01,year,62.0,2,2,0.0,False
+DE,2022,(Karlsruhe) - Katzenberg Tunnel - (Basel),2012-07-01,year,18.0,1,0,0.0,False
+DE,2022,Erfurt - Leipzig/Halle,2015-07-01,year,123.0,2,2,101.9,True
+DE,2022,Ebensfeld - Erfurt,2017-07-01,year,107.0,2,2,108.2,True
+DE,2022,Nuremberg - Ebensfeld,2017-07-01,year,83.0,2,2,0.0,False
+DE,2022,Wendlingen - Ulm,2022-07-01,year,60.0,2,2,57.8,True
+DK,2022,Copenhagen - Ringsted,2019-07-01,year,56.0,2,2,53.2,True
+ES,2018,Madrid －Seville,1992-07-01,year,471.0,2,2,6.2,True
+ES,2018,Madrid －Lleida,2003-07-01,year,448.0,2,2,484.6,True
+ES,2018,Zaragoza －Huesca,2003-07-01,year,79.0,2,1,0.0,False
+ES,2018,(Madrid -) La Sagra －Toledo,2005-07-01,year,21.0,2,1,0.0,False
+ES,2018,Córdoba －Antequera,2006-07-01,year,111.0,2,2,111.4,True
+ES,2018,Lleida －Camp de Tarragona,2006-07-01,year,82.0,2,2,80.7,True
+ES,2018,Madrid －Segovia －Valladolid,2007-07-01,year,178.0,3,3,178.7,True
+ES,2018,Antequera －Málaga,2007-07-01,year,58.0,2,2,57.8,True
+ES,2018,Camp de Tarragona －Barcelona,2008-07-01,year,100.0,2,2,108.1,True
+ES,2018,La Coruña －Santiago,2009-07-01,year,61.0,2,1,0.0,False
+ES,2018,By pass Madrid : Line Madrid - Barcelona －Gavilanes,2009-07-01,year,5.0,3,1,0.0,False
+ES,2018,Madrid －Valencia / Albacete,2010-07-01,year,398.0,2,1,0.0,False
+ES,2018,Figueres －Frontera (- Perpignan),2010-07-01,year,20.0,2,1,0.0,False
+ES,2018,Ourense －Santiago,2011-07-01,year,85.0,2,2,86.8,True
+ES,2018,By pass de Yeles : Line Madrid / Valencia,2012-07-01,year,6.0,1,0,0.0,False
+ES,2018,Barcelona －Figueres,2013-07-01,year,131.0,2,2,120.0,True
+ES,2018,Albacete －Alicante,2013-07-01,year,165.0,2,1,0.0,False
+ES,2018,Santiago －Vigo,2015-07-01,year,95.0,2,2,93.6,True
+ES,2018,Utrera －Jerez,2015-07-01,year,73.0,2,0,0.0,False
+ES,2018,Valladolid －León,2015-07-01,year,166.0,2,2,166.0,True
+ES,2018,Olmedo －Zamora,2015-07-01,year,99.0,2,1,0.0,False
+ES,2022,Madrid - Sevilla,1992-07-01,year,471.0,2,2,6.2,True
+ES,2022,Madrid - Lleida,2003-07-01,year,467.0,2,2,484.6,True
+ES,2022,Zaragoza - Huesca,2003-07-01,year,79.0,2,1,0.0,False
+ES,2022,(Madrid -) La Sagra - Toledo,2005-07-01,year,21.0,2,1,0.0,False
+ES,2022,Córdoba - Antequera-Santa Ana,2006-07-01,year,111.0,2,2,111.4,True
+ES,2022,Lleida - Camp de Tarragona,2006-07-01,year,96.0,2,2,80.7,True
+ES,2022,Madrid - Segovia - Olmedo - Valladolid,2007-07-01,year,178.0,4,3,178.7,False
+ES,2022,Antequera-Santa Ana - Málaga,2007-07-01,year,58.0,2,2,57.8,True
+ES,2022,Camp de Tarragona - Barcelona,2008-07-01,year,100.0,2,2,108.1,True
+ES,2022,Bypass Madrid,2009-07-01,year,5.0,1,0,0.0,False
+ES,2022,Santiago - A Coruña,2009-07-01,year,61.0,2,1,0.0,False
+ES,2022,(Madrid -) Torrejón de Velasco - Valencia,2010-07-01,year,362.0,2,1,0.0,False
+ES,2022,Bif. Albacete - Albacete,2010-07-01,year,73.0,2,1,0.0,False
+ES,2022,Figueres - French border (- Perpignan),2010-07-01,year,20.0,2,1,0.0,False
+ES,2022,Ourense - Santiago,2011-07-01,year,85.0,2,2,86.8,True
+ES,2022,Bypass Yeles,2012-07-01,year,6.0,1,0,0.0,False
+ES,2022,Barcelona - Figueres,2013-07-01,year,131.0,2,2,120.0,True
+ES,2022,Albacete - Alicante/Alacant,2013-07-01,year,165.0,2,1,0.0,False
+ES,2022,Santiago - Vigo,2015-07-01,year,95.0,2,2,93.6,True
+ES,2022,Sevilla - Cádiz,2015-07-01,year,153.0,2,1,0.0,False
+ES,2022,Valladolid - León,2015-07-01,year,166.0,2,2,166.0,True
+ES,2022,Olmedo - Zamora,2015-07-01,year,99.0,2,1,0.0,False
+ES,2022,Valencia - Vandellós,2019-07-01,year,219.0,2,1,0.0,False
+ES,2022,Antequera-Santa Ana - Granada,2019-07-01,year,109.0,2,2,0.0,False
+ES,2022,Vandellós - Tarragona,2020-07-01,year,47.0,2,1,0.0,False
+ES,2022,Zamora - Pedralba,2020-07-01,year,110.0,2,1,0.0,False
+ES,2022,Bif. Murcia - Orihuela - Beniel,2021-07-01,year,54.0,3,0,0.0,False
+ES,2022,Pedralba - Ourense,2021-07-01,year,119.0,2,1,0.0,False
+ES,2022,Beniel - Murcia,2022-07-01,year,16.0,2,1,0.0,False
+ES,2022,Venta de Baños - Burgos,2022-07-01,year,91.0,2,2,87.1,True
+ES,2022,Plasencia - Badajoz,2022-07-01,year,142.0,2,1,0.0,False
+ES,2022,Chamartín - Atocha new tunnel,2022-07-01,year,7.0,2,2,63.4,True
+FI,2022,Helsinki - Turku,1995-07-01,year,156.0,2,0,0.0,False
+FI,2022,Helsinki - Oulu,2001-07-01,year,673.0,2,0,0.0,False
+FI,2022,Jämsänkoski - Jyväskylä,2001-07-01,year,53.0,2,0,0.0,False
+FI,2022,Kinni - Otava,2006-07-01,year,44.0,2,0,0.0,False
+FI,2022,Kerava - Lahti,2006-07-01,year,63.0,2,2,0.0,False
+FI,2022,Lahti - Luumäki,2009-07-01,year,131.0,2,1,0.0,False
+FR,2018,LN1 LGV Paris Sud-Est,1981-07-01,year,425.0,1,0,0.0,False
+FR,2018,LN2 LGV Atlantique,1989-07-01,year,292.0,1,0,0.0,False
+FR,2018,Paris-bifurcation Courtalain,1989-07-01,year,,1,0,0.0,False
+FR,2018,LN4 LGV Rhône-Alpes (rail bypass of Lyon),1992-07-01,year,122.0,1,0,0.0,False
+FR,2018,LN3 LGV Nord - Europe ( included London and Bruxelles link),1994-07-01,year,346.0,2,1,0.0,False
+FR,2018,LN3 bis LGV Interconnexion Est IDF,1994-07-01,year,105.0,1,0,0.0,False
+FR,2018,LN5 LGV Méditerranée,2001-07-01,year,259.0,1,0,0.0,False
+FR,2018,LN6 LGV Est Europe (first phase),2007-07-01,year,335.0,1,0,0.0,False
+FR,2018,(Figueres -) Frontière included TP Ferro Franchise,2010-07-01,year,28.0,1,0,0.0,False
+FR,2018,LN7 LGV Rhin-Rhône Branche Est (first phase),2011-07-01,year,146.0,1,0,0.0,False
+FR,2018,LN6 LGV Est Europe (second phase),2016-07-01,year,122.0,1,0,0.0,False
+FR,2018,"LGV Bretagne Pays de la Loire (BPL, Le Mans - Rennes)",2017-07-02,day,214.0,2,0,0.0,False
+FR,2018,Connerré-La Milesse,2017-07-01,year,,1,0,0.0,False
+FR,2018,"LGV Sud Europe Atlantique (SEA, Tours - Bordeaux)",2017-07-02,day,340.0,2,0,0.0,False
+FR,2018,Contournement de Nîmes - Montpellier (CNM),2018-07-08,day,80.0,2,1,0.0,False
+FR,2022,LGV Paris Sud-Est,1981-07-01,year,425.0,1,0,0.0,False
+FR,2022,LGV Atlantique,1989-07-01,year,292.0,1,0,0.0,False
+FR,2022,LGV Rhône - Alpes (rail bypass of Lyon),1992-07-01,year,,2,0,0.0,False
+FR,2022,LGV Nord (inc. London - Brussels link),1994-07-01,year,346.0,2,0,0.0,False
+FR,2022,LGV Interconnexion Est IDF,1994-07-01,year,105.0,1,0,0.0,False
+FR,2022,LGV Méditerranée,2001-07-01,year,259.0,1,0,0.0,False
+FR,2022,LGV Est Europe (first phase),2007-07-01,year,335.0,1,0,0.0,False
+FR,2022,Perpignan - Spanish border (Figueres),2010-07-01,year,24.0,2,0,0.0,False
+FR,2022,LGV Rhin-Rhône Branche Est (first phase),2011-07-01,year,146.0,1,0,0.0,False
+FR,2022,LGV Est Europe (second phase),2016-07-01,year,122.0,1,0,0.0,False
+FR,2022,LGV Bretagne Pays de la Loire (BPL),2017-07-01,year,219.0,1,0,0.0,False
+FR,2022,LGV Tours - Bordeaux (SEA),2017-07-01,year,340.0,2,0,0.0,False
+GB,2018,Fawkham Junction －Tunnel,2003-07-01,year,74.0,2,0,0.0,False
+GB,2018,London －Southfleet Junction,2007-07-01,year,39.4,2,1,0.0,False
+GB,2022,Fawkham Junction  - Channel Tunnel,2003-07-01,year,74.0,2,0,0.0,False
+GB,2022,London - Southfleet Junction,2007-07-01,year,39.0,2,1,0.0,False
+IT,2018,Rome －Florence (First section),1977-07-01,year,122.0,2,2,255.4,True
+IT,2018,Rome －Florence (Second section),1985-07-01,year,52.0,2,2,255.4,True
+IT,2018,Rome －Florence (Third section),1986-07-01,year,20.0,2,2,255.4,True
+IT,2018,Rome －Florence (Forth section),1992-07-01,year,44.0,2,2,255.4,True
+IT,2018,Turin －Novara,2006-07-01,year,86.0,2,2,84.6,True
+IT,2018,Milan －Bologna,2008-07-01,year,182.0,2,2,0.0,False
+IT,2018,Naples －Salerno,2008-07-01,year,29.0,2,2,54.6,True
+IT,2018,Rome －Naples,2009-07-01,year,205.0,2,2,221.7,True
+IT,2018,Novara －Milan,2009-07-01,year,38.0,2,2,0.0,False
+IT,2018,Florence －Bologna,2009-07-01,year,78.0,2,2,249.0,True
+IT,2018,Milan (Treviglio) －Brescia,2016-07-01,year,40.0,2,2,0.0,False
+IT,2022,Rome  - Florence (First section),1977-07-01,year,122.0,2,2,255.4,True
+IT,2022,Rome  - Florence (Second section),1985-07-01,year,52.0,2,2,255.4,True
+IT,2022,Rome  - Florence (Third section),1986-07-01,year,20.0,2,2,255.4,True
+IT,2022,Rome  - Florence (Forth section),1992-07-01,year,44.0,2,2,255.4,True
+IT,2022,Turin - Novara,2006-07-01,year,86.0,2,2,84.6,True
+IT,2022,Padova - Venice,2007-07-01,year,25.0,2,2,28.5,True
+IT,2022,Milan - Bologna,2008-07-01,year,182.0,2,2,0.0,False
+IT,2022,Naples - Salerno,2008-07-01,year,29.0,2,2,54.6,True
+IT,2022,Rome - Naples,2009-07-01,year,205.0,2,2,221.7,True
+IT,2022,Novara - Milan,2009-07-01,year,38.0,2,2,0.0,False
+IT,2022,Florence - Bologna,2009-07-01,year,78.0,2,2,249.0,True
+IT,2022,Milan (Treviglio) - Brescia,2016-07-01,year,40.0,2,2,0.0,False
+JP,2018,Tokyo －Shin Osaka (Tokaido),1964-10-01,day,515.4,2,2,515.2,True
+JP,2018,Shin Osaka －Okayama (San-yo),1972-03-15,day,160.9,2,2,160.6,True
+JP,2018,Okayama －Hakata (San-yo),1975-03-10,day,392.8,2,2,392.3,True
+JP,2018,Omiya －Morioka (Tohoku),1982-06-23,day,465.2,2,2,465.6,True
+JP,2018,Omiya －Niigata (Joetsu),1982-11-15,day,269.5,2,2,269.7,True
+JP,2018,Ueno －Omiya (Tohoku),1985-03-14,day,27.7,2,2,27.8,True
+JP,2018,Tokyo －Ueno (Tohoku),1991-06-20,day,3.6,2,2,0.0,False
+JP,2018,Fukushima －Yamagata (Yamagata) MINI,1992-07-01,day,87.0,2,1,0.0,False
+JP,2018,Morioka －Akita (Akita) MINI,1997-03-22,day,127.3,2,1,0.0,False
+JP,2018,Takasaki －Nagano (Hokuriku),1997-10-01,day,117.4,2,2,117.4,True
+JP,2018,Yamagata －Shinjo (Yamagata) MINI,1999-12-04,day,62.0,2,0,0.0,False
+JP,2018,Morioka －Hachinohe (Tohoku),2002-12-01,day,96.6,2,2,96.6,True
+JP,2018,Shin Yatsuhiro －Kagoshima Chuo (Kyushu),2004-03-13,day,126.8,2,1,0.0,False
+JP,2018,Hachinohe －Shin Aomori (Tohoku),2010-12-04,day,81.8,2,2,81.8,True
+JP,2018,Hakata －Shin Yatsushiro (Kyushu),2011-03-12,day,130.0,2,2,130.2,True
+JP,2018,Nagano －Kanazawa (Hokuriku),2015-03-14,day,228.0,2,2,227.9,True
+JP,2018,Shin Aomori －Shin Hakodate (Hokkaido),2016-03-26,day,148.8,2,2,0.0,False
+JP,2022,Tokyo - Shin Osaka (Tokaido),1964-07-01,year,515.0,2,2,515.2,True
+JP,2022,Shin Osaka - Okayama (San-yo),1972-07-01,year,161.0,2,2,160.6,True
+JP,2022,Okayama - Hakata (San-yo),1975-07-01,year,393.0,2,2,392.3,True
+JP,2022,Omiya - Utsunomiya (Tohoku),1982-07-01,year,79.0,2,2,77.8,True
+JP,2022,Utsunomiya - Morioka (Tohoku),1982-07-01,year,426.0,2,2,387.8,True
+JP,2022,Omiya - Niigata (Joetsu),1982-07-01,year,270.0,2,2,269.7,True
+JP,2022,Ueno - Omiya (Tohoku),1985-07-01,year,28.0,2,2,27.8,True
+JP,2022,Tokyo - Ueno (Tohoku),1991-07-01,year,4.0,2,2,0.0,False
+JP,2022,Fukushima - Yamagata (Yamagata),1992-07-01,year,87.0,2,1,0.0,False
+JP,2022,Morioka - Akita (Akita),1997-07-01,year,127.0,2,1,0.0,False
+JP,2022,Takasaki - Nagano (Hokuriku),1997-07-01,year,117.0,2,2,117.4,True
+JP,2022,Yamagata - Shinjo (Yamagata),1999-07-01,year,62.0,2,0,0.0,False
+JP,2022,Morioka - Hachinohe (Tohoku),2002-07-01,year,97.0,2,2,96.6,True
+JP,2022,Shin Yatsuhiro - Kagoshima Chuo (Kyushu),2004-07-01,year,127.0,2,1,0.0,False
+JP,2022,Hachinohe - Shin Aomori (Tohoku),2010-07-01,year,82.0,2,2,81.8,True
+JP,2022,Hakata - Shin Yatsushiro (Kyushu),2011-07-01,year,130.0,2,2,130.2,True
+JP,2022,Nagano - Kanazawa (Hokuriku),2015-07-01,year,228.0,2,2,227.9,True
+JP,2022,Shin Aomori - Shin Hakodate (Hokkaido),2016-07-01,year,149.0,2,2,0.0,False
+JP,2022,Takeo Onsen - Nagasaki (Nishi Kyushu),2022-07-01,year,66.0,2,2,66.1,True
+KR,2018,Seoul －Dongdaegu,2004-07-01,year,330.0,2,2,370.3,True
+KR,2018,Dongdaegu －Busan,2010-07-01,year,82.0,2,2,130.7,True
+KR,2018,Osong －Gwangju,2015-07-01,year,184.0,2,2,0.0,False
+KR,2018,Suseo －Pyoengtaek,2016-07-01,year,61.0,2,1,0.0,False
+KR,2018,Seoul －Gangneung,2017-12-20,day,230.0,2,2,206.7,True
+KR,2022,Geumcheon-gu (Seoul) - Dongdaegu,2004-07-01,year,269.0,2,2,269.0,True
+KR,2022,Dongdaegu - Busan,2010-07-01,year,131.0,2,2,130.7,True
+KR,2022,Osong - Gwangju,2015-07-01,year,182.0,2,2,0.0,False
+KR,2022,Suseo - Pyeongtaek,2016-07-01,year,61.0,2,2,56.3,True
+KR,2022,Seoul - Gangneung,2017-07-01,year,230.0,2,2,206.7,True
+MA,2022,Tanger - Kenitra,2018-07-01,year,186.0,2,2,183.7,True
+NL,2018,Schiphol －Rotterdam West,2006-07-01,year,44.3,2,1,0.0,False
+NL,2018,Rotterdam Lombardijen －Belgian Border (turnout at Breda),2006-07-01,year,45.4,2,1,0.0,False
+NL,2022,Hoofddorp - Rotterdam West,2006-07-01,year,44.3,2,1,0.0,False
+NL,2022,Rotterdam Lombardijen - Belgian border,2006-07-01,year,45.4,2,1,0.0,False
+PL,2018,Grodzisk Maz －Opoczno Zawiercie,2015-07-01,year,224.0,2,1,0.0,False
+PL,2022,Grodzisk Mazowiecki  - Zawiercie,2015-07-01,year,224.0,2,1,0.0,False
+RS,2022,Belgrade - Stara Pazova - Novi Sad,2022-07-01,year,78.0,3,0,0.0,False
+SA,2018,Medina －Jeddah －Mecca,2018-09-25,day,453.0,3,0,0.0,False
+SA,2022,Medina - Jeddah - Mecca,2018-07-01,year,449.0,3,0,0.0,False
+SE,2022,Stockholm - Örebro,1999-07-01,year,187.0,2,0,0.0,False
+SE,2022,Gothenburg - Lund,2008-07-01,year,283.0,2,0,0.0,False
+SE,2022,Nyland - Umeå,2009-07-01,year,180.0,2,1,0.0,False
+SE,2022,Sundsvall - Nyland,2010-07-01,year,30.0,2,0,0.0,False
+SE,2022,Gothenburg - Kornsjø,2012-07-01,year,180.0,2,0,0.0,False
+TR,2018,(Ankara-)Sincan －Eskisehir,2009-07-01,year,221.0,2,2,221.0,True
+TR,2018,Polatli －Konya,2011-07-01,year,212.0,2,1,0.0,False
+TR,2018,Eskisehir －İzmit －Pendik,2014-07-01,year,155.0,3,2,0.0,False
+TR,2018,Reverse triangle - - 6 ASIA TURKEY 2. Under construction Osmaneli －Bursa,,year,,3,1,0.0,False
+TR,2022,Ankara - Eskişehir,2009-07-01,year,245.0,2,2,244.8,True
+TR,2022,(Ankara) Polatlı - Konya,2011-07-01,year,212.0,2,2,221.0,True
+TR,2022,Eskisehir - İzmit - Pendik (Istanbul),2014-07-01,year,257.0,3,2,0.0,False
+TR,2022,Kayseri North Passage,2016-07-01,year,23.0,1,0,0.0,False
+TR,2022,(Ankara) Kayaş - Balışeyh (Kırıkkale) - Sivas,2023-07-01,year,393.0,3,2,0.0,False
+TR,2022,Konya - Karaman,2022-07-01,year,102.0,2,2,101.8,True
+TW,2018,Taipei －Kaohsiung,2007-07-01,year,345.0,2,2,340.7,True
+TW,2018,Taipei －Nangang,2016-07-01,year,9.0,2,2,9.3,True
+US,2018,"Boston －Washington (Northeast Corridor, NEC)",2000-07-01,year,735.0,2,0,0.0,False
+US,2022,NE Corridor (Boston - New York - Washington),2000-07-01,year,735.0,3,0,0.0,False

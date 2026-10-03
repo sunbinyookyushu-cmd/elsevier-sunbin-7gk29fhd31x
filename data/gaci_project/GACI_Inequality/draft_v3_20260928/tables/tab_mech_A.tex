@@ -1,0 +1,35 @@
+\begin{table}[H]
+\centering
+\caption{Mechanism (I): which connectivity carries the effect?}
+\label{tab:mech_A}
+\begin{minipage}{\linewidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+\midrule
+\multicolumn{7}{l}{\emph{Panel A. Which connectivity? Dependent variable: ln market Gini}}\\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+ & Baseline & Hub + network & Hub + secondary & Core integration & Capacity + transit & Concentration (OLS) \\
+\midrule
+$\ln\mathrm{GACI}_{max}$ (hub), instrumented & 0.495\sym{**} & 0.756\sym{**} & 0.764\sym{*} &  &  &  \\
+ & (0.194) & (0.351) & (0.442) &  &  &  \\
+$\ln\mathrm{GACI}_{sum}$ (whole network), control &  & -0.105\sym{*} &  &  &  &  \\
+ &  & (0.054) &  &  &  &  \\
+ln GACI of secondary airports, control &  &  & -0.067 &  &  &  \\
+ &  &  & (0.043) &  &  &  \\
+ln hub eigenvector centrality, instrumented &  &  &  & 0.133\sym{**} &  &  \\
+ &  &  &  & (0.053) &  &  \\
+ln hub seat capacity &  &  &  & -0.165\sym{**} & 0.089\sym{***} &  \\
+ &  &  &  & (0.072) & (0.030) &  \\
+ln hub flow betweenness, control &  &  &  &  & -0.011\sym{*} &  \\
+ &  &  &  &  & (0.007) &  \\
+ln Herfindahl of airport shares (with $\ln\mathrm{GACI}_{sum}$) &  &  &  &  &  & 0.087\sym{***} \\
+ &  &  &  &  &  & (0.026) \\
+KP $F$ & 10.6 & 5.9 & 3.8 & 22.2 & 26.9 &  \\
+Observations & 3{,}735 & 3{,}735 & 3{,}134 & 3{,}735 & 3{,}735 & 3{,}735 \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}\begin{flushleft}\footnotesize Column (4) instruments the hub's eigenvector centrality and controls for its seat capacity; column (5) instruments seat capacity and controls for flow betweenness; column (6) is OLS. Country-year panel, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments ln GACI with the Feyrer interaction $Z_{ct}=a_t\times\ln \mathrm{MA}^{air}_{c,1996}$. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{flushleft}
+\end{minipage}
+\end{table}

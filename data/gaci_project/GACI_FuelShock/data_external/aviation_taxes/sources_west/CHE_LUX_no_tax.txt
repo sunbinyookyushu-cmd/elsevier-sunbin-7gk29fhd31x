@@ -1,0 +1,38 @@
+Short verbatim text snapshots collected 2026-10-02 for taxes_west_europe.csv. File: CHE_LUX_no_tax.txt
+
+================================================================================
+SOURCE: https://www.bk.admin.ch/dam/de/sd-web/UxUxfYD5ma0h/2021-06-13_erlaeuterungen_des_bundesrates.pdf (Erlaeuterungen des Bundesrates, vote of 13 Jun 2021, CO2-Gesetz text)
+--------------------------------------------------------------------------------
+5. Kapitel: Flugticketabgabe 
+Art. 42 G egenstand 
+1 Der Bund erhebt im Hinblick auf die Emissionsverminderungsziele nach Artikel 1 
+Absatz 1 eine Lenkungsabgabe auf Flugtickets von Luftverkehrsunternehmen, die an 
+Flugpassagierinnen und -passagiere ausgegeben werden, die mit einem Flugzeug 
+abfliegen, das mit fossilen Energieträgern betrieben wird und dessen Abflug nach 
+schweizerischem Recht erfolgt (Flugticketabgabe). 
+2 Ausgenommen sind: 
+a. Flugpassagierinnen und -passagiere, die:  
+1.  sich im Transit oder im Transfer befinden,  
+2.  das zweite Lebensjahr noch nicht vollendet und keinen eigenen Sitz
+platz haben,  
+-
+3.  mit der Sicherheit im Luftverkehr beauftragt sind (Art. 21a Luftfahrtge
+setz vom 21. Dezember 1948
+-
+13);  
+b. militärische und andere hoheitliche Flüge; 
+c. Flüge, die ausschliesslich aus zwingenden medizinischen Gründen erfolgen. 
+3 Der Bundesrat kann weitere Ausnahmen vorsehen. 
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+Art. 44 A bgabehöhe 
+1 Die Flugticketabgabe beträgt pro Flugticket mindestens 30 Franken und höchstens  
+120 Franken. 
+================================================================================
+SOURCE: https://www.mesadelturismo.org/wp-content/uploads/2019/07/isbn-978-92-76-08132-6-taxes_in_the_field_of_aviation_and_their_impact.pdf (CE Delft for European Commission, 2019, ISBN 978-92-76-08132-6)
+--------------------------------------------------------------------------------
+4.18. Luxembourg ............................................................................................ 93 
+4.19. Malta ....................................................................................................... 94 
+4.20. The Netherlands ...................................................................................... 96 
+4.21. Poland ..................................................................................................... 98 

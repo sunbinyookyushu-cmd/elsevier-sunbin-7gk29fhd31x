@@ -1,0 +1,93 @@
+Source: Lok Sabha Q&A API (sansad.in) record retrieved 2026-10-02
+Lok Sabha: 13; Session: 14; Question No: 2894; Type: UNSTARRED; Date: 22.12.2003
+Ministry: CIVIL AVIATION
+Subject: REDUCTION IN PRICE OF ATF 
+Members: ['SULTAN SALAHUDDIN  OWAISI', 'PRABHA  RAU', 'VILAS BABURAO  MUTTEMWAR', 'CHANDRA NATH  SINGH', 'SADASHIVRAO DADOBA  MANDLIK']
+Official file path (if any):  
+API: https://sansad.in/api_ls/question/qetFilteredQuestionsAns?loksabhaNo=13&pageNo=1&locale=en&keyWord=...  (record: LS 13, Q 2894, UNSTARRED, date 22.12.2003)
+
+QUESTION:
+ 
+ 
+ 
+ 
+
+(a) whether the price of ATF went up by over 5 percent 
+ during November, 2003; 
+ 
+ 
+
+(b) if so, the details of extra cost paid by the Airlines 
+ due to increased ATF and Inland Air Travel Tax (IATT); 
+ 
+ 
+
+(c) whether the Government efforts to reduce and introduce 
+ uniform price of ATF across the country in consultation 
+ with the State Governments have failed; 
+ 
+ 
+
+(d) if so, the details thereof and reasons therefor; 
+ 
+ 
+
+(e) whether the State Governments have requested the 
+ Government for reduction in Central Sales Tax on ATF; 
+ 
+ 
+
+(f) if so, whether the Ministry has taken up the matter with 
+ the Finance Ministry; and 
+
+
+ 
+ (g) if so, the details thereof and by when the decision is 
+ likely to be taken? 
+ 
+ 
+
+ANSWER:
+ MINISTER OF STATE OF THE MINISTRY OF CIVIL AVIATION ( SHRI RAJIV PRATAP RUDY ) 
+
+
+
+
+ (a): Yes, Sir. The price of ATF for domestic flights showed 
+ on increase of 5.10% in November, 2003 as compared to 
+ October, 2003. However, Aviation Turbine Fuel (ATF) is a 
+ decontrolled product. There is no intervention of the 
+ Government in pricing of ATF. 
+
+
+
+
+ (b): The ATF price increase in November, 2003 resulted in 
+ additional cost of fuel of about Rs.6 crores for operations 
+ of Indian Airlines including Alliance Air during November, 
+ 2003. Government does not maintain record of expenditure 
+ incurred by the private airlines on ATF. Further, there has 
+ been no increase in the Inland Air Travel Tax (IATT). 
+
+
+
+
+ (c) and (d): Ministry of Civil Aviation has requested State 
+ Governments to consider reducing rates of Sales Tax on ATF. 
+ Only the Governments of Andhra Pradesh, Orissa and 
+ Chhattisgarh have reduced the rates of Sales Tax. Other 
+ State Governments have not responded favourably. 
+
+
+
+
+ (e): No, Sir. 
+
+
+
+
+ (f) and (g): Ministry of Civil Aviation has requested 
+ Ministry of Finance to rationalise taxes on ATF. 
+
+
+

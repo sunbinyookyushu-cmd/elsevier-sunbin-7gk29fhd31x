@@ -1,0 +1,132 @@
+% ===== tab:funcform =====
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Extended Data Table: Functional form of the connectivity--emissions relationship}
+\label{tab:funcform}
+\footnotesize
+\begin{tabular}{lcccc}
+\toprule
+ & 2SLS & OLS & Implied elasticity at sample means & KP $F$ \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel A. Full sample}} \\
+  Log CO$_2$ on log GACI (reference) & 5.669$^{***}$ (0.412) & 3.585$^{***}$ (0.175) & 5.67 (elasticity) & 153.6 \\
+  Log CO$_2$ on GACI level (semi-log) & 4.091$^{***}$ (0.350) & 2.133$^{***}$ (0.121) & 4.44 ($\beta \times$ mean GACI (1.09)) & 165.6 \\
+  CO$_2$ (Mt) on GACI level (level-level) & 4.247$^{**}$ (1.951) & 11.098$^{***}$ (1.148) & 1.21 ($\beta \times$ mean GACI / mean CO$_2$ (3.81 Mt)) & 165.6 \\
+  CO$_2$ (Mt) on log GACI (lin-log) & 5.885$^{**}$ (2.760) & -- & 1.54 ($\beta$ / mean CO$_2$) & 153.6 \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel B. Semi-log and level specifications by baseline-connectivity tercile}} \\
+ & Semi-log $\beta$ & Level $\beta$ (Mt per unit) & Implied elasticities (semi-log; level) & KP $F$ \\
+  Low baseline connectivity & 10.264$^{***}$ (0.869) & 1.251$^{***}$ (0.110) & 7.84; 6.97 (mean GACI 0.76, mean CO$_2$ 0.14 Mt) & 111.5 \\
+  Middle & 4.592$^{***}$ (0.866) & 8.604$^{***}$ (1.655) & 4.46; 11.23 (mean GACI 0.97, mean CO$_2$ 0.74 Mt) & 29.5 \\
+  High & 1.108$^{*}$ (0.574) & -27.672$^{*}$ (16.792) & 1.63; -4.13 (mean GACI 1.47, mean CO$_2$ 9.86 Mt) & 10.8 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: Specification as in Table~\ref{tab:main}, column 1, with the connectivity regressor and the outcome transformed as stated; the instrument is the Feyrer interaction throughout. GACI (capacity-weighted mean) has a sample mean of 1.09 and ranges from 0.56 to 2.57 at baseline; a one-unit change is therefore roughly a doubling for a typical country. Implied elasticities evaluate the semi-log and level slopes at sample means. Robust standard errors in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+% ===== tab:gradient =====
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Extended Data Table: The elasticity along the baseline-connectivity distribution}
+\label{tab:gradient}
+\footnotesize
+\begin{tabular}{lcccccc}
+\toprule
+\multicolumn{7}{l}{\textit{Panel A. Split-sample 2SLS by quintile of 1996 connectivity}} \\
+Quintile & Baseline GACI (range) & Log-log elasticity & KP $F$ & Semi-log slope & Implied elasticity & $N$ \\
+\midrule
+  1 & 0.68 (0.56--0.74) & 8.49$^{***}$ (0.68) & 99.6 & 10.53$^{***}$ (0.92) & 7.66 & 900 \\
+  2 & 0.79 (0.74--0.84) & 8.49$^{***}$ (1.15) & 47.7 & 8.96$^{***}$ (1.14) & 7.52 & 857 \\
+  3 & 0.91 (0.84--1.00) & 3.29$^{***}$ (0.79) & 35.5 & 2.70$^{***}$ (0.69) & 2.63 & 951 \\
+  4 & 1.08 (1.00--1.17) & 85.80 (2816.22) & 0.0 & 3.65 (5.76) & 4.30 & 958 \\
+  5 & 1.56 (1.18--2.57) & 4.05$^{***}$ (0.98) & 12.2 & 1.43$^{***}$ (0.29) & 2.36 & 968 \\
+\midrule
+\multicolumn{7}{l}{\textit{Panel B. Pooled 2SLS with log GACI interacted with centred log baseline GACI (instruments interacted identically)}} \\
+ & \multicolumn{2}{c}{Linear interaction} & \multicolumn{2}{c}{Quadratic interaction} & & \\
+  ln GACI & \multicolumn{2}{c}{5.88$^{***}$ (0.40)} & \multicolumn{2}{c}{5.20$^{***}$ (0.36)} & & \\
+  ln GACI $\times$ (ln baseline GACI $-$ mean) & \multicolumn{2}{c}{-3.99$^{***}$ (0.39)} & \multicolumn{2}{c}{-5.04$^{***}$ (0.57)} & & \\
+  ln GACI $\times$ (ln baseline GACI $-$ mean)$^2$ & \multicolumn{2}{c}{--} & \multicolumn{2}{c}{4.43$^{***}$ (0.98)} & & \\
+  KP $F$; $N$ & \multicolumn{2}{c}{76.5; 4,634} & \multicolumn{2}{c}{56.2; 4,634} & & \\
+\midrule
+\multicolumn{7}{l}{\textit{Panel C. Implied elasticity at percentiles of baseline connectivity (delta-method s.e.)}} \\
+ & p10 & p25 & p50 & p75 & p90 & \\
+  Linear & 7.12 (0.44) & 6.69 (0.42) & 5.98 (0.40) & 5.24 (0.39) & 4.12 (0.40) & \\
+  Quadratic & 7.20 (0.44) & 6.40 (0.39) & 5.33 (0.36) & 4.51 (0.37) & 3.84 (0.39) & \\
+  Baseline GACI at percentile & 0.70 & 0.78 & 0.93 & 1.12 & 1.48 & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: Baseline connectivity is the earliest observed capacity-weighted GACI of each country. Panel A estimates Table~\ref{tab:main}, column 1, within quintiles; the implied elasticity of the semi-log specification is the slope times the quintile's mean GACI. Panel B interacts log GACI with the centred log baseline value (mean -0.05), instrumenting each term with the Feyrer interaction times the same centred value; Panel C evaluates the fitted elasticity at percentiles of the baseline distribution. Robust standard errors in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+% ===== tab:attr_sens =====
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Extended Data Table: Sensitivity of the 2023 attribution to heterogeneous elasticities}
+\label{tab:attr_sens}
+\footnotesize
+\begin{tabular}{lcc}
+\toprule
+Elasticity rule & Attributed 2023 CO$_2$ (Mt) & Share of 2023 emissions (\%) \\
+\midrule
+  Common elasticity (5.67) & 356.4 & 42.8 \\
+  Baseline-connectivity terciles (8.46 / 5.07 / 4.05) & 311.8 & 37.5 \\
+  Baseline-income terciles (10.40 / 6.14 / 1.83) & 293.5 & 35.3 \\
+  Continuous, linear interaction & 323.4 & 38.9 \\
+  Continuous, quadratic interaction & 314.3 & 37.8 \\
+  Semi-log slope (4.09 per GACI unit) on the absolute change & 353.2 & 42.4 \\
+\midrule
+\multicolumn{3}{l}{\textit{Largest contributors under the common and the continuous (quadratic) rule, Mt}} \\
+  CHN (baseline GACI 1.16) & 87.7 & 79.3 \\
+  USA (baseline GACI 2.01) & 36.4 & 25.9 \\
+  ARE (baseline GACI 1.58) & 24.7 & 22.7 \\
+  JPN (baseline GACI 1.32) & 17.4 & 14.1 \\
+  TUR (baseline GACI 1.21) & 16.6 & 15.7 \\
+  IND (baseline GACI 1.18) & 15.9 & 13.5 \\
+  KOR (baseline GACI 0.88) & 14.1 & 14.1 \\
+  CAN (baseline GACI 1.48) & 13.1 & 10.5 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: Attributed share $= 1-\exp(-\beta_c\,\Delta\ln\mathrm{GACI}_c)$ applied to 2023 bunker emissions, with $\beta_c$ assigned by the stated rule; terciles use the split-sample estimates of Extended Data Table~\ref{tab:hetero} (the top connectivity tercile is weakly identified), and the continuous rules use the fitted elasticity of Extended Data Table~\ref{tab:gradient} at each country's baseline, truncated at zero. The semi-log rule applies the slope to the absolute change in GACI. World 2023 emissions in the 184-country sample: 832 Mt.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+% ===== tab:accident_iv =====
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Supplementary Table: Aviation-accident instrument (Aviation Safety Network), pilot}
+\label{tab:accident_iv}
+\footnotesize
+\begin{tabular}{lcccc}
+\toprule
+ & Bunker CO$_2$ & Intl.\ CO$_2$ & Intensity & KP $F$ \\
+\midrule
+  2SLS, Lagged fatal accidents & 6.20$^{**}$ (2.42) & 5.20$^{***}$ (2.00) & -1.10 (0.70) & 4.4 \\
+  2SLS, Lagged accident deaths & 5.56$^{*}$ (3.02) & 3.73 (2.90) & -0.34 (1.02) & 2.0 \\
+  2SLS, Lagged any-fatal-accident indicator & 7.08 (4.73) & 5.60 (4.21) & -1.32 (1.63) & 1.2 \\
+  Feyrer and lagged fatal accidents jointly & 5.39$^{***}$ (0.42) & 5.36$^{***}$ (0.41) & -0.43$^{***}$ (0.13) & 66.8 \\
+  \quad Hansen $J$ $p$-value & 0.70 & 0.93 & 0.21 & \\
+  Feyrer and lagged accident deaths jointly & 5.38$^{***}$ (0.42) & 5.35$^{***}$ (0.41) & -0.42$^{***}$ (0.13) & 66.3 \\
+  \quad Hansen $J$ $p$-value & 0.95 & 0.59 & 0.93 & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: Country-year accident counts and deaths from the Aviation Safety Network, lagged one year, as instruments for log GACI; specification otherwise as in Table~\ref{tab:main}. The accident instruments are weak (first-stage $F$ of 1 to 4) and are not used on their own; the joint specification with the Feyrer instrument is reported for the overidentification test. Robust standard errors in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

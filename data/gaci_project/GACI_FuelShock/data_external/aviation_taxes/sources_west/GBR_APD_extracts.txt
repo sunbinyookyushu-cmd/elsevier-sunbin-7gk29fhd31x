@@ -1,0 +1,126 @@
+Short verbatim text snapshots collected 2026-10-02 for taxes_west_europe.csv. File: GBR_APD_extracts.txt
+
+================================================================================
+SOURCE: https://www.niassembly.gov.uk/globalassets/Documents/RaISe/Publications/2012/finance_personnel/7112.pdf (NI Assembly research paper NIAR 209-12)
+--------------------------------------------------------------------------------
+Air Passenger Duty  was introduced in the U nited Kingdom in 1994 by the the n Chancellor, 
+Mr Kenneth Clarke MP. Subsequent changes have been made to the structure of APD and 
+the rates themselves through various Finance Acts.  The primary legislation on APD can be 
+found in the Finance Act 1994 (sections 28 to 44 and schedules 5A and 6).2  
+APD is a revenue raising tax with some environmental benefits. The duty  is levied on 
+passengers flying from a UK airport on planes which have a weight of at least ten tonnes or 
+at least 20 passenger seats (planes which do not meet either of these criteria are exempt 
+from APD). However, the duty is not payable when a UK airport is used as a stopover on an 
+international flight for less than 24 hours. VAT is not paid on airplane tickets; and commercial 
+aviation fuel is exempt from taxation. 
+2.1.1. When introduced 
+Originally, when APD was introduced i n 1994 two ‘bands’ were created: the closest fo reign 
+destinations and UK inter nal travel carried a levy of £5;  while further afield destinations 
+carried a levy of £10.3 
+2.1.2. Subsequent APD changes 
+Subsequently, two new  ‘bands’ were created by the Finance Act 2000 : concerning 
+destination and, for the first time, class of travel. European (EEA) destinations were charged 
+the least (£5 in standard, or economy, class and £10 in other classes) and other destinations 
+charged at  higher rates (£20 in standard , or economy,  class and £40 in other classes). 4 
+These rates were later doubled by the Finance Act 2007.5 
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+3.1. Part 1: Northern Ireland long haul rates of duty from 1 November 2011 to 31 March 
+2012 (paragraphs 1-3) ................................ ................................ .......................... 10 
+3.2. Part 2: Rates of duty from 1 April 2012 (paragraphs 4-6) ................................ ...... 10 
+3.3. Part 3: Devolution of Northern Ireland long haul rates of duty (paragraphs 7-15) .. 11 
+3.4. Part 4: Other provisions (paragraphs 16-23) ................................ ......................... 12 
+4. UK arguments for reform and removal of APD ................................ ...................... 13 
+4.1. Environmental arguments ................................ ................................ ..................... 13 
+4.2. Economic arguments ................................ ................................ ............................ 15 
+================================================================================
+SOURCE: https://www.legislation.gov.uk/ukpga/1994/9/section/30/2010-11-01
+--------------------------------------------------------------------------------
+ 30 The rate of duty. U.K. 
+ [ F1 (1) Air passenger duty is chargeable on the carriage of each chargeable passenger at the rate determined as follows. 
+
+ (2) If the passenger's journey ends at a place in the United Kingdom or a territory specified in Part 1 of Schedule 5A— 
+
+ (a) if the passenger's agreement for carriage provides for standard class travel in relation to every flight on the passenger's journey, the rate is [ F2 £12 ] , and 
+
+ (b) in any other case, the rate is [ F2 £24 ] . 
+
+ (3) If the passenger's journey ends at a place in a territory specified in Part 2 of Schedule 5A— 
+
+ (a) if the passenger's agreement for carriage provides for standard class travel in relation to every flight on the passenger's journey, the rate is [ F3 £60 ] , and 
+
+================================================================================
+SOURCE: https://www.legislation.gov.uk/ukpga/1994/9/section/30/2015-04-01
+--------------------------------------------------------------------------------
+ F5 S. 30(3)(4) omitted (with effect in accordance with s. 79(12) of the amending Act) by virtue of Finance Act 2014 (c. 26) , s. 79(3) 
+ F6 S. 30(4A)(a) substituted (with effect in accordance with s. 79(12) of the amending Act) by Finance Act 2014 (c. 26) , s. 79(4)(a) 
+ F7 S. 30(4A)(b) substituted (with effect in accordance with s. 79(12) of the amending Act) by Finance Act 2014 (c. 26) , s. 79(4)(b) 
+================================================================================
+SOURCE: https://www.legislation.gov.uk/ukpga/1994/9/section/30/2023-04-01
+--------------------------------------------------------------------------------
+ [ F4 (1B) If the passenger’s journey ends at a place in the United Kingdom— 
+
+ (a) if the passenger’s agreement for carriage provides for standard class travel in relation to every flight on the passenger’s journey, the rate is £6.50, and 
+
+ (b) in any other case, the rate is £13. ] 
+
+ (2) If the passenger's journey ends at a place in F5 ... a territory specified in Part 1 of Schedule 5A— 
+
+ (a) if the passenger's agreement for carriage provides for standard class travel in relation to every flight on the passenger's journey, the rate is [ F6 £13 ] , and 
+
+ (b) in any other case, the rate is [ F7 £26 ] . 
+
+ [ F8 (2A) If the passenger’s journey ends at a place in a territory specified in Part 1A of Schedule 5A— 
+
+ (a) if the passenger’s agreement for carriage provides for standard class travel in relation to every flight on the passenger’s journey, the rate is £87, and 
+
+ (b) in any other case, the rate is £191. ] 
+================================================================================
+SOURCE: https://www.gov.uk/guidance/rates-and-allowances-for-air-passenger-duty-historic-rates (HMRC)
+--------------------------------------------------------------------------------
+ Rates from 1 April 2023
+ Destination bands 
+ Reduced rate (for travel in the lowest class of travel available on the aircraft) 
+ Standard rate (for travel in any other class of travel) 
+ Higher rate (for travel in aircraft of 20 tonnes or more equipped to carry fewer than 19 passengers) 
+ Domestic 
+ £6.50 
+ £13 
+ £78 
+ Band A 
+ £13 
+ £26 
+ £78 
+ Band B 
+ £87 
+ £191 
+ £574 
+ Band C 
+ £91 
+ £200 
+ £601 
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+ From 1 April 2015
+ Destination bands and distance from London (miles) 
+ Reduced rate (for travel in the lowest class of travel available on the aircraft) 
+ Standard rate (for travel in any other class of travel) 
+ Higher rate (for travel in aircraft of 20 tonnes or more equipped to carry fewer than 19 passengers) 
+ Band A (0 to 2,000 miles) 
+ £13 
+ £26 
+ £78 
+ Band B (over 2,000 miles) 
+ £71 
+ £142 
+ £426 
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+ You do not pay duty on direct long-haul flights departing from airports in Northern Ireland. A flight is a ‘direct long-haul flight’ when:
+ the passenger’s journey begins from an airport in Northern Ireland
+ the first part of the journey is to a destination not in the UK or in band A
+ that part of the journey is direct and does not connect elsewhere beforehand
+ You do not need to declare these flights. Instead you’ll need to give the relevant information on a quarterly basis in a separate spreadsheet to the Central Assurance Team.

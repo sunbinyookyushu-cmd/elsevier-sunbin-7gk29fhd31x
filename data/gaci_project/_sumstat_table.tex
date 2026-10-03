@@ -1,0 +1,39 @@
+\begin{table}[t]
+\centering
+\caption{Summary statistics, estimation sample (184 countries, 1996--2023).}
+\label{tab:sumstat}
+\begin{threeparttable}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Variable & $N$ & Mean & SD & Min & Median & Max \\
+\midrule
+\multicolumn{7}{l}{\emph{Connectivity}}\\
+Hub quality, $\ln\mathrm{GACI}_{cwm}$ (cap.-wtd.\ mean) & 4643 & 0.03 & 0.32 & -0.63 & -0.01 & 1.10 \\
+Total connectivity, $\ln\mathrm{GACI}_{sum}$ & 4643 & 1.53 & 1.36 & -0.61 & 1.39 & 6.23 \\
+Number of airports & 4643 & 19.32 & 52.65 & 1.00 & 5.00 & 614.00 \\
+\addlinespace
+\multicolumn{7}{l}{\emph{Trade outcomes}}\\
+Goods-trade volume, $\ln$ & 4643 & 23.60 & 2.36 & 17.48 & 23.52 & 29.46 \\
+Goods openness, $\ln(\text{goods}/\text{GDP})$ & 4643 & -0.58 & 0.55 & -2.55 & -0.59 & 1.44 \\
+Goods trade (\% of GDP) & 4643 & 65.99 & 43.90 & 7.81 & 55.68 & 420.68 \\
+\addlinespace
+\multicolumn{7}{l}{\emph{Income}}\\
+GDP per capita, $\ln$ & 4643 & 8.62 & 1.45 & 5.43 & 8.53 & 11.68 \\
+GDP, $\ln$ (total) & 4643 & 24.17 & 2.34 & 17.99 & 24.05 & 30.94 \\
+\addlinespace
+\multicolumn{7}{l}{\emph{Instrument and heritage}}\\
+Tourism-heritage instrument & 4643 & 0.42 & 0.47 & 0.00 & 0.34 & 2.94 \\
+Natural + mixed UNESCO sites (cum.) & 4643 & 1.82 & 2.77 & 0.00 & 1.00 & 18.00 \\
+\addlinespace
+\multicolumn{7}{l}{\emph{Controls}}\\
+Population, $\ln$ & 4643 & 15.70 & 2.06 & 9.28 & 15.93 & 21.09 \\
+Land area, $\ln$ & 4643 & 11.50 & 2.56 & 3.00 & 11.95 & 16.61 \\
+Remoteness, $\ln$ sea distance & 4635 & 9.27 & 0.16 & 8.96 & 9.27 & 9.64 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Estimation sample: 184 countries over 1996--2023 (4{,}643 country-year observations; remoteness available for 4{,}635). GACI = Global Air Connectivity Index. Hub quality is the capacity-weighted mean of airport-level GACI within a country; total connectivity is the country sum. The tourism-heritage instrument is global tourism demand (min--max scaled to $[0,1]$) interacted with the fixed natural-plus-mixed heritage endowment. Goods trade is merchandise trade (WDI); services and tourism are excluded by construction.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

@@ -1,0 +1,20 @@
+﻿instrument built: (141264, 3)
+GACI done
+destinations done
+                                              part                                  spec                    term       b     se      p      F    n                                    note
+                                       first stage                              M = GACI  Z geo x foreign growth  0.1835 0.1046 0.0888    NaN 8358                                     NaN
+                                       first stage                              M = GACI          treated x post -0.0133 0.0061 0.0362    NaN 8358                                     NaN
+           2SLS, M instrumented by Z, tp exogenous                     Y = CO2, M = GACI           ln GACI (b_M)  6.6701 6.5500 0.3162 3.0800 8358 KP F 3.1; indirect = pi x b_M = -0.0888
+           2SLS, M instrumented by Z, tp exogenous                     Y = CO2, M = GACI treated x post (direct)  0.0000 0.0897 0.9998    NaN 8358 KP F 3.1; indirect = pi x b_M = -0.0888
+2SLS, M instrumented by Z and tp (over-identified)                     Y = CO2, M = GACI           ln GACI (b_M)  6.6693 2.9028 0.0283 4.9722 8358                                KP F 5.0
+           2SLS, M instrumented by Z, tp exogenous         Y = CO2 per seat-km, M = GACI           ln GACI (b_M) -1.1257 1.9247 0.5627 3.0800 8358  KP F 3.1; indirect = pi x b_M = 0.0150
+           2SLS, M instrumented by Z, tp exogenous         Y = CO2 per seat-km, M = GACI treated x post (direct) -0.0025 0.0334 0.9411    NaN 8358  KP F 3.1; indirect = pi x b_M = 0.0150
+2SLS, M instrumented by Z and tp (over-identified)         Y = CO2 per seat-km, M = GACI           ln GACI (b_M) -1.0109 0.7468 0.1853 4.9722 8358                                KP F 5.0
+                                       first stage                      M = destinations  Z geo x foreign growth  1.5362 0.5328 0.0070    NaN 8358                                     NaN
+                                       first stage                      M = destinations          treated x post -0.0791 0.0402 0.0577    NaN 8358                                     NaN
+           2SLS, M instrumented by Z, tp exogenous             Y = CO2, M = destinations   ln destinations (b_M)  0.7967 0.8435 0.3520 8.3134 8358 KP F 8.3; indirect = pi x b_M = -0.0630
+           2SLS, M instrumented by Z, tp exogenous             Y = CO2, M = destinations treated x post (direct) -0.0258 0.0746 0.7323    NaN 8358 KP F 8.3; indirect = pi x b_M = -0.0630
+2SLS, M instrumented by Z and tp (over-identified)             Y = CO2, M = destinations   ln destinations (b_M)  0.9449 0.4690 0.0524 6.8733 8358                                KP F 6.9
+           2SLS, M instrumented by Z, tp exogenous Y = CO2 per seat-km, M = destinations   ln destinations (b_M) -0.1345 0.2294 0.5619 8.3134 8358  KP F 8.3; indirect = pi x b_M = 0.0106
+           2SLS, M instrumented by Z, tp exogenous Y = CO2 per seat-km, M = destinations treated x post (direct)  0.0019 0.0259 0.9431    NaN 8358  KP F 8.3; indirect = pi x b_M = 0.0106
+2SLS, M instrumented by Z and tp (over-identified) Y = CO2 per seat-km, M = destinations   ln destinations (b_M) -0.1452 0.1112 0.2011 6.8733 8358                                KP F 6.9

@@ -1,0 +1,46 @@
+\begin{table}[p]
+\centering
+\caption{Robustness of the headline estimates: sample, inference and alternative measures (2SLS, Feyrer instrument).}
+\label{tab:robust}
+\begin{minipage}{\linewidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccrr}
+\toprule
+ & Bottom-30\% share & Top-30 minus bottom-30 & Mean income & KP $F$ & N \\
+\midrule
+\multicolumn{5}{l}{\emph{Panel A. Baseline}}\\
+2SLS, Feyrer instrument (Table~\ref{tab:main}) & -0.910\sym{*} & 0.951\sym{*} & 1.320\sym{***} & 21.1 & 4{,}537 \\
+ & (0.498) & (0.573) & (0.420) \\
+\multicolumn{5}{l}{\emph{Panel B. Sample}}\\
+Excluding the ten largest hub economies & -0.968\sym{*} & 1.020\sym{*} & 1.425\sym{***} & 19.0 & 4{,}262 \\
+ & (0.524) & (0.602) & (0.447) \\
+1996--2019 & -0.764 & 0.795 & 1.251\sym{***} & 21.8 & 3{,}864 \\
+ & (0.479) & (0.556) & (0.401) \\
+Excluding 2008--09 and 2020--21 & -0.705 & 0.735 & 1.343\sym{***} & 22.7 & 3{,}871 \\
+ & (0.457) & (0.531) & (0.412) \\
+\multicolumn{5}{l}{\emph{Panel C. Inference (same point estimates as the baseline)}}\\
+Clustered by country & -0.910\sym{*} & 0.951\sym{*} & 1.320\sym{***} & 21.1 & 4{,}537 \\
+ & (0.498) & (0.573) & (0.420) \\
+Two-way clustered (country, year) & -0.910 & 0.951 & 1.320\sym{***} &  & 4{,}537 \\
+ & (0.538) & (0.610) & (0.420) \\
+Conley spatial HAC, 1{,}000 km & -0.821 & 0.849 & 1.218\sym{**} &  & 4{,}334 \\
+ & (0.508) & (0.584) & (0.511) \\
+Conley spatial HAC, 2{,}000 km & -0.821 & 0.849 & 1.218\sym{**} &  & 4{,}334 \\
+ & (0.557) & (0.647) & (0.619) \\
+\multicolumn{6}{l}{\emph{Panel D. Alternative distributional measures, 2SLS (coefficient in the first column)}}\\
+Bottom-50\% share & -0.419 & & & & 4{,}537 \\
+ & (0.309) & & & & \\
+Palma ratio (top 10 / bottom 40) & 0.621 & & & & 4{,}537 \\
+ & (0.512) & & & & \\
+WID Gini & 0.060 & & & & 4{,}537 \\
+ & (0.134) & & & & \\
+Top-10\% share & 0.061 & & & & 4{,}537 \\
+ & (0.165) & & & & \\
+Absolute gap, top 10 minus bottom 50 & 1.402\sym{***} & & & & 4{,}537 \\
+ & (0.425) & & & & \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}\begin{flushleft}\footnotesize Panel C re-estimates the baseline with alternative variance estimators; Conley standard errors use a Bartlett kernel in great-circle distance between country centroids and allow arbitrary within-country serial correlation. Panel D replaces the bottom-30\% share by other summaries of the same WID distribution: Palma $=$ top-10 share / bottom-40 share; the absolute gap is the top-10 minus bottom-50 average income in constant local prices; the WID Gini is the DINA Gini. Specification as in Table~\ref{tab:main}: country and year fixed effects, log population, $\ln\mathrm{GACI}_{max}$ instrumented by the Feyrer interaction; standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{flushleft}
+\end{minipage}
+\end{table}

@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Concentration of connectivity-attributed emissions across airports, 2023}
+\label{tab:airport_conc}
+\footnotesize
+\begin{tabular}{lccccc}
+\toprule
+ & Top 1\% & Top 5\% & Top 10\% & Top 25\% & Gini \\
+\midrule
+  Emissions 2023 & 41.0 & 77.6 & 89.0 & 97.1 & 0.916 \\
+  Attributed (country b) & 45.8 & 84.5 & 94.1 & 99.3 & 0.945 \\
+  Attributed (airport b) & 46.8 & 85.3 & 94.6 & 99.4 & 0.948 \\
+  Attributed (hub/non-hub b) & 45.0 & 82.8 & 93.3 & 99.3 & 0.941 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Shares (percent) of the global total held by the top-ranked airports, and Gini coefficients, over the 3,833 airports with positive 2023 emissions. Attributed emissions are CO$_2$ in 2023 times $1-\exp(-\beta\,\Delta\ln \mathrm{GACI}_{1996\text{--}2023})$ with $\beta$ from the country 2SLS (5.67), the airport within-country regression (3.72), or the hub-specific airport estimates (2.11 for the global top 5 percent by 1996 capacity, 4.05 otherwise). Negative attributions (airports whose connectivity fell) are set to zero in the ranking.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

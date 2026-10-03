@@ -1,0 +1,2880 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do gaci_feyrer_hetero.do 
+
+. *============================================================================
+> ==
+. * gaci_feyrer_hetero.do  --  Heterogeneity (SPLIT-SAMPLE) of the Feyrer-IV tr
+> ade effect
+. *   spec      : ivreghdfe <outcome> lnpop ln_sea_ma (lng = feyrer_int), absor
+> b(isocode y) robust
+. *   outcomes  : trade_share (% openness) | trade_intensity ln(trade/GDP) | ln
+> _tradevol(+lngdp)
+. *   moderators (TIME-INVARIANT -> country FE keeps the within-group IV valid)
+> :
+. *     1) aviation advantage adv_base=ln(air/sea_1996)  + landlocked dummy
+. *     2) development : baseline (earliest-year) ln per-capita GDP
+. *     3) country size: baseline (earliest-year) ln population
+. *     4) region      : continent (AF/AS/EU/LA/ME/NA/SW)
+. *   each cell prints a RESULT line: beta(lng) / SE / p-value / KP first-stage
+>  F / N
+. *   (KP first-stage F = e(widstat) = weak-identification statistic under FE+r
+> obust)
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI
+
+. import delimited "gaci_panel_feyrer.csv", clear varnames(1) encoding("utf-8")
+(40 vars, 4,714 obs)
+
+. ds c reg, not
+y             gaci_cwmean   lnpop         close_sum     ln_air_ma
+trade_share   gaci_mean     lnland        close_mean    ln_sea_ma
+ln_tradevol   ln_unesco     abslat        betw_sum      ln_feyrer
+lngdp         unesco_cum    n_air         betw_mean     a_t
+lng           unesco_cum~t  deg_sum       regimp_sum    feyrer_int
+ln_gaci_cwm   lnz           deg_mean      regimp_mean   adv_int
+ln_gaci_mean  lnz_own       eig_sum       cap_sum
+lncap         lnpc          eig_mean      cap_mean
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+ln_air_ma already numeric; no replace
+ln_sea_ma already numeric; no replace
+ln_feyrer already numeric; no replace
+a_t already numeric; no replace
+feyrer_int already numeric; no replace
+adv_int already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. gen trade_intensity = ln_tradevol - lngdp
+
+. 
+. * ---- moderators (time-invariant) ----
+. gen adv_base = adv_int / a_t                       // ln(air/sea_1996), const
+> ant within country
+(164 missing values generated)
+
+. bysort isocode (y): gen first_lnpc  = lnpc[1]
+
+. bysort isocode (y): gen first_lnpop = lnpop[1]
+
+. gen cont = substr(reg,1,2)
+
+. encode cont, gen(contc)
+
+. 
+. summarize adv_base,    detail
+
+                          adv_base
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -.2991568      -.5384544
+ 5%    -.0720932      -.5384544
+10%    -.0081271      -.5384544       Obs               4,550
+25%     .0852468      -.5384544       Sum of Wgt.       4,550
+
+50%     .1899754                      Mean           .2313939
+                        Largest       Std. Dev.      .2399255
+75%     .3761817       1.101878
+90%     .5462897       1.101878       Variance       .0575642
+95%     .6266702       1.101878       Skewness           .678
+99%     .9830548       1.101878       Kurtosis       4.503504
+
+. gen hi_adv  = (adv_base    > r(p50)) if !missing(adv_base)
+(164 missing values generated)
+
+. summarize first_lnpc,  detail
+
+                         first_lnpc
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     5.674047       5.425824
+ 5%      6.12589       5.425824
+10%     6.405906       5.425824       Obs               4,714
+25%     7.161047       5.425824       Sum of Wgt.       4,714
+
+50%     8.209045                      Mean           8.366366
+                        Largest       Std. Dev.      1.477324
+75%     9.680716       11.68168
+90%     10.42059       11.68168       Variance       2.182485
+95%      10.6075       11.68168       Skewness       .1404371
+99%     11.11668       11.68168       Kurtosis       1.937028
+
+. gen hi_inc  = (first_lnpc  > r(p50)) if !missing(first_lnpc)
+
+. summarize first_lnpop, detail
+
+                         first_lnpop
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     10.79029        9.21124
+ 5%     11.32685        9.21124
+10%     12.50215        9.21124       Obs               4,714
+25%     14.50296        9.21124       Sum of Wgt.       4,714
+
+50%     15.71893                      Mean           15.48484
+                        Largest       Std. Dev.      2.062138
+75%     16.71829       20.92011
+90%     17.90852       20.92011       Variance       4.252415
+95%     18.64272       20.92011       Skewness      -.4077684
+99%     20.70274       20.92011       Kurtosis       3.190547
+
+. gen lg_size = (first_lnpop > r(p50)) if !missing(first_lnpop)
+
+. 
+. gen lockd = 0
+
+. foreach iso in AFG AND ARM AUT AZE BLR BTN BOL BWA BFA BDI CAF TCD CZE SWZ ET
+> H ///
+>                HUN KAZ KGZ LAO LSO LIE LUX MWI MLI MDA MNG NPL NER MKD PRY RW
+> A ///
+>                SMR SRB SVK SSD CHE TJK TKM UGA UZB ZMB ZWE {
+  2.     replace lockd = 1 if c == "`iso'"
+  3. }
+(4 real changes made)
+(0 real changes made)
+(28 real changes made)
+(28 real changes made)
+(26 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(0 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(11 real changes made)
+(13 real changes made)
+(28 real changes made)
+(28 real changes made)
+(27 real changes made)
+(21 real changes made)
+(17 real changes made)
+(0 real changes made)
+(24 real changes made)
+(7 real changes made)
+(28 real changes made)
+(0 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(0 real changes made)
+(18 real changes made)
+(28 real changes made)
+(4 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(27 real changes made)
+(28 real changes made)
+(28 real changes made)
+
+. 
+. *----------------------------------------------------------------------------
+> --
+. * program: run all 3 outcomes within one subgroup, emit RESULT lines (with p-
+> value)
+. *----------------------------------------------------------------------------
+> --
+. capture program drop _hcell
+
+. program define _hcell
+  1.     args lbl cond
+  2.     foreach yv in trade_share trade_intensity ln_tradevol {
+  3.         local extra ""
+  4.         if "`yv'" == "ln_tradevol" local extra "lngdp"
+  5.         capture noisily ivreghdfe `yv' lnpop ln_sea_ma `extra' (lng = feyr
+> er_int) ///
+>             if `cond', absorb(isocode y) robust
+  6.         if _rc == 0 {
+  7.             local b  = _b[lng]
+  8.             local se = _se[lng]
+  9.             local p  = 2*ttail(e(df_r), abs(`b'/`se'))
+ 10.             local F  = e(widstat)
+ 11.             di as txt "RESULT | " %-16s "`yv'" " | " %-12s "`lbl'" " | b="
+>  as res %9.4f `b' ///
+>                as txt " se=" as res %9.4f `se' as txt " p=" as res %6.4f `p' 
+> ///
+>                as txt " | KP-firstF=" as res %8.2f `F' as txt " N=" as res e(
+> N)
+ 12.         }
+ 13.         else di as err "RESULT | `yv' | `lbl' | FAILED rc=" _rc
+ 14.     }
+ 15. end
+
+. 
+. di _n "############### 1) AVIATION ADVANTAGE (adv_base median split) ########
+> #######"
+
+############### 1) AVIATION ADVANTAGE (adv_base median split) ###############
+
+. _hcell "adv_LOW"  "hi_adv==0"
+(dropped 1 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2276
+                                                      F(  3,  2150) =     3.75
+                                                      Prob > F      =   0.0106
+Total (centered) SS     =  1476312.737                Centered R2   =  -0.0457
+Total (uncentered) SS   =  1476312.737                Uncentered R2 =  -0.0457
+Residual SS             =  1543710.861                Root MSE      =     26.8
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   25.08456   10.92844     2.30   0.022     3.653139    46.51598
+       lnpop |  -15.35638   7.161312    -2.14   0.032     -29.4002   -1.312559
+   ln_sea_ma |   77.20168    25.8617     2.99   0.003     26.48512    127.9182
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             55.459
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               63.848
+                         (Kleibergen-Paap rk Wald F statistic):         54.297
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        97           0          97     |
+           y |        27           1          26     |
+-----------------------------------------------------+
+RESULT | trade_share      | adv_LOW      | b=  25.0846 se=  10.9284 p=0.0218 | 
+> KP-firstF=   54.30 N=2276
+(dropped 1 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2276
+                                                      F(  3,  2150) =     2.43
+                                                      Prob > F      =   0.0635
+Total (centered) SS     =  85.27624161                Centered R2   =  -0.0128
+Total (uncentered) SS   =  85.27624161                Uncentered R2 =  -0.0128
+Residual SS             =  86.36738668                Root MSE      =    .2004
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .0961612   .1019198     0.94   0.346    -.1037105    .2960329
+       lnpop |  -.1614666   .0705466    -2.29   0.022    -.2998133   -.0231199
+   ln_sea_ma |   .4693451   .2257045     2.08   0.038     .0267232    .9119671
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             55.459
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               63.848
+                         (Kleibergen-Paap rk Wald F statistic):         54.297
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        97           0          97     |
+           y |        27           1          26     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | adv_LOW      | b=   0.0962 se=   0.1019 p=0.3455 | 
+> KP-firstF=   54.30 N=2276
+(dropped 1 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2276
+                                                      F(  4,  2149) =   322.91
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  185.3616455                Centered R2   =   0.4996
+Total (uncentered) SS   =  185.3616455                Uncentered R2 =   0.4996
+Residual SS             =  92.75300892                Root MSE      =    .2078
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .3333081   .1321705     2.52   0.012     .0741128    .5925034
+       lnpop |  -.0591507   .0692309    -0.85   0.393    -.1949172    .0766159
+   ln_sea_ma |   .5778636   .2339315     2.47   0.014      .119108    1.036619
+       lngdp |   .7528642      .0414    18.19   0.000     .6716761    .8340524
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             35.299
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               39.806
+                         (Kleibergen-Paap rk Wald F statistic):         33.813
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        97           0          97     |
+           y |        27           1          26     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | adv_LOW      | b=   0.3333 se=   0.1322 p=0.0117 | 
+> KP-firstF=   33.81 N=2276
+
+. _hcell "adv_HIGH" "hi_adv==1"
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2273
+                                                      F(  3,  2157) =    98.73
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  674394.7077                Centered R2   =   0.0506
+Total (uncentered) SS   =  674394.7077                Uncentered R2 =   0.0506
+Residual SS             =  640260.2532                Root MSE      =    17.23
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |    17.1348   10.82266     1.58   0.114    -4.089126    38.35873
+       lnpop |   6.118221    8.02213     0.76   0.446    -9.613693    21.85014
+   ln_sea_ma |  -331.9982   34.55657    -9.61   0.000    -399.7659   -264.2306
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             40.971
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               28.044
+                         (Kleibergen-Paap rk Wald F statistic):         41.382
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        87           0          87     |
+           y |        27           1          26     |
+-----------------------------------------------------+
+RESULT | trade_share      | adv_HIGH     | b=  17.1348 se=  10.8227 p=0.1135 | 
+> KP-firstF=   41.38 N=2273
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2273
+                                                      F(  3,  2157) =    53.58
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  70.62238663                Centered R2   =   0.0301
+Total (uncentered) SS   =  70.62238663                Uncentered R2 =   0.0301
+Residual SS             =  68.49402384                Root MSE      =    .1782
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.2439869   .1208385    -2.02   0.044     -.480959   -.0070148
+       lnpop |  -.2739452   .0768281    -3.57   0.000      -.42461   -.1232804
+   ln_sea_ma |  -1.662872   .3110531    -5.35   0.000    -2.272867   -1.052876
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             40.971
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               28.044
+                         (Kleibergen-Paap rk Wald F statistic):         41.382
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        87           0          87     |
+           y |        27           1          26     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | adv_HIGH     | b=  -0.2440 se=   0.1208 p=0.0436 | 
+> KP-firstF=   41.38 N=2273
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2273
+                                                      F(  4,  2156) =   538.97
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  171.0982716                Centered R2   =   0.6355
+Total (uncentered) SS   =  171.0982716                Uncentered R2 =   0.6355
+Residual SS             =   62.3581789                Root MSE      =    .1701
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.1461799   .1479822    -0.99   0.323    -.4363825    .1440227
+       lnpop |  -.1800491    .093256    -1.93   0.054    -.3629301    .0028319
+   ln_sea_ma |  -1.725551   .2965621    -5.82   0.000    -2.307128   -1.143973
+       lngdp |   .8863106   .0470073    18.85   0.000     .7941262    .9784951
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             26.266
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               17.204
+                         (Kleibergen-Paap rk Wald F statistic):         25.675
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        87           0          87     |
+           y |        27           1          26     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | adv_HIGH     | b=  -0.1462 se=   0.1480 p=0.3234 | 
+> KP-firstF=   25.67 N=2273
+
+. di _n "############### 1b) LANDLOCKED ###############"
+
+############### 1b) LANDLOCKED ###############
+
+. _hcell "coastal"    "lockd==0"
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     3778
+                                                      F(  3,  3601) =    14.76
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1959201.741                Centered R2   =  -0.8908
+Total (uncentered) SS   =  1959201.741                Uncentered R2 =  -0.8908
+Residual SS             =  3704542.816                Root MSE      =    32.07
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   91.42488   19.16488     4.77   0.000     53.84978         129
+       lnpop |  -22.21351   7.903893    -2.81   0.005    -37.71007   -6.716959
+   ln_sea_ma |  -42.99482   37.05885    -1.16   0.246    -115.6533    29.66362
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             40.706
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               41.543
+                         (Kleibergen-Paap rk Wald F statistic):         39.193
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       147           0         147     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | coastal      | b=  91.4249 se=  19.1649 p=0.0000 | 
+> KP-firstF=   39.19 N=3778
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     3778
+                                                      F(  3,  3601) =    28.18
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  127.9976981                Centered R2   =  -0.1996
+Total (uncentered) SS   =  127.9976981                Uncentered R2 =  -0.1996
+Residual SS             =   153.540452                Root MSE      =    .2065
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .3594602   .1194441     3.01   0.003     .1252753    .5936451
+       lnpop |  -.1879373   .0496308    -3.79   0.000    -.2852447     -.09063
+   ln_sea_ma |  -.6847281   .2176393    -3.15   0.002    -1.111437   -.2580195
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             40.706
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               41.543
+                         (Kleibergen-Paap rk Wald F statistic):         39.193
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       147           0         147     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | coastal      | b=   0.3595 se=   0.1194 p=0.0026 | 
+> KP-firstF=   39.19 N=3778
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     3778
+                                                      F(  4,  3600) =   429.93
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  295.8631307                Centered R2   =   0.2615
+Total (uncentered) SS   =  295.8631307                Uncentered R2 =   0.2615
+Residual SS             =  218.5039457                Root MSE      =    .2464
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .7304798   .2069442     3.53   0.000     .3247402    1.136219
+       lnpop |   -.010186   .0554775    -0.18   0.854    -.1189565    .0985845
+   ln_sea_ma |  -.5878896   .2760554    -2.13   0.033     -1.12913    -.046649
+       lngdp |   .6657825   .0611073    10.90   0.000     .5459741    .7855908
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             20.369
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               21.281
+                         (Kleibergen-Paap rk Wald F statistic):         19.389
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       147           0         147     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | coastal      | b=   0.7305 se=   0.2069 p=0.0004 | 
+> KP-firstF=   19.39 N=3778
+
+. _hcell "landlocked" "lockd==1"
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      923
+                                                      F(  3,   856) =    25.70
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  300826.0913                Centered R2   =   0.0514
+Total (uncentered) SS   =  300826.0913                Uncentered R2 =   0.0514
+Residual SS             =  285348.8772                Root MSE      =    18.26
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   6.034148   9.037296     0.67   0.505    -11.70371      23.772
+       lnpop |   -29.4296   13.65653    -2.15   0.031    -56.23381   -2.625384
+   ln_sea_ma |    -118.44   58.48595    -2.03   0.043    -233.2327    -3.64734
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             49.024
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               41.889
+                         (Kleibergen-Paap rk Wald F statistic):         52.487
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        37           0          37     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | landlocked   | b=   6.0341 se=   9.0373 p=0.5045 | 
+> KP-firstF=   52.49 N=923
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      923
+                                                      F(  3,   856) =    12.09
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  36.72289727                Centered R2   =   0.0476
+Total (uncentered) SS   =  36.72289727                Uncentered R2 =   0.0476
+Residual SS             =  34.97400177                Root MSE      =    .2021
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.1009424   .1005953    -1.00   0.316    -.2983847       .0965
+       lnpop |  -.5863438   .1159368    -5.06   0.000    -.8138975     -.35879
+   ln_sea_ma |   1.011034   .4622923     2.19   0.029     .1036745    1.918393
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             49.024
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               41.889
+                         (Kleibergen-Paap rk Wald F statistic):         52.487
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        37           0          37     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | landlocked   | b=  -0.1009 se=   0.1006 p=0.3159 | 
+> KP-firstF=   52.49 N=923
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      923
+                                                      F(  4,   855) =   161.56
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  59.51742688                Centered R2   =   0.4830
+Total (uncentered) SS   =  59.51742688                Uncentered R2 =   0.4830
+Residual SS             =  30.76850406                Root MSE      =    .1897
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .0045718   .0978266     0.05   0.963    -.1874366    .1965803
+       lnpop |  -.2599715   .1162336    -2.24   0.026    -.4881081   -.0318348
+   ln_sea_ma |   .4238681   .4541863     0.93   0.351    -.4675826    1.315319
+       lngdp |   .7093617   .0326395    21.73   0.000     .6452987    .7734247
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             44.563
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               36.200
+                         (Kleibergen-Paap rk Wald F statistic):         46.871
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        37           0          37     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | landlocked   | b=   0.0046 se=   0.0978 p=0.9627 | 
+> KP-firstF=   46.87 N=923
+
+. di _n "############### 2) DEVELOPMENT (baseline pc-GDP split) ###############
+> "
+
+############### 2) DEVELOPMENT (baseline pc-GDP split) ###############
+
+. _hcell "inc_LOW"  "hi_inc==0"
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2367
+                                                      F(  3,  2244) =    15.31
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  498394.0719                Centered R2   =  -0.1578
+Total (uncentered) SS   =  498394.0719                Uncentered R2 =  -0.1578
+Residual SS             =   577045.227                Root MSE      =    16.04
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -26.43116    6.38684    -4.14   0.000    -38.95589   -13.90643
+       lnpop |   -17.0345   5.963837    -2.86   0.004    -28.72972   -5.339287
+   ln_sea_ma |  -8.329525   21.88208    -0.38   0.703    -51.24075     34.5817
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             54.995
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               55.539
+                         (Kleibergen-Paap rk Wald F statistic):         53.066
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        93           0          93     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | inc_LOW      | b= -26.4312 se=   6.3868 p=0.0000 | 
+> KP-firstF=   53.07 N=2367
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2367
+                                                      F(  3,  2244) =    11.19
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  101.7627101                Centered R2   =  -0.2867
+Total (uncentered) SS   =  101.7627101                Uncentered R2 =  -0.2867
+Residual SS             =  130.9359277                Root MSE      =    .2416
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.4374735   .0895859    -4.88   0.000    -.6131534   -.2617936
+       lnpop |  -.2232686    .083538    -2.67   0.008    -.3870885   -.0594488
+   ln_sea_ma |   .4999273   .3002093     1.67   0.096    -.0887896    1.088644
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             54.995
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               55.539
+                         (Kleibergen-Paap rk Wald F statistic):         53.066
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        93           0          93     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | inc_LOW      | b=  -0.4375 se=   0.0896 p=0.0000 | 
+> KP-firstF=   53.07 N=2367
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2367
+                                                      F(  4,  2243) =   302.61
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  203.5609565                Centered R2   =   0.3467
+Total (uncentered) SS   =  203.5609565                Uncentered R2 =   0.3467
+Residual SS             =  132.9920169                Root MSE      =    .2435
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.4496349   .1866308    -2.41   0.016     -.815622   -.0836478
+       lnpop |  -.2280553   .0952918    -2.39   0.017    -.4149247   -.0411859
+   ln_sea_ma |   .5153218   .3521166     1.46   0.143    -.1751868     1.20583
+       lngdp |    1.00892    .079016    12.77   0.000     .8539682    1.163873
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             16.059
+                                                   Chi-sq(1) P-val =    0.0001
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               14.974
+                         (Kleibergen-Paap rk Wald F statistic):         14.881
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        93           0          93     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | inc_LOW      | b=  -0.4496 se=   0.1866 p=0.0161 | 
+> KP-firstF=   14.88 N=2367
+
+. _hcell "inc_HIGH" "hi_inc==1"
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2334
+                                                      F(  3,  2213) =     8.05
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1725274.419                Centered R2   =  -3.6860
+Total (uncentered) SS   =  1725274.419                Uncentered R2 =  -3.6860
+Residual SS             =  8084605.134                Root MSE      =    60.44
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   299.6289   64.25006     4.66   0.000     173.6322    425.6256
+       lnpop |  -112.4105    31.0934    -3.62   0.000    -173.3858   -51.43522
+   ln_sea_ma |   598.4679   187.4349     3.19   0.001     230.9012    966.0346
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             23.812
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               20.227
+                         (Kleibergen-Paap rk Wald F statistic):         22.796
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        91           0          91     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | inc_HIGH     | b= 299.6289 se=  64.2501 p=0.0000 | 
+> KP-firstF=   22.80 N=2334
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2334
+                                                      F(  3,  2213) =    10.46
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  59.37318928                Centered R2   =  -3.4819
+Total (uncentered) SS   =  59.37318928                Uncentered R2 =  -3.4819
+Residual SS             =  266.1044039                Root MSE      =    .3468
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   1.751384   .3680003     4.76   0.000     1.029722    2.473046
+       lnpop |  -.7726683   .1759125    -4.39   0.000    -1.117639   -.4276974
+   ln_sea_ma |   3.165897   1.057918     2.99   0.003     1.091281    5.240513
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             23.812
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               20.227
+                         (Kleibergen-Paap rk Wald F statistic):         22.796
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        91           0          91     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | inc_HIGH     | b=   1.7514 se=   0.3680 p=0.0000 | 
+> KP-firstF=   22.80 N=2334
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2334
+                                                      F(  4,  2212) =   119.08
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  150.0064183                Centered R2   =  -0.9524
+Total (uncentered) SS   =  150.0064183                Uncentered R2 =  -0.9524
+Residual SS             =  292.8654486                Root MSE      =    .3639
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   1.915901   .4128257     4.64   0.000     1.106335    2.725468
+       lnpop |  -.4547849   .1461478    -3.11   0.002    -.7413861   -.1681837
+   ln_sea_ma |   2.781569   1.057603     2.63   0.009     .7075709    4.855566
+       lngdp |   .5941781   .0818101     7.26   0.000     .4337454    .7546108
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             20.720
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               18.414
+                         (Kleibergen-Paap rk Wald F statistic):         19.770
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        91           0          91     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | inc_HIGH     | b=   1.9159 se=   0.4128 p=0.0000 | 
+> KP-firstF=   19.77 N=2334
+
+. di _n "############### 3) COUNTRY SIZE (baseline pop split) ###############"
+
+############### 3) COUNTRY SIZE (baseline pop split) ###############
+
+. _hcell "size_SMALL" "lg_size==0"
+(dropped 1 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2374
+                                                      F(  3,  2248) =    20.08
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1892546.344                Centered R2   =  -0.4807
+Total (uncentered) SS   =  1892546.344                Uncentered R2 =  -0.4807
+Residual SS             =  2802225.353                Root MSE      =    35.31
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   74.60623   14.18144     5.26   0.000     46.79615    102.4163
+       lnpop |  -19.53413   7.749707    -2.52   0.012    -34.73145   -4.336798
+   ln_sea_ma |  -75.94428   42.35592    -1.79   0.073    -159.0051    7.116516
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             70.244
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               79.871
+                         (Kleibergen-Paap rk Wald F statistic):         71.228
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        96           0          96     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | size_SMALL   | b=  74.6062 se=  14.1814 p=0.0000 | 
+> KP-firstF=   71.23 N=2374
+(dropped 1 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2374
+                                                      F(  3,  2248) =    27.57
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  81.03090403                Centered R2   =  -0.1688
+Total (uncentered) SS   =  81.03090403                Uncentered R2 =  -0.1688
+Residual SS             =  94.71141882                Root MSE      =    .2053
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .2978982   .0861945     3.46   0.001     .1288691    .4669274
+       lnpop |  -.1866053   .0499791    -3.73   0.000    -.2846153   -.0885952
+   ln_sea_ma |   -.680827    .259313    -2.63   0.009    -1.189345   -.1723091
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             70.244
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               79.871
+                         (Kleibergen-Paap rk Wald F statistic):         71.228
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        96           0          96     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | size_SMALL   | b=   0.2979 se=   0.0862 p=0.0006 | 
+> KP-firstF=   71.23 N=2374
+(dropped 1 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2374
+                                                      F(  4,  2247) =   328.60
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  187.8253099                Centered R2   =   0.3793
+Total (uncentered) SS   =  187.8253099                Uncentered R2 =   0.3793
+Residual SS             =  116.5877552                Root MSE      =    .2278
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .4977658   .1132388     4.40   0.000     .2757022    .7198293
+       lnpop |  -.0837194   .0545235    -1.54   0.125     -.190641    .0232023
+   ln_sea_ma |  -.6695064   .2811861    -2.38   0.017    -1.220918   -.1180948
+       lngdp |   .7830699   .0386313    20.27   0.000     .7073132    .8588266
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             45.278
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               49.919
+                         (Kleibergen-Paap rk Wald F statistic):         44.846
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        96           0          96     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | size_SMALL   | b=   0.4978 se=   0.1132 p=0.0000 | 
+> KP-firstF=   44.85 N=2374
+
+. _hcell "size_LARGE" "lg_size==1"
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2327
+                                                      F(  3,  2209) =    24.61
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  359831.2252                Centered R2   =  -0.1998
+Total (uncentered) SS   =  359831.2252                Uncentered R2 =  -0.1998
+Residual SS             =  431738.7562                Root MSE      =    13.98
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   23.42511   13.53395     1.73   0.084     -3.11549     49.9657
+       lnpop |  -23.45276   5.833131    -4.02   0.000    -34.89176   -12.01377
+   ln_sea_ma |  -55.09869   27.01005    -2.04   0.041    -108.0664   -2.130951
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             20.822
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               14.761
+                         (Kleibergen-Paap rk Wald F statistic):         20.443
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        88           0          88     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | size_LARGE   | b=  23.4251 se=  13.5339 p=0.0836 | 
+> KP-firstF=   20.44 N=2327
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2327
+                                                      F(  3,  2209) =    12.27
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  82.65477998                Centered R2   =   0.0161
+Total (uncentered) SS   =  82.65477998                Uncentered R2 =   0.0161
+Residual SS             =  81.32074708                Root MSE      =    .1919
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.1299007   .1837796    -0.71   0.480    -.4902996    .2304981
+       lnpop |  -.3377069   .0813932    -4.15   0.000    -.4973221   -.1780917
+   ln_sea_ma |   .1781869   .3390529     0.53   0.599    -.4867088    .8430827
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             20.822
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               14.761
+                         (Kleibergen-Paap rk Wald F statistic):         20.443
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        88           0          88     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | size_LARGE   | b=  -0.1299 se=   0.1838 p=0.4797 | 
+> KP-firstF=   20.44 N=2327
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     2327
+                                                      F(  4,  2208) =   338.36
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  187.7114663                Centered R2   =   0.5023
+Total (uncentered) SS   =  187.7114663                Uncentered R2 =   0.5023
+Residual SS             =  93.43102754                Root MSE      =    .2057
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .4191558   .3806535     1.10   0.271    -.3273206    1.165632
+       lnpop |  -.0261442   .1515792    -0.17   0.863    -.3233969    .2711085
+   ln_sea_ma |  -.2413867   .4742982    -0.51   0.611    -1.171504    .6887305
+       lngdp |   .6771238   .1124587     6.02   0.000      .456588    .8976597
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              6.085
+                                                   Chi-sq(1) P-val =    0.0136
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                4.161
+                         (Kleibergen-Paap rk Wald F statistic):          5.792
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        88           0          88     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | size_LARGE   | b=   0.4192 se=   0.3807 p=0.2710 | 
+> KP-firstF=    5.79 N=2327
+
+. di _n "############### 4) REGION / CONTINENT ###############"
+
+############### 4) REGION / CONTINENT ###############
+
+. levelsof contc, local(lvls)
+1 2 3 4 5 6 7
+
+. foreach L of local lvls {
+  2.     local nm : label (contc) `L'
+  3.     _hcell "cont_`nm'" "contc==`L'"
+  4. }
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     1230
+                                                      F(  3,  1151) =    13.10
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  261947.8721                Centered R2   =   0.0321
+Total (uncentered) SS   =  261947.8721                Uncentered R2 =   0.0321
+Residual SS             =  253536.7556                Root MSE      =    14.84
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -5.470609   15.24077    -0.36   0.720    -35.37341    24.43219
+       lnpop |  -15.77435   10.42094    -1.51   0.130    -36.22051    4.671811
+   ln_sea_ma |  -105.0468   24.40233    -4.30   0.000    -152.9249    -57.1688
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             28.369
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               14.368
+                         (Kleibergen-Paap rk Wald F statistic):         25.606
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        49           0          49     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | cont_AF      | b=  -5.4706 se=  15.2408 p=0.7197 | 
+> KP-firstF=   25.61 N=1230
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     1230
+                                                      F(  3,  1151) =     4.31
+                                                      Prob > F      =   0.0049
+Total (centered) SS     =  58.74596804                Centered R2   =  -0.1455
+Total (uncentered) SS   =  58.74596804                Uncentered R2 =  -0.1455
+Residual SS             =  67.29061132                Root MSE      =    .2418
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   -.304494    .211299    -1.44   0.150    -.7190684    .1100804
+       lnpop |  -.0664383   .1278123    -0.52   0.603    -.3172096    .1843329
+   ln_sea_ma |   -.708838   .3577225    -1.98   0.048    -1.410699   -.0069767
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             28.369
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               14.368
+                         (Kleibergen-Paap rk Wald F statistic):         25.606
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        49           0          49     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | cont_AF      | b=  -0.3045 se=   0.2113 p=0.1498 | 
+> KP-firstF=   25.61 N=1230
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     1230
+                                                      F(  4,  1150) =   148.85
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  102.3997085                Centered R2   =   0.3712
+Total (uncentered) SS   =  102.3997085                Uncentered R2 =   0.3712
+Residual SS             =  64.39093879                Root MSE      =    .2366
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.2673589   .2188058    -1.22   0.222    -.6966621    .1619443
+       lnpop |   .0737803    .120105     0.61   0.539    -.1618691    .3094297
+   ln_sea_ma |  -.5920062   .3457543    -1.71   0.087    -1.270386    .0863737
+       lngdp |   .8802928   .0589396    14.94   0.000     .7646517     .995934
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             24.833
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               12.971
+                         (Kleibergen-Paap rk Wald F statistic):         22.785
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        49           0          49     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | cont_AF      | b=  -0.2674 se=   0.2188 p=0.2220 | 
+> KP-firstF=   22.79 N=1230
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      752
+                                                      F(  3,   693) =    14.81
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  373613.5875                Centered R2   =  -0.7155
+Total (uncentered) SS   =  373613.5875                Uncentered R2 =  -0.7155
+Residual SS             =   640937.424                Root MSE      =    30.41
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   -100.361   30.41244    -3.30   0.001    -160.0725    -40.6494
+       lnpop |  -195.2748   35.12716    -5.56   0.000    -264.2432   -126.3064
+   ln_sea_ma |   260.6912    166.232     1.57   0.117    -65.68754      587.07
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             14.835
+                                                   Chi-sq(1) P-val =    0.0001
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               15.441
+                         (Kleibergen-Paap rk Wald F statistic):         14.455
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        29           0          29     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | cont_AS      | b=-100.3610 se=  30.4124 p=0.0010 | 
+> KP-firstF=   14.46 N=752
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      752
+                                                      F(  3,   693) =    26.17
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  32.02197598                Centered R2   =  -0.0500
+Total (uncentered) SS   =  32.02197598                Uncentered R2 =  -0.0500
+Residual SS             =  33.62192328                Root MSE      =    .2203
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.6581941   .2290224    -2.87   0.004    -1.107855    -.208533
+       lnpop |  -1.522012   .2456888    -6.19   0.000    -2.004396   -1.039628
+   ln_sea_ma |   1.039809   1.254715     0.83   0.408    -1.423691    3.503308
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             14.835
+                                                   Chi-sq(1) P-val =    0.0001
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               15.441
+                         (Kleibergen-Paap rk Wald F statistic):         14.455
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        29           0          29     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | cont_AS      | b=  -0.6582 se=   0.2290 p=0.0042 | 
+> KP-firstF=   14.46 N=752
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      752
+                                                      F(  4,   692) =   164.27
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  60.08016966                Centered R2   =   0.4586
+Total (uncentered) SS   =  60.08016966                Uncentered R2 =   0.4586
+Residual SS             =  32.52617217                Root MSE      =    .2168
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |    -.63549   .2395137    -2.65   0.008    -1.105751   -.1652294
+       lnpop |  -1.454417   .2789403    -5.21   0.000    -2.002088   -.9067459
+   ln_sea_ma |   1.244755   1.147108     1.09   0.278    -1.007475    3.496984
+       lngdp |   .9339402   .0491564    19.00   0.000     .8374266    1.030454
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             14.323
+                                                   Chi-sq(1) P-val =    0.0002
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               13.997
+                         (Kleibergen-Paap rk Wald F statistic):         13.737
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        29           0          29     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | cont_AS      | b=  -0.6355 se=   0.2395 p=0.0082 | 
+> KP-firstF=   13.74 N=752
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     1190
+                                                      F(  3,  1116) =     7.10
+                                                      Prob > F      =   0.0001
+Total (centered) SS     =  209359.9256                Centered R2   =  -4.2966
+Total (uncentered) SS   =  209359.9256                Uncentered R2 =  -4.2966
+Residual SS             =  1108903.402                Root MSE      =    31.52
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   136.9188    34.7938     3.94   0.000     68.65017    205.1875
+       lnpop |   70.53048   29.88417     2.36   0.018     11.89498     129.166
+   ln_sea_ma |  -1.683674    107.072    -0.02   0.987    -211.7689    208.4015
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             23.599
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               13.917
+                         (Kleibergen-Paap rk Wald F statistic):         22.629
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        44           0          44     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | cont_EU      | b= 136.9188 se=  34.7938 p=0.0001 | 
+> KP-firstF=   22.63 N=1190
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     1190
+                                                      F(  3,  1116) =     7.64
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  14.19604077                Centered R2   =  -1.2519
+Total (uncentered) SS   =  14.19604077                Uncentered R2 =  -1.2519
+Residual SS             =  31.96831711                Root MSE      =    .1692
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .6036659   .1838464     3.28   0.001     .2429423    .9643895
+       lnpop |   .0180765   .1275154     0.14   0.887    -.2321205    .2682735
+   ln_sea_ma |   .3191774   .6043943     0.53   0.598    -.8666998    1.505055
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             23.599
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               13.917
+                         (Kleibergen-Paap rk Wald F statistic):         22.629
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        44           0          44     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | cont_EU      | b=   0.6037 se=   0.1838 p=0.0011 | 
+> KP-firstF=   22.63 N=1190
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     1190
+                                                      F(  4,  1115) =   120.31
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  54.52001871                Centered R2   =  -0.0414
+Total (uncentered) SS   =  54.52001871                Uncentered R2 =  -0.0414
+Residual SS             =  56.77964986                Root MSE      =    .2257
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   1.079277   .3466598     3.11   0.002     .3990982    1.759456
+       lnpop |  -.1999917   .1871382    -1.07   0.285    -.5671743     .167191
+   ln_sea_ma |  -.4079607   .7132538    -0.57   0.567    -1.807432    .9915102
+       lngdp |   .4730691    .134187     3.53   0.000     .2097816    .7363567
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             14.435
+                                                   Chi-sq(1) P-val =    0.0001
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                7.370
+                         (Kleibergen-Paap rk Wald F statistic):         13.521
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        44           0          44     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | cont_EU      | b=   1.0793 se=   0.3467 p=0.0019 | 
+> KP-firstF=   13.52 N=1190
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      732
+                                                      F(  3,   672) =     1.62
+                                                      Prob > F      =   0.1833
+Total (centered) SS     =  1033349.335                Centered R2   = -44.8745
+Total (uncentered) SS   =  1033349.335                Uncentered R2 = -44.8745
+Residual SS             =  47404348.73                Root MSE      =    265.6
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -1146.492   2338.401    -0.49   0.624    -5737.943    3444.959
+       lnpop |   416.7392   750.0325     0.56   0.579     -1055.95    1889.428
+   ln_sea_ma |   7206.748   8650.897     0.83   0.405    -9779.291    24192.79
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.275
+                                                   Chi-sq(1) P-val =    0.6000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                0.111
+                         (Kleibergen-Paap rk Wald F statistic):          0.249
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        30           0          30     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | cont_LA      | b=-1.15e+03 se=2338.4008 p=0.6241 | 
+> KP-firstF=    0.25 N=732
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      732
+                                                      F(  3,   672) =    16.43
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  24.91359077                Centered R2   =  -0.1025
+Total (uncentered) SS   =  24.91359077                Uncentered R2 =  -0.1025
+Residual SS             =  27.46714647                Root MSE      =    .2022
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.3780068    2.14785    -0.18   0.860    -4.595312    3.839298
+       lnpop |   .2097902   .6667386     0.31   0.753    -1.099351    1.518932
+   ln_sea_ma |   12.84541   8.272774     1.55   0.121    -3.398187    29.08901
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.275
+                                                   Chi-sq(1) P-val =    0.6000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                0.111
+                         (Kleibergen-Paap rk Wald F statistic):          0.249
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        30           0          30     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | cont_LA      | b=  -0.3780 se=   2.1479 p=0.8604 | 
+> KP-firstF=    0.25 N=732
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      732
+                                                      F(  4,   671) =     8.03
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  58.94761658                Centered R2   = -14.2352
+Total (uncentered) SS   =  58.94761658                Uncentered R2 = -14.2352
+Residual SS             =  898.0787295                Root MSE      =    1.157
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -5.002846   33.72636    -0.15   0.882    -71.22475    61.21906
+       lnpop |   .9943955   4.263045     0.23   0.816    -7.376117    9.364908
+   ln_sea_ma |   26.98435   97.46826     0.28   0.782    -164.3951    218.3638
+       lngdp |   1.381182   3.607381     0.38   0.702    -5.701932    8.464296
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.026
+                                                   Chi-sq(1) P-val =    0.8731
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                0.010
+                         (Kleibergen-Paap rk Wald F statistic):          0.023
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        30           0          30     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | cont_LA      | b=  -5.0028 se=  33.7264 p=0.8821 | 
+> KP-firstF=    0.02 N=732
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      344
+                                                      F(  3,   301) =     1.15
+                                                      Prob > F      =   0.3294
+Total (centered) SS     =    66976.275                Centered R2   =  -7.8612
+Total (uncentered) SS   =    66976.275                Uncentered R2 =  -7.8612
+Residual SS             =  593488.1656                Root MSE      =     44.4
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   159.4166   125.3661     1.27   0.204    -87.28832    406.1215
+       lnpop |  -91.80323   89.80215    -1.02   0.307    -268.5228    84.91631
+   ln_sea_ma |  -295.8505   319.7405    -0.93   0.356    -925.0604    333.3594
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              1.600
+                                                   Chi-sq(1) P-val =    0.2059
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                2.775
+                         (Kleibergen-Paap rk Wald F statistic):          2.006
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        13           0          13     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | cont_ME      | b= 159.4166 se= 125.3661 p=0.2045 | 
+> KP-firstF=    2.01 N=344
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      344
+                                                      F(  3,   301) =     0.89
+                                                      Prob > F      =   0.4488
+Total (centered) SS     =   8.79980321                Centered R2   = -12.9209
+Total (uncentered) SS   =   8.79980321                Uncentered R2 = -12.9209
+Residual SS             =  122.5013521                Root MSE      =     .638
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   2.422052   1.889968     1.28   0.201    -1.297171    6.141274
+       lnpop |  -1.504025   1.349477    -1.11   0.266    -4.159629     1.15158
+   ln_sea_ma |  -4.309692   4.789393    -0.90   0.369    -13.73463    5.115243
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              1.600
+                                                   Chi-sq(1) P-val =    0.2059
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                2.775
+                         (Kleibergen-Paap rk Wald F statistic):          2.006
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        13           0          13     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | cont_ME      | b=   2.4221 se=   1.8900 p=0.2010 | 
+> KP-firstF=    2.01 N=344
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      344
+                                                      F(  4,   300) =    90.85
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  33.34547119                Centered R2   =   0.2221
+Total (uncentered) SS   =  33.34547119                Uncentered R2 =   0.2221
+Residual SS             =   25.9402485                Root MSE      =    .2941
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   1.307918   .3936785     3.32   0.001     .5331968    2.082639
+       lnpop |    .629039   .2662554     2.36   0.019     .1050741    1.153004
+   ln_sea_ma |  -.9303819   1.142511    -0.81   0.416    -3.178733    1.317969
+       lngdp |   .0323388   .2056569     0.16   0.875     -.372374    .4370515
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              6.323
+                                                   Chi-sq(1) P-val =    0.0119
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               10.081
+                         (Kleibergen-Paap rk Wald F statistic):         13.233
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        13           0          13     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | cont_ME      | b=   1.3079 se=   0.3937 p=0.0010 | 
+> KP-firstF=   13.23 N=344
+(MWFE estimator converged in 3 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =       77
+                                                      F(  3,    44) =     8.36
+                                                      Prob > F      =   0.0002
+Total (centered) SS     =  2545.197969                Centered R2   =   0.1137
+Total (uncentered) SS   =  2545.197969                Uncentered R2 =   0.1137
+Residual SS             =  2255.726053                Root MSE      =     7.16
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -34.33764   51.65533    -0.66   0.510    -138.4421    69.76684
+       lnpop |   162.5211   47.99009     3.39   0.001     65.80339    259.2388
+   ln_sea_ma |   1515.874   471.3892     3.22   0.002     565.8512    2465.896
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.803
+                                                   Chi-sq(1) P-val =    0.3701
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                0.659
+                         (Kleibergen-Paap rk Wald F statistic):          0.493
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |         3           0           3     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | cont_NA      | b= -34.3376 se=  51.6553 p=0.5097 | 
+> KP-firstF=    0.49 N=77
+(MWFE estimator converged in 3 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =       77
+                                                      F(  3,    44) =    18.97
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  .5230772331                Centered R2   =   0.4304
+Total (uncentered) SS   =  .5230772331                Uncentered R2 =   0.4304
+Residual SS             =  .2979240485                Root MSE      =   .08229
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.0277498   .6881785    -0.04   0.968    -1.414682    1.359183
+       lnpop |   3.178128   .5724529     5.55   0.000     2.024425    4.331831
+   ln_sea_ma |   34.53629   6.267722     5.51   0.000     21.90452    47.16805
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.803
+                                                   Chi-sq(1) P-val =    0.3701
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                0.659
+                         (Kleibergen-Paap rk Wald F statistic):          0.493
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |         3           0           3     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | cont_NA      | b=  -0.0277 se=   0.6882 p=0.9680 | 
+> KP-firstF=    0.49 N=77
+(MWFE estimator converged in 3 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =       77
+                                                      F(  4,    43) =     7.20
+                                                      Prob > F      =   0.0002
+Total (centered) SS     =  .2771955879                Centered R2   =  -0.7987
+Total (uncentered) SS   =  .2771955879                Uncentered R2 =  -0.7987
+Residual SS             =  .4985936324                Root MSE      =    .1077
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .5995471   .9125901     0.66   0.515    -1.240866     2.43996
+       lnpop |   2.789874   .6248471     4.46   0.000      1.52975    4.049998
+   ln_sea_ma |   29.70608   8.258008     3.60   0.001     13.05222    46.35994
+       lngdp |   .4657153   .1875322     2.48   0.017     .0875205    .8439101
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              1.106
+                                                   Chi-sq(1) P-val =    0.2930
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                0.982
+                         (Kleibergen-Paap rk Wald F statistic):          0.671
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |         3           0           3     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | cont_NA      | b=   0.5995 se=   0.9126 p=0.5147 | 
+> KP-firstF=    0.67 N=77
+(dropped 1 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      376
+                                                      F(  3,   330) =     1.37
+                                                      Prob > F      =   0.2527
+Total (centered) SS     =  72764.47118                Centered R2   =  -1.0185
+Total (uncentered) SS   =  72764.47118                Uncentered R2 =  -1.0185
+Residual SS             =  146878.4839                Root MSE      =     21.1
+
+------------------------------------------------------------------------------
+             |               Robust
+ trade_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -45.31157    96.0573    -0.47   0.637    -234.2734    143.6503
+       lnpop |     60.041   53.10154     1.13   0.259    -44.41922    164.5012
+   ln_sea_ma |  -166.8055    264.118    -0.63   0.528    -686.3728    352.7617
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.315
+                                                   Chi-sq(1) P-val =    0.5747
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                0.565
+                         (Kleibergen-Paap rk Wald F statistic):          0.283
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        16           0          16     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_share      | cont_SW      | b= -45.3116 se=  96.0573 p=0.6374 | 
+> KP-firstF=    0.28 N=376
+(dropped 1 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      376
+                                                      F(  3,   330) =     0.30
+                                                      Prob > F      =   0.8234
+Total (centered) SS     =  6.906556815                Centered R2   =  -7.0513
+Total (uncentered) SS   =  6.906556815                Uncentered R2 =  -7.0513
+Residual SS             =   55.6068105                Root MSE      =    .4105
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -1.079619    2.15582    -0.50   0.617    -5.320503    3.161264
+       lnpop |   .7699678   1.160695     0.66   0.508    -1.513327    3.053262
+   ln_sea_ma |  -.2741549   4.931063    -0.06   0.956    -9.974436    9.426127
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.315
+                                                   Chi-sq(1) P-val =    0.5747
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                0.565
+                         (Kleibergen-Paap rk Wald F statistic):          0.283
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        16           0          16     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | trade_intensity  | cont_SW      | b=  -1.0796 se=   2.1558 p=0.6169 | 
+> KP-firstF=    0.28 N=376
+(dropped 1 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      376
+                                                      F(  4,   329) =    26.30
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  20.57767435                Centered R2   =  -1.2596
+Total (uncentered) SS   =  20.57767435                Uncentered R2 =  -1.2596
+Residual SS             =  46.49660985                Root MSE      =    .3759
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_tradevol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.9700565   1.728356    -0.56   0.575     -4.37008    2.429967
+       lnpop |   .7716446   1.056233     0.73   0.466    -1.306177    2.849467
+   ln_sea_ma |    .501058   4.653853     0.11   0.914    -8.654005    9.656121
+       lngdp |   .9342993   .1840763     5.08   0.000     .5721842    1.296414
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.394
+                                                   Chi-sq(1) P-val =    0.5300
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                0.698
+                         (Kleibergen-Paap rk Wald F statistic):          0.356
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop ln_sea_ma lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |        16           0          16     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+RESULT | ln_tradevol      | cont_SW      | b=  -0.9701 se=   1.7284 p=0.5750 | 
+> KP-firstF=    0.36 N=376
+
+. 
+. di _n "############### DONE -- grep ^RESULT for the full table ##############
+> #"
+
+############### DONE -- grep ^RESULT for the full table ###############
+
+. 
+end of do-file

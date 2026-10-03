@@ -1,0 +1,361 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do gaci_tables_export.do 
+
+. *============================================================================
+> ==
+. * gaci_tables_export.do  --  emit machine-readable result lines for the Word 
+> tables
+. *   TAB1 = main OLS vs IV (robust + clustered SE), 3 outcomes x 2 treatments
+. *   TAB2 = heterogeneity (split-sample, robust SE), 3 outcomes x subgroups
+. *   spec: country+year FE, IV = feyrer_int, control ln_sea_ma (+lngdp for vol
+> ume)
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI
+
+. import delimited "gaci_panel_feyrer.csv", clear varnames(1) encoding("utf-8")
+(40 vars, 4,714 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       ln_sea_ma     feyrer_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      ln_feyrer     adv_int
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   ln_air_ma     a_t
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+ln_air_ma already numeric; no replace
+ln_sea_ma already numeric; no replace
+ln_feyrer already numeric; no replace
+a_t already numeric; no replace
+feyrer_int already numeric; no replace
+adv_int already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. gen trade_intensity = ln_tradevol - lngdp
+
+. 
+. * moderators (time-invariant)
+. gen adv_base = adv_int / a_t
+(164 missing values generated)
+
+. bysort isocode (y): gen first_lnpc  = lnpc[1]
+
+. bysort isocode (y): gen first_lnpop = lnpop[1]
+
+. gen cont = substr(reg,1,2)
+
+. encode cont, gen(contc)
+
+. summarize adv_base,    detail
+
+                          adv_base
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -.2991568      -.5384544
+ 5%    -.0720932      -.5384544
+10%    -.0081271      -.5384544       Obs               4,550
+25%     .0852468      -.5384544       Sum of Wgt.       4,550
+
+50%     .1899754                      Mean           .2313939
+                        Largest       Std. Dev.      .2399255
+75%     .3761817       1.101878
+90%     .5462897       1.101878       Variance       .0575642
+95%     .6266702       1.101878       Skewness           .678
+99%     .9830548       1.101878       Kurtosis       4.503504
+
+. gen hi_adv  = (adv_base    > r(p50)) if !missing(adv_base)
+(164 missing values generated)
+
+. summarize first_lnpc,  detail
+
+                         first_lnpc
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     5.674047       5.425824
+ 5%      6.12589       5.425824
+10%     6.405906       5.425824       Obs               4,714
+25%     7.161047       5.425824       Sum of Wgt.       4,714
+
+50%     8.209045                      Mean           8.366366
+                        Largest       Std. Dev.      1.477324
+75%     9.680716       11.68168
+90%     10.42059       11.68168       Variance       2.182485
+95%      10.6075       11.68168       Skewness       .1404371
+99%     11.11668       11.68168       Kurtosis       1.937028
+
+. gen hi_inc  = (first_lnpc  > r(p50)) if !missing(first_lnpc)
+
+. summarize first_lnpop, detail
+
+                         first_lnpop
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     10.79029        9.21124
+ 5%     11.32685        9.21124
+10%     12.50215        9.21124       Obs               4,714
+25%     14.50296        9.21124       Sum of Wgt.       4,714
+
+50%     15.71893                      Mean           15.48484
+                        Largest       Std. Dev.      2.062138
+75%     16.71829       20.92011
+90%     17.90852       20.92011       Variance       4.252415
+95%     18.64272       20.92011       Skewness      -.4077684
+99%     20.70274       20.92011       Kurtosis       3.190547
+
+. gen lg_size = (first_lnpop > r(p50)) if !missing(first_lnpop)
+
+. gen lockd = 0
+
+. foreach iso in AFG AND ARM AUT AZE BLR BTN BOL BWA BFA BDI CAF TCD CZE SWZ ETH ///
+>                HUN KAZ KGZ LAO LSO LIE LUX MWI MLI MDA MNG NPL NER MKD PRY RWA ///
+>                SMR SRB SVK SSD CHE TJK TKM UGA UZB ZMB ZWE {
+  2.     replace lockd = 1 if c == "`iso'"
+  3. }
+(4 real changes made)
+(0 real changes made)
+(28 real changes made)
+(28 real changes made)
+(26 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(0 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(11 real changes made)
+(13 real changes made)
+(28 real changes made)
+(28 real changes made)
+(27 real changes made)
+(21 real changes made)
+(17 real changes made)
+(0 real changes made)
+(24 real changes made)
+(7 real changes made)
+(28 real changes made)
+(0 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(0 real changes made)
+(18 real changes made)
+(28 real changes made)
+(4 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(28 real changes made)
+(27 real changes made)
+(28 real changes made)
+(28 real changes made)
+
+. 
+. *------------------------------------------------------------------------------
+. * TAB1: main (loop over outcome x treatment). extra control lngdp for ln_tradevol.
+. *------------------------------------------------------------------------------
+. capture program drop _t1
+
+. program define _t1
+  1.     args yv treat extra
+  2.     quietly {
+  3.         reghdfe `yv' `treat' lnpop ln_sea_ma `extra', absorb(isocode y) vce(robust)
+  4.         local ob = _b[`treat']
+  5.         local op = 2*ttail(e(df_r), abs(_b[`treat']/_se[`treat']))
+  6.         ivreghdfe `yv' lnpop ln_sea_ma `extra' (`treat' = feyrer_int), absorb(isocode y) robust
+  7.         local b  = _b[`treat']
+  8.         local sr = _se[`treat']
+  9.         local pr = 2*ttail(e(df_r), abs(`b'/`sr'))
+ 10.         local F  = e(widstat)
+ 11.         local N  = e(N)
+ 12.         ivreghdfe `yv' lnpop ln_sea_ma `extra' (`treat' = feyrer_int), absorb(isocode y) cluster(isocode)
+ 13.         local sc = _se[`treat']
+ 14.         local pc = 2*ttail(e(df_r), abs(_b[`treat']/`sc'))
+ 15.     }
+ 16.     noisily di "TAB1|`yv'|`treat'|`b'|`sr'|`pr'|`sc'|`pc'|`F'|`ob'|`op'|`N'"
+ 17. end
+
+. _t1 trade_share     lng         ""
+TAB1|trade_share|lng|60.37349656472453|10.58054479550385|1.23041345651e-08|30.15008120643717|.0467146978670173|94.60342137033349|-.3658301192706752|.7880981522564013|4701
+
+. _t1 trade_intensity lng         ""
+TAB1|trade_intensity|lng|.1877891611545104|.0755908275716072|.0130173945299003|.2034694549792128|.3572561310187362|94.60342137033349|-.0219464132574973|.1134298201739106|4701
+
+. _t1 ln_tradevol     lng         "lngdp"
+TAB1|ln_tradevol|lng|.4934070298023129|.1130324059579779|.0000129875723158|.2817777186370261|.0816127244669181|50.77093810107093|.019502879374858|.1421729709656715|4701
+
+. _t1 trade_share     ln_gaci_cwm ""
+TAB1|trade_share|ln_gaci_cwm|148.7821053017305|23.53685485336543|2.84710755734e-10|70.24289994952777|.0355157703587714|162.7586183211094|20.83812032013872|1.81450257404e-06|4701
+
+. _t1 trade_intensity ln_gaci_cwm ""
+TAB1|trade_intensity|ln_gaci_cwm|.4627803314234213|.1812017256583769|.0106835878966684|.4894313611465066|.3456264985309744|162.7586183211094|.17730665499589|7.03684312919e-06|4701
+
+. _t1 ln_tradevol     ln_gaci_cwm "lngdp"
+TAB1|ln_tradevol|ln_gaci_cwm|1.115894052584292|.2265133605430705|8.67760279413e-07|.5978624289294033|.063575033495202|103.2129088040464|.3710755262038461|2.80831022910e-22|4701
+
+. 
+. *------------------------------------------------------------------------------
+. * TAB2: heterogeneity (robust), 3 outcomes per subgroup
+. *------------------------------------------------------------------------------
+. capture program drop _t2
+
+. program define _t2
+  1.     args lbl cond
+  2.     foreach yv in trade_share trade_intensity ln_tradevol {
+  3.         local extra ""
+  4.         if "`yv'" == "ln_tradevol" local extra "lngdp"
+  5.         capture noisily quietly ivreghdfe `yv' lnpop ln_sea_ma `extra' (lng = feyrer_int) if `cond', absorb(isocode y) robust
+  6.         if _rc == 0 {
+  7.             noisily di "TAB2|`lbl'|`yv'|" _b[lng] "|" _se[lng] "|" 2*ttail(e(df_r), abs(_b[lng]/_se[lng])) "|" e(widstat) "|" e(N)
+  8.         }
+  9.     }
+ 10. end
+
+. _t2 adv_LOW    "hi_adv==0"
+TAB2|adv_LOW|trade_share|25.084562|10.928445|.02180917|54.297179|2276
+TAB2|adv_LOW|trade_intensity|.09616125|.10191982|.34553176|54.297179|2276
+TAB2|adv_LOW|ln_tradevol|.3333081|.13217046|.01174719|33.813397|2276
+
+. _t2 adv_HIGH   "hi_adv==1"
+TAB2|adv_HIGH|trade_share|17.1348|10.822656|.11351469|41.382395|2273
+TAB2|adv_HIGH|trade_intensity|-.24398691|.12083851|.0435987|41.382395|2273
+TAB2|adv_HIGH|ln_tradevol|-.1461799|.14798215|.32335111|25.674984|2273
+
+. _t2 coastal    "lockd==0"
+TAB2|coastal|trade_share|91.424878|19.164878|1.911e-06|39.193404|3778
+TAB2|coastal|trade_intensity|.35946018|.11944411|.00263541|39.193404|3778
+TAB2|coastal|ln_tradevol|.73047975|.20694416|.00042102|19.388664|3778
+
+. _t2 landlocked "lockd==1"
+TAB2|landlocked|trade_share|6.0341484|9.0372957|.50450889|52.487379|923
+TAB2|landlocked|trade_intensity|-.10094236|.10059529|.31592727|52.487379|923
+TAB2|landlocked|ln_tradevol|.00457184|.09782661|.96273606|46.871029|923
+
+. _t2 inc_LOW    "hi_inc==0"
+TAB2|inc_LOW|trade_share|-26.431159|6.3868404|.00003627|53.065909|2367
+TAB2|inc_LOW|trade_intensity|-.43747351|.08958591|1.117e-06|53.065909|2367
+TAB2|inc_LOW|ln_tradevol|-.44963491|.18663079|.01606671|14.881438|2367
+
+. _t2 inc_HIGH   "hi_inc==1"
+TAB2|inc_HIGH|trade_share|299.62889|64.250062|3.294e-06|22.796195|2334
+TAB2|inc_HIGH|trade_intensity|1.751384|.3680003|2.069e-06|22.796195|2334
+TAB2|inc_HIGH|ln_tradevol|1.9159013|.41282575|3.671e-06|19.769959|2334
+
+. _t2 size_SMALL "lg_size==0"
+TAB2|size_SMALL|trade_share|74.606229|14.181439|1.570e-07|71.228358|2374
+TAB2|size_SMALL|trade_intensity|.29789825|.08619454|.0005582|71.228358|2374
+TAB2|size_SMALL|ln_tradevol|.49776575|.11323879|.00001155|44.845558|2374
+
+. _t2 size_LARGE "lg_size==1"
+TAB2|size_LARGE|trade_share|23.425106|13.53395|.08361988|20.443027|2327
+TAB2|size_LARGE|trade_intensity|-.12990074|.1837796|.47974732|20.443027|2327
+TAB2|size_LARGE|ln_tradevol|.41915577|.38065353|.27095239|5.7918893|2327
+
+. levelsof contc, local(lvls)
+1 2 3 4 5 6 7
+
+. foreach L of local lvls {
+  2.     local nm : label (contc) `L'
+  3.     _t2 cont_`nm' "contc==`L'"
+  4. }
+TAB2|cont_AF|trade_share|-5.4706088|15.240769|.71970153|25.605565|1230
+TAB2|cont_AF|trade_intensity|-.30449397|.21129902|.14984051|25.605565|1230
+TAB2|cont_AF|ln_tradevol|-.2673589|.21880576|.22199561|22.785128|1230
+TAB2|cont_AS|trade_share|-100.36097|30.41244|.00101636|14.455067|752
+TAB2|cont_AS|trade_intensity|-.65819407|.22902242|.00417816|14.455067|752
+TAB2|cont_AS|ln_tradevol|-.63548999|.23951365|.00815497|13.736738|752
+TAB2|cont_EU|trade_share|136.91881|34.793804|.00008828|22.629407|1190
+TAB2|cont_EU|trade_intensity|.60366593|.18384642|.00105695|22.629407|1190
+TAB2|cont_EU|ln_tradevol|1.0792772|.34665977|.00189681|13.520722|1190
+TAB2|cont_LA|trade_share|-1146.4924|2338.4008|.62408938|.24920059|732
+TAB2|cont_LA|trade_intensity|-.37800684|2.1478503|.86035238|.24920059|732
+TAB2|cont_LA|ln_tradevol|-5.0028461|33.726362|.88212188|.02348838|732
+TAB2|cont_ME|trade_share|159.41661|125.36606|.20449374|2.0062797|344
+TAB2|cont_ME|trade_intensity|2.4220517|1.8899676|.20099361|2.0062797|344
+TAB2|cont_ME|ln_tradevol|1.3079179|.39367847|.00100329|13.232861|344
+TAB2|cont_NA|trade_share|-34.337642|51.655334|.50968261|.49343694|77
+TAB2|cont_NA|trade_intensity|-.02774983|.68817851|.96801756|.49343694|77
+TAB2|cont_NA|ln_tradevol|.5995471|.91259008|.51469934|.67101489|77
+TAB2|cont_SW|trade_share|-45.311567|96.057297|.63744271|.28271628|376
+TAB2|cont_SW|trade_intensity|-1.0796194|2.1558201|.61685071|.28271628|376
+TAB2|cont_SW|ln_tradevol|-.9700565|1.7283563|.57500269|.35623903|376
+
+. di "EXPORT_DONE"
+EXPORT_DONE
+
+. 
+end of do-file
+. 
+end of do-file

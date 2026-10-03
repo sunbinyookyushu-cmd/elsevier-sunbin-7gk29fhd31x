@@ -1,0 +1,54 @@
+\begin{table}[p]
+\centering
+\caption{Mechanism (I): which connectivity carries the effect?}
+\label{tab:hub_network}
+\begin{threeparttable}
+\footnotesize
+\begin{tabular}{lccc}
+\toprule
+ & (1) & (2) & (3) \\
+ & Baseline & Hub + network & Core integration \\
+\midrule
+\multicolumn{4}{l}{\emph{Dependent variable: Bottom-30\% share}}\\
+$\ln\mathrm{GACI}_{max}$ (hub), instrumented & -0.910\sym{*} & -1.228\sym{*} &  \\
+ & (0.498) & (0.699) &  \\
+$\ln\mathrm{GACI}_{sum}$ (whole network), control &  & 0.169\sym{*} &  \\
+ &  & (0.100) &  \\
+ln hub eigenvector centrality, instrumented &  &  & -0.345\sym{**} \\
+ &  &  & (0.175) \\
+ln hub seat capacity, control &  &  & 0.430\sym{*} \\
+ &  &  & (0.220) \\
+KP $F$ & 21.1 & 15.1 & 18.8 \\
+Observations & 4{,}537 & 4{,}537 & 4{,}537 \\
+\addlinespace
+\multicolumn{4}{l}{\emph{Dependent variable: Top-30 minus bottom-30 income}}\\
+$\ln\mathrm{GACI}_{max}$ (hub), instrumented & 0.951\sym{*} & 1.282 &  \\
+ & (0.573) & (0.797) &  \\
+$\ln\mathrm{GACI}_{sum}$ (whole network), control &  & -0.176 &  \\
+ &  & (0.114) &  \\
+ln hub eigenvector centrality, instrumented &  &  & 0.360\sym{*} \\
+ &  &  & (0.201) \\
+ln hub seat capacity, control &  &  & -0.449\sym{*} \\
+ &  &  & (0.251) \\
+KP $F$ & 21.1 & 15.1 & 18.8 \\
+Observations & 4{,}537 & 4{,}537 & 4{,}537 \\
+\addlinespace
+\multicolumn{4}{l}{\emph{Dependent variable: Mean income}}\\
+$\ln\mathrm{GACI}_{max}$ (hub), instrumented & 1.320\sym{***} & 1.343\sym{**} &  \\
+ & (0.420) & (0.563) &  \\
+$\ln\mathrm{GACI}_{sum}$ (whole network), control &  & -0.012 &  \\
+ &  & (0.081) &  \\
+ln hub eigenvector centrality, instrumented &  &  & 0.157 \\
+ &  &  & (0.138) \\
+ln hub seat capacity, control &  &  & -0.016 \\
+ &  &  & (0.179) \\
+KP $F$ & 21.1 & 15.1 & 18.8 \\
+Observations & 4{,}537 & 4{,}537 & 4{,}537 \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\small
+\item Column (2) adds total connectivity as a control; column (3) instruments the hub's eigenvector centrality (integration with the global core) and controls for its seat capacity. Specification as in Table~\ref{tab:main}: country and year fixed effects, log population, $\ln\mathrm{GACI}_{max}$ instrumented by the Feyrer interaction; standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

@@ -1,0 +1,487 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\ext2024\gaci_controls_run.log
+  log type:  text
+ opened on:   2 Sep 2026, 12:06:13
+
+. 
+. import delimited "gaci_panel_mechanism.csv", clear varnames(1) encoding("utf-8")
+(87 vars, 4,816 obs)
+
+. ds c reg, not
+y             ln_gaci_cwm   ln_unesco     lnpc          deg_sum       close_mean    cap_sum       merch_inte~y  mix_e         tr_total      ln_tr_ref     tr_ref_lib    ln_tr_interm  tr_hivw       ln_nflow      x_interm      ln_x_hivw3
+trade_share   ln_gaci_mean  unesco_cum    lnpop         deg_mean      betw_sum      cap_mean      tourism_int   cult_e        ln_tr_total   tr_homog      ln_tr_ref_~b  tr_consum     ln_tr_hivw    tr_hivw3      x_consum      ln_x_lovw3
+ln_tradevol   lncap         unesco_cum~t  lnland        eig_sum       betw_mean     tour_shift    tourism_cum   z_nat         tr_diff       ln_tr_homog   tr_homog_lib  ln_tr_consum  tr_lovw       tr_lovw3      x_total       ln_x_interm
+lngdp         gaci_cwmean   lnz           abslat        eig_mean      regimp_sum    nat_endow     ln_remote     z_mix         ln_tr_diff    tr_diff_lib   ln_tr_homo~b  tr_capital    ln_tr_lovw    x_hivw3       ln_tr_hivw3   ln_x_consum
+lng           gaci_mean     lnz_own       n_air         close_sum     regimp_mean   merch_share   nat_e         z_cult        tr_ref        ln_tr_diff~b  tr_interm     ln_tr_capi~l  ln_nprod      x_lovw3       ln_tr_lovw3   ln_x_total
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+nat_e already numeric; no replace
+mix_e already numeric; no replace
+cult_e already numeric; no replace
+z_nat already numeric; no replace
+z_mix already numeric; no replace
+z_cult already numeric; no replace
+tr_total already numeric; no replace
+ln_tr_total already numeric; no replace
+tr_diff already numeric; no replace
+ln_tr_diff already numeric; no replace
+tr_ref already numeric; no replace
+ln_tr_ref already numeric; no replace
+tr_homog already numeric; no replace
+ln_tr_homog already numeric; no replace
+tr_diff_lib already numeric; no replace
+ln_tr_diff_lib already numeric; no replace
+tr_ref_lib already numeric; no replace
+ln_tr_ref_lib already numeric; no replace
+tr_homog_lib already numeric; no replace
+ln_tr_homog_lib already numeric; no replace
+tr_interm already numeric; no replace
+ln_tr_interm already numeric; no replace
+tr_consum already numeric; no replace
+ln_tr_consum already numeric; no replace
+tr_capital already numeric; no replace
+ln_tr_capital already numeric; no replace
+tr_hivw already numeric; no replace
+ln_tr_hivw already numeric; no replace
+tr_lovw already numeric; no replace
+ln_tr_lovw already numeric; no replace
+ln_nprod already numeric; no replace
+ln_nflow already numeric; no replace
+tr_hivw3 already numeric; no replace
+tr_lovw3 already numeric; no replace
+x_hivw3 already numeric; no replace
+x_lovw3 already numeric; no replace
+x_interm already numeric; no replace
+x_consum already numeric; no replace
+x_total already numeric; no replace
+ln_tr_hivw3 already numeric; no replace
+ln_tr_lovw3 already numeric; no replace
+ln_x_hivw3 already numeric; no replace
+ln_x_lovw3 already numeric; no replace
+ln_x_interm already numeric; no replace
+ln_x_consum already numeric; no replace
+ln_x_total already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+
+Panel variable: isocode (unbalanced)
+ Time variable: y, 1996 to 2024, but with gaps
+         Delta: 1 unit
+
+. 
+. gen g_int = merch_intensity
+
+. gen g_vol = merch_intensity + lngdp
+
+. 
+. capture which ivreghdfe
+
+. if _rc {
+.     ssc install ftools, replace
+.     ssc install reghdfe, replace
+.     ssc install ivreghdfe, replace
+. }
+
+. capture which esttab
+
+. if _rc {
+.     ssc install estout, replace
+. }
+
+. 
+. eststo clear
+
+. 
+. * ---- openness, five control sets ----
+. ivreghdfe g_int (ln_gaci_cwm = tourism_int), absorb(isocode y) robust
+(dropped 2 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4814
+                                                      F(  1,  4602) =     5.05
+                                                      Prob > F      =   0.0247
+Total (centered) SS     =  246.4668263                Centered R2   =  -0.2151
+Total (uncentered) SS   =  246.4668263                Uncentered R2 =  -0.2151
+Residual SS             =  299.4835009                Root MSE      =    .2551
+
+------------------------------------------------------------------------------
+             |               Robust
+       g_int | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   1.516147   .6747931     2.25   0.025     .1932289    2.839065
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             18.763
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               26.742
+                         (Kleibergen-Paap rk Wald F statistic):         18.933
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Excluded instruments: tourism_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        29           1          28     |
+-----------------------------------------------------+
+
+. eststo c_none
+
+. estadd scalar KPF = e(widstat)
+
+added scalar:
+                e(KPF) =  18.93329
+
+. 
+. ivreghdfe g_int lnpop (ln_gaci_cwm = tourism_int), absorb(isocode y) robust
+(dropped 2 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4814
+                                                      F(  2,  4601) =    13.21
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  246.4668263                Centered R2   =  -0.1159
+Total (uncentered) SS   =  246.4668263                Uncentered R2 =  -0.1159
+Residual SS             =  275.0440891                Root MSE      =    .2445
+
+------------------------------------------------------------------------------
+             |               Robust
+       g_int | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   1.207567   .5932135     2.04   0.042     .0445842     2.37055
+       lnpop |  -.2356778   .0472252    -4.99   0.000    -.3282618   -.1430938
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             21.630
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               30.675
+                         (Kleibergen-Paap rk Wald F statistic):         21.902
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop
+Excluded instruments: tourism_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        29           1          28     |
+-----------------------------------------------------+
+
+. eststo c_pop
+
+. estadd scalar KPF = e(widstat)
+
+added scalar:
+                e(KPF) =  21.901757
+
+. 
+. ivreghdfe g_int lngdp (ln_gaci_cwm = tourism_int), absorb(isocode y) robust
+(dropped 2 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4814
+                                                      F(  2,  4601) =    67.84
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  246.4668263                Centered R2   =  -0.0771
+Total (uncentered) SS   =  246.4668263                Uncentered R2 =  -0.0771
+Residual SS             =  265.4704307                Root MSE      =    .2402
+
+------------------------------------------------------------------------------
+             |               Robust
+       g_int | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   1.539876   .6012508     2.56   0.010     .3611366    2.718616
+       lngdp |  -.3295749   .0558093    -5.91   0.000    -.4389878   -.2201619
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             23.310
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               29.110
+                         (Kleibergen-Paap rk Wald F statistic):         23.907
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lngdp
+Excluded instruments: tourism_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        29           1          28     |
+-----------------------------------------------------+
+
+. eststo c_gdp
+
+. estadd scalar KPF = e(widstat)
+
+added scalar:
+                e(KPF) =  23.906808
+
+. 
+. ivreghdfe g_int lnpop lngdp (ln_gaci_cwm = tourism_int), absorb(isocode y) robust
+(dropped 2 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4814
+                                                      F(  3,  4600) =    45.63
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  246.4668263                Centered R2   =  -0.0685
+Total (uncentered) SS   =  246.4668263                Uncentered R2 =  -0.0685
+Residual SS             =  263.3486119                Root MSE      =    .2393
+
+------------------------------------------------------------------------------
+             |               Robust
+       g_int | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   1.504743   .6093205     2.47   0.014     .3101824    2.699304
+       lnpop |  -.0264981   .0405123    -0.65   0.513    -.1059216    .0529254
+       lngdp |  -.3234803   .0575463    -5.62   0.000    -.4362986   -.2106619
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             22.664
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               28.251
+                         (Kleibergen-Paap rk Wald F statistic):         23.219
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop lngdp
+Excluded instruments: tourism_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        29           1          28     |
+-----------------------------------------------------+
+
+. eststo c_popgdp
+
+. estadd scalar KPF = e(widstat)
+
+added scalar:
+                e(KPF) =  23.219182
+
+. 
+. ivreghdfe g_int lnpop lnpc (ln_gaci_cwm = tourism_int), absorb(isocode y) robust
+(dropped 2 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4814
+                                                      F(  3,  4600) =     9.42
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  246.4668263                Centered R2   =  -0.1235
+Total (uncentered) SS   =  246.4668263                Uncentered R2 =  -0.1235
+Residual SS             =  276.9048184                Root MSE      =    .2454
+
+------------------------------------------------------------------------------
+             |               Robust
+       g_int | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   1.340273   .6448835     2.08   0.038      .075992    2.604554
+       lnpop |  -.3378939    .092099    -3.67   0.000    -.5184521   -.1573356
+        lnpc |  -.2278958   .1256343    -1.81   0.070    -.4741994    .0184078
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             23.685
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               28.835
+                         (Kleibergen-Paap rk Wald F statistic):         24.488
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop lnpc
+Excluded instruments: tourism_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        29           1          28     |
+-----------------------------------------------------+
+
+. eststo c_poppc
+
+. estadd scalar KPF = e(widstat)
+
+added scalar:
+                e(KPF) =  24.488444
+
+. 
+. di _n "============ CONTROL SENSITIVITY: OPENNESS ============"
+
+============ CONTROL SENSITIVITY: OPENNESS ============
+
+. esttab c_none c_pop c_gdp c_popgdp c_poppc, b(%9.3f) se(%9.3f) star(* 0.10 ** 0.05 *** 0.01) nonum keep(ln_gaci_cwm) coeflabels(ln_gaci_cwm "Hub quality (cwm)") mtitles("none" "lnpop" "lngdp" "pop+gdp" "pop+pc") stats(KPF N, fmt(%9.1f %9.0g) labels("Fir
+> st-stage KP F" "Observations"))
+
+--------------------------------------------------------------------------------------------
+                     none           lnpop           lngdp         pop+gdp          pop+pc   
+--------------------------------------------------------------------------------------------
+Hub qualit~)        1.516**         1.208**         1.540**         1.505**         1.340** 
+                  (0.675)         (0.593)         (0.601)         (0.609)         (0.645)   
+--------------------------------------------------------------------------------------------
+First-stag~F         18.9            21.9            23.9            23.2            24.5   
+Observations         4814            4814            4814            4814            4814   
+--------------------------------------------------------------------------------------------
+Standard errors in parentheses
+* p<0.10, ** p<0.05, *** p<0.01
+
+. 
+. di _n "DONE_CONTROLS"
+
+DONE_CONTROLS
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\ext2024\gaci_controls_run.log
+  log type:  text
+ closed on:   2 Sep 2026, 12:06:15
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

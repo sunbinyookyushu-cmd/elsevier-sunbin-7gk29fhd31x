@@ -1,0 +1,985 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do co2_airport_feyrer.do 
+
+. *============================================================================
+> ==
+. * co2_airport_feyrer.do   (LZ comment 2, identification pilot, 2026-09-03)
+. * Airport-level 2SLS with the airport Feyrer shifter z_air = a_t x ln airMA_a
+> ,1996
+. * under airport FE + country x year FE (cluster airport).
+. *   (1) first stage, (2) 2SLS on ln CO2 / ln seat-km / ln intensity / intl sh
+> are,
+. *   (3) size-by-cycle stress: add a_t x ln seat-km_1996 and a_t x ln GACI_199
+> 6,
+. *   (4) reduced forms.
+. * Decision rule (pre-registered in the response plan): the pilot is adopted o
+> nly if
+. * the first stage survives (3) with KP F above 10.
+. * Export: _airport_feyrer.csv (item outc b se p kpf nn)
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_CO2"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2
+
+. 
+. import delimited "airport_feyrer_panel.csv", clear varnames(1) encoding("utf-8")
+(10 vars, 79,958 obs)
+
+. ds airport_iata iso3, not
+year        ln_airma96  ln_skm96    ln_gaci96   a_t         z_air       z_cap96     z_gaci96
+
+. destring `r(varlist)', replace force
+year already numeric; no replace
+ln_airma96 already numeric; no replace
+ln_skm96 already numeric; no replace
+ln_gaci96 already numeric; no replace
+a_t already numeric; no replace
+z_air already numeric; no replace
+z_cap96 already numeric; no replace
+z_gaci96 already numeric; no replace
+
+. tempfile z
+
+. save `z'
+file C:\Users\sunbi\AppData\Local\Temp\ST_6914_000001.tmp saved
+
+. import delimited "airport_co2_panel.csv", clear varnames(1) encoding("utf-8")
+(14 vars, 97,165 obs)
+
+. ds airport_iata iso3 region, not
+year          gaci          ln_gaci       co2_bunker    co2_lto       ln_co2        ln_skm        ln_intensity  intl_share~m  n_dep_flig~s  dep_seat_km
+
+. destring `r(varlist)', replace force
+year already numeric; no replace
+gaci already numeric; no replace
+ln_gaci already numeric; no replace
+co2_bunker already numeric; no replace
+co2_lto already numeric; no replace
+ln_co2 already numeric; no replace
+ln_skm already numeric; no replace
+ln_intensity already numeric; no replace
+intl_share_skm already numeric; no replace
+n_dep_flights already numeric; no replace
+dep_seat_km already numeric; no replace
+
+. merge 1:1 airport_iata year using `z', keep(3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                            79,958  
+    -----------------------------------------
+
+. encode airport_iata, gen(apid)
+
+. encode iso3, gen(cid)
+
+. egen cyr = group(cid year)
+
+. 
+. capture which ivreghdfe
+
+. if _rc {
+.     ssc install ftools, replace
+.     ssc install reghdfe, replace
+.     ssc install ivreghdfe, replace
+. }
+
+. 
+. tempname R
+
+. postfile `R' str24 item str16 outc double(b se p kpf) long(nn) using "_apf_tmp", replace
+(note: file _apf_tmp.dta not found)
+
+. 
+. * first stages
+. reghdfe ln_gaci z_air, absorb(apid cyr) vce(cluster apid)
+(dropped 2367 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+HDFE Linear regression                            Number of obs   =     77,591
+Absorbing 2 HDFE groups                           F(   1,   3200) =       0.45
+Statistics robust to heteroskedasticity           Prob > F        =     0.5021
+                                                  R-squared       =     0.9633
+                                                  Adj R-squared   =     0.9594
+                                                  Within R-sq.    =     0.0001
+Number of clusters (apid)    =      3,201         Root MSE        =     0.0637
+
+                               (Std. Err. adjusted for 3,201 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       z_air |  -.0183445   .0273312    -0.67   0.502     -.071933     .035244
+       _cons |  -.2576772   .1220401    -2.11   0.035     -.496962   -.0183924
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3201        3201           0    *|
+         cyr |      4158           1        4157     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. test z_air
+
+ ( 1)  z_air = 0
+
+       F(  1,  3200) =    0.45
+            Prob > F =    0.5021
+
+. di "AFS baseline: pi = " %8.4f _b[z_air] " (se " %7.4f _se[z_air] ")  F = " %8.1f r(F) "  N = " %8.0f e(N)
+AFS baseline: pi =  -0.0183 (se  0.0273)  F =      0.5  N =    77591
+
+. post `R' ("fs_baseline") ("ln_gaci") (_b[z_air]) (_se[z_air]) (2*normal(-abs(_b[z_air]/_se[z_air]))) (r(F)) (e(N))
+
+. reghdfe ln_gaci z_air z_cap96, absorb(apid cyr) vce(cluster apid)
+(dropped 2367 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+HDFE Linear regression                            Number of obs   =     77,539
+Absorbing 2 HDFE groups                           F(   2,   3198) =      63.89
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9640
+                                                  Adj R-squared   =     0.9602
+                                                  Within R-sq.    =     0.0193
+Number of clusters (apid)    =      3,199         Root MSE        =     0.0631
+
+                               (Std. Err. adjusted for 3,199 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       z_air |   .0211953   .0255506     0.83   0.407     -.028902    .0712926
+     z_cap96 |   .0116602    .001033    11.29   0.000     .0096348    .0136855
+       _cons |  -.5008813   .1149797    -4.36   0.000    -.7263227   -.2754398
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3199        3199           0    *|
+         cyr |      4158           1        4157     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. test z_air
+
+ ( 1)  z_air = 0
+
+       F(  1,  3198) =    0.69
+            Prob > F =    0.4069
+
+. di "AFS + a_t x ln skm96: pi = " %8.4f _b[z_air] " (se " %7.4f _se[z_air] ")  F = " %8.1f r(F)
+AFS + a_t x ln skm96: pi =   0.0212 (se  0.0256)  F =      0.7
+
+. post `R' ("fs_plus_cap96") ("ln_gaci") (_b[z_air]) (_se[z_air]) (2*normal(-abs(_b[z_air]/_se[z_air]))) (r(F)) (e(N))
+
+. reghdfe ln_gaci z_air z_cap96 z_gaci96, absorb(apid cyr) vce(cluster apid)
+(dropped 2367 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+HDFE Linear regression                            Number of obs   =     77,539
+Absorbing 2 HDFE groups                           F(   3,   3198) =      56.81
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9642
+                                                  Adj R-squared   =     0.9604
+                                                  Within R-sq.    =     0.0246
+Number of clusters (apid)    =      3,199         Root MSE        =     0.0629
+
+                               (Std. Err. adjusted for 3,199 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       z_air |   .0148682    .025261     0.59   0.556    -.0346611    .0643976
+     z_cap96 |   .0236094   .0021354    11.06   0.000     .0194226    .0277963
+    z_gaci96 |  -.1153359   .0181862    -6.34   0.000    -.1509937   -.0796781
+       _cons |  -.5548561   .1139384    -4.87   0.000    -.7782558   -.3314564
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3199        3199           0    *|
+         cyr |      4158           1        4157     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. test z_air
+
+ ( 1)  z_air = 0
+
+       F(  1,  3198) =    0.35
+            Prob > F =    0.5562
+
+. di "AFS + both size cycles: pi = " %8.4f _b[z_air] " (se " %7.4f _se[z_air] ")  F = " %8.1f r(F)
+AFS + both size cycles: pi =   0.0149 (se  0.0253)  F =      0.3
+
+. post `R' ("fs_plus_both") ("ln_gaci") (_b[z_air]) (_se[z_air]) (2*normal(-abs(_b[z_air]/_se[z_air]))) (r(F)) (e(N))
+
+. 
+. * 2SLS and reduced forms
+. foreach yv in ln_co2 ln_skm ln_intensity intl_share_skm {
+  2.     capture noisily ivreghdfe `yv' (ln_gaci = z_air), absorb(apid cyr) cluster(apid)
+  3.     if _rc == 0 {
+  4.         di "AIV baseline `yv': b = " %8.3f _b[ln_gaci] " (se " %7.3f _se[ln_gaci] ")  KP F = " %8.1f e(widstat) "  N = " %8.0f e(N)
+  5.         post `R' ("iv_baseline") ("`yv'") (_b[ln_gaci]) (_se[ln_gaci]) (2*normal(-abs(_b[ln_gaci]/_se[ln_gaci]))) (e(widstat)) (e(N))
+  6.     }
+  7.     capture noisily ivreghdfe `yv' z_cap96 z_gaci96 (ln_gaci = z_air), absorb(apid cyr) cluster(apid)
+  8.     if _rc == 0 {
+  9.         di "AIV stressed `yv': b = " %8.3f _b[ln_gaci] " (se " %7.3f _se[ln_gaci] ")  KP F = " %8.1f e(widstat)
+ 10.         post `R' ("iv_stressed") ("`yv'") (_b[ln_gaci]) (_se[ln_gaci]) (2*normal(-abs(_b[ln_gaci]/_se[ln_gaci]))) (e(widstat)) (e(N))
+ 11.     }
+ 12.     reghdfe `yv' z_air, absorb(apid cyr) vce(cluster apid)
+ 13.     post `R' ("rf_baseline") ("`yv'") (_b[z_air]) (_se[z_air]) (2*normal(-abs(_b[z_air]/_se[z_air]))) (.) (e(N))
+ 14.     reghdfe `yv' ln_gaci, absorb(apid cyr) vce(cluster apid)
+ 15.     post `R' ("ols") ("`yv'") (_b[ln_gaci]) (_se[ln_gaci]) (2*normal(-abs(_b[ln_gaci]/_se[ln_gaci]))) (.) (e(N))
+ 16. }
+(dropped 2367 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on apid
+
+Number of clusters (apid) =       3201                Number of obs =    77591
+                                                      F(  1,  3200) =     0.02
+                                                      Prob > F      =   0.8898
+Total (centered) SS     =  24148.99109                Centered R2   =   0.0940
+Total (uncentered) SS   =  24148.99109                Uncentered R2 =   0.0940
+Residual SS             =  21880.00023                Root MSE      =    .5459
+
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |   1.518034   10.95178     0.14   0.890    -19.95519    22.99126
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.479
+                                                   Chi-sq(1) P-val =    0.4889
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                3.864
+                         (Kleibergen-Paap rk Wald F statistic):          0.451
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci
+Excluded instruments: z_air
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3201        3201           0    *|
+         cyr |      4158           1        4157     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+AIV baseline ln_co2: b =    1.518 (se  10.952)  KP F =      0.5  N =    77591
+(dropped 2367 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on apid
+
+Number of clusters (apid) =       3199                Number of obs =    77539
+                                                      F(  3,  3198) =     1.75
+                                                      Prob > F      =   0.1544
+Total (centered) SS     =  24012.83187                Centered R2   =  -0.6861
+Total (uncentered) SS   =  24012.83187                Uncentered R2 =  -0.6861
+Residual SS             =  40487.47004                Root MSE      =    .7428
+
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |  -4.952835   19.76051    -0.25   0.802    -43.69739    33.79172
+     z_cap96 |   .0595198    .465881     0.13   0.898     -.853936    .9729755
+    z_gaci96 |  -.1412285   2.289173    -0.06   0.951    -4.629625    4.347168
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.364
+                                                   Chi-sq(1) P-val =    0.5461
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                2.568
+                         (Kleibergen-Paap rk Wald F statistic):          0.346
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci
+Included instruments: z_cap96 z_gaci96
+Excluded instruments: z_air
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3199        3199           0    *|
+         cyr |      4158           1        4157     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+AIV stressed ln_co2: b =   -4.953 (se  19.761)  KP F =      0.3
+(dropped 2367 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+HDFE Linear regression                            Number of obs   =     77,591
+Absorbing 2 HDFE groups                           F(   1,   3200) =       0.02
+Statistics robust to heteroskedasticity           Prob > F        =     0.8961
+                                                  R-squared       =     0.9510
+                                                  Adj R-squared   =     0.9459
+                                                  Within R-sq.    =     0.0000
+Number of clusters (apid)    =      3,201         Root MSE        =     0.5864
+
+                               (Std. Err. adjusted for 3,201 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       z_air |  -.0278475   .2133284    -0.13   0.896    -.4461217    .3904266
+       _cons |   16.18149   .9525599    16.99   0.000      14.3138    18.04918
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3201        3201           0    *|
+         cyr |      4158           1        4157     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 2367 singleton observations)
+(MWFE estimator converged in 11 iterations)
+
+HDFE Linear regression                            Number of obs   =     77,591
+Absorbing 2 HDFE groups                           F(   1,   3200) =     833.87
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9576
+                                                  Adj R-squared   =     0.9532
+                                                  Within R-sq.    =     0.1350
+Number of clusters (apid)    =      3,201         Root MSE        =     0.5454
+
+                               (Std. Err. adjusted for 3,201 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |   3.382413   .1171326    28.88   0.000      3.15275    3.612075
+       _cons |   17.20578    .039777   432.56   0.000     17.12779    17.28377
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3201        3201           0    *|
+         cyr |      4158           1        4157     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 2370 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on apid
+
+Number of clusters (apid) =       3200                Number of obs =    77501
+                                                      F(  1,  3199) =     0.36
+                                                      Prob > F      =   0.5492
+Total (centered) SS     =  27999.14595                Centered R2   =  -0.0940
+Total (uncentered) SS   =  27999.14595                Uncentered R2 =  -0.0940
+Residual SS             =  30631.98852                Root MSE      =    .6463
+
+------------------------------------------------------------------------------
+             |               Robust
+      ln_skm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |   8.676074   14.48536     0.60   0.549    -19.72546    37.07761
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.412
+                                                   Chi-sq(1) P-val =    0.5207
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                3.294
+                         (Kleibergen-Paap rk Wald F statistic):          0.388
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci
+Excluded instruments: z_air
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3200        3200           0    *|
+         cyr |      4156           1        4155     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+AIV baseline ln_skm: b =    8.676 (se  14.485)  KP F =      0.4  N =    77501
+(dropped 2370 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on apid
+
+Number of clusters (apid) =       3198                Number of obs =    77455
+                                                      F(  3,  3197) =     0.82
+                                                      Prob > F      =   0.4826
+Total (centered) SS     =  27953.83317                Centered R2   =  -1.3359
+Total (uncentered) SS   =  27953.83317                Uncentered R2 =  -1.3359
+Residual SS             =  65297.17633                Root MSE      =    .9439
+
+------------------------------------------------------------------------------
+             |               Robust
+      ln_skm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |  -8.339283    24.4925    -0.34   0.734    -56.36189    39.68332
+     z_cap96 |   .1590405   .5740066     0.28   0.782    -.9664179    1.284499
+    z_gaci96 |  -.5742293   2.816871    -0.20   0.838    -6.097285    4.948827
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.385
+                                                   Chi-sq(1) P-val =    0.5347
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                2.703
+                         (Kleibergen-Paap rk Wald F statistic):          0.366
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci
+Included instruments: z_cap96 z_gaci96
+Excluded instruments: z_air
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3198        3198           0    *|
+         cyr |      4156           1        4155     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+AIV stressed ln_skm: b =   -8.339 (se  24.493)  KP F =      0.4
+(dropped 2370 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+HDFE Linear regression                            Number of obs   =     77,501
+Absorbing 2 HDFE groups                           F(   1,   3199) =       0.43
+Statistics robust to heteroskedasticity           Prob > F        =     0.5116
+                                                  R-squared       =     0.9568
+                                                  Adj R-squared   =     0.9523
+                                                  Within R-sq.    =     0.0000
+Number of clusters (apid)    =      3,200         Root MSE        =     0.6318
+
+                               (Std. Err. adjusted for 3,200 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_skm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       z_air |  -.1471255   .2241136    -0.66   0.512    -.5865464    .2922955
+       _cons |    18.5316   1.001088    18.51   0.000     16.56876    20.49444
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3200        3200           0    *|
+         cyr |      4156           1        4155     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 2370 singleton observations)
+(MWFE estimator converged in 11 iterations)
+
+HDFE Linear regression                            Number of obs   =     77,501
+Absorbing 2 HDFE groups                           F(   1,   3199) =     936.62
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9631
+                                                  Adj R-squared   =     0.9593
+                                                  Within R-sq.    =     0.1469
+Number of clusters (apid)    =      3,200         Root MSE        =     0.5836
+
+                               (Std. Err. adjusted for 3,200 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_skm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |   3.804123   .1243007    30.60   0.000     3.560406     4.04784
+       _cons |   19.16515   .0421752   454.42   0.000     19.08245    19.24784
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3200        3200           0    *|
+         cyr |      4156           1        4155     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 2370 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on apid
+
+Number of clusters (apid) =       3200                Number of obs =    77501
+                                                      F(  1,  3199) =     0.10
+                                                      Prob > F      =   0.7532
+Total (centered) SS     =  3733.366513                Centered R2   =  -0.4097
+Total (uncentered) SS   =  3733.366513                Uncentered R2 =  -0.4097
+Residual SS             =  5263.005681                Root MSE      =    .2679
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_intensity |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |   1.913865   6.086054     0.31   0.753     -10.0191    13.84683
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.412
+                                                   Chi-sq(1) P-val =    0.5207
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                3.294
+                         (Kleibergen-Paap rk Wald F statistic):          0.388
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci
+Excluded instruments: z_air
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3200        3200           0    *|
+         cyr |      4156           1        4155     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+AIV baseline ln_intensity: b =    1.914 (se   6.086)  KP F =      0.4  N =    77501
+(dropped 2370 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on apid
+
+Number of clusters (apid) =       3198                Number of obs =    77455
+                                                      F(  3,  3197) =     2.32
+                                                      Prob > F      =   0.0737
+Total (centered) SS     =  3730.990708                Centered R2   =  -1.5732
+Total (uncentered) SS   =  3730.990708                Uncentered R2 =  -1.5732
+Residual SS             =  9600.739688                Root MSE      =    .3619
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_intensity |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |  -5.058923   9.467103    -0.53   0.593    -23.62113    13.50329
+     z_cap96 |   .0977076   .2220349     0.44   0.660    -.3376376    .5330528
+    z_gaci96 |  -.5190826   1.090883    -0.48   0.634    -2.657984    1.619819
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.385
+                                                   Chi-sq(1) P-val =    0.5347
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                2.703
+                         (Kleibergen-Paap rk Wald F statistic):          0.366
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci
+Included instruments: z_cap96 z_gaci96
+Excluded instruments: z_air
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3198        3198           0    *|
+         cyr |      4156           1        4155     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+AIV stressed ln_intensity: b =   -5.059 (se   9.467)  KP F =      0.4
+(dropped 2370 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+HDFE Linear regression                            Number of obs   =     77,501
+Absorbing 2 HDFE groups                           F(   1,   3199) =       0.16
+Statistics robust to heteroskedasticity           Prob > F        =     0.6907
+                                                  R-squared       =     0.8547
+                                                  Adj R-squared   =     0.8395
+                                                  Within R-sq.    =     0.0000
+Number of clusters (apid)    =      3,200         Root MSE        =     0.2307
+
+                               (Std. Err. adjusted for 3,200 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+ln_intensity |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       z_air |  -.0324546   .0815581    -0.40   0.691     -.192366    .1274569
+       _cons |  -1.665393   .3643101    -4.57   0.000    -2.379698   -.9510882
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3200        3200           0    *|
+         cyr |      4156           1        4155     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 2370 singleton observations)
+(MWFE estimator converged in 11 iterations)
+
+HDFE Linear regression                            Number of obs   =     77,501
+Absorbing 2 HDFE groups                           F(   1,   3199) =     112.18
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.8569
+                                                  Adj R-squared   =     0.8419
+                                                  Within R-sq.    =     0.0154
+Number of clusters (apid)    =      3,200         Root MSE        =     0.2289
+
+                               (Std. Err. adjusted for 3,200 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+ln_intensity |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |   -.449268   .0424185   -10.59   0.000    -.5324381   -.3660979
+       _cons |    -1.9628   .0143926  -136.38   0.000     -1.99102   -1.934581
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3200        3200           0    *|
+         cyr |      4156           1        4155     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 2370 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on apid
+
+Number of clusters (apid) =       3200                Number of obs =    77501
+                                                      F(  1,  3199) =     0.38
+                                                      Prob > F      =   0.5402
+Total (centered) SS     =  634.3787438                Centered R2   =  -1.2454
+Total (uncentered) SS   =  634.3787438                Uncentered R2 =  -1.2454
+Residual SS             =  1424.418088                Root MSE      =    .1394
+
+------------------------------------------------------------------------------
+             |               Robust
+intl_share~m |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |   2.055241   3.355453     0.61   0.540    -4.523817    8.634298
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.412
+                                                   Chi-sq(1) P-val =    0.5207
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                3.294
+                         (Kleibergen-Paap rk Wald F statistic):          0.388
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci
+Excluded instruments: z_air
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3200        3200           0    *|
+         cyr |      4156           1        4155     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+AIV baseline intl_share_skm: b =    2.055 (se   3.355)  KP F =      0.4  N =    77501
+(dropped 2370 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on apid
+
+Number of clusters (apid) =       3198                Number of obs =    77455
+                                                      F(  3,  3197) =     1.87
+                                                      Prob > F      =   0.1325
+Total (centered) SS     =   634.363845                Centered R2   =  -2.2931
+Total (uncentered) SS   =   634.363845                Uncentered R2 =  -2.2931
+Residual SS             =  2089.052262                Root MSE      =    .1688
+
+------------------------------------------------------------------------------
+             |               Robust
+intl_share~m |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |  -1.968804   4.355796    -0.45   0.651    -10.50924    6.571631
+     z_cap96 |   .0593153    .102413     0.58   0.563    -.1414866    .2601171
+    z_gaci96 |  -.3219359   .5037245    -0.64   0.523    -1.309592    .6657198
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              0.385
+                                                   Chi-sq(1) P-val =    0.5347
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                2.703
+                         (Kleibergen-Paap rk Wald F statistic):          0.366
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci
+Included instruments: z_cap96 z_gaci96
+Excluded instruments: z_air
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3198        3198           0    *|
+         cyr |      4156           1        4155     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+AIV stressed intl_share_skm: b =   -1.969 (se   4.356)  KP F =      0.4
+(dropped 2370 singleton observations)
+(MWFE estimator converged in 12 iterations)
+
+HDFE Linear regression                            Number of obs   =     77,501
+Absorbing 2 HDFE groups                           F(   1,   3199) =       1.10
+Statistics robust to heteroskedasticity           Prob > F        =     0.2951
+                                                  R-squared       =     0.9255
+                                                  Adj R-squared   =     0.9177
+                                                  Within R-sq.    =     0.0001
+Number of clusters (apid)    =      3,200         Root MSE        =     0.0951
+
+                               (Std. Err. adjusted for 3,200 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+intl_share~m |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       z_air |   -.034852   .0332796    -1.05   0.295    -.1001035    .0303996
+       _cons |   .3414202    .148656     2.30   0.022     .0499495    .6328909
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3200        3200           0    *|
+         cyr |      4156           1        4155     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 2370 singleton observations)
+(MWFE estimator converged in 11 iterations)
+
+HDFE Linear regression                            Number of obs   =     77,501
+Absorbing 2 HDFE groups                           F(   1,   3199) =     295.91
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9297
+                                                  Adj R-squared   =     0.9223
+                                                  Within R-sq.    =     0.0553
+Number of clusters (apid)    =      3,200         Root MSE        =     0.0924
+
+                               (Std. Err. adjusted for 3,200 clusters in apid)
+------------------------------------------------------------------------------
+             |               Robust
+intl_share~m |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |   .3512952   .0204218    17.20   0.000     .3112541    .3913364
+       _cons |    .304935   .0069291    44.01   0.000      .291349    .3185209
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        apid |      3200        3200           0    *|
+         cyr |      4156           1        4155     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. 
+. postclose `R'
+
+. preserve
+
+. use "_apf_tmp", clear
+
+. list, clean noobs
+
+             item             outc            b          se           p         kpf      nn  
+      fs_baseline          ln_gaci   -.01834448   .02733122   .50209853   .45049805   77591  
+    fs_plus_cap96          ln_gaci     .0211953   .02555062   .40679805   .68813914   77539  
+     fs_plus_both          ln_gaci    .01486823   .02526096   .55613949   .34643266   77539  
+      iv_baseline           ln_co2     1.518034   10.951783   .88975781   .45050419   77591  
+      iv_stressed           ln_co2   -4.9528345   19.760512   .80209012   .34643738   77539  
+      rf_baseline           ln_co2   -.02784755   .21332837   .89614046           .   77591  
+              ols           ln_co2    3.3824128   .11713265   2.34e-183           .   77591  
+      iv_baseline           ln_skm    8.6760737   14.485362   .54920317   .38812869   77501  
+      iv_stressed           ln_skm    -8.339283   24.492504   .73349277   .36645623   77455  
+      rf_baseline           ln_skm   -.14712547   .22411365   .51151721           .   77501  
+              ols           ln_skm    3.8041231   .12430072   1.08e-205           .   77501  
+      iv_baseline     ln_intensity    1.9138646   6.0860537   .75316618   .38812869   77501  
+      iv_stressed     ln_intensity   -5.0589226   9.4671028   .59308653   .36645623   77455  
+      rf_baseline     ln_intensity   -.03245457   .08155811   .69068042           .   77501  
+              ols     ln_intensity   -.44926801   .04241846   3.269e-26           .   77501  
+      iv_baseline   intl_share_skm    2.0552405   3.3554535   .54020201   .38812869   77501  
+      iv_stressed   intl_share_skm   -1.9688044   4.3557956    .6512715   .36645623   77455  
+      rf_baseline   intl_share_skm   -.03485197   .03327962   .29498592           .   77501  
+              ols   intl_share_skm    .35129524    .0204218   2.566e-66           .   77501  
+
+. export delimited "_airport_feyrer.csv", replace
+file _airport_feyrer.csv saved
+
+. restore
+
+. erase "_apf_tmp.dta"
+
+. di _n "DONE_AIRPORT_FEYRER"
+
+DONE_AIRPORT_FEYRER
+
+. 
+end of do-file

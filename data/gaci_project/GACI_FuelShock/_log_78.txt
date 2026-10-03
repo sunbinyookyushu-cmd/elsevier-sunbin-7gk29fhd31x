@@ -1,0 +1,229 @@
+﻿sample airports: 3345 countries: 234
+connectivity (ln GACI)                  3345
+network position (ln betweenness)       3345
+size (ln seats)                         3345
+isolation (ln km to nearest airport)    3303
+stage length                            3345
+fuel intensity (CO2 per seat-km)        3345
+gauge (seats per flight)                3345
+international share                     3345
+destinations (ln degree)                3345
+growth 2002-2007                        3022
+monthly rows 481680 service-loss rate 0.0249
+seats Kaenzig done
+seats BH done
+service loss Kaenzig done
+service loss BH done
+destinations (annual) Kaenzig done
+destinations (annual) BH done
+              outcome   shock fe   spec                                trait       b     se      p      n  airports  ymean
+                seats Kaenzig  B single               connectivity (ln GACI) -0.0027 0.0015 0.0822 426699      3304 0.0356
+                seats Kaenzig  B single    network position (ln betweenness) -0.0033 0.0023 0.1480 426699      3304 0.0356
+                seats Kaenzig  B single                      size (ln seats) -0.0049 0.0022 0.0276 426699      3304 0.0356
+                seats Kaenzig  B single isolation (ln km to nearest airport)  0.0008 0.0022 0.7153 423114      3267 0.0361
+                seats Kaenzig  B single                         stage length -0.0014 0.0025 0.5665 426699      3304 0.0356
+                seats Kaenzig  B single     fuel intensity (CO2 per seat-km)  0.0038 0.0022 0.0959 426699      3304 0.0356
+                seats Kaenzig  B single             gauge (seats per flight) -0.0036 0.0025 0.1580 426699      3304 0.0356
+                seats Kaenzig  B single                  international share -0.0027 0.0033 0.4075 426699      3304 0.0356
+                seats Kaenzig  B single             destinations (ln degree) -0.0033 0.0022 0.1365 426699      3304 0.0356
+                seats Kaenzig  B single                     growth 2002-2007 -0.0054 0.0032 0.0939 396384      2995 0.0321
+                seats Kaenzig  B single          resilience index (pre-2008) -0.0010 0.0013 0.4210 285571      2133 0.0288
+                seats Kaenzig  A single           country income (ln GDP pc) -0.0016 0.0033 0.6294 398424      3075 0.0363
+                seats Kaenzig  A single            country oil rents (% GDP)  0.0015 0.0055 0.7795 416811      3224 0.0363
+                seats Kaenzig  A  joint               connectivity (ln GACI) -0.0032 0.0054 0.5538 364963      2738 0.0330
+                seats Kaenzig  A  joint    network position (ln betweenness)  0.0047 0.0038 0.2133 364963      2738 0.0330
+                seats Kaenzig  A  joint                      size (ln seats) -0.0063 0.0069 0.3648 364963      2738 0.0330
+                seats Kaenzig  A  joint isolation (ln km to nearest airport)  0.0012 0.0025 0.6409 364963      2738 0.0330
+                seats Kaenzig  A  joint                         stage length  0.0046 0.0052 0.3699 364963      2738 0.0330
+                seats Kaenzig  A  joint     fuel intensity (CO2 per seat-km)  0.0063 0.0044 0.1519 364963      2738 0.0330
+                seats Kaenzig  A  joint             gauge (seats per flight)  0.0071 0.0051 0.1666 364963      2738 0.0330
+                seats Kaenzig  A  joint                  international share -0.0004 0.0043 0.9312 364963      2738 0.0330
+                seats Kaenzig  A  joint             destinations (ln degree) -0.0042 0.0057 0.4590 364963      2738 0.0330
+                seats Kaenzig  A  joint                     growth 2002-2007 -0.0033 0.0032 0.2928 364963      2738 0.0330
+                seats Kaenzig  A  joint           country income (ln GDP pc)  0.0011 0.0031 0.7285 364963      2738 0.0330
+                seats Kaenzig  A  joint            country oil rents (% GDP) -0.0037 0.0053 0.4804 364963      2738 0.0330
+                seats Kaenzig  B  joint               connectivity (ln GACI)  0.0002 0.0039 0.9519 393003      2962 0.0325
+                seats Kaenzig  B  joint    network position (ln betweenness) -0.0011 0.0029 0.6971 393003      2962 0.0325
+                seats Kaenzig  B  joint                      size (ln seats) -0.0050 0.0055 0.3630 393003      2962 0.0325
+                seats Kaenzig  B  joint isolation (ln km to nearest airport)  0.0002 0.0020 0.9207 393003      2962 0.0325
+                seats Kaenzig  B  joint                         stage length  0.0081 0.0062 0.1971 393003      2962 0.0325
+                seats Kaenzig  B  joint     fuel intensity (CO2 per seat-km)  0.0089 0.0055 0.1067 393003      2962 0.0325
+                seats Kaenzig  B  joint             gauge (seats per flight)  0.0037 0.0048 0.4376 393003      2962 0.0325
+                seats Kaenzig  B  joint                  international share  0.0004 0.0045 0.9340 393003      2962 0.0325
+                seats Kaenzig  B  joint             destinations (ln degree) -0.0011 0.0058 0.8487 393003      2962 0.0325
+                seats Kaenzig  B  joint                     growth 2002-2007 -0.0048 0.0032 0.1294 393003      2962 0.0325
+                seats      BH  B single               connectivity (ln GACI) -0.0003 0.0026 0.9170 426699      3304 0.0356
+                seats      BH  B single    network position (ln betweenness)  0.0009 0.0033 0.7918 426699      3304 0.0356
+                seats      BH  B single                      size (ln seats)  0.0013 0.0043 0.7682 426699      3304 0.0356
+                seats      BH  B single isolation (ln km to nearest airport)  0.0004 0.0028 0.8884 423114      3267 0.0361
+                seats      BH  B single                         stage length  0.0007 0.0034 0.8340 426699      3304 0.0356
+                seats      BH  B single     fuel intensity (CO2 per seat-km) -0.0024 0.0038 0.5268 426699      3304 0.0356
+                seats      BH  B single             gauge (seats per flight)  0.0017 0.0046 0.7082 426699      3304 0.0356
+                seats      BH  B single                  international share  0.0012 0.0029 0.6699 426699      3304 0.0356
+                seats      BH  B single             destinations (ln degree)  0.0004 0.0031 0.8919 426699      3304 0.0356
+                seats      BH  B single                     growth 2002-2007  0.0041 0.0045 0.3576 396384      2995 0.0321
+                seats      BH  B single          resilience index (pre-2008) -0.0009 0.0017 0.6071 285571      2133 0.0288
+                seats      BH  A single           country income (ln GDP pc) -0.0008 0.0033 0.8175 398424      3075 0.0363
+                seats      BH  A single            country oil rents (% GDP) -0.0041 0.0056 0.4596 416811      3224 0.0363
+                seats      BH  A  joint               connectivity (ln GACI) -0.0077 0.0058 0.1856 364963      2738 0.0330
+                seats      BH  A  joint    network position (ln betweenness) -0.0050 0.0058 0.3884 364963      2738 0.0330
+                seats      BH  A  joint                      size (ln seats)  0.0050 0.0083 0.5494 364963      2738 0.0330
+                seats      BH  A  joint isolation (ln km to nearest airport)  0.0058 0.0028 0.0375 364963      2738 0.0330
+                seats      BH  A  joint                         stage length  0.0056 0.0078 0.4760 364963      2738 0.0330
+                seats      BH  A  joint     fuel intensity (CO2 per seat-km)  0.0042 0.0052 0.4151 364963      2738 0.0330
+                seats      BH  A  joint             gauge (seats per flight) -0.0044 0.0061 0.4719 364963      2738 0.0330
+                seats      BH  A  joint                  international share  0.0014 0.0038 0.7086 364963      2738 0.0330
+                seats      BH  A  joint             destinations (ln degree)  0.0084 0.0070 0.2288 364963      2738 0.0330
+                seats      BH  A  joint                     growth 2002-2007  0.0046 0.0043 0.2843 364963      2738 0.0330
+                seats      BH  A  joint           country income (ln GDP pc) -0.0016 0.0034 0.6392 364963      2738 0.0330
+                seats      BH  A  joint            country oil rents (% GDP) -0.0054 0.0055 0.3280 364963      2738 0.0330
+                seats      BH  B  joint               connectivity (ln GACI) -0.0044 0.0039 0.2626 393003      2962 0.0325
+                seats      BH  B  joint    network position (ln betweenness) -0.0007 0.0036 0.8446 393003      2962 0.0325
+                seats      BH  B  joint                      size (ln seats)  0.0080 0.0085 0.3483 393003      2962 0.0325
+                seats      BH  B  joint isolation (ln km to nearest airport)  0.0009 0.0026 0.7306 393003      2962 0.0325
+                seats      BH  B  joint                         stage length -0.0050 0.0053 0.3448 393003      2962 0.0325
+                seats      BH  B  joint     fuel intensity (CO2 per seat-km) -0.0040 0.0050 0.4298 393003      2962 0.0325
+                seats      BH  B  joint             gauge (seats per flight) -0.0016 0.0053 0.7620 393003      2962 0.0325
+                seats      BH  B  joint                  international share  0.0014 0.0027 0.6031 393003      2962 0.0325
+                seats      BH  B  joint             destinations (ln degree) -0.0002 0.0044 0.9697 393003      2962 0.0325
+                seats      BH  B  joint                     growth 2002-2007  0.0036 0.0040 0.3718 393003      2962 0.0325
+         service loss Kaenzig  B single               connectivity (ln GACI)  0.0002 0.0012 0.8616 437581      3345 0.0249
+         service loss Kaenzig  B single    network position (ln betweenness)  0.0005 0.0016 0.7656 437581      3345 0.0249
+         service loss Kaenzig  B single                      size (ln seats)  0.0004 0.0020 0.8472 437581      3345 0.0249
+         service loss Kaenzig  B single isolation (ln km to nearest airport)  0.0021 0.0009 0.0239 433645      3303 0.0243
+         service loss Kaenzig  B single                         stage length  0.0014 0.0011 0.2025 437581      3345 0.0249
+         service loss Kaenzig  B single     fuel intensity (CO2 per seat-km) -0.0006 0.0011 0.6128 437581      3345 0.0249
+         service loss Kaenzig  B single             gauge (seats per flight)  0.0007 0.0018 0.7026 437581      3345 0.0249
+         service loss Kaenzig  B single                  international share -0.0003 0.0011 0.8157 437581      3345 0.0249
+         service loss Kaenzig  B single             destinations (ln degree)  0.0001 0.0014 0.9670 437581      3345 0.0249
+         service loss Kaenzig  B single                     growth 2002-2007 -0.0039 0.0019 0.0405 404458      3022 0.0200
+         service loss Kaenzig  B single          resilience index (pre-2008) -0.0007 0.0012 0.5822 290564      2152 0.0172
+         service loss Kaenzig  A single           country income (ln GDP pc) -0.0010 0.0010 0.2870 408332      3116 0.0243
+         service loss Kaenzig  A single            country oil rents (% GDP) -0.0022 0.0012 0.0669 427375      3264 0.0247
+         service loss Kaenzig  A  joint               connectivity (ln GACI) -0.0019 0.0030 0.5280 371855      2760 0.0185
+         service loss Kaenzig  A  joint    network position (ln betweenness) -0.0001 0.0017 0.9437 371855      2760 0.0185
+         service loss Kaenzig  A  joint                      size (ln seats)  0.0045 0.0031 0.1502 371855      2760 0.0185
+         service loss Kaenzig  A  joint isolation (ln km to nearest airport)  0.0018 0.0008 0.0381 371855      2760 0.0185
+         service loss Kaenzig  A  joint                         stage length -0.0002 0.0026 0.9315 371855      2760 0.0185
+         service loss Kaenzig  A  joint     fuel intensity (CO2 per seat-km) -0.0004 0.0023 0.8499 371855      2760 0.0185
+         service loss Kaenzig  A  joint             gauge (seats per flight) -0.0012 0.0021 0.5801 371855      2760 0.0185
+         service loss Kaenzig  A  joint                  international share  0.0002 0.0008 0.8340 371855      2760 0.0185
+         service loss Kaenzig  A  joint             destinations (ln degree) -0.0006 0.0023 0.7884 371855      2760 0.0185
+         service loss Kaenzig  A  joint                     growth 2002-2007 -0.0028 0.0016 0.0867 371855      2760 0.0185
+         service loss Kaenzig  A  joint           country income (ln GDP pc) -0.0008 0.0011 0.4515 371855      2760 0.0185
+         service loss Kaenzig  A  joint            country oil rents (% GDP) -0.0026 0.0011 0.0157 371855      2760 0.0185
+         service loss Kaenzig  B  joint               connectivity (ln GACI) -0.0036 0.0028 0.1991 400772      2984 0.0194
+         service loss Kaenzig  B  joint    network position (ln betweenness)  0.0011 0.0029 0.7008 400772      2984 0.0194
+         service loss Kaenzig  B  joint                      size (ln seats)  0.0036 0.0037 0.3331 400772      2984 0.0194
+         service loss Kaenzig  B  joint isolation (ln km to nearest airport)  0.0022 0.0010 0.0253 400772      2984 0.0194
+         service loss Kaenzig  B  joint                         stage length  0.0012 0.0028 0.6515 400772      2984 0.0194
+         service loss Kaenzig  B  joint     fuel intensity (CO2 per seat-km)  0.0005 0.0027 0.8419 400772      2984 0.0194
+         service loss Kaenzig  B  joint             gauge (seats per flight) -0.0003 0.0024 0.8869 400772      2984 0.0194
+         service loss Kaenzig  B  joint                  international share  0.0006 0.0015 0.6598 400772      2984 0.0194
+         service loss Kaenzig  B  joint             destinations (ln degree) -0.0005 0.0033 0.8874 400772      2984 0.0194
+         service loss Kaenzig  B  joint                     growth 2002-2007 -0.0043 0.0019 0.0275 400772      2984 0.0194
+         service loss      BH  B single               connectivity (ln GACI)  0.0021 0.0011 0.0642 437581      3345 0.0249
+         service loss      BH  B single    network position (ln betweenness)  0.0022 0.0015 0.1445 437581      3345 0.0249
+         service loss      BH  B single                      size (ln seats)  0.0027 0.0018 0.1318 437581      3345 0.0249
+         service loss      BH  B single isolation (ln km to nearest airport)  0.0005 0.0014 0.7408 433645      3303 0.0243
+         service loss      BH  B single                         stage length  0.0019 0.0020 0.3400 437581      3345 0.0249
+         service loss      BH  B single     fuel intensity (CO2 per seat-km) -0.0012 0.0017 0.4685 437581      3345 0.0249
+         service loss      BH  B single             gauge (seats per flight)  0.0024 0.0024 0.3098 437581      3345 0.0249
+         service loss      BH  B single                  international share  0.0002 0.0013 0.8957 437581      3345 0.0249
+         service loss      BH  B single             destinations (ln degree)  0.0018 0.0011 0.0837 437581      3345 0.0249
+         service loss      BH  B single                     growth 2002-2007 -0.0031 0.0017 0.0792 404458      3022 0.0200
+         service loss      BH  B single          resilience index (pre-2008)  0.0009 0.0007 0.2324 290564      2152 0.0172
+         service loss      BH  A single           country income (ln GDP pc)  0.0006 0.0014 0.6519 408332      3116 0.0243
+         service loss      BH  A single            country oil rents (% GDP) -0.0001 0.0021 0.9528 427375      3264 0.0247
+         service loss      BH  A  joint               connectivity (ln GACI) -0.0026 0.0025 0.2900 371855      2760 0.0185
+         service loss      BH  A  joint    network position (ln betweenness) -0.0010 0.0022 0.6415 371855      2760 0.0185
+         service loss      BH  A  joint                      size (ln seats)  0.0015 0.0054 0.7775 371855      2760 0.0185
+         service loss      BH  A  joint isolation (ln km to nearest airport)  0.0002 0.0013 0.8773 371855      2760 0.0185
+         service loss      BH  A  joint                         stage length  0.0035 0.0029 0.2373 371855      2760 0.0185
+         service loss      BH  A  joint     fuel intensity (CO2 per seat-km)  0.0017 0.0023 0.4786 371855      2760 0.0185
+         service loss      BH  A  joint             gauge (seats per flight)  0.0029 0.0030 0.3387 371855      2760 0.0185
+         service loss      BH  A  joint                  international share  0.0000 0.0009 0.9642 371855      2760 0.0185
+         service loss      BH  A  joint             destinations (ln degree)  0.0027 0.0021 0.2019 371855      2760 0.0185
+         service loss      BH  A  joint                     growth 2002-2007 -0.0032 0.0017 0.0687 371855      2760 0.0185
+         service loss      BH  A  joint           country income (ln GDP pc)  0.0014 0.0018 0.4286 371855      2760 0.0185
+         service loss      BH  A  joint            country oil rents (% GDP) -0.0005 0.0019 0.7734 371855      2760 0.0185
+         service loss      BH  B  joint               connectivity (ln GACI) -0.0025 0.0029 0.3943 400772      2984 0.0194
+         service loss      BH  B  joint    network position (ln betweenness)  0.0023 0.0033 0.4864 400772      2984 0.0194
+         service loss      BH  B  joint                      size (ln seats)  0.0044 0.0050 0.3830 400772      2984 0.0194
+         service loss      BH  B  joint isolation (ln km to nearest airport)  0.0004 0.0013 0.7854 400772      2984 0.0194
+         service loss      BH  B  joint                         stage length  0.0037 0.0029 0.2051 400772      2984 0.0194
+         service loss      BH  B  joint     fuel intensity (CO2 per seat-km)  0.0026 0.0022 0.2270 400772      2984 0.0194
+         service loss      BH  B  joint             gauge (seats per flight)  0.0028 0.0024 0.2435 400772      2984 0.0194
+         service loss      BH  B  joint                  international share -0.0008 0.0016 0.5917 400772      2984 0.0194
+         service loss      BH  B  joint             destinations (ln degree) -0.0033 0.0059 0.5775 400772      2984 0.0194
+         service loss      BH  B  joint                     growth 2002-2007 -0.0039 0.0019 0.0384 400772      2984 0.0194
+destinations (annual) Kaenzig  B single               connectivity (ln GACI) -0.0070 0.0029 0.0348  36288      3312 0.0137
+destinations (annual) Kaenzig  B single    network position (ln betweenness) -0.0116 0.0044 0.0229  36288      3312 0.0137
+destinations (annual) Kaenzig  B single                      size (ln seats) -0.0062 0.0032 0.0810  36288      3312 0.0137
+destinations (annual) Kaenzig  B single isolation (ln km to nearest airport)  0.0010 0.0028 0.7396  35967      3275 0.0140
+destinations (annual) Kaenzig  B single                         stage length -0.0047 0.0040 0.2576  36288      3312 0.0137
+destinations (annual) Kaenzig  B single     fuel intensity (CO2 per seat-km)  0.0060 0.0042 0.1765  36288      3312 0.0137
+destinations (annual) Kaenzig  B single             gauge (seats per flight) -0.0077 0.0049 0.1431  36288      3312 0.0137
+destinations (annual) Kaenzig  B single                  international share  0.0042 0.0027 0.1457  36288      3312 0.0137
+destinations (annual) Kaenzig  B single             destinations (ln degree) -0.0156 0.0051 0.0106  36288      3312 0.0137
+destinations (annual) Kaenzig  B single                     growth 2002-2007 -0.0004 0.0032 0.8967  33507      2999 0.0108
+destinations (annual) Kaenzig  B single          resilience index (pre-2008) -0.0095 0.0047 0.0708  24058      2137 0.0075
+destinations (annual) Kaenzig  A single           country income (ln GDP pc)  0.0009 0.0044 0.8331  33889      3083 0.0148
+destinations (annual) Kaenzig  A single            country oil rents (% GDP) -0.0017 0.0046 0.7224  35454      3231 0.0140
+destinations (annual) Kaenzig  A  joint               connectivity (ln GACI)  0.0117 0.0091 0.2239  30844      2742 0.0122
+destinations (annual) Kaenzig  A  joint    network position (ln betweenness) -0.0038 0.0092 0.6920  30844      2742 0.0122
+destinations (annual) Kaenzig  A  joint                      size (ln seats)  0.0205 0.0125 0.1285  30844      2742 0.0122
+destinations (annual) Kaenzig  A  joint isolation (ln km to nearest airport)  0.0044 0.0024 0.0931  30844      2742 0.0122
+destinations (annual) Kaenzig  A  joint                         stage length  0.0046 0.0061 0.4709  30844      2742 0.0122
+destinations (annual) Kaenzig  A  joint     fuel intensity (CO2 per seat-km)  0.0043 0.0064 0.5181  30844      2742 0.0122
+destinations (annual) Kaenzig  A  joint             gauge (seats per flight) -0.0084 0.0079 0.3096  30844      2742 0.0122
+destinations (annual) Kaenzig  A  joint                  international share  0.0131 0.0057 0.0413  30844      2742 0.0122
+destinations (annual) Kaenzig  A  joint             destinations (ln degree) -0.0398 0.0191 0.0616  30844      2742 0.0122
+destinations (annual) Kaenzig  A  joint                     growth 2002-2007 -0.0007 0.0030 0.8137  30844      2742 0.0122
+destinations (annual) Kaenzig  A  joint           country income (ln GDP pc)  0.0039 0.0063 0.5465  30844      2742 0.0122
+destinations (annual) Kaenzig  A  joint            country oil rents (% GDP) -0.0018 0.0055 0.7455  30844      2742 0.0122
+destinations (annual) Kaenzig  B  joint               connectivity (ln GACI)  0.0139 0.0099 0.1870  33205      2966 0.0111
+destinations (annual) Kaenzig  B  joint    network position (ln betweenness)  0.0041 0.0084 0.6338  33205      2966 0.0111
+destinations (annual) Kaenzig  B  joint                      size (ln seats)  0.0287 0.0149 0.0799  33205      2966 0.0111
+destinations (annual) Kaenzig  B  joint isolation (ln km to nearest airport)  0.0030 0.0022 0.2069  33205      2966 0.0111
+destinations (annual) Kaenzig  B  joint                         stage length  0.0022 0.0076 0.7731  33205      2966 0.0111
+destinations (annual) Kaenzig  B  joint     fuel intensity (CO2 per seat-km)  0.0026 0.0080 0.7480  33205      2966 0.0111
+destinations (annual) Kaenzig  B  joint             gauge (seats per flight) -0.0128 0.0065 0.0748  33205      2966 0.0111
+destinations (annual) Kaenzig  B  joint                  international share  0.0162 0.0035 0.0007  33205      2966 0.0111
+destinations (annual) Kaenzig  B  joint             destinations (ln degree) -0.0547 0.0173 0.0089  33205      2966 0.0111
+destinations (annual) Kaenzig  B  joint                     growth 2002-2007 -0.0008 0.0034 0.8067  33205      2966 0.0111
+destinations (annual)      BH  B single               connectivity (ln GACI) -0.0044 0.0022 0.0740  36288      3312 0.0137
+destinations (annual)      BH  B single    network position (ln betweenness) -0.0016 0.0025 0.5375  36288      3312 0.0137
+destinations (annual)      BH  B single                      size (ln seats) -0.0055 0.0029 0.0864  36288      3312 0.0137
+destinations (annual)      BH  B single isolation (ln km to nearest airport)  0.0001 0.0032 0.9825  35967      3275 0.0140
+destinations (annual)      BH  B single                         stage length -0.0018 0.0034 0.6053  36288      3312 0.0137
+destinations (annual)      BH  B single     fuel intensity (CO2 per seat-km)  0.0021 0.0030 0.4937  36288      3312 0.0137
+destinations (annual)      BH  B single             gauge (seats per flight) -0.0046 0.0038 0.2439  36288      3312 0.0137
+destinations (annual)      BH  B single                  international share  0.0014 0.0034 0.6819  36288      3312 0.0137
+destinations (annual)      BH  B single             destinations (ln degree) -0.0045 0.0037 0.2574  36288      3312 0.0137
+destinations (annual)      BH  B single                     growth 2002-2007  0.0034 0.0030 0.2703  33507      2999 0.0108
+destinations (annual)      BH  B single          resilience index (pre-2008) -0.0027 0.0032 0.4078  24058      2137 0.0075
+destinations (annual)      BH  A single           country income (ln GDP pc) -0.0065 0.0065 0.3395  33889      3083 0.0148
+destinations (annual)      BH  A single            country oil rents (% GDP) -0.0038 0.0030 0.2268  35454      3231 0.0140
+destinations (annual)      BH  A  joint               connectivity (ln GACI) -0.0022 0.0111 0.8495  30844      2742 0.0122
+destinations (annual)      BH  A  joint    network position (ln betweenness)  0.0090 0.0100 0.3858  30844      2742 0.0122
+destinations (annual)      BH  A  joint                      size (ln seats) -0.0032 0.0091 0.7331  30844      2742 0.0122
+destinations (annual)      BH  A  joint isolation (ln km to nearest airport)  0.0023 0.0028 0.4254  30844      2742 0.0122
+destinations (annual)      BH  A  joint                         stage length  0.0112 0.0125 0.3916  30844      2742 0.0122
+destinations (annual)      BH  A  joint     fuel intensity (CO2 per seat-km)  0.0056 0.0080 0.4953  30844      2742 0.0122
+destinations (annual)      BH  A  joint             gauge (seats per flight) -0.0043 0.0066 0.5323  30844      2742 0.0122
+destinations (annual)      BH  A  joint                  international share -0.0010 0.0041 0.8092  30844      2742 0.0122
+destinations (annual)      BH  A  joint             destinations (ln degree) -0.0075 0.0144 0.6119  30844      2742 0.0122
+destinations (annual)      BH  A  joint                     growth 2002-2007  0.0062 0.0038 0.1320  30844      2742 0.0122
+destinations (annual)      BH  A  joint           country income (ln GDP pc) -0.0037 0.0077 0.6377  30844      2742 0.0122
+destinations (annual)      BH  A  joint            country oil rents (% GDP) -0.0035 0.0030 0.2644  30844      2742 0.0122
+destinations (annual)      BH  B  joint               connectivity (ln GACI)  0.0040 0.0104 0.7093  33205      2966 0.0111
+destinations (annual)      BH  B  joint    network position (ln betweenness)  0.0175 0.0091 0.0815  33205      2966 0.0111
+destinations (annual)      BH  B  joint                      size (ln seats) -0.0093 0.0091 0.3293  33205      2966 0.0111
+destinations (annual)      BH  B  joint isolation (ln km to nearest airport)  0.0003 0.0032 0.9246  33205      2966 0.0111
+destinations (annual)      BH  B  joint                         stage length -0.0043 0.0091 0.6438  33205      2966 0.0111
+destinations (annual)      BH  B  joint     fuel intensity (CO2 per seat-km) -0.0038 0.0072 0.6084  33205      2966 0.0111
+destinations (annual)      BH  B  joint             gauge (seats per flight) -0.0029 0.0068 0.6830  33205      2966 0.0111
+destinations (annual)      BH  B  joint                  international share  0.0023 0.0046 0.6323  33205      2966 0.0111
+destinations (annual)      BH  B  joint             destinations (ln degree) -0.0159 0.0155 0.3287  33205      2966 0.0111
+destinations (annual)      BH  B  joint                     growth 2002-2007  0.0048 0.0032 0.1612  33205      2966 0.0111

@@ -1,0 +1,75 @@
+Short verbatim text snapshots collected 2026-10-02 for taxes_west_europe.csv. File: IRL_ATT_manual_law.txt
+
+================================================================================
+SOURCE: https://www.taxfind.ie/binaryDocument//pdfs/http___www_revenue_ie_en_about_foi_s16_excise_air_travel_tax_manual_pdf_20161222233005.pdf (Revenue Air Travel Tax Manual, Feb 2016)
+--------------------------------------------------------------------------------
+1. Introduction 
+2. Legislation 
+3. Application of tax
+4. Exemptions
+5. Rates of ATT
+6. Liability for ATT
+7. Registration for ATT
+8. Payment
+9. Returns
+10. Exclusions from requirement to make payments and returns electronically
+11. Records
+12. Offences and Penalties
+13. Management of ATT
+14. Information for Air Travel Operators
+=== PAGE 3 ===
+Air Travel Tax Manual
+3
+1. Introduction
+An excise duty, called Air Travel Tax (ATT), was applied to departures of passengers on 
+flights from certain Irish airports from 30 March 2009. Following cessation of the tax from 1 
+April 2014, ATT no longer applies to passenger departures.
+This Manual outlines the main features of ATT, by reference to the governing legislation.
+2. Legislation
+The operation of ATT is governed by section 55 of the Finance (No. 2) Act 2008, as 
+amended by section 18 of the Finance Act 2009, section 48 of the Finance Act 2011, 
+section 2 of the Finance (No.2) Act 2011 and the Air Travel Tax Regulations 2009 (S.I. No. 
+134 of 2009).
+The Air Travel Tax (Abolition) Order (S.I.130 of 2014), signed by the Minister of Finance, 
+abolished ATT with effect from 1 April 2014.
+3. Application of tax
+Subject only to the exemptions detailed below, ATT applied to all departures of 
+passengers on flights from relevant Irish airports on or after 30 March 2009 to 31 March 
+2014, irrespective of when a passenger booked or paid for the flight.
+4. Exemptions
+ATT did not apply in the case of an aircraft not capable of carrying 20 or more passengers. 
+It did not apply, therefore, to flights to or from Irish islands.
+The tax did not apply to flights from airports where the number of departures of 
+passengers in the previous calendar year was less than 50,000. ATT applied, therefore, to 
+departures from Dublin, Cork, Shannon, Waterford, Kerry, Galway and Knock Airports, but 
+does not apply to departures from Donegal Airport, Carrickfinn, Co. Donegal, or from Sligo 
+Airport, Strandhill, Co. Sligo.  
+In addition, the following persons are exempt from the tax:
+ Members of the aircraft crew (including any relief crew); 
+ A child under the age of two who does not occupy a seat on the aircraft; 
+ A disabled person, and one person accompanying the disabled person for the 
+purposes of providing care and assistance; and 
+ Transit and transfer passengers. 
+=== PAGE 4 ===
+Air Travel Tax Manual
+4
+The exemption for disabled persons applied only where the disabled person requested 
+and availed of assistance from the airline, in accordance with Council Regulation 
+1107/2006 concerning the rights of disabled persons or persons with reduced mobility 
+================================================================================
+SOURCE: https://www.irishstatutebook.ie/eli/2008/act/25/enacted/en/print.html (Finance (No. 2) Act 2008, s. 55)
+--------------------------------------------------------------------------------
+( c ) a transit or a transfer passenger; 
+“ registered owner ”, in relation to an aircraft, means the person who is registered as the owner of the aircraft in— 
+( a ) the register established under 
+ section 58 
+ of the 
+ Irish Aviation Authority Act 1993 
+, or 
+( b ) a register (by whatever name called) of another state that corresponds to the register so established; 
+“ transfer passenger ” means a passenger who arrives on a flight to an airport and who departs from the airport on a further flight, other than to the airport where the passenger’s journey originated, where both flights are part of a single booking and where the length of time between the scheduled time of arrival of the flight to the airport and the scheduled time of departure of the flight from that airport is not more than 6 hours; 
+“ transit passenger ” means a passenger who is on board an aircraft which lands at an airport in the course of its journey and who continues his or her journey on that aircraft. 
+(2) ( a ) Subject to the provisions of this section and any regulations made under it, a duty of excise, to be known as air travel tax, shall be charged, levied and paid in respect of every departure of a passenger on an aircraft from an airport on or after 30 March 2009. 
+( b ) Air travel tax shall be charged, levied and paid by reference to the distance between the place of departure of the flight and the place where the flight ends, at the rate of— 
+(i) €2 in the case of a flight from an airport to a destination located not more than 300 kilometres from Dublin Airport, 
+(ii) €10 in any other case. 

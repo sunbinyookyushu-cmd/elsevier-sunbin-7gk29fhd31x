@@ -1,0 +1,28 @@
+MLT departure tax (legally "Airport (Passenger Service Charge) Regulations, 1997", Civil Aviation Act Cap. 232)
+Accessed 2026-10-02 (legislation.mt PDFs read as text; LN 118/1997 page image checked visually).
+
+L.N. 118 of 1997, https://legislation.mt/eli/ln/1997/118/eng/pdf
+"(2) These regulations shall be deemed to have come into force on the 1st February, 1997."
+"'departing passenger' means a passenger who commences a voyage by air from Malta for a destination outside Malta, other than in a military aircraft, and who does not return to Malta on the same day of departure;"
+"3. For the services and facilities provided for a departing passenger from the Malta International Airport, there shall be payable to the Director by the aircraft owner or the aircraft operator, as the case may be, a fee of Lm4 in respect of each departing passenger embarking on his aircraft."
+"4. These regulations shall not apply to positioning air crew or infants under two years of age."
+("Director" = Director of Civil Aviation, a public officer.)
+
+L.N. 60 of 2005, https://legislation.mt/eli/ln/2005/60/eng/pdf
+"(2) These regulations shall come into force on the 1st August, 2005."
+"2. In regulation 3 to the principal regulations, for the words "a fee of Lm10" there shall be substituted the words "a fee of Lm20"."
+
+L.N. 108 of 2007 (Gazette Supplement No. 18,067, 20 April 2007), https://legislation.mt/eli/ln/2007/108/eng/pdf
+"(2) These regulations shall come into force on the 1st June, 2007."
+"2. In regulation 3 of the principal regulations, for the words "a fee of Lm20" there shall be substituted the words "a fee of Lm10"."
+
+L.N. 160 of 2008, https://legislation.mt/eli/ln/2008/160/eng/pdf
+"1. The title of these regulations is the Airport (Passenger Service Charge) (Revocation) Regulations, 2008 and they shall come into effect on the 1st November, 2008. 2. The Airport (Passenger Service Charge) Regulations 1997 are hereby being revoked." (Revokes L.N. 118 of 1997.)
+
+Lm4 -> Lm10 step: amending instrument NOT found. Times of Malta 16 Oct 2007 (https://timesofmalta.com/article/government-retains-departure-tax.1928): "Originally, the Labour government in the 1997 budget increased the airport tax from Lm4 to Lm10".
+Times of Malta 15 Dec 2004 (Busuttil, https://timesofmalta.com/article/is-the-departure-tax-illegal.104375): budget announcement that "the passenger departure tax will go up from Lm10 to Lm20 from next August"; "It does not apply to flights departing from Malta but which would have started abroad."
+Central Bank of Malta Quarterly Review 2006:4 (https://www.um.edu.mt/library/oar/bitstream/123456789/16887/1/QR2006-4.pdf): "The departure tax is to be halved to Lm10 as from June 2007."
+Malta Independent 21 Jun 2008 (https://www.independent.com.mt/articles/2008-06-21/news/departure-tax-to-go-on-1-november-209317/): "the e23/Lm10 departure tax, which had been introduced in 1997 under a Labour government, will be removed."
+Times of Malta 5 Nov 2008 (https://timesofmalta.com/article/the-departure-tax-is-gone.231946): "on June 28, Legal Notice 160 of 2008 was published in the Government Gazette."
+Malta Update of Stability Programme 2008-2011 (Dec 2008), https://ec.europa.eu/economy_finance/economic_governance/sgp/pdf/20_scps/2008-09/01_programme/mt_2008-12-02_sp_en.pdf : "the removal of the departure tax as from November 2008".
+CE Delft (2019) Taxes in the field of aviation, s.4.19: "Malta levies no aviation taxes: neither a passenger ticket tax, nor a VAT on air tickets, nor an excise duty on kerosene."

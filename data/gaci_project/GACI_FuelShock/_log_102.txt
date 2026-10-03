@@ -1,0 +1,44 @@
+﻿seats done
+connectivity done
+       count     median          sum  share_of_seats
+size                                                
+large     72  2017387.5  399402765.0           0.937
+mid       68   168048.5   23074425.0           0.054
+small     74    29920.0    3958054.0           0.009
+                          table  outcome     term       b     se      p      n  clusters
+        1 seats by size tercile ln_seats tp_small -0.2395 0.0659 0.0010 112876        33
+        1 seats by size tercile ln_seats   tp_mid -0.0164 0.0599 0.7865 112876        33
+        1 seats by size tercile ln_seats tp_large -0.0481 0.0507 0.3496 112876        33
+        1 seats by size tercile ln_seats       bp  0.0101 0.0271 0.7134 112876        33
+         2 seats, seat-weighted ln_seats       tp -0.0412 0.0213 0.0620 112306        31
+         2 seats, seat-weighted ln_seats       bp -0.0301 0.0165 0.0782 112306        31
+2 seats, seat-weighted, by size ln_seats tp_small -0.2420 0.0669 0.0011 112306        31
+2 seats, seat-weighted, by size ln_seats   tp_mid -0.0215 0.0504 0.6728 112306        31
+2 seats, seat-weighted, by size ln_seats tp_large -0.0403 0.0228 0.0875 112306        31
+2 seats, seat-weighted, by size ln_seats       bp -0.0300 0.0164 0.0782 112306        31
+2 seats, unweighted (reference) ln_seats       tp -0.1032 0.0465 0.0338 112876        33
+2 seats, unweighted (reference) ln_seats       bp  0.0091 0.0268 0.7359 112876        33
+ 3 connectivity by size tercile  ln_gaci tp_small -0.0225 0.0054 0.0002   9615        33
+ 3 connectivity by size tercile  ln_gaci   tp_mid -0.0223 0.0029 0.0000   9615        33
+ 3 connectivity by size tercile  ln_gaci tp_large -0.0033 0.0152 0.8296   9615        33
+ 3 connectivity by size tercile  ln_gaci       bp -0.0022 0.0054 0.6892   9615        33
+    3 connectivity, all treated  ln_gaci       tp -0.0155 0.0057 0.0106   9615        33
+    3 connectivity, all treated  ln_gaci       bp -0.0022 0.0054 0.6871   9615        33
+ 3 connectivity by size tercile   ln_deg tp_small -0.1354 0.0625 0.0377   9615        33
+ 3 connectivity by size tercile   ln_deg   tp_mid -0.1063 0.0235 0.0001   9615        33
+ 3 connectivity by size tercile   ln_deg tp_large -0.0342 0.0544 0.5343   9615        33
+ 3 connectivity by size tercile   ln_deg       bp  0.0147 0.0326 0.6544   9615        33
+    3 connectivity, all treated   ln_deg       tp -0.0890 0.0389 0.0291   9615        33
+    3 connectivity, all treated   ln_deg       bp  0.0146 0.0326 0.6563   9615        33
+ 3 connectivity by size tercile ln_eigen tp_small -0.3188 0.0822 0.0005   9615        33
+ 3 connectivity by size tercile ln_eigen   tp_mid -0.1311 0.0494 0.0123   9615        33
+ 3 connectivity by size tercile ln_eigen tp_large -0.1314 0.0531 0.0188   9615        33
+ 3 connectivity by size tercile ln_eigen       bp -0.1004 0.0986 0.3161   9615        33
+    3 connectivity, all treated ln_eigen       tp -0.1864 0.0462 0.0003   9615        33
+    3 connectivity, all treated ln_eigen       bp -0.1003 0.0986 0.3165   9615        33
+ 3 connectivity by size tercile  ln_betw tp_small -0.9302 0.4062 0.0288   9615        33
+ 3 connectivity by size tercile  ln_betw   tp_mid -0.2529 0.0948 0.0118   9615        33
+ 3 connectivity by size tercile  ln_betw tp_large -0.1619 0.1088 0.1463   9615        33
+ 3 connectivity by size tercile  ln_betw       bp  0.0671 0.1618 0.6811   9615        33
+    3 connectivity, all treated  ln_betw       tp -0.4273 0.1648 0.0142   9615        33
+    3 connectivity, all treated  ln_betw       bp  0.0671 0.1618 0.6814   9615        33

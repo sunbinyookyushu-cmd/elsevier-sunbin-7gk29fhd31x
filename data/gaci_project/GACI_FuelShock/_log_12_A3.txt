@@ -1,0 +1,45 @@
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\12_airport_monthly.py:61: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  am["reg_ym"] = am.Region_96 + "_" + am.ym
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\12_airport_monthly.py:62: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  am["iso_ym"] = am.iso3 + "_" + am.ym
+baseline sample: rows with D12 ln seats 765,267, airports 3267, countries 233
+A2 done
+A3 done
+A4 done
+position        outcome     col       b     se      p   p_cl        F      n
+     H_g   d12_ln_seats     OLS  0.0018 0.0054 0.7392 0.5427      NaN 765267
+     H_g   d12_ln_seats 2SLS-KZ -0.0136 0.0073 0.0647 0.0064  25.9229 765267
+     H_g   d12_ln_seats 2SLS-BH -0.0012 0.0070 0.8655 0.7877 147.8350 765267
+     H_g d12_ln_flights     OLS  0.0048 0.0038 0.2051 0.0442      NaN 766177
+     H_g d12_ln_flights 2SLS-KZ -0.0049 0.0058 0.4000 0.2226  25.9187 766177
+     H_g d12_ln_flights 2SLS-BH  0.0017 0.0054 0.7449 0.6333 147.8530 766177
+     H_g     d12_ln_skm     OLS  0.0040 0.0054 0.4602 0.2035      NaN 765267
+     H_g     d12_ln_skm 2SLS-KZ -0.0105 0.0072 0.1483 0.0443  25.9229 765267
+     H_g     d12_ln_skm 2SLS-BH  0.0002 0.0072 0.9783 0.9646 147.8350 765267
+     H_g     d12_ln_co2     OLS  0.0048 0.0046 0.2918 0.0530      NaN 767499
+     H_g     d12_ln_co2 2SLS-KZ -0.0087 0.0062 0.1596 0.0347  25.9064 767499
+     H_g     d12_ln_co2 2SLS-BH  0.0020 0.0058 0.7238 0.6040 147.9446 767499
+   Hub10   d12_ln_seats     OLS -0.0007 0.0138 0.9621 0.9315      NaN 765267
+   Hub10   d12_ln_seats 2SLS-KZ -0.0385 0.0171 0.0250 0.0008  25.6846 765267
+   Hub10   d12_ln_seats 2SLS-BH -0.0121 0.0189 0.5220 0.2643 146.5102 765267
+   Hub10 d12_ln_flights     OLS  0.0068 0.0119 0.5719 0.4238      NaN 766177
+   Hub10 d12_ln_flights 2SLS-KZ -0.0192 0.0147 0.1932 0.0447  25.6841 766177
+   Hub10 d12_ln_flights 2SLS-BH -0.0063 0.0162 0.6977 0.5555 146.5020 766177
+   Hub10     d12_ln_skm     OLS  0.0066 0.0160 0.6793 0.5062      NaN 765267
+   Hub10     d12_ln_skm 2SLS-KZ -0.0379 0.0187 0.0436 0.0028  25.6846 765267
+   Hub10     d12_ln_skm 2SLS-BH -0.0043 0.0218 0.8432 0.7419 146.5102 765267
+   Hub10     d12_ln_co2     OLS  0.0080 0.0130 0.5399 0.2628      NaN 767499
+   Hub10     d12_ln_co2 2SLS-KZ -0.0304 0.0151 0.0455 0.0028  25.6802 767499
+   Hub10     d12_ln_co2 2SLS-BH -0.0034 0.0168 0.8386 0.7327 146.5332 767499
+     H_b   d12_ln_seats     OLS  0.0066 0.0058 0.2581 0.1492      NaN 765267
+     H_b   d12_ln_seats 2SLS-KZ  0.0023 0.0090 0.7976 0.7580  26.6692 765267
+     H_b   d12_ln_seats 2SLS-BH  0.0044 0.0071 0.5344 0.4765 147.7843 765267
+     H_b d12_ln_flights     OLS  0.0097 0.0053 0.0690 0.0171      NaN 766177
+     H_b d12_ln_flights 2SLS-KZ  0.0041 0.0092 0.6540 0.4794  26.6704 766177
+     H_b d12_ln_flights 2SLS-BH  0.0105 0.0061 0.0893 0.0475 147.7702 766177
+     H_b     d12_ln_skm     OLS  0.0085 0.0061 0.1650 0.0909      NaN 765267
+     H_b     d12_ln_skm 2SLS-KZ  0.0071 0.0100 0.4784 0.4039  26.6692 765267
+     H_b     d12_ln_skm 2SLS-BH  0.0047 0.0071 0.5049 0.4432 147.7843 765267
+     H_b     d12_ln_co2     OLS  0.0075 0.0065 0.2478 0.1169      NaN 767499
+     H_b     d12_ln_co2 2SLS-KZ  0.0041 0.0098 0.6747 0.5762  26.6074 767499
+     H_b     d12_ln_co2 2SLS-BH  0.0051 0.0067 0.4425 0.3755 148.2850 767499

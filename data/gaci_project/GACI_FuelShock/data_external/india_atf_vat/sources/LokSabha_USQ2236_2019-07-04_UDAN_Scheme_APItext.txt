@@ -1,0 +1,13 @@
+Source: Lok Sabha Q&A API (sansad.in) record retrieved 2026-10-02
+Lok Sabha: 17; Session: 1; Question No: 2236; Type: UNSTARRED; Date: 04.07.2019
+Ministry: CIVIL AVIATION
+Subject: UDAN Scheme
+Members: ['Kirron  Kher']
+Official file path (if any): https://sansad.in/getFile/lsapps/loksabhaquestions/annex/171/AU2236.pdf?source=lsapps
+API: https://sansad.in/api_ls/question/qetFilteredQuestionsAns?loksabhaNo=17&pageNo=1&locale=en&keyWord=...  (record: LS 17, Q 2236, UNSTARRED, date 04.07.2019)
+
+QUESTION:
+(a) whether the VAT on Aviation Turbine fuel has been reduced as a part of the UDAN scheme and if so, the details thereof; and<br/><br/>(b) the details of routes identified for helicopter services under UDAN, State/ UT-wise?<br/>
+
+ANSWER:
+The Minister of State (IC) in the Ministry of CIVIL AVIATION <br/>(Shri Hardeep Singh Puri)<br/><br/>(a): Under Regional Connectivity Scheme (RCS) - UDAN (Ude Desh ka Aam Nagrik), State Governments/Union Territory (UTs) Administrations are required to reduce Value Added Tax to 1% or less on Aviation Turbine Fuel at RCS - UDAN airports located within the State/UTs for a period of ten years from the date of notification of RCS - UDAN.Except Goa, Mizoram, Chandigarh, Delhi, Dadra and Nagar Haveli and Lakshadweep, 30 States and Union Territories have signed the tripartite Memorandum of Understanding (MoU) with the Ministry of Civil Aviation and Airports Authority of India for providing various concession as envisaged in the RCS Scheme document to the Selected Airline Operator at RCS - UDAN airports located in their respective State/UT including reduction of Value Added Tax to 1% or less on Aviation Turbine Fuel.<br/>;<br/><br/>(b): Hilly areas were categorised as Priority areas under RCS - UDAN version 2.0 and Helicopter operations are allowed within these areas. The details of the RCS - UDAN helicopter routes / network awarded in the second round of bidding under RCS - UDAN is at Annexure-I.<br/>

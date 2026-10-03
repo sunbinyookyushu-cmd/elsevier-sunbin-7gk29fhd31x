@@ -1,0 +1,100 @@
+﻿T4 done
+T5 done
+T6 done
+T7 done
+T8 done
+T9 done
+T10 done
+             table                                    spec  outcome                                         term       b      se      n      p  clusters  p_wild
+   T4 before/after                                       T ln seats                   pre mean / post mean (raw)  9.8628  9.7965   5086    NaN       NaN     NaN
+   T4 before/after                                       T ln seats pre / post residual (airport x cal-month FE)  0.0336 -0.0338   5086    NaN       NaN     NaN
+   T4 before/after                                       B ln seats                   pre mean / post mean (raw)  9.9888 10.0894   2397    NaN       NaN     NaN
+   T4 before/after                                       B ln seats pre / post residual (airport x cal-month FE) -0.0145  0.0149   2397    NaN       NaN     NaN
+   T4 before/after                                       C ln seats                   pre mean / post mean (raw)  9.6546  9.6875  61322    NaN       NaN     NaN
+   T4 before/after                                       C ln seats pre / post residual (airport x cal-month FE) -0.0131  0.0131  61322    NaN       NaN     NaN
+    T5 event study                     quarterly, -12..+11 ln_seats                                    T_m12_m10  0.0795  0.0296  66818 0.0124      27.0     NaN
+    T5 event study                     quarterly, -12..+11 ln_seats                                    B_m12_m10  0.0151  0.0172  66818 0.3861      27.0     NaN
+    T5 event study                     quarterly, -12..+11 ln_seats                                      T_m9_m7  0.1346  0.0315  66818 0.0002      27.0     NaN
+    T5 event study                     quarterly, -12..+11 ln_seats                                      B_m9_m7 -0.0006  0.0332  66818 0.9865      27.0     NaN
+    T5 event study                     quarterly, -12..+11 ln_seats                                      T_m6_m4  0.1342  0.0291  66818 0.0001      27.0     NaN
+    T5 event study                     quarterly, -12..+11 ln_seats                                      B_m6_m4 -0.0089  0.0282  66818 0.7538      27.0     NaN
+    T5 event study                     quarterly, -12..+11 ln_seats                                       T_9_11 -0.1097  0.0236  66818 0.0001      27.0     NaN
+    T5 event study                     quarterly, -12..+11 ln_seats                                       B_9_11  0.0436  0.0282  66818 0.1349      27.0     NaN
+    T5 event study                     half-year, -24..+23 ln_seats                                    T_m24_m19  0.1236  0.0514 116250 0.0236      27.0     NaN
+    T5 event study                     half-year, -24..+23 ln_seats                                    B_m24_m19  0.0086  0.0401 116250 0.8312      27.0     NaN
+    T5 event study                     half-year, -24..+23 ln_seats                                    T_m18_m13  0.0090  0.0227 116250 0.6938      27.0     NaN
+    T5 event study                     half-year, -24..+23 ln_seats                                    B_m18_m13  0.0125  0.0311 116250 0.6919      27.0     NaN
+    T5 event study                     half-year, -24..+23 ln_seats                                     T_m12_m7  0.1549  0.0377 116250 0.0003      27.0     NaN
+    T5 event study                     half-year, -24..+23 ln_seats                                     B_m12_m7  0.0161  0.0356 116250 0.6552      27.0     NaN
+    T5 event study                     half-year, -24..+23 ln_seats                                        T_0_5  0.0460  0.0155 116250 0.0063      27.0     NaN
+    T5 event study                     half-year, -24..+23 ln_seats                                        B_0_5 -0.0016  0.0254 116250 0.9493      27.0     NaN
+    T5 event study                     half-year, -24..+23 ln_seats                                       T_6_11 -0.1195  0.0229 116250 0.0000      27.0     NaN
+    T5 event study                     half-year, -24..+23 ln_seats                                       B_6_11  0.0256  0.0292 116250 0.3879      27.0     NaN
+    T5 event study                     half-year, -24..+23 ln_seats                                      T_18_23 -0.1559  0.0323 116250 0.0001      27.0     NaN
+    T5 event study                     half-year, -24..+23 ln_seats                                      B_18_23 -0.0143  0.0574 116250 0.8051      27.0     NaN
+        T6 windows                             +-12 months ln_seats                                           tp -0.1147  0.0241  66818 0.0001      27.0   0.003
+        T6 windows                             +-12 months ln_seats                                           bp  0.0095  0.0220  66818 0.6690      27.0     NaN
+        T6 windows                             +-18 months ln_seats                                           tp -0.1299  0.0298  93915 0.0002      27.0     NaN
+        T6 windows                             +-18 months ln_seats                                           bp  0.0040  0.0260  93915 0.8800      27.0     NaN
+        T6 windows                             +-24 months ln_seats                                           tp -0.1281  0.0360 116250 0.0015      27.0     NaN
+        T6 windows                             +-24 months ln_seats                                           bp -0.0063  0.0312 116250 0.8410      27.0     NaN
+        T6 windows                             +-36 months ln_seats                                           tp -0.1298  0.0522 158773 0.0198      27.0     NaN
+        T6 windows                             +-36 months ln_seats                                           bp -0.0207  0.0423 158773 0.6280      27.0     NaN
+           T7 dose                          per EUR of tax ln_seats                                          tpE -0.0146  0.0027  66818 0.0000      27.0     NaN
+           T7 dose                          per EUR of tax ln_seats                                          bpE  0.0012  0.0027  66818 0.6528      27.0     NaN
+   T8 clean events    increases without NLD 2008, IRL 2009 ln_seats                                           tp -0.1113  0.0254  51894 0.0002      27.0   0.010
+   T8 clean events    increases without NLD 2008, IRL 2009 ln_seats                                           bp  0.0089  0.0264  51894 0.7381      27.0     NaN
+   T8 clean events                               cuts, all ln_seats                                           tp -0.0408  0.0283  49684 0.1624      25.0     NaN
+   T8 clean events                               cuts, all ln_seats                                           bp -0.0321  0.0197  49684 0.1158      25.0     NaN
+   T8 clean events         cuts without AUT 2018, NOR 2002 ln_seats                                           tp  0.0089  0.0276  37940 0.7501      21.0     NaN
+   T8 clean events         cuts without AUT 2018, NOR 2002 ln_seats                                           bp -0.0322  0.0235  37940 0.1859      21.0     NaN
+   T9 connectivity                            all airports  ln_gaci                                           tp -0.0213  0.0041  13746 0.0000      27.0   0.002
+   T9 connectivity                            all airports  ln_gaci                                           bp  0.0037  0.0064  13746 0.5666      27.0     NaN
+   T9 connectivity             hubs (pre-year seats >= 1m)  ln_gaci                                           tp -0.0261  0.0102   3308 0.0186      21.0     NaN
+   T9 connectivity             hubs (pre-year seats >= 1m)  ln_gaci                                           bp  0.0012  0.0112   3308 0.9128      21.0     NaN
+   T9 connectivity                           seat-weighted  ln_gaci                                           tp -0.0225  0.0070  13569 0.0034      27.0     NaN
+   T9 connectivity                           seat-weighted  ln_gaci                                           bp -0.0016  0.0093  13569 0.8620      27.0     NaN
+   T9 connectivity                            all airports ln_eigen                                           tp -0.2801  0.0484  13746 0.0000      27.0     NaN
+   T9 connectivity                            all airports ln_eigen                                           bp  0.0939  0.0686  13746 0.1824      27.0     NaN
+   T9 connectivity             hubs (pre-year seats >= 1m) ln_eigen                                           tp -0.1376  0.0819   3308 0.1084      21.0     NaN
+   T9 connectivity             hubs (pre-year seats >= 1m) ln_eigen                                           bp  0.0538  0.0455   3308 0.2514      21.0     NaN
+   T9 connectivity                           seat-weighted ln_eigen                                           tp -0.0740  0.0403  13569 0.0774      27.0     NaN
+   T9 connectivity                           seat-weighted ln_eigen                                           bp  0.0285  0.0300  13569 0.3510      27.0     NaN
+   T9 connectivity                            all airports  ln_betw                                           tp -0.5647  0.1409  13746 0.0005      27.0     NaN
+   T9 connectivity                            all airports  ln_betw                                           bp  0.1543  0.1944  13746 0.4345      27.0     NaN
+   T9 connectivity             hubs (pre-year seats >= 1m)  ln_betw                                           tp -0.1750  0.1159   3308 0.1467      21.0     NaN
+   T9 connectivity             hubs (pre-year seats >= 1m)  ln_betw                                           bp -0.0190  0.0454   3308 0.6796      21.0     NaN
+   T9 connectivity                           seat-weighted  ln_betw                                           tp -0.0879  0.0308  13569 0.0084      27.0     NaN
+   T9 connectivity                           seat-weighted  ln_betw                                           bp -0.0104  0.0323  13569 0.7495      27.0     NaN
+T10 transfer-taxed  ITA 2008-11-01 transfer-taxed increase  ln_gaci                                           tp  0.0136  0.0045   1884 0.0075      19.0     NaN
+T10 transfer-taxed  ITA 2008-11-01 transfer-taxed increase  ln_gaci                                          tph -0.0356  0.0001   1884 0.0000      19.0     NaN
+T10 transfer-taxed  ITA 2008-11-01 transfer-taxed increase ln_eigen                                           tp -0.0937  0.1087   1884 0.3999      19.0     NaN
+T10 transfer-taxed  ITA 2008-11-01 transfer-taxed increase ln_eigen                                          tph  0.1338  0.0012   1884 0.0000      19.0     NaN
+T10 transfer-taxed  ITA 2008-11-01 transfer-taxed increase  ln_betw                                           tp  0.2425  0.1950   1884 0.2296      19.0     NaN
+T10 transfer-taxed  ITA 2008-11-01 transfer-taxed increase  ln_betw                                          tph -0.2461  0.0031   1884 0.0000      19.0     NaN
+T10 transfer-taxed  ITA 2008-11-01 transfer-taxed increase  ln_intl                                           tp  0.0915  0.0548   4996 0.0963     407.0     NaN
+T10 transfer-taxed  ITA 2008-11-01 transfer-taxed increase  ln_intl                                          tph -0.0560  0.0611   4996 0.3605     407.0     NaN
+T10 transfer-taxed  ITA 2013-07-01 transfer-taxed increase  ln_gaci                                           tp -0.0062  0.0033   1858 0.0708      21.0     NaN
+T10 transfer-taxed  ITA 2013-07-01 transfer-taxed increase  ln_gaci                                          tph -0.0034  0.0000   1858 0.0000      21.0     NaN
+T10 transfer-taxed  ITA 2013-07-01 transfer-taxed increase ln_eigen                                           tp  0.0058  0.0459   1858 0.9008      21.0     NaN
+T10 transfer-taxed  ITA 2013-07-01 transfer-taxed increase ln_eigen                                          tph -0.0098  0.0005   1858 0.0000      21.0     NaN
+T10 transfer-taxed  ITA 2013-07-01 transfer-taxed increase  ln_betw                                           tp -0.4804  0.1627   1858 0.0079      21.0     NaN
+T10 transfer-taxed  ITA 2013-07-01 transfer-taxed increase  ln_betw                                          tph  0.1719  0.0019   1858 0.0000      21.0     NaN
+T10 transfer-taxed  ITA 2013-07-01 transfer-taxed increase  ln_intl                                           tp -0.0550  0.0322   5350 0.0884     408.0     NaN
+T10 transfer-taxed  ITA 2013-07-01 transfer-taxed increase  ln_intl                                          tph -0.0153  0.0326   5350 0.6392     408.0     NaN
+T10 transfer-taxed  NOR 1998-04-01 transfer-taxed increase  ln_gaci                                           tp -0.0118  0.0037   1603 0.0048      18.0     NaN
+T10 transfer-taxed  NOR 1998-04-01 transfer-taxed increase  ln_gaci                                          tph -0.0712  0.0028   1603 0.0000      18.0     NaN
+T10 transfer-taxed  NOR 1998-04-01 transfer-taxed increase ln_eigen                                           tp  0.0867  0.0484   1603 0.0909      18.0     NaN
+T10 transfer-taxed  NOR 1998-04-01 transfer-taxed increase ln_eigen                                          tph -0.1690  0.0639   1603 0.0170      18.0     NaN
+T10 transfer-taxed  NOR 1998-04-01 transfer-taxed increase  ln_betw                                           tp  0.0440  0.1512   1603 0.7747      18.0     NaN
+T10 transfer-taxed  NOR 1998-04-01 transfer-taxed increase  ln_betw                                          tph -0.3471  0.0729   1603 0.0002      18.0     NaN
+T10 transfer-taxed  NOR 1998-04-01 transfer-taxed increase  ln_intl                                           tp -0.0292  0.1353   3584 0.8294     355.0     NaN
+T10 transfer-taxed  NOR 1998-04-01 transfer-taxed increase  ln_intl                                          tph -0.3606  0.1346   3584 0.0081     355.0     NaN
+T10 transfer-taxed FRA 2016-01-01 transfer exemption (cut)  ln_gaci                                           tp -0.0195  0.0041   1641 0.0001      22.0     NaN
+T10 transfer-taxed FRA 2016-01-01 transfer exemption (cut)  ln_gaci                                          tph  0.0148  0.0000   1641 0.0000      22.0     NaN
+T10 transfer-taxed FRA 2016-01-01 transfer exemption (cut) ln_eigen                                           tp -0.2323  0.0456   1641 0.0000      22.0     NaN
+T10 transfer-taxed FRA 2016-01-01 transfer exemption (cut) ln_eigen                                          tph  0.1288  0.0002   1641 0.0000      22.0     NaN
+T10 transfer-taxed FRA 2016-01-01 transfer exemption (cut)  ln_betw                                           tp -0.7016  0.1664   1641 0.0004      22.0     NaN
+T10 transfer-taxed FRA 2016-01-01 transfer exemption (cut)  ln_betw                                          tph  0.3467  0.0004   1641 0.0000      22.0     NaN
+T10 transfer-taxed FRA 2016-01-01 transfer exemption (cut)  ln_intl                                           tp -0.0194  0.0476   5390 0.6836     370.0     NaN
+T10 transfer-taxed FRA 2016-01-01 transfer exemption (cut)  ln_intl                                          tph  0.0005  0.0460   5390 0.9910     370.0     NaN

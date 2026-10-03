@@ -1,0 +1,1654 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 16 May 2027
+Serial number: 401909343485
+  Licensed to: Sunbin Yoo
+               SKKU
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do 02_events_mediation.do 
+
+. clear all
+
+. set more off
+
+. set linesize 200
+
+. cd "C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_paper"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_paper
+
+. cap log close
+
+. log using "02_events_mediation_run.log", replace text
+(file C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_paper\02_events_mediation_run.log not found)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_paper\02_events_mediation_run.log
+  log type:  text
+ opened on:   3 Oct 2026, 07:51:07
+
+. cap which reghdfe
+
+. if _rc ssc install reghdfe
+
+. cap which ftools
+
+. if _rc ssc install ftools
+
+. cap which esttab
+
+. if _rc ssc install estout
+
+. estimates clear
+
+. cap which sdid
+
+. if _rc ssc install sdid
+checking sdid consistency and verifying not already installed...
+installing into C:\Users\sunbi\ado\plus\...
+installation complete.
+
+. cap which honestdid
+
+. if _rc net install honestdid, from("https://raw.githubusercontent.com/mcaceresb/stata-honestdid/main") replace
+
+. cap which ivreghdfe
+
+. if _rc ssc install ivreghdfe
+
+. cap which ivmediate
+
+. if _rc ssc install ivmediate
+
+. cap which weakiv
+
+. if _rc ssc install weakiv
+checking weakiv consistency and verifying not already installed...
+installing into C:\Users\sunbi\ado\plus\...
+installation complete.
+
+. 
+. * =====================================================================================
+. * Table 6  Synthetic difference-in-differences by event (Arkhangelsky et al. 2021), country level
+. * sdid_month.dta: country x period (donut removed), de-seasonalised ln seats / ln CO2; treat_post = treated country after E
+. * placebo inference over donors. One block per event and outcome.
+. * =====================================================================================
+. use "sdid_month.dta", clear
+
+. di _n "==== SDID NLD 2008: y_seats ===="
+
+==== SDID NLD 2008: y_seats ====
+
+. preserve
+
+. keep if stk == 0
+(16,412 observations deleted)
+
+. drop if missing(y_seats)
+(0 observations deleted)
+
+. sdid y_seats iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+     y_seats |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.07618    0.08039    -0.95    0.343    -0.23375     0.08139
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID NLD 2008: y_co2 ===="
+
+==== SDID NLD 2008: y_co2 ====
+
+. preserve
+
+. keep if stk == 0
+(16,412 observations deleted)
+
+. drop if missing(y_co2)
+(0 observations deleted)
+
+. sdid y_co2 iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+       y_co2 |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.06674    0.15490    -0.43    0.667    -0.37035     0.23686
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID IRL 2009: y_seats ===="
+
+==== SDID IRL 2009: y_seats ====
+
+. preserve
+
+. keep if stk == 1
+(16,412 observations deleted)
+
+. drop if missing(y_seats)
+(0 observations deleted)
+
+. sdid y_seats iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+     y_seats |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.15890    0.07599    -2.09    0.037    -0.30783    -0.00996
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID IRL 2009: y_co2 ===="
+
+==== SDID IRL 2009: y_co2 ====
+
+. preserve
+
+. keep if stk == 1
+(16,412 observations deleted)
+
+. drop if missing(y_co2)
+(0 observations deleted)
+
+. sdid y_co2 iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+       y_co2 |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.16742    0.08242    -2.03    0.042    -0.32895    -0.00589
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID DEU 2011: y_seats ===="
+
+==== SDID DEU 2011: y_seats ====
+
+. preserve
+
+. keep if stk == 2
+(16,508 observations deleted)
+
+. drop if missing(y_seats)
+(0 observations deleted)
+
+. sdid y_seats iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+     y_seats |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.00519    0.05032    -0.10    0.918    -0.10383     0.09344
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID DEU 2011: y_co2 ===="
+
+==== SDID DEU 2011: y_co2 ====
+
+. preserve
+
+. keep if stk == 2
+(16,508 observations deleted)
+
+. drop if missing(y_co2)
+(0 observations deleted)
+
+. sdid y_co2 iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+       y_co2 |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |   0.00335    0.06547     0.05    0.959    -0.12497     0.13166
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID AUT 2011: y_seats ===="
+
+==== SDID AUT 2011: y_seats ====
+
+. preserve
+
+. keep if stk == 3
+(16,460 observations deleted)
+
+. drop if missing(y_seats)
+(0 observations deleted)
+
+. sdid y_seats iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+     y_seats |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.03764    0.05834    -0.65    0.519    -0.15199     0.07671
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID AUT 2011: y_co2 ===="
+
+==== SDID AUT 2011: y_co2 ====
+
+. preserve
+
+. keep if stk == 3
+(16,460 observations deleted)
+
+. drop if missing(y_co2)
+(0 observations deleted)
+
+. sdid y_co2 iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+       y_co2 |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |   0.03140    0.08514     0.37    0.712    -0.13547     0.19827
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID NOR 2016: y_seats ===="
+
+==== SDID NOR 2016: y_seats ====
+
+. preserve
+
+. keep if stk == 4
+(16,364 observations deleted)
+
+. drop if missing(y_seats)
+(0 observations deleted)
+
+. sdid y_seats iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+     y_seats |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.15477    0.11012    -1.41    0.160    -0.37061     0.06106
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID NOR 2016: y_co2 ===="
+
+==== SDID NOR 2016: y_co2 ====
+
+. preserve
+
+. keep if stk == 4
+(16,364 observations deleted)
+
+. drop if missing(y_co2)
+(0 observations deleted)
+
+. sdid y_co2 iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+       y_co2 |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.10218    0.11200    -0.91    0.362    -0.32170     0.11734
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID SWE 2018: y_seats ===="
+
+==== SDID SWE 2018: y_seats ====
+
+. preserve
+
+. keep if stk == 5
+(16,412 observations deleted)
+
+. drop if missing(y_seats)
+(0 observations deleted)
+
+. sdid y_seats iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+     y_seats |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.00886    0.07256    -0.12    0.903    -0.15107     0.13336
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID SWE 2018: y_co2 ===="
+
+==== SDID SWE 2018: y_co2 ====
+
+. preserve
+
+. keep if stk == 5
+(16,412 observations deleted)
+
+. drop if missing(y_co2)
+(0 observations deleted)
+
+. sdid y_co2 iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+       y_co2 |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.06452    0.11157    -0.58    0.563    -0.28320     0.15416
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID GBR 2007: y_seats ===="
+
+==== SDID GBR 2007: y_seats ====
+
+. preserve
+
+. keep if stk == 6
+(16,316 observations deleted)
+
+. drop if missing(y_seats)
+(0 observations deleted)
+
+. sdid y_seats iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+     y_seats |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.01554    0.06423    -0.24    0.809    -0.14142     0.11034
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID GBR 2007: y_co2 ===="
+
+==== SDID GBR 2007: y_co2 ====
+
+. preserve
+
+. keep if stk == 6
+(16,316 observations deleted)
+
+. drop if missing(y_co2)
+(0 observations deleted)
+
+. sdid y_co2 iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+       y_co2 |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.05021    0.04763    -1.05    0.292    -0.14356     0.04315
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID DNK 1998: y_seats ===="
+
+==== SDID DNK 1998: y_seats ====
+
+. preserve
+
+. keep if stk == 7
+(16,608 observations deleted)
+
+. drop if missing(y_seats)
+(0 observations deleted)
+
+. sdid y_seats iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+     y_seats |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.09882    0.13154    -0.75    0.453    -0.35663     0.15900
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID DNK 1998: y_co2 ===="
+
+==== SDID DNK 1998: y_co2 ====
+
+. preserve
+
+. keep if stk == 7
+(16,608 observations deleted)
+
+. drop if missing(y_co2)
+(0 observations deleted)
+
+. sdid y_co2 iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+       y_co2 |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.03971    0.07790    -0.51    0.610    -0.19240     0.11297
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID MLT 2005: y_seats ===="
+
+==== SDID MLT 2005: y_seats ====
+
+. preserve
+
+. keep if stk == 8
+(16,412 observations deleted)
+
+. drop if missing(y_seats)
+(0 observations deleted)
+
+. sdid y_seats iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+     y_seats |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.20747    0.07410    -2.80    0.005    -0.35271    -0.06222
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID MLT 2005: y_co2 ===="
+
+==== SDID MLT 2005: y_co2 ====
+
+. preserve
+
+. keep if stk == 8
+(16,412 observations deleted)
+
+. drop if missing(y_co2)
+(0 observations deleted)
+
+. sdid y_co2 iso3n period treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+       y_co2 |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.13190    0.08227    -1.60    0.109    -0.29313     0.02934
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. 
+. use "sdid_year.dta", clear
+
+. di _n "==== SDID NLD 2008: seat-weighted country GACI ===="
+
+==== SDID NLD 2008: seat-weighted country GACI ====
+
+. preserve
+
+. keep if stk == 0
+(2,184 observations deleted)
+
+. cap noisily sdid y_gaci iso3n year treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+      y_gaci |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |   0.01962    0.04092     0.48    0.632    -0.06058     0.09982
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID IRL 2009: seat-weighted country GACI ===="
+
+==== SDID IRL 2009: seat-weighted country GACI ====
+
+. preserve
+
+. keep if stk == 1
+(2,192 observations deleted)
+
+. cap noisily sdid y_gaci iso3n year treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+      y_gaci |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |   0.00555    0.04152     0.13    0.894    -0.07583     0.08693
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID DEU 2011: seat-weighted country GACI ===="
+
+==== SDID DEU 2011: seat-weighted country GACI ====
+
+. preserve
+
+. keep if stk == 2
+(2,200 observations deleted)
+
+. cap noisily sdid y_gaci iso3n year treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+      y_gaci |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.00872    0.02946    -0.30    0.767    -0.06645     0.04901
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID AUT 2011: seat-weighted country GACI ===="
+
+==== SDID AUT 2011: seat-weighted country GACI ====
+
+. preserve
+
+. keep if stk == 3
+(2,192 observations deleted)
+
+. cap noisily sdid y_gaci iso3n year treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+      y_gaci |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.01914    0.02952    -0.65    0.517    -0.07700     0.03873
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID NOR 2016: seat-weighted country GACI ===="
+
+==== SDID NOR 2016: seat-weighted country GACI ====
+
+. preserve
+
+. keep if stk == 4
+(2,184 observations deleted)
+
+. cap noisily sdid y_gaci iso3n year treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+      y_gaci |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.01947    0.03828    -0.51    0.611    -0.09448     0.05555
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID SWE 2018: seat-weighted country GACI ===="
+
+==== SDID SWE 2018: seat-weighted country GACI ====
+
+. preserve
+
+. keep if stk == 5
+(2,184 observations deleted)
+
+. cap noisily sdid y_gaci iso3n year treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+      y_gaci |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.04711    0.02477    -1.90    0.057    -0.09567     0.00144
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID GBR 2007: seat-weighted country GACI ===="
+
+==== SDID GBR 2007: seat-weighted country GACI ====
+
+. preserve
+
+. keep if stk == 6
+(2,176 observations deleted)
+
+. cap noisily sdid y_gaci iso3n year treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+      y_gaci |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.03270    0.03458    -0.95    0.344    -0.10048     0.03507
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. di _n "==== SDID DNK 1998: seat-weighted country GACI ===="
+
+==== SDID DNK 1998: seat-weighted country GACI ====
+
+. preserve
+
+. keep if stk == 7
+(2,296 observations deleted)
+
+. cap noisily sdid y_gaci iso3n year treat_post, vce(placebo) reps(200) seed(1)
+Panel is unbalanced.
+
+. restore
+
+. di _n "==== SDID MLT 2005: seat-weighted country GACI ===="
+
+==== SDID MLT 2005: seat-weighted country GACI ====
+
+. preserve
+
+. keep if stk == 8
+(2,184 observations deleted)
+
+. cap noisily sdid y_gaci iso3n year treat_post, vce(placebo) reps(200) seed(1)
+Placebo replications (200). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+..................................................     150
+..................................................     200
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+      y_gaci |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+  treat_post |  -0.05240    0.03557    -1.47    0.141    -0.12211     0.01731
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on large-sample approximations.
+Refer to Arkhangelsky et al., (2021) for theoretical derivations.
+
+. restore
+
+. 
+. * =====================================================================================
+. * HonestDiD (Rambachan and Roth 2023) on the monthly event-time regression of Table 5 (seats and CO2), with controls
+. * =====================================================================================
+. use "stack_month.dta", clear
+
+. gen ctrl_eur = inlist(iso3, "DEU", "AUT", "NLD", "BEL", "LUX", "FRA", "IRL", "GBR", "CHE") | inlist(iso3, "SWE", "NOR", "DNK", "FIN", "ISL", "PRT", "ESP", "GRC", "HUN") | inlist(iso3, "HRV", "MLT")
+
+. gen T_pre36_25 = treat * pre36_25
+
+. gen T_pre24_13 = treat * pre24_13
+
+. gen T_post1 = treat * post1
+
+. gen T_post2 = treat * post2
+
+. gen B_pre36_25 = border * pre36_25
+
+. gen B_pre24_13 = border * pre24_13
+
+. gen B_post1 = border * post1
+
+. gen B_post2 = border * post2
+
+. reghdfe ln_seats T_pre36_25 T_pre24_13 T_post1 T_post2 B_pre36_25 B_pre24_13 B_post1 B_post2 lngdp lnpop if eur == 1 & stk != 0 & donut == 0 & (treat == 1 | border == 1 | ctrl_eur == 1), absorb(fe_u
+>  fe_t) vce(cluster iso3n)
+(dropped 1179 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+HDFE Linear regression                            Number of obs   =    119,743
+Absorbing 2 HDFE groups                           F(  10,     28) =       8.15
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9828
+                                                  Adj R-squared   =     0.9779
+                                                  Within R-sq.    =     0.0068
+Number of clusters (iso3n)   =         29         Root MSE        =     0.3185
+
+                                 (Std. err. adjusted for 29 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+    ln_seats | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  T_pre36_25 |  -.0693823   .0457798    -1.52   0.141    -.1631579    .0243933
+  T_pre24_13 |  -.0392112   .0229203    -1.71   0.098    -.0861614    .0077389
+     T_post1 |  -.1158289   .0348393    -3.32   0.002    -.1871939   -.0444638
+     T_post2 |  -.1356085   .0524695    -2.58   0.015    -.2430874   -.0281295
+  B_pre36_25 |  -.0340127   .0291916    -1.17   0.254    -.0938091    .0257836
+  B_pre24_13 |  -.0042753   .0212688    -0.20   0.842    -.0478426    .0392919
+     B_post1 |  -.0134061    .023326    -0.57   0.570    -.0611874    .0343751
+     B_post2 |  -.0099741   .0342826    -0.29   0.773    -.0801988    .0602507
+       lngdp |   .2712811   .2199719     1.23   0.228     -.179311    .7218731
+       lnpop |   .4600436   1.116412     0.41   0.683    -1.826823     2.74691
+       _cons |  -5.128719   19.51387    -0.26   0.795    -45.10106    34.84362
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     26340       26340           0    *|
+        fe_t |       457           1         456     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. honestdid, pre(1/2) post(3/4) mvec(0(0.5)2) delta(rm)
+Warning: M = 0 with Delta^RM imposes exact parallel trends in the
+post-treatment period, even if pre-treatment parallel trends is violated
+
+|    M    |   lb   |   ub   |
+| ------- | ------ | ------ |
+|       . | -0.184 | -0.048 | (Original)
+|  0.0000 | -0.182 | -0.050 | 
+|  0.5000 | -0.191 | -0.023 | 
+|  1.0000 | -0.206 |  0.012 | 
+|  1.5000 | -0.262 |  0.050 | 
+|  2.0000 | -0.262 |  0.087 | 
+(method = C-LF, Delta = DeltaRM, alpha = 0.050)
+
+. honestdid, pre(1/2) post(3/4) mvec(0(0.01)0.05)
+Warning: M = 0 with Delta^RM imposes exact parallel trends in the
+post-treatment period, even if pre-treatment parallel trends is violated
+
+|    M    |   lb   |   ub   |
+| ------- | ------ | ------ |
+|       . | -0.184 | -0.048 | (Original)
+|  0.0000 | -0.182 | -0.050 | 
+|  0.0100 | -0.184 | -0.048 | 
+|  0.0200 | -0.184 | -0.048 | 
+|  0.0300 | -0.184 | -0.048 | 
+|  0.0400 | -0.184 | -0.047 | 
+|  0.0500 | -0.184 | -0.047 | 
+(method = C-LF, Delta = DeltaRM, alpha = 0.050)
+
+. reghdfe ln_co2 T_pre36_25 T_pre24_13 T_post1 T_post2 B_pre36_25 B_pre24_13 B_post1 B_post2 lngdp lnpop if eur == 1 & stk != 0 & donut == 0 & (treat == 1 | border == 1 | ctrl_eur == 1), absorb(fe_u f
+> e_t) vce(cluster iso3n)
+(dropped 1179 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+HDFE Linear regression                            Number of obs   =    119,743
+Absorbing 2 HDFE groups                           F(  10,     28) =      21.56
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9856
+                                                  Adj R-squared   =     0.9814
+                                                  Within R-sq.    =     0.0050
+Number of clusters (iso3n)   =         29         Root MSE        =     0.3408
+
+                                 (Std. err. adjusted for 29 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  T_pre36_25 |  -.0797201   .0475508    -1.68   0.105    -.1771234    .0176833
+  T_pre24_13 |  -.0259161   .0278495    -0.93   0.360    -.0829632     .031131
+     T_post1 |  -.1185152   .0316092    -3.75   0.001    -.1832637   -.0537666
+     T_post2 |   -.140546   .0523438    -2.69   0.012    -.2477674   -.0333246
+  B_pre36_25 |  -.0294847   .0337354    -0.87   0.390    -.0985886    .0396192
+  B_pre24_13 |   .0009415   .0274439     0.03   0.973    -.0552749    .0571578
+     B_post1 |  -.0006691   .0256147    -0.03   0.979    -.0531383    .0518002
+     B_post2 |   .0062461   .0413613     0.15   0.881    -.0784786    .0909708
+       lngdp |   .1976427   .2496766     0.79   0.435    -.3137967    .7090821
+       lnpop |   .4721972   1.256402     0.38   0.710    -2.101425     3.04582
+       _cons |   .8289673   22.13557     0.04   0.970    -44.51369    46.17162
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     26340       26340           0    *|
+        fe_t |       457           1         456     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. honestdid, pre(1/2) post(3/4) mvec(0(0.5)2) delta(rm)
+Warning: M = 0 with Delta^RM imposes exact parallel trends in the
+post-treatment period, even if pre-treatment parallel trends is violated
+
+|    M    |   lb   |   ub   |
+| ------- | ------ | ------ |
+|       . | -0.180 | -0.057 | (Original)
+|  0.0000 | -0.180 | -0.057 | 
+|  0.5000 | -0.189 | -0.023 | 
+|  1.0000 | -0.229 |  0.021 | 
+|  1.5000 | -0.243 |  0.068 | 
+|  2.0000 | -0.285 |  0.113 | 
+(method = C-LF, Delta = DeltaRM, alpha = 0.050)
+
+. honestdid, pre(1/2) post(3/4) mvec(0(0.01)0.05)
+Warning: M = 0 with Delta^RM imposes exact parallel trends in the
+post-treatment period, even if pre-treatment parallel trends is violated
+
+|    M    |   lb   |   ub   |
+| ------- | ------ | ------ |
+|       . | -0.180 | -0.057 | (Original)
+|  0.0000 | -0.180 | -0.057 | 
+|  0.0100 | -0.180 | -0.057 | 
+|  0.0200 | -0.180 | -0.056 | 
+|  0.0300 | -0.180 | -0.056 | 
+|  0.0400 | -0.180 | -0.056 | 
+|  0.0500 | -0.180 | -0.054 | 
+(method = C-LF, Delta = DeltaRM, alpha = 0.050)
+
+. 
+. * =====================================================================================
+. * Appendix D  IV mediation: tax -> network -> CO2 (annual stacks, years E-3..E, 8 European events), with controls
+. *   ivmediate: treatment = dose_post (EUR x post), instrument = tp, mediator = ln destinations / ln GACI
+. *   2SLS: CO2 on the mediator instrumented by tp (M -> Y link under exclusion); weakiv for Anderson-Rubin sets
+. * =====================================================================================
+. use "stack_year.dta", clear
+
+. gen ctrl_eur = inlist(iso3, "DEU", "AUT", "NLD", "BEL", "LUX", "FRA", "IRL", "GBR", "CHE") | inlist(iso3, "SWE", "NOR", "DNK", "FIN", "ISL", "PRT", "ESP", "GRC", "HUN") | inlist(iso3, "HRV", "MLT")
+
+. keep if eur == 1 & stk != 0 & k <= 0 & (treat == 1 | border == 1 | ctrl_eur == 1)
+(65,021 observations deleted)
+
+. gen tp = treat * post1
+
+. gen bp = border * post1
+
+. gen dose_post = dose * post1
+(33 missing values generated)
+
+. ivmediate ln_co2 bp lngdp lnpop i.fe_t, mediator(ln_deg) treatment(dose_post) instrument(tp) absorb(fe_u) vce(cluster iso3n)
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   ln_co2                                            Number of obs = 8127
+Treatment: dose_post                              Number of clusters (iso3n) = 30
+Mediator:  ln_deg
+                                    (Std. err. adjusted for 30 clusters in iso3n)
+---------------------------------------------------------------------------------
+                |               cluster
+ln_co2          | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |  -.0122284   .0056192    -2.18   0.030    -.0232418    -.001215
+direct effect   |  -.0037242   .0078495    -0.47   0.635    -.0191089    .0116605
+indirect effect |  -.0085044   .0107884    -0.79   0.431    -.0296492    .0126404
+---------------------------------------------------------------------------------
+Mediator ln_deg explains 69.55% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   334.081
+- first stage two (M on Z|T):  0.935
+Excluded instruments: tp
+Standard errors clustered on iso3n
+---------------------------------------------------------------------------------
+
+. ivmediate ln_co2 bp lngdp lnpop i.fe_t, mediator(ln_gaci) treatment(dose_post) instrument(tp) absorb(fe_u) vce(cluster iso3n)
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   ln_co2                                            Number of obs = 8127
+Treatment: dose_post                              Number of clusters (iso3n) = 30
+Mediator:  ln_gaci
+                                    (Std. err. adjusted for 30 clusters in iso3n)
+---------------------------------------------------------------------------------
+                |               cluster
+ln_co2          | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |  -.0122284   .0056192    -2.18   0.030    -.0232418    -.001215
+direct effect   |  -.0067215   .0034053    -1.97   0.048    -.0133957   -.0000473
+indirect effect |  -.0055071    .004559    -1.21   0.227    -.0144427    .0034284
+---------------------------------------------------------------------------------
+Mediator ln_gaci explains 45.04% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   334.081
+- first stage two (M on Z|T):  3.228
+Excluded instruments: tp
+Standard errors clustered on iso3n
+---------------------------------------------------------------------------------
+
+. ivmediate ln_int bp lngdp lnpop i.fe_t, mediator(ln_deg) treatment(dose_post) instrument(tp) absorb(fe_u) vce(cluster iso3n)
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   ln_int                                            Number of obs = 8127
+Treatment: dose_post                              Number of clusters (iso3n) = 30
+Mediator:  ln_deg
+                                    (Std. err. adjusted for 30 clusters in iso3n)
+---------------------------------------------------------------------------------
+                |               cluster
+ln_int          | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   .0005502   .0010254     0.54   0.592    -.0014596      .00256
+direct effect   |   .0083283   .0056941     1.46   0.144     -.002832    .0194885
+indirect effect |   -.007778   .0083472    -0.93   0.351    -.0241382    .0085822
+---------------------------------------------------------------------------------
+Mediator ln_deg explains -1413.59% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   334.081
+- first stage two (M on Z|T):  0.935
+Excluded instruments: tp
+Standard errors clustered on iso3n
+---------------------------------------------------------------------------------
+
+. ivreghdfe ln_co2 bp lngdp lnpop (ln_deg = tp), absorb(fe_u fe_t) cluster(iso3n) first
+(dropped 79 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of ln_deg:
+
+Statistics robust to heteroskedasticity and clustering on iso3n
+Number of obs =                   8066
+Number of clusters (iso3n) =        30
+------------------------------------------------------------------------------
+             |               Robust
+      ln_deg | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.0836603   .0390697    -2.14   0.032     -.160247   -.0070736
+          bp |   .0193568   .0356901     0.54   0.588    -.0506051    .0893186
+       lngdp |   .2795728   .1450016     1.93   0.054    -.0046679    .5638136
+       lnpop |   .3237188   1.336588     0.24   0.809     -2.29634    2.943778
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  1,    29) =     4.59
+  Prob > F      =   0.0408
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  1,    29) =     4.59
+  Prob > F      =   0.0408
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  1,    29)  P-val | SW Chi-sq(  1) P-val | SW F(  1,    29)
+ln_deg       |       4.59    0.0408 |        4.76   0.0291 |        4.59
+
+NB: first-stage test statistics cluster-robust
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for i.i.d. errors only.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Kleibergen-Paap rk LM statistic          Chi-sq(1)=3.24     P-val=0.0718
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                      15.24
+Kleibergen-Paap Wald rk F statistic                                 4.59
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=1:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(1,29)=        4.44     P-val=0.0439
+Anderson-Rubin Wald test           Chi-sq(1)=      4.61     P-val=0.0318
+Stock-Wright LM S statistic        Chi-sq(1)=      4.66     P-val=0.0309
+
+NB: Underidentification, weak identification and weak-identification-robust
+    test statistics cluster-robust
+
+Number of clusters             N_clust  =         30
+Number of observations               N  =       8066
+Number of regressors                 K  =          4
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          4
+Number of excluded instruments       L1 =          1
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on iso3n
+
+Number of clusters (iso3n) =        30                Number of obs =     8066
+                                                      F(  4,    29) =     3.04
+                                                      Prob > F      =   0.0328
+Total (centered) SS     =  686.5104435                Centered R2   =  -0.1317
+Total (uncentered) SS   =  686.5104435                Uncentered R2 =  -0.1317
+Residual SS             =  776.9150045                Root MSE      =     .311
+
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      ln_deg |   1.207194   .3595493     3.36   0.002     .4718327    1.942554
+          bp |  -.0617718   .0644069    -0.96   0.345    -.1934987    .0699551
+       lngdp |  -.2828916     .14312    -1.98   0.058    -.5756049    .0098217
+       lnpop |   .0649527   1.666569     0.04   0.969    -3.343563    3.473468
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              3.241
+                                                   Chi-sq(1) P-val =    0.0718
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               15.242
+                         (Kleibergen-Paap rk Wald F statistic):          4.585
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_deg
+Included instruments: bp lngdp lnpop
+Excluded instruments: tp
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2120        2120           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. cap noisily weakiv, level(95)
+Error: must have avar version 01.0.04 or greater installed
+To install, from within Stata type ssc install avar
+
+. ivreghdfe ln_co2 bp lngdp lnpop (ln_gaci = tp), absorb(fe_u fe_t) cluster(iso3n) first
+(dropped 79 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of ln_gaci:
+
+Statistics robust to heteroskedasticity and clustering on iso3n
+Number of obs =                   8066
+Number of clusters (iso3n) =        30
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.0139857    .005882    -2.38   0.017     -.025516   -.0024554
+          bp |  -.0027959    .004523    -0.62   0.536    -.0116621    .0060703
+       lngdp |   .0245215   .0158424     1.55   0.122    -.0065336    .0555766
+       lnpop |   .2764095   .1658228     1.67   0.096    -.0486461    .6014651
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  1,    29) =     5.65
+  Prob > F      =   0.0242
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  1,    29) =     5.65
+  Prob > F      =   0.0242
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  1,    29)  P-val | SW Chi-sq(  1) P-val | SW F(  1,    29)
+ln_gaci      |       5.65    0.0242 |        5.87   0.0154 |        5.65
+
+NB: first-stage test statistics cluster-robust
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for i.i.d. errors only.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Kleibergen-Paap rk LM statistic          Chi-sq(1)=3.96     P-val=0.0465
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                      24.27
+Kleibergen-Paap Wald rk F statistic                                 5.65
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=1:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(1,29)=        4.44     P-val=0.0439
+Anderson-Rubin Wald test           Chi-sq(1)=      4.61     P-val=0.0318
+Stock-Wright LM S statistic        Chi-sq(1)=      4.66     P-val=0.0309
+
+NB: Underidentification, weak identification and weak-identification-robust
+    test statistics cluster-robust
+
+Number of clusters             N_clust  =         30
+Number of observations               N  =       8066
+Number of regressors                 K  =          4
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          4
+Number of excluded instruments       L1 =          1
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on iso3n
+
+Number of clusters (iso3n) =        30                Number of obs =     8066
+                                                      F(  4,    29) =     5.26
+                                                      Prob > F      =   0.0026
+Total (centered) SS     =  686.5104435                Centered R2   =  -0.0290
+Total (uncentered) SS   =  686.5104435                Uncentered R2 =  -0.0290
+Residual SS             =  706.4023335                Root MSE      =    .2966
+
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |   7.221244   2.086938     3.46   0.002     2.952977    11.48951
+          bp |  -.0182146   .0633531    -0.29   0.776    -.1477863    .1113571
+       lngdp |  -.1224687   .2094359    -0.58   0.563    -.5508132    .3058758
+       lnpop |  -1.540276   1.544169    -1.00   0.327    -4.698456    1.617903
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              3.963
+                                                   Chi-sq(1) P-val =    0.0465
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               24.273
+                         (Kleibergen-Paap rk Wald F statistic):          5.653
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci
+Included instruments: bp lngdp lnpop
+Excluded instruments: tp
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2120        2120           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. cap noisily weakiv, level(95)
+Error: must have avar version 01.0.04 or greater installed
+To install, from within Stata type ssc install avar
+
+. reghdfe ln_co2 tp bp lngdp lnpop, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 105 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      8,532
+Absorbing 2 HDFE groups                           F(   4,     29) =       2.57
+Statistics robust to heteroskedasticity           Prob > F        =     0.0586
+                                                  R-squared       =     0.9847
+                                                  Adj R-squared   =     0.9791
+                                                  Within R-sq.    =     0.0032
+Number of clusters (iso3n)   =         30         Root MSE        =     0.3781
+
+                                 (Std. err. adjusted for 30 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.1200302    .046067    -2.61   0.014    -.2142479   -.0258125
+          bp |  -.0258346   .0690574    -0.37   0.711    -.1670728    .1154036
+       lngdp |   .0408747   .1848039     0.22   0.827    -.3370918    .4188412
+       lnpop |   1.665593   1.856772     0.90   0.377    -2.131932    5.463119
+       _cons |  -12.27128   31.03426    -0.40   0.695    -75.74348    51.20091
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2258        2258           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. reghdfe ln_deg tp bp lngdp lnpop, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 79 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      8,066
+Absorbing 2 HDFE groups                           F(   4,     29) =       4.03
+Statistics robust to heteroskedasticity           Prob > F        =     0.0102
+                                                  R-squared       =     0.9755
+                                                  Adj R-squared   =     0.9666
+                                                  Within R-sq.    =     0.0057
+Number of clusters (iso3n)   =         30         Root MSE        =     0.2675
+
+                                 (Std. err. adjusted for 30 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_deg | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.0836603   .0390721    -2.14   0.041    -.1635717   -.0037489
+          bp |   .0193568   .0356923     0.54   0.592    -.0536422    .0923557
+       lngdp |   .2795728   .1450106     1.93   0.064    -.0170072    .5761529
+       lnpop |   .3237188   1.336671     0.24   0.810     -2.41008    3.057518
+       _cons |  -10.54864   20.64588    -0.51   0.613     -52.7742    31.67692
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2120        2120           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. reghdfe ln_co2 tp bp ln_deg lngdp lnpop, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 79 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      8,066
+Absorbing 2 HDFE groups                           F(   5,     29) =       9.97
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9887
+                                                  Adj R-squared   =     0.9846
+                                                  Within R-sq.    =     0.1647
+Number of clusters (iso3n)   =         30         Root MSE        =     0.3115
+
+                                 (Std. err. adjusted for 30 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.0580295   .0324882    -1.79   0.085    -.1244754    .0084164
+          bp |  -.0483453   .0663481    -0.73   0.472    -.1840424    .0873518
+      ln_deg |   .5135608   .1005307     5.11   0.000     .3079524    .7191691
+       lngdp |  -.0889707   .1473857    -0.60   0.551    -.3904084     .212467
+       lnpop |   .2894947   1.474264     0.20   0.846    -2.725714    3.304703
+       _cons |   12.89589   25.81307     0.50   0.621    -39.89777    65.68955
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2120        2120           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. reghdfe ln_gaci tp bp lngdp lnpop, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 79 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      8,066
+Absorbing 2 HDFE groups                           F(   4,     29) =       6.42
+Statistics robust to heteroskedasticity           Prob > F        =     0.0008
+                                                  R-squared       =     0.9916
+                                                  Adj R-squared   =     0.9885
+                                                  Within R-sq.    =     0.0088
+Number of clusters (iso3n)   =         30         Root MSE        =     0.0354
+
+                                 (Std. err. adjusted for 30 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.0139857   .0058824    -2.38   0.024    -.0260166   -.0019548
+          bp |  -.0027959   .0045233    -0.62   0.541     -.012047    .0064552
+       lngdp |   .0245215   .0158433     1.55   0.133    -.0078818    .0569248
+       lnpop |   .2764095   .1658331     1.67   0.106    -.0627572    .6155762
+       _cons |  -5.474302   2.600446    -2.11   0.044    -10.79281   -.1557935
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2120        2120           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. reghdfe ln_co2 tp bp ln_gaci lngdp lnpop, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 79 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      8,066
+Absorbing 2 HDFE groups                           F(   5,     29) =       9.67
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9882
+                                                  Adj R-squared   =     0.9839
+                                                  Within R-sq.    =     0.1280
+Number of clusters (iso3n)   =         30         Root MSE        =     0.3182
+
+                                 (Std. err. adjusted for 30 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.0532925   .0326358    -1.63   0.113    -.1200402    .0134551
+          bp |  -.0288683   .0659049    -0.44   0.665    -.1636591    .1059224
+     ln_gaci |   3.410743   .6400167     5.33   0.000     2.101762    4.719724
+       lngdp |  -.0290296   .1801184    -0.16   0.873     -.397413    .3393538
+       lnpop |  -.4870178   1.418571    -0.34   0.734    -3.388322    2.414287
+       _cons |   26.14997   25.49056     1.03   0.313    -25.98409    78.28402
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2120        2120           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_paper\02_events_mediation_run.log
+  log type:  text
+ closed on:   3 Oct 2026, 07:53:26
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+. 
+end of do-file

@@ -1,0 +1,2360 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 16 May 2027
+Serial number: 401909343485
+  Licensed to: Sunbin Yoo
+               SKKU
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do 04_regional_benefits.do 
+
+. * 04_regional_benefits.do  Regional cost of the connectivity loss and benefit
+>  / cost accounting, rewritten 2026-10-03
+. * Companion to 01_main.do (same 8 European events, same stacks). Data prepare
+> d by 122_build_regional.py:
+. *   nat_month.dta  country x month x event: Eurostat nights (tour_occ_nim, do
+> m / for / total), treated and control countries
+. *   reg_month.dta  NUTS2 x month x event: catchment seats and CO2 (airports w
+> ithin 100 km, weight exp(-d/50 km)), exposure
+. *   reg_year.dta   NUTS2 x year x event (E-3..E+1): Eurostat nights (tour_occ
+> _nin2, annual), employment (lfst_r_lfe2en2,
+. *                  NACE G-I = trade, transport, accommodation and food; "I" a
+> lone is not published), GDP per head
+. *                  (nama_10r_2gdp), catchment GACI and destinations, exposure
+. *   bc_inputs.dta  event: treated-airport CO2 (tonnes) and seats in the first
+>  tax year, seat-weighted dose, revenue base
+. * Exposure = share of the region's catchment seats (pre-year, distance-weight
+> ed) at small airports, where small means
+. *   below the treated country's lower tercile of pre-year seats; defined for 
+> treated AND control regions.
+. * Design: region x calendar month x event FE and country x month x event FE (
+> annual: region x event, country x year x event),
+. *   so the national demand effect of the tax is absorbed; identifying variati
+> on = exposure x post inside the treated country;
+. *   control-country regions carry the same exposure x post term (triple diffe
+> rence). Border-ring regions dropped.
+. * Every regression includes lngdp lnpop (collinear with the country x time FE
+>  and dropped by reghdfe; kept for uniformity).
+. * Fully inline: no programs, loops, locals. Scalars appear only inside block 
+> 7, which recomputes what it needs.
+. * Eurostat NUTS2 monthly nights do not exist, so the monthly nights block is 
+> national (block N); regional nights are annual.
+. * Parameters (block 7): load factor 0.80, carbon value 100 and 200 EUR/t, spe
+> nding per foreign night 120 EUR.
+. clear all
+
+. set more off
+
+. set linesize 200
+
+. cd "C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_paper"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_paper
+
+. cap log close
+
+. log using "04_regional_benefits_run.log", replace text
+(file C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_paper\04_regional_benefits_run.log not found)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_paper\04_regional_benefits_run.log
+  log type:  text
+ opened on:   3 Oct 2026, 09:19:54
+
+. cap which reghdfe
+
+. if _rc ssc install reghdfe
+
+. cap which ftools
+
+. if _rc ssc install ftools
+
+. cap which esttab
+
+. if _rc ssc install estout
+
+. cap which ivreghdfe
+
+. if _rc ssc install ivreghdfe
+
+. cap which ivreg2
+
+. if _rc ssc install ivreg2
+
+. cap which ranktest
+
+. if _rc ssc install ranktest
+
+. estimates clear
+
+. 
+. * =====================================================================================
+. * N. National monthly nights (Eurostat tour_occ_nim): treated country vs control countries, same calendar as Table 2
+. *    FE: country x calendar month x event (fe_cm), month x event (fe_t). SE clustered by country.
+. * =====================================================================================
+. use "nat_month.dta", clear
+
+. gen tp = treat_c * post1
+
+. gen T_pre36_25 = treat_c * pre36_25
+
+. gen T_pre24_13 = treat_c * pre24_13
+
+. gen T_post1 = treat_c * post1
+
+. gen T_post2 = treat_c * post2
+
+. reghdfe ln_nights_for tp lngdp lnpop if stk != 0 & donut == 0 & post2 == 0, absorb(fe_cm fe_t) vce(cluster iso3n)
+(dropped 26 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,368
+Absorbing 2 HDFE groups                           F(   3,     19) =       3.88
+Statistics robust to heteroskedasticity           Prob > F        =     0.0256
+                                                  R-squared       =     0.9976
+                                                  Adj R-squared   =     0.9962
+                                                  Within R-sq.    =     0.0610
+Number of clusters (iso3n)   =         20         Root MSE        =     0.0857
+
+                                 (Std. err. adjusted for 20 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~r | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   -.030808   .0331149    -0.93   0.364    -.1001184    .0385023
+       lngdp |   .3589174   .3439202     1.04   0.310    -.3609158    1.078751
+       lnpop |  -1.438726   .4641253    -3.10   0.006    -2.410151   -.4673007
+       _cons |   27.48694   10.30671     2.67   0.015     5.914739    49.05914
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_cm |      1174        1174           0    *|
+        fe_t |       364           1         363     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo N1_for
+
+. reghdfe ln_nights_dom tp lngdp lnpop if stk != 0 & donut == 0 & post2 == 0, absorb(fe_cm fe_t) vce(cluster iso3n)
+(dropped 286 singleton observations)
+(MWFE estimator converged in 4 iterations)
+
+HDFE Linear regression                            Number of obs   =      1,229
+Absorbing 2 HDFE groups                           F(   3,     14) =      28.12
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9990
+                                                  Adj R-squared   =     0.9985
+                                                  Within R-sq.    =     0.1193
+Number of clusters (iso3n)   =         15         Root MSE        =     0.0805
+
+                                 (Std. err. adjusted for 15 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~m | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   .0291534   .0218396     1.33   0.203    -.0176879    .0759946
+       lngdp |   .3983566   .0853342     4.67   0.000     .2153329    .5813802
+       lnpop |    -1.7305   .3633682    -4.76   0.000    -2.509848   -.9511532
+       _cons |   30.22395   5.039348     6.00   0.000     19.41562    41.03228
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_cm |       312         312           0    *|
+        fe_t |        96           1          95     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo N2_dom
+
+. reghdfe ln_nights_tot tp lngdp lnpop if stk != 0 & donut == 0 & post2 == 0, absorb(fe_cm fe_t) vce(cluster iso3n)
+(dropped 26 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,323
+Absorbing 2 HDFE groups                           F(   3,     19) =       6.65
+Statistics robust to heteroskedasticity           Prob > F        =     0.0030
+                                                  R-squared       =     0.9979
+                                                  Adj R-squared   =     0.9968
+                                                  Within R-sq.    =     0.0776
+Number of clusters (iso3n)   =         20         Root MSE        =     0.0809
+
+                                 (Std. err. adjusted for 20 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~t | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   -.039453   .0230176    -1.71   0.103    -.0876293    .0087234
+       lngdp |   .4377265   .2657356     1.65   0.116    -.1184645    .9939175
+       lnpop |  -1.151344   .3994142    -2.88   0.010    -1.987327     -.31536
+       _cons |   21.66687   8.962705     2.42   0.026     2.907709    40.42603
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_cm |      1162        1162           0    *|
+        fe_t |       364           1         363     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo N3_tot
+
+. reghdfe ln_nights_for T_pre36_25 T_pre24_13 T_post1 T_post2 lngdp lnpop if stk != 0 & donut == 0, absorb(fe_cm fe_t) vce(cluster iso3n)
+(MWFE estimator converged in 7 iterations)
+
+HDFE Linear regression                            Number of obs   =      5,530
+Absorbing 2 HDFE groups                           F(   6,     19) =       3.32
+Statistics robust to heteroskedasticity           Prob > F        =     0.0208
+                                                  R-squared       =     0.9971
+                                                  Adj R-squared   =     0.9958
+                                                  Within R-sq.    =     0.0804
+Number of clusters (iso3n)   =         20         Root MSE        =     0.0908
+
+                                 (Std. err. adjusted for 20 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~r | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  T_pre36_25 |  -.0810077   .0256359    -3.16   0.005    -.1346643   -.0273511
+  T_pre24_13 |    -.02279   .0145189    -1.57   0.133    -.0531785    .0075984
+     T_post1 |  -.0561081   .0310714    -1.81   0.087    -.1211413    .0089251
+     T_post2 |  -.0630892    .039145    -1.61   0.124    -.1450206    .0188423
+       lngdp |   .3697706   .2569602     1.44   0.166    -.1680533    .9075944
+       lnpop |  -1.580118   .4643926    -3.40   0.003    -2.552103   -.6081335
+       _cons |   29.46107   9.025807     3.26   0.004     10.56984     48.3523
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_cm |      1200        1200           0    *|
+        fe_t |       457           1         456     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo N4_es_for
+
+. reghdfe ln_nights_dom T_pre36_25 T_pre24_13 T_post1 T_post2 lngdp lnpop if stk != 0 & donut == 0, absorb(fe_cm fe_t) vce(cluster iso3n)
+(dropped 46 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      2,030
+Absorbing 2 HDFE groups                           F(   6,     17) =      14.21
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9988
+                                                  Adj R-squared   =     0.9982
+                                                  Within R-sq.    =     0.0966
+Number of clusters (iso3n)   =         18         Root MSE        =     0.0847
+
+                                 (Std. err. adjusted for 18 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~m | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  T_pre36_25 |  -.0474871   .0265373    -1.79   0.091    -.1034758    .0085017
+  T_pre24_13 |  -.0392604   .0143329    -2.74   0.014    -.0695002   -.0090205
+     T_post1 |     .00515   .0135991     0.38   0.710    -.0235417    .0338416
+     T_post2 |   .0014959   .0242002     0.06   0.951     -.049562    .0525538
+       lngdp |   .4675395   .1100529     4.25   0.001     .2353481    .6997309
+       lnpop |   -1.31204   .2766828    -4.74   0.000    -1.895789   -.7282903
+       _cons |   22.20698   4.842848     4.59   0.000     11.98947     32.4245
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_cm |       576         576           0    *|
+        fe_t |       165           1         164     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo N5_es_dom
+
+. reghdfe ln_nights_tot T_pre36_25 T_pre24_13 T_post1 T_post2 lngdp lnpop if stk != 0 & donut == 0, absorb(fe_cm fe_t) vce(cluster iso3n)
+(dropped 1 singleton observations)
+(MWFE estimator converged in 7 iterations)
+
+HDFE Linear regression                            Number of obs   =      5,471
+Absorbing 2 HDFE groups                           F(   6,     19) =       6.51
+Statistics robust to heteroskedasticity           Prob > F        =     0.0007
+                                                  R-squared       =     0.9976
+                                                  Adj R-squared   =     0.9966
+                                                  Within R-sq.    =     0.0889
+Number of clusters (iso3n)   =         20         Root MSE        =     0.0836
+
+                                 (Std. err. adjusted for 20 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~t | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  T_pre36_25 |  -.0273039   .0268649    -1.02   0.322    -.0835328    .0289251
+  T_pre24_13 |   .0073989   .0173794     0.43   0.675    -.0289767    .0437745
+     T_post1 |  -.0441718   .0217145    -2.03   0.056    -.0896208    .0012772
+     T_post2 |  -.0475532   .0282105    -1.69   0.108    -.1065985    .0114921
+       lngdp |   .4152845   .2055122     2.02   0.058    -.0148574    .8454264
+       lnpop |  -1.241477   .3620483    -3.43   0.003    -1.999253   -.4837008
+       _cons |   23.69322   7.557041     3.14   0.005      7.87615    39.51029
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_cm |      1187        1187           0    *|
+        fe_t |       457           1         456     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo N6_es_tot
+
+. esttab N1_for N2_dom N3_tot N4_es_for N5_es_dom N6_es_tot using "R0_national_nights.rtf", replace b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(tp T_pre36_25 T_pre24_13 T_post1 T_post2) stats(N N_cl
+> ust, labels("Observations" "Countries")) title("National nights at tourist accommodation (Eurostat, monthly): treated vs control countries")
+(file R0_national_nights.rtf not found)
+(output written to R0_national_nights.rtf)
+
+. esttab N1_for N2_dom N3_tot N4_es_for N5_es_dom N6_es_tot, b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(tp T_pre36_25 T_pre24_13 T_post1 T_post2) stats(N N_clust)
+
+------------------------------------------------------------------------------------------------------------
+                      (1)             (2)             (3)             (4)             (5)             (6)   
+             ln_nights_~r    ln_nights_~m    ln_nights_~t    ln_nights_~r    ln_nights_~m    ln_nights_~t   
+------------------------------------------------------------------------------------------------------------
+tp                -0.0308          0.0292         -0.0395                                                   
+                 (0.0331)        (0.0218)        (0.0230)                                                   
+
+T_pre36_25                                                        -0.0810***      -0.0475*        -0.0273   
+                                                                 (0.0256)        (0.0265)        (0.0269)   
+
+T_pre24_13                                                        -0.0228         -0.0393**        0.0074   
+                                                                 (0.0145)        (0.0143)        (0.0174)   
+
+T_post1                                                           -0.0561*         0.0051         -0.0442*  
+                                                                 (0.0311)        (0.0136)        (0.0217)   
+
+T_post2                                                           -0.0631          0.0015         -0.0476   
+                                                                 (0.0391)        (0.0242)        (0.0282)   
+------------------------------------------------------------------------------------------------------------
+N               4368.0000       1229.0000       4323.0000       5530.0000       2030.0000       5471.0000   
+N_clust           20.0000         15.0000         20.0000         20.0000         18.0000         20.0000   
+------------------------------------------------------------------------------------------------------------
+Standard errors in parentheses
+* p<0.10, ** p<0.05, *** p<0.01
+
+. 
+. * =====================================================================================
+. * R1. Regional connectivity loss (monthly): catchment seats and CO2 on small-airport exposure x post, within treated country
+. *     FE: region x calendar month x event (fe_r), country x month x event (fe_ct). SE clustered by region.
+. * =====================================================================================
+. use "reg_month.dta", clear
+
+. gen tpx = treat_c * post1 * expo_small
+
+. gen cpx = (1 - treat_c) * post1 * expo_small
+
+. gen TX_pre36_25 = treat_c * pre36_25 * expo_small
+
+. gen TX_pre24_13 = treat_c * pre24_13 * expo_small
+
+. gen TX_post1 = treat_c * post1 * expo_small
+
+. gen TX_post2 = treat_c * post2 * expo_small
+
+. gen CX_pre36_25 = (1 - treat_c) * pre36_25 * expo_small
+
+. gen CX_pre24_13 = (1 - treat_c) * pre24_13 * expo_small
+
+. gen CX_post1 = (1 - treat_c) * post1 * expo_small
+
+. gen CX_post2 = (1 - treat_c) * post2 * expo_small
+
+. reghdfe ln_conn_seats tpx cpx lngdp lnpop if stk != 0 & donut == 0 & post2 == 0 & border_r == 0, absorb(fe_r fe_ct) vce(cluster nuts2n)
+(dropped 566 singleton observations)
+(MWFE estimator converged in 8 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =     39,137
+Absorbing 2 HDFE groups                           F(   2,    210) =       1.42
+Statistics robust to heteroskedasticity           Prob > F        =     0.2452
+                                                  R-squared       =     0.9945
+                                                  Adj R-squared   =     0.9913
+                                                  Within R-sq.    =     0.0041
+Number of clusters (nuts2n)  =        211         Root MSE        =     0.2076
+
+                               (Std. err. adjusted for 211 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_conn_se~s | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |  -.2390097   .2202536    -1.09   0.279     -.673201    .1951817
+         cpx |  -.0642823   .0468106    -1.37   0.171    -.1565611    .0279966
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   11.06896   .0021787  5080.45   0.000     11.06467    11.07326
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_r |     10416       10416           0    *|
+       fe_ct |      3932           1        3931     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo M1_seats
+
+. reghdfe ln_conn_co2 tpx cpx lngdp lnpop if stk != 0 & donut == 0 & post2 == 0 & border_r == 0, absorb(fe_r fe_ct) vce(cluster nuts2n)
+(dropped 566 singleton observations)
+(MWFE estimator converged in 8 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =     39,137
+Absorbing 2 HDFE groups                           F(   2,    210) =       1.56
+Statistics robust to heteroskedasticity           Prob > F        =     0.2134
+                                                  R-squared       =     0.9946
+                                                  Adj R-squared   =     0.9914
+                                                  Within R-sq.    =     0.0016
+Number of clusters (nuts2n)  =        211         Root MSE        =     0.2449
+
+                               (Std. err. adjusted for 211 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ ln_conn_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |  -.2446995    .140295    -1.74   0.083    -.5212664    .0318674
+         cpx |  -.0251205    .051905    -0.48   0.629    -.1274422    .0772011
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   15.68852   .0023942  6552.82   0.000      15.6838    15.69324
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_r |     10416       10416           0    *|
+       fe_ct |      3932           1        3931     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo M2_co2
+
+. reghdfe ln_conn_seats tpx cpx lngdp lnpop if stk != 0 & donut == 0 & post2 == 0 & border_r == 0 [aw = catch_seats], absorb(fe_r fe_ct) vce(cluster nuts2n)
+(dropped 566 singleton observations)
+(MWFE estimator converged in 5 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =     39,137
+Absorbing 2 HDFE groups                           F(   2,    210) =       1.99
+Statistics robust to heteroskedasticity           Prob > F        =     0.1390
+                                                  R-squared       =     0.9989
+                                                  Adj R-squared   =     0.9982
+                                                  Within R-sq.    =     0.0016
+Number of clusters (nuts2n)  =        211         Root MSE        =     0.0465
+
+                               (Std. err. adjusted for 211 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_conn_se~s | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |  -.2619388   .1440547    -1.82   0.070    -.5459174    .0220397
+         cpx |  -.0477995   .0499623    -0.96   0.340    -.1462915    .0506925
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   13.52691   .0000849  1.6e+05   0.000     13.52674    13.52708
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_r |     10416       10416           0    *|
+       fe_ct |      3932           1        3931     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo M3_seats_wt
+
+. reghdfe ln_conn_seats TX_pre36_25 TX_pre24_13 TX_post1 TX_post2 CX_pre36_25 CX_pre24_13 CX_post1 CX_post2 lngdp lnpop if stk != 0 & donut == 0 & border_r == 0, absorb(fe_r fe_ct) vce(cluster nuts2n)
+(dropped 657 singleton observations)
+(MWFE estimator converged in 8 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =     49,102
+Absorbing 2 HDFE groups                           F(   8,    210) =      85.30
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9933
+                                                  Adj R-squared   =     0.9903
+                                                  Within R-sq.    =     0.0139
+Number of clusters (nuts2n)  =        211         Root MSE        =     0.2199
+
+                               (Std. err. adjusted for 211 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_conn_se~s | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ TX_pre36_25 |     .16904   .0360623     4.69   0.000     .0979495    .2401306
+ TX_pre24_13 |  -.2243308   .0777348    -2.89   0.004    -.3775713   -.0710903
+    TX_post1 |  -.2578803   .2176642    -1.18   0.237     -.686967    .1712065
+    TX_post2 |  -.7579276   .4353721    -1.74   0.083    -1.616187    .1003323
+ CX_pre36_25 |   .0245321   .0437761     0.56   0.576    -.0617648    .1108291
+ CX_pre24_13 |   .0182537   .0351802     0.52   0.604    -.0510979    .0876053
+    CX_post1 |   -.054393   .0371799    -1.46   0.145    -.1276866    .0189006
+    CX_post2 |  -.0122624    .042745    -0.29   0.774    -.0965267    .0720018
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   11.08569   .0033624  3296.92   0.000     11.07906    11.09232
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_r |     10452       10452           0    *|
+       fe_ct |      4955           1        4954     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo M4_es_seats
+
+. reghdfe ln_conn_co2 TX_pre36_25 TX_pre24_13 TX_post1 TX_post2 CX_pre36_25 CX_pre24_13 CX_post1 CX_post2 lngdp lnpop if stk != 0 & donut == 0 & border_r == 0, absorb(fe_r fe_ct) vce(cluster nuts2n)
+(dropped 657 singleton observations)
+(MWFE estimator converged in 8 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =     49,102
+Absorbing 2 HDFE groups                           F(   8,    210) =      65.01
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9934
+                                                  Adj R-squared   =     0.9904
+                                                  Within R-sq.    =     0.0089
+Number of clusters (nuts2n)  =        211         Root MSE        =     0.2592
+
+                               (Std. err. adjusted for 211 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ ln_conn_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ TX_pre36_25 |   .3765567    .085563     4.40   0.000     .2078842    .5452293
+ TX_pre24_13 |  -.0093653   .0474119    -0.20   0.844    -.1028296     .084099
+    TX_post1 |  -.1234966   .1475527    -0.84   0.404     -.414371    .1673777
+    TX_post2 |  -.5388075   .3819257    -1.41   0.160    -1.291707     .214092
+ CX_pre36_25 |   .0008112   .0504572     0.02   0.987    -.0986564    .1002788
+ CX_pre24_13 |   .0000411   .0413475     0.00   0.999    -.0814683    .0815505
+    CX_post1 |  -.0283327   .0384139    -0.74   0.462    -.1040589    .0473935
+    CX_post2 |   .0514858   .0516213     1.00   0.320    -.0502765    .1532482
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |    15.7061   .0035377  4439.60   0.000     15.69913    15.71308
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_r |     10452       10452           0    *|
+       fe_ct |      4955           1        4954     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo M5_es_co2
+
+. esttab M1_seats M2_co2 M3_seats_wt M4_es_seats M5_es_co2 using "R1_regional_connectivity.rtf", replace b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(tpx cpx TX_pre36_25 TX_pre24_13 TX_post1 TX_post2
+>  CX_post1) stats(N N_clust, labels("Observations" "Regions")) title("Regional connectivity (catchment seats, CO2): small-airport exposure x post, treated-country regions vs control-country regions")
+(file R1_regional_connectivity.rtf not found)
+(output written to R1_regional_connectivity.rtf)
+
+. esttab M1_seats M2_co2 M3_seats_wt M4_es_seats M5_es_co2, b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(tpx cpx TX_pre36_25 TX_pre24_13 TX_post1 TX_post2 CX_post1) stats(N N_clust)
+
+--------------------------------------------------------------------------------------------
+                      (1)             (2)             (3)             (4)             (5)   
+             ln_conn_se~s     ln_conn_co2    ln_conn_se~s    ln_conn_se~s     ln_conn_co2   
+--------------------------------------------------------------------------------------------
+tpx               -0.2390         -0.2447*        -0.2619*                                  
+                 (0.2203)        (0.1403)        (0.1441)                                   
+
+cpx               -0.0643         -0.0251         -0.0478                                   
+                 (0.0468)        (0.0519)        (0.0500)                                   
+
+TX_pre36_25                                                        0.1690***       0.3766***
+                                                                 (0.0361)        (0.0856)   
+
+TX_pre24_13                                                       -0.2243***      -0.0094   
+                                                                 (0.0777)        (0.0474)   
+
+TX_post1                                                          -0.2579         -0.1235   
+                                                                 (0.2177)        (0.1476)   
+
+TX_post2                                                          -0.7579*        -0.5388   
+                                                                 (0.4354)        (0.3819)   
+
+CX_post1                                                          -0.0544         -0.0283   
+                                                                 (0.0372)        (0.0384)   
+--------------------------------------------------------------------------------------------
+N              39137.0000      39137.0000      39137.0000      49102.0000      49102.0000   
+N_clust          211.0000        211.0000        211.0000        211.0000        211.0000   
+--------------------------------------------------------------------------------------------
+Standard errors in parentheses
+* p<0.10, ** p<0.05, *** p<0.01
+
+. 
+. * =====================================================================================
+. * R2. Annual regional outcomes, years E-3..E: nights (for, dom, total), employment (G-I, total), GDP per head, catchment GACI
+. *     FE: region x event (fe_ry), country x year x event (fe_cy). SE clustered by region.
+. * =====================================================================================
+. use "reg_year.dta", clear
+
+. gen tpx = treat_c * post1 * expo_small
+
+. gen cpx = (1 - treat_c) * post1 * expo_small
+
+. gen TX_km3 = treat_c * (k == -3) * expo_small
+
+. gen TX_km2 = treat_c * (k == -2) * expo_small
+
+. gen TX_k0 = treat_c * (k == 0) * expo_small
+
+. gen TX_k1 = treat_c * (k == 1) * expo_small
+
+. gen CX_km3 = (1 - treat_c) * (k == -3) * expo_small
+
+. gen CX_km2 = (1 - treat_c) * (k == -2) * expo_small
+
+. gen CX_k0 = (1 - treat_c) * (k == 0) * expo_small
+
+. gen CX_k1 = (1 - treat_c) * (k == 1) * expo_small
+
+. reghdfe ln_nights_for tpx cpx lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 97 singleton observations)
+(MWFE estimator converged in 6 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      2,643
+Absorbing 2 HDFE groups                           F(   2,    168) =       1.29
+Statistics robust to heteroskedasticity           Prob > F        =     0.2784
+                                                  R-squared       =     0.9959
+                                                  Adj R-squared   =     0.9935
+                                                  Within R-sq.    =     0.0002
+Number of clusters (nuts2n)  =        169         Root MSE        =     0.1064
+
+                               (Std. err. adjusted for 169 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~r | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |   -.041609   .0259213    -1.61   0.110    -.0927824    .0095645
+         cpx |   .0006893   .0174607     0.04   0.969    -.0337815      .03516
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   14.15573   .0006907  2.0e+04   0.000     14.15437    14.15709
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       695         695           0    *|
+       fe_cy |       256           1         255     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo Y1_for
+
+. reghdfe ln_nights_dom tpx cpx lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 160 singleton observations)
+(MWFE estimator converged in 4 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =        768
+Absorbing 2 HDFE groups                           F(   2,    111) =      17.88
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9989
+                                                  Adj R-squared   =     0.9983
+                                                  Within R-sq.    =     0.0049
+Number of clusters (nuts2n)  =        112         Root MSE        =     0.0403
+
+                               (Std. err. adjusted for 112 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~m | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |   .0539253   .0091191     5.91   0.000     .0358552    .0719955
+         cpx |  -.0204523   .0228796    -0.89   0.373    -.0657898    .0248852
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   15.17023   .0003004  5.1e+04   0.000     15.16963    15.17082
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       198         198           0    *|
+       fe_cy |        66           1          65     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo Y2_dom
+
+. reghdfe ln_nights_tot tpx cpx lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 93 singleton observations)
+(MWFE estimator converged in 5 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      2,656
+Absorbing 2 HDFE groups                           F(   2,    168) =       0.42
+Statistics robust to heteroskedasticity           Prob > F        =     0.6545
+                                                  R-squared       =     0.9951
+                                                  Adj R-squared   =     0.9923
+                                                  Within R-sq.    =     0.0003
+Number of clusters (nuts2n)  =        169         Root MSE        =     0.0893
+
+                               (Std. err. adjusted for 169 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~t | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |  -.0089624   .0200819    -0.45   0.656    -.0486078     .030683
+         cpx |   -.010506   .0129531    -0.81   0.418    -.0360779    .0150659
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   15.51271    .000511  3.0e+04   0.000      15.5117    15.51371
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       695         695           0    *|
+       fe_cy |       257           1         256     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo Y3_tot
+
+. reghdfe ln_emp_GI tpx cpx lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 42 singleton observations)
+(MWFE estimator converged in 2 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      1,672
+Absorbing 2 HDFE groups                           F(   2,    160) =       2.87
+Statistics robust to heteroskedasticity           Prob > F        =     0.0595
+                                                  R-squared       =     0.9989
+                                                  Adj R-squared   =     0.9983
+                                                  Within R-sq.    =     0.0041
+Number of clusters (nuts2n)  =        161         Root MSE        =     0.0403
+
+                               (Std. err. adjusted for 161 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+   ln_emp_GI | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |  -.0457462   .0197366    -2.32   0.022    -.0847241   -.0067683
+         cpx |  -.0070006   .0124818    -0.56   0.576    -.0316509    .0176497
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   4.811077   .0007188  6693.29   0.000     4.809658    4.812497
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       460         460           0    *|
+       fe_cy |       167           1         166     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo Y4_empGI
+
+. reghdfe ln_emp_tot tpx cpx lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 42 singleton observations)
+(MWFE estimator converged in 2 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      1,672
+Absorbing 2 HDFE groups                           F(   2,    160) =       1.84
+Statistics robust to heteroskedasticity           Prob > F        =     0.1626
+                                                  R-squared       =     0.9998
+                                                  Adj R-squared   =     0.9997
+                                                  Within R-sq.    =     0.0018
+Number of clusters (nuts2n)  =        161         Root MSE        =     0.0163
+
+                               (Std. err. adjusted for 161 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+  ln_emp_tot | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |  -.0136681   .0071336    -1.92   0.057    -.0277562      .00042
+         cpx |   .0004459   .0065896     0.07   0.946     -.012568    .0134598
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   6.233538   .0003794  1.6e+04   0.000     6.232788    6.234287
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       460         460           0    *|
+       fe_cy |       167           1         166     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo Y5_emptot
+
+. reghdfe ln_gdp_pc tpx cpx lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 40 singleton observations)
+(MWFE estimator converged in 2 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      2,684
+Absorbing 2 HDFE groups                           F(   2,    155) =       0.59
+Statistics robust to heteroskedasticity           Prob > F        =     0.5577
+                                                  R-squared       =     0.9991
+                                                  Adj R-squared   =     0.9987
+                                                  Within R-sq.    =     0.0005
+Number of clusters (nuts2n)  =        156         Root MSE        =     0.0180
+
+                               (Std. err. adjusted for 156 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+   ln_gdp_pc | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |   .0092117    .008765     1.05   0.295    -.0081026    .0265259
+         cpx |  -.0010175    .003637    -0.28   0.780    -.0082019    .0061669
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   10.10358   .0001965  5.1e+04   0.000     10.10319    10.10397
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       673         673           0    *|
+       fe_cy |       270           1         269     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo Y6_gdp
+
+. reghdfe ln_conn_gaci tpx cpx lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 41 singleton observations)
+(MWFE estimator converged in 6 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      3,388
+Absorbing 2 HDFE groups                           F(   2,    207) =       6.78
+Statistics robust to heteroskedasticity           Prob > F        =     0.0014
+                                                  R-squared       =     0.9976
+                                                  Adj R-squared   =     0.9963
+                                                  Within R-sq.    =     0.0124
+Number of clusters (nuts2n)  =        208         Root MSE        =     0.0277
+
+                               (Std. err. adjusted for 208 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_conn_gaci | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |   .0321727    .018965     1.70   0.091    -.0052167     .069562
+         cpx |  -.0175333   .0055077    -3.18   0.002    -.0283918   -.0066748
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   .1228663   .0002701   454.81   0.000     .1223337    .1233989
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       876         876           0    *|
+       fe_cy |       339           1         338     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo Y7_gaci
+
+. reghdfe ln_conn_deg tpx cpx lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 41 singleton observations)
+(MWFE estimator converged in 6 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      3,388
+Absorbing 2 HDFE groups                           F(   2,    207) =       0.76
+Statistics robust to heteroskedasticity           Prob > F        =     0.4688
+                                                  R-squared       =     0.9912
+                                                  Adj R-squared   =     0.9863
+                                                  Within R-sq.    =     0.0004
+Number of clusters (nuts2n)  =        208         Root MSE        =     0.1713
+
+                               (Std. err. adjusted for 208 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ ln_conn_deg | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |  -.0677218   .0634518    -1.07   0.287    -.1928165    .0573728
+         cpx |  -.0159273   .0319655    -0.50   0.619    -.0789471    .0470924
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   3.742651    .001546  2420.93   0.000     3.739603    3.745699
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       876         876           0    *|
+       fe_cy |       339           1         338     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo Y8_deg
+
+. esttab Y7_gaci Y8_deg Y1_for Y2_dom Y3_tot Y4_empGI Y5_emptot Y6_gdp using "R2_regional_annual.rtf", replace b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(tpx cpx) stats(N N_clust, labels("Observati
+> ons" "Regions")) title("Annual regional outcomes, years E-3..E: small-airport exposure x post (treated) and the same term in control countries")
+(file R2_regional_annual.rtf not found)
+(output written to R2_regional_annual.rtf)
+
+. esttab Y7_gaci Y8_deg Y1_for Y2_dom Y3_tot Y4_empGI Y5_emptot Y6_gdp, b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(tpx cpx) stats(N N_clust)
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+                      (1)             (2)             (3)             (4)             (5)             (6)             (7)             (8)   
+             ln_conn_gaci     ln_conn_deg    ln_nights_~r    ln_nights_~m    ln_nights_~t       ln_emp_GI      ln_emp_tot       ln_gdp_pc   
+--------------------------------------------------------------------------------------------------------------------------------------------
+tpx                0.0322*        -0.0677         -0.0416          0.0539***      -0.0090         -0.0457**       -0.0137*         0.0092   
+                 (0.0190)        (0.0635)        (0.0259)        (0.0091)        (0.0201)        (0.0197)        (0.0071)        (0.0088)   
+
+cpx               -0.0175***      -0.0159          0.0007         -0.0205         -0.0105         -0.0070          0.0004         -0.0010   
+                 (0.0055)        (0.0320)        (0.0175)        (0.0229)        (0.0130)        (0.0125)        (0.0066)        (0.0036)   
+--------------------------------------------------------------------------------------------------------------------------------------------
+N               3388.0000       3388.0000       2643.0000        768.0000       2656.0000       1672.0000       1672.0000       2684.0000   
+N_clust          208.0000        208.0000        169.0000        112.0000        169.0000        161.0000        161.0000        156.0000   
+--------------------------------------------------------------------------------------------------------------------------------------------
+Standard errors in parentheses
+* p<0.10, ** p<0.05, *** p<0.01
+
+. * event time, k = -3, -2 (reference -1), 0, +1
+. reghdfe ln_conn_gaci TX_km3 TX_km2 TX_k0 TX_k1 CX_km3 CX_km2 CX_k0 CX_k1 lngdp lnpop if stk != 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 51 singleton observations)
+(MWFE estimator converged in 6 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      4,256
+Absorbing 2 HDFE groups                           F(   8,    207) =      28.04
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9969
+                                                  Adj R-squared   =     0.9955
+                                                  Within R-sq.    =     0.0216
+Number of clusters (nuts2n)  =        208         Root MSE        =     0.0309
+
+                               (Std. err. adjusted for 208 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_conn_gaci | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      TX_km3 |   .0197249   .0230137     0.86   0.392    -.0256463    .0650962
+      TX_km2 |  -.0227568   .0131391    -1.73   0.085    -.0486605    .0031469
+       TX_k0 |   .0311591   .0170438     1.83   0.069    -.0024427    .0647609
+       TX_k1 |    .024746   .0297297     0.83   0.406    -.0338658    .0833578
+      CX_km3 |   .0099519   .0063836     1.56   0.121    -.0026334    .0225371
+      CX_km2 |    .007253   .0047218     1.54   0.126     -.002056    .0165619
+       CX_k0 |  -.0119253   .0045474    -2.62   0.009    -.0208904   -.0029602
+       CX_k1 |  -.0220828   .0064879    -3.40   0.001    -.0348737   -.0092919
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   .1276938   .0005137   248.58   0.000      .126681    .1287065
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       876         876           0    *|
+       fe_cy |       427           1         426     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo E1_gaci
+
+. reghdfe ln_nights_for TX_km3 TX_km2 TX_k0 TX_k1 CX_km3 CX_km2 CX_k0 CX_k1 lngdp lnpop if stk != 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 102 singleton observations)
+(MWFE estimator converged in 6 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      3,345
+Absorbing 2 HDFE groups                           F(   8,    172) =       2.34
+Statistics robust to heteroskedasticity           Prob > F        =     0.0208
+                                                  R-squared       =     0.9955
+                                                  Adj R-squared   =     0.9935
+                                                  Within R-sq.    =     0.0031
+Number of clusters (nuts2n)  =        173         Root MSE        =     0.1069
+
+                               (Std. err. adjusted for 173 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~r | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      TX_km3 |   .0161461   .0242636     0.67   0.507    -.0317467    .0640389
+      TX_km2 |  -.0049931   .0220839    -0.23   0.821    -.0485835    .0385972
+       TX_k0 |  -.0378913   .0283649    -1.34   0.183    -.0938795    .0180968
+       TX_k1 |  -.0299434   .0192234    -1.56   0.121    -.0678874    .0080007
+      CX_km3 |   .0235095   .0220087     1.07   0.287    -.0199325    .0669515
+      CX_km2 |   .0392888   .0162326     2.42   0.017     .0072481    .0713295
+       CX_k0 |   .0205434   .0158665     1.29   0.197    -.0107748    .0518616
+       CX_k1 |  -.0074339   .0170255    -0.44   0.663    -.0410397    .0261719
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   14.16746   .0016073  8814.18   0.000     14.16429    14.17063
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       714         714           0    *|
+       fe_cy |       326           1         325     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo E2_for
+
+. reghdfe ln_nights_dom TX_km3 TX_km2 TX_k0 TX_k1 CX_km3 CX_km2 CX_k0 CX_k1 lngdp lnpop if stk != 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 155 singleton observations)
+(MWFE estimator converged in 4 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =        986
+Absorbing 2 HDFE groups                           F(   8,    115) =      15.99
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9987
+                                                  Adj R-squared   =     0.9981
+                                                  Within R-sq.    =     0.0156
+Number of clusters (nuts2n)  =        116         Root MSE        =     0.0427
+
+                               (Std. err. adjusted for 116 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~m | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      TX_km3 |  -.0175903   .0183938    -0.96   0.341    -.0540248    .0188442
+      TX_km2 |   .0154569   .0054529     2.83   0.005     .0046558    .0262581
+       TX_k0 |   .0532142    .015301     3.48   0.001     .0229059    .0835225
+       TX_k1 |   .0238668    .023347     1.02   0.309    -.0223792    .0701128
+      CX_km3 |   .0421259   .0228131     1.85   0.067    -.0030625    .0873143
+      CX_km2 |   .0171201   .0153129     1.12   0.266    -.0132119     .047452
+       CX_k0 |  -.0009008    .013414    -0.07   0.947    -.0274714    .0256698
+       CX_k1 |  -.0283909   .0252189    -1.13   0.263    -.0783448    .0215629
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |    15.1665   .0002657  5.7e+04   0.000     15.16597    15.16702
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       209         209           0    *|
+       fe_cy |        86           1          85     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo E3_dom
+
+. reghdfe ln_emp_GI TX_km3 TX_km2 TX_k0 TX_k1 CX_km3 CX_km2 CX_k0 CX_k1 lngdp lnpop if stk != 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 189 singleton observations)
+(MWFE estimator converged in 5 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      2,140
+Absorbing 2 HDFE groups                           F(   8,    162) =      10.61
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9987
+                                                  Adj R-squared   =     0.9981
+                                                  Within R-sq.    =     0.0069
+Number of clusters (nuts2n)  =        163         Root MSE        =     0.0417
+
+                               (Std. err. adjusted for 163 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+   ln_emp_GI | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      TX_km3 |   .0384004   .0306151     1.25   0.212    -.0220557    .0988564
+      TX_km2 |   .0586047   .0225096     2.60   0.010     .0141547    .1030548
+       TX_k0 |  -.0146252   .0133702    -1.09   0.276    -.0410275    .0117771
+       TX_k1 |   .0004893   .0381745     0.01   0.990    -.0748945    .0758731
+      CX_km3 |   .0026889   .0127843     0.21   0.834    -.0225566    .0279343
+      CX_km2 |   .0065231    .010009     0.65   0.516    -.0132419     .026288
+       CX_k0 |  -.0031909    .009635    -0.33   0.741    -.0222172    .0158354
+       CX_k1 |  -.0081068   .0113545    -0.71   0.476    -.0305287    .0143151
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   4.801755   .0011536  4162.26   0.000     4.799477    4.804033
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       466         466           0    *|
+       fe_cy |       216           1         215     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo E4_empGI
+
+. esttab E1_gaci E2_for E3_dom E4_empGI using "R3_regional_eventtime.rtf", replace b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(TX_km3 TX_km2 TX_k0 TX_k1 CX_k0 CX_k1) stats(N N_clust, labels("Observa
+> tions" "Regions")) title("Annual regional event time: exposure x k, treated country (TX) and control countries (CX)")
+(file R3_regional_eventtime.rtf not found)
+(output written to R3_regional_eventtime.rtf)
+
+. esttab E1_gaci E2_for E3_dom E4_empGI, b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(TX_km3 TX_km2 TX_k0 TX_k1 CX_k0 CX_k1) stats(N N_clust)
+
+----------------------------------------------------------------------------
+                      (1)             (2)             (3)             (4)   
+             ln_conn_gaci    ln_nights_~r    ln_nights_~m       ln_emp_GI   
+----------------------------------------------------------------------------
+TX_km3             0.0197          0.0161         -0.0176          0.0384   
+                 (0.0230)        (0.0243)        (0.0184)        (0.0306)   
+
+TX_km2            -0.0228*        -0.0050          0.0155***       0.0586** 
+                 (0.0131)        (0.0221)        (0.0055)        (0.0225)   
+
+TX_k0              0.0312*        -0.0379          0.0532***      -0.0146   
+                 (0.0170)        (0.0284)        (0.0153)        (0.0134)   
+
+TX_k1              0.0247         -0.0299          0.0239          0.0005   
+                 (0.0297)        (0.0192)        (0.0233)        (0.0382)   
+
+CX_k0             -0.0119***       0.0205         -0.0009         -0.0032   
+                 (0.0045)        (0.0159)        (0.0134)        (0.0096)   
+
+CX_k1             -0.0221***      -0.0074         -0.0284         -0.0081   
+                 (0.0065)        (0.0170)        (0.0252)        (0.0114)   
+----------------------------------------------------------------------------
+N               4256.0000       3345.0000        986.0000       2140.0000   
+N_clust          208.0000        173.0000        116.0000        163.0000   
+----------------------------------------------------------------------------
+Standard errors in parentheses
+* p<0.10, ** p<0.05, *** p<0.01
+
+. 
+. * =====================================================================================
+. * R4. 2SLS: regional outcomes on catchment GACI (or destinations), instrumented by exposure x post in the treated country
+. * =====================================================================================
+. use "reg_year.dta", clear
+
+. gen tpx = treat_c * post1 * expo_small
+
+. gen cpx = (1 - treat_c) * post1 * expo_small
+
+. ivreghdfe ln_nights_for cpx lngdp lnpop (ln_conn_gaci = tpx) if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) cluster(nuts2n) first
+(dropped 98 singleton observations)
+(MWFE estimator converged in 7 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of ln_conn_gaci:
+
+Statistics robust to heteroskedasticity and clustering on nuts2n
+Number of obs =                   2630
+Number of clusters (nuts2n) =      168
+------------------------------------------------------------------------------
+             |               Robust
+ln_conn_gaci | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |   .0332971   .0189137     1.76   0.078     -.003792    .0703862
+         cpx |  -.0170863   .0075321    -2.27   0.023    -.0318564   -.0023162
+       lngdp |  -45.88415    4131438    -0.00   1.000     -8101651     8101559
+       lnpop |   59.38417    4312502     0.00   1.000     -8456606     8456725
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  1,   167) =     3.10
+  Prob > F      =   0.0802
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  1,   167) =     3.10
+  Prob > F      =   0.0802
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  1,   167)  P-val | SW Chi-sq(  1) P-val | SW F(  1,   167)
+ln_conn_gaci |       3.10    0.0802 |        3.46   0.0630 |        3.10
+
+NB: first-stage test statistics cluster-robust
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for i.i.d. errors only.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Kleibergen-Paap rk LM statistic          Chi-sq(1)=1.92     P-val=0.1664
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                       5.70
+Kleibergen-Paap Wald rk F statistic                                 3.10
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=1:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(1,167)=       2.57     P-val=0.1105
+Anderson-Rubin Wald test           Chi-sq(1)=      2.87     P-val=0.0902
+Stock-Wright LM S statistic        Chi-sq(1)=      1.69     P-val=0.1942
+
+NB: Underidentification, weak identification and weak-identification-robust
+    test statistics cluster-robust
+
+Number of clusters             N_clust  =        168
+Number of observations               N  =       2630
+Number of regressors                 K  =          4
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          4
+Number of excluded instruments       L1 =          1
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on nuts2n
+
+Number of clusters (nuts2n) =      168                Number of obs =     2630
+                                                      F(  4,   167) =     0.65
+                                                      Prob > F      =   0.6261
+Total (centered) SS     =  19.07140428                Centered R2   =  -0.1107
+Total (uncentered) SS   =  19.07140428                Uncentered R2 =  -0.1107
+Residual SS             =  21.18175953                Root MSE      =   .09452
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~r | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ln_conn_gaci |  -1.249627   .7906585    -1.58   0.116    -2.810601    .3113468
+         cpx |  -.0192592   .0272543    -0.71   0.481    -.0730666    .0345483
+       lngdp |  -67.61525   2.50e+07    -0.00   1.000    -4.93e+07    4.93e+07
+       lnpop |  -19.79955   2.10e+07    -0.00   1.000    -4.15e+07    4.15e+07
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              1.915
+                                                   Chi-sq(1) P-val =    0.1664
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                5.697
+                         (Kleibergen-Paap rk Wald F statistic):          3.099
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Warning: estimated covariance matrix of moment conditions not of full rank.
+         overidentification statistic not reported, and standard errors and
+         model tests should be interpreted with caution.
+Possible causes:
+         number of clusters insufficient to calculate robust covariance matrix
+         singleton dummy variable (dummy with one 1 and N-1 0s or vice versa)
+partial option may address problem.
+------------------------------------------------------------------------------
+Instrumented:         ln_conn_gaci
+Included instruments: cpx lngdp lnpop
+Excluded instruments: tpx
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       694         694           0    *|
+       fe_cy |       256           1         255     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo G1_for_gaci
+
+. ivreghdfe ln_nights_dom cpx lngdp lnpop (ln_conn_gaci = tpx) if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) cluster(nuts2n)
+(dropped 161 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on nuts2n
+
+Number of clusters (nuts2n) =      111                Number of obs =      763
+                                                      F(  2,   110) =     0.53
+                                                      Prob > F      =   0.5874
+Total (centered) SS     =  .8197725782                Centered R2   =  -9.7556
+Total (uncentered) SS   =  .8197725782                Uncentered R2 =  -9.7556
+Residual SS             =  8.817159666                Root MSE      =    .1126
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~m | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ln_conn_gaci |  -4.419006   4.311427    -1.02   0.308    -12.96324     4.12523
+         cpx |   -.412633   .4115791    -1.00   0.318    -1.228286    .4030202
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              1.550
+                                                   Chi-sq(1) P-val =    0.2132
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                0.178
+                         (Kleibergen-Paap rk Wald F statistic):          1.097
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Warning: estimated covariance matrix of moment conditions not of full rank.
+         overidentification statistic not reported, and standard errors and
+         model tests should be interpreted with caution.
+Possible causes:
+         number of clusters insufficient to calculate robust covariance matrix
+         singleton dummy variable (dummy with one 1 and N-1 0s or vice versa)
+partial option may address problem.
+------------------------------------------------------------------------------
+Collinearities detected among instruments: 2 instrument(s) dropped
+Instrumented:         ln_conn_gaci
+Included instruments: cpx lngdp lnpop
+Excluded instruments: tpx
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       197         197           0    *|
+       fe_cy |        66           1          65     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo G2_dom_gaci
+
+. ivreghdfe ln_emp_GI cpx lngdp lnpop (ln_conn_gaci = tpx) if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) cluster(nuts2n)
+(dropped 43 singleton observations)
+(MWFE estimator converged in 3 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on nuts2n
+
+Number of clusters (nuts2n) =      158                Number of obs =     1659
+                                                      F(  2,   157) =     0.68
+                                                      Prob > F      =   0.5084
+Total (centered) SS     =  1.683304036                Centered R2   =  -0.7952
+Total (uncentered) SS   =  1.683304036                Uncentered R2 =  -0.7952
+Residual SS             =  3.021785248                Root MSE      =   .04502
+
+------------------------------------------------------------------------------
+             |               Robust
+   ln_emp_GI | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ln_conn_gaci |  -1.369879   1.281519    -1.07   0.287    -3.901121    1.161362
+         cpx |  -.0352351   .0310302    -1.14   0.258    -.0965255    .0260554
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              1.926
+                                                   Chi-sq(1) P-val =    0.1651
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                5.494
+                         (Kleibergen-Paap rk Wald F statistic):          3.105
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Warning: estimated covariance matrix of moment conditions not of full rank.
+         overidentification statistic not reported, and standard errors and
+         model tests should be interpreted with caution.
+Possible causes:
+         number of clusters insufficient to calculate robust covariance matrix
+         singleton dummy variable (dummy with one 1 and N-1 0s or vice versa)
+partial option may address problem.
+------------------------------------------------------------------------------
+Collinearities detected among instruments: 2 instrument(s) dropped
+Instrumented:         ln_conn_gaci
+Included instruments: cpx lngdp lnpop
+Excluded instruments: tpx
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       457         457           0    *|
+       fe_cy |       167           1         166     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo G3_emp_gaci
+
+. ivreghdfe ln_nights_for cpx lngdp lnpop (ln_conn_deg = tpx) if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) cluster(nuts2n) first
+(dropped 98 singleton observations)
+(MWFE estimator converged in 7 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of ln_conn_deg:
+
+Statistics robust to heteroskedasticity and clustering on nuts2n
+Number of obs =                   2630
+Number of clusters (nuts2n) =      168
+------------------------------------------------------------------------------
+             |               Robust
+ ln_conn_deg | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |  -.0734314   .0637086    -1.15   0.249    -.1983617    .0514989
+         cpx |  -.0243566   .0534246    -0.46   0.648    -.1291204    .0804072
+       lngdp |    1149.89   2.67e+07     0.00   1.000    -5.23e+07    5.23e+07
+       lnpop |   560.5246   3.09e+07     0.00   1.000    -6.06e+07    6.06e+07
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  1,   167) =     1.33
+  Prob > F      =   0.2507
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  1,   167) =     1.33
+  Prob > F      =   0.2507
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  1,   167)  P-val | SW Chi-sq(  1) P-val | SW F(  1,   167)
+ln_conn_deg  |       1.33    0.2507 |        1.48   0.2235 |        1.33
+
+NB: first-stage test statistics cluster-robust
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for i.i.d. errors only.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Kleibergen-Paap rk LM statistic          Chi-sq(1)=1.18     P-val=0.2776
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                       0.73
+Kleibergen-Paap Wald rk F statistic                                 1.33
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=1:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(1,167)=       2.57     P-val=0.1105
+Anderson-Rubin Wald test           Chi-sq(1)=      2.87     P-val=0.0902
+Stock-Wright LM S statistic        Chi-sq(1)=      1.69     P-val=0.1942
+
+NB: Underidentification, weak identification and weak-identification-robust
+    test statistics cluster-robust
+
+Number of clusters             N_clust  =        168
+Number of observations               N  =       2630
+Number of regressors                 K  =          4
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          4
+Number of excluded instruments       L1 =          1
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on nuts2n
+
+Number of clusters (nuts2n) =      168                Number of obs =     2630
+                                                      F(  4,   167) =     0.31
+                                                      Prob > F      =   0.8726
+Total (centered) SS     =  19.07140428                Centered R2   =  -0.7607
+Total (uncentered) SS   =  19.07140428                Uncentered R2 =  -0.7607
+Residual SS             =  33.57836521                Root MSE      =     .119
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~r | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_conn_deg |   .5666374   .5128997     1.10   0.271    -.4459656     1.57924
+         cpx |   .0158937   .0293486     0.54   0.589    -.0420484    .0738357
+       lngdp |  -661.8477   2.39e+07    -0.00   1.000    -4.71e+07    4.71e+07
+       lnpop |  -411.6218   1.98e+07    -0.00   1.000    -3.92e+07    3.92e+07
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              1.179
+                                                   Chi-sq(1) P-val =    0.2776
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                0.730
+                         (Kleibergen-Paap rk Wald F statistic):          1.329
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Warning: estimated covariance matrix of moment conditions not of full rank.
+         overidentification statistic not reported, and standard errors and
+         model tests should be interpreted with caution.
+Possible causes:
+         number of clusters insufficient to calculate robust covariance matrix
+         singleton dummy variable (dummy with one 1 and N-1 0s or vice versa)
+partial option may address problem.
+------------------------------------------------------------------------------
+Instrumented:         ln_conn_deg
+Included instruments: cpx lngdp lnpop
+Excluded instruments: tpx
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       694         694           0    *|
+       fe_cy |       256           1         255     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo G4_for_deg
+
+. ivreghdfe ln_emp_GI cpx lngdp lnpop (ln_conn_deg = tpx) if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) cluster(nuts2n)
+(dropped 43 singleton observations)
+(MWFE estimator converged in 3 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on nuts2n
+
+Number of clusters (nuts2n) =      158                Number of obs =     1659
+                                                      F(  2,   157) =     0.39
+                                                      Prob > F      =   0.6776
+Total (centered) SS     =  1.683304036                Centered R2   =  -6.9723
+Total (uncentered) SS   =  1.683304036                Uncentered R2 =  -6.9723
+Residual SS             =  13.41978368                Root MSE      =   .09487
+
+------------------------------------------------------------------------------
+             |               Robust
+   ln_emp_GI | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_conn_deg |   .6125201   .7287081     0.84   0.402    -.8268163    2.051856
+         cpx |  -.0178921   .0394766    -0.45   0.651    -.0958658    .0600816
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              1.219
+                                                   Chi-sq(1) P-val =    0.2695
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                0.731
+                         (Kleibergen-Paap rk Wald F statistic):          1.367
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Warning: estimated covariance matrix of moment conditions not of full rank.
+         overidentification statistic not reported, and standard errors and
+         model tests should be interpreted with caution.
+Possible causes:
+         number of clusters insufficient to calculate robust covariance matrix
+         singleton dummy variable (dummy with one 1 and N-1 0s or vice versa)
+partial option may address problem.
+------------------------------------------------------------------------------
+Collinearities detected among instruments: 2 instrument(s) dropped
+Instrumented:         ln_conn_deg
+Included instruments: cpx lngdp lnpop
+Excluded instruments: tpx
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       457         457           0    *|
+       fe_cy |       167           1         166     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo G5_emp_deg
+
+. esttab G1_for_gaci G2_dom_gaci G3_emp_gaci G4_for_deg G5_emp_deg using "R4_regional_iv.rtf", replace b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(ln_conn_gaci ln_conn_deg cpx) stats(N N_clust widst
+> at, labels("Observations" "Regions" "KP F")) title("2SLS: regional nights and hospitality employment on catchment GACI / destinations, instrument = exposure x post (treated country)")
+(file R4_regional_iv.rtf not found)
+(output written to R4_regional_iv.rtf)
+
+. esttab G1_for_gaci G2_dom_gaci G3_emp_gaci G4_for_deg G5_emp_deg, b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(ln_conn_gaci ln_conn_deg cpx) stats(N N_clust widstat)
+
+--------------------------------------------------------------------------------------------
+                      (1)             (2)             (3)             (4)             (5)   
+             ln_nights_~r    ln_nights_~m       ln_emp_GI    ln_nights_~r       ln_emp_GI   
+--------------------------------------------------------------------------------------------
+ln_conn_gaci      -1.2496         -4.4190         -1.3699                                   
+                 (0.7907)        (4.3114)        (1.2815)                                   
+
+cpx               -0.0193         -0.4126         -0.0352          0.0159         -0.0179   
+                 (0.0273)        (0.4116)        (0.0310)        (0.0293)        (0.0395)   
+
+ln_conn_deg                                                        0.5666          0.6125   
+                                                                 (0.5129)        (0.7287)   
+--------------------------------------------------------------------------------------------
+N               2630.0000        763.0000       1659.0000       2630.0000       1659.0000   
+N_clust          168.0000        111.0000        158.0000        168.0000        158.0000   
+widstat            3.0993          1.0968          3.1045          1.3285          1.3674   
+--------------------------------------------------------------------------------------------
+Standard errors in parentheses
+* p<0.10, ** p<0.05, *** p<0.01
+
+. 
+. * =====================================================================================
+. * R5. Predicted seat loss as the exposure measure: pred_loss = -(expo_small b_small + expo_mid b_mid + expo_large b_large)
+. *     with the Table 2 size-tercile coefficients (recomputed here so the block runs alone)
+. * =====================================================================================
+. use "stack_month.dta", clear
+
+. gen ctrl_eur = inlist(iso3, "DEU", "AUT", "NLD", "BEL", "LUX", "FRA", "IRL", "GBR", "CHE") | inlist(iso3, "SWE", "NOR", "DNK", "FIN", "ISL", "PRT", "ESP", "GRC", "HUN") | inlist(iso3, "HRV", "MLT")
+
+. gen bp = border * post1
+
+. gen tp_small = sz_small * post1
+
+. gen tp_mid = sz_mid * post1
+
+. gen tp_large = sz_large * post1
+
+. reghdfe ln_seats tp_small tp_mid tp_large bp lngdp lnpop if eur == 1 & stk != 0 & donut == 0 & post2 == 0 & (treat == 1 | border == 1 | ctrl_eur == 1), absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 1450 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+HDFE Linear regression                            Number of obs   =     94,670
+Absorbing 2 HDFE groups                           F(   6,     28) =       8.37
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9858
+                                                  Adj R-squared   =     0.9804
+                                                  Within R-sq.    =     0.0083
+Number of clusters (iso3n)   =         29         Root MSE        =     0.2973
+
+                                 (Std. err. adjusted for 29 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+    ln_seats | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+    tp_small |  -.2215271   .0686875    -3.23   0.003    -.3622271   -.0808271
+      tp_mid |  -.0111009   .0623644    -0.18   0.860    -.1388486    .1166468
+    tp_large |  -.0330597   .0515565    -0.64   0.527    -.1386684    .0725491
+          bp |   .0001659   .0275491     0.01   0.995     -.056266    .0565977
+       lngdp |   .2678782   .1669727     1.60   0.120    -.0741499    .6099063
+       lnpop |   .9861539    1.21343     0.81   0.423    -1.499445    3.471752
+       _cons |  -13.69359   20.72827    -0.66   0.514    -56.15352    28.76634
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     25638       25638           0    *|
+        fe_t |       364           1         363     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. scalar b_small = _b[tp_small]
+
+. scalar b_mid = _b[tp_mid]
+
+. scalar b_large = _b[tp_large]
+
+. use "reg_year.dta", clear
+
+. gen pred_loss = -(expo_small * b_small + expo_mid * b_mid + expo_large * b_large)
+
+. gen tpl = treat_c * post1 * pred_loss
+
+. gen cpl = (1 - treat_c) * post1 * pred_loss
+
+. reghdfe ln_conn_gaci tpl cpl lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 41 singleton observations)
+(MWFE estimator converged in 6 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      3,388
+Absorbing 2 HDFE groups                           F(   2,    207) =       6.53
+Statistics robust to heteroskedasticity           Prob > F        =     0.0018
+                                                  R-squared       =     0.9976
+                                                  Adj R-squared   =     0.9963
+                                                  Within R-sq.    =     0.0119
+Number of clusters (nuts2n)  =        208         Root MSE        =     0.0277
+
+                               (Std. err. adjusted for 208 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_conn_gaci | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpl |   .1858552   .0954318     1.95   0.053    -.0022877    .3739981
+         cpl |  -.0864681   .0289099    -2.99   0.003    -.1434638   -.0294724
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   .1232539    .000476   258.94   0.000     .1223154    .1241923
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       876         876           0    *|
+       fe_cy |       339           1         338     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo P1_gaci
+
+. reghdfe ln_nights_for tpl cpl lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 97 singleton observations)
+(MWFE estimator converged in 6 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      2,643
+Absorbing 2 HDFE groups                           F(   2,    168) =       0.66
+Statistics robust to heteroskedasticity           Prob > F        =     0.5196
+                                                  R-squared       =     0.9959
+                                                  Adj R-squared   =     0.9935
+                                                  Within R-sq.    =     0.0002
+Number of clusters (nuts2n)  =        169         Root MSE        =     0.1064
+
+                               (Std. err. adjusted for 169 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~r | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpl |  -.1679783   .1465924    -1.15   0.253    -.4573789    .1214223
+         cpl |   .0000358   .0901441     0.00   1.000    -.1779254    .1779969
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   14.15587   .0012706  1.1e+04   0.000     14.15336    14.15838
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       695         695           0    *|
+       fe_cy |       256           1         255     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo P2_for
+
+. reghdfe ln_nights_dom tpl cpl lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 160 singleton observations)
+(MWFE estimator converged in 4 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =        768
+Absorbing 2 HDFE groups                           F(   2,    111) =      26.68
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9989
+                                                  Adj R-squared   =     0.9983
+                                                  Within R-sq.    =     0.0066
+Number of clusters (nuts2n)  =        112         Root MSE        =     0.0403
+
+                               (Std. err. adjusted for 112 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~m | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpl |   .2932188   .0405831     7.23   0.000     .2128006     .373637
+         cpl |  -.1306909   .1212764    -1.08   0.284    -.3710083    .1096264
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   15.17117   .0012096  1.3e+04   0.000     15.16877    15.17356
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       198         198           0    *|
+       fe_cy |        66           1          65     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo P3_dom
+
+. reghdfe ln_emp_GI tpl cpl lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 42 singleton observations)
+(MWFE estimator converged in 2 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      1,672
+Absorbing 2 HDFE groups                           F(   2,    160) =       2.97
+Statistics robust to heteroskedasticity           Prob > F        =     0.0541
+                                                  R-squared       =     0.9989
+                                                  Adj R-squared   =     0.9983
+                                                  Within R-sq.    =     0.0042
+Number of clusters (nuts2n)  =        161         Root MSE        =     0.0403
+
+                               (Std. err. adjusted for 161 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+   ln_emp_GI | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpl |  -.2453321   .1029814    -2.38   0.018    -.4487103    -.041954
+         cpl |  -.0318725   .0654239    -0.49   0.627    -.1610781    .0973332
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   4.811434   .0012116  3971.27   0.000     4.809041    4.813827
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       460         460           0    *|
+       fe_cy |       167           1         166     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo P4_empGI
+
+. reghdfe ln_gdp_pc tpl cpl lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 40 singleton observations)
+(MWFE estimator converged in 2 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      2,684
+Absorbing 2 HDFE groups                           F(   2,    155) =       1.03
+Statistics robust to heteroskedasticity           Prob > F        =     0.3597
+                                                  R-squared       =     0.9991
+                                                  Adj R-squared   =     0.9987
+                                                  Within R-sq.    =     0.0010
+Number of clusters (nuts2n)  =        156         Root MSE        =     0.0180
+
+                               (Std. err. adjusted for 156 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+   ln_gdp_pc | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpl |   .0695119   .0493194     1.41   0.161    -.0279129    .1669368
+         cpl |  -.0062861   .0193572    -0.32   0.746    -.0445241     .031952
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   10.10359   .0003329  3.0e+04   0.000     10.10294    10.10425
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       673         673           0    *|
+       fe_cy |       270           1         269     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. eststo P5_gdp
+
+. esttab P1_gaci P2_for P3_dom P4_empGI P5_gdp using "R5_regional_predloss.rtf", replace b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(tpl cpl) stats(N N_clust, labels("Observations" "Regions")) title
+> ("Annual regional outcomes on predicted first-year seat loss x post (log points, from Table 2 size coefficients)")
+(file R5_regional_predloss.rtf not found)
+(output written to R5_regional_predloss.rtf)
+
+. esttab P1_gaci P2_for P3_dom P4_empGI P5_gdp, b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) keep(tpl cpl) stats(N N_clust)
+
+--------------------------------------------------------------------------------------------
+                      (1)             (2)             (3)             (4)             (5)   
+             ln_conn_gaci    ln_nights_~r    ln_nights_~m       ln_emp_GI       ln_gdp_pc   
+--------------------------------------------------------------------------------------------
+tpl                0.1859*        -0.1680          0.2932***      -0.2453**        0.0695   
+                 (0.0954)        (0.1466)        (0.0406)        (0.1030)        (0.0493)   
+
+cpl               -0.0865***       0.0000         -0.1307         -0.0319         -0.0063   
+                 (0.0289)        (0.0901)        (0.1213)        (0.0654)        (0.0194)   
+--------------------------------------------------------------------------------------------
+N               3388.0000       2643.0000        768.0000       1672.0000       2684.0000   
+N_clust          208.0000        169.0000        112.0000        161.0000        156.0000   
+--------------------------------------------------------------------------------------------
+Standard errors in parentheses
+* p<0.10, ** p<0.05, *** p<0.01
+
+. 
+. * =====================================================================================
+. * 7. Benefit / cost accounting, first tax year, by event and total (EUR; tonnes CO2)
+. *    counterfactual = observed / exp(beta); abatement = observed x (exp(-beta) - 1)
+. *    Inputs recomputed in this block: seat-weighted seats and CO2 effects (Table 2 col 2, Table 4 col 2), unweighted CO2
+. *    (Table 4 col 1), national foreign-nights effect (block N), regional hospitality-employment exposure effect (block R2)
+. *    Parameters: load factor 0.80, carbon value 100 and 200 EUR/t, spending per foreign night 120 EUR
+. * =====================================================================================
+. use "stack_month.dta", clear
+
+. gen ctrl_eur = inlist(iso3, "DEU", "AUT", "NLD", "BEL", "LUX", "FRA", "IRL", "GBR", "CHE") | inlist(iso3, "SWE", "NOR", "DNK", "FIN", "ISL", "PRT", "ESP", "GRC", "HUN") | inlist(iso3, "HRV", "MLT")
+
+. gen tp = treat * post1
+
+. gen bp = border * post1
+
+. reghdfe ln_seats tp bp lngdp lnpop if eur == 1 & stk != 0 & donut == 0 & post2 == 0 & (treat == 1 | border == 1 | ctrl_eur == 1) & w0 > 0 [aw = w0], absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 552 singleton observations)
+(MWFE estimator converged in 4 iterations)
+
+HDFE Linear regression                            Number of obs   =     94,132
+Absorbing 2 HDFE groups                           F(   4,     27) =      16.98
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9952
+                                                  Adj R-squared   =     0.9934
+                                                  Within R-sq.    =     0.0395
+Number of clusters (iso3n)   =         28         Root MSE        =     0.1134
+
+                                 (Std. err. adjusted for 28 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+    ln_seats | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.0245695   .0118642    -2.07   0.048    -.0489129   -.0002262
+          bp |  -.0205521   .0127924    -1.61   0.120    -.0467999    .0056958
+       lngdp |   .5496718   .0797306     6.89   0.000     .3860782    .7132655
+       lnpop |  -.1921385   .4649507    -0.41   0.683    -1.146139    .7618616
+       _cons |   1.550401   8.801202     0.18   0.861    -16.50817    19.60898
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     25378       25378           0    *|
+        fe_t |       364           1         363     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. scalar b_seats_w = _b[tp]
+
+. scalar se_seats_w = _se[tp]
+
+. reghdfe ln_co2 tp bp lngdp lnpop if eur == 1 & stk != 0 & donut == 0 & post2 == 0 & (treat == 1 | border == 1 | ctrl_eur == 1) & w0 > 0 [aw = w0], absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 552 singleton observations)
+(MWFE estimator converged in 4 iterations)
+
+HDFE Linear regression                            Number of obs   =     94,132
+Absorbing 2 HDFE groups                           F(   4,     27) =      12.40
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9969
+                                                  Adj R-squared   =     0.9957
+                                                  Within R-sq.    =     0.0332
+Number of clusters (iso3n)   =         28         Root MSE        =     0.1191
+
+                                 (Std. err. adjusted for 28 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   -.002935   .0127498    -0.23   0.820    -.0290955    .0232255
+          bp |  -.0183836   .0148644    -1.24   0.227    -.0488828    .0121156
+       lngdp |   .5441053   .0789939     6.89   0.000     .3820232    .7061873
+       lnpop |  -.2161609   .4410773    -0.49   0.628    -1.121177    .6888549
+       _cons |   6.976859   7.504117     0.93   0.361    -8.420318    22.37404
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     25378       25378           0    *|
+        fe_t |       364           1         363     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. scalar b_co2_w = _b[tp]
+
+. scalar se_co2_w = _se[tp]
+
+. reghdfe ln_co2 tp bp lngdp lnpop if eur == 1 & stk != 0 & donut == 0 & post2 == 0 & (treat == 1 | border == 1 | ctrl_eur == 1), absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 1450 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+HDFE Linear regression                            Number of obs   =     94,670
+Absorbing 2 HDFE groups                           F(   4,     28) =       2.24
+Statistics robust to heteroskedasticity           Prob > F        =     0.0899
+                                                  R-squared       =     0.9882
+                                                  Adj R-squared   =     0.9837
+                                                  Within R-sq.    =     0.0048
+Number of clusters (iso3n)   =         29         Root MSE        =     0.3165
+
+                                 (Std. err. adjusted for 29 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.0939462   .0477582    -1.97   0.059    -.1917745    .0038821
+          bp |   .0107331   .0357043     0.30   0.766    -.0624037      .08387
+       lngdp |   .2074699    .179067     1.16   0.256    -.1593322    .5742719
+       lnpop |   1.023603   1.338408     0.76   0.451    -1.718002    3.765209
+       _cons |  -8.509274   23.22101    -0.37   0.717    -56.07535     39.0568
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     25638       25638           0    *|
+        fe_t |       364           1         363     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. scalar b_co2_u = _b[tp]
+
+. scalar se_co2_u = _se[tp]
+
+. use "nat_month.dta", clear
+
+. gen tp = treat_c * post1
+
+. reghdfe ln_nights_for tp lngdp lnpop if stk != 0 & donut == 0 & post2 == 0, absorb(fe_cm fe_t) vce(cluster iso3n)
+(dropped 26 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,368
+Absorbing 2 HDFE groups                           F(   3,     19) =       3.88
+Statistics robust to heteroskedasticity           Prob > F        =     0.0256
+                                                  R-squared       =     0.9976
+                                                  Adj R-squared   =     0.9962
+                                                  Within R-sq.    =     0.0610
+Number of clusters (iso3n)   =         20         Root MSE        =     0.0857
+
+                                 (Std. err. adjusted for 20 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+ln_nights_~r | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |   -.030808   .0331149    -0.93   0.364    -.1001184    .0385023
+       lngdp |   .3589174   .3439202     1.04   0.310    -.3609158    1.078751
+       lnpop |  -1.438726   .4641253    -3.10   0.006    -2.410151   -.4673007
+       _cons |   27.48694   10.30671     2.67   0.015     5.914739    49.05914
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_cm |      1174        1174           0    *|
+        fe_t |       364           1         363     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. scalar b_for = _b[tp]
+
+. scalar se_for = _se[tp]
+
+. keep if stk != 0 & treat_c == 1 & post1 == 1 & donut == 0
+(7,593 observations deleted)
+
+. collapse (sum) nights_for_post = nights_for, by(stk)
+
+. gen double nights_lost = nights_for_post * (exp(-b_for) - 1)
+
+. gen double nights_lost_hi = nights_for_post * (exp(-(b_for - 1.96 * se_for)) - 1)
+
+. gen double nights_lost_lo = nights_for_post * (exp(-(b_for + 1.96 * se_for)) - 1)
+
+. save "bc_tour.dta", replace
+(file bc_tour.dta not found)
+file bc_tour.dta saved
+
+. use "reg_year.dta", clear
+
+. gen tpx = treat_c * post1 * expo_small
+
+. gen cpx = (1 - treat_c) * post1 * expo_small
+
+. reghdfe ln_emp_GI tpx cpx lngdp lnpop if stk != 0 & k <= 0 & border_r == 0, absorb(fe_ry fe_cy) vce(cluster nuts2n)
+(dropped 42 singleton observations)
+(MWFE estimator converged in 2 iterations)
+note: lngdp is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+note: lnpop is probably collinear with the fixed effects (all partialled-out values are close to zero; tol = 1.0e-09)
+
+HDFE Linear regression                            Number of obs   =      1,672
+Absorbing 2 HDFE groups                           F(   2,    160) =       2.87
+Statistics robust to heteroskedasticity           Prob > F        =     0.0595
+                                                  R-squared       =     0.9989
+                                                  Adj R-squared   =     0.9983
+                                                  Within R-sq.    =     0.0041
+Number of clusters (nuts2n)  =        161         Root MSE        =     0.0403
+
+                               (Std. err. adjusted for 161 clusters in nuts2n)
+------------------------------------------------------------------------------
+             |               Robust
+   ln_emp_GI | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         tpx |  -.0457462   .0197366    -2.32   0.022    -.0847241   -.0067683
+         cpx |  -.0070006   .0124818    -0.56   0.576    -.0316509    .0176497
+       lngdp |          0  (omitted)
+       lnpop |          0  (omitted)
+       _cons |   4.811077   .0007188  6693.29   0.000     4.809658    4.812497
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+       fe_ry |       460         460           0    *|
+       fe_cy |       167           1         166     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. scalar b_emp = _b[tpx]
+
+. scalar se_emp = _se[tpx]
+
+. keep if stk != 0 & treat_c == 1 & k == 0 & border_r == 0
+(5,313 observations deleted)
+
+. gen double jobs_lost = emp_GI * 1000 * (exp(-b_emp * expo_small) - 1)
+(49 missing values generated)
+
+. collapse (sum) jobs_lost emp_GI_post = emp_GI, by(stk)
+
+. replace emp_GI_post = emp_GI_post * 1000
+(4 real changes made)
+
+. save "bc_jobs.dta", replace
+(file bc_jobs.dta not found)
+file bc_jobs.dta saved
+
+. use "bc_inputs.dta", clear
+
+. keep if stk != 0
+(1 observation deleted)
+
+. merge 1:1 stk using "bc_tour.dta", nogen
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                                 8  
+    -----------------------------------------
+
+. merge 1:1 stk using "bc_jobs.dta", nogen
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                                 8  
+    -----------------------------------------
+
+. gen double t_abated = co2_post_t * (exp(-b_co2_w) - 1)
+
+. gen double t_abated_hi = co2_post_t * (exp(-(b_co2_w - 1.96 * se_co2_w)) - 1)
+
+. gen double t_abated_lo = co2_post_t * (exp(-(b_co2_w + 1.96 * se_co2_w)) - 1)
+
+. gen double t_abated_unw = co2_post_t * (exp(-b_co2_u) - 1)
+
+. gen double pax_post = seats_post * 0.80
+
+. gen double pax_lost = pax_post * (exp(-b_seats_w) - 1)
+
+. gen double revenue = rev_base * 0.80
+
+. gen double dwl = 0.5 * dose_w * pax_lost
+
+. gen double carbon_val_100 = t_abated * 100
+
+. gen double carbon_val_200 = t_abated * 200
+
+. gen double tourism_loss = nights_lost * 120
+
+. gen double tourism_loss_hi = nights_lost_hi * 120
+
+. gen double cost_total = dwl + tourism_loss
+
+. gen double cost_per_t = cost_total / t_abated
+
+. gen double cost_per_t_unw = cost_total / t_abated_unw
+
+. gen double revenue_per_t = revenue / t_abated
+
+. gen double net_100 = carbon_val_100 - cost_total
+
+. gen double net_200 = carbon_val_200 - cost_total
+
+. preserve
+
+. collapse (sum) co2_post_t seats_post t_abated t_abated_hi t_abated_lo t_abated_unw pax_post pax_lost revenue dwl carbon_val_100 carbon_val_200 nights_for_post nights_lost nights_lost_hi tourism_loss
+>  tourism_loss_hi cost_total net_100 net_200 jobs_lost emp_GI_post
+
+. gen iso3 = "ALL"
+
+. gen stk = 99
+
+. gen double cost_per_t = cost_total / t_abated
+
+. gen double cost_per_t_unw = cost_total / t_abated_unw
+
+. gen double revenue_per_t = revenue / t_abated
+
+. save "bc_total.dta", replace
+(file bc_total.dta not found)
+file bc_total.dta saved
+
+. restore
+
+. append using "bc_total.dta"
+(variable stk was long, now double to accommodate using data's values)
+
+. order stk iso3 eff dose_w n_airports co2_post_t t_abated t_abated_lo t_abated_hi t_abated_unw seats_post pax_post pax_lost revenue dwl nights_for_post nights_lost nights_lost_hi tourism_loss tourism
+> _loss_hi cost_total cost_per_t cost_per_t_unw revenue_per_t carbon_val_100 carbon_val_200 net_100 net_200 emp_GI_post jobs_lost
+
+. format co2_post_t t_abated* seats_post pax_post pax_lost revenue dwl nights_for_post nights_lost* tourism_loss* cost_total carbon_val_* net_* emp_GI_post jobs_lost %15.0fc
+
+. format cost_per_t* revenue_per_t %9.1fc
+
+. save "benefits_by_event.dta", replace
+(file benefits_by_event.dta not found)
+file benefits_by_event.dta saved
+
+. export delimited using "benefits_by_event.csv", replace
+(file benefits_by_event.csv not found)
+file benefits_by_event.csv saved
+
+. di _n "==== Benefit / cost, first tax year (EUR; tonnes CO2); seat-weighted CO2 and seats effects ===="
+
+==== Benefit / cost, first tax year (EUR; tonnes CO2); seat-weighted CO2 and seats effects ====
+
+. list stk iso3 dose_w t_abated t_abated_hi t_abated_unw revenue dwl nights_lost tourism_loss jobs_lost cost_per_t revenue_per_t net_100, noobs abbrev(14)
+
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+  | stk   iso3      dose_w   t_abated   t_abated_hi   t_abated_unw         revenue          dwl   nights_lost    tourism_loss   jobs_lost   cost_per_t   revenue_per_t          net_100 |
+  |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  |   1    IRL   9.9648246      4,934        47,533        165,336     141,820,707    1,763,812       543,413      65,209,567           0     13,574.6        28,745.1      -66,480,005 |
+  |   2    DEU   12.847238     73,992       712,860      2,479,572   1,420,545,371   17,667,200     1,973,662     236,839,475      33,398      3,439.6        19,198.6     -247,107,466 |
+  |   3    AUT           8      6,699        64,544        224,508     122,519,040    1,523,759     2,331,609     279,793,036           0     41,990.9        18,287.9     -280,646,848 |
+  |   4    NOR   8.5981826      8,457        81,477        283,404     266,964,750    3,320,218       301,736      36,208,343         706      4,674.1        31,567.5      -38,682,865 |
+  |   5    SWE         6.2      9,298        89,581        311,595     166,218,905    2,067,250       485,622      58,274,687       3,233      6,489.6        17,876.5      -59,412,118 |
+  |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  |   6    GBR   16.995601     95,893       923,855      3,213,488   2,165,554,305   26,932,812     2,778,988     333,478,596           0      3,758.5        22,583.1     -350,822,145 |
+  |   7    DNK        10.1      5,534        53,313        185,441     128,484,645    1,597,952       321,872      38,624,677           0      7,268.7        23,218.6      -39,669,260 |
+  |   8    MLT        23.3        545         5,254         18,276      27,925,646      347,309       224,540      26,944,756           0     50,043.0        51,204.8      -27,237,528 |
+  |  99    ALL           .    205,352     1,978,418      6,881,620   4,440,033,370   55,220,313     8,961,443   1,075,373,137      37,337      5,505.6        21,621.6   -1,110,058,236 |
+  +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+. di _n "Parameters: load factor 0.80, carbon value 100 EUR/t (200 in net_200), spending per foreign night 120 EUR, CO2 in tonnes (kg / 1000)"
+
+Parameters: load factor 0.80, carbon value 100 EUR/t (200 in net_200), spending per foreign night 120 EUR, CO2 in tonnes (kg / 1000)
+
+. di "Coefficients: seats weighted " b_seats_w " (se " se_seats_w "), CO2 weighted " b_co2_w " (se " se_co2_w "), CO2 unweighted " b_co2_u " (se " se_co2_u ")"
+Coefficients: seats weighted -.02456951 (se .01186421), CO2 weighted -.00293501 (se .01274984), CO2 unweighted -.09394617 (se .04775822)
+
+. di "              national foreign nights " b_for " (se " se_for "), regional G-I employment x exposure " b_emp " (se " se_emp ")"
+              national foreign nights -.03080804 (se .03311494), regional G-I employment x exposure -.04574623 (se .01973662)
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_paper\04_regional_benefits_run.log
+  log type:  text
+ closed on:   3 Oct 2026, 09:20:02
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+. 
+end of do-file

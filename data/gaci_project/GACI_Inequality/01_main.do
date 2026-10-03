@@ -1,0 +1,51 @@
+* 01_main.do : Main results, inequality outcomes. Mirrors gaci_main_table.do (trade paper).
+clear all
+set more off
+set linesize 255
+cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_Inequality"
+capture log close _all
+log using "01_main_run.log", replace text
+import delimited "ineq_panel.csv", clear varnames(1) encoding("utf-8")
+ds c reg, not
+destring `r(varlist)', replace force
+encode c, gen(isocode)
+xtset isocode y
+keep if !missing(gini_mkt)
+
+tempname fh
+file open `fh' using "_main_results.csv", write replace
+file write `fh' "iv,treat,outcome,model,b,se,p,kpf,N" _n
+
+foreach ivv in tourism_int feyrer_int {
+foreach tr in ln_gaci_cwm ln_gaci_max ln_gaci_sum {
+    * first stage
+    reghdfe `tr' `ivv' lnpop, absorb(isocode y) vce(robust)
+    local fb = _b[`ivv']
+    local fse = _se[`ivv']
+    local fp = 2*ttail(e(df_r), abs(_b[`ivv']/_se[`ivv']))
+    test `ivv'
+    local F = r(F)
+    file write `fh' "`ivv',`tr',firststage,FS,`fb',`fse',`fp',`F',`e(N)'" _n
+    foreach yv in ln_gini_mkt ln_gini_disp gini_mkt gini_disp abs_red {
+        reghdfe `yv' `tr' lnpop, absorb(isocode y) vce(robust)
+        local b = _b[`tr']
+        local se = _se[`tr']
+        local p = 2*ttail(e(df_r), abs(_b[`tr']/_se[`tr']))
+        file write `fh' "`ivv',`tr',`yv',OLS,`b',`se',`p',.,`e(N)'" _n
+        ivreghdfe `yv' lnpop (`tr' = `ivv'), absorb(isocode y) robust
+        local b = _b[`tr']
+        local se = _se[`tr']
+        local p = 2*normal(-abs(_b[`tr']/_se[`tr']))
+        local kp = e(widstat)
+        file write `fh' "`ivv',`tr',`yv',IV,`b',`se',`p',`kp',`e(N)'" _n
+        ivreghdfe `yv' lnpop (`tr' = `ivv'), absorb(isocode y) cluster(isocode)
+        local b = _b[`tr']
+        local se = _se[`tr']
+        local p = 2*normal(-abs(_b[`tr']/_se[`tr']))
+        local kp = e(widstat)
+        file write `fh' "`ivv',`tr',`yv',IVcl,`b',`se',`p',`kp',`e(N)'" _n
+    }
+}
+}
+file close `fh'
+log close

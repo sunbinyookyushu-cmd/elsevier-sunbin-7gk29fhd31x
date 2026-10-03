@@ -1,0 +1,117 @@
+Short verbatim text snapshots collected 2026-10-02 for taxes_west_europe.csv. File: FRA_TAC_TSBA_TTAP.txt
+
+================================================================================
+SOURCE: https://www.assemblee-nationale.fr/13/pdf/rap-info/i3645.pdf (AN rapport d'information n. 3645, 2011)
+--------------------------------------------------------------------------------
+La taxe dite de solidarité ("la taxe") a été créée par l’article 22 de la loi de finances 
+rectificative pour 2005 n° 2005-1720 du 30 décembre  2005, sous la forme d’une majoration 
+de la taxe de l’aviation civile (TAC)3. Sa mise en œuvre n’a été effective que pour les titres de 
+transport délivrés à partir du 1 er juillet 2006, afin de laisse r le temps aux compagnies 
+aériennes de prendre les dispositions nécessaires à sa mise en œuvre. Outre-mer, elle n’est 
+applicable qu'au départ de Saint Barthélémy et de Saint Martin.  
+I. LES ÉLÉMENTS DE TAXATION  
+La taxe est une majoration de la taxe de l'av iation civile, dont les règles d’assiette, de 
+contrôle et de recouvrement étaient déjà connues des compagnies aériennes, et dont les modes 
+de gestion par la direction géné rale de l'aviation civile (DGA C) étaient stabilisés. L’exposé 
+des motifs de la loi susvisée précisait, à juste titre, que « le dispositif prévu est simple, facile à 
+mettre en œuvre, (…) avec un coût de recouvrement minime ». 
+La loi a toutefois introduit des différences entre les deux taxes en matière d’assiette et 
+de tarif afin de contenir le risque de désava ntage concurrentiel au détriment du secteur aérien 
+français. Bien qu’assise sur le nombre de passagers embarqués au départ de France, la taxe de 
+solidarité n’est pas due en cas de correspondance, contrairemen t à la TAC prélevée sur les 
+passagers, pour, précisait l’exposé des motifs, " éviter de pénaliser la  plate-forme d’échange 
+de Paris ».  
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+3 La TAC est régie par l’article 302 bis k du code géné ral des impôts (CGI). Créée en 1999, elle vise à 
+faire prendre en charge par l’impôt certains coûts de l’Av iation civile à caractère régalien, insusceptibles d’être 
+couverts par les redevances facturées aux entreprises de transport aérien public. Inchangé de 2006 à 2009, le tarif 
+distingue les voyageurs à destination du territoire nationa l, intracommunautaire ou Suisse (4,48 € par passager) 
+et les voyageurs à destination tierce (7,6 €), le tarif fret est unique (1,17 € / tonne). Elle rapporte entre 340 et 360 
+================================================================================
+SOURCE: same, annexe 1 (art. 302 bis K CGI)
+--------------------------------------------------------------------------------
+VI. - Les montants mentionnés aux deuxième et troisième alinéas du II font l'objet d'une majoration au profit du 
+fonds de solidarité pour le développement. Un décret fixe le montant de cette majoration, dans la limite 
+respectivement de 1 euros et de 4 euros, ou, lorsque le passager peut bénéficier sans supplément de prix à bord 
+de services auxquels l'ensemble des passagers ne pourrait accéder gratuitement, de 10 euros et de 40 euros. 
+La majoration est perçue selon la destination finale du passager. Elle n'est pas perçue lorsqu'il est en 
+correspondance. Est considéré comme passager en correspondance celui qui remplit les trois conditions 
+suivantes : 
+a) L'arrivée a eu lieu par voie aérienne sur l'aéroport considéré ou sur un aéroport faisant partie du même 
+système aéroportuaire au sens du règlement (CEE) n° 2408/92 du Conseil, du 23 juillet 1992, concernant l'accès 
+des transporteurs aériens communautaires aux liaisons aériennes intracommunautaires ; 
+b) Le délai maximum entre les heures programmées respectives de l'arrivée et du départ n'excède pas vingt-
+quatre heures ; 
+c) L'aéroport de destination finale est distinct de celui de provenance initiale et ne fait pas partie du même 
+système aéroportuaire. 
+================================================================================
+SOURCE: https://www.senat.fr/rap/a17-113-4/a17-113-41.pdf (Senat avis PLF 2018 Transports aeriens)
+--------------------------------------------------------------------------------
+sur les passagers en correspondance , afin de renforcer la compétitivité des 
+transpor teurs français et l’attractivité des aéroports  français  : 
+- un abattement de la taxe d’aéroport pour les passagers en 
+correspondance  dans un aéroport français  a été mis en place en 2013  ; il est 
+aujourd’hui de 40  % ; 
+- une exonération partielle, puis totale de puis le 1 er janvier 2016, du 
+paiement de la taxe de l’aviation civile pour les passagers en 
+correspondance  dans un aéroport français.  
+================================================================================
+SOURCE: https://www.assemblee-nationale.fr/dyn/docs/RINFANR5L17B2702.raw (AN rapport d'information, 2025)
+--------------------------------------------------------------------------------
+ Depuis le 1 er janvier 2022, les anciennes taxes « d’aéroport », « de l’aviation civile » et « de solidarité sur les billets d’avion » ont disparu.
+ Codifiée au sein du code des impositions sur les biens et services (CIBS), la fiscalité applicable au secteur du transport aérien comprend désormais trois taxes :
+ – la taxe sur le transport aérien de passagers (TTAP) ( [1] ) ;
+ – la taxe sur le transport aérien de marchandises (TTAM) ( [2] ) : applicable uniquement au fret et au courrier, elle n’est pas prélevée sur les bagages des passagers ( [3] ) ;
+ – la taxe sur les nuisances sonores aériennes (TNSA) ( [4] ) .
+ Les composantes de ces nouvelles taxes correspondent néanmoins à celles des taxes disparues, de sorte que l’assiette de la fiscalité du secteur aérien est restée particulièrement stable ( [5] ) .
+ Comme les vols à destination de l’étranger, « les transports aériens […] de voyageurs en provenance ou à destination […] des collectivités et départements d'outre-mer » sont exonérés de la taxe sur la valeur ajoutée ( [6] ) .
+ A. La taxe sur le transport aérien de passagers (TTAP) 
+ Cette taxe s’applique à l’ensemble des vols, sur chaque trajet mais hors correspondance, au départ de la France, ce qui inclut le territoire hexagonal, les départements et régions d’outre-mer tels que définis à l’article 73 de la Constitution, la Nouvelle-Calédonie, ainsi que collectivités d’outre-mer telles que définies à l’article 74 de la Constitution, à l’exception de Saint-Pierre et Miquelon et Wallis-et-Futuna.
+================================================================================
+SOURCE: same
+--------------------------------------------------------------------------------
+ Calcul du tarif de solidarité avant la réforme 
+ Avant le 1 er mars 2025 
+ Destination finale 
+ Catégorie de service 
+ Européenne ou assimilée 
+ Tierce 
+ Minimum 
+ Maximum 
+ Minimum 
+ Maximum 
+ Absence de services additionnels 
+ 1,13 €
+ 2,63 €
+ 4,51 €
+ 7,51 €
+ Services additionnels 
+ 11,27 €
+ 20,27 €
+ 45,07 €
+ 63,07 €
+ Calcul du tarif de solidarité après la réforme 
+ Depuis le 1 er mars 2025 
+ Catégorie de destination 
+ Catégorie de service 
+ Européenne ou assimilée 
+ Intermédiaire 
+ Lointaine 
+ Normale 
+ 7,40 €
+ 15 €
+ 40 €
+ Avec services additionnels 
+ 30 €
+ 80 €
+ 120 €
+ Aéronef d'affaires avec turbopropulseur 
+ 210 €
+ 675 €
+ 1 025 €
+ Aéronef d'affaires avec turboréacteur 
+ 420 €
+ 1 015 €
+ 2 100 €

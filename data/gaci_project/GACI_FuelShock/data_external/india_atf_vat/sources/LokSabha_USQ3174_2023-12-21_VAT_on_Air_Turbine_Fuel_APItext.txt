@@ -1,0 +1,24 @@
+Source: Lok Sabha Q&A API (sansad.in) record retrieved 2026-10-02
+Lok Sabha: 17; Session: 14; Question No: 3174; Type: UNSTARRED; Date: 21.12.2023
+Ministry: CIVIL AVIATION
+Subject: VAT on Air Turbine Fuel
+Members: [' Gopal Jee Thakur']
+Official file path (if any): https://sansad.in/getFile/lsapps/loksabhaquestions/annex/1714/AU3174.pdf?source=lsapps
+API: https://sansad.in/api_ls/question/qetFilteredQuestionsAns?loksabhaNo=17&pageNo=1&locale=en&keyWord=...  (record: LS 17, Q 3174, UNSTARRED, date 21.12.2023)
+
+QUESTION:
+(a) the percentage of VAT levied by Bihar Government on Air Turbine Fuel (ATF) at Darbhanga Airport; 
+(b) whether there is any mechanism to check unprecedented hike in air fares during the festivals at Darbhanga Airport; and 
+(c) if so, the details thereof? 
+
+
+ANSWER:
+(a) VAT rate levied by Bihar Government on Air Turbine Fuel (ATF) is 1 percent for RCS airport, 4 percent for Gaya airport and 29 percent for rest. 
+ 
+(b) & (c) During the second round of bidding under the UDAN scheme, Darbhanga airport, owned by IAF was identified for the development and to operate RCS flights. Spicejet (Selected Airline Operator) commenced RCS flights on the routes connecting Darbhanga with Bangalore, Delhi & Mumbai on 8th November, 2020. 
+ 
+The Government had capped the Airfare for the 40 RCS seats under Regional Connectivity Scheme - Ude Desh ka Aam Nagrik (RCS-UDAN) for three years, balance of Non-RCS seats airline may charge as per their business plan. Now, RCS tenure of 3 years of Spicejet has been completed on 07.11.2023 and there is no mechanism to cap the Airfare. Presently airlines operate Non-RCS flights to/from Darbhanga airport. 
+ 
+As per the prevailing regulation, airfares are neither established nor regulated by the Government. The airfare established by the airline are dynamic in nature and follow the principle of demand & supply. The fares are also dependent on a number of other factors such as the number of seats already sold on a particular flight, prevailing fuel price, the capacity of the aircraft operating on the route, competition on the sector, season, holidays, festivals, long weekends, events (sports, fairs, contests) etc. 
+****** 
+

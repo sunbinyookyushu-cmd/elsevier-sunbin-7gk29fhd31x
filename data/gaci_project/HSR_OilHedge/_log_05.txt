@@ -1,0 +1,2 @@
+C:\Users\sunbi\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyfixest\estimation\formula\model_matrix.py:149: UserWarning: 4906 singleton fixed effect(s) dropped from the model.
+  warnings.warn(

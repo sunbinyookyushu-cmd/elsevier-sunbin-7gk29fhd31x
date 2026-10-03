@@ -1,0 +1,23 @@
+\begin{tabular}{lcc}
+\toprule
+ & $\ln G^{mkt}$ & $\ln G^{disp}$ \\
+\midrule
+\multicolumn{3}{l}{\emph{Panel A. OLS, network concentration holding total connectivity fixed}}\\
+ln top-airport share of national GACI & 0.062\sym{***} (0.008) & 0.048\sym{***} (0.009) \\
+\quad ln total connectivity (sum) & 0.061\sym{***} (0.008) & 0.050\sym{***} (0.009) \\
+ln Herfindahl of airport GACI shares & 0.087\sym{***} (0.009) & 0.075\sym{***} (0.010) \\
+\quad ln total connectivity (sum) & 0.102\sym{***} (0.010) & 0.089\sym{***} (0.012) \\
+ln GACI max (with mean) & 0.050\sym{***} (0.008) & 0.038\sym{***} (0.009) \\
+\quad ln GACI mean & 0.032\sym{***} (0.007) & 0.037\sym{***} (0.008) \\
+\addlinespace\multicolumn{3}{l}{\emph{Panel B. 2SLS, hub connectivity instrumented, total connectivity as control}}\\
+ln GACI max (instrumented, Feyrer) & 0.756\sym{***} (0.119) & 1.002\sym{***} (0.155) \\
+\quad ln total connectivity (sum) & -0.105\sym{***} (0.019) & -0.141\sym{***} (0.024) \\
+KP $F$ & 48.8 & 48.8 \\
+\addlinespace\multicolumn{3}{l}{\emph{Panel C. 2SLS, interaction with concentrated baseline system (top-airport share $>0.5$)}}\\
+Distributed systems (base) & 0.618\sym{***} (0.077) & 0.748\sym{***} (0.093) \\
+Concentrated systems (total) & 0.455\sym{***} (0.067) & 0.620\sym{***} (0.082) \\
+Interaction: concentrated & -0.163\sym{***} (0.033) & -0.129\sym{***} (0.041) \\
+\midrule
+Observations & 3,735 & 3,735 \\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,166 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do gaci_tourism_main.do 
+
+. *============================================================================
+> ==
+. * gaci_tourism_main.do  --  FULL main results, tourism-heritage IV
+. *   instrument : tourism_int = (world tourism demand_t) x ln(1+natural herita
+> ge endowment)
+. *   treatments : lng (GACI sum) ; ln_gaci_cwm (hub quality)   [two panels]
+. *   outcomes   : g_vol  ln goods trade volume
+. *                g_int  ln(goods trade/GDP)  (goods openness)
+. *                g_shr  goods trade % GDP
+. *                lnpc   ln GDP per capita    (income)
+. *                lngdp  ln GDP (total)
+. *   FE country+year ; robust + clustered SE ; OLS benchmark ; KP first-stage 
+> F ; 1996-2019
+. *   emits MAINP| lines (pipe-delimited) for the Word builder.
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI
+
+. import delimited "gaci_panel_tourism_ext.csv", clear varnames(1) encoding("utf-8")
+(40 vars, 4,643 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. 
+. gen g_int = merch_intensity
+
+. gen g_shr = merch_share
+
+. gen g_vol = merch_intensity + lngdp
+
+. 
+. capture which ivreghdfe
+
+. if _rc {
+.     ssc install ftools, replace
+.     ssc install reghdfe, replace
+.     ssc install ivreghdfe, replace
+. }
+
+. 
+. capture program drop _m
+
+. program define _m
+  1.     args treat yv
+  2.     quietly {
+  3.         reghdfe `yv' `treat' lnpop, absorb(isocode y) vce(robust)
+  4.         local ob = _b[`treat']
+  5.         local op = 2*ttail(e(df_r), abs(_b[`treat']/_se[`treat']))
+  6.         ivreghdfe `yv' lnpop (`treat' = tourism_int), absorb(isocode y) robust
+  7.         local b  = _b[`treat']
+  8.         local sr = _se[`treat']
+  9.         local pr = 2*ttail(e(df_r), abs(`b'/`sr'))
+ 10.         local F  = e(widstat)
+ 11.         local N  = e(N)
+ 12.         ivreghdfe `yv' lnpop (`treat' = tourism_int), absorb(isocode y) cluster(isocode)
+ 13.         local sc = _se[`treat']
+ 14.         local pc = 2*ttail(e(df_r), abs(_b[`treat']/`sc'))
+ 15.     }
+ 16.     noisily di "MAINP|`treat'|`yv'|`b'|`sr'|`pr'|`sc'|`pc'|`F'|`ob'|`op'|`N'"
+ 17. end
+
+. 
+. foreach tr in lng ln_gaci_cwm {
+  2.     foreach yv in g_vol g_int g_shr lnpc lngdp {
+  3.         _m `tr' `yv'
+  4.     }
+  5. }
+MAINP|lng|g_vol|1.165945893000147|.4324192287601796|.0070372819738534|.830616015286135|.1621085130078792|9.713049872452881|.2370456535102126|2.12628300279e-32|4642
+MAINP|lng|g_int|.6592490835789758|.3653279072120376|.0712144681823653|.6769518644989139|.3314239376264639|9.713049872452881|-.0266495392561469|.1032952463102241|4642
+MAINP|lng|g_shr|30.9329322872912|24.53936450353235|.2075398153721221|43.80678959301845|.4810152688615952|9.713049872452881|-1.651656434628323|.1307711827291913|4642
+MAINP|lng|lnpc|.260185782856973|.2380454929845173|.2744494345301028|.4946926889513427|.599560192637839|9.713049872452881|.2011378791644243|1.06561225281e-63|4642
+MAINP|lng|lngdp|.5066976537394837|.3412612057576777|.1376733847418837|.6854286498499778|.4607124120823632|9.713049872452881|.2636952339265795|4.34319759071e-45|4642
+MAINP|ln_gaci_cwm|g_vol|2.303456248839082|.7764989374565019|.0030285490691381|1.762100373152089|.1927864481431033|18.0059369910723|1.144450291167632|5.43816810584e-53|4642
+MAINP|ln_gaci_cwm|g_int|1.302420146790841|.6623171848948758|.0493078554564644|1.268595184253524|.3059415871298974|18.0059369910723|.1572603673163491|.0014716639472816|4642
+MAINP|ln_gaci_cwm|g_shr|61.11146031719677|46.43048060614176|.1881774657417281|83.01013209745386|.4625611856204518|18.0059369910723|14.70907168758222|.0000776574709263|4642
+MAINP|ln_gaci_cwm|lnpc|.514026054707246|.4746614087688327|.2788975215836053|.9996347573152961|.6077262791455265|18.0059369910723|.8309730979790313|3.14499159045e-90|4642
+MAINP|ln_gaci_cwm|lngdp|1.001037770093308|.6801703868667045|.1411606225603615|1.466503492877741|.4957264623812844|18.0059369910723|.987190076390927|1.74196793225e-55|4642
+
+. di "DONE_MAIN"
+DONE_MAIN
+
+. 
+end of do-file

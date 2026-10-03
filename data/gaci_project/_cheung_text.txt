@@ -1,0 +1,1189 @@
+Contents lists available atScienceDirect
+Transportation Research Part E
+journal homepage: www.elsevier.com/locate/tre
+The evolution of aviation network: Global airport connectivity
+index 2006–2016
+Tommy K.Y. Cheunga,b, Collin W.H. Wongb,⁎
+, Anming Zhangc
+aDepartment of Aviation, Faculty of Science, Engineering and Technology, Swinburne University of Technology, Hawthorn, Vic 3122, Australia
+bDepartmentofSupplyChainandInformationManagement,SchoolofDecisionSciences,TheHangSengUniversityofHongKong,HangShinLink,Siu
+Lek Yuen, Shatin, N.T., Hong Kong
+cSauder School of Business, University of British Columbia, 2053 Main Mall, Vancouver, BC V6T 1Z2, Canada
+ARTICLE INFO
+Keywords:
+Airport connectivity
+Hub
+Aviation network
+Network evolution
+Index
+ABSTRACT
+This paper studies the evolution of global air transport network over the period 2006–2016. A
+Global Airport Connectivity Index (GACI) is proposed, combining degree, closeness and eigen-
+vectortopologicalindicatorsandtwonewvolumetricindicators.Wefindfasterpassengergrowth
+for larger airports that have improved in GACI. While America and North Asia focused on re-
+gional hub developments, serving short- to medium-haul routes, West Europe, South East Asia
+and Middle East focused on developing their major airports into global hubs. Our analysis shows
+that increasing GACI improves an airport’s competitive position and gives rise to increased in-
+fluence over other airports.
+1. Introduction
+Air transport has both contributed to and benefited from increased participation in the global economy that has helped many
+cities in the world become deeply connected to close trading partners. The direct economic benefits from aviation are palpable. It is
+estimated that the air transport sector directly employed 10 million people and generated US$3.0 trillion in value-added output
+globally (ATAG, 2018). Continued demand for air transport, together with ongoing opening up of the skies, provided incentive for
+airport-cities to further expand their connectivity. The number of unique city-pair connections exceeded 18,400 in 2016, a 4%
+increase from the previous year and a near doubling of the connections 20 years ago (IATA, 2017). The measure of connectivity has
+become a key indicator of the economic importance of a city in the global air transport network (IATA, 2019; Arvis and Shepherd,
+2013). Higher level of air connectivity is said to have greater potential in creating advantages for employment growth, delivering
+economic and social benefits to the area (e.g.,Irwin and Kasarda, 1991; Pearce, 2007; Bel and Fageda, 2008; Zhang, 2012; Florida
+et al., 2015). Consequently, there is a significant interest to analyse air transport networks in terms of connections. The study of air
+connectivity is also an important tool to assist stakeholders’ forecast and planning. It helps benchmark and monitor the network
+performance against that of other airports or airlines (Burghouwt and Redondi, 2013). Industry leaders or policy makers can make
+use of the study findings to identify major competition and cooperation opportunities (Burghouwt and Veldhuis, 2006). The results
+may, for instance, provide a clearer picture of destinations and airport requirements needed to attract airlines to operate new
+international routes.
+Understanding the topology of air transport network is important for two primary reasons. First, the global connectivity by air is
+growing larger and more complex. Connectivity represents a momentous proxy in understanding passengers’ route choice, including
+https://doi.org/10.1016/j.tre.2019.101826
+Received 28 January 2019; Received in revised form 31 October 2019; Accepted 11 December 2019
+⁎ Corresponding author.
+E-mail address:collinwong@hsu.edu.hk(C.W.H. Wong).
+Transportation Research Part E 133 (2020) 101826
+Available online 05 January 2020
+1366-5545/ © 2020 Elsevier Ltd. All rights reserved.
+T
+their “self-hubbing” (“self-connecting”) strategies (Malighetti et al., 2008; Suau-Sanchez et al., 2016; Zeigler et al., 2017). The
+knowledge of emergent phenomena, such as hub airport capacity as a competition barrier, the rise of middle-eastern air carriers and
+the burgeoning markets of Asia, may be improved by looking at patterns of airport connectivity in a quantitative framework, where
+passenger flows, direct and indirect linkages between airports, and airports’ regional importance are explicitly taken into con-
+sideration. Second, being a physical network, the air transport network can be viewed as a topological entity. As such, it possesses
+measurable network properties, which can help to statistically explain how major forces are reshaping global passenger flows, for
+example, the significant shift in air passenger demands that has been occurring after the global financial crisis, most notably toward
+emerging economies (Goyal and Negi, 2014; Wong et al., 2019a, 2019b). Furthermore, airport position in the air transport network
+has substantial implications across many areas of a country’s economy, especially those heavily reliant on air transportation as a
+sourceof growth. Thekey importanceisthat anairport’s abilityto effectively connectto othersaffectnot onlyin shaping patternsof
+air transport network, but also in determining relative centralities between airports, and ultimately comparative development.
+Globally, the air transport network involves around fifty very large, interconnected airports (i.e. global hubs), which collectively
+accountfor around34% ofthe world’s seatcapacity.Despitetheircentral roles,howthe connectivityaroundthesehubsarises inthe
+first place remains largely unexplained. In other words, why do certain airports become more connected and systemically important
+than others? Air transport network, in its complex network representation, has been extensively studied and a lot has been learned
+about its topological properties and about how the network, or part of it, evolves. For example,Bounova (2009)studied the topo-
+logicalevolutionofUSairnetworkandfoundthattheprototypicallow-costcarrier(SouthwestAirlines)networkwasbecomingmore
+centralized,graduallytransitioningtowardsthehub-and-spokenetworkmodel.Daietal.(2018)investigatedthetopologicalchanges
+oftheSoutheastAsianairtransportnetworkfromacomplexnetworkperspectiveovera23-yearperiodandfoundthatitexhibitedan
+intensifying disassortative mixing pattern: cities with many connections (i.e. high-degree nodes) such as Singapore and Bangkok are
+onaverageconnectedwithcitieswithfewconnections(i.e.low-degreeneighbouringnodes).Thissuggestsanincreasingdependence
+of small cities on hub-and-spoke configuration for better accessibility. Furthermore,Rocha (2017)reviewed the available literature
+andsummarised theresults of theempirical analysisof evolvingairtransportnetworks inseveral differentmarkets,including China,
+Brazil,US,andEurope.Allhisstudiedairportnetworksexhibitedapositive-skeweddistributionofdegree,suggestingthecoexistence
+of a few hub airports with many route connections and majority of airports with only a few routes. Other connectivity applications
+include airport classification for a certain market, such as the US, Europe, or the Southeast Asia–North America market (Rodríguez-
+Déniz et al., 2013; Paleari et al., 2010; Suau-Sanchez et al., 2015; Choi et al., 2019; Zhu et al., 2019). There are also studies focusing
+on national air transport networks, such asWang et al. (2011), Bing (2014), Shao and Sun (2016), Wang et al. (2016), andZhang
+etal.(2017)for China,Hua etal.(2010),CheungandGunes (2012)andJia etal.(2014)for United States,Oliveiraetal.(2016)and
+Couto et al. (2015)for Brazil,Hossain et al. (2013)for Australia, andBagler (2008)for India. The results from these studies indicate
+that the importance of an airport within the air transport network and the potential at which an airport is passed or by-passed when
+connecting passengers from an origin to a destination are linked concepts, both closely related to the measures of airport centrality
+Furthermore, air transport network is considered not only by its topology, but also by the dynamics of weight (i.e. passenger
+flows)takingplacealongtheroutes.Forinstance,theheterogeneityinthestrengthofconnectionsisveryimportantinunderstanding
+airtransportmarkets.Byconsideringalltheconnectionswithequalweight,thetopologicalapproachmightunderestimatetheimpact
+ofpassengerflowheterogeneitywhenanalysingairportcentrality.Forinstance,thestatisticalpropertiesoftheweightedairtransport
+network differ markedly in some critical parameters from those found by the topological approach. Specifically, the strength dis-
+tributionisheavilypositive-skewed,indicatingthatthepassengerflowsareconcentratedonafewroutesandavastmajorityofroutes
+have small weights. In the last decade, more than half of the world’s passenger seat capacity were covered only by 2.4% of airports,
+although6%oftheairportsoperatedhalfoftheworld’sroutes.ThisisalsoapparentintheworkofGuimeràetal.(2005),whofound
+that the world’s airport-cities with more connections were not always the most central in the network. Despite this, globally central
+airports typically have many connections, but only a few of them have very large passenger flows.
+Several studies have quantified the evolving properties of air transport networks in different countries or world regions using a
+range of measures in the topological representations with traffic information considered. For instance,Wandelt and Sun (2015)
+analysedtheevolutionofthe world’sairtransportnetworksatcountrylevelovera12-yearperiodandidentifiedcountriesandflight
+connectionsthatweretopologicallycriticalinanunweightednetworkandfunctionallycriticalinaweightednetwork.Recently,they
+alsocomparedthepassengertrafficvariations,togetherwiththetopologicalproperties,ofeightdomesticairtransportnetworksover
+the same 12-year period (Wandelt et al., 2019). They showed that most networks exhibited clear seasonal traffic patterns, and all
+networks exhibited 95% similarity between two consecutive months. Using different kinds of measures,Wang et al. (2016)applied
+market competition and concentration indexes to analyse the route development of Chinese air transport network in response to
+deregulation, competition, and airline reorganisation over an 18-year period. Finally,Allroggen et al. (2015)proposed an air con-
+nectivity metric and then evaluated the link quality and hub centrality at the world’s airports in terms of frequency, directness and
+marketaccessibility.The impactonglobal connectivityof an airport inresponse tonetwork changes wasevaluatedat the route level
+and limited to direct or one-stop connections. While these studies employed several different centrality indicators and network
+metrics as the proxies of different properties of air transport networks, they largely neglected the issue of whether those measures
+were able to (i) reflect the connect-ability exemplified by the passenger flows, and (ii) explain how an airport’s connectedness has
+increased or decreased over time.
+To provide a detailed snapshot of how airports participate in the global passenger flows, this paper has created a Global Airport
+ConnectivityIndex(GACI)bycombiningafewselectedcentralityindicatorsinaconcisewaysoastoquantifyarangeoffundamental
+properties of the weighted network. GACI provides a benchmark that is able to compare the importance of individual airports at a
+global scale across time. By examining GACI changes, one is able to identify the relevant forces driving global passenger flows. For
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+2
+someairports,flowintensity,whichisthevolumeofpassengertrafficsrelativetotheirconnectivity,issignificantandgrowing.GACI
+is also able to assess the impact of increased connectivity to passenger flows, and study how an airport’s connections with certain
+airports can amplify the benefits of passenger flows and propagate onward through subsequent links. This network effect is con-
+sidered in this paper.
+The paper is organized as follows. InSection 2we first briefly describe the set of relevant topological and weighted network
+measures, and then discuss the data collection and preliminary findings of the changes in the global air transport network. Both the
+individualindicators for airport connectivityand the overall airport centrality index (i.e. GACI) performance from 2006 to 2016 will
+be presented inSections 3 and 4, respectively. InSection 5, we examine how GACI could help airports and airlines management as
+well as policy makers to benchmark the airports’ position in the global air transport network. Finally,Section 6contains concluding
+remarks.
+2. Data and metrics
+2.1. Data preparation
+Our flight data comes from the Official Airline Guide database (OAG, 2019), which offers a comprehensive coverage of ap-
+proximately 1000 airline schedules. Specifically, route segment data is used in this study. It gives weekly passenger seat capacity of
+allthescheduledflightservicesaroundtheworld.Thedatasetcoversover3500airportsand60,000unidirectionalroutesworldwide
+overan11-yearperiodbetween2006and2016.Segmentinformationisthenaggregatedoveralltheflightsbetweeneveryconnected
+airport pair, in each year. Other flight information recorded in the segment includes origin and destination airports, operating
+carriers, and flight frequency. The data set also contains airport location information on city, country, and region.
+To focus on scheduled commercial air transport services, four types of airports are excluded in this study: (i) Military airports,
+such as air force base; (ii) Airports for private jets, charters, seasonal or seaplanes only; (iii) Heliports; and (iv) Airports that were
+closed between 2006 and 2016. A summary of the air transport networks in 2006, 2011 and 2016 is given inTable 1. While the
+number of airports has a moderate increase of around 6%, the number of direct flight routes and total capacity have both increased
+substantially by more than 25% and 44%, respectively, over the 11-year period. Furthermore, density has increased, indicating that
+more direct linkages are formed between smaller airports. This is in part also supported by the reduction in diameter of the network
+and the gain in average degree over the same period.
+2.2. Metrics formulations
+The air transport network is constructed from airports and flight routes. It consists of nodes representing the airports, and links
+that connectthe nodes. Two airports are connected in a given year if they have at least one scheduled flight between them. We use a
+graph
+G V E( , )N L
+todescribetheairtransportnetwork,where
+VNisasetof
+Nairportnodesinterconnectedbyasetof
+Llinks,
+EL.Each
+link
+i j( , ) is associated with a link weight
+wij, which represents the total number of air passengers on that link. All the links are
+collected and their aggregated weights are computed within one year into a network snapshot for each of the 11 years. Hence, the
+snapshot of the network in a given year is represented by the weight adjacent matrix,
+=W w [ ]ij. Furthermore, the topology of the
+network is represented by its non-weighted adjacent matrix
+=A a [ ]ij, where
+=a 1ij if node
+iand node
+jare connected, and 0
+otherwise.
+The quality of links can be summarized by five network centrality indicators: degree, volumetric-based flow betweenness, clo-
+seness,eigenvector, andregionalimportance.Together,these indicatorscapture distinctaspectsof whatit meanstobecentral inthe
+air transport network for individual airports. In particular, the flow-betweenness and regional-importance are uniquely developedto
+reflect the short-haul, flow-centric characteristic in air travels.
+Their definitions are as follows:
+1. Degree
+di
+ofanairportnode
+niisthenumberofothernodestowhich
+niisconnected,thatis,
+= =d ai j
+N
+ij1 .Thedegreedistribution
+overtimegivesanideaofhowthewholenetworktopologyischanging(BurghouwtandHakfoort,2001;WandeltandSun,2015;
+Cong et al., 2016), whereas exploring the association patterns among the node-degrees gives insights into the network structure.
+Let
+Dr be the number of nodes with degree
+r. The node degree distribution
+P r( )is:
+=P r D
+N( ) r
+(1)
+Table 1
+Passenger Seat Capacity and Major Properties of Global Air Transport Network, 2006–2016.
+Year Nodes Routes (direct) Total Capacity (1 0 6) Density (1 0 −3) Diameter (routes) Degree Centrality (
+d¯i)
+2006 3291 58,678 7,599.9 5.42 9 17.83
+2011 3455 67,662 9,041.1 5.67 8 19.58
+2016 3510 73,510 10,969.5 5.97 7 20.94
+Source: OAG data with authors’ calculation.
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+3
+2.Flow Betweenness
+F i( )b : The original shortest-path betweenness centrality
+C i( )bof a node
+i V N is defined as the relative
+fraction of shortest paths passing through
+i(Freeman, 1977; Liu et al., 2011). The betweenness is based on the assumption that
+travellers would choose the shortest path when they travel from one point to another (Guimerà et al., 2005; Malighetti et al.,
+2008; Lin and Ban, 2014). The path length is the number of links connecting the sequence of nodes in the path. Shortest paths
+between a pair of origin and destination nodes are the smallest number of links (in
+EL) between them. Let
+jgbe the number of
+shortest paths between
+jand
+g passing through
+i, for
+j g V, N .
+C i( )b is calculated as:
+=C i N
+i( ) 1 ( )
+b
+B j g i V
+jg
+jgN
+(2)
+where
+=N N N ( 1)B
+1
+2 is a normalizing constant.
+Such definition of betweenness centrality accounts only the shortest paths, while ignoring those other paths which contain links
+thatcan be importantin the air transport network. Air passenger movement is typicallyplanned froma specificorigin-to-destination
+and may not just travel on the shortest path only. However, without the actual passengers’ itinerary records, the shortest path
+betweenness does not relate well with the passenger flows. As our OAG dataset covers only scheduled flight seat capacity data, the
+absence of complete itinerary transit information, which includes both single and multiple itineraries with multiple stops, makes it
+difficult to assess the actual passenger flows through the network. With such data being unavailable, we adopt the flow betweenness
+centralityintroducedbyBrandesandFleischer(2005)andNewman(2005),withmodificationtoaccountfortheintensityoftransfer
+passengerflowsbetweentwoairports.Assuch.Anairtransportnetworkcanberegardedasanelectricalnetworkwithlinksactingas
+resistors and nodes the junctions between resistors. The current-flow betweenness of a node is proportional to the amount of
+“current” passing through the node. Each link is assigned a positive resistance value inversely proportional to the intensity of the
+relationship between the source and destination airports. This value can be approximated by the following conditional probability
+distribution:
+> =P w x d d s s e( | , , , )ij i j i j
+x
+wij
+(3)
+where
+=wij
+s s
+d d
+i j
+i j isthegeometricmeanoftheaveragelinkweightsofnodes
+iand
+j. Weassumethelinkintensitytobeproportional
+to the average weight of its two end nodes. The use of geometric mean log-transformed the ranges being averaged, so that it is less
+dominated by the larger value of the two
+s d( / ).
+Theflowbetweenness
+F i( )bofanairportnode
+iisaveragedoverallorigin–destinationpairsintheweightedairtransportnetwork:
+=F i N i( ) 1 ( )b
+B j g i V
+jg
+N
+(4)
+where
+i( )jg is the passenger flow through node
+ibetween origin
+jand destination
+g. Thus,
+F (i)b measures the fraction of passenger
+flows passing through node
+ibetween all possible airport-pairs in the weighted network. As passenger flow in the network traverses
+many paths, not all the connections are of equal weight. This is illustrated schematically inFig. 1. The definition also indicates that
+the nodes with high flow betweenness connect mostly to network paths whose source and destination airports interact with high
+intensity. Compared with other connectivity measures, our intensity-based flow-betweenness is still based on topology network.
+However,itisevaluatedforeachairport-pair,whichcanprovidesomedisaggregatedinformationinprobabilisticsense,suchasroute
+choices, from passengers’ perspective. The limitation of this measure is that it is not able to give an assessment of airports’ transfer
+connectivity managed by airlines or by passengers themselves (self-connecting), which depends at least partly on the airlines’
+business models, including their schedules to determine the number of potential flight connections that meet the connection time
+constraints of airports. Nevertheless, this measure may be used as a reference for the proportion of transfer passengers at an airport.
+3. Closeness
+C i( )c measures the accessibility of an airport in a network (Malighetti et al., 2008; Wang et al., 2011) or an airport
+proximity to the other nodes (Newman 2005; Mao et al. 2015). It measures the mean path length from a node to other nodes,
+Fig. 1.A network configuration shows the case where airport HKG is contained in a given route from airport LHR to airport PER.
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+4
+assuming the shortest pathbetween two nodes. Thelength of apathfrom
+ito
+j isthe number of links along the path. It isdefined
+as:
+=C i N
+Dist i j( ) 1
+( , )
+c
+j V N j i,
+(5)
+where
+Dist i j( , ) isthepathlengthfrom
+iand
+j.
+C i( )c measurestheinverseoftheaveragepathlengthbetweennode
+iandothernodes.
+Thiscentrality indicatorestimates indirectly the traffic flow that may havepassed throughan airport compared to other airports. An
+airportwith lower mean pathlength mayfindthat its passengers canreach their destinations with lessstopoversthan otherairports.
+4. Eigenvector centrality
+C i( )Eis based on the assumption that not all the connections are equal. It measures the importance of a
+nodeinthenetworkbyincorporatingtheimportanceofitsconnectedneighbours(Alderighietal.,2007).Anairporthavingmany
+connections do not necessarily have high eigenvector centrality, as the nodes to which it is connected might have lower eigen-
+vector centrality than it has. To keep track of all the connected nodes, the weighted matrix
+Wis used. Here, the weight is
+interpreted as connection strength. It is defined as:
+=C i W C j( ) 1 ( )E
+j
+ij E
+(6)
+where
+0 is the largest eigenvalue.
+5. Regional importance
+C i( )Ris a quality indicator that utilizes the within-region connectivity and link intensity (given as
+wijin
+Eq. (3)) together to quantify an airport’s importance in its region. Separating airports into their regions creates a kind of com-
+munity structure, in which the importance of each airport to its community can be measured.Guimerà et al. (2005)studied
+community structures in the air transportation network. Rather than regions, their community structures were based on finding
+groupsofdenselyconnectedairport-cities.Theyestablishedtherolesofeachairport-citybasedonitspatternofinter-community
+andwithin-communityconnections.Here,
+C i( )Rofanode
+i V N isdefinedasthemeanlinkintensity
+w¯ijoveralltheconnections
+between
+iandothernodes
+jinsidethesameregionof
+i.Anairporthasahigh
+C i( )R whenitsconnectionsinsidetheregionexhibit
+high average intensity.
+While many measures of centrality are available to characterize an airport’s positions and route connections in air transport
+networks, we limit ourselves to these five centrality indicators which, we believe, are sufficient to cover most identifying char-
+acteristicsofanairtransportnetwork.Someoftheothercommonmeasuresincludeclusteringcoefficient(WattsandStrogatz,1998),
+passengerflux(Vermaetal.,2014),GiniIndex(Alderighietal.,2007;Scholz,2012),andHubbingConcentrationIndex(Martínand
+Voltes-Dorta, 2009). More specifically, clustering coefficient measures how complete the direct flight routes of an airport has in its
+neighbourhood.Ahighaverageclusteringcoefficientisoftenassociatedwithaloweraveragetraveldistanceandafewer numberof
+legs (Ponton et al., 2013). This is similarly implied from the closeness centrality, which, however, offers broader measures of ac-
+cessibilitybetweenallneighbourhoodairports.Passengerfluxestimatesthenumberofpassengerstravellingaparticularroutebased
+ontheflightfrequencyproportionofthedestinationairport.Thefluxofpassengersonaconnectioncansometimesbeoverestimated
+asitdependsonlyonflightfrequencyofavailableonwardconnectionsfromadestinationairport,butnotdirectlytheflightfrequency
+betweentwoairports.Basedontotalseatcapacityofanairport,ourflowbetweennesscentralitymeasurestheintensityasapotential
+of the passenger flow between two airports.
+The other two measures are network concentration metrics which analyse routing through the network and the resulting traffic
+flows.GiniIndexmeasuresthespatialconcentrationofairlinenetworksbycalculatingthetrafficsharesofallairportsinthenetwork,
+while Hubbing Concentration Index (HCI) measures the hubbing behaviour of the passengers connecting to their onward travels.
+However, both focus only on analysing the network structure of a single airline, rather than the whole of air transport network.
+Intuitively, the importance of an airport in hubbing and the passenger transfer traffic shares of that airport can be indirectly in-
+terpretedfromourintensity-basedflowbetweennessand eigenvectorcentrality. Usingour flow-betweennessmeasure,weestimated
+theproportionsoftransferpassengersat11hub-airportsandcomparedtothoseactualdatafoundinLinandZhang(2016).Theresult
+of our comparison is summarized inTable A1of the Appendix. Our estimation is on average within 4% of the actual transfer
+percentages.
+3. Individual metric results
+In this section, we focus on the evolving changes of the five individual indicators over the 2006–2016 period, and the global
+passenger flows that are shaped by these changes.
+3.1. Degree centrality
+The average degree in 2016 was 20.94, but around 70% of the airports had a degree of 13 or less. This was an increase of 17.4%
+compared to the average degree in 2006 - around 70% airports had a degree of 10 or less. The long right tail of these distributions
+suggests a power law-like distribution. This is typical of the air transport network in which most airports have a relatively small
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+5
+degreeandafewhubshaveaverylargedegree.ThelatterincludeParis-CDGandFrankfurt-FRAthatareconnectedbymanyairports.
+At a first glance, the node connection mechanism is governed by the rule called “preferential attachment” (Lordan et al., 2014;
+Sheridan and Onodera, 2018), which means that the more connected a node is, the greater chance it is to be connected by other
+nodes. However, the log-log plot of the degree distribution (seeFig. 2a) shows that the degree distribution does not actually follow
+thepreferential-attachmentrulewell.Thestraightlinefitofthelog-logplotislargelyarbitrary,astherearealotofnoiseinthetailof
+thedistribution.Theplotsoftheempirical“cumulativedistributionfunction”(CDF)forthesethreerepresentativeyears(2006,2011,
+and 2016) also indicate a faster than linear decay at the tail (Fig. 2b). The tail behaviour is better characterised by an exponential
+distribution. This suggests a power law decay combined with an exponential cut off (Clauset et al., 2009), which has a density
+function:
+P r r e( ) r
+(7)
+The power law scaling parameter
+is estimated at 1.49 with the cut-off degree at around 68, and the estimated rate parameter
+= 0.0043.
+The degree is thus heavy-tailed with some airports being significantly larger than the average, but the air transport
+networkisnotscale-free.Thetotalnumberofairportshavingdegreesgreaterthantheestimatedcut-offdegreeof68,increasedfrom
+225 in 2006, to 316 in 2016. This shows that medium to large airports enhanced their connectivity by opening direct routes to new
+destinations.
+Anotherimportantfeatureweconfirmedisthatahighdegreeimpliesahighnodeweight.Overthestudyperiod,themega-degree
+(
+r 200
+) airports achieved a compound passenger-capacity growth of 5.54% year on year, as compared to only 1.55% from those
+smaller airports with passenger capacity less than 10 million.
+3.2. Flow betweenness
+The results of computing
+F i( )bfor all the airports by their geographical regions in 2006 and 2016 are shown inFig. 3. The
+betweenness centrality was plotted against their degrees and volumes. An airport with high flow betweenness is more likely to be
+locatedonthelowest“resistance”pathbetweenmultipleorigin-destinationpairsinthenetwork,andthereforemoreairtrafficpasses
+throughit.TheSydneyAirport(SYD)andSingaporeAirport(SIN)wereconsistentlythetoptwoinbetweennesscentralityduringthe
+10-years period. For many airports, high degree and/or high passenger capacity do not necessarily have high flow betweenness
+centrality. For example, the Atlanta International Airport (ATL) had a degree of 269 and a total passenger capacity of 134 M (M for
+million) in 2016, which are about 2 times the degree (136) and the passenger capacity (70 M) of the Kuala Lumpur International
+Airport (KUL) in Malaysia, and yet, KUL had more than double the flow betweenness centrality of ATL. When considering their
+geographical regions, airports located in Europe (EU) and North America (NA) generally had higher degrees, but relatively lower
+betweenness centrality than airports located in Asia (AS) and South-West Pacific (SW). The Middle-East (ME) airports have risen in
+their flow betweenness significantly in 2016 (Fig. 3b). In particular, Istanbul Atatürk Airport (IST), King Abdulaziz International
+Airport (JED), Bali Ngurah Rai International Airport (DPS), Shanghai Pudong International Airport (PVG), Beijing Capital Interna-
+tionalAirport(PEK)andDubaiInternationalAirport(DXB)roseatafasterpacethanotherairportsinthetop-30rankedbetweenness
+airports. Over the same period, Los Angeles International Airport (LAX), Bangkok International Airport (BKK), John F. Kennedy
+International Airport (JFK) and Frankfurt Airport (FRA) had dropped the most. From this indicator, we can see that the role of some
+traditional hub airports is threatened by new rising airports. For example, Hong Kong International Airport (HKG), its flow be-
+tweenness had dropped from 7600 in 2006 to around 6700 in 2016. It had been overtaken by Beijing (PEK) and Shanghai Pudong
+(PVG).Inaddition,HKG’snearestneighbour,Guangzhouairport(CAN)hadjumped43positionsinthebetweennessrankingtoreach
+Fig.2.(a)Degreedistributionlog–logplot;and(b)Cumulativedistributionfunction(CDF)oftheglobalaviationnetworkforyears2006,2011and
+2016.
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+6
+within 5 positions off HKG over the same period. As these China airports have many route destinations overlapped with HKG, the
+transit-ability of HKG had been under threat, and more passengers chose to use those China airports as their gateway.
+3.3. Closeness centrality
+The two airports in Europe (EU), Paris Charles de Gaulle (CDG) and Frankfurt (FRA), were consistently ranked the top two in
+closeness centrality during the study period. Their mean path lengths were 2.19 and 2.23 respectively in 2016, compared with the
+longest mean path length of 5.14 in the air transport network. Compared to 4.4 in 2000 (Guimerà et al., 2005) and 4.37 in 2002
+(Barrat et al., 2004), the world’s mean path length of 3.54 in 2016 indicates, as expected, that the efficiency of air travel is being
+improvedwithbetter,shorterandmoredirectpaths.Thevaluesofclosenesscentralitylieonaverysmallrange,from0.194to0.456
+in 2016, 0.178–0.454 in 2011, and 0.158–0.451 in 2006. This means that the orders of closeness centrality are very sensitive to the
+changeofnetworktopology.Ingeneral,themeanpathlengthsbetweennodesinairtransportnetworkaretypicallysmall,wherethe
+longest path length was decreasing logarithmically with the size of the network. It is apparent that high degree airports generally
+have high closeness (Fig. 4). This is also evident by the work done byYang and Zhou (2019)on China’s airfreight airport-network,
+Ciliberto et al. (2019)on the US airport-network, andWang et al. (2011)on China’s airport city network. They found that the
+rankings by degree and closeness are generally consistent in their respective regions of study. However, the closeness centrality
+values can span a rather wide range for the same degree level. If an airport can strategically connect to a set of important airports
+(hubs), its closeness can be significantly improved. Another property of closeness centrality is its positive correlation (about 0.73)
+0
+2500
+5000
+7500
+10000
+0 100 200 300
+Degree 2006
+Betweenness
+0
+2500
+5000
+7500
+10000
+0 100 200 300
+Degree 2016
+Betweenness
+Volume (Quantile) 0.08M (25%) 0.6M (50%) 3.5M (75%) 110M (100%)
+Region AF AS EU LA ME NA SW
+Fig. 3.Flow Betweenness vs. Degree in: (a) 2006 (Top); and (b) 2016 (Bottom).
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+7
+with the total capacity volume.
+3.4. Eigenvector centrality
+Many of the mega-degree airports in North America have been consistently ranked in the top eigenvector centrality, such as Los
+Angeles-LAX,Atlanta-ATLandChicago-ORD.Incontrast,manyofthemega-degreeairportsinEU,suchasParis-CDG,Frankfurt-FRA,
+Amsterdam-AMS, and Istanbul-IST, had relatively average eigenvector centrality (Fig. 5). The strong presence of low-cost carriers at
+these airports have contributed to their average eigenvector centrality, as some of the airports to which they are connected are
+relativelylowintheairporthierarchy.TheonlyexceptionwasLondonHeathrow(LHR),whichwastheonlyairportinEuroperanked
+inthetop10in2016.TheairportsinAsiaregion(AS)roseatafasterpacethanmostairportsintheotherregions.Forexample,Hong
+Kong-HKG,Beijing-PEK, Shanghai-PVG,Singapore-SIN, andIncheon-ICN haveallreachedthetop20 forthefirst timein 2016.Fig.6
+gives a summary of the eigenvector centrality distribution acrossthe regions by 2006, 2011 and 2016 respectively. Furthermore, the
+eigenvector centrality appears to increase with the degree within a region because airports with low degree are connected mainly to
+airports with high degree and, as a result, have greater importance. This is supported also by the disassortative property of the air
+transport network and the fact that most connections are intra-regional. The positive rank-correlation between eigenvector and
+degree is echoed in the work done byCampante and Yanagizawa-Drott (2018), who reported a positive correlation between the
+number of international connections to cities and the eigenvector centrality of the city.
+3.5. Regional importance
+Differentfromthepreviousfourcentralityindicators,theregionalimportanceisclearlynotcorrelatedwelltothedegree(Fig.7).
+Though most small airports had very small regional importance, there were some exceptions. Comparing 2016 with 2006, the
+Fig. 4.Degree vs. Closeness in 2006, 2011 and 2016.
+0.00
+0.25
+0.50
+0.75
+1.00
+0 100 200 300
+Degree 2016
+Eigenvector Centrality
+Volume (Quantile) 0.08M (25%) 0.6M (50%) 3.5M (75%) 110M (100%)
+Region AF AS EU LA ME NA SW
+Fig. 5.Weighted Eigenvector Centrality vs. Degree 2016.
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+8
+regional importance among airports of various degrees showed good consistency. The average
+C i( )Rin 2006 was 0.0621 and in-
+creased to 0.0740 in 2016.
+We observed two changes here. First, the top regional importance in 2006, Yamaguchi Ube Airport (UBJ) dropped to the 6th
+position in 2016, with its
+C i( )Rdropped by almost half, to 0.551. This hinted that it was difficult to maintain very high capacity for
+only one route. Second, more medium-size airports expanded their regional connections. In 2006, there were only 78 airports with
+high
+C i( )R 0.25, and this had since increased to 125 airports in 2016. Interestingly, these airports of high regional importance were
+almost all located in Asia in 2006 but had scattered to a few other regions in 2016.
+4. Global airport connectivity index (GACI) evolution 2006–2016
+One of the basic questions about air transport network is the identification of important airports worldwide. As global passenger
+flows become more concentrated in the hub cities and at the same time, more dispersed to secondary airports within those cities
+(Wong et al., 2019a), some secondary airports have risen in their global positions in the air transport network. While hub airports
+remain more connected than ever, emerging markets are gaining share of total inbound and outbound travellers. Some of the main
+airports in emerging markets have started to surpass the traditional hubs in global importance. We have developed a Global Airport
+Connectivity Index (GACI), which measures each airport’s relative importance in the air transport network, by combing the five
+selected centrality indicators into a single score. It helps identify and assess dominant airports as to where they rank in relation to
+their counterparts, upon changes of network topology and passenger flows through the network over time. The weight associated
+with each indicator is tuned in a specific way which (i) retains the most valuable parts of all of the indicators, and (ii) gauges the
+potential scale of future passenger flows to facilitate comparison of GACI over time.
+0.00
+0.01
+0.02
+0.03
+AF AS EU LA ME NA SW
+Regions of the World
+Average Eigenvector Centrality
+Years 2006 2011 2016
+Fig. 6.Average Eigenvector Centrality Across 7 Regions of the World in 2006, 2011 and 2016.
+0.00
+0.25
+0.50
+0.75
+1.00
+0 100 200 300
+Degree 2006
+Regional Importance
+0.00
+0.25
+0.50
+0.75
+1.00
+0 100 200 300
+Degree 2016
+Regional Importance
+Region AF AS EU LA ME NA SW
+Fig. 7.Regional Importance vs. Degree: 2006 and 2016.
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+9
+To create GACI, we first examine the correlations between the rankings obtained using the different centrality indicators and
+provide some guidance for the tuning of the weights. Specifically, we examine the four centrality indicators: degree, closeness,
+eigenvector, and flow-betweenness, which are node-level indices of centrality related more to the topology of the network. Their
+Spearman correlations are computed after ranking the indices. Scatter plot matrix of the four ranked indicators and their corre-
+spondingSpearmancorrelationsareshowninFig.A1intheAppendix.Thefourindicatorsareclearlyrank-correlated(withSpearman
+correlation>0.7), but this result does not diminish the fact that each is measuring a distinct aspect of the air transport network.
+Furthermore, the poor correlations appearing at lower ranks hint that these four indicators lack the capacity to rank small degree
+airports in the same order.
+An additional characteristic of the air transport network has been investigated in an attempt to produce a more stable GACI
+ranking across all airport sizes, not just for the most highly-ranked nodes. The regional importance indicator
+C i( )R
+is found to be an
+importantquality metricof airport connections.Tojustifythe choicemade,wecomparethe correlationsbetween GACIandcapacity
+volumesacrossthefourquantilesoftheairportdegrees,withandwithout
+C i( )R
+includedintheGACI.Forthelowertwoquantiles,the
+correlationhas improved from 0.3to 0.51 when
+C i( )Ris included. Atthe third quantile, the improvement is similar, from 0.4 to 0.56.
+At the fourth quantile (largest degree), the improvement is substantially less, from 0.9 to 0.91 only, indicating that
+C i( )Ris less a
+contributing factor for mega-degree airports.
+The GACI is computed using Principal Component Analysis (PCA) to extract the most informative component from the five
+centralityindicators.Ofthenumberofmultivariatemethodsavailable,PCA(CostaandCesar,2001;Dudaetal.,2001)andCanonical
+Variate Analysis (CVA) (Duda et al., 2001; McLachlan, 2004) are the most popular approaches for exploring range of variation and
+interrelationships present in the entire dataset. While both methods are linear dimension reduction technique, they differ in the way
+the projection directions are found. In PCA, linear combinations of the original variables are found which capture most of the
+varianceinthedataandareorthogonal,whereasinCVA,theyareselectedtomaximisethedistancesbetweengroupsrelativelytothe
+withingroupvariance.Inessence,CVAmaximisesthediscriminationinsteadofvariabilityofthedata.However,theidentificationof
+a priori “group” for CVA presents a methodological problem. Thus, the PCA is preferred in this study in the absence of any priori
+decision of the group structure underlying the dataset.
+The GACI is defined as:
+= D C F C CGACI [ , , , , ] c b E R
+_
+(8)
+where
+D C F C C, , , ,c b E R correspond to the
+N-dimensional column vectors and
+= [ , , , , ]
+_
+1 2 3 4 5
+' is a weight vector determined by
+the first principal component or the direction of maximum variance in PCA. As these five indicators all have different ranges, raw
+scores of each indicator are standardised in a way that their ranking order within the same year and relative scores across the years
+arepreserved.ThismakesGACIatime-independentindexabletotrackandcompareairportimportanceacrosstime,bothagainstthe
+airportsthemselvesandwitheachother.Theweightvector
+_foreachoftheairtransportnetworksin2006,2011and2016isshown
+inTable 2. The percentage of the total variance explained by the first principal component is found to be between 65% and 68%.
+Table 3shows the GACI changes over the 11-year period. Overall, majority of the airports had a marginal increase of GACI.
+However,therewerestillover3100airports,or88%ofthetotal,whichhadtheGACIbelow1.0in2016.Asareferencefortherange,
+airportswithGACIabove1.0hadcontributedto81%ofthetotalcapacity.Thisconfirmstheobservationthatairtransportnetworkis
+highly concentrated at a few large airports (about the top 12% of the airports). Clearly, it is strategically important for airports to
+increase GACI as well as improve the ranking, by improving their underperformed indicators.
+From the plot of GACI versus capacity volume of world airports in 2016 (Fig. 8), an airport with high GACI generally has high
+capacity volume. Apart from its country’s and the world’s GDP growth, an airport’s capacity growth also depends on its centrality in
+the air transport network. Indeed, most airports’ capacities have grown more quickly with higher GACI. In addition to the mea-
+surementsrelatedtodirectconnectivityandregionalimportance,itisalsopossibletoextendGACIbydirectlyincludingthecapacity
+volumes between pairs of airports. Instead, we have characterized capacity volumes in a more generalized fashion in GACI, by
+considering the flow intensity of connections around each airport based on its node-strength (Eq.(3)), allowing the consideration of
+passenger spillover effects to the airport’s connected neighbours in the presence of direct and indirect connections.
+AnotherinterestingobservationfromFig.8isthattheaveragecapacityvolumeofairportsinAsiahadahighestvolumeperGACI
+when the GACI was below 2.75. Past this point, the AS airports were outperformed by those mega-degree airports in ME and NA,
+where there were higher traffic concentrations at larger hub airports. With the exception of LHR, most airports in Europe had lower
+capacity volume per GACI. In 2016, there were 1450 airports with GACI below 0.6. These airports generally had very low passenger
+volumes.
+Table 4shows the top-55 airports (with GACI ≥ 2.0) in 2016, and their GACI and rank changes since 2006. When considering
+Table 2
+The Weight Vector and % of Variance Explained by the First Principal Component.
+Year
+D
+CC
+Fb
+CE
+CR % variance explained
+2006 0.675 0.494 0.435 0.312 0.118 65%
+2011 0.696 0.469 0.451 0.285 0.107 66%
+2016 0.704 0.458 0.439 0.297 0.115 68%
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+10
+their geographical regions, NA had most airports (42%) in the top-55 GACI, followed by AS (27%) and EU (24%). Airports in AS and
+ME achieved the largest improvements in both GACI and ranks in the 11-year period. On average, ME airports had improved their
+GACIs by 47% and ranks by 59 positions. AS airports had improved their GACIs by 26% and ranks by 26 positions over the same
+period. On the other hand, many mega-degree airports in North America and Europe, like Washington-IAD, Detroit-DTW, Boston-
+BOS,New York-JFK, Frankfurt-FRA, and London-LHRperformed worse than others. This shows that there was a shift of connectivity
+concentrationfromEuropeandAmericatoAsiaandMiddleEast.ItisimportanttonotethatNAandEUtogetherhave40%moreseat
+capacitythanthewholeofAS.Thus,airportsinASaremoreincompetitionwithotherEUandNAdestinationsthantheirintra-region
+counterparts. Furthermore, travel within Asia (AS3-AS4), and between EU1 and ME1, have greater growth potential. The former has
+almost doubled the share percentage of global flows from 5.4% to 10% between 2006 and 2016, while the latter has increased from
+4.2% to 6.3%. In the same period, the busy transatlantic route (EU1-NA1) has dropped from 11% to 8.4%. The ability for large
+international airlines to serve wider Asian markets is most likely expedited through strategic partnerships and alliances with carriers
+having geographic positioning in Asia Pacific and possessing large fleets. As a consequence, some of the regional hub airports in NA
+andEUmayestablish moredirectflightstotheircountries’gatewayairportsto servethe newopportunitiesin thehigh-growthAsian
+market area.
+5. Findings, discussions and applications
+5.1. GACI and global hub development
+The five centrality indicators of GACI cover both structural and volumetric properties, allowing GACI as an effective classifier for
+hub airports. The classification of hub airports within each world region can also be determined by applying the concept of com-
+munityinnetworksciencetothewholeregion.Someairportsareconnectedwithintheirregion-as-a-community,andsomehavelinks
+evenly distributed among the regions. The measure of an airport’s connectivity to its outside regions is called “participation coef-
+ficient”(VargasandWahl,2014)innetworkanalysis.Airportswithhighparticipationcoefficientsplayaroleofregionalconnectorin
+the global air transport network. The participation coefficient for an airport
+iis defined as:
+=
+=
+P i d
+d( ) 1
+r
+R
+ir
+i1
+2
+(9)
+where
+R is the number of disjoint regions in the air transport network,
+dircorresponds to the number of links of airport
+ito other
+airportswithin region
+r, and
+diis the total degree of this airport.
+P i( ) 1ifthe links of airport
+iareuniformly distributed among the
+regions, and
+P i( ) 0 if all of its links are within its own region. The number of disjoint regions,
+R, is based on the OAG’s regional
+Table 3
+GACI Evolution, 2006–2016.
+Year Average GACI Min GACI Max GACI Number of airports with GACI
+<0.5 0.5–1.0 1.0–2.0 ≥2.0
+2006 0.728 0.360 3.275 239 2710 301 41
+2011 0.719 0.380 3.286 345 2731 333 49
+2016 0.727 0.408 3.392 307 2797 351 55
+0e+00
+5e+07
+1e+08
+1 2 3
+GACI 2016
+Volume
+Region AF AS EU LA ME NA SW
+Fig. 8.2016 GACI vs. Volume.
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+11
+classification as shown in AppendixTable A2.
+The participation coefficient and GACI were examined together to quantify the airport hubness. A hub was defined with
+GACI≥2.0.Thisvaluewasfoundbyapplyingtheoptimalone-dimensionalk-meansclusteringalgorithm(WangandSong,2011)on
+theGACIin 2016.ThealgorithmessentiallypartitionstheGACIvaluesof3510airportsintoanumberofgroupssuchthatthesumof
+squareswithin-groupsisminimized.TheGACI≥2.0correspondstothesmallestGACIofthegroupthathasthehighestgroup-mean.
+Airports in this group are sufficiently well-connected to be considered as hubs. These hub airports can be further classified into
+regional hubs or global hubs, depending on their participation coefficient. Following the work byGuimerà et al. (2005), nodes with
+participation coefficient (
+P 0.62)were classed as nodes with most links within their community, so-called “nonhub connector
+nodes’’, while (
+>P 0.62) were classified as nodes with links homogeneously distributed among all communities. Thus, we define a
+Table 4
+Top-55 Airports Ranked by GACI, 2016.
+Airport (ranked by 2016
+GACI)
+GACI 2016 GACI 2011 GACI 2006 Rank Change from
+2006
+% GACI Change from
+2006
+Region Airport City-Country
+PEK 3.392 2.996 2.386 18 42.14% AS Beijing, China
+CDG 3.225 3.083 2.942 3 9.62% EU Paris, France
+FRA 3.131 3.286 3.275 −2 −4.39% EU Frankfurt, Germany
+LAX 3.116 3.168 3.239 −2 −3.80% NA Los Angeles, USA
+DXB 3.008 2.581 2.142 28 40.40% ME Dubai, UAE
+AMS 2.982 3.031 2.779 1 7.29% EU Amsterdam, Netherlands
+PVG 2.912 2.423 1.918 39 51.76% AS Shanghai, China
+IST 2.908 2.204 1.825 50 59.41% EU Istanbul, Turkey
+ORD 2.906 2.860 2.950 −5 −1.49% NA Chicago, USA
+ATL 2.865 3.167 3.023 −7 −5.23% NA Atlanta, USA
+JFK 2.763 2.679 2.905 −5 −4.89% NA New York, USA
+SIN 2.748 2.862 2.470 3 11.26% AS Singapore
+HKG 2.730 2.466 2.391 5 14.18% AS Hong Kong
+LHR 2.721 2.640 2.751 −5 −1.09% EU London, UK
+YYZ 2.674 2.652 2.766 −7 −3.32% NA Toronto, Canada
+SFO 2.656 2.609 2.321 4 14.46% NA San Francisco, USA
+ICN 2.606 2.387 2.274 7 14.59% AS Seoul, Korea
+CAN 2.603 2.265 1.817 43 43.23% AS Guangzhou, China
+EWR 2.547 2.569 2.649 −9 −3.87% NA New York, USA
+DFW 2.522 2.648 2.552 −9 −1.18% NA Dallas, USA
+BKK 2.496 2.599 2.522 −9 −1.03% AS Bangkok, Thailand
+IAH 2.443 2.433 2.503 −9 −2.40% NA Houston, USA
+MUC 2.417 2.337 2.310 −1 4.64% EU Munich, Germany
+DEN 2.405 2.714 2.485 −10 −3.22% NA Denver, USA
+NRT 2.403 2.217 2.262 2 6.22% AS Tokyo, Japan
+FCO 2.389 2.312 2.038 13 17.22% EU Rome, Italy
+MAD 2.354 2.389 2.158 4 9.10% EU Madrid, Spain
+MIA 2.334 2.251 2.212 2 5.53% NA Miami, USA
+SEA 2.322 2.447 2.158 3 7.57% NA Seattle, USA
+JED 2.313 1.850 1.634 55 41.58% ME Jeddah, Saudi Arabia
+KUL 2.287 2.417 2.134 3 7.17% AS Kuala Lumpur, Malaysia
+MSP 2.286 2.304 2.237 −3 2.18% NA Minneapolis, USA
+MCO 2.266 2.191 2.091 3 8.33% NA Orlando, USA
+LGW 2.265 2.194 2.263 −8 0.08% EU London, UK
+BOS 2.263 2.334 2.399 −19 −5.67% NA Boston, USA
+SYD 2.260 2.299 2.292 −13 −1.43% SW Sydney, Australia
+LAS 2.257 2.440 2.270 −12 −0.58% NA Las Vegas, USA
+DOH 2.196 1.778 1.386 93 58.40% ME Doha, Qatar
+MNL 2.181 2.090 1.863 15 17.09% AS Manila, Philippines
+IAD 2.152 2.452 2.399 −23 −10.27% NA Washington, USA
+BCN 2.135 2.187 1.881 8 13.50% EU Barcelona, Spain
+CTU 2.124 1.526 1.258 131 68.87% AS Chengdu, China
+DTW 2.092 2.274 2.321 −22 −9.85% NA Detroit, USA
+YUL 2.091 2.108 2.042 −6 2.38% NA Montreal, Canada
+MAN 2.082 1.891 1.934 −1 7.64% EU Manchester, UK
+TPE 2.081 1.864 1.708 23 21.80% AS Taipei, China
+BRU 2.070 2.166 1.770 18 16.96% EU Brussels, Belgium
+FLL 2.061 1.956 1.700 26 21.26% NA Fort Lauderdale, USA
+HND 2.049 1.882 1.449 64 41.41% AS Tokyo, Japan
+PHX 2.037 2.115 2.086 −13 −2.36% NA Phoenix, USA
+CLT 2.036 1.965 1.942 −9 4.84% NA Charlotte, USA
+DEL 2.021 1.888 1.696 24 19.16% AS Delhi, India
+MXP 2.014 2.020 2.116 −16 −4.82% EU Milan, Italy
+YVR 2.009 1.929 2.030 −13 −1.03% NA Vancouver, Canada
+CGK 2.005 2.077 1.703 17 17.73% AS Jakarta, Indonesia
+T.K.Y. Cheung, et al.
+Transportation Research Part E 133 (2020) 101826
+12
+regional hub with
+P i( )
+0.6 and a global hub with links evenly distributed among all 17 regions (
+P i( )>
+0.6) . In total, there were 29
+global hubs and 26 regional hubs in the world in 2016. There were less than 6% of the airports with the participation coefficients
+greater than 0.6. This suggests that most of the airports are connecting to their own regions. In 2016, there were over 75% of routes
+andover80%airlinecapacitiesbelongtointra-regional.Fig.9showstheresultsofGACIagainstparticipationcoefficientinfourmain
+regions (EU1, NA1, AS4 and ME1). The hub airports in these regions have taken different pathways in their developments. For
+government policy makers, understanding and leveraging the position of their city airports is critical. Thisrequires prompt decisions
+tobemadeaboutexpandingthecorrespondinginfrastructuresandimplementingsuitablepolicyandincentiveschemestoprotectthe
+airport’sposition.Forinstance, an airportlocated withinshort- andmedium-haulreach of aninternational market canposition itself
+as being a regional hub in a part of the low-cost carrier network, for connecting passengers between a hub city and the oversea
+market.Supportfromthecitygovernmenttoprovidesurfacetransportconnectionstotheairportisdeemedcriticaltoenhancepublic
+accessibility (Zhu et al., 2018). Airports must also provide appropriate infrastructure such as sufficient passenger facilities and
+aircraftparkingpositions.Understandingtherouteopportunitiesthatcanimprovetheairport’sGACIandmatchingtheinfrastructure
+to required aircraft types are just two possible strategic actions of the airport to attract more international airlines.
+North America, China and Russia focused on developing regional hubs:Despite having the largest number of airports in its
+region, NA1 only had five global hubs, namely, Los Angeles-LAX, New York-JFK, Toronto-YYZ, Miami-MIA, and Montréal-YUL. In
+AS4, three airports were classified as global hubs: Hong Kong-HKG, Tokyo-NRT, and Seoul-ICN. Both these regions have quite many
+regional hubs. There was a rising trend that many of the larger-volume airports in these regions are getting close to the GACI 2.0
+mark. They are expected to develop into regional hubs in the near future.
+West EU and Middle East focused on developing Global Hubs:The megaairports in these two regionshaddevelopedthemselves
+into global hubs. West Europe (EU1) had the largest number of global hubs (11), while ME1 had 3. These airports play a similar role
+inconnectingalargenumberofpassengers ontransatlanticroutes.Furthermore,ME1hadmoreairportsinthe lowerrightquadrant,
+indicating its efforts focusing more on expanding secondary airports into global hubs, instead of regional hubs.
+1
+2
+3
+0.0 0.2 0.4 0.6 0.8
+Participation
+GACI 2016
+Degree (Quantile) <=1 (0%) 2 (25%) 4 (50%) 12 (75%) 260 (100%)
+Region NA1
+Fig. 9.a. NA1 Region - Global and Regional Hubs. b. AS4 Region – Global and Regional Hubs. c. EU1 Region – Global and Regional Hubs. d. ME1
+Region – Global and Regional Hubs.
+Regional Hubs Global Hubs
+PVG
+HKG
+ICN
+PEK
+1
+2
+3
+0.0 0.2 0.4 0.6 0.8
+Participation
+GACI 2016
+Degree (Quantile) <=1 (0%) 2 (25%) 4 (50%) 12 (75%) 260 (100%)
+Region AS4
+Fig. 9.(continued)
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+13
+5.2. Major and secondary airports developments in different regions
+Airports with GACI 1.0 – 2.0 (Table 3) are considered as the rising stars. These 300+ airports contributed to about 50% of the
+world passenger seat capacity. They are also mostly operated as major or secondary airports in their region and would potentially
+becomethe super hubairportsinthe future.Table5summarisesthe statisticsofthis groupofairports acrossthe sevenregions ofthe
+world. Europe was the fastest growing region for this type of airports, and was followed by Asia. On the other hand, North America
+dropped significantly. Indicated also from the analysis of participation coefficients inSection 5.1, it is expected that some of these
+rising stars will become global hub airports in the future. More specifically, as indicated inSection 5.1Europe has already had the
+largest number of global hubs. This hub market is consolidated and is difficult for airlines to enter due to capacity limitations caused
+Regional Hubs Global Hubs
+1
+2
+3
+0.0 0.2 0.4 0.6 0.8
+Participation
+GACI 2016
+Degree (Quantile) <=1 (0%) 2 (25%) 4 (50%) 12 (75%) 260 (100%)
+Region EU1
+Fig. 9.(continued)
+Regional Hubs Global Hubs
+DXB
+1
+2
+3
+0.00 0.25 0.50 0.75
+Participation
+GACI 2016
+Degree (Quantile) <=1 (0%) 2 (25%) 4 (50%) 12 (75%)
+Region ME1
+Fig. 9.(continued)
+Table 5
+Performance of Major or Secondary Airports (with GACI 1.0–2.0) across Different Regions.
+2006 GACI 2016 GACI
+Region Average Median No. of airports Total Average Median No. of airports Total
+AF 1.18 1.10 14 16.46 1.22 1.13 17 20.73
+AS 1.24 1.11 51 63.03 1.29 1.21 77 98.98
+EU 1.30 1.20 76 98.49 1.31 1.22 108 141.70
+LA 1.27 1.21 27 34.41 1.30 1.21 32 41.63
+ME 1.23 1.19 16 19.67 1.35 1.28 14 18.86
+NA 1.34 1.29 107 143.78 1.32 1.28 92 121.70
+SW 1.28 1.18 10 12.83 1.28 1.13 11 14.13
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+14
+by,amongothers,environmentalconcerns.ExamplesincludetheconstructiondelayinthethirdrunwayatHeathrowairport,andthe
+capacity limit at Schiphol airport (500,000 flights/year, until 2020). Schiphol already reaches the limit, and nobody knows for sure
+whatwillhappenafter2020.1 DifferentfromBurghouwt(2007)whopointedoutthatmajorEuropeanairlineswerestillconcentrated
+atafewlargehubairportsintheearly2000s,BelandFageda(2008),Reynolds-Feighan(2010),Suau-SanchezandBurghouwt(2011)
+and Wong et al. (2019a)found a de-concentration and hub by-passing trend at some traditional European mega airport hubs during
+recent years. The tight global hub market would give opportunities for some major secondary airports to move up the ladder. At the
+sametime,newconnectivitystrategies togetherwith atrafficspillfromthe largestairportsmayresult inmore andnewsmaller hubs
+in Europe.
+2
+While for Asia, there will be fast development of both global and regional hubs, led by the rapid growth of air services and the
+continuous rapid expansion of LCC networks – according toCAPA (2019), LCCs have quadrupled their total seat capacity in the
+region over the past decade. As mentioned in the introduction, the aviation industry has led to increased employment and service
+quality in local markets, especially for the high-tech, business, local tourism and logistics sectors. Some of those fast rising airports
+canleverage offestablishedinternationalpassengerflowsto theirregionswithconnectionsto thehigherGACIgateway airports,and
+build up sufficient frequency and capacity to enable commercially viable direct air services to those international destinations. To
+airlines, these are also the new routes and new bases that could be explored to increase connectivity. By strategic partnerships with
+the airlines, those fast rising airports and their networks can effectively feed and connect passengers to a larger network.Table 5
+showsthatmanyairportsinAsiaandEuropeappeartohavegreatgrowthpotentials.ForNorthAmerica,25airportshavetheirGACI
+dropped below 1.0, while only five airports manage their GACI to rise above 1.0, suggesting that the airport expansion in NA may
+slow down in the near future.
+In terms of the individual indicator performance, the flow-betweenness, closeness and regional importance had minor im-
+provements across the regions over the years for this category of airports. The degree and eigenvector centralities, however, de-
+monstrated significant improvements, particularly in Asia and Middle East (Fig. 10). This shows that some of the airports in this
+category have been operating as good major or secondary airports, which improved, perhaps strategically, their GACI by connecting
+to more and important airports (super hubs) in the global network.
+5.3. Development of new routes with high GACI
+As shown inTable 4, there were several airports attained significant level of improvement in GACI over the 11-year period. This
+section takes some of the good and poor performers from the four main regions: Asia, Europe, Middle East and North America, and
+analyses their similarities. Specifically, the three good performers are PVG in Shanghai, IST Istanbul, DXB Dubai, and the poor
+performer IAD Washington DC. In addition, there appears to be no significant change in South West Pacific (SW1) Region. For the
+good performers, the number of new routes were all substantially more than their cancelled routes. The quality of those new routes
+measured by the GACI of their destination airports is at a high average (Table 6), compared to the global average GACI of 0.727 in
+2016 (Table 3). On the other hand, the poor performer, IAD, experienced a significant negative change in rank and GACI. It had
+cancelled 77 routes but developed only 55 new routes during the same period. Unfortunately, the cancelled route quality is also at a
+highaverage,whichcontributestoIAD’sdropinGACIranking.Clearly,itisintheinterestoftheairporttorecommend,promote,and
+perhaps incentivise new flights for a new route, particularly to those destinations that can improve the airport’s own GACI, thereby
+elevating the importance of the city in the global air transport network.
+5.4. GACI changes across 17 regions
+By further comparing the GACI changes of all the airports in the 11-year period, there were total of 1192 airports experiencing
+absolutechangesof 0.05orabove.The restof the 1707Airports,whichhadaGACI changelessthan0.05hadan averagenet change
+ofnewandcancelledrouteslessthan2.Thechangestotheirairtransportnetworkconnectivitywerethusinsignificant.Ontheother
+hand,therewere32airportswithlargeabsoluteGACIchanges(
+>0.4),and12ofthemthathadtheirGACIcrossedabovethe1.0mark
+showed a significant improvement in connectivity to become a major or hub airport in their region in 2016.Table 7shows the
+summary statistics of the airports and their new/cancelled routes across the 17 regions with different ranges of GACI changes.
+Clearly, the new connectivity was not chosen at random. To achieve a positive GACI change, airports must strategically develop
+their new routes. Many airports actually preferred introducing new routes within their own region over inter-regions. However, it is
+often the case that inter-region new routes would have a larger (positive or negative) impact to the GACI changes. Among airports
+that have positive GACI changes, most of them are located in North Asia (mostly China in the AS4 region), followed by West Europe
+(EU1) and South East Asia (AS3). From the airport connectivity perspective, Asia and Europe are the two leading regions of fast
+1 The plan “Smart and Sustainable Flying” launched by the Dutch aviation industry in 2018 contains action points that would make flying less
+polluting,sothatadditionalgrowthwouldbe(perceivedas)lessharmful.Furthermore,thecityof Amsterdamisactivelytrying tolimitthenumber
+of tourists in the city centre (by introducing higher tourist taxes, limiting the number of buses, etc.).
+2Outside of Europe, studies in the late 1990s and early 2000s concluded that traffic concentration in the form of “hub and spoke” network
+dominatedtheairlineindustryintheUS(e.g.,GoetzandSutton,1997;Reynolds-Feighan,2001)andinSoutheastAsia(Bowen,2000).Laterstudies
+neverthelesssuggestamoremixedoutlook,orevenadispersaltrendinglobalairtravel(e.g.,O’Connor,2003;Reynolds-Feighan,2010;Wongetal.,
+2019a, 2019b).
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+15
+0
+50
+100
+150
+AF AS EU LA ME NA SW
+% Changes in Average Centrality
+Types Degree Eigen
+Regions of the World
+Fig. 10.Average Degree and Eigenvector Centrality Percentage Changes for Airports with GACI 1.0 – 2.0.
+Table 6
+Selected Airports Development in the Top Class (2016 vs. 2006).
+Airport (ranked by
+2016 GACI)
+GACI
+2016
+GACI
+2006
+Rank Change
+from 2006
+% GACI Change
+from 2006
+No. of new
+routes
+No. of cancelled
+routes
+GACI of new destination airports
+Mean (min – max)
+PVG 2.912 1.918 39 51.76% 148 9 1.02 (0.63–2.87)
+DXB 3.008 2.142 28 40.40% 107 22 1.32 (0.67–3.12)
+IST 2.908 1.825 50 59.41% 161 16 1.05 (0.62–3.12)
+GACI of cancelled destination airports
+IAD 2.152 2.399 −23 −10.27% 55 77 1.07 (0.65–2.52)
+Table 7
+Summary Statistics of GACI Changes among 17 Regions, 2006 – 2016.
+GACI Change (+ve) >0.4 0.2–0.4 0.05–0.2 GACI Change (−ve) −0.05 to −0.2 −0.2 to −0.4 <−0.4
+Number of airports 32 101 515 Number of airports 500 42 2
+Avg GACI 06 1.2296 1.1552 0.7826 Avg GACI 06 0.8334 1.2798 1.6106
+Avg GACI 16 1.8626 1.4288 0.8890 Avg GACI 16 0.7430 1.022 1.1359
+Avg no. of net routes 80.25 43.772 15.2136 Avg no. of net routes −5.564 −36.929 −52
+Avg Max new destination GACI 3.0580 2.9087 2.6381 Avg Max cancel destination GACI 2.1735 2.7341 3.2754
+Avg Min new destination GACI 0.6000 0.60778 0.7247 Avg Min cancel destination GACI 0.8091 0.6579 0.6079
+Regional new routes 1562 3115 6671 Regional cancel routes 4930 1868 83
+Inter-region new routes 1227 2389 3842 Inter-region cancel routes 1468 313 42
+Airport Region Distribution with Significant GACI Change
+AF1 0 3 16 AF1 15 1 0
+AF2 0 1 3 AF2 7 0 0
+AF3 0 1 10 AF3 13 0 0
+AF4 1 0 11 AF4 5 0 0
+AS1 0 4 22 AS1 18 1 0
+AS2 0 0 10 AS2 4 0 0
+AS3 2 10 46 AS3 19 0 0
+AS4 19 22 108 AS4 28 0 0
+NA1 0 4 43 NA1 203 37 1
+LA1 0 1 12 LA1 21 0 0
+LA2 0 2 9 LA2 20 0 0
+LA3 0 2 10 LA3 13 0 0
+LA4 0 3 30 LA4 14 2 0
+EU1 5 35 109 EU1 48 0 0
+EU2 0 8 47 EU2 17 0 0
+ME1 5 5 19 ME1 25 1 1
+SW1 0 0 10 SW1 30 0 0
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+16
+growth. In terms of capacity changes, the average growth percentage per airport that has a positive GACI change over the 11-year
+period is 963%, which is more than 3 times the global average of 293%.
+Among airports with negative GACI changes, most of them had significant decreases in the net number of routes. Many of these
+airports also had a high proportion of cancelled routes with relatively higher GACI airports. They were mostly located in North
+America (NA1), indicating a diminishing trend in global connectivity by the US airports during the 11 years. In terms of capacity
+changes, the average growth percentage for this group of airports that have negative GACI changes is merely 7.6%, which is well
+below the global average.
+6. Concluding remarks
+Thispaperhas analysedthe nature andevolution of the worldairtransportnetwork bydeveloping andapplying aGlobal Airport
+Connectivity Index (GACI). This GACI has incorporated the topology and volumetric characteristics of an airport, as well as its
+regionalimportanceintheglobalairtransportnetwork.Morespecifically,theGACIcombinesexistingcentralityindicatorsincluding
+degree, closeness and eigenvector, together with two new volume-based indicators: flow betweenness and regional importance. The
+flow-betweenness measures the importance of an airport as the transit point on connection-paths between pairs of origin and des-
+tination.Regional importancemeasures thelink intensityof an airport’sconnectionswithinits region.Together,these fivecentrality
+indicators captured a broad range of air transport network specific properties, such as power law degree distribution, hubness,
+preferred within-region connections, faster growth in passenger capacity of larger airports, short mean path length, logarithmical
+shrinkage in network size over time, and distinct regional patterns of global passenger flows. By computing the GACI changes over
+the years, we can evaluate the significance of network developments due to changes induced by new connections to the airports.
+The analysis of the historical seat capacity data of 3500 airports, together with the airports’ complex network structure, revealed
+deeper insights in the developments of air transport network over time. First, the air transport network is not scale-free. Majority of
+thecapacitygrowthconcentratedatthemega-degree(r≥200)airports,whichachievedpassengercapacitycompoundgrowthabout
+four times faster than those smaller airports. An airport with a high closeness centrality score tends to have a high capacity volume.
+From the flow-betweenness performance, we found that most Middle-East and Chinese airports were on the rise and some of them
+have overtaken the traditional hubs in Europe and North America over this study period. Instead of using the traditional US and
+Europeanairportsfortransit,alargenumberofpassengersswitchedtouseMiddle-EastandAsianairports.Lastly,withtheexception
+ofNorthAmerica,alltheotherregionshadimprovedtheireigenvectorcentralityscores,withMiddle-EastandAsiaairportshadmore
+than doubled their average scores over the same period. These airports are getting very prominent in the air transport network.
+The GACI was calculated for every airport, and the evolution of air transport networks across all the world regions were studied.
+First, different regions appeared to have different strategies in expanding their air transport networks. Both America and North Asia
+focused on developing regional hub airports, serving short- to medium-haul routes to address regional demands. While for West
+Europe,SouthEastAsiaandMiddleEast,theyseemedtoprefertodevelopingtheirmajorairportsintoglobalhubs,servinglong-haul
+and international flights. Although the average GACI did not change much during this period, there was a fast growth in European
+andAsiasecondaryairports.Tomaintainorimprovethehubpositionofanairportwithlargetrafficvolume,theairportmustdevelop
+new routes connecting to higher GACI airports.
+As airport competes with one another on passenger traffics and service quality to both airlines and passengers (Wiltshire, 2018),
+the public utility status of airports has been fading and airports have been increasingly being operated like a business.Many airports
+are under growing pressure to be more financially self-sufficient (e.g.Zhang and Zhang, 2003). For the regulators, they should find
+ways to optimise the allocation of additional routes in a liberalising airline market, which can maximise social welfare and minimise
+passengers’traveldisutility(Lietal.,2010).Tomanytravellers,airportandroutechoiceisalwaysajointdecision(Yangetal.,2014),
+especially with long-haul journey and transit flights. These dynamic changes in aviation business environment encouraged the
+vertical airport–airline relationships, in order to strengthen the hub status of major airports (Zhang and Czerny, 2012; Yang et al.,
+2015). Many airports and airlines established close and long-term relationship to attain a win-win situation: with airports being able
+to attract more passengers from existing (with higher frequency) and new routes (direct flights), substantial profits can be generated
+from the terminal, including those from leasing areas used for catering and retailing. The findings in this paper shed some lights to
+policy makers and industry leaders in planning their aviation strategies.
+In the future, the application of GACI on airports and routes development can be further explored, particularly in the areas of
+airportclassification andstrategic network change configuration pertinent to airport growth. A GACI-based airport classificationcan
+add the connectivity dimension to many existing airport classification schemes that are often based on such factors as public access,
+runway length, commercial services, and general aviation facilities. It can also precisely define the airport roles, such as super-hub,
+major, regional, local and minor airport, in the regional and global aviation network. Furthermore, GACI can provide a measure of
+the network changes to specific airports, assisting policy makers to understand, for instance, the effects of strategy route changes by
+otherairports. The performance of an airport isaffected bynot onlyits local andregional economy,but alsoits connectivityto other
+airports, as well as other airports’ connectivity. Being able to capture, examine and predict the temporal changes of the air transport
+network, more insightful analyses can be performed so as to improve the competitiveness of an airport city. Indeed, a similar GACI
+canbealsocomputedatanairport-cityleveltomeasuretheconnectivityandimportanceofanairport-cityintheglobalairtransport
+network. This would represent a natural extension of the analysis presented in the present paper.
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+17
+Acknowledgement
+We are very grateful to three anonymous referees whose comments have led to a significant improvement of the paper. We also
+thankseminarparticipantsatthe23rdATRSWorldConference,Amsterdam,CivilAviationAdministration InstituteofChina,andthe
+7thTSTE conference at Beijing Jiao-Tong University for helpful comments. The financial support from the Public Policy Research
+Funding Scheme (Project No. 2014.B12.001.15A) and the Faculty Development Scheme (Project No. UGC/FDS14/B03/15) from the
+Research Grants Council of the Hong Kong Special Administrative Region, China, is gratefully acknowledged.
+Appendix A
+Table A1
+The proportion of transfer passengers at major airports.
+Data fromLin and Zhang (2016) Transfer % estimated from Intensity-based Betweenness Year
+Airport Code Airport Name Percentage Year
+FRA Frankfurt 54 2007 57.8 2011
+CDG Paris Charles de Gaulle 52 2011 50.1 2011
+DXB Dubai Int'l 52 2016 61 2016
+AMS Amsterdam Schiphol 41.9 2013 49.7 2013
+MUC Munich, FranzJosef Stauss Int'l 39 2013 26.7 2013
+LHR London Heathrow 37 2013 36.4 2013
+SIN Singapore Changi Int'l 30 2013 40.3 2013
+HKG Hong Kong Int'l 26 2013 26.5 2013
+CPH Copehagen Kastrup 20.8 2014 21.1 2014
+ICN Incheon Int'l 19 2013 21.7 2013
+NRT Narita Int'l 18.5 2013 15.9 2013
+Table A2
+OAG regional definitions and the top GACI airports.
+OAG Region Code Region No. of Airports Top GACI Airport 2016
+AF1 North Africa 90 CAI Cairo, Egypt
+AF2 Southern Africa 76 JNB Johannesburg, South Africa
+AF3 Central/Western Africa 101 LOS Lagos, Nigeria
+AF4 Eastern Africa 90 ADD Addis Ababa, Ethiopia
+AS1 South Asia 152 DEL Delhi, India
+AS2 Central Asia 45 TAS Tashkent, Uzbekistan
+AS3 South East Asia 271 SIN Singapore, Singapore
+AS4 North East Asia 393 PEK Beijing, China
+NA1 North America 759 LAX Los Angeles, USA
+LA1 Caribbean 91 SJU San Juan, Puerto Rico
+LA2 Central America 103 CUN Cancun, Mexico
+LA3 Upper South America 120 BOG Bogota, Colombia
+LA4 Lower South America 168 GRU Sao Paulo, Brazil
+EU1 Western Europe 473 CDG Paris, France
+EU2 Eastern/Central Europe 181 DME Moscow, Russia
+ME1 Middle East 107 DXB Dubai, UAE
+SW1 Southwest Pacific 290 SYD Sydney, Australia
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+18
+References
+Alderighi, M., Cento, A., Nijkamp, P., Rietveld, P., 2007. Assessment of new hub-and-spoke and point-to-point airline network configurations. Transp. Rev. 27 (5),
+529–549.
+Allroggen, F., Wittman, M.D., Malina, R., 2015. How air transport connects the world – A new metric of air connectivity and its evolution between 1990 and 2012.
+Transp. Res. Part E 80, 184–201.
+Arvis, J., Shepherd, B., 2013. Global Connectivity and Export Performance, Economic Premise. The World Bank, Available athttp://siteresources.worldbank.org/
+EXTPREMNET/Resources/ EP111.pdf.
+AirTransportActionGroup(ATAG),2018.Aviation:BenefitsBeyondBorders(2018),Availableathttps://www.atag.org/component/attachments/attachments.html?
+id=707.
+Bagler, G., 2008. Analysis of the airport network of India as a complex weighted network. Physica A: Stat. Mech. Appl. 387 (12), 2972–2980.
+Barrat, A., Barthelemy, M., Pastor-Satorras, R., Vespignani, A., 2004. The architecture of complex weighted networks. Proc. Natl. Acad. Sci. 101 (11), 3747–3752.
+Bel, G., Fageda, X., 2008. Getting there fast: Globalization, intercontinental flights and location of headquarters. J. Econ. Geogr. 8 (4), 471–495.
+Bing, D., 2014. Reliability analysis for aviation airline network based on complex network. J. Aerospace Technol. Manage. 6 (2), 193–201.
+Bounova, G.A., 2009. Topological evolution of networks: case studies in the US airlines and language Wikipedias. Doctoral dissertation. Institute of Technology,
+Massachusetts.
+Bowen, J., 2000. Airline hubs in Southeast Asia: national economic development and nodal accessibility. J. Transp. Geogr. 8 (1), 25–41.
+Brandes, U., Fleischer, D., 2005. Centrality measures based on current flow. In: Annual Symposium on Theoretical Aspects of Computer Science. Springer, Berlin,
+Heidelberg, pp. 533–544.
+Burghouwt, G., 2007. Airline Network Development in Europe and its Implications for Airport Planning. Ashgate Publishing Ltd.
+Burghouwt, G., Hakfoort, J., 2001. The evolution of the European aviation network, 1990–1998. J. Air Transp. Manage. 7 (5), 311–318.
+Burghouwt, G., Redondi, R., 2013. Connectivity in air transport networks: an assessment of models and applications. J. Transp. Econ. Policy 47 (1), 35–53.
+Burghouwt, G., Veldhuis, J., 2006. The competitive position of hub airports in the transatlantic market. J. Air Transp. 11 (1), 106–130.
+Campante, F., Yanagizawa-Drott, D., 2018. Long-range growth: economic development in the global network of air links. Quart. J. Econ. 2018, 1395–1458.
+CAPA, 2019. LCCs in Asia Pacific: Two decades of steady market share gains. Available athttps://centreforaviation.com/analysis/reports/lccs-in-asia-pacific-two-
+decades-of-steady-market-share-gains-456096.
+Cheung,D.P.,Gunes,M.H.,2012.AcomplexnetworkanalysisoftheUnitedStatesairtransportation.In:Proceedingsofthe2012IEEE/ACMInternationalConference
+Fig. A1.The Correlation Matrix Plot of Four Centrality Indicators (Degree, Weighted Eigenvector, Flow Betweenness and Closeness).
+T.K.Y. Cheung, et al. Transportation Research Part E 133 (2020) 101826
+19
+on Advances in Social Networks Analysis and Mining, 26–29 August 2012. Kadir Has University, Istanbul, Turkey, pp. 699–701.
+Choi, J.H., Wang, K., Xia, W., Zhang, A., 2019. Determining factors of air passengers’ transfer airport choice in the Southeast Asia-North America market: Managerial
+and policy implications. Transp. Res. Part A 124, 203–216.
+Ciliberto, F., Cook, E.E., Williams, J.W., 2019. Network structure and consolidation in the U.S. airline industry, 1990–2015. Rev. Ind. Organ. 54 (1), 3–36.
+Clauset, A., Shalizi, C.R., Newman, M.E.J., 2009. Power-law distributions in empirical data. SIAM Rev. 51 (4), 661–703.
+Cong, W., Hu, M., Dong, B., Wang, Y., Feng, C., 2016. Empirical analysis of airport network and critical airports. Chinese J. Aeronaut. 29 (2), 512–519.
+Costa, L.D.F., Cesar, R.M., 2001. Shape Analysis and Classification: Theory and Practice. CRC Press, New York.
+Couto, G.S., Silva, A.P.C.D., Ruiz, L.B., Benevenuto, F., 2015. Structural properties of the Brazilian air transportation network. Anais da Academia Brasileira de
+Ciências 87 (3), 1653–1674.
+Dai, L., Derudder, B., Liu, X., 2018. The evolving structure of the Southeast Asian air transport network through the lens of complex networks, 1979–2012. J. Transp.
+Geogr. 68, 67–77.
+Duda, R.O., Hart, P.E., Stork, D.G., 2001. Pattern Classification. Wiley, New York.
+Florida, R., Mellander, C., Holgersson, T., 2015. Up in the air: The role of airports for regional economic development. Ann. Reg. Sci. 54 (1), 197–214.
+Freeman, L.C., 1977. A set of measures of centrality based on betweenness. Sociometry 40 (1), 35–41.
+Goetz, A.R., Sutton, C.J., 1997. The geography of deregulation in the US airline industry. Ann. Assoc. Am. Geogr. 87 (2), 238–263.
+Goyal, R., Negi, D., 2014. Impact of global economic crisis on airline industry. Int. J. Commerce, Bus. Manage. 3 (2), 297–301.
+Guimerà, R., Mossa, S., Turtschi, A., Amaral, L.N., 2005. The worldwide air transportation network: anomalous centrality, community structure, and cities' global
+roles. Proc. Natl. Acad. Sci. 102 (22), 7794–7799.
+Hossain,M.,Alam,S.,Rees,T.,Abbass, H.,2013.Australianairportnetworkrobustnessanalysis:Acomplexnetworkapproach.ProceedingsofAustralasianTransport
+Research Forum 2013, Brisbane, Australia.
+Hua, G., Sun, Y., Haughton, D., 2010. Network analysis of US air transportation network. In: Data Mining for Social Network Data. Springer, Boston, MA, pp. 75–89.
+International Air Transport Association (IATA), 2017. Annual Review 2017. Available at.https://www.iata.org/publications/Documents/iata-annual-review-2017.
+pdf.
+InternationalAirTransportAssociation(IATA)(2019)Airconnectivitypositivelycorrelatedwithdemocracy,IATAEconomicsChartoftheWeek,Availableathttps://
+www.iata.org/publications/economics/Reports/chart-of-the-week/Chart-of-the-week-18-Apr-19.pdf.
+Irwin, M.D., Kasarda, J.D., 1991. Air passenger linkages and employment growth in US metropolitan areas. Am. Sociol. Rev. 524–537.
+Jia, T., Qin, K., Shan, J., 2014. An exploratory analysis on the evolution of the US airport network. Physica A: Stat. Mech. Appl. 413, 266–279.
+Li, Z.C., Lam, W.H., Wong, S.C., Fu, X., 2010. Optimal route allocation in a liberalizing airline market. Transp. Res. Part B 44 (7), 886–902.
+Lin, J., Ban, Y., 2014. The evolving network structure of US airline system during 1990–2010. Physica A: Stat. Mech. Appl. 410, 302–312.
+Lin, M.H., Zhang, A., 2016. Hub congestion pricing: Discriminatory passenger charges. Econ. Transp. 5, 37–48.
+Liu, H., Hu, X.B., Yang, S., Zhang, K., Di Paolo, E., 2011. Application of complex network theory and genetic algorithm in airline route networks. Transp. Res. Record
+2214 (1), 50–58.
+Lordan, O., Sallan, J.M., Simo, P., 2014. Study of the topology and robustness of airline route networks from the complex network approach: a survey and research
+agenda. J. Transp. Geogr. 37, 112–120.
+Malighetti, P., Paleari, S., Redondi, R., 2008. Connectivity of the European airport network: “Self-help hubbing” and business implications. J. Air Transp. Manage. 14
+(2), 53–65.
+Mao, L., Wu, X., Huang, Z., Tatem, A.J., 2015. Modeling monthly flows of global air travel passengers: An open-access data resource. J. Transp. Geogr. 48, 52–60.
+Martín, J.C., Voltes-Dorta, A., 2009. Note on how to measure hubbing practices in airline networks. Transp. Res. Part E 45 (1), 250–254.
+McLachlan, G.J., 2004. Discriminant Analysis and Statistical Pattern Recognition. Wiley, London.
+Newman, M.E.J., 2005. A measure of betweenness centrality based on random walks. Soc. Netw. 27 (1), 39–54.
+O’Connor, K., 2003. Global air travel: Toward concentration or dispersal? J. Transp. Geogr. 11 (2), 83–92.
+Official Airline Guide (OAG),https://www.oag.com/, last accessed Jan 2019.
+Oliveira, A.V.M., Lohmann, G., Costa, T.G., 2016. Network concentration and airport congestion in a post de-regulation context: a case study of Brazil 2000–2010. J.
+Transp. Geogr. 50, 33–44.
+Paleari, S., Redondi, R., Malighetti, P., 2010. A comparative study of airport connectivity in China, Europe and US: Which network provides the best service to
+passengers? Transp. Res. Part E 46 (2), 198–210.
+Pearce, B., 2007. Investing in air transport connectivity to boost national productivity and economic growth. In:World Economic Forum, The Travel & Tourism
+Competitiveness Report.
+Ponton,J.,Wei,P.,Sun,D.,2013.Weightedclustering coefficientmaximizationforairtransportation networks.In:2013EuropeanControlConference(ECC),Zurich,
+pp. 866–871.
+Reynolds-Feighan, A., 2001. Traffic distribution in low-cost and full-service carrier networks in the US air transportation market. J. Air Transp. Manage. 7 (5),
+265–275.
+Reynolds-Feighan, A., 2010. Characterisation of airline networks: a North American and European comparison. J. Air Transp. Manage. 16 (3), 109–120.
+Rocha, L.E.C., 2017. Dynamics of air transport networks: a review from a complex systems perspective. Chinese J. Aeronaut. 30 (2), 469–478.
+Rodríguez-Déniz, H., Suau-Sanchez, P., Voltes-Dorta, A., 2013. Classifying airports according to their hub dimensions: An application to the US domestic network. J.
+Transp. Geogr. 33, 188–195.
+Scholz, A.B., 2012. Network Structures of Cargo Airlines: An Empirical and a Modelling Approach. Scientific Publishing, KIT.
+Shao, Y.M., Sun, C.F., 2016. Performance evaluation of China's air routes based on network data envelopment analysis approach. J. Air Transp. Manage. 55, 67–75.
+Sheridan, P., Onodera, T., 2018. A preferential attachment paradox: How preferential attachment combines with growth to produce networks with log-normal in-
+degree distributions. Sci. Rep. 8 (1), 2811.
+Suau-Sanchez,P.,Burghouwt,G.,2011.ThegeographyoftheSpanishairportsystem:Spatialconcentrationanddeconcentrationpatternsinseatcapacitydistribution,
+2001–2008. J. Transp. Geogr. 19 (2), 244–254.
+Suau-Sanchez, P., Voltes-Dorta, A., Rodríguez-Déniz, H., 2015. Regulatory airport classification in the US: the role of international markets. Transp. Policy 37,
+157–166.
+Suau-Sanchez, P., Voltes-Dorta, A., Rodríguez-Déniz, H., 2016. Measuring the potential for self-connectivity in global air transport markets: implications for airports
+and airlines. J. Transp. Geogr. 57, 70–82.
+Vargas, E.R., Wahl, L.M., 2014. The gateway coefficient: a novel metric for identifying critical connections in modular networks. Eur. Phys. J. B 87 (7), 161–170.
+Verma, T., Araujo, N.A.M., Herrmann, H.J., 2014. Revealing the structure of the world airline network. Sci. Rep. 4, 5638.
+Wandelt, S., Sun, X., 2015. Evolution of the international air transportation country network from 2002–2013. Transp. Res. Part E 82, 55–78.
+Wandelt, S., Sun, X., Zhang, J., 2019. Evolution of domestic airport networks: a review and comparative analysis. Transportmet. B: Transp. Dyn. 7 (1), 1–17.
+Wang, J., Bonilla, D., Banister, D., 2016. Air deregulation in China and its impact on airline competition 1994–2012. J. Transp. Geogr. 50, 12–23.
+Wang, J., Mo, H., Wang, F., Jin, F., 2011. Exploring the network structure and nodal centrality of China’s air transport network: a complex network approach. J.
+Transp. Geogr. 19 (4), 712–721.
+Wang, H., Song, M., 2011. Ckmeans. 1d.dp: Optimal k-means clustering in one dimension by dynamic programming. R J. 3 2, 29–33.
+Watts, D.J., Strogatz, S.H., 1998. Collective dynamics of ‘small-world’ networks. Nature 393 (6684), 440–442.
+Wiltshire, J., 2018. Airport competition: reality or myth? J. Air Transp. Manage. 67, 241–248.
+Wong, W.H., Cheung, T., Zhang, A., Wang, Y., 2019a. Is spatial dispersal the dominant trend in air transport development? A global analysis for 2006–2015. J. Air
+Transp. Manage. 74, 1–12.
+Wong, W.H., Zhang, A., Cheung, T., Chu, J., 2019b. Examination of low-cost carriers’ development at secondary airports using a comprehensive world airport
+T.K.Y. Cheung, et al.
+Transportation Research Part E 133 (2020) 101826
+20
+classification. J. Air Transp. Manage. 78, 96–105.
+Yang, C.W., Lu, J.L., Hsu, C.Y., 2014. Modeling joint airport and route choice behavior for international and metropolitan airports. J. Air Transp. Manage. 39, 89–95.
+Yang, H., Zhang, A., Fu, X., 2015. Determinants of airport-airline vertical arrangements: analytical results and empirical evidence. J. Transp. Econ. Policy 49 (3),
+438–453.
+Yang,L.,Zhou,Z.,2019.AnalysisofstatisticalcharacteristicsofChina'saviationfull-freightnetworkbasedonComplexNetworkTheory.3rdInternationalConference
+on Mechatronics Engineering and Information Technology (ICMEIT 2019). April 2019. Atlantis Press.
+Zeigler, P., Pagliari, R., Suau-Sanchez, P., Malighetti, P., Redondi, R., 2017. Low-cost carrier entry at small European airports: Low-cost carrier effects on network
+connectivity and self-transfer potential. J. Transp. Geogr. 60, 68–79.
+Zhang, A., 2012. Airport improvement fees, benefit spillovers, and land value capture mechanisms. In: Ingram, G.K., Hong, Y.-H. (Eds.), Value Capture and Land
+Policies. Lincoln Institute of Land Policy, Cambridge, MA, pp. 323–348 Ch. 13.
+Zhang, A., Czerny, A.I., 2012. Airports and airlines economics and policy: an interpretive review of recent research. Econ. Transp. 1, 15–34.
+Zhang, A., Zhang, Y., 2003. Airport charges and capacity expansion: effects of concessions and privatization. J. Urban Econ. 53, 54–75.
+Zhang, Y., Zhang, A., Zhu, Z., Wang, K., 2017. Connectivity at Chinese airports: the evolution and drivers. Transp. Res. Part A 103, 490–508.
+Zhu, Z., Zhang, A., Zhang, Y., 2018. Connectivity of intercity passenger transportation in China: a multi-modal and networkapproach. J.Transp. Geogr. 71,263–276.
+Zhu, Z., Zhang, A., Zhang, Y., Huang, Z., Xu, S., 2019. Measuring air connectivity between China and Australia. J. Transp. Geogr. 74, 359–370.
+T.K.Y. Cheung, et al.
+Transportation Research Part E 133 (2020) 101826
+21

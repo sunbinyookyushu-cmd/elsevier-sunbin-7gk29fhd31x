@@ -1,0 +1,212 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do co2_ext4.do 
+
+. *============================================================================
+> ==
+. * co2_ext4.do
+. * Spillover mechanism: what margin of OWN aviation responds to NEIGHBOUR
+. * connectivity? (neighbour-endogenous spec of co2_ext3.do)
+. * outcomes: flights, seat-km, gauge, stage, intl share
+. * -> _spillover_mech.csv
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_CO2"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2
+
+. 
+. import delimited "co2_country_year.csv", clear varnames(1) encoding("utf-8")
+(20 vars, 6,107 obs)
+
+. keep iso3 year co2_bunker dep_seat_km n_dep_flights dep_seats dep_seat_km_intl
+
+. rename iso3 c
+
+. rename year y
+
+. tempfile co2
+
+. save `co2'
+file C:\Users\sunbi\AppData\Local\Temp\ST_da18_000001.tmp saved
+
+. 
+. import delimited "spillover_vars.csv", clear varnames(1) encoding("utf-8")
+(4 vars, 4,624 obs)
+
+. tempfile sp
+
+. save `sp'
+file C:\Users\sunbi\AppData\Local\Temp\ST_da18_000002.tmp saved
+
+. 
+. import delimited "../gaci_panel_combined.csv", clear varnames(1) encoding("utf-8")
+(44 vars, 4,643 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int   feyrer_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum   ln_sea_ma
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y  ln_remote     ln_air_ma
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+feyrer_int already numeric; no replace
+ln_sea_ma already numeric; no replace
+ln_air_ma already numeric; no replace
+
+. merge 1:1 c y using `co2', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                             4,643  
+    -----------------------------------------
+
+. merge 1:1 c y using `sp', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                            19
+        from master                        19  
+        from using                          0  
+
+    matched                             4,624  
+    -----------------------------------------
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. 
+. gen ln_flights = ln(n_dep_flights) if n_dep_flights > 0
+
+. gen ln_skm = ln(dep_seat_km) if dep_seat_km > 0
+
+. gen ln_gauge = ln(dep_seats/n_dep_flights) if n_dep_flights > 0 & dep_seats > 0
+
+. gen ln_stage = ln(dep_seat_km/dep_seats) if dep_seats > 0 & dep_seat_km > 0
+
+. gen intl_share = dep_seat_km_intl/dep_seat_km if dep_seat_km > 0
+
+. replace intl_share = 1 if intl_share > 1 & !missing(intl_share)
+(0 real changes made)
+
+. 
+. tempname S
+
+. postfile `S' str16 outc double(b se p kpf) long(nn) using "_spm_tmp", replace
+(note: file _spm_tmp.dta not found)
+
+. foreach yv in ln_flights ln_skm ln_gauge ln_stage intl_share {
+  2.     quietly ivreghdfe `yv' feyrer_int lnpop ln_sea_ma (nbr_lngaci = nbr_feyrer), absorb(isocode y) robust
+  3.     local bb = _b[nbr_lngaci]
+  4.     local ss = _se[nbr_lngaci]
+  5.     di "SPM `yv': b=" %8.3f `bb' " se=" %8.3f `ss' " F=" %7.1f e(widstat)
+  6.     post `S' ("`yv'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (e(widstat)) (e(N))
+  7. }
+SPM ln_flights: b=   2.730 se=   2.216 F=  134.1
+SPM ln_skm: b=   6.141 se=   2.083 F=  134.1
+SPM ln_gauge: b=   5.437 se=   1.170 F=  134.1
+SPM ln_stage: b=  -2.026 se=   1.008 F=  134.1
+SPM intl_share: b=   1.046 se=   0.281 F=  134.1
+
+. postclose `S'
+
+. preserve
+
+. use "_spm_tmp", clear
+
+. list, clean
+
+             outc           b          se           p         kpf     nn  
+  1.   ln_flights    2.730185    2.215705   .21787552   134.14243   4623  
+  2.       ln_skm   6.1414962   2.0828686   .00319242   134.14243   4623  
+  3.     ln_gauge   5.4370232    1.170035   3.370e-06   134.14243   4623  
+  4.     ln_stage   -2.025708   1.0083321   .04454041   134.14243   4623  
+  5.   intl_share   1.0456447   .28099979   .00019831   134.14243   4623  
+
+. export delimited "_spillover_mech.csv", replace
+(note: file _spillover_mech.csv not found)
+file _spillover_mech.csv saved
+
+. restore
+
+. erase "_spm_tmp.dta"
+
+. 
+. di _n "DONE_EXT4"
+
+DONE_EXT4
+
+. 
+end of do-file

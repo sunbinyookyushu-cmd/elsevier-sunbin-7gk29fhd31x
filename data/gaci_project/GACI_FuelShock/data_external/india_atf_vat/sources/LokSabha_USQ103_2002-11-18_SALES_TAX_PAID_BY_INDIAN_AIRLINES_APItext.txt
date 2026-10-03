@@ -1,0 +1,89 @@
+Source: Lok Sabha Q&A API (sansad.in) record retrieved 2026-10-02
+Lok Sabha: 13; Session: 11; Question No: 103; Type: UNSTARRED; Date: 18.11.2002
+Ministry: CIVIL AVIATION
+Subject: SALES TAX PAID BY INDIAN AIRLINES  
+Members: ['UMMAREDDY  VENKATESWARLU']
+Official file path (if any):  
+API: https://sansad.in/api_ls/question/qetFilteredQuestionsAns?loksabhaNo=13&pageNo=1&locale=en&keyWord=...  (record: LS 13, Q 103, UNSTARRED, date 18.11.2002)
+
+QUESTION:
+ 
+ 
+ 
+ 
+
+(a) the amount of sales tax paid by Indian Airlines to 
+ various States in 2001-2002; 
+ 
+ 
+
+(b) whether sales tax rates on ATF vary in different States; 
+ and 
+ 
+ 
+
+(c) if so, the details thereof? 
+ 
+ 
+
+ANSWER:
+ 
+ 
+ MINISTER OF STATE IN THE MINISTRY OF CIVIL AVIATION ( SHRI SHRIPAD YESSO NAIK ) 
+ 
+
+
+
+
+ (a): The amount of Sales Tax paid by Indian Airlines and 
+ Alliance Air to various States on Indian Airlines network, 
+ during the year 2001-02, is Rs.17250.03 lacs. 
+ 
+
+ 
+ (b) and (c): Yes, Sir. The Sales Tax on ATF varies from 4% 
+ in the State of Andhra Pradesh to 39.10% in Kerala. A 
+ statement showing the rates at which the Sales Tax on ATF is 
+ levied by the States and Union Territories on Indian 
+ Airlines network is annexed. 
+
+
+
+
+ANNEXURE 
+ 
+ 
+ STATEWISE SALES TAX ON ATF 
+ 
+ STATE RATE % 
+ 
+ DELHI 20% 
+ KERALA 39.10% 
+ TAMIL NADU 25.20% 
+ MAHARASHTRA 25%Bonded 20% 
+ MADHYA PRADESH 28.75% 
+ RAJASTHAN 26.70% @ Bonded 13.48% 
+ UTTAR PRADESH 20% 
+ JAMMU & KASHMIR 21% 
+ PUNJAB 22% 
+ CHANDIGARH 22% 
+ HIMACHAL PRADESH 20% 
+ MANIPUR 20% 
+ ASSAM 22% 
+ BIHAR 26.25% 
+ GOA 20% 
+ GUJARAT 27.60% 
+ Bonded 36% 
+ KARNATAKA 28% 
+ TRIPURA 25% 
+ ORRISA 20% 
+ WEST BENGAL 25% 
+ ANDHRA PRADESH 4% 
+ 
+ @ Upto 31.03.2003 only. 
+
+
+
+ 
+ 
+

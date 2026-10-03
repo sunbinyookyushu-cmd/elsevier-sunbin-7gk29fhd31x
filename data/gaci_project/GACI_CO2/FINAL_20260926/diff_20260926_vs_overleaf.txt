@@ -1,0 +1,1947 @@
+0a1,6
+> % main_co2_nature_20260926.tex  (2026-09-26: Junya Estimation comments applied; airport regressions removed per
+> %   Junya's Overleaf comment; validation table and SCC table moved to Extended Data; Longfei figures (Figure1,
+> %   Figure2 panels a,b, ED_Fig1-4) with Ray's SAF figure as Fig. 3; abstract <= 200 words; Methods <= 3,000 words with
+> %   inventory and GACI details in Supplementary Notes 2-3; Extended Data ordered by first citation)
+> % Main displays: Tables 1-3 (main, decomposition, spatial) and Figs 1-3 (decomposition/heterogeneity, attribution, SAF).
+> % --- history ---
+27a34
+> \usepackage{adjustbox}
+30,31c37,39
+< \author{[author order TBD]}
+< \date{Nature-format draft, candidate of 8 September 2026}
+---
+> \author{[Author list and order to be confirmed]}
+> % Contributors (alphabetical, order not decided): Fangyu Cao, Lisa Hsieh, Jinwoo Lee, Junya Kumagai, Longfei Zheng, Ray (NTU), Sunbin Yoo, Chunan Wang, Yifu Ou.
+> \date{Nature-format draft, 26 September 2026}
+37c45
+< carbon consequences have never been estimated causally at the global level.
+---
+> carbon consequences have not been estimated causally at the global level.
+41,58c49,61
+< with an instrument based on each country's air-versus-sea market-access
+< geography. A one percent increase in connectivity raises national aviation
+< CO$_2$ by 5.3 percent, an elasticity far above one and invariant to how
+< emissions are allocated across countries. Decomposing the response on the
+< accounting identity shows that it is a frequency response: flights rise by
+< 6.8 percent, aircraft size and stage length do not rise, and the decline in
+< emissions per seat-kilometre is small (0.3 percent) and imprecisely
+< estimated, offsetting at most a small fraction of the scale effect. 
+< The elasticity is concentrated in low-income, newly connecting
+< countries and describes the take-off stage of network development, and
+< the emissions it generates are more concentrated across airports than
+< emissions themselves and are led by new hubs. Emissions also respond to the
+< connectivity of contiguous neighbours, with a neighbour elasticity of 1.1
+< to 2.1 and a total network-wide effect of 5.6. Connectivity growth since
+< 1996 accounts for 41.1 percent (349 Mt) of 2023 aviation CO$_2$, an annual
+< external cost of \$18 billion to \$66 billion at standard social-cost-of-carbon
+< values, and only sustained fuel switching, not the efficiency gains of
+< network development, materially lowers this level.
+---
+> with an instrument based on each country's air-market-access exposure to
+> global aviation growth. A one percent increase in
+> connectivity raises national aviation CO$_2$ by 5.3\%, an elasticity that does
+> not depend on how emissions are allocated across countries. The response comes from flight frequency: flights rise by
+> 6.8\%, aircraft size and stage length do not rise, and the 0.3\% decline in
+> emissions per seat-kilometre offsets little of it. The elasticity is concentrated in low-income, newly connecting
+> countries and describes the take-off stage of network development.
+> Emissions also respond to contiguous neighbours' connectivity, with a
+> neighbour elasticity of 1.1 to 2.1 and a network-wide effect of 5.6.
+> Connectivity growth since 1996 accounts for 41\% (349 Mt) of 2023 aviation
+> CO$_2$, an annual external cost of \$18 billion to \$66 billion, and only
+> sustained fuel switching, not the efficiency gains of network development,
+> reverses this growth.
+69c72
+< development \citep{lenaerts2021,zhang2020}, making network expansion
+---
+> development \citep{lenaerts2021,zhang2020,amico2026}, making network expansion
+107c110
+< activity \citep{vandevijver2014}. These sources of endogeneity can bias
+---
+> activity \citep{vandevijver2014,lenzen2018}. These sources of endogeneity can bias
+122c125
+< activity in neighboring countries. Emissions associated with network
+---
+> activity in neighbouring countries. Emissions associated with network
+161c164
+< by 5.35 percent (Table~\ref{tab:main}). The estimate is
+---
+> by 5.35\% (Table~\ref{tab:main}). The estimate is
+166c169
+< between 4.4 and 4.6 when income, trade, urbanisation, investment and
+---
+> between 4.4 and 4.7 when income, trade, urbanization, investment and
+172c175
+< Fig.~\ref{fig:temporal}).
+---
+> Fig.~\ref{fig:ed_temporal_airport}a).
+178c181
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+217c220
+< \item Notes: Country-year panel, 1996--2023. All specifications include country and year fixed effects, log population and log sea market access. Outcomes are in logs: total aviation CO$_2$ under the bunker convention (all cruise plus departure-side LTO assigned to the departure country), bunker CO$_2$ from international flights, and scheduled departing seat-kilometres; CO$_2$ per seat-km is in Table~\ref{tab:decomp}. Panels B--E instrument log GACI with the Feyrer interaction of world aviation technology and 1996 air-versus-sea geography (Methods). Standard errors clustered by country in parentheses; the Kleibergen--Paap $F$ is cluster-robust. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+---
+> \item Notes: Country-year panel, 1996--2023. All specifications include country and year fixed effects, log population and log sea market access. Outcomes are in logs: total aviation CO$_2$ under the bunker convention (all cruise plus departure-side LTO assigned to the departure country), bunker CO$_2$ from international flights, and scheduled departing seat-kilometres; CO$_2$ per seat-km is in Table~\ref{tab:decomp}. Panels B--E instrument log GACI with the Feyrer interaction of the world aviation index and log 1996 air market access, with log sea market access as a control (Methods, equation~\ref{eq:feyrer}). Standard errors clustered by country in parentheses; the Kleibergen--Paap $F$ is cluster-robust. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10\%.
+226,227c229,230
+< (Table~\ref{tab:decomp}). The variation that raises emissions by 5.35 percent raises seat-kilometres by 5.64 percent, so emissions per seat-kilometre fall by
+< 0.29 percent, an efficiency term not distinguishable from zero
+---
+> (Table~\ref{tab:decomp}). The variation that raises emissions by 5.35\% raises seat-kilometres by 5.64\%, so emissions per seat-kilometre fall by
+> 0.29\%, an efficiency term not distinguishable from zero
+232,233c235
+< (Methods, equations~\ref{eq:identity} and \ref{eq:decomp}). The response is a frequency response: flights rise by 6.8
+< percent for a one percent gain in connectivity, whereas aircraft size,
+---
+> (Methods, equations~\ref{eq:identity} and \ref{eq:decomp}). The response is a frequency response: flights rise by 6.8\% for a one percent gain in connectivity, whereas aircraft size,
+235c237
+< not significantly (Extended Data Fig.~\ref{fig:waterfall}). Traffic
+---
+> not significantly (Fig.~\ref{fig:decomp_het}a). Traffic
+237c239
+< efficiency term offsets 6 percent of it. The share of
+---
+> efficiency term offsets 6\% of it. The share of
+239c241
+< not move, and mediation analysis attributes 84 to 85 percent of the effect
+---
+> not move, and mediation analysis attributes 84 to 85\% of the effect
+245c247
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+274a277,283
+> \begin{figure}[H]
+> \centering
+> \includegraphics[width=0.98\textwidth]{Figure1.png}
+> \caption{\textbf{Decomposition and heterogeneity of the connectivity elasticity.} \textbf{a}, Decomposition of the elasticity of national aviation CO$_2$ on the accounting identity. Each bar is the 2SLS elasticity of one component with respect to connectivity (Feyrer instrument), and the four components add exactly to the total; the scale margin (the sum of the first three bars, seat-km) is 5.64 and the efficiency margin (CO$_2$ per seat-km) is $-$0.29. \textbf{b}--\textbf{d}, Split-sample 2SLS elasticities of total bunker CO$_2$ by 1996 income tercile (\textbf{b}), 1996 connectivity tercile (\textbf{c}) and region (\textbf{d}). Filled red markers denote $p<0.05$ and open blue markers $p\geq0.05$. The Middle East and North America are omitted as unidentified, and the high-connectivity tercile has a weak first stage (KP $F$ = 0.2). Bars are 95\% confidence intervals with standard errors clustered by country.}
+> \label{fig:decomp_het}
+> \end{figure}
+> 
+277c286
+< and middle-income countries flights rise by about 8.5 percent for a one
+---
+> and middle-income countries flights rise by about 8.5\% for a one
+288c297
+< by 1996 income, baseline connectivity and region (Fig.~\ref{fig:hetero})
+---
+> by 1996 income, baseline connectivity and region (Fig.~\ref{fig:decomp_het}b--d)
+293c302
+< (Fig.~\ref{fig:hetero} and Extended Data Table~\ref{tab:hetero}). By
+---
+> (Fig.~\ref{fig:decomp_het}b,c and Extended Data Table~\ref{tab:hetero}). By
+297,298c306,308
+< region it ranges from 5.1 in Asia--Pacific and 4.5 in Africa to 2.9 in
+< Latin America and zero in Europe. The efficiency margin follows the same
+---
+> region it is 5.1 in Asia--Pacific and 4.5 in Africa, and not
+> distinguishable from zero in Europe and Latin America
+> (Fig.~\ref{fig:decomp_het}d). The efficiency margin follows the same
+300c310,311
+< the lowest income tercile, but is not significant in any group. The
+---
+> the lowest income tercile, but is not significant in any group
+> (Extended Data Table~\ref{tab:hetero}, Panel D). The
+316,322d326
+< \begin{figure}[H]
+< \centering
+< \includegraphics[width=0.92\textwidth]{CO2_hetero_coefplot.png}
+< \caption{\textbf{Heterogeneity of the connectivity elasticity} (2SLS, Feyrer instrument; total bunker CO$_2$ in panels A--C, CO$_2$ per seat-km in panel D). Filled markers denote $p<0.05$; bars are 95 percent confidence intervals. The Middle East and North America are omitted as unidentified.}
+< \label{fig:hetero}
+< \end{figure}
+< 
+330,331c334
+< increase in neighbours' connectivity raises own emissions by 1.1 to 2.1
+< percent. The channel is neighbours' connectivity rather than neighbours'
+---
+> increase in neighbours' connectivity raises own emissions by 1.1 to 2.1\%. The channel is neighbours' connectivity rather than neighbours'
+340,341c343
+< flying: a neighbour's connectivity gain raises own seat-kilometres by 2.45
+< percent and lowers emissions per seat-kilometre by 0.60 percent, the
+---
+> flying: a neighbour's connectivity gain raises own seat-kilometres by 2.45\% and lowers emissions per seat-kilometre by 0.60\%, the
+347c349
+< Figs.~\ref{fig:spilldecay} and \ref{fig:spillplacebo}. National estimates
+---
+> Figs.~\ref{fig:spilldecay} and \ref{fig:placebos}a--c. National estimates
+349c351
+< growth by 15 to 57 percent of the own effect, and the emissions accrue
+---
+> growth by 15 to 57\% of the own effect, and the emissions accrue
+354c356
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+382c384
+< \multicolumn{7}{l}{\textit{Panel B. Own connectivity instrumented (generalised spatial 2SLS)}} \\
+---
+> \multicolumn{7}{l}{\textit{Panel B. Own connectivity instrumented (generalized spatial 2SLS)}} \\
+402c404
+< \item Notes: Outcome is log bunker CO$_2$; specification as in Table~\ref{tab:main}, column 1. $W$ is the row-normalised land-contiguity matrix applied within each year; the 38 countries without a land neighbour have a zero row. SLX adds neighbours' log GACI, SAR the spatial lag of the outcome, SEM a spatially autoregressive error, SDM and SDEM the respective combinations. Panel A is estimated by maximum likelihood on the within-transformed data with conventional (unclustered) standard errors; Panel B by generalised spatial 2SLS with the Feyrer shifter, its spatial lags and the spatial lags of the controls as instruments, standard errors clustered by country (Methods). Direct, indirect and total effects and their standard errors are computed as described in Methods. First-stage $F$ is the Sanderson--Windmeijer statistic for own connectivity. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+---
+> \item Notes: Outcome is log bunker CO$_2$; specification as in Table~\ref{tab:main}, column 1. $W$ is the row-normalized land-contiguity matrix applied within each year; the 38 countries without a land neighbour have a zero row. SLX adds neighbours' log GACI, SAR the spatial lag of the outcome, SEM a spatially autoregressive error, SDM and SDEM the respective combinations. Panel A is estimated by maximum likelihood on the within-transformed data with conventional (unclustered) standard errors; Panel B by generalized spatial 2SLS with the Feyrer shifter, its spatial lags and the spatial lags of the controls as instruments, standard errors clustered by country (Methods). Direct, indirect and total effects and their standard errors are computed as described in Methods. First-stage $F$ is the Sanderson--Windmeijer statistic for own connectivity. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10\%.
+407c409
+< \subsection*{Connectivity growth accounts for 41.1 percent of 2023
+---
+> \subsection*{Connectivity growth accounts for 41.1\% of 2023
+412c414
+< (Fig.~\ref{fig:attributed} and Table~\ref{tab:scc}), and extends the
+---
+> (Fig.~\ref{fig:attrib} and Extended Data Table~\ref{tab:scc}), and extends the
+415,416c417,418
+< Connectivity growth since 1996 accounts for 349 Mt, or 41.1 percent, of
+< 2023 aviation CO$_2$ (Fig.~\ref{fig:attributed}; Methods). The attributed
+---
+> Connectivity growth since 1996 accounts for 349 Mt, or 41.1\%, of
+> 2023 aviation CO$_2$ (Fig.~\ref{fig:attrib}b; Methods). The attributed
+420,421c422,423
+< connectivity contributes $-$15 Mt (Table~\ref{tab:scc} and Extended Data
+< Fig.~\ref{fig:bars}). At social-cost-of-carbon values of \$51 to \$190
+---
+> connectivity contributes $-$15 Mt (Fig.~\ref{fig:attrib}a and Extended
+> Data Table~\ref{tab:scc}). At social-cost-of-carbon values of \$51 to \$190
+428,437c430,435
+< Within countries and years, a one percent increase in an airport's
+< connectivity is associated with 3.8 percent more CO$_2$ (Extended Data
+< Table~\ref{tab:airport_het}; this estimate is descriptive, Methods). The
+< emissions the response generates are concentrated: the top five percent of
+< airports, some 192 nodes led by Dubai, Doha, Shanghai Pudong, Istanbul and
+< Incheon, hold 85 percent of the 346 Mt attributed across airports, against
+< 78 percent of emissions themselves (Extended Data
+< Fig.~\ref{fig:airportconc} and Extended Data
+< Table~\ref{tab:airport_conc}). An instrument covering those nodes would
+< cover 85 percent of the connectivity-driven total.
+---
+> Across airports, the emissions the response generates are more
+> concentrated than emissions themselves. The top five percent of airports,
+> some 192 nodes led by Dubai, Doha, Shanghai Pudong, Istanbul and Incheon,
+> hold 85\% of the 346 Mt attributed across airports, against 78\% of 2023 emissions (Extended Data Fig.~\ref{fig:ed_temporal_airport}b,c and
+> Extended Data Table~\ref{tab:airport_conc}). An instrument covering those
+> nodes would cover 85\% of the connectivity-driven total.
+441,443c439,441
+< \includegraphics[width=0.92\textwidth]{CO2_map_attributed_2023.png}
+< \caption{\textbf{Aviation CO$_2$ attributed to post-1996 connectivity growth, 2023 (Mt).} White denotes zero; the attribution applies the Feyrer-instrument elasticity to each country's connectivity change.}
+< \label{fig:attributed}
+---
+> \includegraphics[width=0.98\textwidth]{Figure2_ab.png}
+> \caption{\textbf{Aviation CO$_2$ attributed to connectivity growth since 1996.} \textbf{a}, Aviation CO$_2$ in 2023 attributed to 1996--2023 connectivity growth, for the twelve largest positive countries and all countries below $-1$ Mt. \textbf{b}, The same attribution for every country (Mt, arcsinh colour scale; white denotes zero and hatching no data). The attribution applies the Feyrer-instrument elasticity to each country's connectivity change over its observed span; the world total is 348.7 Mt, 41.1\% of 2023 aviation CO$_2$, and its social cost is reported in Extended Data Table~\ref{tab:scc}.}
+> \label{fig:attrib}
+446,479d443
+< \begin{table}[H]
+< \centering
+< \caption{Country-level attribution and social cost of connectivity-driven aviation CO$_2$, 2023}
+< \label{tab:scc}
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+< \begin{threeparttable}\footnotesize
+< \begin{tabular}{lcccccc}
+< \toprule
+<  & & \multicolumn{2}{c}{Attributed CO$_2$ (Mt)} & \multicolumn{3}{c}{Social cost (\$bn per year)} \\
+< \cmidrule(lr){3-4}\cmidrule(lr){5-7}
+<  & $\Delta \ln$ GACI & Total & International & SCC \$51 & SCC \$185 & SCC \$190 \\
+< \midrule
+< China & 0.33 & 85.9 & 16.4 & 4.4 & 15.9 & 16.3 \\
+< United States & 0.04 & 34.5 & 12.5 & 1.8 & 6.4 & 6.6 \\
+< United Arab Emirates & 0.57 & 24.5 & 24.3 & 1.2 & 4.5 & 4.6 \\
+< Japan & 0.19 & 16.9 & 9.8 & 0.9 & 3.1 & 3.2 \\
+< Turkey & 0.55 & 16.5 & 13.3 & 0.8 & 3.0 & 3.1 \\
+< India & 0.19 & 15.4 & 7.2 & 0.8 & 2.8 & 2.9 \\
+< Korea & 0.71 & 14.1 & 12.7 & 0.7 & 2.6 & 2.7 \\
+< Canada & 0.22 & 12.7 & 8.1 & 0.6 & 2.4 & 2.4 \\
+< Qatar & 0.80 & 12.2 & 12.2 & 0.6 & 2.3 & 2.3 \\
+< Spain & 0.14 & 11.4 & 9.0 & 0.6 & 2.1 & 2.2 \\
+< Germany & $-0.09$ & $-14.7$ & $-13.5$ & $-0.7$ & $-2.7$ & $-2.8$ \\
+< \midrule
+< World & & 348.7 & 206.0 & 17.8 & 64.5 & 66.3 \\
+< \bottomrule
+< \end{tabular}
+< \begin{tablenotes}[flushleft]
+< \footnotesize
+< \item Notes: Attributed CO$_2$ applies the Feyrer-instrument elasticities (5.347 total, 5.192 international) to each country's change in log connectivity over its observed span within 1996--2023: attributed share $= 1-\exp(-\beta\,\Delta\ln\mathrm{GACI}_c)$, applied to 2023 bunker emissions (Methods). Social cost values one year's attributable emissions at \$51, \$185 and \$190 per tonne of CO$_2$ (2020 USD; US Interagency Working Group, Rennert et al.\ 2022, US EPA 2023). Rows show the ten largest positive countries, Germany (largest negative) and the world total (184 countries), which equals 41.1 percent of 2023 aviation CO$_2$ (848 Mt). Country shares are extreme for fast growers because the elasticity exceeds one; the figures are partial-equilibrium accounting.
+< \end{tablenotes}
+< \end{threeparttable}}
+< \end{table}
+< 
+481c445
+< Finally, we project world aviation CO$_2$ to 2050 under continued connectivity growth and sustainable aviation fuel (SAF) mandates (Fig.~\ref{fig:saf}). The preceding results show why fuel switching matters: additional flights drive the emissions response to connectivity, while efficiency improvements offset only 6\% of the increase. We combine our fuel-demand projection with fuel pathways from the Aviation Integrated Model (AIM), which limit SAF uptake by the pace of production growth and available feedstocks \citep{dray2019aim2015,dray2022}. Here, SAF comprises drop-in biofuels produced from biomass, wastes and residues, and power-to-liquid fuels synthesised from captured CO$_2$ and hydrogen.
+---
+> Finally, we project world aviation CO$_2$ to 2050 under continued connectivity growth and sustainable aviation fuel (SAF) mandates (Fig.~\ref{fig:saf}). The preceding results show why fuel switching matters: additional flights drive the emissions response to connectivity, while efficiency improvements offset only 6\% of the increase. We combine our fuel-demand projection with fuel pathways from the Aviation Integrated Model (AIM), which limit SAF uptake by the pace of production growth and available feedstocks \citep{dray2019aim2015,dray2022}. Here, SAF comprises drop-in biofuels produced from biomass, wastes and residues, and power-to-liquid fuels synthesized from captured CO$_2$ and hydrogen.
+483c447
+< Without fuel switching, well-to-wake emissions reach 1,777~Mt in 2050, 1.8 times the 2023 level of 986~Mt, compared with 1,411~Mt under a low-growth case (Fig.~\ref{fig:saf}a,b). The clearest legislated trajectory to 2050 is ReFuelEU, which raises the SAF blending requirement from 2\% in 2025 to 70\% in 2050 (Regulation (EU) 2023/2405) but applies only at EU airports, which account for 16\% of world aviation fuel in our inventory. With airports elsewhere continuing to use fossil jet fuel, this mandate lowers global emissions in 2050 by 11\% relative to the no-SAF projection, to 1,583~Mt. Applying the same milestones worldwide lowers emissions by 65\%, to 617~Mt, and returns them to the 2023 level by 2040. Two further global mandates, with blending paths drawn from AIM scenarios, show how the outcome changes with ambition: a 38\% requirement lowers emissions by 35\%, to 1,158~Mt, while a 100\% requirement lowers them by 95\%, to 84~Mt, below the 2023 level from 2035. Fuel switching can therefore reverse emissions growth, with the scale and timing of the reduction depending on both the depth and geographic reach of the mandate.
+---
+> Without fuel switching, well-to-wake emissions reach 1,777~Mt in 2050, 1.8 times the 2023 level of 986~Mt (848~Mt of direct combustion emissions plus upstream fuel-supply emissions), compared with 1,411~Mt under a low-growth case (Fig.~\ref{fig:saf}a,b). The clearest legislated trajectory to 2050 is ReFuelEU, which raises the SAF blending requirement from 2\% in 2025 to 70\% in 2050 (Regulation (EU) 2023/2405) but applies only at EU airports, which account for 16\% of world aviation fuel in our inventory. With airports elsewhere continuing to use fossil jet fuel, this mandate lowers global emissions in 2050 by 11\% relative to the no-SAF projection, to 1,583~Mt. Applying the same milestones worldwide lowers emissions by 65\%, to 617~Mt, and returns them to the 2023 level by 2040. Two further global mandates, with blending paths drawn from AIM scenarios, show how the outcome changes with ambition: a 38\% requirement lowers emissions by 35\%, to 1,158~Mt, while a 100\% requirement lowers them by 95\%, to 84~Mt, below the 2023 level from 2035. Fuel switching can therefore reverse emissions growth, with the scale and timing of the reduction depending on both the depth and geographic reach of the mandate.
+496c460
+< \section*{Discussion [Jinwoo]}
+---
+> \section*{Discussion}
+498c462
+< Our results provide global causal evidence that air connectivity is a system-level driver of aviation CO$_2$, with effects that are strongest during network take-off and extend across national borders. Five implications follow. First, the emissions response to connectivity is carried primarily by additional flights. Because GACI combines network topology with service intensity, its elasticity captures system-level changes in network structure and supplied capacity rather than the addition of a single route.  A one percent increase in GACI raises seat-kilometres by 5.64 percent and CO$_2$ by 5.35 percent.Changes in aircraft gauge, stage length and emissions intensity are not individually significant.  The 0.29 percent intensity decline offsets only 6 percent of the scale response. Aviation decarbonisation pathways often treat traffic growth as exogenous, whereas we identify network development as an important source [TODO cite: aviation decarbonisation pathways]. Within the scenarios considered, sustained fuel switching materially lowers total emissions; the observed efficiency gains do not. Policy should therefore track absolute CO$_2$ and traffic growth and combine connectivity expansion with lower-carbon fuels, propulsion technologies and demand-side measures.
+---
+> Our results provide global causal evidence that air connectivity is a system-level driver of aviation CO$_2$, with effects that are strongest during network take-off and extend across national borders. Five implications follow. First, the emissions response to connectivity is carried primarily by additional flights. Because GACI combines network topology with service intensity, its elasticity captures system-level changes in network structure and supplied capacity rather than the addition of a single route. A one percent increase in GACI raises seat-kilometres by 5.64\% and CO$_2$ by 5.35\%. Changes in aircraft gauge, stage length and emissions intensity are not individually significant. The 0.29\% intensity decline offsets only 6\% of the scale response. Aviation decarbonization pathways often treat traffic growth as exogenous, whereas we identify network development as an important source \citep{bergero2023,dray2022}. Within the scenarios considered, sustained fuel switching materially lowers total emissions; the observed efficiency gains do not. Policy should therefore track absolute CO$_2$ and traffic growth and combine connectivity expansion with lower-carbon fuels, propulsion technologies and demand-side measures \citep{creutzig2018}.
+500c464
+< Second, the global mean elasticity does not apply equally across countries. Identification is concentrated in the take-off stage of network development, and the response is largest in countries with low baseline connectivity. Continuous estimates suggest a declining, rather than vanishing, response. Earlier work finds that connectivity yields its largest economic gains in low-income, remote and weakly connected economies [TODO cite: companion GACI paper]. Marginal economic benefits and carbon consequences may therefore be greatest in the same places. These results do not justify restricting access; they support coupling network expansion with early provision of lower-carbon fuels, cleaner aircraft and supporting infrastructure.
+---
+> Second, the global mean elasticity does not apply equally across countries. Identification is concentrated in the take-off stage of network development, and the response is largest in countries with low baseline connectivity. Continuous estimates suggest a declining, rather than vanishing, response. The economic gains from connectivity are also expected to be largest in weakly connected economies \citep{lenaerts2021,zhang2020,amico2026}, so marginal economic benefits and carbon consequences may be greatest in the same places. These results do not justify restricting access; they support coupling network expansion with early provision of lower-carbon fuels, cleaner aircraft and supporting infrastructure.
+502c466
+< Third, connectivity creates effects across borders. A one percent increase in contiguous neighbours' connectivity raises own-country aviation CO$_2$ by about 2 percent, mainly through international traffic. The effect follows land borders rather than a smooth distance gradient, indicating a regional network externality rather than a global spillover. It remains after accounting for neighbours' emissions and common regional shocks.  The social-cost estimate is sizeable but depends on attribution and carbon valuation. This cross-border incidence matters for CORSIA, whose monitoring is based on reported international-flight emissions and whose offsetting obligations follow covered State pairs rather than the regional causal incidence of network expansion [TODO cite: ICAO CORSIA]. National measures should therefore be complemented by regional coordination in airport investment, route development and low-carbon fuel supply.
+---
+> Third, connectivity creates effects across borders. A one percent increase in contiguous neighbours' connectivity raises own-country aviation CO$_2$ by about 2\%, mainly through international traffic. The effect follows land borders rather than a smooth distance gradient, indicating a regional network externality rather than a global spillover. It remains after accounting for neighbours' emissions and common regional shocks, which distinguishes it from the strategic interaction in emissions documented among neighbouring jurisdictions \citep{zhuwei2024}. The social-cost estimate is sizeable but depends on attribution and carbon valuation. This cross-border incidence matters for CORSIA, whose monitoring is based on reported international-flight emissions and whose offsetting obligations follow covered State pairs rather than the regional causal incidence of network expansion \citep{icao2018corsia}. National measures should therefore be complemented by regional coordination in airport investment, route development and low-carbon fuel supply.
+504c468
+< Fourth, the airport results suggest where mitigation could be targeted. Eighty-five percent of attributed emissions is concentrated in the top 5 percent of airports, with emerging hubs among the largest contributors. These descriptive estimates identify high-leverage sites for low-carbon fuel supply and infrastructure, not sole sources of causation or responsibility; the response extends across countries and routes.
+---
+> Fourth, the airport results suggest where mitigation could be targeted. Eighty-five percent of attributed emissions is concentrated in the top 5\% of airports, with emerging hubs among the largest contributors. These descriptive estimates identify high-leverage sites for low-carbon fuel supply and infrastructure, not sole sources of causation or responsibility; the response extends across countries and routes.
+506c470
+< Fifth, these implications should be interpreted in light of several limitations. Three direct diagnostics are consistent with the exclusion restriction (Methods), but identification is concentrated in the network-expansion era and in lower-connectivity countries. The later-period elasticity is identified only after excluding the COVID-19 collapse years; correlated global cycles and sectoral change remain possible channels. Emissions are schedule-based and do not reflect realised load factors. Airport estimates are descriptive; the attribution and fuel-switching scenarios are partial-equilibrium calculations; and non-CO$_2$ climate effects are excluded. Policy assessments should therefore use development-stage-specific ranges rather than one global elasticity. Future work could separate GACI's topological and volumetric components and use route-level causal designs to test whether new links, centrality gains or traffic concentration drive changes in demand, schedules and fleet assignment. Coupling these pathways with deployment scenarios for sustainable aviation fuels, synthetic e-fuels and alternative propulsion systems could show when technological change offsets connectivity-induced growth in flights.
+---
+> Fifth, these implications should be interpreted in light of several limitations. Three direct diagnostics are consistent with the exclusion restriction (Methods), but identification is concentrated in the network-expansion era and in lower-connectivity countries. The later-period elasticity is identified only after excluding the COVID-19 collapse years \citep{lequere2020}; correlated global cycles and sectoral change remain possible channels. Emissions are schedule-based and do not reflect realized load factors. The airport attribution is descriptive; the country attribution and fuel-switching scenarios are partial-equilibrium calculations; and non-CO$_2$ climate effects, which account for a large part of aviation's warming, are excluded \citep{brazzola2022}. Policy assessments should therefore use development-stage-specific ranges rather than one global elasticity. Future work could separate GACI's topological and volumetric components and use route-level causal designs to test whether new links, centrality gains or traffic concentration drive changes in demand, schedules and fleet assignment. Coupling these pathways with deployment scenarios for sustainable aviation fuels, synthetic e-fuels and alternative propulsion systems could show when technological change offsets connectivity-induced growth in flights.
+513,567c477
+< We estimate flight-level CO$_2$ emissions from global scheduled flight records provided by the Official Airline Guide (OAG), covering January 1996 to June 2024, following the aviation emissions methodology of the European Monitoring and Evaluation Programme/European Environment Agency (EMEP/EEA) Air Pollutant Emission Inventory Guidebook (EEA, 2023) and using engine-specific operating parameters from the International Civil Aviation Organization (ICAO) Aircraft Engine Emissions Databank. For each physically operated flight leg $f$, total CO$_2$ emissions are separated into landing-and-take-off (LTO) and climb--cruise--descent (CCD) components:
+< 
+< \begin{equation}
+< E_{f,\mathrm{Total}}
+< =
+< E_{f,\mathrm{LTO}}
+< +
+< E_{f,\mathrm{CCD}} .
+< \label{eq:nature_1}
+< \end{equation}
+< 
+< The LTO component covers aircraft operations below 3,000 feet, while the CCD component covers climb, cruise and descent above 3,000 feet. In the EEA implementation used here, LTO emissions are calculated for five components: taxi-out, take-off, climb-out, approach and landing, and taxi-in. Multi-stop scheduled services are decomposed into their constituent operated legs before emissions are calculated, so that each physical leg contributes its own LTO and CCD emissions rather than being treated as a single end-to-end flight.
+< 
+< OAG equipment codes are matched to aircraft types and representative aircraft--engine configurations in the EEA aviation emissions database. Where an exact aircraft type is unavailable, we assign a representative type from the same aircraft family or series, or the closest operational substitute on the basis of aircraft size and operating characteristics. The resulting aircraft--engine mapping links each scheduled flight leg to the aircraft-specific parameters required for the LTO and CCD calculations.
+< 
+< For LTO emissions, we retain the five operating components separately. Let $j(f)$ denote the aircraft--engine configuration assigned to flight $f$, and let $k$ index the five LTO components. CO$_2$ emissions for component $k$ are calculated as
+< 
+< \begin{equation}
+< \begin{aligned}
+< E_{f,k}^{\mathrm{LTO}}
+< &=
+< T_k
+< \,FF_{j(f),k}
+< \,NE_{j(f)}
+< \,EF_{\mathrm{CO_2}},
+< &
+< E_{f,\mathrm{LTO}}
+< &=
+< \sum_{k\in\mathcal K_{\mathrm{LTO}}}
+< E_{f,k}^{\mathrm{LTO}}.
+< \end{aligned}
+< \label{eq:nature_2}
+< \end{equation}
+< 
+< where $T_k$ is the standard time in mode, $FF_{j(f),k}$ is the fuel-flow rate per engine for the corresponding operating mode, $NE_{j(f)}$ is the number of engines, and $EF_{\mathrm{CO_2}}$ is the fuel-specific CO$_2$ emission factor. We use standard time-in-mode values of 19 minutes for taxi-out, 0.7 minutes for take-off, 2.2 minutes for climb-out, 4 minutes for approach and landing, and 7 minutes for taxi-in. Engine-specific fuel-flow rates are obtained from the International Civil Aviation Organization (ICAO) Aircraft Engine Emissions Databank. CO$_2$ emission factors are 3.15 kilograms of CO$_2$ per kilogram of Jet A and 3.10 kilograms of CO$_2$ per kilogram of aviation gasoline. Retaining the individual LTO components also allows departure- and arrival-side emissions to be distinguished in the country-level allocation described below.
+< 
+< CCD emissions are estimated from aircraft-specific reference values provided by the EEA at discrete flight distances. For each flight leg, great-circle distance between the origin and destination airports is converted to the corresponding EEA flight distance following Avogadro and Redondi (2024). When this distance $d_f$ falls between two adjacent EEA reference distances $d_1$ and $d_2$, CCD emissions are obtained by linear interpolation:
+< 
+< \begin{equation}
+< \begin{split}
+< E_{f,\mathrm{CCD}}(d_f)
+< ={}&
+< E_{j(f),\mathrm{CCD}}(d_1)\\
+< &+
+< \left[
+< E_{j(f),\mathrm{CCD}}(d_2)
+< -
+< E_{j(f),\mathrm{CCD}}(d_1)
+< \right]
+< \frac{d_f-d_1}{d_2-d_1}.
+< \end{split}
+< \label{eq:nature_3}
+< \end{equation}
+< 
+< This procedure preserves the aircraft-specific EEA fuel-burn relationships while allowing emissions to vary continuously with flight distance. The resulting inventory therefore provides standardized LTO- and CCD-specific CO$_2$ estimates for each scheduled flight leg, rather than attempting to reproduce realized trajectories or flight-specific meteorological and operational conditions.
+---
+> We estimate CO$_2$ for every scheduled flight leg in the Official Airline Guide (OAG) schedules from January 1996 to June 2024, following the aviation chapter of the EMEP/EEA Air Pollutant Emission Inventory Guidebook \citep{eea2023} with engine-specific parameters from the ICAO Aircraft Engine Emissions Databank. Multi-stop services are split into their operated legs. Each leg's emissions are the sum of a landing-and-take-off (LTO) component below 3,000 feet and a climb--cruise--descent (CCD) component (Supplementary Note~2). OAG equipment codes are matched to the aircraft--engine configurations of the EEA database; where no exact type exists, the closest type in the same family is used. LTO emissions are computed for five modes (taxi-out, take-off, climb-out, approach and landing, taxi-in) as the standard time in mode (19, 0.7, 2.2, 4 and 7 minutes) times the engine fuel-flow rate, the number of engines and the fuel emission factor (3.15 kg CO$_2$ per kg of Jet A, 3.10 for aviation gasoline). CCD emissions interpolate the EEA aircraft-specific reference values linearly in flight distance, after converting the great-circle distance to the EEA flight distance following \citet{avogadro2024}. The inventory describes scheduled operations under standard conditions; it does not observe weather, routing or realized load factors.
+571,661c481
+< Constructing country-year emissions from the flight-level inventory requires an explicit rule for attributing emissions to national units. This is relatively straightforward for LTO emissions, because the underlying operations can be associated with the departure or arrival airport. The attribution of CCD emissions is less direct, particularly for international flights, because the en-route component does not have a unique country assignment. Country-level aviation emissions therefore depend in part on the accounting convention used to allocate this component. To separate locally anchored airport emissions from this accounting choice, and to assess the sensitivity of our empirical results to alternative treatments of international en-route emissions, we construct three country-level measures.
+< 
+< Because the five LTO components are retained separately in the flight-level inventory, we distinguish the emissions associated with the departure and arrival sides of each flight. For flight leg $f$, define
+< 
+< \[
+< D_f
+< =
+< E_{f,\mathrm{taxi\mbox{-}out}}
+< +
+< E_{f,\mathrm{take\mbox{-}off}}
+< +
+< E_{f,\mathrm{climb\mbox{-}out}},
+< \]
+< 
+< \[
+< A_f
+< =
+< E_{f,\mathrm{approach/landing}}
+< +
+< E_{f,\mathrm{taxi\mbox{-}in}},
+< \qquad
+< C_f
+< =
+< E_{f,\mathrm{CCD}}.
+< \]
+< 
+< Total emissions from the flight leg can therefore be written as
+< 
+< \begin{equation}
+< E_{f,\mathrm{Total}}
+< =
+< D_f+A_f+C_f .
+< \label{eq:nature_4}
+< \end{equation}
+< 
+< For a flight from airport $A$ to airport $B$, $D_f$ is assigned to the country containing the departure airport and $A_f$ to the country containing the arrival airport. This links LTO emissions to the location of the corresponding airport operation. Flights are classified as domestic or international according to whether their origin and destination airports are located in the same country. The three national measures differ only in their treatment of $C_f$.
+< 
+< The first is an LTO-only measure, which attributes to each country only the emissions associated with airport operations occurring at its airports. Let $O_{ct}$ and $I_{ct}$ denote the sets of flight legs departing from and arriving in country $c$ in year $t$, respectively. We define
+< 
+< \begin{equation}
+< E^{\mathrm{LTO}}_{ct}
+< =
+< \sum_{f\in O_{ct}}D_f
+< +
+< \sum_{f\in I_{ct}}A_f .
+< \label{eq:nature_5}
+< \end{equation}
+< 
+< Because this measure excludes CCD emissions by construction, it is not intended to represent a complete national aviation-emissions inventory. Rather, it provides a geographically anchored measure of local aviation emissions that is independent of any convention for allocating the en-route component of international flights.
+< 
+< Our headline measure additionally assigns the full CCD component of each flight to its country of departure:
+< 
+< \begin{equation}
+< E^{\mathrm{dep}}_{ct}
+< =
+< E^{\mathrm{LTO}}_{ct}
+< +
+< \sum_{f\in O_{ct}} C_f .
+< \label{eq:nature_6}
+< \end{equation}
+< 
+< We refer to this as the departure-based, or bunker, measure. At the flight level, this allocation mirrors the origin-side logic of international bunker accounting: en-route emissions are associated with the departing side of the flight, while LTO emissions remain assigned to the airports at which the corresponding operations occur. The measure therefore provides a complete allocation of flight emissions across countries and serves as the principal emissions outcome in the empirical analysis.
+< 
+< As a symmetric alternative, we construct a 50/50 measure that assigns one half of each flight's CCD emissions to the origin country and the other half to the destination country:
+< 
+< \begin{equation}
+< E^{50/50}_{ct}
+< =
+< E^{\mathrm{LTO}}_{ct}
+< +
+< \frac{1}{2}\sum_{f\in O_{ct}} C_f
+< +
+< \frac{1}{2}\sum_{f\in I_{ct}} C_f .
+< \label{eq:nature_7}
+< \end{equation}
+< 
+< This allocation does not privilege either endpoint in assigning international en-route emissions and therefore provides a transparent robustness check on the origin-based convention.
+< 
+< For domestic flights, the departure-based and 50/50 measures are identical because both endpoints belong to the same country. Differences between the two full-emissions measures therefore arise entirely from the allocation of CCD emissions on international flights. Importantly, both allocation rules preserve the same global emissions total:
+< 
+< \begin{equation}
+< \sum_c E^{\mathrm{dep}}_{ct}
+< =
+< \sum_c E^{50/50}_{ct}
+< =
+< \sum_{f\in F_t}
+< \left(D_f+A_f+C_f\right),
+< \label{eq:nature_8}
+< \end{equation}
+< 
+< where $F_t$ denotes all flight legs in year $t$. Thus, differences across the national measures reflect only how a fixed quantity of flight-level emissions is distributed across countries, rather than differences in the underlying emissions inventory.
+---
+> Country-year emissions require a rule for the en-route component of international flights. We keep departure- and arrival-side LTO emissions separate and assign them to the countries of the departure and arrival airports. The headline, departure-based (bunker) measure adds each flight's full CCD component to the departure country, mirroring the origin-side logic of international bunker accounting. Two alternatives bound this accounting choice: an LTO-only (territorial) measure that excludes CCD emissions, and a 50/50 measure that splits CCD emissions equally between the endpoint countries. The bunker and 50/50 measures coincide for domestic flights and preserve the same global total, so any difference between them reflects only the allocation of international en-route emissions (Supplementary Note~2). The elasticity is within 0.3 across the three rules (Extended Data Table~\ref{tab:alloc}).
+665,694c485
+< The flight-level inventory is intended to provide globally consistent estimates over nearly three decades rather than to reproduce the realized conditions of every individual flight. Meteorological conditions, routing and air-traffic-control adjustments, airport-specific operations, and other flight-level variation are therefore not observed, and a small number of aircraft types are represented by closely matched aircraft--engine configurations when no exact EEA counterpart is available. Standardized time-in-mode and aircraft-performance parameters likewise represent typical rather than realized operations. We therefore assess whether these approximations materially affect the dimensions of the inventory used in our analysis: the scale of emissions, their geographic distribution, and their LTO--CCD composition.
+< 
+< The scale and evolution of global aviation emissions are closely reproduced against two references constructed from fundamentally different sources. The International Air Transport Association (IATA) provides industry-level global CO$_2$ estimates based on airline operational and industry statistics, whereas the Organisation for Economic Co-operation and Development (OECD) constructs a bottom-up inventory from individual flight activity and engineering-based emissions calculations (IATA, 2018, 2019, 2024; Clarke et al., 2022). The convergence of these distinct approaches is informative because it does not arise from alternative implementations of the same underlying model. Over 2004--2023, our estimates have a weighted absolute percentage error (WAPE) of 3.04\% relative to IATA and an aggregate bias of $-1.98\%$; against the OECD inventory over 2013--2023, the corresponding values are 3.58\% and $+3.40\%$ (Table~\ref{tab:validation_benchmarks}).
+< 
+< IATA and OECD provide global coverage but remain estimated emissions series. We therefore complement them with carrier-reported fuel consumption from the United States (U.S.) Bureau of Transportation Statistics (BTS), which is geographically narrower but more directly measures the physical quantity underlying CO$_2$ emissions. Over 1996--2023, our estimated U.S.-carrier fuel consumption has a WAPE of 3.84\% relative to BTS and an aggregate bias of $+0.76\%$. Together, the three sources test the inventory from complementary perspectives: global industry estimates, an independent flight-level inventory, and reported fuel use.
+< 
+< We next examine the cross-country distribution of emissions, which is directly relevant to the country-year empirical design. After applying a consistent departure-country allocation rule, the mean annual log-scale Pearson correlation with the OECD territory-based series is 0.999 over 2013--2018, with a mean total variation distance (TVD) of 1.05\%. From 2019, when the OECD activity data shift from scheduled-flight records to realized flights observed through Automatic Dependent Surveillance--Broadcast (ADS-B), agreement remains strong but discrepancies increase: over 2019--2023, the mean correlation is 0.955 and mean TVD is 6.04\%. Matched countries account for more than 99\% of emissions in our inventory in every year. The post-2019 divergence is therefore consistent with differences between scheduled and realized flight activity rather than a broad disagreement in the geographic distribution of emissions.
+< 
+< Finally, the estimated flight-phase composition is also consistent with independent evidence. LTO operations account for 12.41\% of total CO$_2$ emissions over 1996--2023. Quadros et al. (2022) report global LTO fuel-burn shares of 10.8--13.5\% under ICAO reference LTO-cycle assumptions. Because CO$_2$ emissions from conventional aviation fuel are proportional to fuel burn, these values provide a directly comparable reference, and our estimate falls within the reported range.
+< 
+< \begin{table}[htbp]
+< \centering
+< \caption{External validation of aviation emissions estimates}
+< \label{tab:validation_benchmarks}
+< \small
+< \begin{tabular}{lllll}
+< \hline
+< Benchmark & Comparison & Period & WAPE & Aggregate bias \\
+< \hline
+< IATA & Global CO$_2$ emissions & 2004--2023 & 3.04\% & $-1.98\%$ \\
+< OECD & Global CO$_2$ emissions & 2013--2023 & 3.58\% & $+3.40\%$ \\
+< BTS & U.S. carrier fuel consumption & 1996--2023 & 3.84\% & $+0.76\%$ \\
+< \hline
+< \end{tabular}
+< 
+< \vspace{0.4em}
+< \begin{minipage}{0.96\linewidth}
+< \footnotesize\textit{Notes:} WAPE is defined as $\sum_t |\widehat{E}_t-E_t^B|/\sum_t E_t^B$. Aggregate bias is defined as $\sum_t(\widehat{E}_t-E_t^B)/\sum_t E_t^B$; positive values indicate that our estimate exceeds the corresponding benchmark.
+< \end{minipage}
+< \end{table}
+---
+> Against two independent global references, IATA industry statistics \citep{iata2018,iata2019,iata2024} and the OECD flight-level inventory \citep{clarke2022}, our world totals have weighted absolute percentage errors of 3.0\% (2004--2023) and 3.6\% (2013--2023); against carrier-reported fuel consumption from the U.S. Bureau of Transportation Statistics the error is 3.8\% over 1996--2023 (Extended Data Table~\ref{tab:validation_benchmarks}). The cross-country distribution matches the OECD territory-based series with a log-scale correlation of 0.999 over 2013--2018 (total variation distance 1.1\%) and 0.955 over 2019--2023, when the OECD series switches from schedules to realized ADS-B flights. LTO operations account for 12.4\% of CO$_2$, within the 10.8--13.5\% that \citet{quadros2022} report for the ICAO reference cycle. Supplementary Note~2 gives the details.
+698,833c489
+< We measure air connectivity using the Global Air Connectivity Index (GACI), following Cheung et al. (2020). GACI is a composite measure of an airport's position in the global air transport network, combining structural and volumetric dimensions of connectivity, including direct and indirect connectivity, capacity-based link intensity and regional importance. Because the evolution of connectivity is central to our analysis, we reconstruct the worldwide airport network separately for each year from OAG route-segment schedules. Airports therefore enter and leave the network as scheduled service begins or ceases, and connectivity can vary continuously with changes in routes, frequencies and capacity.
+< 
+< Let $V_t$ denote the set of airports with active scheduled service in year $t$. Airports are represented as nodes and scheduled connections as undirected links, with $a_{ijt}=1$ if airports $i$ and $j$ are directly connected and zero otherwise. Let $q_{ijt}$ denote annual scheduled seat capacity on the link, aggregated over both directions. Airport strength and degree are
+< 
+< \begin{equation}
+< s_{it}
+< =
+< \sum_{j\in V_t} q_{ijt},
+< \qquad
+< d_{it}
+< =
+< \sum_{j\in V_t} a_{ijt}.
+< \label{eq:nature_9}
+< \end{equation}
+< 
+< For each active link $\{i,j\}$, connection intensity is defined as
+< 
+< \begin{equation}
+< w_{ijt}
+< =
+< \sqrt{
+< \frac{s_{it}s_{jt}}
+< {d_{it}d_{jt}}
+< },
+< \qquad
+< a_{ijt}=1,
+< \label{eq:nature_10}
+< \end{equation}
+< 
+< and $w_{ijt}=0$ otherwise. This measure is high when both endpoint airports carry substantial scheduled capacity per connection and provides the common measure of connection strength used in the weighted components of GACI.
+< 
+< GACI combines five complementary indicators of airport network position.
+< 
+< Degree measures the number of airports directly connected to airport $i$:
+< 
+< \begin{equation}
+< d_{it}
+< =
+< \sum_{j\in V_t} a_{ijt}.
+< \label{eq:nature_11}
+< \end{equation}
+< 
+< It captures the direct reach of an airport within the global network.
+< 
+< Flow betweenness captures the extent to which airport $i$ lies on potential transfer flows between other origin--destination pairs:
+< 
+< \begin{equation}
+< F_b(i,t)
+< =
+< \frac{1}{N_{B,t}}
+< \sum_{\substack{j,g\in V_t\\
+< j\neq g,\; j\neq i,\; g\neq i}}
+< \tau_{jgt}(i),
+< \qquad
+< N_{B,t}
+< =
+< \frac{N_t(N_t-1)}{2},
+< \label{eq:nature_12}
+< \end{equation}
+< 
+< where $N_t=|V_t|$ and $\tau_{jgt}(i)$ denotes modelled flow through airport $i$ between airports $j$ and $g$ under an electrical-circuit representation of the weighted network, with link conductance proportional to $w_{ijt}$. The measure therefore captures an airport's importance as an intermediary in the network rather than only its direct connections.
+< 
+< Closeness centrality measures the topological accessibility of airport $i$:
+< 
+< \begin{equation}
+< C_c(i,t)
+< =
+< \frac{N_t-1}
+< {\displaystyle
+< \sum_{\substack{j\in V_t\\j\neq i}}
+< \mathrm{Dist}_t(i,j)
+< },
+< \label{eq:nature_13}
+< \end{equation}
+< 
+< where $\mathrm{Dist}_t(i,j)$ is the shortest-path length between airports $i$ and $j$, measured in flight legs. Closeness therefore reflects how few connections are required to reach the rest of the network rather than geographic distance, flight distance or travel time.
+< 
+< Eigenvector centrality assigns greater weight to connections with airports that are themselves highly connected:
+< 
+< \begin{equation}
+< C_E(i,t)
+< =
+< \frac{1}{\lambda_t}
+< \sum_{j\in V_t}
+< w_{ijt} C_E(j,t),
+< \label{eq:nature_14}
+< \end{equation}
+< 
+< where $\lambda_t$ is the largest eigenvalue of the weighted adjacency matrix $W_t=[w_{ijt}]$. Connections to more central airports therefore contribute more strongly to an airport's network importance.
+< 
+< Finally, regional importance captures the strength of an airport's connections within its own OAG world region. Let $R(i)$ denote the region containing airport $i$, and define
+< 
+< \begin{equation}
+< V^R_{it}
+< =
+< \left\{
+< j\in V_t:
+< a_{ijt}=1,\;
+< R(j)=R(i)
+< \right\}.
+< \label{eq:nature_15}
+< \end{equation}
+< 
+< Regional importance is
+< 
+< \begin{equation}
+< C_R(i,t)
+< =
+< \frac{1}{|V^R_{it}|}
+< \sum_{j\in V^R_{it}}
+< w_{ijt}.
+< \label{eq:nature_16}
+< \end{equation}
+< 
+< This component measures the strength of an airport's position within its regional aviation network. Taken together, degree, closeness and eigenvector centrality primarily characterize network topology, whereas flow betweenness and regional importance additionally incorporate the intensity of airport connections. The five measures therefore capture distinct but complementary dimensions of connectivity.
+< 
+< Because the five indicators differ in scale, they are standardized following Cheung et al. (2020) and combined using principal component analysis (PCA). Let $\tilde d_{it}$, $\tilde f_{it}$, $\tilde c_{it}$, $\tilde e_{it}$ and $\tilde r_{it}$ denote the standardized degree, flow-betweenness, closeness, eigenvector-centrality and regional-importance measures. Airport-level GACI is defined by the first principal component:
+< 
+< \begin{equation}
+< \mathrm{GACI}_{it}
+< =
+< \begin{bmatrix}
+< \tilde d_{it} &
+< \tilde f_{it} &
+< \tilde c_{it} &
+< \tilde e_{it} &
+< \tilde r_{it}
+< \end{bmatrix}
+< \boldsymbol{\alpha}_t ,
+< \label{eq:nature_17}
+< \end{equation}
+< 
+< where $\boldsymbol{\alpha}_t$ is the first-principal-component loading vector estimated for the year-$t$ network. Across 1996--2023, the loadings are uniformly positive and highly stable, and the first component explains 63--77\% of annual variation in the five standardized indicators. A pooled PCA estimated over all airport-year observations yields an index correlated at 0.98 with the year-specific construction, supporting the intertemporal comparability of the index.
+< 
+< Our empirical analysis is conducted primarily at the country level. Let $A_{ct}$ denote the set of airports with active scheduled service in country $c$ in year $t$. The headline national measure is the capacity-weighted mean (cwm) of airport GACI:
+< 
+---
+> We measure connectivity with the Global Air Connectivity Index (GACI) of \citet{cheung2020}, reconstructing the worldwide airport network for each year from OAG route-segment schedules, so that airports enter and leave the network as scheduled service begins or ceases. Airports are nodes, a link exists where scheduled service connects two airports, and its intensity $w_{ijt}=\sqrt{s_{it}s_{jt}/(d_{it}d_{jt})}$ combines the seat capacity $s$ and degree $d$ of the endpoints. GACI is the first principal component of five standardized indicators: degree, closeness and eigenvector centrality, which describe topology, and flow betweenness and regional importance, which add the intensity of connections (Supplementary Note~3). The loadings are positive and stable across years, the first component explains 63--77\% of the annual variation, and a pooled PCA correlates at 0.98 with the year-specific index. The headline national measure is the capacity-weighted mean of airport GACI over the airports $A_{ct}$ with scheduled service in country $c$ in year $t$,
+847a504
+> with the maximum, sum and unweighted mean as alternatives (Supplementary Note~3, equations~\ref{eq:nature_19}--\ref{eq:nature_21}). Because GACI responds to frequencies, capacity and partners' connectivity as well as to new routes, it captures both the extensive and the intensive margin of network development.
+849,888c506
+< This measure summarizes the connectivity of the national airport system while assigning greater weight to airports that account for larger shares of scheduled capacity.
+< 
+< We additionally consider three alternative aggregations. The maximum
+< 
+< \begin{equation}
+< \mathrm{GACI}^{\max}_{ct}
+< =
+< \max_{i\in A_{ct}}
+< \mathrm{GACI}_{it}
+< \label{eq:nature_19}
+< \end{equation}
+< 
+< captures the connectivity of the country's leading gateway. The sum
+< 
+< \begin{equation}
+< \mathrm{GACI}^{\mathrm{sum}}_{ct}
+< =
+< \sum_{i\in A_{ct}}
+< \mathrm{GACI}_{it}
+< \label{eq:nature_20}
+< \end{equation}
+< 
+< captures aggregate airport-system connectivity, whereas the unweighted mean
+< 
+< \begin{equation}
+< \mathrm{GACI}^{\mathrm{mean}}_{ct}
+< =
+< \frac{1}{|A_{ct}|}
+< \sum_{i\in A_{ct}}
+< \mathrm{GACI}_{it}
+< \label{eq:nature_21}
+< \end{equation}
+< 
+< assigns equal weight to all active airports. The capacity-weighted mean is our headline measure; the alternative aggregations assess the robustness of the results to different representations of national network structure.
+< 
+< GACI is particularly suited to the present analysis because aviation connectivity evolves continuously rather than only through discrete airport or route openings. Changes in flight frequency and seat capacity, shifts in the connectivity of partner airports, and changes in indirect access can alter a country's network position even when its set of direct routes is unchanged. GACI therefore captures both extensive-margin changes in network coverage and intensive-margin changes in the strength and importance of existing connections.
+< 
+< The estimation sample covers 184 countries over 1996--2023, comprising 4,634 country-year observations. Of the 6,356 airports represented in the emissions inventory, 5,354 are nodes in the connectivity network; airports not matched to the GACI network account for only 0.1\% of departure-based emissions, and airports that cannot be assigned to a country (0.02\% of emissions) are excluded from the country panel.
+< 
+< 
+---
+> The estimation sample covers 182 countries over 1996--2023, comprising 4,634 country-year observations. Two of the 184 countries in the emissions panel are excluded: Cura\c{c}ao, for which the CERDI database records no sea distance, and New Caledonia, observed in a single year. Supplementary Table~\ref{tab:sumstat} reports summary statistics for all variables used in the analysis. Of the 6,356 airports represented in the emissions inventory, 5,354 are nodes in the connectivity network; airports not matched to the GACI network account for only 0.1\% of departure-based emissions, and airports that cannot be assigned to a country (0.02\% of emissions) are excluded from the country panel.
+890,891c508
+< 
+< \subsection*{Estimation [Junya]}
+---
+> \subsection*{Estimation}
+901c518
+< where $\mathrm{CO_2}_{ct}$ denotes aviation CO$_2$ emissions and $\mathrm{GACI}_{ct}$ represents the GACI in country $c$ in year $t$. Among the GACI variants, we use $\mathrm{GACI}^{\mathrm{cwm}}_{ct}$ as our primary independent variable, while $\mathrm{GACI}^{\mathrm{max}}_{ct}$, $\mathrm{GACI}^{\mathrm{sum}}_{ct}$, and $\mathrm{GACI}^{\mathrm{mean}}_{ct}$ are used in supplementary analyses. $\mathrm{pop}_{ct}$ and $\mathrm{seaMA}_{ct}$ denote total population and sea market access, respectively, while $\alpha_c$ and $\tau_t$ represent country and year fixed effects, and $\varepsilon_{ct}$ is an idiosyncratic error term.
+---
+> where $\mathrm{CO_2}_{ct}$ denotes aviation CO$_2$ emissions and $\mathrm{GACI}_{ct}$ represents the GACI in country $c$ in year $t$. Among the GACI variants, we use $\mathrm{GACI}^{\mathrm{cwm}}_{ct}$ as our primary independent variable, while $\mathrm{GACI}^{\mathrm{max}}_{ct}$, $\mathrm{GACI}^{\mathrm{sum}}_{ct}$, and $\mathrm{GACI}^{\mathrm{mean}}_{ct}$ are used in supplementary analyses. $\mathrm{pop}_{ct}$ and $\mathrm{seaMA}_{ct}$ denote total population and sea market access (equation~\ref{eq:seama}), respectively, while $\alpha_c$ and $\tau_t$ represent country and year fixed effects, and $\varepsilon_{ct}$ is an idiosyncratic error term.
+912,919c529
+< where $\mathrm{Z}_{ct}$ denotes the instrumental variable and $\nu_{ct}$ is the first-stage error term. The superscript ``$\mathrm{1st}$'' indicates parameters from the first-stage regression. Standard errors are clustered at the country level (184 clusters), and all first-stage statistics are cluster-robust. For comparison, heteroskedasticity-robust standard errors---which are approximately one-third the magnitude of the clustered standard errors---are reported in Supplementary Table~\ref{tab:exclusion2}. Furthermore, two-way clustering by country and year yields standard errors virtually identical to the baseline one-way country clustering.
+< 
+< 
+< \subsection*{Instruments and validity [Junya]}
+< 
+< Estimating the impact of air connectivity on aviation CO$_2$ emissions faces potential endogeneity issues: time-varying country-specific shocks, such as tourism booms or aviation deregulation, may simultaneously expand air networks and increase emissions, while climate policy responses to rising aviation emissions (e.g., slot restrictions or aviation taxes) could induce reverse causality.
+< 
+< To address this endogeneity, we instrument connectivity using a Feyrer-type shifter based on the progress of aviation technology. Specifically, this instrument interacts world aviation technology $a_t$ with the country's air market access computed on fixed 1996 geography, while the sea-distance market-access channel is controlled directly. The identifying variation relies on the differential exposure of countries to the global growth of aviation implied by their geography, holding the surface-shipping alternative fixed. Because both the global technology frontier and predetermined 1996 geography are external to any individual country's contemporaneous demand fluctuations or regulatory decisions, this construction effectively purges the estimation of bias from local omitted variables and reverse causality. Moreover, the instrument is highly relevant: the first-stage Kleibergen--Paap $F$ is 18 (154 with heteroskedasticity-robust errors). Because any shifter of the form (global cycle $\times$ baseline characteristic) may proxy for size dynamics (global cycle $\times$ country size), we re-estimate the first stage by adding interactions of the global cycle with baseline population, GDP, and airport capacity. The primary instrument robustly survives this stress test: on the 4,121 country-years of countries observed in 1996, the heteroskedasticity-robust $F$ declines only slightly from 120.1 to 105.8.
+---
+> where $\mathrm{Z}_{ct}$ denotes the instrumental variable and $\nu_{ct}$ is the first-stage error term. The superscript ``$\mathrm{1st}$'' indicates parameters from the first-stage regression. Standard errors are clustered at the country level (182 clusters), and all first-stage statistics are cluster-robust. For comparison, heteroskedasticity-robust standard errors---which are approximately one-third the magnitude of the clustered standard errors---are reported in Supplementary Table~\ref{tab:exclusion2}. Furthermore, two-way clustering by country and year yields standard errors virtually identical to the baseline one-way country clustering.
+921d530
+< The validity of this instrument relies on the exclusion restriction, which requires that the instrument affects aviation CO$_2$ only through air connectivity. Global advancements in aviation technology, when interacted with a country's predetermined geographical position, should shift emissions exclusively by expanding air network connectivity, rather than directly altering domestic emissions through non-aviation channels.
+923,927c532
+< We empirically validate the exclusion restriction using three direct tests, all of which pass (Extended Data Table~\ref{tab:exclusion}, Panels A, C and D; Extended Data Fig.~\ref{fig:placeborf}):
+< First, non-aviation emissions do not respond to the instrument. The reduced form on total territorial fossil CO$_2$ excluding domestic aviation is 0.05 (s.e.\ 0.12) against 0.68 (s.e.\ 0.15) for aviation CO$_2$, firmly rejecting a general development channel that would raise all emissions. 
+< Second, the effect operates specifically through air geography rather than geography in general. When the aviation-technology cycle is interacted with 1996 sea market access instead of air market access and both interactions are entered, the sea term yields a reduced form of $-$0.19 (s.e.\ 0.26), while the air term retains a strong 0.82 (s.e.\ 0.21). 
+< Third, in regions where the instrument cannot move connectivity, it does not move emissions. In the top tercile of baseline connectivity where the first stage is absent ($F = 0.2$), the reduced form on CO$_2$ is negligible at 0.09 (s.e.\ 0.19), contrasting sharply with 1.97 and 0.41 in the lower terciles.
+< Furthermore, plausibly-exogenous bounds indicate that a direct effect of the instrument would need to account for 85 percent of the reduced form (42 percent for intensity) to overturn our baseline results.
+---
+> \subsection*{Instruments and validity}
+929,933c534,546
+< Six further checks reinforce our findings (Extended Data Table~\ref{tab:exclusion} and Supplementary Table~\ref{tab:exclusion2}): controlling for development channels maintains the elasticity between 4.4 and 4.6; alternative technology series and distance-decay exponents yield elasticities of 5.2 to 5.8; the comparison of heteroskedasticity-robust and clustered errors remains stable; and a horse race against rival global cycles supports our specification. (Leads of the instrument are uninformative because the technology index is a smooth trend). Two caveats remain: coal and cement CO$_2$ rise with the instrument (0.90 and 0.67), indicating some recomposition of non-aviation emissions; and the aviation cycle is highly correlated with world GDP and trade cycles (0.82 and 0.84), meaning the identifying variation rests primarily on the air-versus-sea contrast rather than the cycle itself. Alternative constructions aiming to avoid these caveats (e.g., air-minus-sea advantage interacted with the cycle) yielded weak first stages ($F$ of 1.0 and 5.6).
+< 
+< Finally, we consider other potential instruments, but restrict their use due to specific limitations. 
+< An aviation-accident instrument (lagged fatal accidents and accident deaths from the Aviation Safety Network) is too weak to use on its own (robust first-stage $F$ of 1 to 4; 2SLS 5.6 with a standard error of 2.2 for lagged fatal accidents). However, the Hansen test does not reject its joint validity with the primary Feyrer instrument ($p = 0.81$ and 0.95), yielding a jointly instrumented elasticity of 5.1 (Supplementary Table~\ref{tab:accident_iv}). 
+< Another alternative, a tourism-heritage instrument, fails the baseline size-control stress test (its $F$-statistic drops from 13.8 to below 1). Therefore, its use is strictly limited to serving as a lens on the composition margin, as its compliers are hub-quality changes with a post-2010 first stage.
+---
+> Time-varying country shocks, such as tourism booms or aviation deregulation, may expand air networks and raise emissions at the same time, and policy responses to rising emissions, such as slot restrictions or aviation taxes, may induce reverse causality. We therefore instrument connectivity with a shift-share instrument in the spirit of \citet{feyrer2019}, which uses the fact that the growth of aviation shortens the effective distance to foreign markets more for some countries than for others. For each country we compute air and sea market access as distance-weighted sums of foreign population,
+> \begin{equation}
+> \mathrm{airMA}_{ct}=\sum_{j\neq c}\frac{\mathrm{Pop}_{jt}}{d^{\,\mathrm{air}}_{cj}},
+> \qquad
+> \mathrm{seaMA}_{ct}=\sum_{j\neq c}\frac{\mathrm{Pop}_{jt}}{d^{\,\mathrm{sea}}_{cj}},
+> \label{eq:seama}
+> \end{equation}
+> where $\mathrm{Pop}_{jt}$ is the population of foreign country $j$ (World Bank World Development Indicators), $d^{\,\mathrm{air}}_{cj}$ is the great-circle distance in kilometres between the aviation centroids of $c$ and $j$, defined as the unweighted mean coordinates of each country's airports in the network, and $d^{\,\mathrm{sea}}_{cj}$ is the port-to-port sea distance from the CERDI-seadistance database \citep{bertoli2016}, which assigns landlocked countries the port of their transit country. Own-country population is excluded, the distance-decay exponent is one, and both sums run over the same set of partner countries. The instrument interacts a world aviation index with air market access fixed at its 1996 value,
+> \begin{equation}
+> Z_{ct}=a_t\times\ln \mathrm{airMA}_{c,1996},
+> \label{eq:feyrer}
+> \end{equation}
+> where $a_t$ is world scheduled seat capacity in year $t$, the sum of annual seat capacity over the airports of all countries in our panel in the OAG schedules (95 to 98\% of capacity in the global network, correlation 0.999 with the all-airport total), min--max scaled to $[0,1]$ over 1996--2023. Because $\mathrm{airMA}_{c,1996}$ is computed from 1996 populations, it is also defined for the 32 countries that join the network after 1996. Log sea market access, computed with contemporaneous populations, enters equations~\ref{eq:main} and \ref{eq:firststage} as a control, so that the instrument isolates the aviation-specific gain in market access rather than the general advantage of proximity to foreign populations, including the surface-shipping channel. The global aviation index and the 1996 geography are both external to a country's contemporaneous demand shocks and regulatory decisions.
+934a548
+> The instrument is relevant: the first-stage Kleibergen--Paap $F$ is 18.4 (153.6 with heteroskedasticity-robust errors). Because any shifter of the form (global cycle $\times$ baseline characteristic) may proxy for size dynamics (global cycle $\times$ country size), we add interactions of the global cycle with baseline population, GDP and airport capacity to the first stage; on the 4,121 country-years of countries observed in 1996, the heteroskedasticity-robust $F$ falls only from 120.1 to 105.8.
+935a550
+> The exclusion restriction requires that the instrument affect aviation CO$_2$ only through air connectivity, not through non-aviation channels. Three direct tests are consistent with it (Extended Data Table~\ref{tab:exclusion}, Panels A, C and D; Extended Data Fig.~\ref{fig:placebos}d). First, non-aviation emissions do not respond to the instrument: the reduced form on total territorial fossil CO$_2$ excluding domestic aviation is 0.05 (s.e.\ 0.12), against 0.68 (s.e.\ 0.15) for aviation CO$_2$, rejecting a general development channel that would raise all emissions. Second, the effect operates through air geography rather than geography in general: when the aviation cycle is interacted with 1996 sea market access instead of air market access and both interactions are entered, the sea term has a reduced form of $-$0.19 (s.e.\ 0.26) while the air term retains 0.82 (s.e.\ 0.21). Third, where the instrument cannot move connectivity it does not move emissions: in the top tercile of baseline connectivity, where the first stage is absent ($F$ = 0.2), the reduced form on CO$_2$ is 0.09 (s.e.\ 0.19), against 1.97 and 0.41 in the lower terciles.
+936a552
+> Further checks support these results (Extended Data Table~\ref{tab:exclusion} and Supplementary Table~\ref{tab:exclusion2}). Adding development controls keeps the elasticity between 4.4 and 4.7. Replacing world seat capacity with world flights, world seat-kilometres, the world sum of GACI or a fuel-efficiency index, or setting the distance-decay exponent of air market access to 0.5 or 1.5, gives elasticities of 5.2 to 5.8, and two-way clustering by country and year leaves the standard error unchanged. Two caveats remain. First, coal and cement CO$_2$ rise with the instrument (reduced forms of 0.90 and 0.67), indicating some recomposition of non-aviation emissions. Second, the aviation cycle is highly correlated with the world GDP and trade cycles (0.82 and 0.84), and entering either rival cycle interacted with the same geography removes the first stage (Extended Data Table~\ref{tab:exclusion}, Panel B). The instrument therefore cannot separate aviation growth from general world growth; the exclusion restriction rests on the air-market-access geography, and the placebo outcomes in Panel A show that this geography, interacted with the cycle, does not move total non-aviation emissions. Alternative constructions that avoid these caveats, such as the air-minus-sea advantage interacted with the cycle, give weak first stages ($F$ of 1.0 and 5.6).
+938c554
+< \subsection*{Decomposition of the emissions}
+---
+> Finally, an aviation-accident instrument, lagged fatal accidents and accident deaths from the Aviation Safety Network, is too weak to use on its own (first-stage $F$ of 1.1 to 4.2; 2SLS 5.6 with a standard error of 2.2 for lagged fatal accidents). Entered jointly with the Feyrer instrument it gives an elasticity of 5.1, and the Hansen test does not reject the overidentifying restriction ($p$ = 0.82 and 0.96; Supplementary Table~\ref{tab:accident_iv}).
+940c556
+< To disentangle the operational margins driving the overall emissions response, we decompose national aviation CO$_2$ emissions using the following accounting identity:
+---
+> \subsection*{Decomposition of the emissions elasticity}
+941a558
+> National aviation CO$_2$ is the product of departing flights $F_{ct}$, seats per flight, kilometres per seat and CO$_2$ per seat-kilometre,
+947,951c564
+< 
+< where $F_{ct}$ denotes departing flights, $S_{ct}$ denotes departing seats, and $K_{ct}$ denotes departing seat-kilometres in country $c$ in year $t$. The four multiplicative components correspond to distinct operational margins: flight frequency ($F_{ct}$), aircraft gauge or seats per flight ($S_{ct}/F_{ct}$), seat-weighted average stage length ($K_{ct}/S_{ct}$), and carbon intensity ($\mathrm{CO_2}_{ct}/K_{ct}$). (Note that assuming a constant load factor simply scales scheduled capacity by a constant factor, which cancels out in the identity and is absorbed by the fixed effects in log-linear regressions).
+< 
+< Taking natural logarithms and estimating our baseline 2SLS specification (Equation~\ref{eq:main}) separately for the log of each component on the identical sample yields an additive decomposition of the total elasticity:
+< 
+---
+> where $S_{ct}$ and $K_{ct}$ are departing seats and seat-kilometres. Estimating the baseline 2SLS specification (equation~\ref{eq:main}) for the log of each component on the same sample gives an additive decomposition of the total elasticity,
+954c567
+< \beta_{\mathrm{stage}} + \beta_{\mathrm{intensity}}.
+---
+> \beta_{\mathrm{stage}} + \beta_{\mathrm{intensity}},
+956a570
+> in which the first three terms sum to the seat-kilometre elasticity. A constant load factor scales scheduled capacity by a constant and is absorbed by the fixed effects. We apply the decomposition to all departures, to international and domestic departures separately, and within baseline income and connectivity terciles.
+958,962c572
+< Because the product of the first three components equals total seat-kilometres ($K_{ct}$), the sum of their respective elasticities ($\beta_{\mathrm{flights}} + \beta_{\mathrm{gauge}} + \beta_{\mathrm{stage}}$) represents the overall scale subtotal—that is, the total seat-kilometre elasticity. Beyond the aggregate baseline, we apply this decomposition separately to international and domestic departures, as well as across subsamples stratified by baseline income and connectivity terciles.
+< 
+< \subsection*{Spatial Econometric Specifications and Spillover Effects [Junya]}
+< 
+< To examine whether air connectivity generates cross-border spillover effects on aviation emissions, we extend our baseline specification (Equation~\ref{eq:main}) to incorporate spatial dependence. We consider a comprehensive spatial model encompassing various standard specifications:
+---
+> \subsection*{Spatial econometric specifications and spillover effects}
+963a574
+> To test for cross-border spillovers we extend equation~\ref{eq:main} to the general spatial model
+969,971d579
+< 
+< with a spatially autoregressive disturbance term:
+< 
+975a584
+> where $W$ is a spatial weight matrix. Zero restrictions on $(\rho,\theta,\lambda)$ give the SLX ($\rho=\lambda=0$), SAR ($\theta=\lambda=0$), SEM ($\rho=\theta=0$), SDM ($\lambda=0$) and SDEM ($\rho=0$) models. $W$ is a row-normalized land-contiguity matrix from Natural Earth boundaries, applied within each year so that the stacked matrix is block-diagonal; the 38 countries without a land neighbour have a zero row, and an indicator absorbs this structural zero. Alternative weights (five nearest countries, distance bands, exponential kernels, regional leave-out means and inverse distance) are reported in Extended Data Tables~\ref{tab:spillover}, \ref{tab:spill_ext} and \ref{tab:spatial_ext}.
+977,993c586
+< where $W$ represents a spatial weighting matrix. By imposing zero restrictions on the spatial parameters ($\rho, \theta, \lambda$), this nested framework yields the Spatial Lag of X (SLX, $\rho=\lambda=0$), Spatial Autoregressive (SAR, $\theta=\lambda=0$), Spatial Error (SEM, $\rho=\theta=0$), Spatial Durbin (SDM, $\lambda=0$), and Spatial Durbin Error (SDEM, $\rho=0$) models.
+< 
+< We define $W$ primarily as a row-normalized land-contiguity matrix based on Natural Earth administrative boundaries. The matrix is applied within each year so that the stacked matrix is block-diagonal. For the 38 countries in our sample without land neighbors, the corresponding row in $W$ is set to zero, and we include an indicator variable to absorb this structural zero. To ensure the robustness of the spillover design, we also construct alternative weighting matrices: the five nearest countries, aviation-centroid distance bands, exponential distance kernels ($\exp(-d/\lambda)$), regional leave-out means (within UN sub-regions and aviation blocs), and inverse-distance weighting. 
+< 
+< Table~\ref{tab:spatial} presents the estimation results. Panel A estimates the models with country and year fixed effects on the within-transformed data. We use ordinary least squares (OLS) for the SLX model and maximum likelihood (ML) for models containing spatial lags or errors, summing the log-determinant over the yearly blocks. 
+< 
+< Panel B addresses the endogeneity of connectivity. Following Kelejian and Prucha's generalized spatial two-stage least squares (GS2SLS) approach, own connectivity ($\ln \mathrm{GACI}_{ct}$) is instrumented by the own Feyrer shifter ($Z_{ct}$), and neighbors' connectivity ($W \ln \mathrm{GACI}_{ct}$) is instrumented by the identically weighted average of the neighbors' shifters ($W Z_{ct}$). In models with a spatial lag of the dependent variable (SAR and SDM), the spatial lag is instrumented using the first and second spatial lags of both the shifter and exogenous controls (e.g., $W Z_{ct}, W^2 Z_{ct}$). For the error models (SEM and SDEM), the spatial-error parameter $\lambda$ is derived via the moments estimator from the 2SLS residuals, and the equation is subsequently re-estimated on the spatially filtered variables. To quantify the overall impacts in the spatial lag models, direct, indirect (spillover), and total effects are computed as the averages over the yearly blocks of the diagonal, the off-diagonal row sums, and the row sums of the matrix $(I-\rho W)^{-1}(\beta I + \theta W)$. Standard errors for these marginal effects are computed from 100 draws of the coefficient vector from its estimated covariance matrix. Throughout Panel B, standard errors are clustered at the country level. (Extended Data Table~\ref{tab:spatial_ext} repeats Panel B utilizing inverse-distance weights and explores alternative outcomes, including international CO$_2$ and carbon intensity).
+< 
+< Finally, we implement robust inference procedures to account for potential weak identification in the joint first stage. The conditional first-stage strength for multiple endogenous regressors is evaluated using Sanderson--Windmeijer $F$-statistics. Because clustering by country can weaken the joint first stage—particularly under the inverse-distance weighting where the own and neighbor shifters become nearly collinear within countries ($F \approx 5$)—we conduct inference on the neighbor coefficient using Anderson--Rubin (AR) confidence sets. These sets are obtained by inverting the cluster-robust test over a grid of null values. Furthermore, to validate that the estimated spillovers are not driven by mechanical correlations, we conduct a permutation placebo test: we randomly reassign countries in the weight matrix, rebuild the spatial exposures, and re-estimate the specification 500 times. The placebo $p$-value represents the share of permutation draws where the absolute $t$-statistic on the neighbor term exceeds the true empirical estimate.
+< 
+< \subsection*{Airport-Level Analysis and Identification Challenges}
+< 
+< To examine heterogeneity at the micro level, we estimate airport-level regressions incorporating airport and country-by-year fixed effects, with standard errors clustered at the airport level. These models are estimated across various subsamples defined by their 1996 baseline characteristics: global rank by seat-kilometres, terciles of baseline connectivity and traffic, baseline international flight share, geographic region, and the host country's income tercile. Because estimating the effect for each country's largest airport as a separate subsample is perfectly collinear with the country-by-year fixed effects, this category is instead incorporated through a pooled interaction term. Furthermore, because the airport-level GACI inherently includes a capacity component, we also estimate alternative specifications utilizing purely topological network centrality measures (eigenvector, closeness, betweenness, and degree centrality) as regressors.
+< 
+< We initially explored an instrumental variable strategy for this airport-level analysis. The primary piloted instrument interacted the global seat-capacity cycle with each airport's 1996 air market access, defined as the population-weighted inverse distance to all foreign countries' aviation centroids. However, this instrument lacks sufficient within-country variation (mean standard deviation of 0.04) and yields no viable first stage: the partial $F$-statistic ranges from only 0.4 to 0.7, regardless of whether size-by-cycle controls are included (Supplementary Table~\ref{tab:airport_iv}). An alternative heritage-proximity instrument similarly failed our baseline stress test, with its first-stage $F$-statistic collapsing from 59.5 to 2.3 upon adding baseline-size-by-cycle controls. Due to the lack of a robust first stage in the presence of country-by-year fixed effects, our airport-level estimates should be interpreted as within-country descriptive evidence rather than strictly causal effects.
+< 
+< Finally, we conduct a concentration analysis by ranking airports based on their attributed emissions. Attributed emissions are primarily calculated using the baseline country-level elasticity. For sensitivity checks, we also compute them using the airport-level within-country elasticity, as well as heterogeneous elasticities estimated separately for the top 5 percent of airports (based on 1996 rankings) versus all other airports. To evaluate shifts in emission concentration, we compare the cumulative emission shares accounted for by the top 1, 5, 10, and 25 percent of airports under these counterfactual attribution models against their actual observed emission shares in 2023.
+---
+> Panel A of Table~\ref{tab:spatial} estimates the models on the within-transformed data by OLS (SLX) or maximum likelihood, summing the log-determinant over the yearly blocks. Panel B follows the generalized spatial two-stage least squares approach of \citet{kelejian1998}: own connectivity is instrumented by the Feyrer shifter $Z_{ct}$ and neighbours' connectivity by its identically weighted average $WZ_{ct}$; the spatial lag of the outcome is instrumented with the first and second spatial lags of the shifter and the exogenous controls; and in the error models $\lambda$ is obtained by a moments estimator from the 2SLS residuals before the equation is re-estimated on the spatially filtered variables. Direct, indirect and total effects are the yearly-block averages of the diagonal, the off-diagonal row sums and the row sums of $(I-\rho W)^{-1}(\beta I + \theta W)$, with standard errors from 100 draws of the coefficient vector. Standard errors are clustered by country.
+994a588
+> Because the joint first stage is weak under country clustering (Kleibergen--Paap $F$ of 3.3 for contiguity, with Sanderson--Windmeijer conditional $F$ of 6.7 for own and 13.0 for neighbour connectivity), we also report Anderson--Rubin confidence sets for the neighbour coefficient, obtained by inverting the cluster-robust test over a grid of null values; for contiguity the 95\% set is [0.2, 3.0] and excludes zero (Extended Data Table~\ref{tab:spillover}). A permutation placebo reassigns countries at random in the weight matrix, rebuilds the spatial exposures and re-estimates the specification 500 times; its $p$-value is the share of draws whose absolute $t$-statistic on the neighbour term exceeds the actual one.
+996c590
+< \subsection*{Mediation analysis [Junya]}
+---
+> \subsection*{Mediation analysis}
+998c592
+< To explore the underlying mechanisms driving the effect of air connectivity on CO$_2$ emissions, we conduct a mediation analysis focusing on three distinct potential mediators: flight frequency, seat-kilometres, and the international flight share. We evaluate each mediator separately in distinct single-mediator specifications.
+---
+> We also ask how much of the effect runs through flight frequency, seat-kilometres and the international share of traffic, one mediator at a time (Extended Data Table~\ref{tab:mediation}). An instrumental-variable decomposition instruments log GACI with the Feyrer shifter in both the mediator and the outcome equation and combines the two paths by the product method, with delta-method (Sobel) standard errors. The algorithm of \citet{imai2010} uses quasi-Bayesian simulation on least-squares models with country and year fixed effects. The mediators overlap, so their shares are not mutually exclusive and do not sum to 100\%.
+1000,1006c594
+< We estimate the mediated effects using two alternative approaches. First, we employ an instrumental-variable (IV) decomposition. In this approach, we instrument the treatment (log GACI) with the Feyrer-type shifter in both the mediator and outcome equations. The indirect paths are then calculated using the product method, with standard errors computed via the delta method (Sobel test). 
+< 
+< Second, we implement the mediation algorithm proposed by Imai, Keele, and Yamamoto (2010). This approach relies on quasi-Bayesian simulations based on least-squares models that include country and year fixed effects. Because the three potential mediation channels are economically interrelated and overlap in their effects, their respective mediated shares are not mutually exclusive and therefore do not sum to 100 percent.
+< 
+< 
+< 
+< \subsection*{Attribution and fuel-switching scenarios [Ray and Lisa]}
+---
+> \subsection*{Attribution and fuel-switching scenarios}
+1010,1011c598,599
+< fast-growing countries and the world total (41.1 percent) is the more
+< conservative summary. For the 34 countries entering the panel after 1996 and the 18 whose series end before 2023, the change is taken between the first and last observed years. The airport-level attribution applies the same
+---
+> fast-growing countries and the world total (41.1\%) is the more
+> conservative summary. The attribution covers all 184 countries in the emissions panel; for the 34 countries entering the panel after 1996 and the 18 whose series end before 2023, the change is taken between the first and last observed years. The airport-level attribution applies the same
+1014c602
+< total because the elasticity is applied to the same emissions base. 
+---
+> total because the elasticity is applied to the same emissions base. We then rank airports by attributed emissions and compare the cumulative shares held by the top 1, 5, 10 and 25\% of airports with their shares of actual 2023 emissions (Extended Data Table~\ref{tab:airport_conc} and Extended Data Fig.~\ref{fig:ed_temporal_airport}b,c).
+1029c617
+< We compare four blending paths: (1) ReFuelEU at EU airports, with mandated shares rising from 2\% in 2025 to 70\% in 2050; (2) the same ReFuelEU milestones applied worldwide; and (3) two global paths reaching 38\% and 100\% in 2050, respectively. The latter two paths follow schedules distributed with the Aviation Integrated Model (AIM) \citep{dray2022}. We linearly interpolate between specified milestones. These shares specify policy targets; actual fuel use is constrained by supply.
+---
+> We compare four blending paths: (1) ReFuelEU at EU airports, with mandated shares rising from 2\% in 2025 to 70\% in 2050; (2) the same ReFuelEU milestones applied worldwide; and (3) two global paths reaching 38\% and 100\% in 2050, respectively. The latter two paths follow schedules distributed with the Aviation Integrated Model (AIM) \citep{dray2022}. We interpolate linearly between milestones.
+1031c619
+< Actual alternative-fuel use in each path is limited by the required blending share, feasible production-capacity growth, and available feedstocks. We use pathway-specific supply assumptions, well-to-wake CO$_2$ intensities, and levelized costs from the AIM fuel inputs \citep{dray2019aim2015,dray2022}. Biofuels are allocated across available pathways in order of feedstock cost, while power-to-liquid fuel can supply any remaining required volume subject to its own capacity limit. We calculate annual well-to-wake CO$_2$ emissions as
+---
+> Alternative-fuel use in each path is limited by the required blending share, production-capacity growth and available feedstocks. We use pathway-specific supply assumptions, well-to-wake CO$_2$ intensities, and levelized costs from the AIM fuel inputs \citep{dray2019aim2015,dray2022}. Biofuels are allocated across available pathways in order of feedstock cost, while power-to-liquid fuel can supply any remaining required volume subject to its own capacity limit. We calculate annual well-to-wake CO$_2$ emissions as
+1037c625
+< We estimate the additional fuel cost of each path as $\sum_p Q_{pt}(c_{pt}-p_t)$, where $c_{pt}$ and $p_t$ are the costs per unit of fuel energy for alternative pathway $p$ and fossil jet fuel, respectively. Fuel-cost assumptions follow \citet{dray2022}. We value CO$_2$ using three social-cost-of-carbon (SCC) estimates: \$51 per tonne from the US Interagency Working Group at a 3\% discount rate \citep{iwg2021}, \$185 from \citet{rennert2022} at a 2\% near-term discount rate, and approximately \$190 from the US Environmental Protection Agency (EPA) under its 2\% Ramsey approach \citep{epa2023}.  For the fuel-switching paths, we use each source's SCC for the year of emission. Figure~\ref{fig:saf}d shows the EPA schedule as the upper bound and the Rennert and IWG schedules as lower-valued comparisons. We express both additional fuel costs and monetized CO$_2$ benefits in constant 2020 US dollars, and discount annual costs and benefits over 2024--2050 to 2023.
+---
+> We estimate the additional fuel cost of each path as $\sum_p Q_{pt}(c_{pt}-p_t)$, where $c_{pt}$ and $p_t$ are the costs per unit of fuel energy for alternative pathway $p$ and fossil jet fuel, respectively. Fuel-cost assumptions follow \citet{dray2022}. We value CO$_2$ using three social-cost-of-carbon (SCC) estimates: \$51 per tonne from the US Interagency Working Group at a 3\% discount rate \citep{iwg2021}, \$185 from \citet{rennert2022} at a 2\% near-term discount rate, and approximately \$190 from the US Environmental Protection Agency (EPA) under its 2\% Ramsey approach \citep{epa2023}. For the fuel-switching paths, we use each source's SCC for the year of emission. Figure~\ref{fig:saf}d shows the EPA schedule as the upper bound and the Rennert and IWG schedules as lower-valued comparisons. We express both additional fuel costs and monetized CO$_2$ benefits in constant 2020 US dollars, and discount annual costs and benefits over 2024--2050 to 2023.
+1040,1041c628
+< [TODO: OAG licensing statement; GACI panel availability; replication
+< archive.]
+---
+> The OAG schedule data are proprietary and were used under licence; they cannot be redistributed. The country-year panel used in the regressions (aviation CO$_2$ under the three allocation rules, connectivity, instrument, controls and placebo outcomes), the airport-year GACI panel and the attribution and scenario outputs will be deposited in a public repository on publication. The benchmark and control series are available from the cited sources: IATA and OECD emissions statistics, the U.S. Bureau of Transportation Statistics, the World Development Indicators, the CERDI-seadistance database, the Global Carbon Project via Our World in Data, EDGAR and the Aviation Safety Network.
+1044c631
+< [TODO: replication code archive.]
+---
+> The Python code that builds the emissions inventory, the connectivity network and the instruments, and the Stata code that produces all tables and figures, will be deposited with the data on publication.
+1059,1097c646
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+< \begin{threeparttable}
+< \caption{Temporal split of the connectivity elasticity}
+< \label{tab:temporal}
+< \footnotesize
+< \begin{tabular}{lcccc}
+< \toprule
+<  & \multicolumn{1}{c}{Bunker CO$_2$} & \multicolumn{1}{c}{Intl.\ CO$_2$} & \multicolumn{1}{c}{Seat-km} & \multicolumn{1}{c}{Intensity} \\
+<  & (1) & (2) & (3) & (4) \\
+< \midrule
+< \multicolumn{5}{l}{\textit{Panel A. Full sample, 1996--2023}} \\
+<   ln GACI (cwm) & 5.347$^{***}$ & 5.192$^{***}$ & 5.641$^{***}$ & -0.294 \\
+<    & (1.076) & (1.043) & (1.194) & (0.286) \\
+<   KP $F$ & 18.4 & 18.4 & 18.4 & 18.4 \\
+<   $N$ & 4,634 & 4,634 & 4,634 & 4,634 \\
+< \midrule
+< \multicolumn{5}{l}{\textit{Panel B. Network-expansion era, 1996--2007}} \\
+<   ln GACI (cwm) & 5.609$^{***}$ & 5.578$^{***}$ & 4.754$^{***}$ & 0.854$^{**}$ \\
+<    & (1.092) & (1.082) & (0.993) & (0.371) \\
+<   KP $F$ & 25.4 & 25.4 & 25.4 & 25.4 \\
+<   $N$ & 1,883 & 1,883 & 1,883 & 1,883 \\
+< \midrule
+< \multicolumn{5}{l}{\textit{Panel C. Mature-network era, 2010--2023 (excl.\ 2020--2021)}} \\
+<   ln GACI (cwm) & 2.948$^{**}$ & 2.904$^{***}$ & 3.862$^{***}$ & -0.914$^{*}$ \\
+<    & (1.199) & (1.095) & (1.199) & (0.494) \\
+<   KP $F$ & 10.7 & 10.7 & 10.7 & 10.7 \\
+<   $N$ & 2,065 & 2,065 & 2,065 & 2,065 \\
+< \bottomrule
+< \end{tabular}
+< \begin{tablenotes}[flushleft]
+< \footnotesize
+< \item Notes: 2SLS with the Feyrer instrument; specifications as in Table~\ref{tab:main}. Panels B and C split the sample at its midpoint (2010) and exclude the crisis years: Panel B ends before the global financial crisis (2008--2009) and Panel C drops the COVID-19 collapse (2020--2021). The unrestricted 2010--2023 split (not shown) has a weak first stage (KP $F$ = 3.2), driven by the COVID years, whose exclusion in Panel C restores $F$ to 10.7; its estimates appear in grey in Extended Data Fig.~\ref{fig:temporal}. Standard errors clustered by country in parentheses; Kleibergen--Paap $F$ statistics are cluster-robust. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+< \end{tablenotes}
+< \end{threeparttable}}
+< \end{table}
+< 
+< \begin{table}[H]
+< \centering
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1139c688
+< \item Notes: Specifications as in Table~\ref{tab:main}. Column (1) repeats the headline bunker measure (all cruise plus departure-side LTO assigned to the departure country); column (2) uses landing-and-take-off emissions only (territorial rule); column (3) splits cruise emissions equally between the endpoint countries. The three rules give elasticities within 0.3 of one another under every aggregation of airport connectivity. Standard errors clustered by country in parentheses; the Kleibergen--Paap $F$ is cluster-robust. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+---
+> \item Notes: Specifications as in Table~\ref{tab:main}. Column (1) repeats the headline bunker measure (all cruise plus departure-side LTO assigned to the departure country); column (2) uses landing-and-take-off emissions only (territorial rule); column (3) splits cruise emissions equally between the endpoint countries. The three rules give elasticities within 0.3 of one another under every aggregation of airport connectivity. Standard errors clustered by country in parentheses; the Kleibergen--Paap $F$ is cluster-robust. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10\%.
+1146c695
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1148,1150c697,699
+< \caption{Heterogeneity of the connectivity elasticity}
+< \label{tab:hetero}
+< \footnotesize
+---
+> \caption{Exclusion-restriction diagnostics for the Feyrer instrument}
+> \label{tab:exclusion}
+> \scriptsize
+1153c702
+<  & Coefficient & s.e. & KP $F$ & $N$ \\
+---
+>  & Reduced form & 2SLS & KP $F$ & $N$ \\
+1155,1159c704,716
+< \multicolumn{5}{l}{\textit{Panel A. Total CO$_2$ by baseline income tercile}} \\
+<   Low income & 9.427$^{***}$ & (2.652) & 4.8 & 1,596 \\
+<   Middle income & 6.118$^{***}$ & (2.115) & 5.7 & 1,547 \\
+<   High income & 1.886 & (2.437) & 1.7 & 1,491 \\
+<   \quad Pooled interaction, top tercile $\times$ ln GACI & -3.257$^{***}$ & (0.565) & 8.4 & 4,634 \\
+---
+> \multicolumn{5}{l}{\textit{Panel A. Outcomes: coefficient on the instrument (reduced form) and on log GACI (2SLS)}} \\
+>   Aviation CO$_2$ (total, our series) & 0.685$^{***}$ (0.149) & 5.35$^{***}$ (1.08) & 18.4 & 4,634 \\
+>   Aviation CO$_2$ (international) & 0.665$^{***}$ (0.148) & 5.19$^{***}$ (1.04) & 18.4 & 4,634 \\
+>   Territorial fossil CO$_2$ excl.\ domestic aviation (GCP/OWID) & 0.049 (0.120) & 0.39 (0.95) & 17.1 & 4,576 \\
+>   Oil CO$_2$ excl.\ domestic aviation (OWID) & -0.115 (0.110) & -0.91 (0.89) & 17.1 & 4,576 \\
+>   Transport CO$_2$ excl.\ domestic aviation (EDGAR) & 0.111 (0.117) & 0.90 (0.94) & 15.8 & 4,461 \\
+>   Power industry CO$_2$ (EDGAR) & -0.365 (0.288) & -2.96 (2.51) & 15.3 & 4,409 \\
+>   Buildings CO$_2$ (EDGAR) & -0.140 (0.153) & -1.13 (1.23) & 15.8 & 4,460 \\
+>   Industrial combustion CO$_2$ (EDGAR) & 0.182 (0.168) & 1.53 (1.48) & 14.6 & 4,432 \\
+>   Coal CO$_2$ (OWID) & 0.896$^{***}$ (0.314) & 15.72 (10.06) & 2.5 & 3,030 \\
+>   Gas CO$_2$ (OWID) & -0.333 (0.316) & -4.28 (4.98) & 3.7 & 2,863 \\
+>   Cement CO$_2$ (OWID) & 0.665$^{***}$ (0.232) & 6.07$^{**}$ (2.70) & 8.9 & 3,476 \\
+>   Agriculture CO$_2$ (EDGAR) & -0.421$^{*}$ (0.221) & -4.06 (2.74) & 6.5 & 2,667 \\
+1161,1165c718,727
+< \multicolumn{5}{l}{\textit{Panel B. Total CO$_2$ by baseline connectivity tercile}} \\
+<   Low connectivity & 7.481$^{***}$ & (1.695) & 16.4 & 1,453 \\
+<   Middle connectivity & 5.068$^{**}$ & (2.497) & 3.7 & 1,526 \\
+<   High connectivity (weak first stage) & 4.035 & (5.735) & 0.2 & 1,655 \\
+<   \quad Pooled interaction, top tercile $\times$ ln GACI & -1.997$^{***}$ & (0.676) & 8.7 & 4,634 \\
+---
+> \multicolumn{5}{l}{\textit{Panel B. Content of the global cycle: first stage of the aviation-technology instrument with rival cycle $\times$ geography added}} \\
+>  & First-stage $\pi$ & 2SLS & Partial $F$ & $N$ \\
+>   Aviation technology $\times$ air geography (baseline) & 0.128$^{***}$ (0.030) & 5.35$^{***}$ (1.08) & 18.4 & 4,634 \\
+>   \quad plus oil price $\times$ geography & 0.103$^{***}$ (0.027) & 4.84$^{***}$ (1.15) & 14.7 & 4,634 \\
+>   \quad plus world GDP $\times$ geography & 0.011 (0.028) & -2.64 (11.92) & 0.2 & 4,634 \\
+>   \quad plus world exports $\times$ geography & -0.005 (0.028) & 28.44 (162.69) & 0.0 & 4,634 \\
+>   \quad plus all three & -0.013 (0.026) & 13.30 (25.58) & 0.2 & 4,634 \\
+>   World GDP $\times$ geography alone & 0.170$^{***}$ (0.037) & RF 0.950$^{***}$ (0.197) & 21.4 & 4,634 \\
+>   Oil price $\times$ geography alone & 0.103$^{***}$ (0.023) & RF 0.631$^{***}$ (0.128) & 20.0 & 4,634 \\
+>   World exports $\times$ geography alone & 0.169$^{***}$ (0.036) & RF 0.947$^{***}$ (0.195) & 21.9 & 4,634 \\
+1167,1173c729,734
+< \multicolumn{5}{l}{\textit{Panel C. Total CO$_2$ by region}} \\
+<   Europe & -0.466 & (1.569) & 6.6 & 1,190 \\
+<   Asia--Pacific & 5.053$^{***}$ & (1.621) & 10.1 & 1,110 \\
+<   Africa & 4.542$^{*}$ & (2.617) & 4.9 & 1,230 \\
+<   Latin America & 2.926 & (1.945) & 1.7 & 683 \\
+<   Middle East & \multicolumn{4}{c}{not identified (KP $F<2$)} \\
+<   North America & \multicolumn{4}{c}{not identified (KP $F<2$)} \\
+---
+> \multicolumn{5}{l}{\textit{Panel C. Placebo instrument: aviation technology $\times$ 1996 sea market access}} \\
+>  & First-stage $\pi$ & Reduced form & Partial $F$ & $N$ \\
+>   Sea-geography instrument alone & 0.117$^{***}$ (0.033) & 0.482$^{***}$ (0.171) & 12.6 & 4,634 \\
+>   Sea-geography instrument, air-geography instrument included & 0.033 (0.051) & -0.187 (0.257) & 0.4 & 4,634 \\
+>   Air-geography instrument, sea-geography instrument included & 0.104$^{**}$ (0.044) & 0.824$^{***}$ (0.213) & 5.6 & 4,634 \\
+>   \quad 2SLS with the sea interaction as a control & \multicolumn{2}{c}{7.95$^{***}$ (2.90)} & 5.6 & 4,634 \\
+1175,1178c736,787
+< \multicolumn{5}{l}{\textit{Panel D. Intensity by baseline income tercile}} \\
+<   Low income & -0.725 & (0.701) & 4.8 & 1,596 \\
+<   Middle income & -0.372 & (0.536) & 5.7 & 1,547 \\
+<   High income & 1.054 & (1.501) & 1.7 & 1,491 \\
+---
+> \multicolumn{5}{l}{\textit{Panel D. Zero-first-stage test by baseline connectivity tercile}} \\
+>  & First-stage $\pi$ & Reduced form (CO$_2$) & Partial $F$ & $N$ \\
+>   Low baseline connectivity & 0.263$^{***}$ (0.065) & 1.966$^{***}$ (0.351) & 16.4 & 1,453 \\
+>   Middle & 0.081$^{*}$ (0.042) & 0.410$^{*}$ (0.228) & 3.7 & 1,526 \\
+>   High (instrument does not move GACI) & 0.024 (0.052) & 0.095 (0.186) & 0.2 & 1,655 \\
+> \midrule
+> \multicolumn{5}{l}{\textit{Panel E. Development-channel controls added sequentially (2SLS coefficient on log GACI)}} \\
+>  & 2SLS & & KP $F$ & $N$ \\
+>   Baseline (log population, log sea market access) & 5.35$^{***}$ (1.08) & & 18.4 & 4,634 \\
+>   \quad plus log GDP & 4.45$^{***}$ (1.13) & & 11.8 & 4,634 \\
+>   \quad plus trade/GDP & 4.45$^{***}$ (1.40) & & 8.9 & 4,602 \\
+>   \quad plus urban share & 4.38$^{***}$ (1.38) & & 9.6 & 4,602 \\
+>   \quad plus FDI/GDP & 4.57$^{***}$ (1.27) & & 11.1 & 4,416 \\
+>   \quad plus log tourist arrivals & 4.72$^{***}$ (1.50) & & 8.9 & 3,444 \\
+>   Baseline on the common sample of the last row & 5.69$^{***}$ (1.32) & & 16.9 & 3,444 \\
+> \bottomrule
+> \end{tabular}
+> \begin{tablenotes}\scriptsize
+> \item All regressions include country and year fixed effects, log population and log sea market access; standard errors clustered by country in parentheses. Panel A: reduced form of each log outcome on the Feyrer interaction; non-aviation series are Global Carbon Project territorial CO$_2$ (via Our World in Data; domestic aviation subtracted) and EDGAR v2024 sectoral CO$_2$. Panel B: rival cycles are world real GDP, the Brent price and world real exports, min-max scaled and interacted with log 1996 air market access (correlations with the aviation index 0.82, 0.53 and 0.84). Panel C replaces air by sea market access in the interaction. Panel D: terciles of 1996 capacity-weighted GACI. Panel E: controls from the World Bank World Development Indicators; Venezuela's trade share for 1996--2011, reported as zero, is treated as missing. $^{***}$ $p<0.01$, $^{**}$ $p<0.05$, $^{*}$ $p<0.1$.
+> \end{tablenotes}
+> \end{threeparttable}}
+> \end{table}
+> 
+> \begin{table}[H]
+> \centering
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+> \begin{threeparttable}
+> \caption{Temporal split of the connectivity elasticity}
+> \label{tab:temporal}
+> \footnotesize
+> \begin{tabular}{lcccc}
+> \toprule
+>  & \multicolumn{1}{c}{Bunker CO$_2$} & \multicolumn{1}{c}{Intl.\ CO$_2$} & \multicolumn{1}{c}{Seat-km} & \multicolumn{1}{c}{Intensity} \\
+>  & (1) & (2) & (3) & (4) \\
+> \midrule
+> \multicolumn{5}{l}{\textit{Panel A. Full sample, 1996--2023}} \\
+>   ln GACI (cwm) & 5.347$^{***}$ & 5.192$^{***}$ & 5.641$^{***}$ & -0.294 \\
+>    & (1.076) & (1.043) & (1.194) & (0.286) \\
+>   KP $F$ & 18.4 & 18.4 & 18.4 & 18.4 \\
+>   $N$ & 4,634 & 4,634 & 4,634 & 4,634 \\
+> \midrule
+> \multicolumn{5}{l}{\textit{Panel B. Network-expansion era, 1996--2007}} \\
+>   ln GACI (cwm) & 5.609$^{***}$ & 5.578$^{***}$ & 4.754$^{***}$ & 0.854$^{**}$ \\
+>    & (1.092) & (1.082) & (0.993) & (0.371) \\
+>   KP $F$ & 25.4 & 25.4 & 25.4 & 25.4 \\
+>   $N$ & 1,883 & 1,883 & 1,883 & 1,883 \\
+> \midrule
+> \multicolumn{5}{l}{\textit{Panel C. Mature-network era, 2010--2023 (excl.\ 2020--2021)}} \\
+>   ln GACI (cwm) & 2.948$^{**}$ & 2.904$^{***}$ & 3.862$^{***}$ & -0.914$^{*}$ \\
+>    & (1.199) & (1.095) & (1.199) & (0.494) \\
+>   KP $F$ & 10.7 & 10.7 & 10.7 & 10.7 \\
+>   $N$ & 2,065 & 2,065 & 2,065 & 2,065 \\
+1183c792
+< \item Notes: Split-sample 2SLS with the Feyrer instrument on log total bunker CO$_2$ (Panels A--C) and log CO$_2$ per seat-km (Panel D); terciles are formed on 1996 values. All specifications include country and year fixed effects and control for log population and log sea market access. The Middle East and North America cells have too little instrument variation for inference. Standard errors clustered by country in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+---
+> \item Notes: 2SLS with the Feyrer instrument; specifications as in Table~\ref{tab:main}. Panels B and C split the sample at its midpoint (2010) and exclude the crisis years: Panel B ends before the global financial crisis (2008--2009) and Panel C drops the COVID-19 collapse (2020--2021). The unrestricted 2010--2023 split (not shown) has a weak first stage (KP $F$ = 3.2), driven by the COVID years, whose exclusion in Panel C restores $F$ to 10.7; its estimates appear in grey in Extended Data Fig.~\ref{fig:ed_temporal_airport}a. Standard errors clustered by country in parentheses; Kleibergen--Paap $F$ statistics are cluster-robust. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10\%.
+1190c799
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1214c823
+< \item Notes: Outcome is log total bunker CO$_2$; the treatment is log GACI (capacity-weighted mean). Panel A instruments the treatment with the Feyrer shifter in each equation (standard errors clustered by country) and combines the paths by the product method with delta-method (Sobel) standard errors. Panel B implements the algorithm of Imai, Keele and Yamamoto (2010) by quasi-Bayesian simulation (200 draws) on least-squares models with country and year indicator variables. Each row is a separate single-mediator analysis and the mediators overlap, so shares do not sum across rows. All models control for log population and log sea market access. Sequential ignorability of the mediator is assumed conditional on the fixed effects.
+---
+> \item Notes: Outcome is log total bunker CO$_2$; the treatment is log GACI (capacity-weighted mean). Panel A instruments the treatment with the Feyrer shifter in each equation (standard errors clustered by country) and combines the paths by the product method with delta-method (Sobel) standard errors. Panel B implements the algorithm of \citet{imai2010} by quasi-Bayesian simulation (200 draws) on least-squares models with country and year indicator variables. Each row is a separate single-mediator analysis and the mediators overlap, so shares do not sum across rows. All models control for log population and log sea market access. Sequential ignorability of the mediator is assumed conditional on the fixed effects.
+1221c830
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1253c862
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1255,1258c864,911
+< \caption{Airport-level elasticities within countries, by airport group}
+< \label{tab:airport_het}
+< \scriptsize
+< \begin{tabular}{lcccccc}
+---
+> \caption{Heterogeneity of the connectivity elasticity}
+> \label{tab:hetero}
+> \footnotesize
+> \begin{tabular}{lcccc}
+> \toprule
+>  & Coefficient & s.e. & KP $F$ & $N$ \\
+> \midrule
+> \multicolumn{5}{l}{\textit{Panel A. Total CO$_2$ by baseline income tercile}} \\
+>   Low income & 9.427$^{***}$ & (2.652) & 4.8 & 1,596 \\
+>   Middle income & 6.118$^{***}$ & (2.115) & 5.7 & 1,547 \\
+>   High income & 1.886 & (2.437) & 1.7 & 1,491 \\
+>   \quad Pooled interaction, top tercile $\times$ ln GACI & -3.257$^{***}$ & (0.565) & 8.4 & 4,634 \\
+> \midrule
+> \multicolumn{5}{l}{\textit{Panel B. Total CO$_2$ by baseline connectivity tercile}} \\
+>   Low connectivity & 7.481$^{***}$ & (1.695) & 16.4 & 1,453 \\
+>   Middle connectivity & 5.068$^{**}$ & (2.497) & 3.7 & 1,526 \\
+>   High connectivity (weak first stage) & 4.035 & (5.735) & 0.2 & 1,655 \\
+>   \quad Pooled interaction, top tercile $\times$ ln GACI & -1.997$^{***}$ & (0.676) & 8.7 & 4,634 \\
+> \midrule
+> \multicolumn{5}{l}{\textit{Panel C. Total CO$_2$ by region}} \\
+>   Europe & -0.466 & (1.569) & 6.6 & 1,190 \\
+>   Asia--Pacific & 5.053$^{***}$ & (1.621) & 10.1 & 1,110 \\
+>   Africa & 4.542$^{*}$ & (2.617) & 4.9 & 1,230 \\
+>   Latin America & 2.926 & (1.945) & 1.7 & 683 \\
+>   Middle East & \multicolumn{4}{c}{not identified (KP $F<2$)} \\
+>   North America & \multicolumn{4}{c}{not identified (KP $F<2$)} \\
+> \midrule
+> \multicolumn{5}{l}{\textit{Panel D. Intensity by baseline income tercile}} \\
+>   Low income & -0.725 & (0.701) & 4.8 & 1,596 \\
+>   Middle income & -0.372 & (0.536) & 5.7 & 1,547 \\
+>   High income & 1.054 & (1.501) & 1.7 & 1,491 \\
+> \bottomrule
+> \end{tabular}
+> \begin{tablenotes}[flushleft]
+> \footnotesize
+> \item Notes: Split-sample 2SLS with the Feyrer instrument on log total bunker CO$_2$ (Panels A--C) and log CO$_2$ per seat-km (Panel D); terciles are formed on 1996 values. All specifications include country and year fixed effects and control for log population and log sea market access. The Middle East and North America cells have too little instrument variation for inference. Standard errors clustered by country in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10\%.
+> \end{tablenotes}
+> \end{threeparttable}}
+> \end{table}
+> 
+> \begin{table}[H]
+> \centering
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+> \begin{threeparttable}
+> \caption{Functional form of the connectivity--emissions relationship}
+> \label{tab:funcform}
+> \footnotesize
+> \begin{tabular}{lcccc}
+1260c913
+<  & log CO$_2$ & log seat-km & log CO$_2$/seat-km & Intl.\ share & Airport-years & Airports \\
+---
+>  & 2SLS & OLS & Implied elasticity at sample means & KP $F$ \\
+1262,1301c915,925
+< \multicolumn{7}{l}{\textit{All airports}} \\
+<   All & 3.76$^{***}$ (0.11) & 4.23$^{***}$ (0.12) & -0.50$^{***}$ (0.04) & 0.34$^{***}$ (0.02) & 94,582 & 4,881 \\
+< \multicolumn{7}{l}{\textit{Panel A. Hub status (global rank by 1996 seat-km)}} \\
+<   Top 1 percent & 2.04$^{***}$ (0.28) & 2.23$^{***}$ (0.37) & -0.19 (0.15) & 0.46$^{***}$ (0.12) & 924 & 33 \\
+<   Others & 3.81$^{***}$ (0.11) & 4.29$^{***}$ (0.12) & -0.50$^{***}$ (0.04) & 0.34$^{***}$ (0.02) & 93,105 & 4,825 \\
+<   Top 5 percent & 2.11$^{***}$ (0.26) & 2.25$^{***}$ (0.27) & -0.14$^{***}$ (0.05) & 0.33$^{***}$ (0.06) & 5,474 & 200 \\
+<   Others & 4.08$^{***}$ (0.12) & 4.60$^{***}$ (0.13) & -0.55$^{***}$ (0.05) & 0.35$^{***}$ (0.02) & 87,426 & 4,614 \\
+< \multicolumn{7}{l}{\textit{Panel B. Baseline connectivity tercile (1996 GACI)}} \\
+<   Low & 4.18$^{***}$ (0.23) & 4.82$^{***}$ (0.25) & -0.58$^{***}$ (0.10) & 0.26$^{***}$ (0.04) & 20,639 & 1,504 \\
+<   Middle & 5.84$^{***}$ (0.23) & 6.74$^{***}$ (0.25) & -0.95$^{***}$ (0.12) & 0.49$^{***}$ (0.05) & 30,463 & 1,602 \\
+<   High & 2.97$^{***}$ (0.13) & 3.23$^{***}$ (0.14) & -0.31$^{***}$ (0.05) & 0.28$^{***}$ (0.02) & 39,921 & 1,614 \\
+< \multicolumn{7}{l}{\textit{Panel C. Baseline traffic tercile (1996 seat-km)}} \\
+<   Low & 5.12$^{***}$ (0.33) & 5.67$^{***}$ (0.42) & -0.54$^{**}$ (0.21) & 0.24$^{***}$ (0.07) & 16,747 & 1,435 \\
+<   Middle & 5.23$^{***}$ (0.20) & 6.03$^{***}$ (0.21) & -0.85$^{***}$ (0.09) & 0.39$^{***}$ (0.04) & 32,408 & 1,638 \\
+<   High & 3.11$^{***}$ (0.12) & 3.40$^{***}$ (0.13) & -0.33$^{***}$ (0.04) & 0.32$^{***}$ (0.02) & 42,317 & 1,649 \\
+< \multicolumn{7}{l}{\textit{Panel D. Orientation (baseline international share of seat-km)}} \\
+<   Domestic only & 4.26$^{***}$ (0.13) & 4.77$^{***}$ (0.15) & -0.53$^{***}$ (0.06) & 0.30$^{***}$ (0.02) & 65,027 & 3,614 \\
+<   Below one half & 2.91$^{***}$ (0.23) & 3.27$^{***}$ (0.23) & -0.44$^{***}$ (0.13) & 0.44$^{***}$ (0.04) & 14,534 & 551 \\
+<   Above one half & 4.72$^{***}$ (0.29) & 5.27$^{***}$ (0.31) & -0.57$^{***}$ (0.10) & 0.36$^{***}$ (0.05) & 11,871 & 592 \\
+< \multicolumn{7}{l}{\textit{Panel E. Host-country income tercile}} \\
+<   Low & 4.12$^{***}$ (0.34) & 4.64$^{***}$ (0.37) & -0.45$^{***}$ (0.07) & 0.45$^{***}$ (0.04) & 17,581 & 1,004 \\
+<   Middle & 4.07$^{***}$ (0.23) & 4.59$^{***}$ (0.23) & -0.58$^{***}$ (0.08) & 0.41$^{***}$ (0.03) & 25,540 & 1,453 \\
+<   High & 3.44$^{***}$ (0.14) & 3.85$^{***}$ (0.15) & -0.46$^{***}$ (0.06) & 0.24$^{***}$ (0.02) & 48,479 & 2,268 \\
+< \multicolumn{7}{l}{\textit{Panel F. Region}} \\
+<   Europe & 4.50$^{***}$ (0.29) & 5.08$^{***}$ (0.29) & -0.68$^{***}$ (0.08) & 0.43$^{***}$ (0.05) & 17,532 & 815 \\
+<   Asia & 3.55$^{***}$ (0.25) & 4.00$^{***}$ (0.27) & -0.40$^{***}$ (0.06) & 0.38$^{***}$ (0.04) & 20,815 & 1,091 \\
+<   Oceania and South-West Pacific & 3.83$^{***}$ (0.35) & 4.63$^{***}$ (0.37) & -0.81$^{***}$ (0.14) & 0.39$^{***}$ (0.09) & 8,430 & 507 \\
+<   Africa & 6.05$^{***}$ (0.41) & 6.67$^{***}$ (0.46) & -0.75$^{***}$ (0.12) & 0.81$^{***}$ (0.09) & 9,141 & 536 \\
+<   Latin America & 4.04$^{***}$ (0.28) & 4.70$^{***}$ (0.32) & -0.63$^{***}$ (0.16) & 0.39$^{***}$ (0.05) & 13,272 & 739 \\
+<   Middle East & 3.48$^{***}$ (0.35) & 4.08$^{***}$ (0.40) & -0.59$^{***}$ (0.15) & 0.57$^{***}$ (0.10) & 2,911 & 152 \\
+<   North America & -- & -- & -- & -- & -- & -- \\
+< \multicolumn{7}{l}{\textit{Panel G. Topology-only regressors (log eigenvector, closeness, betweenness, degree)}} \\
+<   Eigenvector centrality & 0.376$^{***}$ (0.012) & 0.397$^{***}$ (0.013) & -0.030$^{***}$ (0.003) & 0.011$^{***}$ (0.001) & 94,573 & 4,877 \\
+<   Closeness & 4.40$^{***}$ (0.16) & 5.05$^{***}$ (0.17) & -0.70$^{***}$ (0.06) & 0.51$^{***}$ (0.03) & 94,582 & 4,881 \\
+<   Betweenness & 0.025$^{***}$ (0.001) & 0.025$^{***}$ (0.001) & -0.001$^{***}$ (0.000) & 0.001$^{***}$ (0.000) & 94,508 & 4,881 \\
+<   Degree & 0.605$^{***}$ (0.016) & 0.657$^{***}$ (0.017) & -0.065$^{***}$ (0.006) & 0.046$^{***}$ (0.003) & 94,582 & 4,881 \\
+< \midrule
+< \multicolumn{7}{l}{\textit{Pooled interaction on log CO$_2$}} \\
+<   Country's largest airport $\times$ log GACI & -1.93$^{***}$ (0.32) & & & & 94,582 & 4,881 \\
+<   Global top 5 percent $\times$ log GACI & -2.57$^{***}$ (0.20) & & & & 94,582 & 4,881 \\
+---
+> \multicolumn{5}{l}{\textit{Panel A. Full sample}} \\
+>   Log CO$_2$ on log GACI (reference) & 5.347$^{***}$ (1.076) & 3.388$^{***}$ (0.364) & 5.35 (elasticity) & 18.4 \\
+>   Log CO$_2$ on GACI level (semi-log) & 3.859$^{***}$ (0.952) & 2.055$^{***}$ (0.292) & 4.19 ($\beta \times$ mean GACI (1.09)) & 18.9 \\
+>   CO$_2$ (Mt) on GACI level (level-level) & 4.295 (3.999) & 11.092$^{***}$ (3.655) & 1.22 ($\beta \times$ mean GACI / mean CO$_2$ (3.81 Mt)) & 18.9 \\
+>   CO$_2$ (Mt) on log GACI (lin-log) & 5.951 (5.798) & -- & 1.56 ($\beta$ / mean CO$_2$) & 18.4 \\
+> \midrule
+> \multicolumn{5}{l}{\textit{Panel B. Semi-log and level specifications by baseline-connectivity tercile}} \\
+>  & Semi-log $\beta$ & Level $\beta$ (Mt per unit) & Implied elasticities (semi-log; level) & KP $F$ \\
+>   Low baseline connectivity & 9.077$^{***}$ (2.234) & 1.294$^{***}$ (0.311) & 6.93; 6.78 (mean GACI 0.76, mean CO$_2$ 0.15 Mt) & 14.3 \\
+>   Middle & 4.591$^{*}$ (2.593) & 8.616$^{*}$ (4.498) & 4.46; 11.22 (mean GACI 0.97, mean CO$_2$ 0.75 Mt) & 3.2 \\
+>   High & 1.103 (1.738) & -27.546 (38.140) & 1.63; -4.11 (mean GACI 1.47, mean CO$_2$ 9.87 Mt) & 1.3 \\
+1304,1305c928,930
+< \begin{tablenotes}\scriptsize
+< \item Each cell is the coefficient on log airport GACI (or on the topology component in Panel G) from a regression with airport and country-by-year fixed effects on the indicated subsample; standard errors clustered by airport. Country-by-year effects absorb every national shock, so the elasticities compare airports of the same country in the same year. The subsample of each country's largest airport is not separately estimable under country-by-year effects (one airport per country-year) and enters only through the interaction. Airport GACI embeds a capacity term; Panel G uses the topology-only components of the index. $^{***}$ $p<0.01$, $^{**}$ $p<0.05$, $^{*}$ $p<0.1$.
+---
+> \begin{tablenotes}[flushleft]
+> \footnotesize
+> \item Notes: Specification as in Table~\ref{tab:main}, column 1, with the connectivity regressor and the outcome transformed as stated; the instrument is the Feyrer interaction throughout. GACI (capacity-weighted mean) has a sample mean of 1.09 and ranges from 0.56 to 2.57 at baseline; a one-unit change is therefore roughly a doubling for a typical country. Implied elasticities evaluate the semi-log and level slopes at sample means. Standard errors clustered by country in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10\%.
+1312c937
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1314,1315c939,940
+< \caption{Concentration of connectivity-attributed emissions across airports, 2023}
+< \label{tab:airport_conc}
+---
+> \caption{The elasticity along the baseline-connectivity distribution}
+> \label{tab:gradient}
+1317c942
+< \begin{tabular}{lccccc}
+---
+> \begin{tabular}{lcccccc}
+1319c944,945
+<  & Top 1\% & Top 5\% & Top 10\% & Top 25\% & Gini \\
+---
+> \multicolumn{7}{l}{\textit{Panel A. Split-sample 2SLS by quintile of 1996 connectivity}} \\
+> Quintile & Baseline GACI (range) & Log-log elasticity & KP $F$ & Semi-log slope & Implied elasticity & $N$ \\
+1321,1324c947,964
+<   Emissions 2023 & 41.0 & 77.6 & 89.0 & 97.1 & 0.916 \\
+<   Attributed (country b) & 45.9 & 84.6 & 94.2 & 99.3 & 0.945 \\
+<   Attributed (airport b) & 46.8 & 85.3 & 94.6 & 99.4 & 0.947 \\
+<   Attributed (hub/non-hub b) & 44.9 & 82.7 & 93.2 & 99.3 & 0.941 \\
+---
+>   1 & 0.68 (0.56--0.74) & 7.37$^{***}$ (1.72) & 13.3 & 9.14$^{***}$ (2.33) & 6.65 & 900 \\
+>   2 & 0.79 (0.74--0.84) & 8.50$^{***}$ (2.94) & 10.9 & 8.96$^{***}$ (2.91) & 7.53 & 857 \\
+>   3 & 0.91 (0.84--1.00) & 3.30 (2.31) & 4.8 & 2.71 (2.07) & 2.64 & 951 \\
+>   4 & 1.08 (1.00--1.17) & 84.74 (8451.67) & 0.0 & 3.61 (12.62) & 4.24 & 958 \\
+>   5 & 1.56 (1.18--2.57) & 4.01 (2.54) & 2.1 & 1.41$^{*}$ (0.85) & 2.33 & 968 \\
+> \midrule
+> \multicolumn{7}{l}{\textit{Panel B. Pooled 2SLS with log GACI interacted with centred log baseline GACI (instruments interacted identically)}} \\
+>  & \multicolumn{2}{c}{Linear interaction} & \multicolumn{2}{c}{Quadratic interaction} & & \\
+>   ln GACI & \multicolumn{2}{c}{5.52$^{***}$ (1.04)} & \multicolumn{2}{c}{5.12$^{***}$ (0.94)} & & \\
+>   ln GACI $\times$ (ln baseline GACI $-$ mean) & \multicolumn{2}{c}{-3.23$^{***}$ (1.05)} & \multicolumn{2}{c}{-3.84$^{**}$ (1.51)} & & \\
+>   ln GACI $\times$ (ln baseline GACI $-$ mean)$^2$ & \multicolumn{2}{c}{--} & \multicolumn{2}{c}{2.63 (2.62)} & & \\
+>   KP $F$; $N$ & \multicolumn{2}{c}{9.2; 4,634} & \multicolumn{2}{c}{6.8; 4,634} & & \\
+> \midrule
+> \multicolumn{7}{l}{\textit{Panel C. Implied elasticity at percentiles of baseline connectivity (delta-method s.e.)}} \\
+>  & p10 & p25 & p50 & p75 & p90 & \\
+>   Linear & 6.52 (1.17) & 6.17 (1.12) & 5.60 (1.05) & 5.00 (1.01) & 4.09 (1.01) & \\
+>   Quadratic & 6.57 (1.20) & 6.00 (1.04) & 5.22 (0.94) & 4.56 (0.93) & 3.93 (0.97) & \\
+>   Baseline GACI at percentile & 0.70 & 0.78 & 0.93 & 1.12 & 1.48 & \\
+1327,1328c967,969
+< \begin{tablenotes}\footnotesize
+< \item Shares (percent) of the global total held by the top-ranked airports, and Gini coefficients, over the 3,833 airports with positive 2023 emissions. Attributed emissions are CO$_2$ in 2023 times $1-\exp(-\beta\,\Delta\ln \mathrm{GACI}_{1996\text{--}2023})$ with $\beta$ from the country 2SLS (5.35), the airport within-country regression (3.76), or the hub-specific airport estimates (2.11 for the global top 5 percent by 1996 capacity, 4.08 otherwise). Negative attributions (airports whose connectivity fell) are set to zero in the ranking.
+---
+> \begin{tablenotes}[flushleft]
+> \footnotesize
+> \item Notes: Baseline connectivity is the earliest observed capacity-weighted GACI of each country. Panel A estimates Table~\ref{tab:main}, column 1, within quintiles; the implied elasticity of the semi-log specification is the slope times the quintile's mean GACI. Panel B interacts log GACI with the centred log baseline value (mean -0.05), instrumenting each term with the Feyrer interaction times the same centred value; Panel C evaluates the fitted elasticity at percentiles of the baseline distribution. Standard errors clustered by country in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10\%.
+1335c976
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1351,1361d991
+< \multicolumn{6}{l}{\textit{Neighbour connectivity instrumented, own shifter in reduced form; s.e.\ clustered by country; AR = Anderson--Rubin 95\% set}} \\
+< Neighbour definition & Own shifter (RF) & Neighbour ln GACI & AR set & KP $F$ & $N$ \\
+<   Contiguous countries & controlled & 1.96$^{***}$ (0.61) & [0.8, 3.1] & 168.0 & 4,634 \\
+<   Contiguous, sub-region $\times$ year FE & controlled & 2.03$^{**}$ (0.83) & -- & 88.1 & 4,632 \\
+<   Countries within 500 km & controlled & 0.34 (0.85) & [-1.3, 2.0] & 89.0 & 4,634 \\
+<   Five nearest countries & controlled & 6.69 (5.67) & [-4.0, 12.0] & 1.4 & 4,634 \\
+<   Contiguous, joint 2SLS (own and neighbour instrumented) & own 3.21$^{***}$ (1.23) & 1.85$^{***}$ (0.66) & [0.2, 3.0] & 3.3 (SW 6.7 / 13.0) & 4,634 \\
+<   Within 500 km, joint 2SLS & own 4.25$^{***}$ (1.21) & 0.86 (0.61) & [-0.4, 2.0] & 6.7 (SW 13.5 / 32.1) & 4,634 \\
+<   Inverse distance, own shifter in reduced form (previous specification) & RF 0.25 (0.36) & 6.73 (5.64) & -- & 52.9 & 4,634 \\
+<   \quad s.e.\ clustered by country & & (5.64) & & & \\
+< \midrule
+1378c1008
+< \item Notes: Neighbour connectivity is the leave-out average of other countries' log GACI under the stated weighting, instrumented by the identically weighted average of their Feyrer shifters; own connectivity is instrumented by the own shifter. All specifications include country and year fixed effects, log population, log sea market access and an indicator for countries with no neighbour under the definition. SW $F$ is the Sanderson--Windmeijer conditional first-stage statistic for each endogenous regressor. The middle block of Panel A instruments neighbour connectivity only, with the own shifter as a control, and reports Anderson--Rubin 95 percent sets by grid inversion (subset sets in the joint rows; Methods). The last row uses all-country inverse-distance weights. Standard errors clustered by country in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+---
+> \item Notes: Neighbour connectivity is the leave-out average of other countries' log GACI under the stated weighting, instrumented by the identically weighted average of their Feyrer shifters; own connectivity is instrumented by the own shifter. All specifications include country and year fixed effects, log population, log sea market access and an indicator for countries with no neighbour under the definition. SW $F$ is the Sanderson--Windmeijer conditional first-stage statistic for each endogenous regressor. Because the joint first stage is weak, inference on the neighbour coefficient in the contiguity specification also uses the Anderson--Rubin test: the 95\% set, obtained by inverting the cluster-robust test over a grid, is [0.2, 3.0] (Methods). Specifications with sub-region $\times$ year fixed effects are in Extended Data Table~\ref{tab:spill_ext}. Standard errors clustered by country in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10\%.
+1385c1015
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1427c1057
+< \item Notes: Panel A enters one neighbour exposure at a time, each instrumented by its own weighted shifter, with the own Feyrer shifter as a control; distance bands are leave-out means over countries whose aviation centroids fall in the stated range, with an indicator for empty bands. Panel B: aviation blocs are the EU/EEA, ASEAN, GCC, Mercosur, North America, ECOWAS, EAC/SADC, CIS, the Andean and Central American group, South Asia and Oceania; sub-regions follow the UN M49 classification. Panel C is the permutation placebo of the weight matrix (Methods); the $p$-value is the share of draws whose $|t|$ exceeds the actual. Standard errors clustered by country in parentheses (sub-region clusters in braces where shown). $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+---
+> \item Notes: Panel A enters one neighbour exposure at a time, each instrumented by its own weighted shifter, with the own Feyrer shifter as a control; distance bands are leave-out means over countries whose aviation centroids fall in the stated range, with an indicator for empty bands. Panel B: aviation blocs are the EU/EEA, ASEAN, GCC, Mercosur, North America, ECOWAS, EAC/SADC, CIS, the Andean and Central American group, South Asia and Oceania; sub-regions follow the UN M49 classification. Panel C is the permutation placebo of the weight matrix (Methods); the $p$-value is the share of draws whose $|t|$ exceeds the actual. Standard errors clustered by country in parentheses (sub-region clusters in braces where shown). $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10\%.
+1434c1064
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1526c1156
+< \item Notes: Instrumented specifications as in Table~\ref{tab:spatial}, Panel B, with the stated weight matrix and outcome; $N$ = 4,634. Under the inverse-distance weighting the own and neighbour shifters are nearly collinear within country, so the own-connectivity first stage is weak and the estimates are reported for completeness. Standard errors clustered by country in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+---
+> \item Notes: Instrumented specifications as in Table~\ref{tab:spatial}, Panel B, with the stated weight matrix and outcome; $N$ = 4,634. Under the inverse-distance weighting the own and neighbour shifters are nearly collinear within country, so the own-connectivity first stage is weak and the estimates are reported for completeness. Standard errors clustered by country in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10\%.
+1533,1538c1163,1167
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+< \begin{threeparttable}
+< \caption{Exclusion-restriction diagnostics for the Feyrer instrument}
+< \label{tab:exclusion}
+< \scriptsize
+< \begin{tabular}{lcccc}
+---
+> \caption{Country-level attribution and social cost of connectivity-driven aviation CO$_2$, 2023}
+> \label{tab:scc}
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+> \begin{threeparttable}\footnotesize
+> \begin{tabular}{lcccccc}
+1540,1572c1169,1171
+<  & Reduced form & 2SLS & KP $F$ & $N$ \\
+< \midrule
+< \multicolumn{5}{l}{\textit{Panel A. Outcomes: coefficient on the instrument (reduced form) and on log GACI (2SLS)}} \\
+<   Aviation CO$_2$ (total, our series) & 0.685$^{***}$ (0.149) & 5.35$^{***}$ (1.08) & 18.4 & 4,634 \\
+<   Aviation CO$_2$ (international) & 0.665$^{***}$ (0.148) & 5.19$^{***}$ (1.04) & 18.4 & 4,634 \\
+<   Territorial fossil CO$_2$ excl.\ domestic aviation (GCP/OWID) & 0.049 (0.120) & 0.39 (0.95) & 17.1 & 4,576 \\
+<   Oil CO$_2$ excl.\ domestic aviation (OWID) & -0.115 (0.110) & -0.91 (0.89) & 17.1 & 4,576 \\
+<   Transport CO$_2$ excl.\ domestic aviation (EDGAR) & 0.111 (0.117) & 0.90 (0.94) & 15.8 & 4,461 \\
+<   Power industry CO$_2$ (EDGAR) & -0.365 (0.288) & -2.96 (2.51) & 15.3 & 4,409 \\
+<   Buildings CO$_2$ (EDGAR) & -0.140 (0.153) & -1.13 (1.23) & 15.8 & 4,460 \\
+<   Industrial combustion CO$_2$ (EDGAR) & 0.182 (0.168) & 1.53 (1.48) & 14.6 & 4,432 \\
+<   Coal CO$_2$ (OWID) & 0.896$^{***}$ (0.314) & 15.72 (10.06) & 2.5 & 3,030 \\
+<   Gas CO$_2$ (OWID) & -0.333 (0.316) & -4.28 (4.98) & 3.7 & 2,863 \\
+<   Cement CO$_2$ (OWID) & 0.665$^{***}$ (0.232) & 6.07$^{**}$ (2.70) & 8.9 & 3,476 \\
+<   Agriculture CO$_2$ (EDGAR) & -0.421$^{*}$ (0.221) & -4.06 (2.74) & 6.5 & 2,667 \\
+< \midrule
+< \multicolumn{5}{l}{\textit{Panel B. Content of the global cycle: first stage of the aviation-technology instrument with rival cycle $\times$ geography added}} \\
+<  & First-stage $\pi$ & 2SLS & Partial $F$ & $N$ \\
+<   Aviation technology $\times$ air geography (baseline) & 0.128$^{***}$ (0.030) & 5.35$^{***}$ (1.08) & 18.4 & 4,634 \\
+<   \quad plus oil price $\times$ geography & 0.103$^{***}$ (0.027) & 4.84$^{***}$ (1.15) & 14.7 & 4,634 \\
+<   \quad plus world GDP $\times$ geography & 0.011 (0.028) & -2.64 (11.92) & 0.2 & 4,634 \\
+<   \quad plus world exports $\times$ geography & -0.005 (0.028) & 28.44 (162.69) & 0.0 & 4,634 \\
+<   \quad plus all three & -0.013 (0.026) & 13.30 (25.58) & 0.2 & 4,634 \\
+<   World GDP $\times$ geography alone & 0.170$^{***}$ (0.037) & RF 0.950$^{***}$ (0.197) & 21.4 & 4,634 \\
+<   Oil price $\times$ geography alone & 0.103$^{***}$ (0.023) & RF 0.631$^{***}$ (0.128) & 20.0 & 4,634 \\
+<   World exports $\times$ geography alone & 0.169$^{***}$ (0.036) & RF 0.947$^{***}$ (0.195) & 21.9 & 4,634 \\
+< \midrule
+< \multicolumn{5}{l}{\textit{Panel C. Placebo instrument: aviation technology $\times$ 1996 sea market access}} \\
+<  & First-stage $\pi$ & Reduced form & Partial $F$ & $N$ \\
+<   Sea-geography instrument alone & 0.117$^{***}$ (0.033) & 0.482$^{***}$ (0.171) & 12.6 & 4,634 \\
+<   Sea-geography instrument, air-geography instrument included & 0.033 (0.051) & -0.187 (0.257) & 0.4 & 4,634 \\
+<   Air-geography instrument, sea-geography instrument included & 0.104$^{**}$ (0.044) & 0.824$^{***}$ (0.213) & 5.6 & 4,634 \\
+<   \quad 2SLS with the sea interaction as a control & \multicolumn{2}{c}{7.95$^{***}$ (2.90)} & 5.6 & 4,634 \\
+---
+>  & & \multicolumn{2}{c}{Attributed CO$_2$ (Mt)} & \multicolumn{3}{c}{Social cost (\$bn per year)} \\
+> \cmidrule(lr){3-4}\cmidrule(lr){5-7}
+>  & $\Delta \ln$ GACI & Total & International & SCC \$51 & SCC \$185 & SCC \$190 \\
+1574,1578c1173,1183
+< \multicolumn{5}{l}{\textit{Panel D. Zero-first-stage test by baseline connectivity tercile}} \\
+<  & First-stage $\pi$ & Reduced form (CO$_2$) & Partial $F$ & $N$ \\
+<   Low baseline connectivity & 0.263$^{***}$ (0.065) & 1.966$^{***}$ (0.351) & 16.4 & 1,453 \\
+<   Middle & 0.081$^{*}$ (0.042) & 0.410$^{*}$ (0.228) & 3.7 & 1,526 \\
+<   High (instrument does not move GACI) & 0.024 (0.052) & 0.095 (0.186) & 0.2 & 1,655 \\
+---
+> China & 0.33 & 85.9 & 16.4 & 4.4 & 15.9 & 16.3 \\
+> United States & 0.04 & 34.5 & 12.5 & 1.8 & 6.4 & 6.6 \\
+> United Arab Emirates & 0.57 & 24.5 & 24.3 & 1.2 & 4.5 & 4.6 \\
+> Japan & 0.19 & 16.9 & 9.8 & 0.9 & 3.1 & 3.2 \\
+> Turkey & 0.55 & 16.5 & 13.3 & 0.8 & 3.0 & 3.1 \\
+> India & 0.19 & 15.4 & 7.2 & 0.8 & 2.8 & 2.9 \\
+> Korea & 0.71 & 14.1 & 12.7 & 0.7 & 2.6 & 2.7 \\
+> Canada & 0.22 & 12.7 & 8.1 & 0.6 & 2.4 & 2.4 \\
+> Qatar & 0.80 & 12.2 & 12.2 & 0.6 & 2.3 & 2.3 \\
+> Spain & 0.14 & 11.4 & 9.0 & 0.6 & 2.1 & 2.2 \\
+> Germany & $-0.09$ & $-14.7$ & $-13.5$ & $-0.7$ & $-2.7$ & $-2.8$ \\
+1580,1588c1185
+< \multicolumn{5}{l}{\textit{Panel E. Development-channel controls added sequentially (2SLS coefficient on log GACI)}} \\
+<  & 2SLS & & KP $F$ & $N$ \\
+<   Baseline (log population, log sea market access) & 5.35$^{***}$ (1.08) & & 18.4 & 4,634 \\
+<   \quad plus log GDP & 4.45$^{***}$ (1.13) & & 11.8 & 4,634 \\
+<   \quad plus trade/GDP & 4.43$^{***}$ (1.32) & & 9.6 & 4,618 \\
+<   \quad plus urban share & 4.35$^{***}$ (1.30) & & 10.4 & 4,618 \\
+<   \quad plus FDI/GDP & 4.54$^{***}$ (1.20) & & 12.0 & 4,432 \\
+<   \quad plus log tourist arrivals & 4.64$^{***}$ (1.40) & & 9.8 & 3,460 \\
+<   Baseline on the common sample of the last row & 5.62$^{***}$ (1.25) & & 18.0 & 3,460 \\
+---
+> World & & 348.7 & 206.0 & 17.8 & 64.5 & 66.3 \\
+1591,1592c1188,1190
+< \begin{tablenotes}\scriptsize
+< \item All regressions include country and year fixed effects, log population and log sea market access; standard errors clustered by country in parentheses. Panel A: reduced form of each log outcome on the Feyrer interaction; non-aviation series are Global Carbon Project territorial CO$_2$ (via Our World in Data; domestic aviation subtracted) and EDGAR v2024 sectoral CO$_2$. Panel B: rival cycles are world real GDP, the Brent price and world real exports, min-max scaled and interacted with log 1996 air market access (correlations with the aviation index 0.82, 0.53 and 0.84). Panel C replaces air by sea market access in the interaction. Panel D: terciles of 1996 capacity-weighted GACI. $^{***}$ $p<0.01$, $^{**}$ $p<0.05$, $^{*}$ $p<0.1$.
+---
+> \begin{tablenotes}[flushleft]
+> \footnotesize
+> \item Notes: Attributed CO$_2$ applies the Feyrer-instrument elasticities (5.347 total, 5.192 international) to each country's change in log connectivity over its observed span within 1996--2023: attributed share $= 1-\exp(-\beta\,\Delta\ln\mathrm{GACI}_c)$, applied to 2023 bunker emissions (Methods). Social cost values one year's attributable emissions at \$51, \$185 and \$190 per tonne of CO$_2$ (2020 USD; US Interagency Working Group, Rennert et al.\ 2022, US EPA 2023). Rows show the ten largest positive countries, Germany (largest negative) and the world total (184 countries), which equals 41.1\% of 2023 aviation CO$_2$ (848 Mt). Country shares are extreme for fast growers because the elasticity exceeds one; the figures are partial-equilibrium accounting.
+1599c1197
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1601,1602c1199,1200
+< \caption{Functional form of the connectivity--emissions relationship}
+< \label{tab:funcform}
+---
+> \caption{Concentration of connectivity-attributed emissions across airports, 2023}
+> \label{tab:airport_conc}
+1604c1202
+< \begin{tabular}{lcccc}
+---
+> \begin{tabular}{lccccc}
+1606,1612c1204
+<  & 2SLS & OLS & Implied elasticity at sample means & KP $F$ \\
+< \midrule
+< \multicolumn{5}{l}{\textit{Panel A. Full sample}} \\
+<   Log CO$_2$ on log GACI (reference) & 5.347$^{***}$ (1.076) & 3.388$^{***}$ (0.364) & 5.35 (elasticity) & 18.4 \\
+<   Log CO$_2$ on GACI level (semi-log) & 3.859$^{***}$ (0.952) & 2.055$^{***}$ (0.292) & 4.19 ($\beta \times$ mean GACI (1.09)) & 18.9 \\
+<   CO$_2$ (Mt) on GACI level (level-level) & 4.295 (3.999) & 11.092$^{***}$ (3.655) & 1.22 ($\beta \times$ mean GACI / mean CO$_2$ (3.81 Mt)) & 18.9 \\
+<   CO$_2$ (Mt) on log GACI (lin-log) & 5.951 (5.798) & -- & 1.56 ($\beta$ / mean CO$_2$) & 18.4 \\
+---
+>  & Top 1\% & Top 5\% & Top 10\% & Top 25\% & Gini \\
+1614,1618c1206,1207
+< \multicolumn{5}{l}{\textit{Panel B. Semi-log and level specifications by baseline-connectivity tercile}} \\
+<  & Semi-log $\beta$ & Level $\beta$ (Mt per unit) & Implied elasticities (semi-log; level) & KP $F$ \\
+<   Low baseline connectivity & 9.077$^{***}$ (2.234) & 1.294$^{***}$ (0.311) & 6.93; 6.78 (mean GACI 0.76, mean CO$_2$ 0.15 Mt) & 14.3 \\
+<   Middle & 4.591$^{*}$ (2.593) & 8.616$^{*}$ (4.498) & 4.46; 11.22 (mean GACI 0.97, mean CO$_2$ 0.75 Mt) & 3.2 \\
+<   High & 1.103 (1.738) & -27.546 (38.140) & 1.63; -4.11 (mean GACI 1.47, mean CO$_2$ 9.87 Mt) & 1.3 \\
+---
+>   Emissions 2023 & 41.0 & 77.6 & 89.0 & 97.1 & 0.916 \\
+>   Attributed to 1996--2023 connectivity growth & 45.9 & 84.6 & 94.2 & 99.3 & 0.945 \\
+1621,1623c1210,1211
+< \begin{tablenotes}[flushleft]
+< \footnotesize
+< \item Notes: Specification as in Table~\ref{tab:main}, column 1, with the connectivity regressor and the outcome transformed as stated; the instrument is the Feyrer interaction throughout. GACI (capacity-weighted mean) has a sample mean of 1.09 and ranges from 0.56 to 2.57 at baseline; a one-unit change is therefore roughly a doubling for a typical country. Implied elasticities evaluate the semi-log and level slopes at sample means. Standard errors clustered by country in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+---
+> \begin{tablenotes}\footnotesize
+> \item Shares (percent) of the global total held by the top-ranked airports, and Gini coefficients, over the 3,833 airports with positive 2023 emissions. Attributed emissions are CO$_2$ in 2023 times $1-\exp(-\beta\,\Delta\ln \mathrm{GACI}_{1996\text{--}2023})$ with $\beta$ the country-level 2SLS elasticity (5.35). Negative attributions (airports whose connectivity fell) are set to zero in the ranking.
+1630c1218
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1632,1633c1220,1221
+< \caption{The elasticity along the baseline-connectivity distribution}
+< \label{tab:gradient}
+---
+> \caption{External validation of the flight-level emissions inventory}
+> \label{tab:validation_benchmarks}
+1635c1223
+< \begin{tabular}{lcccccc}
+---
+> \begin{tabular}{lllcc}
+1637,1651c1225
+< \multicolumn{7}{l}{\textit{Panel A. Split-sample 2SLS by quintile of 1996 connectivity}} \\
+< Quintile & Baseline GACI (range) & Log-log elasticity & KP $F$ & Semi-log slope & Implied elasticity & $N$ \\
+< \midrule
+<   1 & 0.68 (0.56--0.74) & 7.37$^{***}$ (1.72) & 13.3 & 9.14$^{***}$ (2.33) & 6.65 & 900 \\
+<   2 & 0.79 (0.74--0.84) & 8.50$^{***}$ (2.94) & 10.9 & 8.96$^{***}$ (2.91) & 7.53 & 857 \\
+<   3 & 0.91 (0.84--1.00) & 3.30 (2.31) & 4.8 & 2.71 (2.07) & 2.64 & 951 \\
+<   4 & 1.08 (1.00--1.17) & 84.74 (8451.67) & 0.0 & 3.61 (12.62) & 4.24 & 958 \\
+<   5 & 1.56 (1.18--2.57) & 4.01 (2.54) & 2.1 & 1.41$^{*}$ (0.85) & 2.33 & 968 \\
+< \midrule
+< \multicolumn{7}{l}{\textit{Panel B. Pooled 2SLS with log GACI interacted with centred log baseline GACI (instruments interacted identically)}} \\
+<  & \multicolumn{2}{c}{Linear interaction} & \multicolumn{2}{c}{Quadratic interaction} & & \\
+<   ln GACI & \multicolumn{2}{c}{5.52$^{***}$ (1.04)} & \multicolumn{2}{c}{5.12$^{***}$ (0.94)} & & \\
+<   ln GACI $\times$ (ln baseline GACI $-$ mean) & \multicolumn{2}{c}{-3.23$^{***}$ (1.05)} & \multicolumn{2}{c}{-3.84$^{**}$ (1.51)} & & \\
+<   ln GACI $\times$ (ln baseline GACI $-$ mean)$^2$ & \multicolumn{2}{c}{--} & \multicolumn{2}{c}{2.63 (2.62)} & & \\
+<   KP $F$; $N$ & \multicolumn{2}{c}{9.2; 4,634} & \multicolumn{2}{c}{6.8; 4,634} & & \\
+---
+> Benchmark & Comparison & Period & WAPE & Aggregate bias \\
+1653,1657c1227,1229
+< \multicolumn{7}{l}{\textit{Panel C. Implied elasticity at percentiles of baseline connectivity (delta-method s.e.)}} \\
+<  & p10 & p25 & p50 & p75 & p90 & \\
+<   Linear & 6.52 (1.17) & 6.17 (1.12) & 5.60 (1.05) & 5.00 (1.01) & 4.09 (1.01) & \\
+<   Quadratic & 6.57 (1.20) & 6.00 (1.04) & 5.22 (0.94) & 4.56 (0.93) & 3.93 (0.97) & \\
+<   Baseline GACI at percentile & 0.70 & 0.78 & 0.93 & 1.12 & 1.48 & \\
+---
+>   IATA & Global CO$_2$ emissions & 2004--2023 & 3.04\% & $-$1.98\% \\
+>   OECD & Global CO$_2$ emissions & 2013--2023 & 3.58\% & $+$3.40\% \\
+>   BTS & U.S. carrier fuel consumption & 1996--2023 & 3.84\% & $+$0.76\% \\
+1662c1234
+< \item Notes: Baseline connectivity is the earliest observed capacity-weighted GACI of each country. Panel A estimates Table~\ref{tab:main}, column 1, within quintiles; the implied elasticity of the semi-log specification is the slope times the quintile's mean GACI. Panel B interacts log GACI with the centred log baseline value (mean -0.05), instrumenting each term with the Feyrer interaction times the same centred value; Panel C evaluates the fitted elasticity at percentiles of the baseline distribution. Standard errors clustered by country in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+---
+> \item Notes: WAPE is $\sum_t |\widehat{E}_t-E_t^B|/\sum_t E_t^B$ and aggregate bias is $\sum_t(\widehat{E}_t-E_t^B)/\sum_t E_t^B$, where $\widehat{E}_t$ is our estimate and $E_t^B$ the benchmark; positive bias means our estimate exceeds the benchmark. Benchmarks: IATA industry statistics \citep{iata2018,iata2019,iata2024}, the OECD flight-level inventory \citep{clarke2022} and carrier-reported fuel consumption from the U.S. Bureau of Transportation Statistics (Methods).
+1669,1678c1241,1244
+< \includegraphics[width=0.92\textwidth]{CO2_temporal_coefplot.png}
+< \caption{Temporal split of the connectivity elasticity. Within each outcome, markers show the full sample, the network-expansion era (1996--2007), the mature-network era (2010--2023 excluding the COVID-19 years 2020--2021), and the unrestricted 2010--2023 sample from left to right; gray denotes the unrestricted later sample, whose first stage (KP $F$ = 3.2) is contaminated by the COVID collapse. Bars are 95 percent confidence intervals with standard errors clustered by country.}
+< \label{fig:temporal}
+< \end{figure}
+< 
+< \begin{figure}[H]
+< \centering
+< \includegraphics[width=0.85\textwidth]{CO2_decomp_waterfall.png}
+< \caption{\textbf{Decomposition of the CO$_2$ elasticity on the accounting identity.} Each bar is the 2SLS elasticity of the component with respect to connectivity (Feyrer instrument; 95 percent confidence intervals); the components add exactly to the total. Scale is the sum of the first three bars.}
+< \label{fig:waterfall}
+---
+> \includegraphics[width=0.95\textwidth]{ED_Fig1.png}
+> \caption{\textbf{Temporal split of the connectivity elasticity and concentration of connectivity-attributed emissions across airports.} \textbf{a}, Within each outcome, markers show the full sample, the network-expansion era (1996--2007), the mature-network era (2010--2023 excluding the COVID-19 years 2020--2021) and the unrestricted 2010--2023 sample from left to right. Filled markers denote $p<0.05$; grey denotes the unrestricted later sample, whose first stage (KP $F$ = 3.2) is contaminated by the COVID collapse. Bars are 95\% confidence intervals with standard errors clustered by country. \textbf{b}, Lorenz curves of 2023 emissions and of emissions attributed to 1996--2023 connectivity growth over 3{,}833 airports with positive emissions. \textbf{c}, The twenty largest attributed contributions in 2023 (Mt and share of the world attributed total); red marks airports in the global top five percent by 1996 capacity and blue the other airports.}
+> % Longfei: panel b currently also draws the curve based on the airport-level elasticity; that regression was removed from the paper (Junya, 2026-09-25). Please redraw with the country-elasticity curve only.
+> \label{fig:ed_temporal_airport}
+1683,1684c1249,1250
+< \includegraphics[width=0.85\textwidth]{CO2_gradient_baseline.png}
+< \caption{\textbf{The elasticity along the baseline-connectivity distribution.} Quintile split-sample 2SLS estimates (points, 95 percent confidence intervals; the fourth quintile is unidentified and omitted) and the fitted elasticity from pooled specifications that interact log GACI with centred log baseline GACI (linear, dashed; quadratic with 95 percent band). Horizontal lines mark zero and one.}
+---
+> \includegraphics[width=0.85\textwidth]{ED_Fig2.png}
+> \caption{\textbf{The elasticity along the baseline-connectivity distribution.} Quintile split-sample 2SLS estimates for the two lowest quintiles (points, 95\% confidence intervals; the upper three quintiles have weak first stages, KP $F$ = 4.8, 0.0 and 2.1, and are reported in Extended Data Table~\ref{tab:gradient}) and the fitted elasticity from pooled specifications that interact log GACI with centred log baseline GACI (linear, dashed; quadratic with 95\% band). The dotted line marks an elasticity of one.}
+1690,1709c1256,1257
+< \includegraphics[width=0.92\textwidth]{CO2_attribution_bars.png}
+< \caption{\textbf{Country-level aviation CO$_2$ attributed to 1996--2023
+< connectivity growth, with its social cost.} Top twelve positive countries
+< and all countries below $-1$ Mt; parenthetical values apply the US EPA
+< social cost of carbon (\$190 per tonne). The world total is 348.7 Mt, 41.1
+< percent of 2023 aviation CO$_2$ (\$66.3 billion per year).}
+< \label{fig:bars}
+< \end{figure}
+< 
+< \begin{figure}[H]
+< \centering
+< \includegraphics[width=0.98\textwidth]{CO2_airport_concentration.png}
+< \caption{\textbf{Concentration of connectivity-attributed emissions across airports, 2023.} A{,} Lorenz curves of 2023 emissions and of emissions attributed to 1996--2023 connectivity growth over 3{,}833 airports with positive emissions. B, the twenty largest attributed contributions (Mt and share of the world attributed total); blue marks airports in the global top five percent by 1996 capacity.}
+< \label{fig:airportconc}
+< \end{figure}
+< 
+< \begin{figure}[H]
+< \centering
+< \includegraphics[width=0.92\textwidth]{CO2_spill_decay.png}
+< \caption{Spatial profile of the spillover. A, coefficient on neighbour connectivity when one distance band at a time defines the neighbours (contiguous countries, then bands of aviation-centroid distance); B, the same with an exponential kernel of widening scale. Neighbour connectivity is instrumented by the identically weighted shifter and the own shifter is controlled. The absence of a smooth decline and the negative but imprecise coefficient beyond 5{,}000 km indicate that wide exposures track global trends rather than a spatial spillover.}
+---
+> \includegraphics[width=0.95\textwidth]{ED_Fig3.png}
+> \caption{\textbf{Spatial profile of the spillover.} \textbf{a}, Coefficient on neighbour connectivity when one distance band at a time defines the neighbours (contiguous countries, then bands of aviation-centroid distance). \textbf{b}, The same with an exponential kernel of widening scale. Neighbour connectivity is instrumented by the identically weighted shifter and the own shifter is controlled. Filled markers denote $p<0.05$; bars are 95\% confidence intervals. The absence of a smooth decline and the negative but imprecise coefficient beyond 5{,}000 km indicate that wide exposures track global trends rather than a spatial spillover.}
+1715,1724c1263,1265
+< \includegraphics[width=0.92\textwidth]{CO2_spill_placebo.png}
+< \caption{Permutation placebo for the spillover. Distributions of the $t$-statistic on the neighbour term over 500 random relabellings of countries in the weight matrix, with the actual statistic in blue, for the inverse-distance reduced form and for the contiguity and five-nearest joint 2SLS specifications.}
+< \label{fig:spillplacebo}
+< \end{figure}
+< 
+< \begin{figure}[H]
+< \centering
+< \includegraphics[width=0.92\textwidth]{CO2_placebo_rf.png}
+< \caption{Reduced forms of the Feyrer instrument on aviation CO$_2$ (blue) and on non-aviation emission series (grey), with 95 percent confidence intervals. Specification as in Table~\ref{tab:main}.}
+< \label{fig:placeborf}
+---
+> \includegraphics[width=0.95\textwidth]{ED_Fig4.png}
+> \caption{\textbf{Placebo tests for the spillover and for the instrument.} \textbf{a}--\textbf{c}, Permutation placebo for the spillover: distributions of the $t$-statistic on the neighbour term over 500 random relabellings of countries in the weight matrix for the inverse-distance reduced form (\textbf{a}) and the contiguity (\textbf{b}) and five-nearest (\textbf{c}) joint 2SLS specifications. The red line is the actual statistic, the shaded tails mark permuted statistics at least as large in absolute value, and $p$ is the permutation $p$-value. \textbf{d}, Reduced forms of the Feyrer instrument on aviation CO$_2$ (red) and on non-aviation emission series (blue), with 95\% confidence intervals; filled markers denote $p<0.05$. Specification as in Table~\ref{tab:main}. Coal and cement CO$_2$ are the two non-aviation series that respond (Methods).}
+> \label{fig:placebos}
+1752a1294,1630
+> \clearpage
+> \section*{Supplementary Note 2: Flight-level emissions inventory, country allocation and validation}
+> This note gives the full calculation behind the emissions inventory summarized in Methods.
+> 
+> \subsection*{Flight-level calculation}
+> 
+> We estimate flight-level CO$_2$ emissions from global scheduled flight records provided by the Official Airline Guide (OAG), covering January 1996 to June 2024, following the aviation emissions methodology of the European Monitoring and Evaluation Programme/European Environment Agency (EMEP/EEA) Air Pollutant Emission Inventory Guidebook \citep{eea2023} and using engine-specific operating parameters from the International Civil Aviation Organization (ICAO) Aircraft Engine Emissions Databank. For each physically operated flight leg $f$, total CO$_2$ emissions are separated into landing-and-take-off (LTO) and climb--cruise--descent (CCD) components:
+> 
+> \begin{equation}
+> E_{f,\mathrm{Total}}
+> =
+> E_{f,\mathrm{LTO}}
+> +
+> E_{f,\mathrm{CCD}} .
+> \label{eq:nature_1}
+> \end{equation}
+> 
+> The LTO component covers aircraft operations below 3,000 feet, while the CCD component covers climb, cruise and descent above 3,000 feet. In the EEA implementation used here, LTO emissions are calculated for five components: taxi-out, take-off, climb-out, approach and landing, and taxi-in. Multi-stop scheduled services are decomposed into their constituent operated legs before emissions are calculated, so that each physical leg contributes its own LTO and CCD emissions rather than being treated as a single end-to-end flight.
+> 
+> OAG equipment codes are matched to aircraft types and representative aircraft--engine configurations in the EEA aviation emissions database. Where an exact aircraft type is unavailable, we assign a representative type from the same aircraft family or series, or the closest operational substitute on the basis of aircraft size and operating characteristics. The resulting aircraft--engine mapping links each scheduled flight leg to the aircraft-specific parameters required for the LTO and CCD calculations.
+> 
+> For LTO emissions, we retain the five operating components separately. Let $j(f)$ denote the aircraft--engine configuration assigned to flight $f$, and let $k$ index the five LTO components. CO$_2$ emissions for component $k$ are calculated as
+> 
+> \begin{equation}
+> \begin{aligned}
+> E_{f,k}^{\mathrm{LTO}}
+> &=
+> T_k
+> \,FF_{j(f),k}
+> \,NE_{j(f)}
+> \,EF_{\mathrm{CO_2}},
+> &
+> E_{f,\mathrm{LTO}}
+> &=
+> \sum_{k\in\mathcal K_{\mathrm{LTO}}}
+> E_{f,k}^{\mathrm{LTO}}.
+> \end{aligned}
+> \label{eq:nature_2}
+> \end{equation}
+> 
+> where $T_k$ is the standard time in mode, $FF_{j(f),k}$ is the fuel-flow rate per engine for the corresponding operating mode, $NE_{j(f)}$ is the number of engines, and $EF_{\mathrm{CO_2}}$ is the fuel-specific CO$_2$ emission factor. We use standard time-in-mode values of 19 minutes for taxi-out, 0.7 minutes for take-off, 2.2 minutes for climb-out, 4 minutes for approach and landing, and 7 minutes for taxi-in. Engine-specific fuel-flow rates are obtained from the International Civil Aviation Organization (ICAO) Aircraft Engine Emissions Databank. CO$_2$ emission factors are 3.15 kilograms of CO$_2$ per kilogram of Jet A and 3.10 kilograms of CO$_2$ per kilogram of aviation gasoline. Retaining the individual LTO components also allows departure- and arrival-side emissions to be distinguished in the country-level allocation described below.
+> 
+> CCD emissions are estimated from aircraft-specific reference values provided by the EEA at discrete flight distances. For each flight leg, great-circle distance between the origin and destination airports is converted to the corresponding EEA flight distance following \citet{avogadro2024}. When this distance $d_f$ falls between two adjacent EEA reference distances $d_1$ and $d_2$, CCD emissions are obtained by linear interpolation:
+> 
+> \begin{equation}
+> \begin{split}
+> E_{f,\mathrm{CCD}}(d_f)
+> ={}&
+> E_{j(f),\mathrm{CCD}}(d_1)\\
+> &+
+> \left[
+> E_{j(f),\mathrm{CCD}}(d_2)
+> -
+> E_{j(f),\mathrm{CCD}}(d_1)
+> \right]
+> \frac{d_f-d_1}{d_2-d_1}.
+> \end{split}
+> \label{eq:nature_3}
+> \end{equation}
+> 
+> This procedure preserves the aircraft-specific EEA fuel-burn relationships while allowing emissions to vary continuously with flight distance. The resulting inventory therefore provides standardized LTO- and CCD-specific CO$_2$ estimates for each scheduled flight leg, rather than attempting to reproduce realized trajectories or flight-specific meteorological and operational conditions.
+> 
+> \subsection*{Allocation of emissions to countries}
+> 
+> Constructing country-year emissions from the flight-level inventory requires an explicit rule for attributing emissions to national units. This is relatively straightforward for LTO emissions, because the underlying operations can be associated with the departure or arrival airport. The attribution of CCD emissions is less direct, particularly for international flights, because the en-route component does not have a unique country assignment. Country-level aviation emissions therefore depend in part on the accounting convention used to allocate this component. To separate locally anchored airport emissions from this accounting choice, and to assess the sensitivity of our empirical results to alternative treatments of international en-route emissions, we construct three country-level measures.
+> 
+> Because the five LTO components are retained separately in the flight-level inventory, we distinguish the emissions associated with the departure and arrival sides of each flight. For flight leg $f$, define
+> 
+> \[
+> D_f
+> =
+> E_{f,\mathrm{taxi\mbox{-}out}}
+> +
+> E_{f,\mathrm{take\mbox{-}off}}
+> +
+> E_{f,\mathrm{climb\mbox{-}out}},
+> \]
+> 
+> \[
+> A_f
+> =
+> E_{f,\mathrm{approach/landing}}
+> +
+> E_{f,\mathrm{taxi\mbox{-}in}},
+> \qquad
+> C_f
+> =
+> E_{f,\mathrm{CCD}}.
+> \]
+> 
+> Total emissions from the flight leg can therefore be written as
+> 
+> \begin{equation}
+> E_{f,\mathrm{Total}}
+> =
+> D_f+A_f+C_f .
+> \label{eq:nature_4}
+> \end{equation}
+> 
+> For a flight from airport $A$ to airport $B$, $D_f$ is assigned to the country containing the departure airport and $A_f$ to the country containing the arrival airport. This links LTO emissions to the location of the corresponding airport operation. Flights are classified as domestic or international according to whether their origin and destination airports are located in the same country. The three national measures differ only in their treatment of $C_f$.
+> 
+> The first is an LTO-only measure, which attributes to each country only the emissions associated with airport operations occurring at its airports. Let $O_{ct}$ and $I_{ct}$ denote the sets of flight legs departing from and arriving in country $c$ in year $t$, respectively. We define
+> 
+> \begin{equation}
+> E^{\mathrm{LTO}}_{ct}
+> =
+> \sum_{f\in O_{ct}}D_f
+> +
+> \sum_{f\in I_{ct}}A_f .
+> \label{eq:nature_5}
+> \end{equation}
+> 
+> Because this measure excludes CCD emissions by construction, it is not intended to represent a complete national aviation-emissions inventory. Rather, it provides a geographically anchored measure of local aviation emissions that is independent of any convention for allocating the en-route component of international flights.
+> 
+> Our headline measure additionally assigns the full CCD component of each flight to its country of departure:
+> 
+> \begin{equation}
+> E^{\mathrm{dep}}_{ct}
+> =
+> E^{\mathrm{LTO}}_{ct}
+> +
+> \sum_{f\in O_{ct}} C_f .
+> \label{eq:nature_6}
+> \end{equation}
+> 
+> We refer to this as the departure-based, or bunker, measure. At the flight level, this allocation mirrors the origin-side logic of international bunker accounting: en-route emissions are associated with the departing side of the flight, while LTO emissions remain assigned to the airports at which the corresponding operations occur. The measure therefore provides a complete allocation of flight emissions across countries and serves as the principal emissions outcome in the empirical analysis.
+> 
+> As a symmetric alternative, we construct a 50/50 measure that assigns one half of each flight's CCD emissions to the origin country and the other half to the destination country:
+> 
+> \begin{equation}
+> E^{50/50}_{ct}
+> =
+> E^{\mathrm{LTO}}_{ct}
+> +
+> \frac{1}{2}\sum_{f\in O_{ct}} C_f
+> +
+> \frac{1}{2}\sum_{f\in I_{ct}} C_f .
+> \label{eq:nature_7}
+> \end{equation}
+> 
+> This allocation does not privilege either endpoint in assigning international en-route emissions and therefore provides a transparent robustness check on the origin-based convention.
+> 
+> For domestic flights, the departure-based and 50/50 measures are identical because both endpoints belong to the same country. Differences between the two full-emissions measures therefore arise entirely from the allocation of CCD emissions on international flights. Importantly, both allocation rules preserve the same global emissions total:
+> 
+> \begin{equation}
+> \sum_c E^{\mathrm{dep}}_{ct}
+> =
+> \sum_c E^{50/50}_{ct}
+> =
+> \sum_{f\in F_t}
+> \left(D_f+A_f+C_f\right),
+> \label{eq:nature_8}
+> \end{equation}
+> 
+> where $F_t$ denotes all flight legs in year $t$. Thus, differences across the national measures reflect only how a fixed quantity of flight-level emissions is distributed across countries, rather than differences in the underlying emissions inventory.
+> 
+> \subsection*{Validation against external benchmarks}
+> 
+> The flight-level inventory is intended to provide globally consistent estimates over nearly three decades rather than to reproduce the realized conditions of every individual flight. Meteorological conditions, routing and air-traffic-control adjustments, airport-specific operations, and other flight-level variation are therefore not observed, and a small number of aircraft types are represented by closely matched aircraft--engine configurations when no exact EEA counterpart is available. Standardized time-in-mode and aircraft-performance parameters likewise represent typical rather than realized operations. We therefore assess whether these approximations materially affect the dimensions of the inventory used in our analysis: the scale of emissions, their geographic distribution, and their LTO--CCD composition.
+> 
+> The scale and evolution of global aviation emissions are closely reproduced against two references constructed from fundamentally different sources. The International Air Transport Association (IATA) provides industry-level global CO$_2$ estimates based on airline operational and industry statistics, whereas the Organisation for Economic Co-operation and Development (OECD) constructs a bottom-up inventory from individual flight activity and engineering-based emissions calculations \citep{iata2018,iata2019,iata2024,clarke2022}. The convergence of these distinct approaches is informative because it does not arise from alternative implementations of the same underlying model. Over 2004--2023, our estimates have a weighted absolute percentage error (WAPE) of 3.04\% relative to IATA and an aggregate bias of $-1.98\%$; against the OECD inventory over 2013--2023, the corresponding values are 3.58\% and $+3.40\%$ (Extended Data Table~\ref{tab:validation_benchmarks}).
+> 
+> IATA and OECD provide global coverage but remain estimated emissions series. We therefore complement them with carrier-reported fuel consumption from the United States (U.S.) Bureau of Transportation Statistics (BTS), which is geographically narrower but more directly measures the physical quantity underlying CO$_2$ emissions. Over 1996--2023, our estimated U.S.-carrier fuel consumption has a WAPE of 3.84\% relative to BTS and an aggregate bias of $+0.76\%$. Together, the three sources test the inventory from complementary perspectives: global industry estimates, an independent flight-level inventory, and reported fuel use.
+> 
+> We next examine the cross-country distribution of emissions, which is directly relevant to the country-year empirical design. After applying a consistent departure-country allocation rule, the mean annual log-scale Pearson correlation with the OECD territory-based series is 0.999 over 2013--2018, with a mean total variation distance (TVD) of 1.05\%. From 2019, when the OECD activity data shift from scheduled-flight records to realized flights observed through Automatic Dependent Surveillance--Broadcast (ADS-B), agreement remains strong but discrepancies increase: over 2019--2023, the mean correlation is 0.955 and mean TVD is 6.04\%. Matched countries account for more than 99\% of emissions in our inventory in every year. The post-2019 divergence is therefore consistent with differences between scheduled and realized flight activity rather than a broad disagreement in the geographic distribution of emissions.
+> 
+> Finally, the estimated flight-phase composition is also consistent with independent evidence. LTO operations account for 12.41\% of total CO$_2$ emissions over 1996--2023. \citet{quadros2022} report global LTO fuel-burn shares of 10.8--13.5\% under ICAO reference LTO-cycle assumptions. Because CO$_2$ emissions from conventional aviation fuel are proportional to fuel burn, these values provide a directly comparable reference, and our estimate falls within the reported range.
+> 
+> \clearpage
+> \section*{Supplementary Note 3: Construction of the Global Air Connectivity Index}
+> This note defines the network measures and the aggregation behind GACI, following \citet{cheung2020}; Methods gives the summary.
+> 
+> Let $V_t$ denote the set of airports with active scheduled service in year $t$. Airports are represented as nodes and scheduled connections as undirected links, with $a_{ijt}=1$ if airports $i$ and $j$ are directly connected and zero otherwise. Let $q_{ijt}$ denote annual scheduled seat capacity on the link, aggregated over both directions. Airport strength and degree are
+> 
+> \begin{equation}
+> s_{it}
+> =
+> \sum_{j\in V_t} q_{ijt},
+> \qquad
+> d_{it}
+> =
+> \sum_{j\in V_t} a_{ijt}.
+> \label{eq:nature_9}
+> \end{equation}
+> 
+> For each active link $\{i,j\}$, connection intensity is defined as
+> 
+> \begin{equation}
+> w_{ijt}
+> =
+> \sqrt{
+> \frac{s_{it}s_{jt}}
+> {d_{it}d_{jt}}
+> },
+> \qquad
+> a_{ijt}=1,
+> \label{eq:nature_10}
+> \end{equation}
+> 
+> and $w_{ijt}=0$ otherwise. This measure is high when both endpoint airports carry substantial scheduled capacity per connection and provides the common measure of connection strength used in the weighted components of GACI.
+> 
+> GACI combines five complementary indicators of airport network position.
+> 
+> Degree measures the number of airports directly connected to airport $i$:
+> 
+> \begin{equation}
+> d_{it}
+> =
+> \sum_{j\in V_t} a_{ijt}.
+> \label{eq:nature_11}
+> \end{equation}
+> 
+> It captures the direct reach of an airport within the global network.
+> 
+> Flow betweenness captures the extent to which airport $i$ lies on potential transfer flows between other origin--destination pairs:
+> 
+> \begin{equation}
+> F_b(i,t)
+> =
+> \frac{1}{N_{B,t}}
+> \sum_{\substack{j,g\in V_t\\
+> j\neq g,\; j\neq i,\; g\neq i}}
+> \tau_{jgt}(i),
+> \qquad
+> N_{B,t}
+> =
+> \frac{N_t(N_t-1)}{2},
+> \label{eq:nature_12}
+> \end{equation}
+> 
+> where $N_t=|V_t|$ and $\tau_{jgt}(i)$ denotes modelled flow through airport $i$ between airports $j$ and $g$ under an electrical-circuit representation of the weighted network, with link conductance proportional to $w_{ijt}$. The measure therefore captures an airport's importance as an intermediary in the network rather than only its direct connections.
+> 
+> Closeness centrality measures the topological accessibility of airport $i$:
+> 
+> \begin{equation}
+> C_c(i,t)
+> =
+> \frac{N_t-1}
+> {\displaystyle
+> \sum_{\substack{j\in V_t\\j\neq i}}
+> \mathrm{Dist}_t(i,j)
+> },
+> \label{eq:nature_13}
+> \end{equation}
+> 
+> where $\mathrm{Dist}_t(i,j)$ is the shortest-path length between airports $i$ and $j$, measured in flight legs. Closeness therefore reflects how few connections are required to reach the rest of the network rather than geographic distance, flight distance or travel time.
+> 
+> Eigenvector centrality assigns greater weight to connections with airports that are themselves highly connected:
+> 
+> \begin{equation}
+> C_E(i,t)
+> =
+> \frac{1}{\lambda_t}
+> \sum_{j\in V_t}
+> w_{ijt} C_E(j,t),
+> \label{eq:nature_14}
+> \end{equation}
+> 
+> where $\lambda_t$ is the largest eigenvalue of the weighted adjacency matrix $W_t=[w_{ijt}]$. Connections to more central airports therefore contribute more strongly to an airport's network importance.
+> 
+> Finally, regional importance captures the strength of an airport's connections within its own OAG world region. Let $R(i)$ denote the region containing airport $i$, and define
+> 
+> \begin{equation}
+> V^R_{it}
+> =
+> \left\{
+> j\in V_t:
+> a_{ijt}=1,\;
+> R(j)=R(i)
+> \right\}.
+> \label{eq:nature_15}
+> \end{equation}
+> 
+> Regional importance is
+> 
+> \begin{equation}
+> C_R(i,t)
+> =
+> \frac{1}{|V^R_{it}|}
+> \sum_{j\in V^R_{it}}
+> w_{ijt}.
+> \label{eq:nature_16}
+> \end{equation}
+> 
+> This component measures the strength of an airport's position within its regional aviation network. Taken together, degree, closeness and eigenvector centrality primarily characterize network topology, whereas flow betweenness and regional importance additionally incorporate the intensity of airport connections. The five measures therefore capture distinct but complementary dimensions of connectivity.
+> 
+> Because the five indicators differ in scale, they are standardized following \citet{cheung2020} and combined using principal component analysis (PCA). Let $\tilde d_{it}$, $\tilde f_{it}$, $\tilde c_{it}$, $\tilde e_{it}$ and $\tilde r_{it}$ denote the standardized degree, flow-betweenness, closeness, eigenvector-centrality and regional-importance measures. Airport-level GACI is defined by the first principal component:
+> 
+> \begin{equation}
+> \mathrm{GACI}_{it}
+> =
+> \begin{bmatrix}
+> \tilde d_{it} &
+> \tilde f_{it} &
+> \tilde c_{it} &
+> \tilde e_{it} &
+> \tilde r_{it}
+> \end{bmatrix}
+> \boldsymbol{\alpha}_t ,
+> \label{eq:nature_17}
+> \end{equation}
+> 
+> where $\boldsymbol{\alpha}_t$ is the first-principal-component loading vector estimated for the year-$t$ network. Across 1996--2023, the loadings are uniformly positive and highly stable, and the first component explains 63--77\% of annual variation in the five standardized indicators. A pooled PCA estimated over all airport-year observations yields an index correlated at 0.98 with the year-specific construction, supporting the intertemporal comparability of the index.
+> 
+> We additionally consider three alternative aggregations. The maximum
+> 
+> \begin{equation}
+> \mathrm{GACI}^{\max}_{ct}
+> =
+> \max_{i\in A_{ct}}
+> \mathrm{GACI}_{it}
+> \label{eq:nature_19}
+> \end{equation}
+> 
+> captures the connectivity of the country's leading gateway. The sum
+> 
+> \begin{equation}
+> \mathrm{GACI}^{\mathrm{sum}}_{ct}
+> =
+> \sum_{i\in A_{ct}}
+> \mathrm{GACI}_{it}
+> \label{eq:nature_20}
+> \end{equation}
+> 
+> captures aggregate airport-system connectivity, whereas the unweighted mean
+> 
+> \begin{equation}
+> \mathrm{GACI}^{\mathrm{mean}}_{ct}
+> =
+> \frac{1}{|A_{ct}|}
+> \sum_{i\in A_{ct}}
+> \mathrm{GACI}_{it}
+> \label{eq:nature_21}
+> \end{equation}
+> 
+> assigns equal weight to all active airports. The capacity-weighted mean is our headline measure; the alternative aggregations assess the robustness of the results to different representations of national network structure.
+> 
+1759c1637
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1761c1639,1704
+< \caption{Alternative instrument constructions, leads, overidentification and inference}
+---
+> \caption{Summary statistics, estimation sample}
+> \label{tab:sumstat}
+> \scriptsize
+> \begin{tabular}{lrrrrr}
+> \toprule
+> Variable & $N$ & Mean & s.d. & Min & Max \\
+> \midrule
+> \multicolumn{6}{l}{\textit{Panel A. Aviation outcomes}} \\
+>   Aviation CO$_2$, bunker convention (Mt) & 4,634 & 3.82 & 15.49 & $<$0.01 & 206.14 \\
+>   International aviation CO$_2$ (Mt) & 4,634 & 2.29 & 6.21 & $<$0.01 & 77.75 \\
+>   Domestic aviation CO$_2$ (Mt) & 3,575 & 1.98 & 11.55 & $<$0.01 & 148.11 \\
+>   Aviation CO$_2$, territorial LTO rule (Mt) & 4,634 & 0.47 & 1.95 & $<$0.01 & 28.26 \\
+>   Aviation CO$_2$, 50/50 rule (Mt) & 4,634 & 3.82 & 15.47 & $<$0.01 & 205.87 \\
+>   Departing seat-km (billion) & 4,634 & 38.24 & 152.02 & $<$0.01 & 2,267.76 \\
+>   Departing flights (thousand) & 4,634 & 182.4 & 847.2 & $<$0.1 & 12,213.7 \\
+>   Seats per flight & 4,634 & 121.2 & 43.1 & 12.0 & 281.1 \\
+>   Km per seat (average stage length) & 4,634 & 1,591 & 705 & 248 & 5,178 \\
+>   CO$_2$ per seat-km (g) & 4,634 & 112.0 & 63.9 & 58.7 & 1,176.1 \\
+>   LTO share of CO$_2$ & 4,634 & 0.150 & 0.052 & 0.047 & 0.443 \\
+>   International share of seat-km & 4,634 & 0.882 & 0.168 & 0.024 & 1.000 \\
+> \multicolumn{6}{l}{\textit{Panel B. Connectivity (log GACI)}} \\
+>   ln GACI, capacity-weighted mean (headline) & 4,634 & 0.025 & 0.323 & $-$0.628 & 1.103 \\
+>   ln GACI, sum & 4,634 & 1.534 & 1.357 & $-$0.606 & 6.234 \\
+>   ln GACI, maximum & 4,634 & 0.138 & 0.402 & $-$0.628 & 1.288 \\
+>   ln GACI, unweighted mean & 4,634 & $-$0.280 & 0.227 & $-$0.819 & 1.081 \\
+> \multicolumn{6}{l}{\textit{Panel C. Instrument and baseline controls}} \\
+>   Instrument $Z_{ct}=a_t\times\ln \mathrm{airMA}_{c,1996}$ & 4,634 & 4.863 & 4.381 & 0.000 & 14.667 \\
+>   World aviation index $a_t$ (0--1) & 4,634 & 0.352 & 0.317 & 0.000 & 1.000 \\
+>   ln air market access, 1996 & 4,634 & 13.822 & 0.367 & 12.996 & 14.667 \\
+>   ln sea market access & 4,634 & 13.766 & 0.365 & 12.832 & 14.806 \\
+>   Population (million) & 4,634 & 39.39 & 144.65 & 0.01 & 1,438.07 \\
+> \multicolumn{6}{l}{\textit{Panel D. Development controls}} \\
+>   GDP (billion current US\$) & 4,634 & 375.6 & 1,575.1 & 0.1 & 27,292.2 \\
+>   Trade (\% of GDP) & 4,602 & 86.8 & 52.9 & 2.5 & 442.6 \\
+>   Urban population (\% of total) & 4,634 & 59.4 & 22.8 & 10.3 & 100.0 \\
+>   FDI net inflows (\% of GDP) & 4,449 & 5.2 & 22.2 & $-$391.6 & 452.2 \\
+>   International tourist arrivals (million) & 3,584 & 10.02 & 24.86 & $<$0.01 & 217.88 \\
+> \multicolumn{6}{l}{\textit{Panel E. Non-aviation placebo outcomes (log Mt CO$_2$)}} \\
+>   Territorial fossil CO$_2$ excl.\ domestic aviation (GCP/OWID) & 4,576 & 2.683 & 2.423 & $-$3.851 & 9.377 \\
+>   Oil CO$_2$ excl.\ domestic aviation (OWID) & 4,576 & 2.046 & 2.123 & $-$3.851 & 7.828 \\
+>   Transport CO$_2$ excl.\ domestic aviation (EDGAR) & 4,461 & 1.450 & 2.147 & $-$6.989 & 7.426 \\
+>   Power industry CO$_2$ (EDGAR) & 4,409 & 1.246 & 2.866 & $-$10.516 & 8.775 \\
+>   Buildings CO$_2$ (EDGAR) & 4,460 & 0.343 & 2.557 & $-$8.699 & 6.586 \\
+>   Industrial combustion CO$_2$ (EDGAR) & 4,432 & 0.622 & 2.562 & $-$6.082 & 8.037 \\
+>   Coal CO$_2$ (OWID) & 3,034 & 1.255 & 3.122 & $-$6.908 & 9.054 \\
+>   Gas CO$_2$ (OWID) & 2,864 & 2.130 & 2.523 & $-$6.908 & 7.471 \\
+>   Cement CO$_2$ (OWID) & 3,476 & 0.237 & 1.880 & $-$6.908 & 6.745 \\
+>   Agriculture CO$_2$ (EDGAR) & 2,667 & $-$1.529 & 2.032 & $-$8.471 & 3.438 \\
+> \multicolumn{6}{l}{\textit{Panel F. Spatial exposures (row-normalized land contiguity)}} \\
+>   Neighbours' ln GACI, $W\ln\mathrm{GACI}$ & 3,725 & 0.091 & 0.249 & $-$0.396 & 0.858 \\
+>   Neighbours' instrument, $WZ$ & 3,725 & 4.817 & 4.375 & 0.000 & 14.373 \\
+>   Has a land neighbour (0/1) & 4,634 & 0.804 & 0.397 & 0.000 & 1.000 \\
+> \bottomrule
+> \end{tabular}
+> \begin{tablenotes}[flushleft]
+> \scriptsize
+> \item Notes: Estimation sample of Table~\ref{tab:main} (182 countries, 1996--2023, 4,634 country-years). Aviation variables are computed from the OAG flight-level inventory (Methods); km per seat is departing seat-kilometres divided by departing seats, and domestic CO$_2$ is reported for country-years with positive domestic emissions. GACI aggregations follow equations~\ref{eq:nature_18}--\ref{eq:nature_21}; air and sea market access follow equation~\ref{eq:seama}, and $a_t$ is world scheduled seat capacity (OAG), min--max scaled over 1996--2023. Development controls are from the World Bank World Development Indicators; Venezuela's trade share for 1996--2011, reported as zero, is treated as missing. Placebo outcomes are from the Global Carbon Project via Our World in Data and from EDGAR (2024 edition), with domestic aviation CO$_2$ from our inventory subtracted where stated. Neighbour exposures are reported for the 3,725 country-years with at least one land neighbour. Minima below display precision are shown as $<$0.01.
+> \end{tablenotes}
+> \end{threeparttable}}
+> \end{table}
+> 
+> \begin{table}[H]
+> \centering
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+> \begin{threeparttable}
+> \caption{Alternative technology series, distance decay and inference}
+1778,1783c1721
+< \multicolumn{5}{l}{\textit{Panel B. Leads of the instrument (reduced form on log CO$_2$)}} \\
+<  & Current & Lead & & $N$ \\
+<   Three-year lead & 0.548$^{***}$ (0.118) & 0.390$^{***}$ (0.096) & & 4,078 \\
+<   Five-year lead & 0.684$^{***}$ (0.164) & 0.301$^{***}$ (0.076) & & 3,715 \\
+< \midrule
+< \multicolumn{5}{l}{\textit{Panel C. Overidentification and inference (2SLS on log CO$_2$)}} \\
+---
+> \multicolumn{5}{l}{\textit{Panel B. Inference (2SLS on log CO$_2$)}} \\
+1785,1787d1722
+<   Feyrer and tourism-heritage instruments jointly & 4.72$^{***}$ & (0.88) & 18.7 & 4,634 \\
+<   \quad Hansen $J$ (p-value) & \multicolumn{2}{c}{3.46 (0.063)} & & \\
+<   Tourism-heritage instrument alone & 1.39 & (1.59) & 8.3 & 4,634 \\
+1789c1724
+<   Clustered by country & 5.35$^{***}$ & (1.08) & 18.4 & 4,634 \\
+---
+>   Clustered by country (baseline) & 5.35$^{***}$ & (1.08) & 18.4 & 4,634 \\
+1794,1823c1729
+< \item Specification as in Table~\ref{tab:main}, column 1. Panel A replaces the world seat-capacity index by other min-max scaled world aviation series, or recomputes 1996 air market access with a different distance-decay exponent. Panel B enters the instrument dated $t+3$ or $t+5$ alongside its current value; because the technology index is a smooth global trend, the lead is mechanically collinear with the current value and this test is informative only about differential trends by geography. Panel C: the tourism-heritage instrument fails the size-by-cycle stress test (Methods) and is shown for reference; the Hansen test rejects equality of the two just-identified estimates. $^{***}$ $p<0.01$, $^{**}$ $p<0.05$, $^{*}$ $p<0.1$.
+< \end{tablenotes}
+< \end{threeparttable}}
+< \end{table}
+< 
+< \begin{table}[H]
+< \centering
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+< \begin{threeparttable}
+< \caption{Airport-level identification pilot with an airport Feyrer shifter}
+< \label{tab:airport_iv}
+< \scriptsize
+< \begin{tabular}{lccc}
+< \toprule
+<  & Coefficient & Partial / KP $F$ & $N$ \\
+< \midrule
+< \multicolumn{4}{l}{\textit{First stage: log airport GACI on $a_t \times$ log airport air market access 1996}} \\
+<   Baseline & -0.018 (0.027) & 0.5 & 77,591 \\
+<   \quad plus $a_t \times$ log 1996 seat-km & 0.021 (0.026) & 0.7 & 77,539 \\
+<   \quad plus $a_t \times$ log 1996 GACI & 0.015 (0.025) & 0.3 & 77,539 \\
+< \midrule
+< \multicolumn{4}{l}{\textit{2SLS (baseline instrument)}} \\
+<   log CO$_2$ & 1.52 (10.95) & 0.5 & 77,591 \\
+<   log seat-km & 8.68 (14.49) & 0.4 & 77,501 \\
+<   log CO$_2$/seat-km & 1.91 (6.09) & 0.4 & 77,501 \\
+<   International share & 2.06 (3.36) & 0.4 & 77,501 \\
+< \bottomrule
+< \end{tabular}
+< \begin{tablenotes}\scriptsize
+< \item Airport air market access is the population-weighted inverse distance from the airport to all foreign countries' aviation centroids in 1996 (own country excluded); $a_t$ is the world seat-capacity index of the country instrument. Airport and country-by-year fixed effects, standard errors clustered by airport. Within a country the shifter varies only through airports' relative location (mean within-country standard deviation of the log 1996 access term 0.04), and it has no first stage; the pilot is therefore not used and airport-level estimates are reported as within-country descriptive evidence.
+---
+> \item Specification as in Table~\ref{tab:main}, column 1. Panel A replaces the world seat-capacity index $a_t$ by other world aviation series, each min--max scaled over 1996--2023: world departing flights, world departing seat-kilometres and the world sum of airport GACI from the OAG schedules, and a fuel-efficiency index equal to minus the log of world CO$_2$ per seat-kilometre in our inventory; the last three rows recompute 1996 air market access with the stated distance-decay exponent $\theta$ (baseline $\theta=1$; equation~\ref{eq:seama}). Panel B compares standard-error estimators for the baseline specification. $^{***}$ $p<0.01$, $^{**}$ $p<0.05$, $^{*}$ $p<0.1$.
+1830c1736
+< \resizebox{\ifdim\width>\textwidth \textwidth\else\width\fi}{!}{%
+---
+> \adjustbox{max width=\textwidth, max totalheight=0.9\textheight}{%
+1839,1845c1745,1751
+<   2SLS, Lagged fatal accidents & 5.59$^{**}$ (2.25) & 4.57$^{**}$ (1.80) & -0.92 (0.65) & 4.4 \\
+<   2SLS, Lagged accident deaths & 5.26$^{*}$ (3.12) & 4.24 (2.80) & -0.28 (0.99) & 2.0 \\
+<   2SLS, Lagged any-fatal-accident indicator & 6.05 (4.31) & 5.34 (3.98) & -1.02 (1.49) & 1.2 \\
+<   Feyrer and lagged fatal accidents jointly & 5.09$^{***}$ (0.40) & 4.90$^{***}$ (0.39) & -0.34$^{***}$ (0.12) & 66.8 \\
+<   \quad Hansen $J$ $p$-value & 0.81 & 0.86 & 0.27 & \\
+<   Feyrer and lagged accident deaths jointly & 5.08$^{***}$ (0.40) & 4.89$^{***}$ (0.39) & -0.33$^{***}$ (0.12) & 66.3 \\
+<   \quad Hansen $J$ $p$-value & 0.95 & 0.82 & 0.96 & \\
+---
+>   2SLS, Lagged fatal accidents & 5.59$^{**}$ (2.24) & 4.57$^{**}$ (1.82) & $-$0.92 (0.69) & 4.2 \\
+>   2SLS, Lagged accident deaths & 5.26 (3.41) & 4.24 (3.02) & $-$0.28 (0.94) & 1.5 \\
+>   2SLS, Lagged any-fatal-accident indicator & 6.05 (4.83) & 5.34 (4.28) & $-$1.02 (1.30) & 1.1 \\
+>   Feyrer and lagged fatal accidents jointly & 5.09$^{***}$ (1.07) & 4.90$^{***}$ (1.03) & $-$0.34 (0.30) & 9.2 \\
+>   \quad Hansen $J$ $p$-value & 0.82 & 0.87 & 0.37 & \\
+>   Feyrer and lagged accident deaths jointly & 5.08$^{***}$ (1.07) & 4.89$^{***}$ (1.03) & $-$0.33 (0.30) & 8.4 \\
+>   \quad Hansen $J$ $p$-value & 0.96 & 0.84 & 0.96 & \\
+1850c1756
+< \item Notes: Country-year accident counts and deaths from the Aviation Safety Network, lagged one year, as instruments for log GACI; specification otherwise as in Table~\ref{tab:main}. The accident instruments are weak (first-stage $F$ of 1 to 4) and are not used on their own; the joint specification with the Feyrer instrument is reported for the overidentification test. Standard errors clustered by country in parentheses. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent.
+---
+> \item Notes: Country-year accident counts and deaths from the Aviation Safety Network, lagged one year, as instruments for log GACI; accident deaths enter as the inverse hyperbolic sine. Specification otherwise as in Table~\ref{tab:main}; the lag reduces the sample to 4,446 country-years. The accident instruments are weak (first-stage $F$ of 1.1 to 4.2) and are not used on their own; the joint specification with the Feyrer instrument is reported for the overidentification test. Standard errors clustered by country in parentheses; the Kleibergen--Paap $F$ and Hansen $J$ statistics are cluster-robust. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10\%.

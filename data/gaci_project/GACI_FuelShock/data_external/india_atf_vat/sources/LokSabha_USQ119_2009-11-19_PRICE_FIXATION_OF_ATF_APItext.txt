@@ -1,0 +1,59 @@
+Source: Lok Sabha Q&A API (sansad.in) record retrieved 2026-10-02
+Lok Sabha: 15; Session: 3; Question No: 119; Type: UNSTARRED; Date: 19.11.2009
+Ministry: PETROLEUM AND NATURAL GAS
+Subject: PRICE FIXATION OF ATF
+Members: ['ANANT KUMAR HEGDE', 'RAJIV RANJAN (LALAN) SINGH']
+Official file path (if any): https://sansad.in/getFile/Annexture_New/lsq15/3/au119.htm?source=loksabhadocs
+API: https://sansad.in/api_ls/question/qetFilteredQuestionsAns?loksabhaNo=15&pageNo=1&locale=en&keyWord=...  (record: LS 15, Q 119, UNSTARRED, date 19.11.2009)
+
+QUESTION:
+
+ 
+
+
+(a) the norms laid down for fixing the price of Aviation Turbine Fuel (ATF) and the average 
+percentage of amount recovered by the Union and State Governments in the form of tax levied 
+on the price of ATF during the last three years; and 
+ 
+
+
+(b) the names of the States levying the minimum and the maximum per cent of taxes? 
+ 
+ 
+
+ANSWER:
+ 
+
+
+
+MINISTER OF THE STATE IN THE MINISTRY OF PETROLEUM AND NATURAL GAS (SHRI JITIN PRASADA) 
+
+
+
+
+(a): Government does not control the price of Aviation Turbine Fuel (ATF), as it is a 
+de-regulated product. The methodology adopted in fixing the price of ATF by the Public 
+Sector Oil Marketing Companies (OMCs) is based on the ex-refinery price of Jet Fuel 
+which is linked to the Import Parity Price. From 15th November, 2008 onwards, the 
+ATF prices are being revised by the OMCs every fortnight. 
+
+
+
+
+The rates of Basic Excise Duty (BED) plus Education Cess on BED levied by the Union Government 
+on ATF are 8% and 3% respectively. Sales Tax, imposed by the State Governments, varies from 
+State to State. 
+
+
+
+
+The details of percentage of Central and State taxes in the price build-up of ATF applicable 
+in different States as in November, 2007, November, 2008 and November, 2009 are annexed. 
+
+
+
+
+(b): As per the available information, Rajasthan and Andhra Pradesh have the minimum 
+percentage of Sales Tax of 4% and Gujarat has the maximum percentage of Sales Tax of 30%. 
+
+

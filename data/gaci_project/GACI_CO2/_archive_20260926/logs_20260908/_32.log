@@ -1,0 +1,58 @@
+sample N = 4624 countries = 182
+countries with a land neighbour: 143 of 182
+
+===== W=contig  outcome=ln_co2_tot
+  panel A done
+  2SLS beta 5.699 (1.121) F 18.5
+  SLX-IV beta 3.490 (1.282) theta 1.925 (0.689) SW F 7.3/164.8
+  SAR-IV rho 0.034 (0.038) beta 5.724 (0.954) total 5.886
+  SDM-IV rho -0.024 (0.015) beta 4.947 (0.988) theta 1.302 (0.673) direct 4.94 indirect 0.94 total 5.88
+  SEM-IV lambda 0.102 beta 5.019 (1.190)
+  SDEM-IV lambda 0.138 beta 3.160 (1.015) theta 2.233 (0.672)
+
+===== W=contig  outcome=ln_co2_intl
+  panel A done
+  2SLS beta 5.675 (1.123) F 18.5
+  SLX-IV beta 3.141 (1.229) theta 2.207 (0.625) SW F 7.3/164.8
+  SAR-IV rho 0.038 (0.042) beta 5.629 (0.947) total 5.810
+  SDM-IV rho -0.028 (0.014) beta 4.788 (0.957) theta 1.482 (0.638) direct 4.78 indirect 1.06 total 5.84
+  SEM-IV lambda 0.081 beta 5.121 (1.182)
+  SDEM-IV lambda 0.078 beta 3.079 (1.028) theta 2.301 (0.639)
+
+===== W=contig  outcome=ln_intensity
+  panel A done
+  2SLS beta -0.398 (0.297) F 18.5
+  SLX-IV beta 0.319 (0.403) theta -0.625 (0.227) SW F 7.3/164.8
+  SAR-IV rho 0.151 (0.079) beta -0.368 (0.268) total -0.421
+  SDM-IV rho 0.139 (0.112) beta -0.351 (0.261) theta -0.039 (0.212) direct -0.35 indirect -0.08 total -0.43
+  SEM-IV lambda 0.125 beta -0.259 (0.300)
+  SDEM-IV lambda 0.040 beta 0.143 (0.341) theta -0.481 (0.210)
+
+===== W=inv  outcome=ln_co2_tot
+  panel A done
+  2SLS beta 5.699 (1.121) F 18.5
+  SLX-IV beta -2.356 (4.753) theta 16.191 (10.374) SW F 1.4/37.0
+  SAR-IV rho 0.957 (0.283) beta 2.562 (0.872) total 60.268
+  SDM-IV rho 0.406 (0.918) beta 1.809 (1.336) theta 4.572 (7.536) direct 1.86 indirect 8.88 total 10.74
+  SEM-IV lambda 0.418 beta 4.273 (0.796)
+  SDEM-IV lambda -0.759 beta -1.403 (3.809) theta 13.779 (8.056)
+
+===== W=inv  outcome=ln_co2_intl
+  panel A done
+  2SLS beta 5.675 (1.123) F 18.5
+  SLX-IV beta -0.724 (3.656) theta 12.861 (8.201) SW F 1.4/37.0
+  SAR-IV rho 0.979 (0.310) beta 2.704 (0.905) total 127.480
+  SDM-IV rho 0.498 (1.168) beta 2.212 (1.250) theta 3.646 (8.710) direct 2.27 indirect 9.39 total 11.66
+  SEM-IV lambda 0.318 beta 4.561 (0.800)
+  SDEM-IV lambda -0.453 beta -1.271 (3.610) theta 13.689 (7.773)
+
+===== W=inv  outcome=ln_intensity
+  panel A done
+  2SLS beta -0.398 (0.297) F 18.5
+  SLX-IV beta 1.244 (1.349) theta -3.302 (3.062) SW F 1.4/37.0
+  SAR-IV rho 1.092 (0.935) beta -0.108 (0.231) total 1.173
+  SDM-IV rho 1.283 (0.939) beta -0.262 (0.380) theta 0.438 (0.861) direct -0.26 indirect -0.36 total -0.62
+  SEM-IV lambda 0.579 beta -0.090 (0.267)
+  SDEM-IV lambda 0.092 beta 1.442 (1.391) theta -3.701 (3.248)
+
+saved _spatial_models.csv (228, 12)

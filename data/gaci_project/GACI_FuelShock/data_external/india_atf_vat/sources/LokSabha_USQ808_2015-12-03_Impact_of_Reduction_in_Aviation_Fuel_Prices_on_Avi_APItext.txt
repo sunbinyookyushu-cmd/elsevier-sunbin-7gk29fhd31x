@@ -1,0 +1,13 @@
+Source: Lok Sabha Q&A API (sansad.in) record retrieved 2026-10-02
+Lok Sabha: 16; Session: 6; Question No: 808; Type: UNSTARRED; Date: 03.12.2015
+Ministry: CIVIL AVIATION
+Subject: Impact of Reduction in Aviation Fuel Prices on Aviation Sector
+Members: ['JOSE K. MANI', 'P.R. SUNDARAM']
+Official file path (if any): https://sansad.in/getFile/lsapps/loksabhaquestions/annex/6/AU808.pdf?source=lsapps
+API: https://sansad.in/api_ls/question/qetFilteredQuestionsAns?loksabhaNo=16&pageNo=1&locale=en&keyWord=...  (record: LS 16, Q 808, UNSTARRED, date 03.12.2015)
+
+QUESTION:
+(a) whether there has been a huge decline in the price of Aviation Turbine Fuel (ATF) in the international market recently;<br/><br/>(b) if so, the price of ATF in the international market during the last three years and the current year, year-wise;<br/><br/>(c) whether implementation of a reduced and uniform taxation structure on ATF across all States is likely to would bring fuel costs largely in line with global level and improve financial health and competitiveness of airlines by reducing their operating costs and the reduction in air fare reaching to air passengers;<br/><br/>(d) if so, the details thereof; and<br/><br/>(e) the steps taken by the Government to impress upon States with high taxes on ATF to reduce their taxes or have a uniform tax on ATF in the country to increase competitiveness of Indian aviation companies?
+
+ANSWER:
+Minister of State in the Ministry of CIVIL AVIATION<br/>(Dr Mahesh Sharma)<br/><br/>(a) & (b): The prices of Aviation Turbine Fuel (ATF) in the international market during the last three years and the current year is given in Annexure-I.<br/><br/>(c) to (e): The cost of ATF constitute about 45% of the operational cost of an airline and Value Added Tax (VAT) on ATF is in the ranges of 0% to 30%. Government has been requesting the State Governments to reduce VAT on ATF to make airline operations commercially viable. Some of the States like Odisha, Jharkhand, Madhya Pradesh, Andaman and Nicobar, Chattisgarh, Andhra Pradesh, Telangana and Punjab have responded positively and reduced VAT on ATF to 5% or less. Some other states like Maharahstra, West Bengal and Rajasthan have selectively reduced the VAT on ATF.<br/><br/>The Ministry of Civil Aviation had also taken up the issue of inclusion of ATF in the category of ''Declared Goods'' with the Department of Revenue, Ministry of Finance. This was deliberated upon by the Empowered Committee of State Finance Ministers wherein it was unanimously agreed by the States that ATF should not be notified as ''Declared Goods''.

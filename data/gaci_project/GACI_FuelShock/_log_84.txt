@@ -1,0 +1,148 @@
+﻿h 0 done
+h 1 done
+h 2 done
+h 3 done
+h 4 done
+h                                                              0       1       2       3       4
+fe shock   spec        Z                                                                        
+A  BH      all jointly country oil rents                  0.0000 -0.0004 -0.0004  0.0003  0.0010
+                       fuel exposure (stage length)      -0.0006  0.0007  0.0003 -0.0005  0.0003
+                       initial connectivity (GACI 1996)  -0.0002  0.0012  0.0023  0.0013  0.0012
+                       international share               -0.0000 -0.0006 -0.0018 -0.0017 -0.0019
+                       isolation (km to nearest airport) -0.0002 -0.0003 -0.0002 -0.0001  0.0007
+                       size (ln seats)                    0.0012 -0.0001 -0.0003  0.0000 -0.0005
+           alone       country oil rents                 -0.0000 -0.0004 -0.0005  0.0002  0.0012
+                       fuel exposure (stage length)      -0.0000  0.0012  0.0010 -0.0002  0.0004
+                       initial connectivity (GACI 1996)   0.0004  0.0013  0.0015  0.0003  0.0002
+                       international share                0.0001  0.0004 -0.0006 -0.0013 -0.0014
+                       isolation (km to nearest airport) -0.0004 -0.0001 -0.0000 -0.0001  0.0011
+                       size (ln seats)                    0.0007  0.0012  0.0014  0.0004  0.0001
+   Kaenzig all jointly country oil rents                  0.0001  0.0002  0.0005 -0.0005  0.0002
+                       fuel exposure (stage length)      -0.0016 -0.0008 -0.0009 -0.0012 -0.0007
+                       initial connectivity (GACI 1996)   0.0006  0.0015  0.0024  0.0038  0.0026
+                       international share               -0.0002 -0.0013 -0.0025 -0.0028 -0.0027
+                       isolation (km to nearest airport) -0.0000  0.0005  0.0014  0.0014  0.0010
+                       size (ln seats)                   -0.0000 -0.0000 -0.0001 -0.0012 -0.0004
+           alone       country oil rents                 -0.0000  0.0002  0.0006 -0.0006  0.0002
+                       fuel exposure (stage length)      -0.0012 -0.0000  0.0003  0.0001  0.0003
+                       initial connectivity (GACI 1996)  -0.0004  0.0005  0.0008  0.0011  0.0009
+                       international share               -0.0006 -0.0009 -0.0018 -0.0019 -0.0018
+                       isolation (km to nearest airport) -0.0005  0.0003  0.0013  0.0011  0.0009
+                       size (ln seats)                   -0.0005  0.0005  0.0008  0.0007  0.0007
+B  BH      all jointly fuel exposure (stage length)      -0.0002  0.0006  0.0008 -0.0001  0.0012
+                       initial connectivity (GACI 1996)  -0.0003  0.0006  0.0008  0.0003 -0.0001
+                       international share                0.0002 -0.0004 -0.0009 -0.0006 -0.0014
+                       isolation (km to nearest airport) -0.0002 -0.0002 -0.0001  0.0001  0.0008
+                       size (ln seats)                    0.0012  0.0005  0.0007  0.0005 -0.0000
+           alone       fuel exposure (stage length)       0.0005  0.0012  0.0015  0.0002  0.0006
+                       initial connectivity (GACI 1996)   0.0007  0.0012  0.0014  0.0003  0.0001
+                       international share                0.0007  0.0006  0.0004 -0.0003 -0.0010
+                       isolation (km to nearest airport) -0.0003 -0.0001  0.0001  0.0001  0.0011
+                       size (ln seats)                    0.0010  0.0013  0.0016  0.0005  0.0001
+   Kaenzig all jointly fuel exposure (stage length)      -0.0008 -0.0004  0.0010  0.0008  0.0012
+                       initial connectivity (GACI 1996)   0.0001  0.0014  0.0011  0.0020  0.0009
+                       international share                0.0001 -0.0010 -0.0019 -0.0019 -0.0017
+                       isolation (km to nearest airport) -0.0001  0.0006  0.0012  0.0014  0.0008
+                       size (ln seats)                    0.0002 -0.0004 -0.0003 -0.0011 -0.0000
+           alone       fuel exposure (stage length)      -0.0005  0.0004  0.0013  0.0014  0.0016
+                       initial connectivity (GACI 1996)  -0.0001  0.0006  0.0008  0.0010  0.0010
+                       international share               -0.0001 -0.0004 -0.0007 -0.0007 -0.0004
+                       isolation (km to nearest airport) -0.0003  0.0006  0.0015  0.0017  0.0011
+                       size (ln seats)                   -0.0000  0.0004  0.0008  0.0007  0.0010
+h                                                             0      1      2      3      4
+fe shock   spec        Z                                                                   
+A  BH      all jointly country oil rents                  0.943  0.442  0.682  0.723  0.285
+                       fuel exposure (stage length)       0.199  0.481  0.797  0.281  0.647
+                       initial connectivity (GACI 1996)   0.723  0.262  0.174  0.428  0.462
+                       international share                0.983  0.509  0.151  0.322  0.293
+                       isolation (km to nearest airport)  0.494  0.470  0.742  0.862  0.397
+                       size (ln seats)                    0.071  0.906  0.746  0.994  0.717
+           alone       country oil rents                  0.957  0.333  0.547  0.811  0.194
+                       fuel exposure (stage length)       0.936  0.260  0.131  0.878  0.719
+                       initial connectivity (GACI 1996)   0.283  0.136  0.164  0.874  0.898
+                       international share                0.714  0.562  0.425  0.273  0.257
+                       isolation (km to nearest airport)  0.293  0.814  0.956  0.828  0.203
+                       size (ln seats)                    0.082  0.288  0.126  0.870  0.932
+   Kaenzig all jointly country oil rents                  0.894  0.768  0.508  0.525  0.784
+                       fuel exposure (stage length)       0.001  0.237  0.103  0.061  0.239
+                       initial connectivity (GACI 1996)   0.438  0.246  0.212  0.127  0.029
+                       international share                0.604  0.029  0.024  0.177  0.074
+                       isolation (km to nearest airport)  0.973  0.430  0.095  0.216  0.023
+                       size (ln seats)                    0.942  0.968  0.911  0.259  0.704
+           alone       country oil rents                  0.915  0.724  0.552  0.394  0.763
+                       fuel exposure (stage length)       0.012  0.973  0.850  0.952  0.788
+                       initial connectivity (GACI 1996)   0.318  0.647  0.687  0.592  0.445
+                       international share                0.111  0.243  0.023  0.107  0.090
+                       isolation (km to nearest airport)  0.102  0.513  0.203  0.399  0.029
+                       size (ln seats)                    0.286  0.639  0.653  0.746  0.566
+B  BH      all jointly fuel exposure (stage length)       0.710  0.382  0.381  0.913  0.347
+                       initial connectivity (GACI 1996)   0.724  0.496  0.364  0.728  0.925
+                       international share                0.595  0.533  0.310  0.623  0.277
+                       isolation (km to nearest airport)  0.486  0.506  0.776  0.828  0.301
+                       size (ln seats)                    0.103  0.570  0.441  0.719  0.998
+           alone       fuel exposure (stage length)       0.230  0.105  0.151  0.842  0.579
+                       initial connectivity (GACI 1996)   0.032  0.092  0.094  0.685  0.953
+                       international share                0.013  0.187  0.435  0.697  0.225
+                       isolation (km to nearest airport)  0.487  0.880  0.888  0.872  0.251
+                       size (ln seats)                    0.009  0.119  0.075  0.650  0.950
+   Kaenzig all jointly fuel exposure (stage length)       0.052  0.536  0.141  0.345  0.203
+                       initial connectivity (GACI 1996)   0.848  0.062  0.406  0.050  0.356
+                       international share                0.875  0.057  0.085  0.086  0.116
+                       isolation (km to nearest airport)  0.720  0.332  0.086  0.034  0.146
+                       size (ln seats)                    0.746  0.641  0.765  0.414  0.973
+           alone       fuel exposure (stage length)       0.272  0.638  0.468  0.359  0.175
+                       initial connectivity (GACI 1996)   0.862  0.382  0.572  0.343  0.277
+                       international share                0.841  0.494  0.284  0.323  0.634
+                       isolation (km to nearest airport)  0.320  0.326  0.071  0.059  0.089
+                       size (ln seats)                    0.977  0.596  0.618  0.595  0.428
+
+extended, alone:
+h                                                  0       1       2       3       4
+fe shock   Z                                                                        
+A  BH      country oil rents                 -0.0000 -0.0004 -0.0005  0.0002  0.0012
+           fuel exposure (stage length)      -0.0000  0.0013  0.0010 -0.0002  0.0004
+           initial connectivity (GACI 1996)   0.0005  0.0015  0.0015  0.0003  0.0002
+           international share                0.0002  0.0005 -0.0006 -0.0013 -0.0014
+           isolation (km to nearest airport) -0.0004 -0.0001 -0.0000 -0.0001  0.0011
+           size (ln seats)                    0.0008  0.0014  0.0014  0.0004  0.0001
+   Kaenzig country oil rents                 -0.0000  0.0003  0.0006 -0.0006  0.0002
+           fuel exposure (stage length)      -0.0011 -0.0001  0.0003  0.0001  0.0003
+           initial connectivity (GACI 1996)  -0.0003  0.0004  0.0008  0.0011  0.0009
+           international share               -0.0005 -0.0010 -0.0018 -0.0019 -0.0018
+           isolation (km to nearest airport) -0.0005  0.0003  0.0013  0.0011  0.0009
+           size (ln seats)                   -0.0003  0.0003  0.0008  0.0007  0.0007
+B  BH      fuel exposure (stage length)       0.0006  0.0014  0.0015  0.0002  0.0006
+           initial connectivity (GACI 1996)   0.0008  0.0014  0.0014  0.0003  0.0001
+           international share                0.0008  0.0008  0.0004 -0.0003 -0.0010
+           isolation (km to nearest airport) -0.0003 -0.0001  0.0001  0.0001  0.0011
+           size (ln seats)                    0.0011  0.0015  0.0016  0.0005  0.0001
+   Kaenzig fuel exposure (stage length)      -0.0003  0.0002  0.0013  0.0014  0.0016
+           initial connectivity (GACI 1996)   0.0001  0.0004  0.0008  0.0010  0.0010
+           international share                0.0001 -0.0005 -0.0007 -0.0007 -0.0004
+           isolation (km to nearest airport) -0.0002  0.0006  0.0015  0.0017  0.0011
+           size (ln seats)                    0.0001  0.0003  0.0008  0.0007  0.0010
+h                                                 0      1      2      3      4
+fe shock   Z                                                                   
+A  BH      country oil rents                  0.984  0.353  0.547  0.811  0.194
+           fuel exposure (stage length)       0.990  0.079  0.131  0.878  0.719
+           initial connectivity (GACI 1996)   0.179  0.087  0.164  0.874  0.898
+           international share                0.569  0.373  0.425  0.273  0.257
+           isolation (km to nearest airport)  0.266  0.739  0.956  0.828  0.203
+           size (ln seats)                    0.047  0.126  0.126  0.870  0.932
+   Kaenzig country oil rents                  0.972  0.596  0.552  0.394  0.763
+           fuel exposure (stage length)       0.041  0.780  0.850  0.952  0.788
+           initial connectivity (GACI 1996)   0.566  0.591  0.687  0.592  0.445
+           international share                0.254  0.053  0.023  0.107  0.090
+           isolation (km to nearest airport)  0.154  0.519  0.203  0.399  0.029
+           size (ln seats)                    0.529  0.606  0.653  0.746  0.566
+B  BH      fuel exposure (stage length)       0.136  0.088  0.151  0.842  0.579
+           initial connectivity (GACI 1996)   0.011  0.080  0.094  0.685  0.953
+           international share                0.010  0.145  0.435  0.697  0.225
+           isolation (km to nearest airport)  0.475  0.886  0.888  0.872  0.251
+           size (ln seats)                    0.003  0.102  0.075  0.650  0.950
+   Kaenzig fuel exposure (stage length)       0.581  0.726  0.468  0.359  0.175
+           initial connectivity (GACI 1996)   0.864  0.522  0.572  0.343  0.277
+           international share                0.840  0.341  0.284  0.323  0.634
+           isolation (km to nearest airport)  0.453  0.335  0.071  0.059  0.089
+           size (ln seats)                    0.803  0.705  0.618  0.595  0.428
+n/airports (h=0, main, A): {'n': 56012, 'airports': 2955}

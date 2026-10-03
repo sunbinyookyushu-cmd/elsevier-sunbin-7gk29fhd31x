@@ -1,0 +1,43 @@
+﻿episodes 189 in 112 countries; events used 14 (15 pass the criteria, 1 without panel airports)
+iso3   onset  months  peak_dep  peak_local_fuel  world_at_onset  gdp_g_onset  gdp_g_next  treated_airports  control_countries  control_airports
+ PHL 2001-01       1     0.217            0.288           0.071        0.008       0.016                27                 85              1744
+ LBR 2002-09       1     0.227            0.292           0.066          NaN         NaN                 1                 95              1920
+ SWZ 2008-10       1     0.295            0.234          -0.061          NaN         NaN                 1                160              2529
+ TJK 2009-11       2     0.212            0.548           0.036        0.018       0.042                 1                159              2496
+ MOZ 2010-08       1     0.212            0.300           0.088        0.038       0.041                 7                155              2369
+ MWI 2012-05      12     0.639            0.549          -0.054          NaN         NaN                 3                164              2437
+ CHE 2012-08       1     0.239            0.270           0.031        0.001       0.006                 5                164              2433
+ BRA 2012-08       1     0.204            0.235           0.031        0.011       0.022                93                164              2433
+ SRB 2012-08       1     0.234            0.265           0.031        0.000       0.009                 1                164              2433
+ JPN 2013-06       2     0.248            0.236           0.016        0.021       0.004                66                166              2458
+ SUR 2016-08       8     0.459            0.797          -0.081          NaN         NaN                 1                156              2422
+ GBR 2016-10       2     0.220            0.250           0.030        0.014       0.024                40                157              2423
+ EGY 2016-11      12     0.699            1.161           0.006        0.022       0.021                 9                157              2422
+ UZB 2017-07      14     0.872            1.161           0.091        0.026       0.037                10                158              2418
+
+By event (one treated country each; airport-clustered SE for reference only):
+      event        outcome  treated_airports  local_fuel_peak    pre  post_0_11  se_airport  post_12_24
+PHL 2001-01 domestic seats                27             0.29 -0.121      0.163       0.079       0.182
+PHL 2001-01    total seats                27             0.29 -0.071      0.187       0.093       0.209
+LBR 2002-09    total seats                 1             0.29    NaN     -0.334       0.009         NaN
+SWZ 2008-10    total seats                 1             0.23 -0.046     -0.225       0.005      -0.056
+TJK 2009-11 domestic seats                 1             0.55    NaN     -1.686       0.008         NaN
+TJK 2009-11    total seats                 1             0.55 -0.010      0.142       0.005       0.385
+MOZ 2010-08 domestic seats                 7             0.30 -0.059      0.058       0.025      -0.110
+MOZ 2010-08    total seats                 7             0.30 -0.060      0.080       0.046      -0.051
+MWI 2012-05 domestic seats                 3             0.55  0.000     -0.384       0.089       0.618
+MWI 2012-05    total seats                 3             0.55  0.098     -0.166       0.063       0.338
+CHE 2012-08 domestic seats                 4             0.27  0.070      0.043       0.057       0.029
+CHE 2012-08    total seats                 5             0.27 -0.204     -0.045       0.058      -0.279
+BRA 2012-08 domestic seats                93             0.24 -0.177      0.011       0.026      -0.087
+BRA 2012-08    total seats                93             0.24 -0.174      0.002       0.026      -0.102
+SRB 2012-08    total seats                 1             0.27  0.026     -0.003       0.005       0.225
+JPN 2013-06 domestic seats                66             0.24 -0.031      0.061       0.016       0.099
+JPN 2013-06    total seats                66             0.24 -0.024      0.048       0.015       0.084
+SUR 2016-08    total seats                 1             0.80 -0.007     -0.130       0.005      -0.287
+GBR 2016-10 domestic seats                40             0.25  0.041     -0.038       0.019      -0.087
+GBR 2016-10    total seats                40             0.25 -0.004     -0.005       0.018      -0.059
+EGY 2016-11 domestic seats                 8             1.16  0.241      0.082       0.056       0.237
+EGY 2016-11    total seats                 9             1.16  0.360      0.098       0.043       0.327
+UZB 2017-07 domestic seats                10             1.16  0.132     -0.046       0.032       0.088
+UZB 2017-07    total seats                10             1.16  0.071     -0.103       0.046       0.256

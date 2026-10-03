@@ -1,0 +1,38 @@
+   window    resilience                   spec      b     se      p  b_gaci  p_gaci    n  mean_beta  sd_beta
+2008-2019     R_pre2008    (1) resilience only 0.0049 0.0039 0.2067     NaN     NaN 1812     0.0373    0.158
+2008-2019     R_pre2008             (2) + GACI 0.0061 0.0035 0.0798 -0.0035  0.4045 1812     0.0373    0.158
+2008-2019     R_pre2008 (3) + GACI + region FE 0.0048 0.0026 0.0657 -0.0028  0.4767 1812     0.0373    0.158
+2008-2019 R_raw_pre2008    (1) resilience only 0.0058 0.0070 0.4020     NaN     NaN 1812     0.0373    0.158
+2008-2019 R_raw_pre2008             (2) + GACI 0.0070 0.0068 0.3025 -0.0036  0.3282 1812     0.0373    0.158
+2008-2019 R_raw_pre2008 (3) + GACI + region FE 0.0091 0.0051 0.0725 -0.0037  0.3081 1812     0.0373    0.158
+1997-2019        R_full    (1) resilience only 0.0145 0.0033 0.0000     NaN     NaN 2713     0.0339    0.158
+1997-2019        R_full             (2) + GACI 0.0143 0.0034 0.0000  0.0011  0.7251 2713     0.0339    0.158
+1997-2019        R_full (3) + GACI + region FE 0.0111 0.0033 0.0009  0.0031  0.3352 2713     0.0339    0.158
+1997-2019    R_raw_full    (1) resilience only 0.0119 0.0048 0.0120     NaN     NaN 2713     0.0339    0.158
+1997-2019    R_raw_full             (2) + GACI 0.0129 0.0047 0.0061  0.0054  0.0595 2713     0.0339    0.158
+1997-2019    R_raw_full (3) + GACI + region FE 0.0083 0.0045 0.0660  0.0061  0.0450 2713     0.0339    0.158
+   resilience            outcome                   spec       b     se      p    n
+    R_pre2008 Kaenzig shock beta    (1) resilience only -0.0004 0.0005 0.4837 1812
+    R_pre2008 Kaenzig shock beta             (2) + GACI  0.0005 0.0005 0.3217 1812
+    R_pre2008 Kaenzig shock beta (3) + GACI + region FE  0.0009 0.0005 0.0444 1812
+    R_pre2008      BH shock beta    (1) resilience only  0.0003 0.0003 0.2222 1812
+    R_pre2008      BH shock beta             (2) + GACI  0.0004 0.0002 0.0957 1812
+    R_pre2008      BH shock beta (3) + GACI + region FE  0.0003 0.0002 0.1040 1812
+R_raw_pre2008 Kaenzig shock beta    (1) resilience only -0.0015 0.0011 0.1739 1812
+R_raw_pre2008 Kaenzig shock beta             (2) + GACI -0.0008 0.0011 0.4912 1812
+R_raw_pre2008 Kaenzig shock beta (3) + GACI + region FE  0.0010 0.0010 0.2976 1812
+R_raw_pre2008      BH shock beta    (1) resilience only  0.0003 0.0004 0.4514 1812
+R_raw_pre2008      BH shock beta             (2) + GACI  0.0004 0.0004 0.3407 1812
+R_raw_pre2008      BH shock beta (3) + GACI + region FE  0.0005 0.0003 0.0861 1812
+       R_full Kaenzig shock beta    (1) resilience only  0.0015 0.0006 0.0174 2713
+       R_full Kaenzig shock beta             (2) + GACI  0.0017 0.0006 0.0062 2713
+       R_full Kaenzig shock beta (3) + GACI + region FE  0.0017 0.0006 0.0050 2713
+       R_full      BH shock beta    (1) resilience only  0.0008 0.0002 0.0020 2713
+       R_full      BH shock beta             (2) + GACI  0.0008 0.0003 0.0019 2713
+       R_full      BH shock beta (3) + GACI + region FE  0.0006 0.0002 0.0117 2713
+   R_raw_full Kaenzig shock beta    (1) resilience only  0.0030 0.0009 0.0006 2713
+   R_raw_full Kaenzig shock beta             (2) + GACI  0.0028 0.0009 0.0013 2713
+   R_raw_full Kaenzig shock beta (3) + GACI + region FE  0.0027 0.0009 0.0016 2713
+   R_raw_full      BH shock beta    (1) resilience only  0.0006 0.0004 0.1153 2713
+   R_raw_full      BH shock beta             (2) + GACI  0.0006 0.0004 0.1095 2713
+   R_raw_full      BH shock beta (3) + GACI + region FE  0.0005 0.0003 0.1027 2713

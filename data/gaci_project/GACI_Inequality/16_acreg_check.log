@@ -1,0 +1,206 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 16 May 2027
+Serial number: 401909343485
+  Licensed to: Sunbin Yoo
+               SKKU
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do 16_acreg_check.do 
+
+. * 16_acreg_check.do : cross-check of 15_conley_se.py with acreg (Colella, Lal
+> ive, Sakalli & Thoenig 2019)
+. * Headline 2SLS, country + year FE, Bartlett kernels: spatial cutoff 2000 km,
+>  serial cutoff all years (27) and 10.
+. clear all
+
+. ssc install hdfe, replace
+checking hdfe consistency and verifying not already installed...
+installing into C:\Users\sunbi\ado\plus\...
+installation complete.
+
+. set more off
+
+. set linesize 255
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_Inequality"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_Inequality
+
+. import delimited "_panel_coords.csv", clear varnames(1) encoding("utf-8")
+(9 vars, 3,737 obs)
+
+. encode c, gen(isocode)
+
+. tempname fh
+
+. file open `fh' using "_acreg_results.csv", write replace
+
+. file write `fh' "outcome,spec,b,se" _n
+
+. foreach yv in ln_gini_mkt ln_gini_disp {
+  2.     acreg `yv' lnpop (ln_gaci_max = feyrer_int), id(isocode) time(y) spatial latitude(lat) longitude(lon) dist(2000) lagcutoff(30) bartlett hac pfe1(isocode) pfe2(y)
+  3.     file write `fh' "`yv',acreg_D2000_Lall,`=_b[ln_gaci_max]',`=_se[ln_gaci_max]'" _n
+  4.     acreg `yv' lnpop (ln_gaci_max = feyrer_int), id(isocode) time(y) spatial latitude(lat) longitude(lon) dist(2000) lagcutoff(10) bartlett hac pfe1(isocode) pfe2(y)
+  5.     file write `fh' "`yv',acreg_D2000_L10,`=_b[ln_gaci_max]',`=_se[ln_gaci_max]'" _n
+  6.     acreg `yv' lnpop (ln_gaci_max = feyrer_int), id(isocode) time(y) spatial latitude(lat) longitude(lon) dist(1000) lagcutoff(30) bartlett hac pfe1(isocode) pfe2(y)
+  7.     file write `fh' "`yv',acreg_D1000_Lall,`=_b[ln_gaci_max]',`=_se[ln_gaci_max]'" _n
+  8. }
+SPATIAL CORRECTION
+DistCutoff: 2000
+LagCutoff:  30
+HAC Correction
+Absorbed FE: isocode and y
+Included instruments: lnpop
+Instrumented: ln_gaci_max
+Excluded instruments: feyrer_int
+Kleibergen-Paap rk Wald F statistic:  14.876
+                                                      Number of obs =     3737
+Total (centered) SS     =  4.724771221                Centered R2   =  -0.9334
+Total (uncentered) SS   =  4.724771221                Uncentered R2 =  -0.9334
+Residual SS             =  9.134995949
+
+------------------------------------------------------------------------------
+ ln_gini_mkt | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_max |    .495144   .1610125     3.08   0.002     .1795653    .8107227
+       lnpop |  -.0890457   .0311578    -2.86   0.004    -.1501138   -.0279776
+       _cons |   3.74e-14   .0015045     0.00   1.000    -.0029487    .0029487
+------------------------------------------------------------------------------
+nb: total SS, model and R2s are after partialling out.
+To get the corrected ones use the option correctr2
+SPATIAL CORRECTION
+DistCutoff: 2000
+LagCutoff:  10
+HAC Correction
+Absorbed FE: isocode and y
+Included instruments: lnpop
+Instrumented: ln_gaci_max
+Excluded instruments: feyrer_int
+Kleibergen-Paap rk Wald F statistic:  24.083
+                                                      Number of obs =     3737
+Total (centered) SS     =  4.724771221                Centered R2   =  -0.9334
+Total (uncentered) SS   =  4.724771221                Uncentered R2 =  -0.9334
+Residual SS             =  9.134995949
+
+------------------------------------------------------------------------------
+ ln_gini_mkt | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_max |    .495144   .1245072     3.98   0.000     .2511144    .7391736
+       lnpop |  -.0890457   .0246859    -3.61   0.000    -.1374292   -.0406622
+       _cons |   3.74e-14   .0019012     0.00   1.000    -.0037263    .0037263
+------------------------------------------------------------------------------
+nb: total SS, model and R2s are after partialling out.
+To get the corrected ones use the option correctr2
+SPATIAL CORRECTION
+DistCutoff: 1000
+LagCutoff:  30
+HAC Correction
+Absorbed FE: isocode and y
+Included instruments: lnpop
+Instrumented: ln_gaci_max
+Excluded instruments: feyrer_int
+Kleibergen-Paap rk Wald F statistic:  14.897
+                                                      Number of obs =     3737
+Total (centered) SS     =  4.724771221                Centered R2   =  -0.9334
+Total (uncentered) SS   =  4.724771221                Uncentered R2 =  -0.9334
+Residual SS             =  9.134995949
+
+------------------------------------------------------------------------------
+ ln_gini_mkt | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_max |    .495144   .1598536     3.10   0.002     .1818366    .8084514
+       lnpop |  -.0890457   .0309299    -2.88   0.004    -.1496671   -.0284243
+       _cons |   3.74e-14   .0014502     0.00   1.000    -.0028423    .0028423
+------------------------------------------------------------------------------
+nb: total SS, model and R2s are after partialling out.
+To get the corrected ones use the option correctr2
+SPATIAL CORRECTION
+DistCutoff: 2000
+LagCutoff:  30
+HAC Correction
+Absorbed FE: isocode and y
+Included instruments: lnpop
+Instrumented: ln_gaci_max
+Excluded instruments: feyrer_int
+Kleibergen-Paap rk Wald F statistic:  14.876
+                                                      Number of obs =     3737
+Total (centered) SS     =  5.776792264                Centered R2   =  -1.5354
+Total (uncentered) SS   =  5.776792264                Uncentered R2 =  -1.5354
+Residual SS             =  14.64631717
+
+------------------------------------------------------------------------------
+ln_gini_disp | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_max |    .651136   .2006159     3.25   0.001      .257936    1.044336
+       lnpop |    -.06939    .042873    -1.62   0.106    -.1534195    .0146396
+       _cons |   4.91e-14   .0018091     0.00   1.000    -.0035457    .0035457
+------------------------------------------------------------------------------
+nb: total SS, model and R2s are after partialling out.
+To get the corrected ones use the option correctr2
+SPATIAL CORRECTION
+DistCutoff: 2000
+LagCutoff:  10
+HAC Correction
+Absorbed FE: isocode and y
+Included instruments: lnpop
+Instrumented: ln_gaci_max
+Excluded instruments: feyrer_int
+Kleibergen-Paap rk Wald F statistic:  24.083
+                                                      Number of obs =     3737
+Total (centered) SS     =  5.776792264                Centered R2   =  -1.5354
+Total (uncentered) SS   =  5.776792264                Uncentered R2 =  -1.5354
+Residual SS             =  14.64631717
+
+------------------------------------------------------------------------------
+ln_gini_disp | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_max |    .651136   .1553022     4.19   0.000     .3467493    .9555227
+       lnpop |    -.06939   .0336485    -2.06   0.039    -.1353398   -.0034401
+       _cons |   4.91e-14   .0023178     0.00   1.000    -.0045428    .0045428
+------------------------------------------------------------------------------
+nb: total SS, model and R2s are after partialling out.
+To get the corrected ones use the option correctr2
+SPATIAL CORRECTION
+DistCutoff: 1000
+LagCutoff:  30
+HAC Correction
+Absorbed FE: isocode and y
+Included instruments: lnpop
+Instrumented: ln_gaci_max
+Excluded instruments: feyrer_int
+Kleibergen-Paap rk Wald F statistic:  14.897
+                                                      Number of obs =     3737
+Total (centered) SS     =  5.776792264                Centered R2   =  -1.5354
+Total (uncentered) SS   =  5.776792264                Uncentered R2 =  -1.5354
+Residual SS             =  14.64631717
+
+------------------------------------------------------------------------------
+ln_gini_disp | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_max |    .651136   .1997502     3.26   0.001     .2596327    1.042639
+       lnpop |    -.06939   .0427258    -1.62   0.104     -.153131     .014351
+       _cons |   4.91e-14   .0017788     0.00   1.000    -.0034864    .0034864
+------------------------------------------------------------------------------
+nb: total SS, model and R2s are after partialling out.
+To get the corrected ones use the option correctr2
+
+. file close `fh'
+
+. 
+. 
+end of do-file

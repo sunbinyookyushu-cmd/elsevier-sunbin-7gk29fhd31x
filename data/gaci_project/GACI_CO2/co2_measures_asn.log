@@ -1,0 +1,367 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do co2_measures_asn.do 
+
+. *============================================================================
+> ==
+. * co2_measures_asn.do
+. * A) H2 measure robustness under Feyrer IV: cwm / sum (lng) / max, across the
+. *    four key outcomes (total CO2, intl CO2, seat-km, intensity)
+. *    -> _feyrer_measures.csv
+. * B) ASN accident-IV pilot: country-year accident shocks as instrument for
+. *    ln_gaci_cwm. First stage, 2SLS, and over-ID jointly with feyrer_int.
+. *    -> _asn_iv_results.csv
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_CO2"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2
+
+. 
+. * ---- build merged dataset (same as co2_feyrer_full.do) ----
+. import delimited "co2_country_year.csv", clear varnames(1) encoding("utf-8")
+(20 vars, 6,777 obs)
+
+. keep iso3 year co2_bunker co2_bunker_intl co2_lto co2_5050 dep_seat_km
+
+. rename iso3 c
+
+. rename year y
+
+. tempfile co2
+
+. save `co2'
+file C:\Users\sunbi\AppData\Local\Temp\ST_6c80_000001.tmp saved
+
+. 
+. import delimited "../gaci_panel_measures.csv", clear varnames(1) encoding("utf-8")
+(49 vars, 4,643 obs)
+
+. keep c y ln_gaci_max
+
+. tempfile mx
+
+. save `mx'
+file C:\Users\sunbi\AppData\Local\Temp\ST_6c80_000002.tmp saved
+
+. 
+. import delimited "asn_country_year.csv", clear varnames(1) encoding("utf-8")
+(9 vars, 4,643 obs)
+
+. tempfile asn
+
+. save `asn'
+file C:\Users\sunbi\AppData\Local\Temp\ST_6c80_000003.tmp saved
+
+. 
+. import delimited "../gaci_panel_combined.csv", clear varnames(1) encoding("utf-8")
+(44 vars, 4,643 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int   feyrer_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum   ln_sea_ma
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y  ln_remote     ln_air_ma
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+feyrer_int already numeric; no replace
+ln_sea_ma already numeric; no replace
+ln_air_ma already numeric; no replace
+
+. merge 1:1 c y using `co2', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                             4,643  
+    -----------------------------------------
+
+. merge 1:1 c y using `mx', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                             4,643  
+    -----------------------------------------
+
+. merge 1:1 c y using `asn', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                             4,643  
+    -----------------------------------------
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. 
+. gen ln_co2_tot = ln(co2_bunker) if co2_bunker > 0
+
+. gen ln_co2_intl = ln(co2_bunker_intl) if co2_bunker_intl > 0
+
+. gen ln_skm = ln(dep_seat_km) if dep_seat_km > 0
+
+. gen ln_intensity = ln_co2_tot - ln_skm
+
+. 
+. * =====================================================================
+. * A) measures: cwm / sum / max x 4 outcomes
+. * =====================================================================
+. tempname M
+
+. postfile `M' str16 meas str16 outc double(b se p kpf) long(nn) using "_meas_tmp", replace
+(note: file _meas_tmp.dta not found)
+
+. foreach tr in ln_gaci_cwm lng ln_gaci_max {
+  2.     foreach yv in ln_co2_tot ln_co2_intl ln_skm ln_intensity {
+  3.         quietly ivreghdfe `yv' lnpop ln_sea_ma (`tr' = feyrer_int), absorb(isocode y) robust
+  4.         local bb = _b[`tr']
+  5.         local ss = _se[`tr']
+  6.         local pp = 2*normal(-abs(`bb'/`ss'))
+  7.         di "MEAS `tr' `yv': b = " %9.3f `bb' " (se " %8.3f `ss' ")  KP F = " %7.1f e(widstat) "  N = " %8.0f e(N)
+  8.         post `M' ("`tr'") ("`yv'") (`bb') (`ss') (`pp') (e(widstat)) (e(N))
+  9.     }
+ 10. }
+MEAS ln_gaci_cwm ln_co2_tot: b =     5.347 (se    0.398)  KP F =   153.6  N =     4634
+MEAS ln_gaci_cwm ln_co2_intl: b =     5.192 (se    0.386)  KP F =   153.6  N =     4634
+MEAS ln_gaci_cwm ln_skm: b =     5.641 (se    0.425)  KP F =   153.6  N =     4634
+MEAS ln_gaci_cwm ln_intensity: b =    -0.294 (se    0.116)  KP F =   153.6  N =     4634
+MEAS lng ln_co2_tot: b =     2.153 (se    0.214)  KP F =    90.3  N =     4634
+MEAS lng ln_co2_intl: b =     2.091 (se    0.219)  KP F =    90.3  N =     4634
+MEAS lng ln_skm: b =     2.272 (se    0.237)  KP F =    90.3  N =     4634
+MEAS lng ln_intensity: b =    -0.118 (se    0.050)  KP F =    90.3  N =     4634
+MEAS ln_gaci_max ln_co2_tot: b =     4.548 (se    0.317)  KP F =   172.0  N =     4634
+MEAS ln_gaci_max ln_co2_intl: b =     4.416 (se    0.317)  KP F =   172.0  N =     4634
+MEAS ln_gaci_max ln_skm: b =     4.798 (se    0.344)  KP F =   172.0  N =     4634
+MEAS ln_gaci_max ln_intensity: b =    -0.250 (se    0.099)  KP F =   172.0  N =     4634
+
+. postclose `M'
+
+. preserve
+
+. use "_meas_tmp", clear
+
+. export delimited "_feyrer_measures.csv", replace
+file _feyrer_measures.csv saved
+
+. restore
+
+. erase "_meas_tmp.dta"
+
+. 
+. * =====================================================================
+. * B) ASN accident IV
+. * =====================================================================
+. gen ash_deaths = asinh(deaths)
+
+. gen ash_com_deaths = asinh(com_deaths)
+
+. gen byte d_major = n_major > 0
+
+. gen byte d_fatal = n_fatal > 0
+
+. 
+. tempname R
+
+. postfile `R' str12 stage str16 z str16 outc double(b se p kpf jp) long(nn) using "_asn_tmp", replace
+(note: file _asn_tmp.dta not found)
+
+. 
+. * ---- B1: first stage, lagged accident measures ----
+. foreach z in ash_deaths ash_com_deaths n_fatal n_major d_major d_fatal {
+  2.     quietly reghdfe ln_gaci_cwm L.`z' lnpop ln_sea_ma, absorb(isocode y) vce(robust)
+  3.     local bb = _b[L.`z']
+  4.     local ss = _se[L.`z']
+  5.     local pp = 2*normal(-abs(`bb'/`ss'))
+  6.     quietly test L.`z'
+  7.     local ff = r(F)
+  8.     di "FS L.`z': b = " %9.4f `bb' " (se " %8.4f `ss' ")  partial F = " %7.1f `ff' "  N = " %8.0f e(N)
+  9.     post `R' ("FS_lag") ("L.`z'") ("ln_gaci_cwm") (`bb') (`ss') (`pp') (`ff') (.) (e(N))
+ 10. }
+FS L.ash_deaths: b =    0.0016 (se   0.0011)  partial F =     2.0  N =     4446
+FS L.ash_com_deaths: b =    0.0022 (se   0.0011)  partial F =     3.6  N =     4446
+FS L.n_fatal: b =    0.0035 (se   0.0017)  partial F =     4.4  N =     4446
+FS L.n_major: b =    0.0027 (se   0.0064)  partial F =     0.2  N =     4446
+FS L.d_major: b =    0.0017 (se   0.0073)  partial F =     0.1  N =     4446
+FS L.d_fatal: b =    0.0042 (se   0.0038)  partial F =     1.2  N =     4446
+
+. * contemporaneous, for comparison (endogeneity check: sign should differ)
+. foreach z in ash_deaths n_fatal {
+  2.     quietly reghdfe ln_gaci_cwm `z' lnpop ln_sea_ma, absorb(isocode y) vce(robust)
+  3.     local bb = _b[`z']
+  4.     local ss = _se[`z']
+  5.     local pp = 2*normal(-abs(`bb'/`ss'))
+  6.     quietly test `z'
+  7.     local ff = r(F)
+  8.     di "FS contemp `z': b = " %9.4f `bb' " (se " %8.4f `ss' ")  partial F = " %7.1f `ff'
+  9.     post `R' ("FS_contemp") ("`z'") ("ln_gaci_cwm") (`bb') (`ss') (`pp') (`ff') (.) (e(N))
+ 10. }
+FS contemp ash_deaths: b =    0.0028 (se   0.0011)  partial F =     6.4
+FS contemp n_fatal: b =    0.0063 (se   0.0016)  partial F =    15.6
+
+. 
+. * ---- B2: 2SLS with the strongest lagged accident IV(s), just-identified ----
+. foreach z in ash_deaths n_fatal d_fatal {
+  2.     foreach yv in ln_co2_tot ln_co2_intl ln_intensity {
+  3.         capture noisily quietly ivreghdfe `yv' lnpop ln_sea_ma (ln_gaci_cwm = L.`z'), absorb(isocode y) robust
+  4.         if _rc == 0 {
+  5.             local bb = _b[ln_gaci_cwm]
+  6.             local ss = _se[ln_gaci_cwm]
+  7.             local pp = 2*normal(-abs(`bb'/`ss'))
+  8.             di "IV L.`z' -> `yv': b = " %9.3f `bb' " (se " %8.3f `ss' ")  KP F = " %7.1f e(widstat)
+  9.             post `R' ("IV_asn") ("L.`z'") ("`yv'") (`bb') (`ss') (`pp') (e(widstat)) (.) (e(N))
+ 10.         }
+ 11.     }
+ 12. }
+IV L.ash_deaths -> ln_co2_tot: b =     5.262 (se    3.118)  KP F =     2.0
+IV L.ash_deaths -> ln_co2_intl: b =     4.239 (se    2.799)  KP F =     2.0
+IV L.ash_deaths -> ln_intensity: b =    -0.284 (se    0.989)  KP F =     2.0
+IV L.n_fatal -> ln_co2_tot: b =     5.588 (se    2.246)  KP F =     4.4
+IV L.n_fatal -> ln_co2_intl: b =     4.572 (se    1.805)  KP F =     4.4
+IV L.n_fatal -> ln_intensity: b =    -0.922 (se    0.653)  KP F =     4.4
+IV L.d_fatal -> ln_co2_tot: b =     6.045 (se    4.311)  KP F =     1.2
+IV L.d_fatal -> ln_co2_intl: b =     5.340 (se    3.984)  KP F =     1.2
+IV L.d_fatal -> ln_intensity: b =    -1.020 (se    1.490)  KP F =     1.2
+
+. 
+. * ---- B3: over-ID, feyrer_int + lagged accident IV jointly (Hansen J) ----
+. foreach z in ash_deaths n_fatal {
+  2.     foreach yv in ln_co2_tot ln_co2_intl ln_intensity {
+  3.         capture noisily quietly ivreghdfe `yv' lnpop ln_sea_ma (ln_gaci_cwm = feyrer_int L.`z'), absorb(isocode y) robust
+  4.         if _rc == 0 {
+  5.             local bb = _b[ln_gaci_cwm]
+  6.             local ss = _se[ln_gaci_cwm]
+  7.             local pp = 2*normal(-abs(`bb'/`ss'))
+  8.             local jp = e(jp)
+  9.             di "OVERID feyrer+L.`z' -> `yv': b = " %9.3f `bb' "  KP F = " %7.1f e(widstat) "  Hansen J p = " %6.3f `jp'
+ 10.             post `R' ("OVERID") ("fey+L.`z'") ("`yv'") (`bb') (`ss') (`pp') (e(widstat)) (`jp') (e(N))
+ 11.         }
+ 12.     }
+ 13. }
+OVERID feyrer+L.ash_deaths -> ln_co2_tot: b =     5.083  KP F =    66.3  Hansen J p =  0.952
+OVERID feyrer+L.ash_deaths -> ln_co2_intl: b =     4.895  KP F =    66.3  Hansen J p =  0.820
+OVERID feyrer+L.ash_deaths -> ln_intensity: b =    -0.331  KP F =    66.3  Hansen J p =  0.961
+OVERID feyrer+L.n_fatal -> ln_co2_tot: b =     5.087  KP F =    66.8  Hansen J p =  0.805
+OVERID feyrer+L.n_fatal -> ln_co2_intl: b =     4.897  KP F =    66.8  Hansen J p =  0.859
+OVERID feyrer+L.n_fatal -> ln_intensity: b =    -0.339  KP F =    66.8  Hansen J p =  0.270
+
+. 
+. postclose `R'
+
+. preserve
+
+. use "_asn_tmp", clear
+
+. list, clean
+
+            stage                  z           outc            b          se           p         kpf          jp     nn  
+  1.       FS_lag       L.ash_deaths    ln_gaci_cwm    .00158481   .00110812   .15266375   2.0454309           .   4446  
+  2.       FS_lag   L.ash_com_deaths    ln_gaci_cwm    .00216837   .00114268   .05774666   3.6009472           .   4446  
+  3.       FS_lag          L.n_fatal    ln_gaci_cwm    .00350306   .00166892   .03581678   4.4058067           .   4446  
+  4.       FS_lag          L.n_major    ln_gaci_cwm    .00271942   .00641377    .6715678   .17977368           .   4446  
+  5.       FS_lag          L.d_major    ln_gaci_cwm    .00171836   .00725116   .81267454   .05615816           .   4446  
+  6.       FS_lag          L.d_fatal    ln_gaci_cwm    .00415777   .00380382   .27437093   1.1947629           .   4446  
+  7.   FS_contemp         ash_deaths    ln_gaci_cwm    .00282401   .00111281   .01115734   6.4400833           .   4634  
+  8.   FS_contemp            n_fatal    ln_gaci_cwm    .00628818   .00159186   .00007808   15.604149           .   4634  
+  9.       IV_asn       L.ash_deaths     ln_co2_tot    5.2621922   3.1183727   .09151106   2.0454309           .   4446  
+ 10.       IV_asn       L.ash_deaths    ln_co2_intl    4.2393013   2.7986335   .12982928   2.0454309           .   4446  
+ 11.       IV_asn       L.ash_deaths   ln_intensity   -.28386698     .989401   .77418283   2.0454309           .   4446  
+ 12.       IV_asn          L.n_fatal     ln_co2_tot    5.5883562   2.2462775   .01285252   4.4058067           .   4446  
+ 13.       IV_asn          L.n_fatal    ln_co2_intl    4.5724892   1.8045874   .01128285   4.4058067           .   4446  
+ 14.       IV_asn          L.n_fatal   ln_intensity   -.92220264    .6533493   .15809719   4.4058067           .   4446  
+ 15.       IV_asn          L.d_fatal     ln_co2_tot    6.0452078   4.3110582   .16083878   1.1947629           .   4446  
+ 16.       IV_asn          L.d_fatal    ln_co2_intl    5.3399261   3.9836157   .18009187   1.1947629           .   4446  
+ 17.       IV_asn          L.d_fatal   ln_intensity    -1.020087   1.4901446   .49362432   1.1947629           .   4446  
+ 18.       OVERID   fey+L.ash_deaths     ln_co2_tot    5.0825804   .40062506   7.014e-37   66.314477   .95169836   4446  
+ 19.       OVERID   fey+L.ash_deaths    ln_co2_intl    4.8949809   .38598708   7.467e-37   66.314477   .81967124   4446  
+ 20.       OVERID   fey+L.ash_deaths   ln_intensity   -.33107758   .12473374   .00794792   66.314477   .96085431   4446  
+ 21.       OVERID      fey+L.n_fatal     ln_co2_tot    5.0872366   .40030368   5.308e-37   66.843951   .80521257   4446  
+ 22.       OVERID      fey+L.n_fatal    ln_co2_intl    4.8967932   .38545999   5.635e-37   66.843951   .85926022   4446  
+ 23.       OVERID      fey+L.n_fatal   ln_intensity   -.33879132   .12425673   .00640016   66.843951   .26986591   4446  
+
+. export delimited "_asn_iv_results.csv", replace
+file _asn_iv_results.csv saved
+
+. restore
+
+. erase "_asn_tmp.dta"
+
+. 
+. di _n "DONE_MEASURES_ASN"
+
+DONE_MEASURES_ASN
+
+. 
+end of do-file

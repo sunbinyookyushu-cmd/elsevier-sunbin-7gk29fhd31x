@@ -1,0 +1,5 @@
+wrote C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2\CO2_map_levels_2023.png
+wrote C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2\CO2_map_mismatch_2023.png
+attribution >> physical LTO (pp): [('ARE', 1.38), ('USA', 1.34), ('GBR', 1.02), ('QAT', 0.73), ('SGP', 0.66), ('HKG', 0.48), ('DEU', 0.46), ('CAN', 0.37)]
+physical LTO >> attribution (pp): [('CHN', -3.48), ('JPN', -0.55), ('IDN', -0.54), ('IND', -0.46), ('COL', -0.33), ('BRA', -0.31), ('ITA', -0.31), ('VNM', -0.3)]
+round-trip netting check, |dep-arr cruise| max (Mt): 0.72

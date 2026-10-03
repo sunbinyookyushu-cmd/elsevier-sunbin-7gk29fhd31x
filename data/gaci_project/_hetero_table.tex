@@ -1,0 +1,49 @@
+\begin{table}[t]
+\centering
+\caption{Heterogeneity: interaction IV (robust SE).}
+\label{tab:het}
+\begin{threeparttable}
+\small
+\begin{tabular}{lccc}
+\toprule
+Moderator (mean-centred): & Baseline income & Baseline conn. & Remoteness \\
+\midrule
+\multicolumn{4}{l}{\emph{Panel A. Goods openness $\ln(g/Y)$}}\\
+Connectivity (at mean)   & 1.254\sym{*}  & 2.260\sym{*}  & 1.391\sym{**} \\
+                         & (0.717)       & (1.161)       & (0.693) \\
+$\times$ moderator       & $-0.243$\sym{**} & $-1.482$\sym{**} & $-1.241$\sym{*} \\
+                         & (0.122)       & (0.622)       & (0.673) \\
+\addlinespace
+\multicolumn{4}{l}{\emph{Panel B. Goods volume $\ln g$}}\\
+Connectivity (at mean)   & 1.959\sym{***} & 6.093\sym{***} & 2.394\sym{***} \\
+                         & (0.732)       & (1.742)       & (0.825) \\
+$\times$ moderator       & $-1.108$\sym{***} & $-6.060$\sym{***} & $-1.234$ \\
+                         & (0.131)       & (1.046)       & (0.815) \\
+\addlinespace
+\multicolumn{4}{l}{\emph{Panel C. GDP $\ln Y$}}\\
+Connectivity (at mean)   & 0.705         & 3.834\sym{***} & 1.003 \\
+                         & (0.759)       & (1.133)       & (0.708) \\
+$\times$ moderator       & $-0.865$\sym{***} & $-4.579$\sym{***} & 0.007 \\
+                         & (0.119)       & (0.677)       & (0.755) \\
+\midrule
+First-stage KP $F$       & 8.07          & 4.96          & 9.21 \\
+Country, Year FE         & Yes           & Yes           & Yes \\
+Observations             & 4{,}121       & 4{,}121       & 4{,}635 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Each column is one moderator. Both $\ln\mathrm{GACI}_{cwm}$ and its
+interaction with the (mean-centred) moderator are instrumented (by the
+tourism-heritage instrument and its interaction); country and year FE; robust
+SE in parentheses. ``Connectivity (at mean)'' is the openness/volume/income
+elasticity for a country at the moderator mean; ``$\times$ moderator'' is how
+that elasticity shifts. Negative interactions on income and baseline
+connectivity (significant across all three outcomes) mean the payoff is larger
+for poorer and less-connected economies. First-stage KP $F$ is modest
+($\approx 5$--$9$), so the gradient is read as qualitative. All cells are
+reported, including the insignificant remoteness$\times$volume, GDP, and the
+income/remoteness ``at mean'' terms. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$,
+\sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

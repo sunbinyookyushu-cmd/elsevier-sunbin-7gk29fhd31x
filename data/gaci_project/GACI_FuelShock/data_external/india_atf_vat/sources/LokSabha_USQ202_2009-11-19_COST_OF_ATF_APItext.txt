@@ -1,0 +1,86 @@
+Source: Lok Sabha Q&A API (sansad.in) record retrieved 2026-10-02
+Lok Sabha: 15; Session: 3; Question No: 202; Type: UNSTARRED; Date: 19.11.2009
+Ministry: CIVIL AVIATION
+Subject: COST OF ATF
+Members: ['VIKRAMBHAI ARJANBHAI MAADAM']
+Official file path (if any):  
+API: https://sansad.in/api_ls/question/qetFilteredQuestionsAns?loksabhaNo=15&pageNo=1&locale=en&keyWord=...  (record: LS 15, Q 202, UNSTARRED, date 19.11.2009)
+
+QUESTION:
+ 
+ 
+
+
+(a) whether the domestic cost of Aviation Turbine Fuel (ATF) is very high in India; 
+ 
+
+
+(b) if so, the details thereof alongwith the reasons therefor; and 
+ 
+
+
+(c) the steps being taken by the Government to reduce the ncost 
+of the ATF so that the prices of air tickets could come down? 
+ 
+ 
+
+ANSWER:
+ 
+
+
+MINISTER OF THE STATE (INDEPENDENT CHARGE) IN THE MINISTRY OF CIVIL AVIATION (SHRI PRAFUL PATEL) 
+
+
+
+
+(a) & (b): Yes, Sir. The cost of Aviation Turbine Fuel (ATF)in four metro cities of India as 
+compared to other cities in Asia Pacific Region in second half of November 2009 are as under: 
+
+ 
+
+ Singapore Bangkok Dubai Sharjah 
+
+
+ Rs. 25004/KL Rs. 25805 KL, Rs. 25783/KL, Rs.27172/KL 
+
+
+ (By evaluating 1$=46.22 Rs. as on 16.11.2009) 
+
+
+ Delhi Mumbai Kolkata Chennai 
+
+
+ Rs.40422.62/KL Rs.41710.29/KL Rs.48680.95/KL Rs.44526.44/KL 
+
+
+
+Duties and taxes play a significant role in determining the final selling price of ATF. 
+A major reason for the high selling price of ATF is the high incidence of taxation 
+levied by the State Governments. 
+
+
+
+
+(c):- The Government has taken various steps as under: 
+
+
+
+
+(1) Custom duty on import of ATF has been abolished. 
+
+
+
+
+(2) The State Governments have been persuaded to reduce the sales tax on ATF. Government 
+of Andhra Pradesh and,in certain cases, Government of Rajasthan have reduced the sales 
+tax on ATF to 4%. Government of Maharashtra has also reduced sales tax on ATF from 25% 
+to 4% for flights originating from airports other than Pune and Mumbai. 
+
+
+
+
+(3) The Oil companies have started announcing the ATF prices on a fortnightly basis rather 
+than monthly basis. 
+
+ 
+

@@ -1,0 +1,1010 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do gaci_jtest.do 
+
+. *============================================================================
+> ==
+. * gaci_jtest.do  --  Overidentification (Hansen/Sargan J) test with BOTH inst
+> ruments
+. *   instruments : lnz (leave-out market access) + ln_unesco_nat (natural heri
+> tage)
+. *   logic       : 2 instruments, 1 endogenous -> overidentified -> J test of 
+> joint
+. *                 exclusion validity.  Shown for treatment = lng and = ln_gac
+> i_cwm,
+. *                 both robust(no cluster) [Sargan] and cluster(isocode) [Hans
+> en J].
+. *   read-with   : the two JUST-identified betas (lnz-only vs UNESCO-only) are
+>  printed
+. *                 first; if they disagree, J rejects (at least one exclusion 
+> fails).
+. *   FE          : region + year (absorb regcode y)
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI
+
+. import delimited "gaci_panel.csv", clear varnames(1) encoding("utf-8")
+(34 vars, 4,714 obs)
+
+. ds c reg, not
+y             lncap         lnz_own       deg_mean      regimp_sum
+trade_share   gaci_cwmean   lnpc          eig_sum       regimp_mean
+ln_tradevol   gaci_mean     lnpop         eig_mean      cap_sum
+lngdp         ln_unesco     lnland        close_sum     cap_mean
+lng           unesco_cum    abslat        close_mean
+ln_gaci_cwm   unesco_cum~t  n_air         betw_sum
+ln_gaci_mean  lnz           deg_sum       betw_mean
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+
+. encode c, gen(isocode)
+
+. encode reg, gen(regcode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. gen trade_intensity = ln_tradevol - lngdp
+
+. replace ln_unesco = ln(1 + unesco_cum)
+(4,714 real changes made)
+
+. gen ln_unesco_nat = ln(1 + unesco_cum_nat)
+
+. 
+. *============================================================================
+> ==
+. * TREATMENT = GACI_sum (lng)   [the strong-instrument case]
+. *============================================================================
+> ==
+. di _n "################ TREATMENT = lng (GACI_sum) ################"
+
+################ TREATMENT = lng (GACI_sum) ################
+
+. 
+. di _n "==== L0a just-identified: IV = lnz only ===="
+
+==== L0a just-identified: IV = lnz only ====
+
+. ivreghdfe trade_intensity lnpop deg_mean (lng = lnz), absorb(regcode y) clust
+> er(isocode)
+(MWFE estimator converged in 4 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     187                Number of obs =     4714
+                                                      F(  3,   186) =    60.01
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1034.188584                Centered R2   =   0.4243
+Total (uncentered) SS   =  1034.188584                Uncentered R2 =   0.4243
+Residual SS             =  595.3499322                Root MSE      =    .3572
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .0805316   .0561448     1.43   0.153     -.030231    .1912941
+       lnpop |  -.1930729   .0288821    -6.68   0.000    -.2500515   -.1360942
+    deg_mean |    .008826    .001402     6.30   0.000       .00606    .0115919
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             22.913
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):             1732.617
+                         (Kleibergen-Paap rk Wald F statistic):         25.393
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop deg_mean
+Excluded instruments: lnz
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     regcode |        17           0          17     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. di _n "==== L0b just-identified: IV = UNESCO natural only ===="
+
+==== L0b just-identified: IV = UNESCO natural only ====
+
+. ivreghdfe trade_intensity lnpop deg_mean (lng = ln_unesco_nat), absorb(regcod
+> e y) cluster(isocode)
+(MWFE estimator converged in 4 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     187                Number of obs =     4714
+                                                      F(  3,   186) =    55.08
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1034.188584                Centered R2   =   0.4066
+Total (uncentered) SS   =  1034.188584                Uncentered R2 =   0.4066
+Residual SS             =  613.7043226                Root MSE      =    .3626
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.0851723   .0860176    -0.99   0.323    -.2548679    .0845233
+       lnpop |  -.1113333    .047396    -2.35   0.020    -.2048361   -.0178305
+    deg_mean |   .0067895   .0015119     4.49   0.000     .0038069    .0097721
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             18.922
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):              576.055
+                         (Kleibergen-Paap rk Wald F statistic):         33.679
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop deg_mean
+Excluded instruments: ln_unesco_nat
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     regcode |        17           0          17     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. 
+. di _n "==== L1 OVERID both, NO cluster (robust) -> Sargan/Hansen J ===="
+
+==== L1 OVERID both, NO cluster (robust) -> Sargan/Hansen J ====
+
+. ivreghdfe trade_intensity lnpop deg_mean (lng = lnz ln_unesco_nat), absorb(re
+> gcode y) first
+(MWFE estimator converged in 4 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of lng:
+
+Statistics consistent for homoskedasticity only
+Number of obs =                   4714
+------------------------------------------------------------------------------
+         lng |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lnz |   .3876806   .0101254    38.29   0.000     .3678299    .4075312
+ln_unesco_~t |    .368294   .0194714    18.91   0.000     .3301209    .4064672
+       lnpop |   .2313655    .007659    30.21   0.000     .2163502    .2463808
+    deg_mean |  -.0071403   .0004946   -14.44   0.000    -.0081099   -.0061708
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  2,  4666) =  1111.41
+  Prob > F      =   0.0000
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  2,  4666) =  1111.41
+  Prob > F      =   0.0000
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  2,  4666)  P-val | SW Chi-sq(  2) P-val | SW F(  2,  4666)
+lng          |    1111.41    0.0000 |     2245.69   0.0000 |     1111.41
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             19.93
+                                   15% maximal IV size             11.59
+                                   20% maximal IV size              8.75
+                                   25% maximal IV size              7.25
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Sanderson-Windmeijer F statistic.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Anderson canon. corr. LM statistic       Chi-sq(2)=1521.07  P-val=0.0000
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                    1111.41
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=2:
+                                   10% maximal IV size             19.93
+                                   15% maximal IV size             11.59
+                                   20% maximal IV size              8.75
+                                   25% maximal IV size              7.25
+Source: Stock-Yogo (2005).  Reproduced by permission.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(2,4666)=     31.54     P-val=0.0000
+Anderson-Rubin Wald test           Chi-sq(2)=     63.73     P-val=0.0000
+Stock-Wright LM S statistic        Chi-sq(2)=     62.88     P-val=0.0000
+
+Number of observations               N  =       4714
+Number of regressors                 K  =          3
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          4
+Number of excluded instruments       L1 =          2
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics consistent for homoskedasticity only
+
+                                                      Number of obs =     4714
+                                                      F(  3,  4667) =  1186.69
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1034.188584                Centered R2   =   0.4320
+Total (uncentered) SS   =  1034.188584                Uncentered R2 =   0.4320
+Residual SS             =    587.44677                Root MSE      =    .3548
+
+------------------------------------------------------------------------------
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .0408666   .0125935     3.25   0.001     .0161773    .0655558
+       lnpop |  -.1735066   .0069186   -25.08   0.000    -.1870703    -.159943
+    deg_mean |   .0083385   .0003251    25.65   0.000     .0077011    .0089759
+------------------------------------------------------------------------------
+Underidentification test (Anderson canon. corr. LM statistic):        1521.073
+                                                   Chi-sq(2) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):             1111.414
+Stock-Yogo weak ID test critical values: 10% maximal IV size             19.93
+                                         15% maximal IV size             11.59
+                                         20% maximal IV size              8.75
+                                         25% maximal IV size              7.25
+Source: Stock-Yogo (2005).  Reproduced by permission.
+------------------------------------------------------------------------------
+Sargan statistic (overidentification test of all instruments):          52.236
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop deg_mean
+Excluded instruments: lnz ln_unesco_nat
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     regcode |        17           0          17     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. di _n "==== L2 OVERID both, CLUSTER(isocode) -> Hansen J ===="
+
+==== L2 OVERID both, CLUSTER(isocode) -> Hansen J ====
+
+. ivreghdfe trade_intensity lnpop deg_mean (lng = lnz ln_unesco_nat), absorb(re
+> gcode y) cluster(isocode) first
+(MWFE estimator converged in 4 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of lng:
+
+Statistics robust to heteroskedasticity and clustering on isocode
+Number of obs =                   4714
+Number of clusters (isocode) =     187
+------------------------------------------------------------------------------
+             |               Robust
+         lng |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lnz |   .3876806   .0823489     4.71   0.000     .2262378    .5491233
+ln_unesco_~t |    .368294   .1055425     3.49   0.000     .1613809    .5752072
+       lnpop |   .2313655   .0418247     5.53   0.000     .1493694    .3133617
+    deg_mean |  -.0071403   .0017775    -4.02   0.000     -.010625   -.0036556
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  2,   186) =    46.88
+  Prob > F      =   0.0000
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  2,   186) =    46.88
+  Prob > F      =   0.0000
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  2,   186)  P-val | SW Chi-sq(  2) P-val | SW F(  2,   186)
+lng          |      46.88    0.0000 |       95.21   0.0000 |       46.88
+
+NB: first-stage test statistics cluster-robust
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             19.93
+                                   15% maximal IV size             11.59
+                                   20% maximal IV size              8.75
+                                   25% maximal IV size              7.25
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for i.i.d. errors only.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Kleibergen-Paap rk LM statistic          Chi-sq(2)=30.45    P-val=0.0000
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                    1111.41
+Kleibergen-Paap Wald rk F statistic                                46.88
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=2:
+                                   10% maximal IV size             19.93
+                                   15% maximal IV size             11.59
+                                   20% maximal IV size              8.75
+                                   25% maximal IV size              7.25
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(2,186)=       1.52     P-val=0.2220
+Anderson-Rubin Wald test           Chi-sq(2)=      3.08     P-val=0.2142
+Stock-Wright LM S statistic        Chi-sq(2)=      4.15     P-val=0.1258
+
+NB: Underidentification, weak identification and weak-identification-robust
+    test statistics cluster-robust
+
+Number of clusters             N_clust  =        187
+Number of observations               N  =       4714
+Number of regressors                 K  =          3
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          4
+Number of excluded instruments       L1 =          2
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     187                Number of obs =     4714
+                                                      F(  3,   186) =    58.63
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1034.188584                Centered R2   =   0.4320
+Total (uncentered) SS   =  1034.188584                Uncentered R2 =   0.4320
+Residual SS             =    587.44677                Root MSE      =    .3548
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .0408666   .0498817     0.82   0.414      -.05754    .1392731
+       lnpop |  -.1735066   .0269555    -6.44   0.000    -.2266845   -.1203287
+    deg_mean |   .0083385   .0013389     6.23   0.000     .0056971    .0109799
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             30.446
+                                                   Chi-sq(2) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):             1111.414
+                         (Kleibergen-Paap rk Wald F statistic):         46.880
+Stock-Yogo weak ID test critical values: 10% maximal IV size             19.93
+                                         15% maximal IV size             11.59
+                                         20% maximal IV size              8.75
+                                         25% maximal IV size              7.25
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         3.621
+                                                   Chi-sq(1) P-val =    0.0571
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop deg_mean
+Excluded instruments: lnz ln_unesco_nat
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     regcode |        17           0          17     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. 
+. *============================================================================
+> ==
+. * TREATMENT = capacity-wtd-mean GACI (ln_gaci_cwm)   [hub quality]
+. *============================================================================
+> ==
+. di _n "################ TREATMENT = ln_gaci_cwm (hub quality) ###############
+> #"
+
+################ TREATMENT = ln_gaci_cwm (hub quality) ################
+
+. 
+. di _n "==== C0a just-identified: IV = lnz only ===="
+
+==== C0a just-identified: IV = lnz only ====
+
+. ivreghdfe trade_intensity lnpop deg_mean (ln_gaci_cwm = lnz), absorb(regcode 
+> y) cluster(isocode)
+(MWFE estimator converged in 4 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     187                Number of obs =     4714
+                                                      F(  3,   186) =    50.33
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1034.188584                Centered R2   =   0.3895
+Total (uncentered) SS   =  1034.188584                Uncentered R2 =   0.3895
+Residual SS             =  631.3353973                Root MSE      =    .3678
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |    .919219   .6611573     1.39   0.166    -.3851121     2.22355
+       lnpop |  -.2259827   .0513441    -4.40   0.000    -.3272744    -.124691
+    deg_mean |   .0013948   .0047273     0.30   0.768    -.0079312    .0107208
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              8.459
+                                                   Chi-sq(1) P-val =    0.0036
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):              195.533
+                         (Kleibergen-Paap rk Wald F statistic):          8.314
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop deg_mean
+Excluded instruments: lnz
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     regcode |        17           0          17     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. di _n "==== C0b just-identified: IV = UNESCO natural only ===="
+
+==== C0b just-identified: IV = UNESCO natural only ====
+
+. ivreghdfe trade_intensity lnpop deg_mean (ln_gaci_cwm = ln_unesco_nat), absor
+> b(regcode y) cluster(isocode)
+(MWFE estimator converged in 4 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     187                Number of obs =     4714
+                                                      F(  3,   186) =    49.16
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1034.188584                Centered R2   =   0.3173
+Total (uncentered) SS   =  1034.188584                Uncentered R2 =   0.3173
+Residual SS             =  705.9992292                Root MSE      =    .3889
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |  -.7318319   .8319856    -0.88   0.380    -2.373173    .9095095
+       lnpop |  -.0955196   .0699003    -1.37   0.173     -.233419    .0423797
+    deg_mean |   .0129645   .0061374     2.11   0.036     .0008567    .0250724
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              5.622
+                                                   Chi-sq(1) P-val =    0.0177
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):              138.387
+                         (Kleibergen-Paap rk Wald F statistic):          7.164
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop deg_mean
+Excluded instruments: ln_unesco_nat
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     regcode |        17           0          17     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. 
+. di _n "==== C1 OVERID both, NO cluster (robust) -> Sargan/Hansen J ===="
+
+==== C1 OVERID both, NO cluster (robust) -> Sargan/Hansen J ====
+
+. ivreghdfe trade_intensity lnpop deg_mean (ln_gaci_cwm = lnz ln_unesco_nat), a
+> bsorb(regcode y) first
+(MWFE estimator converged in 4 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of ln_gaci_cwm:
+
+Statistics consistent for homoskedasticity only
+Number of obs =                   4714
+------------------------------------------------------------------------------
+ ln_gaci_cwm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lnz |   .0322537   .0027155    11.88   0.000     .0269301    .0375773
+ln_unesco_~t |   .0480265   .0052219     9.20   0.000     .0377891    .0582638
+       lnpop |   .0533629    .002054    25.98   0.000     .0493361    .0573898
+    deg_mean |   .0074741   .0001326    56.35   0.000     .0072141    .0077341
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  2,  4666) =   141.81
+  Prob > F      =   0.0000
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  2,  4666) =   141.81
+  Prob > F      =   0.0000
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  2,  4666)  P-val | SW Chi-sq(  2) P-val | SW F(  2,  4666)
+ln_gaci_cwm  |     141.81    0.0000 |      286.54   0.0000 |      141.81
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             19.93
+                                   15% maximal IV size             11.59
+                                   20% maximal IV size              8.75
+                                   25% maximal IV size              7.25
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Sanderson-Windmeijer F statistic.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Anderson canon. corr. LM statistic       Chi-sq(2)=270.12   P-val=0.0000
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                     141.81
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=2:
+                                   10% maximal IV size             19.93
+                                   15% maximal IV size             11.59
+                                   20% maximal IV size              8.75
+                                   25% maximal IV size              7.25
+Source: Stock-Yogo (2005).  Reproduced by permission.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(2,4666)=     31.54     P-val=0.0000
+Anderson-Rubin Wald test           Chi-sq(2)=     63.73     P-val=0.0000
+Stock-Wright LM S statistic        Chi-sq(2)=     62.88     P-val=0.0000
+
+Number of observations               N  =       4714
+Number of regressors                 K  =          3
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          4
+Number of excluded instruments       L1 =          2
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics consistent for homoskedasticity only
+
+                                                      Number of obs =     4714
+                                                      F(  3,  4667) =  1203.84
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1034.188584                Centered R2   =   0.4411
+Total (uncentered) SS   =  1034.188584                Uncentered R2 =   0.4411
+Residual SS             =   578.028499                Root MSE      =    .3519
+
+------------------------------------------------------------------------------
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   .2656159   .1304037     2.04   0.042      .009963    .5212689
+       lnpop |  -.1743362    .010738   -16.24   0.000    -.1953877   -.1532846
+    deg_mean |   .0059749   .0009568     6.24   0.000     .0040991    .0078507
+------------------------------------------------------------------------------
+Underidentification test (Anderson canon. corr. LM statistic):         270.121
+                                                   Chi-sq(2) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):              141.811
+Stock-Yogo weak ID test critical values: 10% maximal IV size             19.93
+                                         15% maximal IV size             11.59
+                                         20% maximal IV size              8.75
+                                         25% maximal IV size              7.25
+Source: Stock-Yogo (2005).  Reproduced by permission.
+------------------------------------------------------------------------------
+Sargan statistic (overidentification test of all instruments):          59.706
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop deg_mean
+Excluded instruments: lnz ln_unesco_nat
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     regcode |        17           0          17     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. di _n "==== C2 OVERID both, CLUSTER(isocode) -> Hansen J ===="
+
+==== C2 OVERID both, CLUSTER(isocode) -> Hansen J ====
+
+. ivreghdfe trade_intensity lnpop deg_mean (ln_gaci_cwm = lnz ln_unesco_nat), a
+> bsorb(regcode y) cluster(isocode) first
+(MWFE estimator converged in 4 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of ln_gaci_cwm:
+
+Statistics robust to heteroskedasticity and clustering on isocode
+Number of obs =                   4714
+Number of clusters (isocode) =     187
+------------------------------------------------------------------------------
+             |               Robust
+ ln_gaci_cwm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lnz |   .0322537   .0123953     2.60   0.009     .0079531    .0565542
+ln_unesco_~t |   .0480265   .0227349     2.11   0.035     .0034553    .0925976
+       lnpop |   .0533629   .0090196     5.92   0.000     .0356802    .0710457
+    deg_mean |   .0074741   .0005975    12.51   0.000     .0063027    .0086455
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  2,   186) =     6.72
+  Prob > F      =   0.0015
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  2,   186) =     6.72
+  Prob > F      =   0.0015
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  2,   186)  P-val | SW Chi-sq(  2) P-val | SW F(  2,   186)
+ln_gaci_cwm  |       6.72    0.0015 |       13.65   0.0011 |        6.72
+
+NB: first-stage test statistics cluster-robust
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             19.93
+                                   15% maximal IV size             11.59
+                                   20% maximal IV size              8.75
+                                   25% maximal IV size              7.25
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for i.i.d. errors only.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Kleibergen-Paap rk LM statistic          Chi-sq(2)=10.28    P-val=0.0059
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                     141.81
+Kleibergen-Paap Wald rk F statistic                                 6.72
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=2:
+                                   10% maximal IV size             19.93
+                                   15% maximal IV size             11.59
+                                   20% maximal IV size              8.75
+                                   25% maximal IV size              7.25
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(2,186)=       1.52     P-val=0.2220
+Anderson-Rubin Wald test           Chi-sq(2)=      3.08     P-val=0.2142
+Stock-Wright LM S statistic        Chi-sq(2)=      4.15     P-val=0.1258
+
+NB: Underidentification, weak identification and weak-identification-robust
+    test statistics cluster-robust
+
+Number of clusters             N_clust  =        187
+Number of observations               N  =       4714
+Number of regressors                 K  =          3
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          4
+Number of excluded instruments       L1 =          2
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     187                Number of obs =     4714
+                                                      F(  3,   186) =    57.04
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1034.188584                Centered R2   =   0.4411
+Total (uncentered) SS   =  1034.188584                Uncentered R2 =   0.4411
+Residual SS             =   578.028499                Root MSE      =    .3519
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   .2656159   .5058683     0.53   0.600     -.732361    1.263593
+       lnpop |  -.1743362   .0413005    -4.22   0.000    -.2558137   -.0928586
+    deg_mean |   .0059749   .0037801     1.58   0.116    -.0014825    .0134324
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             10.283
+                                                   Chi-sq(2) P-val =    0.0059
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):              141.811
+                         (Kleibergen-Paap rk Wald F statistic):          6.722
+Stock-Yogo weak ID test critical values: 10% maximal IV size             19.93
+                                         15% maximal IV size             11.59
+                                         20% maximal IV size              8.75
+                                         25% maximal IV size              7.25
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         3.946
+                                                   Chi-sq(1) P-val =    0.0470
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop deg_mean
+Excluded instruments: lnz ln_unesco_nat
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     regcode |        17           0          17     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. 
+. *============================================================================
+> ==
+. * Same J test via ivregress + estat overid (cross-check, robust no-cluster)
+. *============================================================================
+> ==
+. di _n "==== X ivregress cross-check (lng), estat overid ===="
+
+==== X ivregress cross-check (lng), estat overid ====
+
+. ivregress 2sls trade_intensity lnpop deg_mean i.regcode i.y (lng = lnz ln_une
+> sco_nat), vce(robust)
+
+Instrumental variables (2SLS) regression          Number of obs   =      4,714
+                                                  Wald chi2(46)   =    5770.72
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.5632
+                                                  Root MSE        =     .35301
+
+------------------------------------------------------------------------------
+             |               Robust
+trade_inte~y |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .0408666   .0119997     3.41   0.001     .0173477    .0643854
+       lnpop |  -.1735066   .0064474   -26.91   0.000    -.1861432     -.16087
+    deg_mean |   .0083385   .0003591    23.22   0.000     .0076346    .0090423
+             |
+     regcode |
+        AF2  |   .2528235   .0470795     5.37   0.000     .1605493    .3450977
+        AF3  |  -.0862932   .0476876    -1.81   0.070    -.1797592    .0071727
+        AF4  |   -.087045   .0509425    -1.71   0.088    -.1868904    .0128004
+        AS1  |   .0011878   .0479098     0.02   0.980    -.0927137    .0950893
+        AS2  |   .2566262   .0546729     4.69   0.000     .1494693     .363783
+        AS3  |   .6091495   .0509564    11.95   0.000     .5092768    .7090221
+        AS4  |   .2221707   .0517593     4.29   0.000     .1207244    .3236171
+        EU1  |   .0857211    .044397     1.93   0.054    -.0012955    .1727377
+        EU2  |   .2647963   .0442347     5.99   0.000     .1780979    .3514948
+        LA1  |  -.1930033   .0519096    -3.72   0.000    -.2947443   -.0912623
+        LA2  |   .1487881   .0469904     3.17   0.002     .0566886    .2408876
+        LA3  |  -.0549897   .0488907    -1.12   0.261    -.1508137    .0408342
+        LA4  |   -.220079   .0514731    -4.28   0.000    -.3209644   -.1191937
+        ME1  |  -.0040466   .0449044    -0.09   0.928    -.0920577    .0839645
+        NA1  |  -.2986557   .0652361    -4.58   0.000    -.4265161   -.1707954
+        SW1  |  -.2776197   .0488128    -5.69   0.000    -.3732911   -.1819483
+             |
+           y |
+       1997  |   .0135442   .0417569     0.32   0.746    -.0682978    .0953862
+       1998  |   .0064905   .0415389     0.16   0.876    -.0749242    .0879051
+       1999  |   .0059687   .0414736     0.14   0.886    -.0753179    .0872554
+       2000  |   .0654867     .04178     1.57   0.117    -.0164005     .147374
+       2001  |    .064841    .040596     1.60   0.110    -.0147257    .1444076
+       2002  |   .0886563   .0411571     2.15   0.031     .0079898    .1693227
+       2003  |   .1079766   .0413094     2.61   0.009     .0270117    .1889414
+       2004  |    .139031   .0409009     3.40   0.001     .0588667    .2191954
+       2005  |   .1698933   .0404833     4.20   0.000     .0905474    .2492391
+       2006  |   .1810163   .0401931     4.50   0.000     .1022393    .2597934
+       2007  |   .1954889   .0407485     4.80   0.000     .1156233    .2753545
+       2008  |   .2216763   .0412538     5.37   0.000     .1408204    .3025322
+       2009  |   .1008702   .0399872     2.52   0.012     .0224968    .1792436
+       2010  |   .1434499   .0398479     3.60   0.000     .0653495    .2215503
+       2011  |   .1933088   .0394801     4.90   0.000     .1159292    .2706884
+       2012  |   .1873924   .0383078     4.89   0.000     .1123105    .2624743
+       2013  |   .1733884   .0385746     4.49   0.000     .0977835    .2489932
+       2014  |   .1557488   .0383988     4.06   0.000     .0804886     .231009
+       2015  |   .0981898   .0388798     2.53   0.012     .0219868    .1743929
+       2016  |   .0678473   .0394731     1.72   0.086    -.0095185    .1452131
+       2017  |   .0971017   .0390029     2.49   0.013     .0206574    .1735461
+       2018  |   .1224508   .0387344     3.16   0.002     .0465329    .1983688
+       2019  |   .1075296   .0389534     2.76   0.006     .0311823     .183877
+       2020  |    .007207   .0408368     0.18   0.860    -.0728316    .0872457
+       2021  |   .1222744   .0426014     2.87   0.004     .0387772    .2057717
+       2022  |   .2052345   .0430579     4.77   0.000     .1208426    .2896264
+       2023  |   .1519468    .044189     3.44   0.001      .065338    .2385556
+             |
+       _cons |    2.03632   .0967057    21.06   0.000      1.84678     2.22586
+------------------------------------------------------------------------------
+Instrumented:  lng
+Instruments:   lnpop deg_mean 2.regcode 3.regcode 4.regcode 5.regcode
+               6.regcode 7.regcode 8.regcode 9.regcode 10.regcode 11.regcode
+               12.regcode 13.regcode 14.regcode 15.regcode 16.regcode
+               17.regcode 1997.y 1998.y 1999.y 2000.y 2001.y 2002.y 2003.y
+               2004.y 2005.y 2006.y 2007.y 2008.y 2009.y 2010.y 2011.y
+               2012.y 2013.y 2014.y 2015.y 2016.y 2017.y 2018.y 2019.y
+               2020.y 2021.y 2022.y 2023.y lnz ln_unesco_nat
+
+. estat overid
+
+  Test of overidentifying restrictions:
+
+  Score chi2(1)          =  55.3165  (p = 0.0000)
+
+. 
+end of do-file

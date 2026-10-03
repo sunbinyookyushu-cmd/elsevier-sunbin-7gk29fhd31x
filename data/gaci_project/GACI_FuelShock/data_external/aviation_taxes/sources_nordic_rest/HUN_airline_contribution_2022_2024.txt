@@ -1,0 +1,32 @@
+HUN airline contribution (legitarsasagok hozzajarulasa), 2022-2024
+All pages read in browser on Nemzeti Jogszabalytar (njt.jog.gov.hu), accessed 2026-10-02. (njt.hu itself reset the connection from this location; njt.jog.gov.hu is the same official database.)
+
+(1) 197/2022. (VI. 4.) Korm. rendelet az extraprofit adokrol, original state: https://njt.jog.gov.hu/jogszabaly/2022-197-20-22.0
+"2. A légitársaságok hozzájárulása
+5. § (1) Hozzájárulás-köteles a légiközlekedésről szóló 1995. évi XCVII. törvény (a továbbiakban: Lt.) szerinti légi személyszállítási tevékenység.
+(2) A hozzájárulás fizetésére kötelezett az Lt. szerinti földi kiszolgálást végző gazdálkodó szervezet.
+(3) A hozzájárulás alapja ... a (2) bekezdés szerinti földi kiszolgálást végző gazdálkodó szervezet által kiszolgált légi jármű belföldről induló utasainak száma, a tranzit utasokat kivéve.
+(4) A hozzájárulás mértéke
+a) ha az utas végső úti célja az Albán Köztársaság, ... Ukrajna és az Európai Unió területén található, utasonként 3900 forint,
+b) az a) pontban meghatározottakon kívüli országokba végső úti céllal repülő utasonként 9750 forint.
+(5) A hozzájárulást azon induló utasok száma után kell ... megállapítani ..., akik esetében az indulás időpontja a (7) bekezdés szerinti bevallási időszakra esik."
+"(10) A hozzájárulásból származó bevétel az államháztartás központi alrendszerének bevétele."
+"27. § (1) Ez a rendelet – a (2) bekezdésben foglalt kivétellel – 2022. július 1-jén lép hatályba."
+
+(2) 452/2022. (XI. 9.) Korm. rendelet a veszélyhelyzet idején a légitársaságok hozzájárulásának károsanyagkibocsátás-alapú átalakításáról: https://njt.jog.gov.hu/jogszabaly/2022-452-20-22.0
+"1. § Az extraprofit adókról szóló 197/2022. (VI. 4.) Korm. rendelet 5. § (4) bekezdése helyébe a következő rendelkezés lép ..."
+"2. § Ez a rendelet 2023. január 1-jén lép hatályba."
+New 5. § (4) as shown in state https://njt.jog.gov.hu/jogszabaly/2022-197-20-22.14 :
+ a) Europe band: aa) <10,50 kg per-seat emission value: 1600 Ft; ab) 10,50-17,50 kg: 3900 Ft; ac) >=17,50 kg: 6200 Ft
+ b) other destinations: ba) <10,50 kg: 3900 Ft; bb) 10,50-17,50 kg: 9750 Ft; bc) >=17,50 kg: 15 600 Ft
+ (4a) per-seat value = ICAO Engine Emissions Databank LTO fuel x number of engines x 3,16, per seat; (4b) no data -> highest band.
+
+(3) 2023. évi LIX. törvény a légitársaságok hozzájárulásáról és egyes adótörvények módosításáról, original state: https://njt.jog.gov.hu/jogszabaly/2023-59-00-00.0
+Same base ("belföldről induló utasainak száma, a tranzitutasokat kivéve") and same six rates (1600/3900/6200; 3900/9750/15 600).
+"232. § (3) Az 1. § – 4. § ... 2023. augusztus 1-jén lép hatályba." 197/2022 5. § repealed by 2023. évi LXXXIII. törvény 192. § (footnote on current state of 197/2022).
+
+(4) 2024. évi LV. törvény egyes adótörvények módosításáról: https://njt.jog.gov.hu/jogszabaly/2024-55-00-00.0
+Footnote: "A törvényt az Országgyűlés a 2024. november 26-i ülésnapján fogadta el. A kihirdetés napja: 2024. november 28."
+"92. § (1) Hatályát veszti a légitársaságok hozzájárulásáról és egyes adótörvények módosításáról szóló 2023. évi LIX. törvény (a továbbiakban: Légiadó tv.) 1–4. §-a.
+(2) A 2025. január 1-jét megelőzően keletkezett hozzájárulás-fizetési kötelezettség megállapítására, bevallására és megfizetésére ... a Légiadó tv. 1–4. §-ának 2024. december 31-én hatályos szabályait kell alkalmazni."
+"217. § (5) ... 92. § ... 2025. január 1-jén lép hatályba."

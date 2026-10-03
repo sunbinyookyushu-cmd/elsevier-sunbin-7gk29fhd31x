@@ -1,0 +1,27 @@
+NEW ZEALAND: Border Clearance Levy (Border Processing Levy) and International Visitor Conservation and Tourism Levy (IVL)
+Accessed 2026-10-02
+
+1) Customs and Excise (Border Processing Levy) Order 2015 (LI 2015/262), version as at 5 April 2025
+https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2015/262/en/latest/
+ Order in Council made 9 November 2015; Gazette notification 12 November 2015.
+ cl 2(2): "The rest of this order comes into force on 1 January 2016."
+ cl 4(1) initial rates (excl. GST): $7.45 arriving non-cruise; $7.50 arriving cruise; $2.93 departing non-cruise; $3.10 departing cruise.
+ cl 11(1)(d)-(e) exempt: traveller who arrives on an aircraft and "is not required to report to a Customs officer at an arrival hall because the traveller is in transit to a place outside New Zealand", and who then departs for that place "without having been required to enter a departure hall".
+ cl 11(1)(l): exempt if arriving/departing before 1 January 2017 on a ticket purchased and fully paid for before 1 January 2016.
+ Caps amended 29 November 2024 by SL 2024/218 (arriving non-cruise max $13.69; departing non-cruise max $3.80).
+ Biosecurity (Border Processing Levy) Order 2015 is LI 2015/259 (same dates).
+
+2) NZ Customs / MPI levy performance reports (customs.govt.nz/travel-to-and-from-new-zealand/border-processing-levies/)
+ 2017 report: "The Levy was first implemented on 1 January 2016". Current rates (excl. GST) non-cruise: arrivals Customs $7.45 + MPI $8.38 = $15.83; departures $2.93.
+ 2019 report: from 1 July 2018 arrivals $6.43 + $7.30 = $13.73, departures $2.56; from 1 July 2019 arrivals $6.43 + $8.50 = $14.93, departures $2.56.
+ 2020 report: Govt paid all passenger border fees including BCL under COVID-19 Aviation Relief Package "for the period from March 2019 ending 1 September 2020" (as printed; relief package agreed March 2020 per 2021 report).
+ 2021 report Table 1: until 30 Nov 2021 vs from 1 Dec 2021 (excl. GST): Arrival Customs $6.43 -> $16.59; Arrival MPI $8.50 -> $16.92; Departure Customs $2.56 -> $4.52.
+ 2023-24 report Table 2, from 1 December 2024: Arrival Customs $13.04; Arrival MPI $16.92; Departure Customs $3.62.
+
+3) Immigration (Visa, Entry Permission, and Related Matters) Amendment Regulations 2019 (LI 2019/132), made 17 June 2019, Gazette 20 June 2019
+https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2019/132/en/latest/
+ cl 2: ETA regulations in force 1 October 2019; "The rest of these regulations come into force on 1 July 2019."
+ reg 26AAD(1): IVL of $35 imposed on a person who applies for a temporary entry class visa (not at an immigration control area or port) or requests a traveller ETA.
+ Explanatory note: "air passengers transiting through New Zealand" fall outside the IVL's scope or are exempt.
+4) MBIE Reviews of the IVL: "The IVL was increased on 1 October 2024 from $35 to $100 per person."
+ Beehive release 3 September 2024 (Doocey, Potaka): "The change in the IVL takes place from October 1."

@@ -1,0 +1,74 @@
+Quotes returned by web fetch tools on 2026-10-02 for pages that could not be saved as full text (JS-rendered or summarised fetches).
+Each quote is as returned by the fetch tool for the URL shown. Use these as pointers; re-open the URL to re-check wording.
+
+=== DEU ===
+https://www.gesetze-im-internet.de/luftvstg/__19.html
+  § 19(1): "Dieses Gesetz ist erstmals auf Rechtsvorgänge ab dem 1. September 2010 anzuwenden, bei denen der Fluggast dem Luftverkehrsunternehmen erst am oder nach dem 1. September 2010 benannt wird und die zu Abflügen ab dem 1. Januar 2011 berechtigen."
+https://www.gesetze-im-internet.de/luftvstg/__2.html
+  § 2 Nr. 3 Abflug: "das Abheben eines Flugzeugs oder Drehflüglers von einem inländischen oder ausländischen Startort, mit dem die Flugreise auf Grund des Rechtsvorgangs beginnt"
+  § 2 Nr. 5 Zwischenlandung: "Flugunterbrechungen von: a) mehr als zwölf Stunden bei Flügen, die zu einem Zielort in einem Land nach Anlage 1 führen, b) mehr als 24 Stunden bei Flügen, die zu einem Zielort in einem nicht in Anlage 1 genannten Land führen"
+https://www.gesetze-im-internet.de/luftvstg/BJNR188510010.html
+  Header: "Luftverkehrsteuergesetz vom 9. Dezember 2010 (BGBl. I S. 1885; 2013 I S. 81), das zuletzt durch Artikel 1 des Gesetzes vom 18. Juni 2026 (BGBl. 2026 I Nr. 182) geändert worden ist"
+https://www.bundesverfassungsgericht.de/SharedDocs/Entscheidungen/DE/2014/11/fs20141105_1bvf000311.html (BVerfG 1 BvF 3/11, 5 Nov 2014)
+  "Liegt einer Flugreise, die im Ausland begonnen hat, im Inland zu einer Zwischenlandung führt und mit oder ohne Umstieg zu einem Zielort im In- oder Ausland fortgesetzt wird, ein einziger Rechtsvorgang - in der Regel also ein einziger Ticketkauf - zugrunde, wird die Abflugberechtigung für den inländischen Abflug nach der Zwischenlandung nicht besteuert"
+  "Es sollen die deutschen Flughäfen als internationale Drehkreuze geschützt werden, indem sie in dieser Funktion durch die Luftverkehrsteuer geringer Belastung unterliegen"
+https://www.buzer.de/gesetz/9532/index.htm
+  Amendment list: "Artikel 1 Gesetz zur Änderung des Luftverkehrsteuergesetzes (12.12.2019, BGBl. I S. 2492, effective 01.04.2020)"; "Artikel 1 Zweites Haushaltsfinanzierungsgesetz 2024 (27.03.2024, BGBl. 2024 I Nr. 107)"; "Artikel 1 G. v. 18.06.2026 BGBl. 2026 I Nr. 182 (effective 01.07.2026)"
+https://www.gesetze-im-internet.de/luftvstabsenkv_2020_2/BJNR076200020.html
+  "1. April 2020 bis 31. Dezember 2020": "12,90 Euro" / "32,67 Euro" / "58,82 Euro"; "Luftverkehrsteuer-Absenkungsverordnung 2020 vom 2. April 2020 (BGBl. I S. 762)"
+https://www.umwelt-online.de/recht/allgemei/steuer/luftvstabsenkv24.htm
+  LuftVStAbsenkV 2024 "Vom 24. November 2023": "12,48 Euro" / "31,61 Euro" / "56,91 Euro"; in force "am 1. Januar 2024"; valid until 30 April 2024
+https://www.haufe.de/id/norm/luftverkehrsteuergesetz-11-steuersatz-HI2565500_p11.html
+  § 11(1) from 1 July 2026: "13,03 Euro" (previously 15,53 Euro until June 30, 2026); "33,01 Euro"; "59,43 Euro"
+
+=== AUT ===
+https://www.usp.gv.at/themen/steuern-finanzen/weitere-steuern-und-abgaben/flugabgabe.html
+  "12 Euro pro Passagierin/Passagier"; "30 Euro pro Passagierin/Passagier für Flüge mit einer Entfernung von weniger als 350 km"
+  Exemption: "Transit- und Transferpassagierinnen/Transit- und Transferpassagieren nach einer Zwischenlandung auf einem inländischen Flughafen, die zu einer planmäßigen Unterbrechung der Flugreise der Passagierin/des Passagiers von weniger als 24 Stunden geführt hat"
+Note: www.ris.bka.gv.at (official consolidated FlugAbgG) returned a bot-check page and was not used.
+
+=== NLD ===
+https://zoek.officielebekendmakingen.nl/kst-32132-3.html : tariffs set to zero effective "1 juli 2009" by Royal Decree (Stb. 2009, 281)
+https://www.eerstekamer.nl/wetsvoorstel/32132_afschaffing_van_de : adopted 22 Dec 2009; "Staatsblad ... 613, December 29, 2009"; entry into force "Met ingang van de dag na de datum van uitgifte van het Staatsblad waarin de wet wordt geplaatst"
+https://zoek.officielebekendmakingen.nl/stb-2020-552.html : "Besluit van 16 december 2020 tot inwerkingtreding van de Wet vliegbelasting"; "De Wet vliegbelasting treedt in werking met ingang van 1 januari 2021."
+https://www.belastingdienst.nl/.../vliegbelasting/ : 2022 EUR 7.947; 2023 EUR 26.43; 2024 EUR 29.05; 2025 EUR 29.40; 2026 EUR 30.25; "Transferpassagiers zijn uitgezonderd van de vliegbelasting"
+https://www.sra.nl/nieuwsoverzicht/2022/belangrijkste-belastingwijzigingen-per-1-januari-2023 : "Per 1 januari wordt de vliegbelasting verhoogd van €7,95 naar €26,43 per vliegticket."
+
+=== BEL ===
+Google result snippet for https://finances.belgium.be/fr/entreprises/autres-taxes/taxes-diverses/taxe-embarquement-aeronef (page itself blocked by a bot check): "Pour des départs à partir du 29 juillet 2025 : rentrez la déclaration via MyMinfin". Snippet of finances.belgium.be DivTax page: "À partir du 29 juillet 2025, la taxe sur l'embarquement dans un aéronef (TILEA) est modifiée".
+https://www.moore.be/fr/nouvelle/les-tarifs-de-la-taxe-aerienne-senvolent : states new rates "effective July 1, 2025" (conflicts with SPF Finances 29 July 2025 and with the law's entry into force on the day of publication).
+
+=== FRA ===
+https://www.senat.fr/rap/a98-06819/a98-06819_mono.html : TSS "20 F par passager embarqué à destination d'un Etat-membre de l'Union européenne et 35 F par passager pour les autres destinations"; "La nouvelle taxe serait de 23 francs pour les vols intra-communautaires et 39 francs pour les vols internationaux."
+https://www.senat.fr/seances/s199811/s19981126/sc19981126006.html : TAC exemption only for "passagers en transit direct, effectuant un arrêt momentané sur l'aéroport et repartant par le même aéronef avec un numéro de vol au départ identique"
+https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000039684005 (loi n° 2019-1479 art. 72): table "20,27 € / 2,63 €" (EEE) and "63,07 € / 7,51 €" (autres États); "Le I s'applique à compter du 1er janvier 2020"
+https://www.legifrance.gouv.fr/codes/id/LEGISCTA000044602753/2022-01-01 (CIBS): L422-14 "Est soumis à la taxe tout embarquement ... de passagers à bord d'un aéronef réalisant un vol commercial, à l'exception de ceux en transit direct."; L422-25: "D'une exonération des tarifs de l'aviation civile et de solidarité" and "D'une minoration comprise entre 40 % et 65 % du tarif de sûreté et de sécurité"; L422-21 2022: EUR 4.66 / 8.37
+
+=== ITA ===
+https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2003-12-24;350~art2-com11 (aggiornamenti):
+  (18a) "Il D.L. 31 gennaio 2005, n. 7 convertito con modificazioni dalla L. 31 marzo 2005, n. 43 ha disposto (con l'art. 6-quater, comma 2) che 'L'addizionale comunale sui diritti di imbarco è altresì incrementata di un euro a passeggero'."
+  (45) "... come modificato dal D.L. 28 agosto 2008, n. 134, convertito con modificazioni dalla L. 27 ottobre 2008, n. 166 ha disposto (con l'art. 6-quater, comma 2) che 'L'addizionale comunale sui diritti di imbarco è altresì incrementata di tre euro a passeggero'."
+  (53) "La L. 28 giugno 2012, n. 92 ha disposto (con l'art. 4, comma 75) che l'addizionale è ulteriormente incrementata a decorrere dal 1° luglio 2013, di due euro a passeggero imbarcato."
+  (64) "Il D.L. 23 dicembre 2013, n. 145, convertito con modificazioni dalla L. 21 febbraio 2014, n. 9, ha disposto (con l'art. 13, comma 16) che l'addizionale non è dovuta dai passeggeri in transito negli scali aeroportuali nazionali, se provenienti da scali domestici."
+  (81) "... come modificato dalla L. 30 dicembre 2024, n. 207, ha disposto (con l'art. 6-quater, comma 3-quinquies) che a decorrere dal 1° aprile 2025, l'addizionale è incrementata di 0,5 euro per passeggero su voli con destinazione al di fuori dell'Unione europea."
+https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legge:2013-12-23;145 : "GU n.300 del 23-12-2013"; "Entrata in vigore del provvedimento: 24/12/2013"
+https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legge:2010-05-31;78~art14-com14 : "di un'addizionale commissariale sui diritti di imbarco dei passeggeri sugli aeromobili in partenza dagli aeroporti della città di Roma fino ad un massimo di 1 euro per passeggero"; DL 145/2013 art. 13 c. 17: "continua ad applicarsi a tutti i passeggeri con voli originanti e in transito negli scali di Roma Fiumicino e Ciampino, ad eccezione di quelli in transito aventi origine e destinazione domestica."
+https://www.cortecostituzionale.it/scheda-pronuncia/2025/100 (Corte costituzionale, sentenza 100/2025), quoting L. 296/2006 art. 1 c. 1328: "l'addizionale sui diritti d'imbarco sugli aeromobili, di cui all'articolo 2, comma 11, della legge 24 dicembre 2003, n. 350, e successive modificazioni, è incrementata a decorrere dall'anno 2007 di 50 centesimi di euro a passeggero imbarcato."
+https://www.agenziaentrate.gov.it/portale/schede/pagamenti/imposta-erariale-sui-voli-dei-passeggeri-di-aerotaxi/cosa-imposta-aerotaxi : EUR 10 (up to 100 km), EUR 100 (over 100 km up to 1,500 km), EUR 200 (over 1,500 km); departure and/or arrival in Italy.
+
+=== GBR ===
+https://www.legislation.gov.uk/ukpga/1994/9/section/30/enacted : £5 (UK/EU within 32°W-32°E and 26°N-81°N area), £10 any other case.
+https://www.legislation.gov.uk/ukpga/1997/16/section/9/enacted : "for '£5' there shall be substituted '£10'"; "for '£10' there shall be substituted '£20'"; applies where "duty becomes due on or after 1st November 1997."
+https://www.legislation.gov.uk/ukpga/2000/17/section/18/enacted : EEA £5 standard / £10 other; non-EEA £20 / £40; "This section applies to any carriage of a passenger on an aircraft which begins on or after 1st April 2001."
+https://www.legislation.gov.uk/ukpga/2007/11/section/12/enacted : "The amendments made by this section have effect in relation to any carriage of a passenger on an aircraft which begins on or after 1st February 2007."
+https://www.legislation.gov.uk/ukpga/2009/10/section/17/enacted : bands £11/£22, £45/£90, £50/£100, £55/£110; "has effect in relation to the carriage of passengers beginning on or after 1 November 2009."
+https://www.legislation.gov.uk/ukpga/2010/13/section/14/enacted : £12/£24, £60/£120, £75/£150, £85/£170; "have effect in relation to the carriage of passengers beginning on or after 1 November 2010."
+https://www.legislation.gov.uk/ukpga/2014/26/section/78/enacted : from 1 April 2014 band B £69/£138, C £85/£170, D £97/£194.
+https://www.legislation.gov.uk/ukpga/2014/26/section/79/enacted : "Omit subsections (3) and (4)"; £97 -> £71 and £194 -> £142; "have effect in relation to the carriage of passengers beginning on or after 1 April 2015."
+https://www.legislation.gov.uk/ukpga/2015/11/section/57/enacted : under-16 exemption (standard class) from carriage beginning on or after 1 May 2015; age 12 for journeys beginning before 1 March 2016.
+https://www.legislation.gov.uk/uksi/1994/1821/made (Connected Flights Order): international: "the booked time of departure of Flight B falls within the period of 24 hours starting at the scheduled time of arrival of Flight A"; domestic: arrival 04:00-17:00 -> departure "within the period of 6 hours", arrival after 17:00 -> by 10:00 next day, arrival 00:00-04:00 -> by 10:00 same day.
+https://www.legislation.gov.uk/ukpga/1994/9/section/31 : s.31(3) passenger "is not a chargeable passenger in relation to a flight which is the second or a subsequent flight on his journey if ... that flight and the previous flight are connected."
+https://www.legislation.gov.uk/nia/2012/5/notes : sets APD at £0 for NI direct long haul; "It is intended that this will be the 1 January 2013."; earlier: "effective from 1 November 2011 ... cut to the lower short-haul (Band A) rate."
+
+=== CHE ===
+https://www.uvek.admin.ch/uvek/de/home/uvek/abstimmungen/co2-gesetz.html : "Es wurde am 13. Juni 2021 von der Schweizer Stimmbevölkerung aber abgelehnt."

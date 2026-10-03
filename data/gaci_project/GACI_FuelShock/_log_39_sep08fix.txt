@@ -1,0 +1,20 @@
+            outcome       b     se      p    n  mean_beta  share_negative
+              seats  0.0014 0.0004 0.0002 1812    -0.0002          0.5298
+         departures  0.0007 0.0005 0.1490 1812    -0.0015          0.5535
+seats per departure  0.0003 0.0003 0.3333 1812     0.0011          0.5094
+       stage length  0.0001 0.0002 0.7394 1812     0.0001          0.5210
+    CO2 per seat-km -0.0001 0.0002 0.5332 1812    -0.0016          0.5519
+                CO2  0.0009 0.0004 0.0462 1812    -0.0019          0.5613
+     domestic seats  0.0014 0.0005 0.0027 1673     0.0002          0.5206
+international seats -0.0002 0.0012 0.8934  667    -0.0005          0.5337
+
+                   spec    b_R   se_R    p_R    n          ln_int07        ln_gauge07        ln_stage07          ln_deg07            intl07        ln_seats07            lnpc07
+        resilience only 0.0010 0.0004 0.0065 1695               NaN               NaN               NaN               NaN               NaN               NaN               NaN
++ fuel per seat-km 2007 0.0010 0.0004 0.0065 1695 -0.0001 (p 0.926)               NaN               NaN               NaN               NaN               NaN               NaN
+           + gauge 2007 0.0010 0.0004 0.0062 1695               NaN -0.0001 (p 0.957)               NaN               NaN               NaN               NaN               NaN
+    + stage length 2007 0.0010 0.0004 0.0081 1695               NaN               NaN +0.0010 (p 0.315)               NaN               NaN               NaN               NaN
+    + destinations 2007 0.0011 0.0004 0.0055 1695               NaN               NaN               NaN -0.0011 (p 0.366)               NaN               NaN               NaN
+      + intl share 2007 0.0010 0.0004 0.0074 1695               NaN               NaN               NaN               NaN -0.0005 (p 0.623)               NaN               NaN
+            + size 2007 0.0009 0.0004 0.0109 1695               NaN               NaN               NaN               NaN               NaN -0.0035 (p 0.038)               NaN
+  + country income 2007 0.0010 0.0004 0.0075 1695               NaN               NaN               NaN               NaN               NaN               NaN -0.0007 (p 0.723)
+                  + all 0.0009 0.0004 0.0288 1695 +0.0009 (p 0.404) +0.0004 (p 0.836) +0.0021 (p 0.183) -0.0002 (p 0.858) -0.0007 (p 0.472) -0.0038 (p 0.032) -0.0004 (p 0.850)

@@ -1,0 +1,471 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do co2_feyrer_sizecheck.do 
+
+. *============================================================================
+> ==
+. * co2_feyrer_sizecheck.do
+. * Same size-x-cycle stress test on the INDEPENDENT Feyrer-type air/sea IV
+. * (feyrer_int = a_t x ln air market access 1996). If this survives, the trade
+. * volume result keeps one identification leg under the toughest critique.
+. * Data: gaci_panel_combined.csv (has feyrer_int, ln_sea_ma).
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI
+
+. 
+. import delimited "gaci_panel_combined.csv", clear varnames(1) encoding("utf-8")
+(44 vars, 4,643 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int   feyrer_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum   ln_sea_ma
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y  ln_remote     ln_air_ma
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+feyrer_int already numeric; no replace
+ln_sea_ma already numeric; no replace
+ln_air_ma already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. 
+. gen g_vol = merch_intensity + lngdp
+
+. gen tmp = ln(cap_sum) if y==1996
+(4,493 missing values generated)
+
+. bysort isocode: egen lncap96 = max(tmp)
+(522 missing values generated)
+
+. drop tmp
+
+. gen tmp = lngdp if y==1996
+(4,493 missing values generated)
+
+. bysort isocode: egen lngdp96 = max(tmp)
+(522 missing values generated)
+
+. drop tmp
+
+. gen tmp = lnpop if y==1996
+(4,493 missing values generated)
+
+. bysort isocode: egen lnpop96 = max(tmp)
+(522 missing values generated)
+
+. drop tmp
+
+. 
+. gen at_lngdp = tour_shift * lngdp96
+(522 missing values generated)
+
+. gen at_lnpop = tour_shift * lnpop96
+(522 missing values generated)
+
+. gen at_lncap = tour_shift * lncap96
+(522 missing values generated)
+
+. gen byte s96 = !missing(lngdp96, lnpop96, lncap96)
+
+. 
+. capture which ivreghdfe
+
+. if _rc {
+.     ssc install ftools, replace
+.     ssc install reghdfe, replace
+.     ssc install ivreghdfe, replace
+. }
+
+. 
+. reghdfe ln_gaci_cwm feyrer_int lnpop ln_sea_ma if s96, absorb(isocode y) vce(robust)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,121
+Absorbing 2 HDFE groups                           F(   3,   3941) =      76.89
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.9501
+                                                  Adj R-squared   =     0.9478
+                                                  Within R-sq.    =     0.0812
+                                                  Root MSE        =     0.0725
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_gaci_cwm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  feyrer_int |    .117357   .0107109    10.96   0.000     .0963576    .1383564
+       lnpop |   .1792656   .0270184     6.63   0.000     .1262943     .232237
+   ln_sea_ma |  -.8203941   .0859061    -9.55   0.000    -.9888187   -.6519696
+       _cons |   7.924162   .8856012     8.95   0.000     6.187883    9.660442
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       150           0         150     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. test feyrer_int
+
+ ( 1)  feyrer_int = 0
+
+       F(  1,  3941) =  120.05
+            Prob > F =    0.0000
+
+. di "FEY FS baseline:              pi = " %8.4f _b[feyrer_int] "  F = " %8.1f r(F) "  N = " %8.0f e(N)
+FEY FS baseline:              pi =   0.1174  F =    120.1  N =     4121
+
+. 
+. reghdfe ln_gaci_cwm feyrer_int lnpop ln_sea_ma at_lnpop at_lngdp if s96, absorb(isocode y) vce(robust)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,121
+Absorbing 2 HDFE groups                           F(   5,   3939) =      66.48
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.9518
+                                                  Adj R-squared   =     0.9496
+                                                  Within R-sq.    =     0.1127
+                                                  Root MSE        =     0.0713
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_gaci_cwm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  feyrer_int |   .1120821   .0104269    10.75   0.000     .0916394    .1325247
+       lnpop |    .174913   .0263421     6.64   0.000     .1232676    .2265584
+   ln_sea_ma |  -.6974749   .0820161    -8.50   0.000    -.8582729    -.536677
+    at_lnpop |  -.0221069   .0044576    -4.96   0.000    -.0308463   -.0133674
+    at_lngdp |   .0331899   .0033505     9.91   0.000      .026621    .0397589
+       _cons |   6.088828   .8458071     7.20   0.000     4.430567    7.747089
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       150           0         150     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. test feyrer_int
+
+ ( 1)  feyrer_int = 0
+
+       F(  1,  3939) =  115.55
+            Prob > F =    0.0000
+
+. di "FEY FS + pop/gdp cycles:      pi = " %8.4f _b[feyrer_int] "  F = " %8.1f r(F)
+FEY FS + pop/gdp cycles:      pi =   0.1121  F =    115.5
+
+. 
+. reghdfe ln_gaci_cwm feyrer_int lnpop ln_sea_ma at_lnpop at_lngdp at_lncap if s96, absorb(isocode y) vce(robust)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,121
+Absorbing 2 HDFE groups                           F(   6,   3938) =      55.59
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.9518
+                                                  Adj R-squared   =     0.9496
+                                                  Within R-sq.    =     0.1131
+                                                  Root MSE        =     0.0713
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_gaci_cwm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  feyrer_int |   .1174148   .0114145    10.29   0.000     .0950359    .1397938
+       lnpop |   .1725583   .0266457     6.48   0.000     .1203176     .224799
+   ln_sea_ma |  -.6907748    .083059    -8.32   0.000    -.8536176   -.5279321
+    at_lnpop |  -.0208509   .0046524    -4.48   0.000    -.0299721   -.0117296
+    at_lngdp |   .0265342   .0065924     4.02   0.000     .0136093    .0394592
+    at_lncap |   .0074907   .0066482     1.13   0.260    -.0055435     .020525
+       _cons |   6.021152   .8560411     7.03   0.000     4.342827    7.699478
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       150           0         150     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. test feyrer_int
+
+ ( 1)  feyrer_int = 0
+
+       F(  1,  3938) =  105.81
+            Prob > F =    0.0000
+
+. di "FEY FS + all size cycles:     pi = " %8.4f _b[feyrer_int] "  F = " %8.1f r(F)
+FEY FS + all size cycles:     pi =   0.1174  F =    105.8
+
+. 
+. ivreghdfe g_vol lnpop ln_sea_ma (ln_gaci_cwm = feyrer_int) if s96, absorb(isocode y) robust
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4121
+                                                      F(  3,  3941) =    43.65
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  354.5567293                Centered R2   =   0.0158
+Total (uncentered) SS   =  354.5567293                Uncentered R2 =   0.0158
+Residual SS             =  348.9379044                Root MSE      =    .2976
+
+------------------------------------------------------------------------------
+             |               Robust
+       g_vol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   2.322438   .3566521     6.51   0.000     1.623198    3.021678
+       lnpop |   .0637378    .094274     0.68   0.499    -.1210925    .2485681
+   ln_sea_ma |   2.159517   .4273034     5.05   0.000      1.32176    2.997273
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):            116.761
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):              140.460
+                         (Kleibergen-Paap rk Wald F statistic):        120.051
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop ln_sea_ma
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       150           0         150     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. di "FEY 2SLS vol baseline:        b = " %8.3f _b[ln_gaci_cwm] " (se " %7.3f _se[ln_gaci_cwm] ")  KP F = " %8.1f e(widstat)
+FEY 2SLS vol baseline:        b =    2.322 (se   0.357)  KP F =    120.1
+
+. 
+. ivreghdfe g_vol lnpop ln_sea_ma at_lnpop at_lngdp (ln_gaci_cwm = feyrer_int) if s96, absorb(isocode y) robust
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4121
+                                                      F(  5,  3939) =    48.71
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  354.5567293                Centered R2   =   0.1081
+Total (uncentered) SS   =  354.5567293                Uncentered R2 =   0.1081
+Residual SS             =  316.2408895                Root MSE      =    .2833
+
+------------------------------------------------------------------------------
+             |               Robust
+       g_vol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   2.307265   .3260008     7.08   0.000     1.668118    2.946411
+       lnpop |   .1276148   .0891394     1.43   0.152     -.047149    .3023785
+   ln_sea_ma |    1.20992   .3846597     3.15   0.002     .4557688     1.96407
+    at_lnpop |   .2351728   .0228582    10.29   0.000     .1903578    .2799878
+    at_lngdp |  -.2283811    .019048   -11.99   0.000     -.265726   -.1910362
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):            107.761
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):              130.995
+                         (Kleibergen-Paap rk Wald F statistic):        115.547
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop ln_sea_ma at_lnpop at_lngdp
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       150           0         150     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. di "FEY 2SLS vol + pop/gdp:       b = " %8.3f _b[ln_gaci_cwm] " (se " %7.3f _se[ln_gaci_cwm] ")  KP F = " %8.1f e(widstat)
+FEY 2SLS vol + pop/gdp:       b =    2.307 (se   0.326)  KP F =    115.5
+
+. 
+. ivreghdfe g_vol lnpop ln_sea_ma at_lnpop at_lngdp at_lncap (ln_gaci_cwm = feyrer_int) if s96, absorb(isocode y) robust
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4121
+                                                      F(  6,  3938) =    44.63
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  354.5567293                Centered R2   =   0.1723
+Total (uncentered) SS   =  354.5567293                Uncentered R2 =   0.1723
+Residual SS             =  293.4787279                Root MSE      =     .273
+
+------------------------------------------------------------------------------
+             |               Robust
+       g_vol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   1.574046   .3385977     4.65   0.000     .9102028    2.237889
+       lnpop |   .2921521   .0906575     3.22   0.001      .114412    .4698922
+   ln_sea_ma |   .5952663   .3941258     1.51   0.131    -.1774436    1.367976
+    at_lnpop |   .1996083   .0223421     8.93   0.000     .1558052    .2434115
+    at_lngdp |  -.1014781   .0312276    -3.25   0.001     -.162702   -.0402543
+    at_lncap |  -.1154357   .0253667    -4.55   0.000    -.1651688   -.0657027
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):            101.708
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):              123.042
+                         (Kleibergen-Paap rk Wald F statistic):        105.811
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop ln_sea_ma at_lnpop at_lngdp at_lncap
+Excluded instruments: feyrer_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       150           0         150     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+
+. di "FEY 2SLS vol + all cycles:    b = " %8.3f _b[ln_gaci_cwm] " (se " %7.3f _se[ln_gaci_cwm] ")  KP F = " %8.1f e(widstat)
+FEY 2SLS vol + all cycles:    b =    1.574 (se   0.339)  KP F =    105.8
+
+. 
+. di _n "DONE_FEYCHECK"
+
+DONE_FEYCHECK
+
+. 
+end of do-file

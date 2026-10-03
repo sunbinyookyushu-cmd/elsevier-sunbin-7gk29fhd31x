@@ -1,0 +1,28 @@
+base airports 3351 with coordinates 3326
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\HSR_OilHedge\04_link_airports.py:31: UserWarning: Geometry is in a geographic CRS. Results from 'centroid' are likely incorrect. Use 'GeoSeries.to_crs()' to re-project geometries to a projected CRS before this operation.
+
+  j["lat"], j["lon"] = j.geometry.centroid.y, j.geometry.centroid.x
+R=30km: airports with HSR ever 172, opened 1997-2019 142, before 1997 23
+R=50km: airports with HSR ever 204, opened 1997-2019 165, before 1997 32
+R=100km: airports with HSR ever 274, opened 1997-2019 207, before 1997 61
+      size        min        max
+iso3                            
+CHN     89 2003-10-12 2025-12-26
+JPN     24 1964-10-01 2016-03-26
+DEU     15 1985-06-02 2015-07-01
+FRA     14 1981-07-01 2018-07-08
+ESP     11 1992-07-01 2022-07-01
+ITA      9 1977-07-01 2008-07-01
+KOR      9 2004-04-01 2017-07-01
+TWN      8 2007-01-05 2010-04-26
+GBR      5 2007-07-01 2007-07-01
+NLD      4 2002-07-01 2006-07-01
+AUT      4 2003-07-01 2023-11-06
+SWE      3 1995-07-01 2010-08-30
+BEL      2 2006-07-01 2009-07-01
+TUR      2 2009-07-01 2011-07-01
+DNK      1 2019-05-31 2019-05-31
+HKG      1 2011-01-07 2011-01-07
+MAC      1 2011-01-07 2011-01-07
+SAU      1 2018-10-11 2018-10-11
+SVN      1 2019-12-08 2019-12-08

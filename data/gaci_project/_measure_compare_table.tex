@@ -1,0 +1,30 @@
+\begin{table}[t]
+\centering
+\caption{Main IV estimates under alternative connectivity measures.}
+\label{tab:measure}
+\begin{threeparttable}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+ & Volume & Openness & Share & GDP p.c. & GDP & KP $F$ \\
+\midrule
+\multicolumn{7}{l}{\emph{Panel A. Hub quality, $\ln\mathrm{GACI}_{cwm}$ (headline)}}\\
+OLS & 1.144*** & 0.157*** & 14.71*** & 0.831*** & 0.987*** & --- \\
+IV (2SLS) & 2.303*** & 1.302** & 61.11 & 0.514 & 1.001 & 18.0 \\
+ & (0.776) & (0.662) & (46.43) & (0.475) & (0.680) & \\
+\addlinespace
+\multicolumn{7}{l}{\emph{Panel B. Total connectivity, $\ln\mathrm{GACI}_{sum}$}}\\
+OLS & 0.237*** & -0.027 & -1.65 & 0.201*** & 0.264*** & --- \\
+IV (2SLS) & 1.166*** & 0.659* & 30.93 & 0.260 & 0.507 & 9.7 \\
+ & (0.432) & (0.365) & (24.54) & (0.238) & (0.341) & \\
+\midrule
+\multicolumn{7}{l}{\emph{Implied 1996--2023 aggregate goods-trade gain (intensity channel)}}\\
+Hub quality (cwm) & \multicolumn{6}{l}{\$7.86 trillion ($\approx$17\% of 2023 world goods trade)} \\
+Total conn.\ (sum) & \multicolumn{6}{l}{\$7.60 trillion ($\approx$16\% of 2023 world goods trade)} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Country and year FE; population control; robust SE in parentheses. Each panel uses a different national connectivity summary. The two measures are on different scales, so the raw elasticities are not directly comparable; what is robust is the \emph{qualitative pattern} (volume and openness positive and significant, income outcomes imprecise), the exact decomposition $\beta_{vol}=\beta_{int}+\beta_{gdp}$ (which holds in both panels), and the implied aggregate counterfactual, which differs by only about 3\% across measures. The cwm measure is preferred for the headline because its first stage is stronger ($F=18.0$ vs.\ $9.7$). \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

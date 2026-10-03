@@ -1,0 +1,49 @@
+﻿    shock             outcome             spec            term       b     se      p    n  countries
+  Kaenzig trade openness (pp)           H only    shock x GACI  0.0595 0.2997 0.8444 3394        150
+  Kaenzig trade openness (pp) H + oil + income    shock x GACI  0.0155 0.3510 0.9653 3348        148
+       BH trade openness (pp)           H only    shock x GACI  0.5281 0.3719 0.1697 3394        150
+       BH trade openness (pp) H + oil + income    shock x GACI  0.4310 0.3887 0.2795 3348        148
+  GPR (t) trade openness (pp)           H only GPR main effect  0.6619 0.2797 0.0272  966         42
+  GPR (t) trade openness (pp)           H only      GPR x GACI -0.5700 0.2265 0.0197  966         42
+  GPR (t) trade openness (pp) H + oil + income GPR main effect  0.7335 0.2648 0.0112  966         42
+  GPR (t) trade openness (pp) H + oil + income      GPR x GACI -0.3965 0.2955 0.1934  966         42
+GPR (t-1) trade openness (pp)           H only GPR main effect  0.2432 0.3000 0.4264  966         42
+GPR (t-1) trade openness (pp)           H only      GPR x GACI -0.2530 0.2301 0.2836  966         42
+GPR (t-1) trade openness (pp) H + oil + income GPR main effect  0.2858 0.2928 0.3395  966         42
+GPR (t-1) trade openness (pp) H + oil + income      GPR x GACI -0.0873 0.2562 0.7364  966         42
+  Kaenzig     ln trade volume           H only    shock x GACI -0.0047 0.0026 0.0840 3394        150
+  Kaenzig     ln trade volume H + oil + income    shock x GACI  0.0006 0.0026 0.8289 3348        148
+       BH     ln trade volume           H only    shock x GACI  0.0031 0.0039 0.4334 3394        150
+       BH     ln trade volume H + oil + income    shock x GACI  0.0013 0.0029 0.6583 3348        148
+  GPR (t)     ln trade volume           H only GPR main effect -0.0114 0.0057 0.0575  966         42
+  GPR (t)     ln trade volume           H only      GPR x GACI  0.0047 0.0033 0.1709  966         42
+  GPR (t)     ln trade volume H + oil + income GPR main effect -0.0118 0.0057 0.0510  966         42
+  GPR (t)     ln trade volume H + oil + income      GPR x GACI  0.0016 0.0034 0.6410  966         42
+GPR (t-1)     ln trade volume           H only GPR main effect -0.0012 0.0048 0.8015  966         42
+GPR (t-1)     ln trade volume           H only      GPR x GACI -0.0036 0.0035 0.3145  966         42
+GPR (t-1)     ln trade volume H + oil + income GPR main effect -0.0010 0.0050 0.8473  966         42
+GPR (t-1)     ln trade volume H + oil + income      GPR x GACI -0.0031 0.0032 0.3409  966         42
+  Kaenzig              ln GDP           H only    shock x GACI -0.0017 0.0019 0.3657 3394        150
+  Kaenzig              ln GDP H + oil + income    shock x GACI  0.0027 0.0035 0.4470 3348        148
+       BH              ln GDP           H only    shock x GACI -0.0003 0.0021 0.8939 3394        150
+       BH              ln GDP H + oil + income    shock x GACI -0.0026 0.0034 0.4397 3348        148
+  GPR (t)              ln GDP           H only GPR main effect -0.0216 0.0088 0.0225  966         42
+  GPR (t)              ln GDP           H only      GPR x GACI  0.0125 0.0054 0.0293  966         42
+  GPR (t)              ln GDP H + oil + income GPR main effect -0.0230 0.0081 0.0095  966         42
+  GPR (t)              ln GDP H + oil + income      GPR x GACI  0.0069 0.0062 0.2738  966         42
+GPR (t-1)              ln GDP           H only GPR main effect -0.0071 0.0057 0.2288  966         42
+GPR (t-1)              ln GDP           H only      GPR x GACI  0.0010 0.0044 0.8245  966         42
+GPR (t-1)              ln GDP H + oil + income GPR main effect -0.0074 0.0062 0.2456  966         42
+GPR (t-1)              ln GDP H + oil + income      GPR x GACI -0.0006 0.0043 0.8983  966         42
+  Kaenzig           ln GDP pc           H only    shock x GACI -0.0004 0.0010 0.7066 3394        150
+  Kaenzig           ln GDP pc H + oil + income    shock x GACI  0.0025 0.0014 0.0860 3348        148
+       BH           ln GDP pc           H only    shock x GACI  0.0014 0.0010 0.1565 3394        150
+       BH           ln GDP pc H + oil + income    shock x GACI -0.0003 0.0012 0.7703 3348        148
+  GPR (t)           ln GDP pc           H only GPR main effect -0.0053 0.0031 0.0990  966         42
+  GPR (t)           ln GDP pc           H only      GPR x GACI  0.0014 0.0014 0.3207  966         42
+  GPR (t)           ln GDP pc H + oil + income GPR main effect -0.0058 0.0028 0.0511  966         42
+  GPR (t)           ln GDP pc H + oil + income      GPR x GACI -0.0009 0.0014 0.5552  966         42
+GPR (t-1)           ln GDP pc           H only GPR main effect -0.0019 0.0021 0.3612  966         42
+GPR (t-1)           ln GDP pc           H only      GPR x GACI -0.0013 0.0012 0.2985  966         42
+GPR (t-1)           ln GDP pc H + oil + income GPR main effect -0.0021 0.0021 0.3168  966         42
+GPR (t-1)           ln GDP pc H + oil + income      GPR x GACI -0.0020 0.0008 0.0204  966         42

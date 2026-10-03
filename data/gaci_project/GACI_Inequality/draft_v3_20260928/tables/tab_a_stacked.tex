@@ -1,0 +1,28 @@
+\begin{table}[H]
+\centering
+\caption{Stacked-system tests of equal group elasticities.}
+\label{tab:a_stacked}
+\begin{threeparttable}
+\small
+\begin{tabular}{lcc}
+\toprule
+ & OLS & 2SLS, Feyrer \\
+\midrule
+Joint test: equal elasticity across the ten deciles ($p$) & 0.188 & 0.735 \\
+p90--100 minus p0--10 & 0.328\sym{**} & 1.288 \\
+ & (0.155) & (1.613) \\
+Top half minus bottom half & 0.051 & 1.296\sym{*} \\
+ & (0.073) & (0.764) \\
+Top 1\% minus p90--100 & 0.115\sym{*} & -0.157 \\
+ & (0.064) & (0.274) \\
+Linear trend: change in elasticity per decile & 0.013 & 0.256 \\
+ & (0.016) & (0.164) \\
+Linear trend: elasticity at the median decile & 0.620\sym{***} & 0.535 \\
+ & (0.133) & (0.622) \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\small
+\item All twelve WID groups stacked in one system (country $\times$ group $\times$ year) with group $\times$ ln GACI, group $\times$ log population, country $\times$ group and year $\times$ group fixed effects; each group's ln GACI is instrumented by group $\times$ $Z$. The linear-trend rows replace the group interactions by ln GACI and ln GACI $\times$ (decile rank $-5.5$) over the ten deciles. Per-equation KP $F$ = 10.5. Standard errors clustered by country.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

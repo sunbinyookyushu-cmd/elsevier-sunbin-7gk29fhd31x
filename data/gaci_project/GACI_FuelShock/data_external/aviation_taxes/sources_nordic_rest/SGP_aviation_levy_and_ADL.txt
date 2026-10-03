@@ -1,0 +1,29 @@
+Singapore: Aviation Levy (AL) and Airport Development Levy (ADL), both under the Civil Aviation Authority of Singapore Act 2009 (ss. 86, 87A)
+Accessed 2026-10-02. Note: sso.agc.gov.sg blocked WebFetch (HTTP 403); pages were retrieved with a direct HTTP GET (PowerShell) instead.
+
+1. Civil Aviation Authority of Singapore (Aviation Levy) Order 2009, G.N. No. S 459/2009 (as published)
+https://sso.agc.gov.sg/SL-Supp/S459-2009/Published/20091001?DocDate=20091001
+- "This Order may be cited as the Civil Aviation Authority of Singapore (Aviation Levy) Order 2009 and shall come into operation on 1st October 2009."
+- "The aviation levy payable by each passenger embarking on an aircraft from Changi Airport shall be - (a) if embarking from the Changi Airport Budget Terminal - $2.20; and (b) if embarking from any other terminal - $6.10." Seletar: $3.10.
+- Exempt: "(c) any passenger who does not leave the transit area ..."; "(d) any passenger who, as evidenced by his passenger ticket, is scheduled to depart from Singapore by an aircraft within 24 hours of his scheduled time of arrival for a destination in another country other than the country from which he embarked on the aircraft by which he arrived in Singapore"; "(e) infants below the age of 2 years".
+
+2. Civil Aviation Authority of Singapore (Aviation Levy) Order 2018, S 522/2018 (in force 1 Sep 2018; amended S 805/2022 wef 1 Nov 2022, S 354/2023, S 499/2024 wef 1 Jul 2024)
+https://sso.agc.gov.sg/SL/CAASA2009-S522-2018
+- para 6 (current): Changi "$8 multiplied by the total number of chargeable passengers"; Seletar "$3.10" before July 2024, "$8" from July 2024.
+- para 4(1)(d): non-chargeable "a transfer passenger or transit passenger" (single ticket, depart within 24 hours of scheduled arrival, immediate destination in a country other than the one of embarkation on the arriving aircraft).
+- para 17 revokes the 2009 Order (S 459/2009).
+
+3. CAAS press release 15 Sep 2022
+https://www.caas.gov.sg/resources/media-and-publication/newsroom/fees-and-levies-at-changi-airport-to-be-revised-from-1-november-2022/
+- "From 1 November 2022, the AL for OD passengers departing from Changi Airport will increase by S$1.90, from S$6.10 to S$8.00"; first adjustment since introduction "in 2009 at S$6.10"; "transfer and transit passengers do not need to pay the AL"; "Passengers whose air tickets have already been issued before 1 November 2022 will not pay the higher fees and levies."
+
+4. Civil Aviation Authority of Singapore (Airport Development Levy) Order 2018, S 437/2018
+https://sso.agc.gov.sg/SL/CAASA2009-S437-2018
+- "comes into operation on 1 July 2018"; chargeable flight = flight beginning on or after 1 July 2018 from Changi to a place outside Singapore.
+- para 6: base formula A = $10.80 (passengers neither transit nor transfer), B = $3.00 (transit or transfer passengers); phase-in 20% (Jul 2018), 50% (Aug), 65% (Sep), 80% (Oct-Dec 2018), 100% from 2019.
+
+5. CAAS press release 28 Feb 2018
+https://www.caas.gov.sg/resources/media-and-publication/newsroom/new-airport-development-levy-from-1-july-2018/
+- "The rate will be S$10.80 for passengers who begin their trips from Changi Airport and S$3.00 for passengers who start their trips elsewhere and connect through Changi Airport."
+- "Passengers travelling on or after 1 July 2018 whose tickets are issued prior to 1 July 2018 will not be subjected to the ADL."
+- "It will be collected by CAG from the airlines, on behalf of the Civil Aviation Authority of Singapore (CAAS) and the Government."

@@ -1,0 +1,92 @@
+﻿stk 0: treated terciles cut at 353,076 / 669,814 seats; agreement with stack sz_* = 1.00
+stk 1: treated terciles cut at 209,417 / 901,857 seats; agreement with stack sz_* = 1.00
+stk 2: treated terciles cut at 411,631 / 1,711,013 seats; agreement with stack sz_* = 1.00
+stk 3: treated terciles cut at 560,677 / 752,120 seats; agreement with stack sz_* = 1.00
+stk 4: treated terciles cut at 59,663 / 174,660 seats; agreement with stack sz_* = 1.00
+stk 5: treated terciles cut at 46,283 / 189,457 seats; agreement with stack sz_* = 1.00
+stk 6: treated terciles cut at 72,115 / 1,158,328 seats; agreement with stack sz_* = 1.00
+stk 7: treated terciles cut at 98,168 / 330,687 seats; agreement with stack sz_* = 1.00
+stk 8: treated terciles cut at 555,021 / 1,031,696 seats; agreement with stack sz_* = 1.00
+stack airports 2141 | with coordinates 2118
+catchment pairs 947 | regions with >=1 airport 255 of 334
+Eurostat NUTS2 codes matched to GISCO 2021: nights 0.894 | employment 0.975 | gdp 0.975
+stk 0 treated NLD; control countries 11: AUT CHE DEU ESP FIN GRC HRV HUN NOR PRT SWE
+stk 1 treated IRL; control countries 12: AUT BEL CHE ESP FIN GRC HRV HUN LUX NOR PRT SWE
+stk 2 treated DEU; control countries 8: ESP FIN GRC HRV HUN NOR PRT SWE
+stk 3 treated AUT; control countries 12: BEL CHE ESP FIN FRA GRC HRV HUN LUX NOR PRT SWE
+stk 4 treated NOR; control countries 13: BEL CHE DEU DNK ESP FIN HRV HUN ISL LUX MLT NLD PRT
+stk 5 treated SWE; control countries 12: BEL CHE DEU ESP FIN HRV HUN ISL LUX MLT NLD PRT
+stk 6 treated GBR; control countries 14: AUT BEL CHE DEU ESP FIN GRC HRV HUN IRL LUX NOR PRT SWE
+stk 7 treated DNK; control countries 15: AUT BEL CHE DEU ESP FIN GRC HRV HUN IRL ISL LUX NLD PRT SWE
+stk 8 treated MLT; control countries 13: AUT BEL CHE DEU ESP FIN HRV HUN IRL LUX NLD PRT SWE
+
+monthly panel (71901, 36) | annual panel (5405, 43)
+treated-country regions, monthly connectivity coverage and exposure:
+     iso3  regions  conn_cov  expo_small_mean  expo_small_sd
+stk                                                        
+0    NLD       12     1.000            0.255          0.431
+1    IRL        3     1.000            0.027          0.031
+2    DEU       37     1.000            0.094          0.270
+3    AUT        9     1.000            0.298          0.430
+4    NOR        5     1.000            0.065          0.128
+5    SWE        8     0.994            0.130          0.329
+6    GBR       41     1.000            0.001          0.002
+7    DNK        5     1.000            0.039          0.058
+8    MLT        1     1.000            0.038          0.000
+national monthly nights coverage (treat_c 1 = treated country):
+              n_c  for_cov  dom_cov
+stk treat_c                       
+0   0         11    0.908    0.000
+    1          1    1.000    0.000
+1   0         12    0.915    0.028
+    1          1    1.000    0.031
+2   0          8    1.000    0.358
+    1          1    1.000    0.358
+3   0         12    0.895    0.375
+    1          1    0.985    0.409
+4   0         13    0.957    0.957
+    1          1    1.000    1.000
+5   0         12    0.976    0.976
+    1          1    1.000    1.000
+6   0         14    0.912    0.000
+    1          1    1.000    0.000
+7   0         15    0.825    0.000
+    1          1    1.000    0.000
+8   0         13    0.919    0.025
+    1          1    0.826    0.000
+treated-country regions, annual coverage:
+      nights    emp    gdp
+stk                      
+0     0.933  0.600  0.833
+1     0.000  0.000  1.000
+2     1.000  1.000  1.000
+3     1.000  1.000  1.000
+4     0.320  0.560  0.800
+5     1.000  1.000  1.000
+6     0.805  0.161  0.000
+7     0.000  0.000  0.000
+8     1.000  0.000  1.000
+control regions per event:
+ stk
+0    118
+1     92
+2     65
+3    105
+4    111
+5    106
+6    133
+7    135
+8    123
+
+benefit inputs:
+    stk iso3  co2_post_t   seats_post      rev_base  n_airports  dose_w         eff         ann
+0    0  NLD   9909619.6   32922194.3  1.426920e+09           5    43.3  2008-07-01  2007-02-01
+1    1  IRL   1678528.5   17790166.0  1.772759e+08           9    10.0  2009-03-30  2008-10-01
+2    2  DEU  25173166.7  138215057.0  1.775682e+09          39    12.8  2011-01-01  2010-06-01
+3    3  AUT   2279253.8   19143600.0  1.531488e+08           6     8.0  2011-04-01  2010-10-01
+4    4  NOR   2877176.6   38811218.0  3.337059e+08          51     8.6  2016-06-01  2015-12-01
+5    5  SWE   3163379.3   33511876.0  2.077736e+08          38     6.2  2018-04-01  2017-06-01
+6    6  GBR  32624039.6  159273150.0  2.706943e+09          60    17.0  2007-02-01  2006-12-01
+7    7  DNK   1882638.7   15901565.0  1.606058e+08          12    10.1  1998-01-01  1997-05-01
+8    8  MLT    185543.3    1498157.0  3.490706e+07           2    23.3  2005-08-01  2004-11-01
+written: reg_expo.dta reg_month.dta nat_month.dta reg_year.dta bc_inputs.dta catch_pairs.csv

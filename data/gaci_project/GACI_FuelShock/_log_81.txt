@@ -1,0 +1,86 @@
+﻿countries with G: 166  with R: 209  corr(G,R) = 0.4  corr(G,Inc) = 0.62
+                     part             outcome moderator   shock                spec          term       b     se      p        F     n  countries
+         (a) reduced form         total seats         G Kaenzig               alone     shock x M -0.0003 0.0036 0.9415      NaN 23898        166
+                   (a) IV         total seats         G Kaenzig               alone jet price x M -0.0015 0.0198 0.9417  12.1525 23898        166
+         (a) reduced form         total seats         G Kaenzig + income, oil rents     shock x M  0.0022 0.0063 0.7279      NaN 21018        146
+                   (a) IV         total seats         G Kaenzig + income, oil rents jet price x M  0.0120 0.0360 0.7405  12.1390 21018        146
+(b) tercile elasticity IV         total seats         G Kaenzig         low tercile     jet price -0.0247 0.0535 0.6452  12.2248 23898         56
+(b) tercile elasticity IV         total seats         G Kaenzig         mid tercile     jet price  0.0132 0.0722 0.8554  12.2047 23898         55
+(b) tercile elasticity IV         total seats         G Kaenzig        high tercile     jet price -0.0354 0.0193 0.0693  12.2248 23898         55
+         (a) reduced form         total seats         G      BH               alone     shock x M -0.0018 0.0046 0.6994      NaN 23898        166
+                   (a) IV         total seats         G      BH               alone jet price x M -0.0054 0.0139 0.6975 315.6076 23898        166
+         (a) reduced form         total seats         G      BH + income, oil rents     shock x M -0.0102 0.0074 0.1711      NaN 21018        146
+                   (a) IV         total seats         G      BH + income, oil rents jet price x M -0.0308 0.0213 0.1514 315.2718 21018        146
+(b) tercile elasticity IV         total seats         G      BH         low tercile     jet price  0.0450 0.0442 0.3110 317.4845 23898         56
+(b) tercile elasticity IV         total seats         G      BH         mid tercile     jet price  0.0212 0.0347 0.5426 317.0877 23898         55
+(b) tercile elasticity IV         total seats         G      BH        high tercile     jet price  0.0193 0.0235 0.4125 317.4845 23898         55
+         (a) reduced form         total seats         R Kaenzig               alone     shock x M -0.0028 0.0035 0.4157      NaN 30065        209
+                   (a) IV         total seats         R Kaenzig               alone jet price x M -0.0154 0.0196 0.4326  12.1735 30065        209
+         (a) reduced form         total seats         R Kaenzig + income, oil rents     shock x M -0.0043 0.0052 0.4055      NaN 20154        140
+                   (a) IV         total seats         R Kaenzig + income, oil rents jet price x M -0.0235 0.0287 0.4142  12.1363 20154        140
+(b) tercile elasticity IV         total seats         R Kaenzig         low tercile     jet price  0.0293 0.0646 0.6507  12.2305 30065         70
+(b) tercile elasticity IV         total seats         R Kaenzig         mid tercile     jet price -0.0394 0.0467 0.3998  12.3367 30065         69
+(b) tercile elasticity IV         total seats         R Kaenzig        high tercile     jet price -0.0166 0.0246 0.5024  12.2250 30065         70
+         (a) reduced form         total seats         R      BH               alone     shock x M -0.0018 0.0037 0.6313      NaN 30065        209
+                   (a) IV         total seats         R      BH               alone jet price x M -0.0053 0.0110 0.6282 316.0462 30065        209
+         (a) reduced form         total seats         R      BH + income, oil rents     shock x M -0.0024 0.0045 0.5936      NaN 20154        140
+                   (a) IV         total seats         R      BH + income, oil rents jet price x M -0.0073 0.0136 0.5918 315.1812 20154        140
+(b) tercile elasticity IV         total seats         R      BH         low tercile     jet price  0.0466 0.0434 0.2845 317.5958 30065         70
+(b) tercile elasticity IV         total seats         R      BH         mid tercile     jet price  0.0150 0.0313 0.6329 317.9610 30065         69
+(b) tercile elasticity IV         total seats         R      BH        high tercile     jet price  0.0371 0.0223 0.0991 317.4900 30065         70
+         (a) reduced form      domestic seats         G Kaenzig               alone     shock x M -0.0045 0.0082 0.5843      NaN 17009        139
+                   (a) IV      domestic seats         G Kaenzig               alone jet price x M -0.0241 0.0418 0.5641  12.8796 17009        139
+         (a) reduced form      domestic seats         G Kaenzig + income, oil rents     shock x M -0.0010 0.0079 0.9041      NaN 15591        126
+                   (a) IV      domestic seats         G Kaenzig + income, oil rents jet price x M -0.0051 0.0418 0.9035  12.8747 15591        126
+(b) tercile elasticity IV      domestic seats         G Kaenzig         low tercile     jet price -0.0310 0.0672 0.6451  13.7209 17009         47
+(b) tercile elasticity IV      domestic seats         G Kaenzig         mid tercile     jet price  0.1923 0.1290 0.1381  13.0569 17009         46
+(b) tercile elasticity IV      domestic seats         G Kaenzig        high tercile     jet price -0.0234 0.0396 0.5555  12.1830 17009         46
+         (a) reduced form      domestic seats         G      BH               alone     shock x M -0.0057 0.0133 0.6690      NaN 17009        139
+                   (a) IV      domestic seats         G      BH               alone jet price x M -0.0172 0.0405 0.6716 316.1404 17009        139
+         (a) reduced form      domestic seats         G      BH + income, oil rents     shock x M  0.0103 0.0138 0.4548      NaN 15591        126
+                   (a) IV      domestic seats         G      BH + income, oil rents jet price x M  0.0312 0.0415 0.4525 314.3992 15591        126
+(b) tercile elasticity IV      domestic seats         G      BH         low tercile     jet price  0.0156 0.0548 0.7762 315.0987 17009         47
+(b) tercile elasticity IV      domestic seats         G      BH         mid tercile     jet price  0.1218 0.0597 0.0433 306.8018 17009         46
+(b) tercile elasticity IV      domestic seats         G      BH        high tercile     jet price -0.0205 0.0547 0.7080 317.8505 17009         46
+         (a) reduced form      domestic seats         R Kaenzig               alone     shock x M  0.0029 0.0085 0.7392      NaN 19713        164
+                   (a) IV      domestic seats         R Kaenzig               alone jet price x M  0.0155 0.0444 0.7281  13.3448 19713        164
+         (a) reduced form      domestic seats         R Kaenzig + income, oil rents     shock x M -0.0013 0.0082 0.8765      NaN 15421        124
+                   (a) IV      domestic seats         R Kaenzig + income, oil rents jet price x M -0.0068 0.0446 0.8784  13.0185 15421        124
+(b) tercile elasticity IV      domestic seats         R Kaenzig         low tercile     jet price  0.0328 0.1397 0.8145  14.1386 19713         55
+(b) tercile elasticity IV      domestic seats         R Kaenzig         mid tercile     jet price  0.0073 0.0410 0.8585  12.8012 19713         54
+(b) tercile elasticity IV      domestic seats         R Kaenzig        high tercile     jet price  0.0376 0.0484 0.4388  12.3525 19713         55
+         (a) reduced form      domestic seats         R      BH               alone     shock x M -0.0034 0.0115 0.7697      NaN 19713        164
+                   (a) IV      domestic seats         R      BH               alone jet price x M -0.0102 0.0347 0.7685 300.7923 19713        164
+         (a) reduced form      domestic seats         R      BH + income, oil rents     shock x M -0.0069 0.0097 0.4796      NaN 15421        124
+                   (a) IV      domestic seats         R      BH + income, oil rents jet price x M -0.0208 0.0291 0.4760 311.2775 15421        124
+(b) tercile elasticity IV      domestic seats         R      BH         low tercile     jet price -0.0055 0.1014 0.9566 307.3144 19713         55
+(b) tercile elasticity IV      domestic seats         R      BH         mid tercile     jet price  0.0570 0.0346 0.1016 307.1029 19713         54
+(b) tercile elasticity IV      domestic seats         R      BH        high tercile     jet price  0.0017 0.0542 0.9745 308.7957 19713         55
+         (a) reduced form international seats         G Kaenzig               alone     shock x M -0.0030 0.0034 0.3731      NaN 23898        166
+                   (a) IV international seats         G Kaenzig               alone jet price x M -0.0166 0.0199 0.4077  12.1525 23898        166
+         (a) reduced form international seats         G Kaenzig + income, oil rents     shock x M -0.0017 0.0056 0.7617      NaN 21018        146
+                   (a) IV international seats         G Kaenzig + income, oil rents jet price x M -0.0092 0.0295 0.7551  12.1390 21018        146
+(b) tercile elasticity IV international seats         G Kaenzig         low tercile     jet price  0.0080 0.0534 0.8804  12.2248 23898         56
+(b) tercile elasticity IV international seats         G Kaenzig         mid tercile     jet price  0.0059 0.0602 0.9218  12.2047 23898         55
+(b) tercile elasticity IV international seats         G Kaenzig        high tercile     jet price -0.0384 0.0211 0.0705  12.2248 23898         55
+         (a) reduced form international seats         G      BH               alone     shock x M -0.0009 0.0041 0.8200      NaN 23898        166
+                   (a) IV international seats         G      BH               alone jet price x M -0.0028 0.0124 0.8197 315.6076 23898        166
+         (a) reduced form international seats         G      BH + income, oil rents     shock x M -0.0083 0.0049 0.0970      NaN 21018        146
+                   (a) IV international seats         G      BH + income, oil rents jet price x M -0.0250 0.0144 0.0840 315.2718 21018        146
+(b) tercile elasticity IV international seats         G      BH         low tercile     jet price  0.0322 0.0383 0.4025 317.4845 23898         56
+(b) tercile elasticity IV international seats         G      BH         mid tercile     jet price  0.0270 0.0324 0.4052 317.0877 23898         55
+(b) tercile elasticity IV international seats         G      BH        high tercile     jet price  0.0219 0.0239 0.3621 317.4845 23898         55
+         (a) reduced form international seats         R Kaenzig               alone     shock x M -0.0059 0.0033 0.0775      NaN 30038        209
+                   (a) IV international seats         R Kaenzig               alone jet price x M -0.0322 0.0203 0.1143  12.1660 30038        209
+         (a) reduced form international seats         R Kaenzig + income, oil rents     shock x M -0.0062 0.0043 0.1478      NaN 20154        140
+                   (a) IV international seats         R Kaenzig + income, oil rents jet price x M -0.0338 0.0244 0.1676  12.1363 20154        140
+(b) tercile elasticity IV international seats         R Kaenzig         low tercile     jet price  0.0857 0.0713 0.2312  12.1549 30038         70
+(b) tercile elasticity IV international seats         R Kaenzig         mid tercile     jet price -0.0263 0.0414 0.5272  12.3367 30038         69
+(b) tercile elasticity IV international seats         R Kaenzig        high tercile     jet price -0.0168 0.0234 0.4734  12.2250 30038         70
+         (a) reduced form international seats         R      BH               alone     shock x M  0.0002 0.0044 0.9691      NaN 30038        209
+                   (a) IV international seats         R      BH               alone jet price x M  0.0005 0.0134 0.9691 316.2166 30038        209
+         (a) reduced form international seats         R      BH + income, oil rents     shock x M -0.0004 0.0044 0.9212      NaN 20154        140
+                   (a) IV international seats         R      BH + income, oil rents jet price x M -0.0013 0.0134 0.9213 315.1812 20154        140
+(b) tercile elasticity IV international seats         R      BH         low tercile     jet price  0.0298 0.0391 0.4477 319.3624 30038         70
+(b) tercile elasticity IV international seats         R      BH         mid tercile     jet price  0.0266 0.0305 0.3838 317.9610 30038         69
+(b) tercile elasticity IV international seats         R      BH        high tercile     jet price  0.0369 0.0244 0.1325 317.4899 30038         70

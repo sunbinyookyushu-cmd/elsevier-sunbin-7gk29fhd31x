@@ -1,0 +1,63 @@
+% ===== tab:decomp (main text) =====
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Decomposition of the CO$_2$ elasticity on the accounting identity}
+\label{tab:decomp}
+\footnotesize
+\begin{tabular}{lccc}
+\toprule
+ & Elasticity to GACI & s.e. & Share of total (\%) \\
+\midrule
+\multicolumn{4}{l}{\textit{Scale components}} \\
+  Flights (frequency) & +6.976$^{***}$ & (0.570) & +123 \\
+  Seats per flight (aircraft gauge) & -0.303 & (0.226) & -5 \\
+  Km per flight (average stage length) & -0.605$^{***}$ & (0.211) & -11 \\
+  \textbf{Subtotal: scale (seat-km)} & +6.068$^{***}$ & (0.443) & +107 \\
+\multicolumn{4}{l}{\textit{Efficiency component}} \\
+  CO$_2$ per seat-km (carbon intensity) & -0.399$^{***}$ & (0.118) & -7 \\
+\midrule
+  \textbf{Total CO$_2$ (equals Table~\ref{tab:main}, column 1)} & +5.669$^{***}$ & (0.412) & +100 \\
+\midrule
+\multicolumn{4}{l}{\textit{Composition margins (memo)}} \\
+  LTO share of CO$_2$ & +0.014 & (0.025) & -- \\
+  International share of seat-km & +0.096$^{**}$ & (0.048) & -- \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Each row is a separate 2SLS regression of the log component on log GACI (capacity-weighted mean), instrumented by the Feyrer interaction, with log population and log sea market access, country and year fixed effects, and heteroskedasticity-robust standard errors; identical sample of 4,634 country-years, first-stage Kleibergen-Paap $F$ = 153.6. Because CO$_2$ = flights $\times$ seats per flight $\times$ km per flight $\times$ CO$_2$ per seat-km, the log elasticities add exactly to the total. Load factor is constant by construction (scheduled capacity) and cancels. Shares are component elasticity divided by the total. $^{***}$ $p<0.01$, $^{**}$ $p<0.05$, $^{*}$ $p<0.1$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+% ===== tab:decomp_hetero (ED) =====
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Extended Data Table: Decomposition of the CO$_2$ elasticity by group and segment}
+\label{tab:decomp_hetero}
+\scriptsize
+\begin{tabular}{lccccccc}
+\toprule
+ & Total CO$_2$ & Flights & Seats/flight & Km/flight & CO$_2$/seat-km & KP $F$ & $N$ \\
+\midrule
+\multicolumn{8}{l}{\textit{Panel A. Baseline income tercile (total CO$_2$ identity)}} \\
+  Low income & +10.40$^{***}$ (1.22) & +8.83$^{***}$ (1.23) & +0.92$^{**}$ (0.47) & +1.71$^{***}$ (0.46) & -1.06$^{***}$ (0.30) & 35.5 & 1,596 \\
+  Middle income & +6.14$^{***}$ (0.82) & +8.63$^{***}$ (1.27) & -0.44 (0.44) & -1.67$^{***}$ (0.45) & -0.37 (0.24) & 48.2 & 1,547 \\
+  High income & +1.83$^{*}$ (0.97) & +8.46$^{***}$ (2.92) & -3.30$^{**}$ (1.45) & -4.33$^{**}$ (1.79) & +1.01 (0.72) & 10.1 & 1,491 \\
+\multicolumn{8}{l}{\textit{Panel B. Baseline connectivity tercile}} \\
+  Low connectivity & +8.46$^{***}$ (0.67) & +9.09$^{***}$ (0.92) & +0.14 (0.39) & +0.27 (0.28) & -1.04$^{***}$ (0.20) & 117.6 & 1,453 \\
+  Middle connectivity & +5.07$^{***}$ (0.87) & +6.05$^{***}$ (1.06) & -0.13 (0.37) & -0.80 (0.56) & -0.04 (0.26) & 29.9 & 1,526 \\
+  High connectivity & +4.05$^{*}$ (2.13) & +19.60 (12.95) & -8.61 (6.59) & -8.77 (6.73) & +1.84 (1.69) & 1.8 & 1,655 \\
+\multicolumn{8}{l}{\textit{Panel C. Segment identities}} \\
+  International traffic, all countries & +5.69$^{***}$ (0.42) & +6.03$^{***}$ (0.46) & +0.58$^{***}$ (0.18) & -0.40$^{**}$ (0.18) & -0.52$^{***}$ (0.12) & 152.7 & 4,633 \\
+  Domestic traffic, all countries & -0.64 (1.13) & +0.79 (1.12) & -0.09 (0.39) & -1.11$^{***}$ (0.21) & -0.23 (0.26) & 99.6 & 3,558 \\
+  International, low income & +11.43$^{***}$ (1.34) & +9.78$^{***}$ (1.19) & +0.95$^{***}$ (0.34) & +1.84$^{***}$ (0.41) & -1.15$^{***}$ (0.34) & 35.2 & 1,595 \\
+  International, high income & +0.35 (1.11) & +6.28$^{***}$ (2.27) & -0.97 (1.04) & -5.24$^{***}$ (1.93) & +0.27 (0.62) & 10.1 & 1,491 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\scriptsize
+\item 2SLS elasticities to log GACI (Feyrer instrument; controls and fixed effects as in Table~\ref{tab:decomp}), estimated on the common sample of each block so that the four components sum to the total within each row. Panel C applies the identity separately to international and domestic departures; domestic rows exclude country-years without domestic traffic. The high-connectivity tercile has a weak first stage ($F$ = 1.8) and is reported for completeness only. Robust standard errors in parentheses. $^{***}$ $p<0.01$, $^{**}$ $p<0.05$, $^{*}$ $p<0.1$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

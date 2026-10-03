@@ -1,0 +1,43 @@
+\begin{table}[p]
+\centering
+\caption{Growth and its incidence by baseline hub size (countries grouped on $\mathrm{GACI}_{max}$ in 1996).}
+\label{tab:growth_stage}
+\begin{minipage}{\linewidth}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+ & ln GDP p.c. & Mean income & Bottom-30\% income & Bottom-30\% share & Top-30 minus bottom-30 & KP $F$ / N \\
+\midrule
+\multicolumn{7}{l}{\emph{Panel A. Median split on $\mathrm{GACI}_{max}$ in 1996}}\\
+Below median (smaller hubs): 2SLS & 1.748\sym{***} & 1.664\sym{***} & 1.403\sym{**} & -0.261 & 0.215 & 33.4 \\
+ & (0.402) & (0.358) & (0.537) & (0.364) & (0.457) & N = 2{,}170 \\
+\quad OLS & 0.855\sym{***} & 0.945\sym{***} & 0.931\sym{***} & -0.014 & 0.025 \\
+ & (0.184) & (0.205) & (0.282) & (0.108) & (0.150) \\
+Above median (larger hubs): 2SLS & 1.804 & 1.870 & -2.987 & -4.857 & 5.322 & 1.0 \\
+ & (1.751) & (2.052) & (5.216) & (5.454) & (6.002) & N = 2{,}367 \\
+\quad OLS & 0.821\sym{***} & 0.665\sym{***} & 0.641\sym{***} & -0.023 & 0.056 \\
+ & (0.156) & (0.172) & (0.172) & (0.090) & (0.106) \\
+\addlinespace\multicolumn{7}{l}{\emph{Panel B. Terciles}}\\
+Low: 2SLS & 2.371\sym{***} & 2.123\sym{***} & 2.737\sym{***} & 0.614 & -0.882\sym{*} & 26.4 \\
+ & (0.538) & (0.430) & (0.630) & (0.384) & (0.488) & N = 1{,}417 \\
+\quad OLS & 1.206\sym{***} & 1.257\sym{***} & 1.475\sym{***} & 0.218 & -0.305\sym{*} \\
+ & (0.121) & (0.119) & (0.188) & (0.135) & (0.174) \\
+Middle: 2SLS & 1.176\sym{**} & 1.099\sym{*} & -0.449 & -1.548\sym{**} & 1.779\sym{**} & 9.4 \\
+ & (0.574) & (0.628) & (0.851) & (0.623) & (0.718) & N = 1{,}513 \\
+\quad OLS & 0.716\sym{***} & 0.611\sym{***} & 0.482\sym{*} & -0.129 & 0.201\sym{*} \\
+ & (0.205) & (0.212) & (0.253) & (0.080) & (0.110) \\
+High: 2SLS & -1.380 & -0.114 & -9.729 & -9.615 & 10.584 & 0.2 \\
+ & (6.853) & (4.510) & (27.510) & (24.357) & (26.807) & N = 1{,}607 \\
+\quad OLS & 0.735\sym{***} & 0.654\sym{***} & 0.608\sym{***} & -0.046 & 0.081 \\
+ & (0.196) & (0.195) & (0.187) & (0.117) & (0.135) \\
+\addlinespace\multicolumn{7}{l}{\emph{Reference}}\\
+Full sample: 2SLS & 1.471\sym{***} & 1.320\sym{***} & 0.410 & -0.910\sym{*} & 0.951\sym{*} & 21.1 \\
+ & (0.410) & (0.420) & (0.631) & (0.498) & (0.573) & N = 4{,}537 \\
+\quad OLS & 0.810\sym{***} & 0.731\sym{***} & 0.728\sym{***} & -0.003 & 0.023 \\
+ & (0.113) & (0.122) & (0.148) & (0.065) & (0.084) \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}\begin{flushleft}\footnotesize Countries are grouped on their earliest observed $\mathrm{GACI}_{max}$ (1996 for most). GDP per capita from the World Development Indicators (constant 2015 US dollars). The instrument has no power among the largest hubs (upper half, top tercile), which are shown for completeness. Country-year panel of 178 economies, 1996--2023. All regressions include country and year fixed effects and log population. 2SLS instruments $\ln\mathrm{GACI}_{max}$ with the Feyrer interaction $Z_{ct}=a_t\times\ln\mathrm{MA}^{air}_{c,1996}$; KP $F$ is the Kleibergen--Paap $rk$ Wald statistic. Group incomes are the log average pretax national income of the group (WID, equal-split adults); shares are log income shares, computed as log group income minus log mean income so that all groups use the same sample. Standard errors clustered by country in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{flushleft}
+\end{minipage}
+\end{table}

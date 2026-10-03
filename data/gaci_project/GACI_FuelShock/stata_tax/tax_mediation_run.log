@@ -1,0 +1,647 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_tax\tax_mediation_run.log
+  log type:  text
+ opened on:   3 Oct 2026, 07:47:04
+
+. foreach p in ftools reghdfe ivreghdfe ivmediate {
+  2.     cap which `p'
+  3.     if _rc ssc install `p'
+  4. }
+
+. use "tax_mediation.dta", clear
+
+. describe, short
+
+Contains data from tax_mediation.dta
+ Observations:         8,574                  
+    Variables:            22                  03 Oct 2026 07:19
+Sorted by: 
+
+. tab stk treated if post == 1
+
+           |        treated
+       stk |         0          1 |     Total
+-----------+----------------------+----------
+         0 |       290          8 |       298 
+         1 |       269         34 |       303 
+         2 |       317          6 |       323 
+         3 |       182         50 |       232 
+         4 |       189         36 |       225 
+         5 |       297         55 |       352 
+         6 |       297         11 |       308 
+         7 |       196          2 |       198 
+-----------+----------------------+----------
+     Total |     2,037        202 |     2,239 
+
+. 
+. * ---------- A. ivmediate: all treated airports ----------
+. foreach m in ln_deg ln_gaci {
+  2.     di _n "==== ivmediate: Y = ln_co2, M = `m' ===="
+  3.     ivmediate ln_co2 bp i.fe_t, mediator(`m') treatment(dose_post) instrument(tp) absorb(fe_u) vce(cluster iso3n)
+  4.     di _n "==== ivmediate: Y = ln_int (CO2 per seat-km), M = `m' ===="
+  5.     ivmediate ln_int bp i.fe_t, mediator(`m') treatment(dose_post) instrument(tp) absorb(fe_u) vce(cluster iso3n)
+  6. }
+
+==== ivmediate: Y = ln_co2, M = ln_deg ====
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   ln_co2                                            Number of obs = 8574
+Treatment: dose_post                              Number of clusters (iso3n) = 33
+Mediator:  ln_deg
+                                    (Std. err. adjusted for 33 clusters in iso3n)
+---------------------------------------------------------------------------------
+                |               cluster
+ln_co2          | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |  -.0122306   .0053897    -2.27   0.023    -.0227943   -.0016669
+direct effect   |  -.0068945   .0042393    -1.63   0.104    -.0152034    .0014144
+indirect effect |  -.0053361   .0061186    -0.87   0.383    -.0173283    .0066561
+---------------------------------------------------------------------------------
+Mediator ln_deg explains 43.63% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   357.363
+- first stage two (M on Z|T):  2.061
+Excluded instruments: tp
+Standard errors clustered on iso3n
+---------------------------------------------------------------------------------
+
+==== ivmediate: Y = ln_int (CO2 per seat-km), M = ln_deg ====
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   ln_int                                            Number of obs = 8574
+Treatment: dose_post                              Number of clusters (iso3n) = 33
+Mediator:  ln_deg
+                                    (Std. err. adjusted for 33 clusters in iso3n)
+---------------------------------------------------------------------------------
+                |               cluster
+ln_int          | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   .0014256   .0012287     1.16   0.246    -.0009826    .0038338
+direct effect   |   .0058674   .0047806     1.23   0.220    -.0035024    .0152373
+indirect effect |  -.0044418   .0055259    -0.80   0.422    -.0152725    .0063888
+---------------------------------------------------------------------------------
+Mediator ln_deg explains -311.58% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   357.363
+- first stage two (M on Z|T):  2.061
+Excluded instruments: tp
+Standard errors clustered on iso3n
+---------------------------------------------------------------------------------
+
+==== ivmediate: Y = ln_co2, M = ln_gaci ====
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   ln_co2                                            Number of obs = 8574
+Treatment: dose_post                              Number of clusters (iso3n) = 33
+Mediator:  ln_gaci
+                                    (Std. err. adjusted for 33 clusters in iso3n)
+---------------------------------------------------------------------------------
+                |               cluster
+ln_co2          | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |  -.0122306   .0053897    -2.27   0.023    -.0227943   -.0016669
+direct effect   |  -.0083243   .0027686    -3.01   0.003    -.0137507   -.0028979
+indirect effect |  -.0039063   .0038562    -1.01   0.311    -.0114644    .0036518
+---------------------------------------------------------------------------------
+Mediator ln_gaci explains 31.94% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   357.363
+- first stage two (M on Z|T):  6.503
+Excluded instruments: tp
+Standard errors clustered on iso3n
+---------------------------------------------------------------------------------
+
+==== ivmediate: Y = ln_int (CO2 per seat-km), M = ln_gaci ====
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   ln_int                                            Number of obs = 8574
+Treatment: dose_post                              Number of clusters (iso3n) = 33
+Mediator:  ln_gaci
+                                    (Std. err. adjusted for 33 clusters in iso3n)
+---------------------------------------------------------------------------------
+                |               cluster
+ln_int          | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   .0014256   .0012287     1.16   0.246    -.0009826    .0038338
+direct effect   |   .0046772   .0037003     1.26   0.206    -.0025752    .0119296
+indirect effect |  -.0032516   .0035266    -0.92   0.357    -.0101636    .0036604
+---------------------------------------------------------------------------------
+Mediator ln_gaci explains -228.09% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   357.363
+- first stage two (M on Z|T):  6.503
+Excluded instruments: tp
+Standard errors clustered on iso3n
+---------------------------------------------------------------------------------
+
+. 
+. * ---------- B. ivmediate by size tercile (treated airports of one tercile vs all controls) ----------
+. foreach s in small mid large {
+  2.     preserve
+  3.     keep if treated == 0 | sz_`s' == 1
+  4.     di _n "==== ivmediate, `s' airports: Y = ln_co2, M = ln_deg ===="
+  5.     cap noisily ivmediate ln_co2 bp i.fe_t, mediator(ln_deg) treatment(dose_post) instrument(tp) absorb(fe_u) vce(cluster iso3n)
+  6.     restore
+  7. }
+(530 observations deleted)
+
+==== ivmediate, small airports: Y = ln_co2, M = ln_deg ====
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   ln_co2                                            Number of obs = 8044
+Treatment: dose_post                              Number of clusters (iso3n) = 33
+Mediator:  ln_deg
+                                    (Std. err. adjusted for 33 clusters in iso3n)
+---------------------------------------------------------------------------------
+                |               cluster
+ln_co2          | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |  -.0237908   .0095882    -2.48   0.013    -.0425832   -.0049983
+direct effect   |  -.0198396   .0170741    -1.16   0.245    -.0533043    .0136252
+indirect effect |  -.0039512   .0214401    -0.18   0.854     -.045973    .0380706
+---------------------------------------------------------------------------------
+Mediator ln_deg explains 16.61% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   188.216
+- first stage two (M on Z|T):  0.351
+Excluded instruments: tp
+Standard errors clustered on iso3n
+---------------------------------------------------------------------------------
+(537 observations deleted)
+
+==== ivmediate, mid airports: Y = ln_co2, M = ln_deg ====
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   ln_co2                                            Number of obs = 8037
+Treatment: dose_post                              Number of clusters (iso3n) = 33
+Mediator:  ln_deg
+                                    (Std. err. adjusted for 33 clusters in iso3n)
+---------------------------------------------------------------------------------
+                |               cluster
+ln_co2          | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |   -.008268   .0055348    -1.49   0.135     -.019116    .0025801
+direct effect   |   .0263576   .0752233     0.35   0.726    -.1210773    .1737925
+indirect effect |  -.0346256   .0807296    -0.43   0.668    -.1928527    .1236016
+---------------------------------------------------------------------------------
+Mediator ln_deg explains 418.79% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   292.416
+- first stage two (M on Z|T):  0.111
+Excluded instruments: tp
+Standard errors clustered on iso3n
+---------------------------------------------------------------------------------
+(520 observations deleted)
+
+==== ivmediate, large airports: Y = ln_co2, M = ln_deg ====
+Linear IV Mediation Analysis
+----------------------------
+Outcome:   ln_co2                                            Number of obs = 8054
+Treatment: dose_post                              Number of clusters (iso3n) = 33
+Mediator:  ln_deg
+                                    (Std. err. adjusted for 33 clusters in iso3n)
+---------------------------------------------------------------------------------
+                |               cluster
+ln_co2          | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+----------------+----------------------------------------------------------------
+total effect    |  -.0069258   .0047748    -1.45   0.147    -.0162842    .0024326
+direct effect   |   .0015807   .0106392     0.15   0.882    -.0192718    .0224331
+indirect effect |  -.0085065   .0184176    -0.46   0.644    -.0446042    .0275913
+---------------------------------------------------------------------------------
+Mediator ln_deg explains 122.82% of the total effect.
+Kleibergen-Paap F-statistic for excluded instruments in
+- first stage one (T on Z):   164.801
+- first stage two (M on Z|T):  0.102
+Excluded instruments: tp
+Standard errors clustered on iso3n
+---------------------------------------------------------------------------------
+
+. 
+. * ---------- C. Manual three-step (conservative, mediator as control) ----------
+. * total:   Y on tp;  mediator: M on tp;  direct: Y on tp and M;  indirect = total - direct (Gelbach identity)
+. foreach m in ln_deg ln_gaci {
+  2.     reghdfe ln_co2 tp bp, absorb(fe_u fe_t) vce(cluster iso3n)
+  3.     scalar tot_`m' = _b[tp]
+  4.     reghdfe `m' tp bp, absorb(fe_u fe_t) vce(cluster iso3n)
+  5.     scalar pi_`m' = _b[tp]
+  6.     reghdfe ln_co2 tp bp `m', absorb(fe_u fe_t) vce(cluster iso3n)
+  7.     scalar dir_`m' = _b[tp]
+  8.     scalar beta_`m' = _b[`m']
+  9.     di _n "Gelbach, M = `m': total " tot_`m' "  direct " dir_`m' "  indirect " tot_`m' - dir_`m' "  (= pi " pi_`m' " x beta " beta_`m' ")"  "  share " (tot_`
+> m' - dir_`m') / tot_`m'
+ 10. }
+(dropped 85 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      8,489
+Absorbing 2 HDFE groups                           F(   2,     32) =       2.45
+Statistics robust to heteroskedasticity           Prob > F        =     0.1022
+                                                  R-squared       =     0.9865
+                                                  Adj R-squared   =     0.9815
+                                                  Within R-sq.    =     0.0019
+Number of clusters (iso3n)   =         33         Root MSE        =     0.3399
+
+                                 (Std. err. adjusted for 33 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.1000931    .046165    -2.17   0.038    -.1941281   -.0060581
+          bp |  -.0421821   .0636553    -0.66   0.512    -.1718438    .0874796
+       _cons |   16.48237   .0025792  6390.57   0.000     16.47711    16.48762
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2243        2243           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 85 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      8,489
+Absorbing 2 HDFE groups                           F(   2,     32) =       3.94
+Statistics robust to heteroskedasticity           Prob > F        =     0.0295
+                                                  R-squared       =     0.9747
+                                                  Adj R-squared   =     0.9654
+                                                  Within R-sq.    =     0.0028
+Number of clusters (iso3n)   =         33         Root MSE        =     0.2724
+
+                                 (Std. err. adjusted for 33 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_deg | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.0969978   .0393774    -2.46   0.019    -.1772068   -.0167887
+          bp |   .0192927   .0368578     0.52   0.604    -.0557841    .0943696
+       _cons |   2.344266   .0016233  1444.12   0.000      2.34096    2.347573
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2243        2243           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 85 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      8,489
+Absorbing 2 HDFE groups                           F(   3,     32) =       8.45
+Statistics robust to heteroskedasticity           Prob > F        =     0.0003
+                                                  R-squared       =     0.9887
+                                                  Adj R-squared   =     0.9846
+                                                  Within R-sq.    =     0.1670
+Number of clusters (iso3n)   =         33         Root MSE        =     0.3105
+
+                                 (Std. err. adjusted for 33 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.0508783   .0322516    -1.58   0.125    -.1165726     .014816
+          bp |  -.0519709   .0581456    -0.89   0.378    -.1704096    .0664678
+      ln_deg |   .5073808   .1072723     4.73   0.000     .2888743    .7258873
+       _cons |   15.29293   .2505904    61.03   0.000      14.7825    15.80337
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2243        2243           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+Gelbach, M = ln_deg: total -.1000931  direct -.0508783  indirect -.0492148  (= pi -.09699776 x beta .5073808)  share .49169022
+(dropped 85 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      8,489
+Absorbing 2 HDFE groups                           F(   2,     32) =       2.45
+Statistics robust to heteroskedasticity           Prob > F        =     0.1022
+                                                  R-squared       =     0.9865
+                                                  Adj R-squared   =     0.9815
+                                                  Within R-sq.    =     0.0019
+Number of clusters (iso3n)   =         33         Root MSE        =     0.3399
+
+                                 (Std. err. adjusted for 33 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.1000931    .046165    -2.17   0.038    -.1941281   -.0060581
+          bp |  -.0421821   .0636553    -0.66   0.512    -.1718438    .0874796
+       _cons |   16.48237   .0025792  6390.57   0.000     16.47711    16.48762
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2243        2243           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 85 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      8,489
+Absorbing 2 HDFE groups                           F(   2,     32) =       3.34
+Statistics robust to heteroskedasticity           Prob > F        =     0.0480
+                                                  R-squared       =     0.9913
+                                                  Adj R-squared   =     0.9881
+                                                  Within R-sq.    =     0.0033
+Number of clusters (iso3n)   =         33         Root MSE        =     0.0362
+
+                                 (Std. err. adjusted for 33 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+     ln_gaci | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.0149482   .0058401    -2.56   0.015     -.026844   -.0030523
+          bp |  -.0026396   .0048634    -0.54   0.591    -.0125461    .0072668
+       _cons |  -.2567744   .0002042 -1257.54   0.000    -.2571904   -.2563585
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2243        2243           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 85 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      8,489
+Absorbing 2 HDFE groups                           F(   3,     32) =      10.64
+Statistics robust to heteroskedasticity           Prob > F        =     0.0001
+                                                  R-squared       =     0.9882
+                                                  Adj R-squared   =     0.9839
+                                                  Within R-sq.    =     0.1327
+Number of clusters (iso3n)   =         33         Root MSE        =     0.3168
+
+                                 (Std. err. adjusted for 33 clusters in iso3n)
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          tp |  -.0492417   .0302041    -1.63   0.113    -.1107654     .012282
+          bp |  -.0332025   .0583176    -0.57   0.573    -.1519915    .0855865
+     ln_gaci |    3.40185   .6616098     5.14   0.000     2.054195    4.749505
+       _cons |   17.35588   .1706537   101.70   0.000     17.00827    17.70349
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2243        2243           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+Gelbach, M = ln_gaci: total -.1000931  direct -.04924168  indirect -.05085142  (= pi -.01494817 x beta 3.4018503)  share .50804124
+
+. 
+. * ---------- D. 2SLS of CO2 on the mediator with tp as the instrument (the M -> Y link under exclusion) ----------
+. foreach m in ln_deg ln_gaci {
+  2.     ivreghdfe ln_co2 bp (`m' = tp), absorb(fe_u fe_t) cluster(iso3n)
+  3.     ivreghdfe ln_int bp (`m' = tp), absorb(fe_u fe_t) cluster(iso3n)
+  4. }
+(dropped 85 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on iso3n
+
+Number of clusters (iso3n) =        33                Number of obs =     8489
+                                                      F(  2,    32) =     4.49
+                                                      Prob > F      =   0.0191
+Total (centered) SS     =  719.1020004                Centered R2   =  -0.0095
+Total (uncentered) SS   =  719.1020004                Uncentered R2 =  -0.0095
+Residual SS             =   725.903611                Root MSE      =     .293
+
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      ln_deg |   1.031911   .3442702     3.00   0.005      .330656    1.733167
+          bp |  -.0620905   .0590068    -1.05   0.301    -.1822834    .0581023
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              3.479
+                                                   Chi-sq(1) P-val =    0.0621
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               20.991
+                         (Kleibergen-Paap rk Wald F statistic):          6.069
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_deg
+Included instruments: bp
+Excluded instruments: tp
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2243        2243           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 85 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on iso3n
+
+Number of clusters (iso3n) =        33                Number of obs =     8489
+                                                      F(  2,    32) =     1.09
+                                                      Prob > F      =   0.3483
+Total (centered) SS     =  128.8934397                Centered R2   =   0.0265
+Total (uncentered) SS   =  128.8934397                Uncentered R2 =   0.0265
+Residual SS             =  125.4758425                Root MSE      =    .1218
+
+------------------------------------------------------------------------------
+             |               Robust
+      ln_int | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      ln_deg |  -.1202797    .108335    -1.11   0.275     -.340951    .1003916
+          bp |   -.004819   .0109419    -0.44   0.663    -.0271069    .0174689
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              3.479
+                                                   Chi-sq(1) P-val =    0.0621
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               20.991
+                         (Kleibergen-Paap rk Wald F statistic):          6.069
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_deg
+Included instruments: bp
+Excluded instruments: tp
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2243        2243           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 85 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on iso3n
+
+Number of clusters (iso3n) =        33                Number of obs =     8489
+                                                      F(  2,    32) =     7.39
+                                                      Prob > F      =   0.0023
+Total (centered) SS     =  719.1020004                Centered R2   =   0.0100
+Total (uncentered) SS   =  719.1020004                Uncentered R2 =   0.0100
+Residual SS             =  711.8809565                Root MSE      =    .2901
+
+------------------------------------------------------------------------------
+             |               Robust
+      ln_co2 | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |   6.696012   1.750568     3.83   0.001     3.130221     10.2618
+          bp |  -.0245072   .0572294    -0.43   0.671    -.1410796    .0920653
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              3.712
+                                                   Chi-sq(1) P-val =    0.0540
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               28.276
+                         (Kleibergen-Paap rk Wald F statistic):          6.552
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci
+Included instruments: bp
+Excluded instruments: tp
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2243        2243           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(dropped 85 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on iso3n
+
+Number of clusters (iso3n) =        33                Number of obs =     8489
+                                                      F(  2,    32) =     0.78
+                                                      Prob > F      =   0.4650
+Total (centered) SS     =  128.8934397                Centered R2   =   0.0233
+Total (uncentered) SS   =  128.8934397                Uncentered R2 =   0.0233
+Residual SS             =  125.8859207                Root MSE      =     .122
+
+------------------------------------------------------------------------------
+             |               Robust
+      ln_int | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     ln_gaci |  -.7804877   .7898621    -0.99   0.331    -2.389384    .8284087
+          bp |  -.0091997   .0103535    -0.89   0.381    -.0302892    .0118897
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              3.712
+                                                   Chi-sq(1) P-val =    0.0540
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               28.276
+                         (Kleibergen-Paap rk Wald F statistic):          6.552
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci
+Included instruments: bp
+Excluded instruments: tp
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |      2243        2243           0    *|
+        fe_t |        31           1          30     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_tax\tax_mediation_run.log
+  log type:  text
+ closed on:   3 Oct 2026, 07:47:20
+------------------------------------------------------------------------------------------------------------------------------------------------------------------

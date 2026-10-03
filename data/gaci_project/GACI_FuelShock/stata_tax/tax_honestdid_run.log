@@ -1,0 +1,106 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_tax\tax_honestdid_run.log
+  log type:  text
+ opened on:   3 Oct 2026, 07:46:17
+
+. cap which reghdfe
+
+. if _rc ssc install reghdfe
+
+. cap which ftools
+
+. if _rc ssc install ftools
+
+. cap which honestdid
+
+. if _rc net install honestdid, from("https://raw.githubusercontent.com/mcaceresb/stata-honestdid/main") replace
+checking honestdid consistency and verifying not already installed...
+installing into C:\Users\sunbi\ado\plus\...
+installation complete.
+
+. use "tax_es_stack.dta", clear
+
+. reghdfe ln_seats T_pre36_25 T_pre24_13 T_post0_11 T_post12_23 B50_pre36_25 B50_pre24_13 B50_post0_11 B50_post12_23 B150_pre36_25 B150_pre24_13 B150_post0_11 B15
+> 0_post12_23 B300_pre36_25 B300_pre24_13 B300_post0_11 B300_post12_23, absorb(fe_u fe_t) vce(cluster iso3n)
+(dropped 1188 singleton observations)
+(MWFE estimator converged in 6 iterations)
+
+HDFE Linear regression                            Number of obs   =    120,528
+Absorbing 2 HDFE groups                           F(  16,     32) =      28.26
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9828
+                                                  Adj R-squared   =     0.9779
+                                                  Within R-sq.    =     0.0045
+Number of clusters (iso3n)   =         33         Root MSE        =     0.3182
+
+                                   (Std. err. adjusted for 33 clusters in iso3n)
+--------------------------------------------------------------------------------
+               |               Robust
+      ln_seats | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+---------------+----------------------------------------------------------------
+    T_pre36_25 |  -.0562664   .0477875    -1.18   0.248    -.1536062    .0410735
+    T_pre24_13 |  -.0299613   .0240467    -1.25   0.222    -.0789429    .0190203
+    T_post0_11 |  -.1284384   .0323565    -3.97   0.000    -.1943465   -.0625303
+   T_post12_23 |  -.1596033    .042834    -3.73   0.001    -.2468534   -.0723533
+  B50_pre36_25 |   .1855728   .1011925     1.83   0.076    -.0205495     .391695
+  B50_pre24_13 |   .1327299    .068607     1.93   0.062     -.007018    .2724778
+  B50_post0_11 |  -.1053312   .0597557    -1.76   0.088    -.2270495    .0163871
+ B50_post12_23 |  -.0857854   .1097106    -0.78   0.440    -.3092587    .1376878
+ B150_pre36_25 |   .0431291   .0454978     0.95   0.350    -.0495469    .1358051
+ B150_pre24_13 |   .0015839   .0279791     0.06   0.955    -.0554078    .0585755
+ B150_post0_11 |  -.0047392   .0360452    -0.13   0.896    -.0781607    .0686824
+B150_post12_23 |  -.0312586   .0564591    -0.55   0.584     -.146262    .0837449
+ B300_pre36_25 |  -.0495724   .0348138    -1.42   0.164    -.1204858    .0213411
+ B300_pre24_13 |   .0004832   .0235837     0.02   0.984    -.0475553    .0485216
+ B300_post0_11 |  -.0197675   .0270418    -0.73   0.470    -.0748499     .035315
+B300_post12_23 |   -.006768   .0333343    -0.20   0.840    -.0746677    .0611316
+         _cons |   9.790919   .0024305  4028.44   0.000     9.785968     9.79587
+--------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+        fe_u |     26520       26520           0    *|
+        fe_t |       457           1         456     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. * relative magnitudes: post-period violations up to Mbar times the largest pre-period violation
+. honestdid, pre(1/2) post(3/4) mvec(0(0.5)2) delta(rm)
+Warning: M = 0 with Delta^RM imposes exact parallel trends in the
+post-treatment period, even if pre-treatment parallel trends is violated
+
+|    M    |   lb   |   ub   |
+| ------- | ------ | ------ |
+|       . | -0.192 | -0.065 | (Original)
+|  0.0000 | -0.190 | -0.067 | 
+|  0.5000 | -0.195 | -0.040 | 
+|  1.0000 | -0.209 | -0.006 | 
+|  1.5000 | -0.233 |  0.030 | 
+|  2.0000 | -0.261 |  0.068 | 
+(method = C-LF, Delta = DeltaRM, alpha = 0.050)
+
+. * smoothness: deviations from a linear pre-trend bounded by M (log points per year)
+. honestdid, pre(1/2) post(3/4) mvec(0(0.01)0.05)
+Warning: M = 0 with Delta^RM imposes exact parallel trends in the
+post-treatment period, even if pre-treatment parallel trends is violated
+
+|    M    |   lb   |   ub   |
+| ------- | ------ | ------ |
+|       . | -0.192 | -0.065 | (Original)
+|  0.0000 | -0.190 | -0.067 | 
+|  0.0100 | -0.190 | -0.067 | 
+|  0.0200 | -0.190 | -0.066 | 
+|  0.0300 | -0.190 | -0.066 | 
+|  0.0400 | -0.190 | -0.064 | 
+|  0.0500 | -0.190 | -0.064 | 
+(method = C-LF, Delta = DeltaRM, alpha = 0.050)
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_FuelShock\stata_tax\tax_honestdid_run.log
+  log type:  text
+ closed on:   3 Oct 2026, 07:46:30
+------------------------------------------------------------------------------------------------------------------------------------------------------------------

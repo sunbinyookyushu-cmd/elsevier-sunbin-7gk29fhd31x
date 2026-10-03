@@ -1,0 +1,365 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do co2_rf_quintile.do 
+
+. *============================================================================
+> ==
+. * co2_rf_quintile.do
+. * Flexible (quintile-bin) reduced-form heterogeneity of the instrument effect
+. * on ln CO2 (bunker), by baseline income, baseline connectivity, remoteness.
+. * Mirror of the trade paper gaci_rf_nonlinear.do (Yifu comment 3).
+. * Output: batch log + _co2_rf_quintile_intl.csv
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_CO2"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2
+
+. 
+. import delimited "gaci_co2_panel.csv", clear varnames(1) encoding("utf-8")
+(73 vars, 4,643 obs)
+
+. ds c reg, not
+y             lng           gaci_cwmean   unesco_cum~t  lnpop         deg_sum       close_sum     regimp_sum    tour_shift    tourism_int   mix_e         z_cult        dep_seats     arr_co2_cr~g  n_dep_flig~l  dep_co2_cr~l  co2_5050_i~l  ln_co2_bun~l
+trade_share   ln_gaci_cwm   gaci_mean     lnz           lnland        deg_mean      close_mean    regimp_mean   nat_endow     tourism_cum   cult_e        gaci_max      dep_seat_km   co2_lto       dep_seats_~l  arr_co2_cr~l  ln_co2_bun~r  ln_seatkm
+ln_tradevol   ln_gaci_mean  ln_unesco     lnz_own       abslat        eig_sum       betw_sum      cap_sum       merch_share   ln_remote     z_nat         ln_gaci_max   n_arr_flig~s  co2_bunker    dep_seat_k~l  co2_lto_intl  ln_co2_lto    ln_flights
+lngdp         lncap         unesco_cum    lnpc          n_air         eig_mean      betw_mean     cap_mean      merch_inte~y  nat_e         z_mix         n_dep_flig~s  dep_co2_cr~g  co2_5050      n_arr_flig~l  co2_bunker~l  ln_co2_5050
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+nat_e already numeric; no replace
+mix_e already numeric; no replace
+cult_e already numeric; no replace
+z_nat already numeric; no replace
+z_mix already numeric; no replace
+z_cult already numeric; no replace
+gaci_max already numeric; no replace
+ln_gaci_max already numeric; no replace
+n_dep_flights already numeric; no replace
+dep_seats already numeric; no replace
+dep_seat_km already numeric; no replace
+n_arr_flights already numeric; no replace
+dep_co2_cruise_kg already numeric; no replace
+arr_co2_cruise_kg already numeric; no replace
+co2_lto already numeric; no replace
+co2_bunker already numeric; no replace
+co2_5050 already numeric; no replace
+n_dep_flights_intl already numeric; no replace
+dep_seats_intl already numeric; no replace
+dep_seat_km_intl already numeric; no replace
+n_arr_flights_intl already numeric; no replace
+dep_co2_cruise_kg_intl already numeric; no replace
+arr_co2_cruise_kg_intl already numeric; no replace
+co2_lto_intl already numeric; no replace
+co2_bunker_intl already numeric; no replace
+co2_5050_intl already numeric; no replace
+ln_co2_bunker already numeric; no replace
+ln_co2_lto already numeric; no replace
+ln_co2_5050 already numeric; no replace
+ln_co2_bunker_intl already numeric; no replace
+ln_seatkm already numeric; no replace
+ln_flights already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. 
+. capture which reghdfe
+
+. if _rc {
+.     ssc install ftools, replace
+.     ssc install reghdfe, replace
+. }
+
+. 
+. gen tmp = lnpc if y==1996
+(4,493 missing values generated)
+
+. bysort isocode: egen base_lnpc = max(tmp)
+(522 missing values generated)
+
+. drop tmp
+
+. gen tmp = ln_gaci_cwm if y==1996
+(4,493 missing values generated)
+
+. bysort isocode: egen base_cwm = max(tmp)
+(522 missing values generated)
+
+. drop tmp
+
+. 
+. gen byte insamp = !missing(ln_co2_bunker_intl) & !missing(lnpop) & !missing(tourism_int)
+
+. preserve
+
+. keep if insamp
+(0 observations deleted)
+
+. collapse (first) base_lnpc base_cwm ln_remote, by(isocode)
+
+. xtile q_inc = base_lnpc, nq(5)
+
+. xtile q_con = base_cwm, nq(5)
+
+. xtile q_rem = ln_remote, nq(5)
+
+. tempfile qq
+
+. save `qq'
+file C:\Users\sunbi\AppData\Local\Temp\ST_b320_000002.tmp saved
+
+. restore
+
+. merge m:1 isocode using `qq', nogen keepusing(q_inc q_con q_rem)
+(label isocode already defined)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                             4,643  
+    -----------------------------------------
+
+. 
+. tempname R
+
+. postfile `R' str8 mod byte bin double(b se) long(nn) using "_co2_rf_tmp2", replace
+(note: file _co2_rf_tmp2.dta not found)
+
+. 
+. foreach m in inc con rem {
+  2.     di _n "==================== MODERATOR: `m' ===================="
+  3.     reghdfe ln_co2_bunker_intl ibn.q_`m'#c.tourism_int lnpop, absorb(isocode y) vce(robust)
+  4.     local nn = e(N)
+  5.     forvalues k = 1/5 {
+  6.         local bb = _b[`k'.q_`m'#c.tourism_int]
+  7.         local sse = _se[`k'.q_`m'#c.tourism_int]
+  8.         di "  Q`k': b = " %9.4f `bb' "  se = " %9.4f `sse'
+  9.         post `R' ("`m'") (`k') (`bb') (`sse') (`nn')
+ 10.     }
+ 11. }
+
+==================== MODERATOR: inc ====================
+(MWFE estimator converged in 4 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,121
+Absorbing 2 HDFE groups                           F(   6,   3938) =       6.36
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.9627
+                                                  Adj R-squared   =     0.9610
+                                                  Within R-sq.    =     0.0130
+                                                  Root MSE        =     0.3958
+
+-------------------------------------------------------------------------------------
+                    |               Robust
+ ln_co2_bunker_intl |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------------+----------------------------------------------------------------
+q_inc#c.tourism_int |
+                 1  |   .2891903   .0778652     3.71   0.000     .1365303    .4418502
+                 2  |   .1619028   .0715321     2.26   0.024     .0216595    .3021462
+                 3  |   .1543266   .0527269     2.93   0.003     .0509521    .2577012
+                 4  |   .1713018   .0517785     3.31   0.001     .0697865     .272817
+                 5  |   .0137494   .0375567     0.37   0.714    -.0598829    .0873818
+                    |
+              lnpop |   .2777634   .1069459     2.60   0.009     .0680889    .4874379
+              _cons |   15.31872   1.705333     8.98   0.000      11.9753    18.66214
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       150           0         150     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+  Q1: b =    0.2892  se =    0.0779
+  Q2: b =    0.1619  se =    0.0715
+  Q3: b =    0.1543  se =    0.0527
+  Q4: b =    0.1713  se =    0.0518
+  Q5: b =    0.0137  se =    0.0376
+
+==================== MODERATOR: con ====================
+(MWFE estimator converged in 4 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,121
+Absorbing 2 HDFE groups                           F(   6,   3938) =       7.97
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.9630
+                                                  Adj R-squared   =     0.9613
+                                                  Within R-sq.    =     0.0206
+                                                  Root MSE        =     0.3943
+
+-------------------------------------------------------------------------------------
+                    |               Robust
+ ln_co2_bunker_intl |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------------+----------------------------------------------------------------
+q_con#c.tourism_int |
+                 1  |   .5580676   .1235717     4.52   0.000      .315797    .8003382
+                 2  |   .0431674   .0845959     0.51   0.610    -.1226885    .2090232
+                 3  |   .1237609   .0662608     1.87   0.062    -.0061478    .2536696
+                 4  |   .2468338   .0548409     4.50   0.000     .1393147     .354353
+                 5  |   .0494474   .0338598     1.46   0.144    -.0169369    .1158318
+                    |
+              lnpop |   .2782499   .1053285     2.64   0.008     .0717465    .4847534
+              _cons |   15.30393    1.67919     9.11   0.000     12.01177     18.5961
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       150           0         150     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+  Q1: b =    0.5581  se =    0.1236
+  Q2: b =    0.0432  se =    0.0846
+  Q3: b =    0.1238  se =    0.0663
+  Q4: b =    0.2468  se =    0.0548
+  Q5: b =    0.0494  se =    0.0339
+
+==================== MODERATOR: rem ====================
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,634
+Absorbing 2 HDFE groups                           F(   6,   4419) =       8.48
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.9599
+                                                  Adj R-squared   =     0.9579
+                                                  Within R-sq.    =     0.0178
+                                                  Root MSE        =     0.4209
+
+-------------------------------------------------------------------------------------
+                    |               Robust
+ ln_co2_bunker_intl |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------------+----------------------------------------------------------------
+q_rem#c.tourism_int |
+                 1  |    .133885   .0500465     2.68   0.007     .0357688    .2320012
+                 2  |   .1421599   .0594007     2.39   0.017     .0257047     .258615
+                 3  |  -.1288544   .0610517    -2.11   0.035    -.2485462   -.0091625
+                 4  |   .1083044   .0505939     2.14   0.032     .0091149    .2074939
+                 5  |   .1878531   .0468313     4.01   0.000     .0960403     .279666
+                    |
+              lnpop |   .4691508   .0985242     4.76   0.000     .2759941    .6623075
+              _cons |   12.27256   1.550778     7.91   0.000     9.232256    15.31286
+-------------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+  Q1: b =    0.1339  se =    0.0500
+  Q2: b =    0.1422  se =    0.0594
+  Q3: b =   -0.1289  se =    0.0611
+  Q4: b =    0.1083  se =    0.0506
+  Q5: b =    0.1879  se =    0.0468
+
+. 
+. postclose `R'
+
+. use "_co2_rf_tmp2", clear
+
+. list, clean
+
+       mod   bin            b          se     nn  
+  1.   inc     1    .28919026    .0778652   4121  
+  2.   inc     2    .16190285   .07153206   4121  
+  3.   inc     3    .15432665    .0527269   4121  
+  4.   inc     4    .17130178   .05177853   4121  
+  5.   inc     5    .01374944   .03755667   4121  
+  6.   con     1    .55806759   .12357174   4121  
+  7.   con     2    .04316737   .08459587   4121  
+  8.   con     3     .1237609   .06626081   4121  
+  9.   con     4    .24683383   .05484086   4121  
+ 10.   con     5    .04944742   .03385978   4121  
+ 11.   rem     1    .13388499   .05004648   4634  
+ 12.   rem     2    .14215986   .05940071   4634  
+ 13.   rem     3   -.12885436   .06105168   4634  
+ 14.   rem     4    .10830439   .05059394   4634  
+ 15.   rem     5    .18785313   .04683132   4634  
+
+. export delimited "_co2_rf_quintile_intl.csv", replace
+file _co2_rf_quintile_intl.csv saved
+
+. erase "_co2_rf_tmp2.dta"
+
+. di _n "DONE_CO2_RF"
+
+DONE_CO2_RF
+
+. 
+end of do-file

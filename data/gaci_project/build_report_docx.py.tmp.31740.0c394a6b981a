@@ -1,0 +1,282 @@
+# -*- coding: utf-8 -*-
+"""Assemble the co-author report (7 sections) into one Word file."""
+import json
+import pandas as pd
+from docx import Document
+from docx.shared import Pt, Inches
+from docx.enum.section import WD_ORIENT
+
+def star(p):
+    try: p = float(p)
+    except Exception: return ''
+    return '***' if p < .01 else '**' if p < .05 else '*' if p < .1 else ''
+
+OUT = ['g_vol', 'g_int', 'g_shr', 'lnpc', 'lngdp']
+OLAB = {'g_vol': 'Ln goods\nvolume', 'g_int': 'Goods openness\nln(goods/GDP)', 'g_shr': 'Goods share\n(% GDP)',
+        'lnpc': 'Ln GDP\nper capita', 'lngdp': 'Ln GDP\n(total)'}
+DEC = {'g_vol': 3, 'g_int': 3, 'g_shr': 2, 'lnpc': 3, 'lngdp': 3}
+
+main, mF, mN = {}, {}, {}
+for ln in open('gaci_tourism_main.log', encoding='utf-8', errors='replace'):
+    ln = ln.strip()
+    if ln.startswith('MAINP|'):
+        _, tr, yv, b, sr, pr, sc, pc, F, ob, op, N = ln.split('|')
+        main[(tr, yv)] = dict(b=float(b), sr=float(sr), pr=float(pr), sc=float(sc), pc=float(pc), ob=float(ob), op=float(op))
+        mF[tr] = float(F); mN[tr] = int(float(N))
+het, hF = {}, {}
+for ln in open('gaci_tourism_hetero2.log', encoding='utf-8', errors='replace'):
+    ln = ln.strip()
+    if ln.startswith('RES2|'):
+        q = ln.split('|')
+        if q[3] == 'FAIL': continue
+        het[(q[2], q[1])] = (float(q[3]), float(q[4]), float(q[5])); hF[q[2]] = float(q[6])
+GLAB = {'all': 'All (pooled)', 'gaci_below': '1996 GACI < median', 'gaci_above': '1996 GACI > median',
+        'gdp_below': '1996 GDP < median', 'gdp_above': '1996 GDP > median', 'region_AF': 'Africa', 'region_AS': 'Asia',
+        'region_EU': 'Europe', 'region_LA': 'Latin America', 'region_ME': 'Middle East', 'region_NA': 'North America', 'region_SW': 'Pacific/SW'}
+GORD = ['all', 'gaci_below', 'gaci_above', 'gdp_below', 'gdp_above', 'region_AF', 'region_AS', 'region_EU', 'region_LA', 'region_ME', 'region_NA', 'region_SW']
+sh = {}
+for ln in open('gaci_shock_export2.log', encoding='utf-8', errors='replace'):
+    ln = ln.strip()
+    if ln.startswith('SHOCK2|'):
+        _, yv, v, b, se, p, F, N = ln.split('|')
+        sh[(yv, v)] = dict(b=float(b), se=float(se), p=float(p), F=F, N=int(float(N)))
+SS = pd.read_csv('_sumstats.csv')
+AG = json.load(open('_aggregates.json'))
+
+doc = Document()
+s = doc.sections[0]; s.orientation = WD_ORIENT.PORTRAIT; s.page_width, s.page_height = Inches(8.5), Inches(11)
+for m in ('left_margin', 'right_margin', 'top_margin', 'bottom_margin'): setattr(s, m, Inches(0.7))
+doc.styles['Normal'].font.name = 'Times New Roman'; doc.styles['Normal'].font.size = Pt(9)
+
+def H(t, lvl=1): doc.add_heading(t, level=lvl)
+def P(t, sz=10, it=False):
+    pp = doc.add_paragraph(); r = pp.add_run(t); r.font.size = Pt(sz); r.italic = it
+    pp.paragraph_format.space_after = Pt(4); return pp
+def B(t):
+    pp = doc.add_paragraph(style='List Bullet'); pp.add_run(t); return pp
+def ital(t, sz=8): P(t, sz, True)
+def bold_hdr(cells):
+    for c in cells:
+        for pa in c.paragraphs:
+            for r in pa.runs: r.bold = True
+
+doc.add_heading('Research Plan: Air Connectivity, Trade, and Income (A Global IV Study)', 0)
+P('Draft research plan for co-authors. Global air connectivity (GACI) panel, 184 countries, 1996-2023. '
+  'Air connectivity instrumented by a tourism-heritage Bartik instrument; merchandise (goods) trade outcome.', 9, True)
+
+# ===== 1. SUMMARY STATS + MAPS =====
+H('1. Summary statistics and maps', 1)
+t = doc.add_table(rows=0, cols=7); t.style = 'Table Grid'
+hd = t.add_row().cells
+for j, lab in enumerate(['Variable', 'N', 'Mean', 'SD', 'Median', 'Min', 'Max']): hd[j].text = lab
+bold_hdr(hd)
+for _, r in SS.iterrows():
+    c = t.add_row().cells
+    c[0].text = str(r['var']); c[1].text = f"{int(r['n']):,}"
+    for j, k in enumerate(['mean', 'sd', 'p50', 'mn', 'mx']):
+        c[j + 2].text = f"{r[k]:,.2f}"
+ital('Analysis sample 1996-2023. GACI = Global Air Connectivity Index (network centrality of a country\'s airports).')
+P('')
+doc.add_picture('GACI_base_map.png', width=Inches(7.0))
+ital('Figure 1. Air connectivity levels, 2023 (yellow = highly connected: US, China, large European hubs).')
+doc.add_picture('GACI_implied_map.png', width=Inches(7.0))
+ital('Figure 2. GACI-implied goods-trade gain from connectivity growth, 1996-2023, intensity (openness) channel: '
+     'implied gain = goods-trade value x (1 - exp(-beta x change in ln hub-quality)), beta 1.302. Red = gain, blue = loss '
+     '(connectivity declined), grey = no data. Color scale capped at the 95th percentile so a few large economies '
+     '(e.g. China) do not wash out the rest.')
+
+# ===== DATA SOURCES (tourism instrument) =====
+H('Data sources for the tourism instrument', 2)
+for b in [
+    'UNESCO World Heritage sites - the instrument "share" (fixed tourism endowment): official list from the UNESCO '
+    'World Heritage Centre (whc.unesco.org / data.unesco.org export), cumulative count of NATURAL and MIXED sites by '
+    'country and year. We use natural/mixed only (not cultural), so the amenity is nature-based and not tied to goods trade.',
+    'Global tourism demand - the instrument "shift" (time-varying): World Bank WDI international tourist arrivals, world '
+    'aggregate (indicator ST.INT.ARVL), 1996-2019, extended to 2020-2023 using UNWTO World Tourism Barometer recovery '
+    'ratios so the 2020 COVID collapse and subsequent recovery enter the instrument.',
+    'Instrument construction: tourism_int = (world tourism demand, min-max scaled to [0,1]) x ln(1 + natural-heritage '
+    'endowment). Heritage is country-fixed and tourism demand is global, so only their interaction varies within country '
+    'over time and survives country and year fixed effects.',
+    'Outcome - goods (merchandise) trade, % of GDP: World Bank WDI indicator TG.VAL.TOTL.GD.ZS. Services and tourism are '
+    'excluded by construction; this is essential, because it shuts down the channel through which tourism receipts would '
+    'otherwise enter the trade variable directly and break the exclusion restriction.',
+    'Supporting data: GACI (lab index from OAG schedules); population, GDP and GDP per capita (World Bank WDI); airport '
+    'coordinates (OpenFlights, OurAirports); country boundaries for maps (Natural Earth).']:
+    B(b)
+
+# ===== 2. OBJECTIVES =====
+H('2. Research objectives', 1)
+for b in [
+    'Estimate the causal effect of air connectivity on goods trade and on income across 184 countries, 1996-2023.',
+    'Identify the effect with a tourism-heritage instrument that isolates leisure-driven connectivity and has a clean '
+    'exclusion restriction for goods trade (heritage does not directly cause merchandise trade).',
+    'Characterise heterogeneity across development level, country size, baseline connectivity, and world region.',
+    'Quantify how two decades of connectivity growth contributed to global trade and GDP.',
+    'Measure the trade and income losses caused by connectivity collapses during major shocks (COVID-19; Russia-Ukraine war).']:
+    B(b)
+
+# ===== 3. IDENTIFICATION =====
+H('3. Identification strategy (brief)', 1)
+P('We instrument national air connectivity with a shift-share (Bartik) interaction: a country\'s fixed natural/mixed '
+  'UNESCO heritage endowment (the "share", a tourism-amenity stock) times the global tourism-demand boom (the "shift", '
+  'time-varying). Natural heritage draws leisure flights and hence connectivity, but does not directly generate '
+  'merchandise trade; using goods-only trade as the outcome removes the tourism-services channel. The instrument '
+  'therefore moves goods trade only through connectivity. All models include country and year fixed effects, so '
+  'fixed national characteristics and common global trends are absorbed. For the hub-quality treatment (ln_gaci_cwm, '
+  'our main variable) the instrument is strong on the full 1996-2023 sample (first-stage Kleibergen-Paap F ~ 18), '
+  'comfortably above conventional weak-instrument thresholds; for the total-connectivity (sum) treatment the full-'
+  'sample F is lower (~ 10) because that instrument weakens during the 2020-2021 global tourism shutdown. Results '
+  'are reported on the full sample.')
+
+# ===== 4. WHY GACI (vs DiD) =====
+H('4. Advantages of a connectivity-index design (vs. difference-in-differences)', 1)
+for b in [
+    'Continuous, dose-response treatment: GACI measures the intensity and network position of connectivity rather than '
+    'a binary treated/untreated event, so we recover an elasticity, not a single discrete jump.',
+    'Captures network spillovers: as a centrality measure, GACI rises when a country\'s partners gain links, so indirect '
+    '(second-order) connectivity is included; a route-level DiD treating one link at a time misses these spillovers.',
+    'Symmetric in gains and losses: the same index tracks connectivity collapses (COVID groundings, war-driven airspace '
+    'closures), allowing us to quantify negative shocks - which opening-based DiD designs cannot study.',
+    'Global balanced panel: 184 countries over 28 years, rather than a single-country or single-corridor DiD setting.',
+    'Supports counterfactual aggregation: the continuous treatment lets us translate connectivity changes into implied '
+    'global trade and GDP effects (Sections 6-7).']:
+    B(b)
+
+# ===== 5. REGRESSIONS =====
+H('5. Regression results', 1)
+P('Two-stage least squares; country and year fixed effects; goods = merchandise trade (services/tourism excluded). '
+  'Robust SE in (parentheses), clustered SE in [brackets]. * p<0.10, ** p<0.05, *** p<0.01 (robust); "+" = 5% under clustering.', 9, True)
+P('Because ln(goods) = ln(goods/GDP) + ln(GDP), the IV elasticities decompose exactly: the goods-VOLUME elasticity '
+  '(2.303) equals the openness/intensity elasticity (1.302) plus the GDP-scale elasticity (1.001). The counterfactuals '
+  'in Sections 6-7 use the intensity elasticity (1.302), which isolates the pure trade-intensity channel and avoids '
+  'double-counting connectivity-induced GDP growth as additional trade.', 9)
+
+doc.add_heading('Table 1. Main results: OLS vs. IV (1996-2023)', 2)
+t1 = doc.add_table(rows=0, cols=6); t1.style = 'Table Grid'
+h = t1.add_row().cells; h[0].text = ''
+for j, o in enumerate(OUT): h[j + 1].text = OLAB[o]
+bold_hdr(h)
+def panel(tr, title):
+    rr = t1.add_row().cells; rr[0].merge(rr[5]); rr[0].paragraphs[0].add_run(title).bold = True
+    for lab, kind in [('Air connectivity (IV)', 'iv'), ('   Robust SE', 'sr'), ('   Clustered SE', 'sc'),
+                      ('OLS benchmark', 'ols'), ('First-stage KP F', 'F'), ('Observations', 'N')]:
+        r = t1.add_row().cells; r[0].text = lab
+        for j, o in enumerate(OUT):
+            dd = main.get((tr, o)); dec = DEC[o]
+            if dd is None: continue
+            if kind == 'iv': r[j + 1].text = f"{dd['b']:,.{dec}f}{star(dd['pr'])}"
+            elif kind == 'sr': r[j + 1].text = f"({dd['sr']:,.{dec}f})"
+            elif kind == 'sc': r[j + 1].text = f"[{dd['sc']:,.{dec}f}]" + ('+' if dd['pc'] < .05 else '')
+            elif kind == 'ols': r[j + 1].text = f"{dd['ob']:,.{dec}f}{star(dd['op'])}"
+            elif kind == 'F': r[j + 1].text = f"{mF[tr]:.1f}"
+            elif kind == 'N': r[j + 1].text = f"{mN[tr]:,}"
+panel('ln_gaci_cwm', 'Panel A. Treatment = hub quality (log capacity-weighted-mean GACI) [MAIN]')
+panel('lng', 'Panel B. Treatment = total connectivity (log GACI sum)')
+
+doc.add_heading('Table 2. Heterogeneity by 1996 GACI, 1996 GDP, and region (1996-2023)', 2)
+t2 = doc.add_table(rows=0, cols=7); t2.style = 'Table Grid'
+h2 = t2.add_row().cells; h2[0].text = 'Subsample'
+for j, o in enumerate(OUT): h2[j + 1].text = OLAB[o]
+h2[6].text = 'KP F'; bold_hdr(h2)
+for g in GORD:
+    if g not in hF: continue
+    r = t2.add_row().cells; r[0].paragraphs[0].add_run(GLAB[g]).bold = (g == 'all')
+    for j, o in enumerate(OUT):
+        if (g, o) in het:
+            b, se, p = het[(g, o)]; r[j + 1].text = f"{b:,.{DEC[o]}f}{star(p)}\n({se:,.{DEC[o]}f})"
+    r[6].text = f"{hF[g]:.1f}" + ("w" if hF[g] < 10 else "")
+ital('"w" marks first-stage F < 10 (weakly identified).')
+
+doc.add_heading('Table 3. COVID and Russia-war shock interactions (1996-2023)', 2)
+t3 = doc.add_table(rows=0, cols=6); t3.style = 'Table Grid'
+h3 = t3.add_row().cells; h3[0].text = ''
+for j, o in enumerate(OUT): h3[j + 1].text = OLAB[o]
+bold_hdr(h3)
+for term, tl in [('lng', 'GACI (baseline)'), ('gaci_c', 'GACI x COVID'), ('gaci_r', 'GACI x Russia')]:
+    r = t3.add_row().cells; r[0].text = tl
+    for j, o in enumerate(OUT):
+        d = sh.get((o, term))
+        if d: r[j + 1].text = f"{d['b']:,.{DEC[o]}f}{star(d['p'])}\n({d['se']:,.{DEC[o]}f})"
+ital('No shock interaction is significant: the connectivity-trade and connectivity-income links do not detectably '
+     'change during COVID or the Russia war (shock-window identification is limited because the instrument collapses in 2020).')
+
+# ===== 6. SHOCK LOSSES =====
+H('6. Global trade and GDP losses from connectivity-collapse shocks', 1)
+cv, ru = AG['covid'], AG['russia']
+P('Counterfactual: an observed change d in ln(GACI) scales trade by exp(beta x d); the loss from a connectivity drop '
+  '(d<0) is base-level x (1 - exp(beta x d)). Trade losses use the intensity (openness) elasticity 0.659 and are gross '
+  'trade-FLOW disruptions, not net welfare or GDP losses. Partial-equilibrium and illustrative.', 9, True)
+for b in [
+    'COVID-19 (2019 to 2020), global: air connectivity fell in %d of %d countries (median dlnGACI %.3f). The implied '
+    'goods-trade-flow disruption from the connectivity collapse alone is about $%.1f trillion - roughly %.1f%% of 2019 '
+    'world goods trade and %.1f%% of 2019 world GDP. This is a gross trade-flow figure, not a net GDP loss.'
+    % (cv['n_drop'], cv['n'], cv['med_dG'], cv['trade_loss']/1e12,
+       100*cv['trade_loss']/cv['tot_trade'], 100*cv['trade_loss']/cv['tot_gdp']),
+    'Russia-Ukraine war (2021 to 2022): this shock is localised (airspace closures around Russia), while globally 2022 '
+    'was a COVID-recovery year, so the net global connectivity change is positive and the aggregate is not informative. '
+    'Restricting to connectivity-LOSING countries, the implied goods-trade-flow loss is about $%.1f trillion. NOTE: in '
+    'this annual index Russia\'s own connectivity does not fall cleanly in 2021-2022, so the war effect is not well '
+    'identified at annual global resolution and should be read with caution.'
+    % (ru['trade_loss_losers']/1e12)]:
+    B(b)
+
+# ===== 7. 20-YEAR GAINS =====
+H('7. Contribution of two decades of connectivity growth (1996-2023)', 1)
+ga = AG['gain']
+P('Counterfactual gain = level x (1 - exp(-beta x dlnGACI)), summed across countries, using the intensity (openness) '
+  'elasticity 0.659 - the pure trade-intensity channel, net of the GDP-scale channel.', 9, True)
+for b in [
+    'Trade (intensity channel): about $%.1f trillion of 2023 goods trade is attributable to air-connectivity growth '
+    'since 1996 - roughly %.0f%% of 2023 world goods trade ($%.0f trillion) and %.1f%% of 2023 world GDP ($%.0f trillion).'
+    % (ga['gain_trade_usd']/1e12, ga['gain_trade_pct'], ga['tot_trade19']/1e12, ga['gain_trade_pct_gdp'], ga['tot_gdp19']/1e12),
+    'Equivalently in openness terms: connectivity growth raised world goods-trade openness by about %.1f percentage '
+    'points of GDP (from roughly %.0f%% to %.0f%% of GDP); the trade-weighted mean openness gain is %.2f log points '
+    '(about %.0f%%).'
+    % (ga['gain_trade_pct_gdp'], ga['world_open_cf'], ga['world_open_now'], ga['open_logpts'], ga['open_pct']),
+    'Memo - combined intensity+scale (volume elasticity 1.166): $%.1f trillion (%.0f%% of world goods trade). The extra '
+    '$%.1f trillion over the intensity channel is the GDP-scale channel (elasticity 0.507) and is reported separately to '
+    'avoid double-counting connectivity-induced GDP growth as additional trade.'
+    % (ga['gain_tradevol_usd']/1e12, ga['gain_tradevol_pct'], (ga['gain_tradevol_usd']-ga['gain_trade_usd'])/1e12)]:
+    B(b)
+ital('All figures are partial-equilibrium illustrations applying the pooled IV elasticity to each country\'s observed '
+     'connectivity change; they ignore general-equilibrium offsets and cross-country heterogeneity in beta, and are '
+     'gross trade flows rather than value-added.')
+
+# ===== 8. IMPLICATIONS =====
+H('8. What the results imply', 1)
+for b in [
+    'Connectivity is a causal driver of global integration, not merely a correlate. On the intensity (openness) channel, '
+    'air-connectivity growth since 1996 accounts for roughly $%.1f trillion of 2023 world goods trade (about %.0f%%, '
+    'equivalently about %.1f%% of world GDP); on a combined intensity-plus-scale basis the figure is about $%.1f trillion '
+    '(%.0f%% of world goods trade).'
+    % (ga['gain_trade_usd']/1e12, ga['gain_trade_pct'], ga['gain_trade_pct_gdp'],
+       ga['gain_tradevol_usd']/1e12, ga['gain_tradevol_pct']),
+    'We report the intensity channel as the headline because, by the identity ln(goods) = ln(goods/GDP) + ln(GDP), the '
+    'goods-volume elasticity (1.166) is the sum of the openness/intensity elasticity (0.659) and the GDP-scale elasticity '
+    '(0.507); using the intensity elasticity isolates the effect of connectivity on how intensively a country trades and '
+    'avoids double-counting connectivity-induced GDP growth as additional trade.',
+    'Returns are highest where connectivity is scarce: the effect is concentrated in low-baseline-connectivity and '
+    'selected regional economies and is small where networks are already dense, so new connectivity yields the largest '
+    'trade gains for under-connected and developing countries.',
+    'Disruptions are expensive: the COVID-19 connectivity collapse implies a gross goods-trade-flow disruption on the '
+    'order of $%.1f trillion (about %.1f%% of world goods trade), quantifying the trade stakes of pandemics, conflicts, '
+    'and airspace closures (e.g. the Russia-Ukraine war).'
+    % (cv['trade_loss']/1e12, 100*cv['trade_loss']/cv['tot_trade']),
+    'Policy levers follow directly: airport and route investment and open-skies / liberalisation agreements are concrete '
+    'channels for raising trade and income, with the largest payoff for peripheral economies.',
+    'Methodological contribution: a continuous, network-based connectivity treatment combined with a tourism-heritage '
+    'instrument offers a globally scalable, spillover-aware alternative to bilateral difference-in-differences for the '
+    'transport-and-trade literature.']:
+    B(b)
+
+# shrink wide-table fonts so 6 columns fit in portrait width
+for tb in doc.tables:
+    tb.autofit = True
+    for row in tb.rows:
+        for cell in row.cells:
+            for para in cell.paragraphs:
+                for run in para.runs:
+                    run.font.size = Pt(7.5)
+
+doc.save('GACI_coauthor_report.docx')
+print('wrote GACI_coauthor_report.docx (portrait)')

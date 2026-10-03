@@ -1,0 +1,32 @@
+countries: 183
+countries with a land neighbour: 144 of 183
+saved spillover_bands.csv (4635, 48)
+                count   mean    std
+nbr_g_inv      4635.0  0.039  0.082
+nbr_g_contig   4635.0  0.073  0.226
+nbr_g_b1       4635.0  0.018  0.201
+nbr_g_b2       4635.0  0.019  0.213
+nbr_g_b3       4635.0  0.030  0.219
+nbr_g_b4       4635.0  0.029  0.110
+nbr_g_b5       4635.0  0.007  0.057
+nbr_g_k250     4635.0  0.014  0.257
+nbr_g_k500     4635.0  0.017  0.216
+nbr_g_k1000    4635.0  0.022  0.168
+nbr_g_k2000    4635.0  0.033  0.113
+nbr_g_k5000    4635.0  0.038  0.060
+nbr_g_knn5     4635.0  0.008  0.234
+nbr_g_inreg    4635.0  0.026  0.234
+nbr_g_outreg   4635.0  0.045  0.062
+nbr_g_inbloc   4635.0  0.057  0.188
+nbr_g_outbloc  4635.0  0.018  0.066
+actual IV nbr coef (pyfixest): 6.73
+actual RF nbr coef 0.934 (t 3.46); FS t 11.54
+perm 0
+perm 100
+perm 200
+perm 300
+perm 400
+placebo RF t: mean -0.183 sd 2.642  share |t_perm| >= |t_actual| (3.46): 0.188
+placebo RF b: mean -0.094 sd 1.501  share |b_perm| >= |b_actual| (0.934): 0.534
+placebo FS t: mean |t| 9.87  share |t| >= 1.96: 0.930  (actual 11.54)
+DONE_21

@@ -1,0 +1,162 @@
+
+\appendix
+%=======================================================================
+\section{Additional estimates}
+\label{app:additional}
+%=======================================================================
+The tables in the body report the log specification for hub connectivity. This appendix reports the remaining estimates produced by the same estimation scripts: the Gini in points, absolute redistribution, the distributional shares for the other two connectivity measures, the income-tercile splits, the continent-specific estimates for both measures, and the survey-based outcomes.
+
+Table~\ref{tab:a_levels} repeats Table~\ref{tab:main} with the Gini in points rather than in logs. A one-log-point increase in hub connectivity is associated with 2.5 Gini points in OLS and 24.1 points in 2SLS with the Feyrer instrument. The 2SLS magnitude in points is the quantity compared with observed changes in Section~\ref{sec:contrib}, where it is found to exceed any change observed in the sample.
+
+\begin{table}[H]\centering\caption{Main results with the Gini measured in points.}\label{tab:a_levels}
+\begin{threeparttable}\small\input{tables_appendix/tabA_levels}
+\begin{tablenotes}\footnotesize\item Robust SE in parentheses; country-clustered SE in brackets with the corresponding significance level. Country and year fixed effects and log population throughout. First stages are those of Table~\ref{tab:main}. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_absred} reports absolute redistribution, the difference between the market and disposable Gini in points, as an outcome. The OLS coefficients are not distinguishable from zero. The 2SLS coefficients with the Feyrer instrument are negative and significant under robust errors for all three connectivity measures, and none is significant under country-clustered errors. The tourism instrument is uninformative for this outcome, with a first-stage $F$ of $0.02$ for hub quality. The sample is 1,898 country-years, about half the estimation sample, because the wedge requires both series to be observed.
+
+\begin{table}[H]\centering\caption{Absolute redistribution (market minus disposable Gini, points) as an outcome.}\label{tab:a_absred}
+\begin{threeparttable}\small\input{tables_appendix/tabA_absred}
+\begin{tablenotes}\footnotesize\item Robust SE in parentheses; country-clustered SE in brackets. OLS does not depend on the instrument and is reported once. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_tails_other} reports the distributional shares of Table~\ref{tab:tails} for hub quality and total connectivity. The signs match the hub-connectivity results: the bottom-half share falls, the top-decile share rises and the top-percentile share does not respond.
+
+\begin{table}[H]\centering\caption{Distributional location for hub quality and total connectivity (Feyrer instrument).}\label{tab:a_tails_other}
+\begin{threeparttable}\small\input{tables_appendix/tabA_tails_other}
+\begin{tablenotes}\footnotesize\item Outcomes in logs unless the row states levels. Country and year fixed effects and log population throughout. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_inc3split} estimates the model separately within each baseline income tercile rather than by interaction. The low-income first stage is weak ($F=3.6$ for hub connectivity), which is the basis for the statement in Section~\ref{sec:hetero} that the U-shape in Table~\ref{tab:hetero} rests on the contrast between the middle and high terciles.
+
+\begin{table}[H]\centering\caption{Separate 2SLS within baseline income terciles (Feyrer instrument).}\label{tab:a_inc3split}
+\begin{threeparttable}\small\input{tables_appendix/tabA_inc3_split}
+\begin{tablenotes}\footnotesize\item Robust SE in parentheses. Terciles are fixed at each country's first observed year. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_tails_inc3} interacts the instrumented hub measure with the baseline income terciles in the share equations. The bottom-half share falls in all three terciles, by most in the low tercile, and the top-decile response is significant in the middle and high terciles.
+
+\begin{table}[H]\centering\caption{Distributional location by baseline income tercile (interaction 2SLS, Feyrer instrument).}\label{tab:a_tails_inc3}
+\begin{threeparttable}\small\input{tables_appendix/tabA_tails_inc3}
+\begin{tablenotes}\footnotesize\item Robust SE in parentheses. Total rows are linear combinations of the base and interaction coefficients. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_continent} reports the continent-specific 2SLS estimates of Table~\ref{tab:hetero} for both hub connectivity and hub quality, including North America. The two measures agree within every continent: the estimate is positive and significant in Asia ($0.48$ for hub connectivity and $0.86$ for hub quality), negative and significant in Africa ($-0.21$ and $-0.25$), and not distinguishable from zero elsewhere. The North American, Middle Eastern and Oceanian estimates rest on first stages with $F$ below $2$ and are uninformative.
+
+\begin{table}[H]\centering\caption{Continent-specific 2SLS, both connectivity measures (Feyrer instrument).}\label{tab:a_continent}
+\begin{threeparttable}\small\input{tables_appendix/tabA_continent}
+\begin{tablenotes}\footnotesize\item Robust SE in parentheses. Country and year fixed effects and log population within each continent sample. North America comprises Canada, Greenland and the United States. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_altdv} replaces the model-based SWIID series with the survey-based World Bank Poverty and Inequality Platform series, which is observed only in survey years and gives 1,877 country-years. The outcomes are in points rather than logs, so the coefficients are not comparable in size with Table~\ref{tab:main}, but the signs are the same in both OLS and 2SLS: the Gini and the top-decile share rise with hub connectivity and the bottom-quintile share falls. The bottom-quintile coefficient is the only one that is not significant in OLS.
+
+\begin{table}[H]\centering\caption{Survey-based inequality measures (World Bank Poverty and Inequality Platform).}\label{tab:a_altdv}
+\begin{threeparttable}\small\input{tables_appendix/tabA_altdv}
+\begin{tablenotes}\footnotesize\item Outcomes in points. Country and year fixed effects and log population. Robust SE in parentheses. The sample is the survey years for which the World Bank reports a distribution. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+%=======================================================================
+\section{Timing and instrument diagnostics}
+\label{app:timing}
+%=======================================================================
+Table~\ref{tab:a_leads} reports the lead coefficients summarised in Section~\ref{sec:horizon}. Connectivity led one to five years enters with a coefficient that rises from $0.52$ to $0.76$, so the lead coefficients are at least as large as the contemporaneous coefficient of $0.495$. Panel B instruments current and three-year-ahead connectivity jointly; the two instruments are nearly collinear and the joint first-stage $F$ is $0.26$, so neither coefficient is informative. The lead pattern is what a persistent regressor and a trending instrument produce and does not separate anticipation from persistence.
+
+\begin{table}[H]\centering\caption{Leads of connectivity.}\label{tab:a_leads}
+\begin{threeparttable}\small\input{tables_appendix/tabA_leads}
+\begin{tablenotes}\footnotesize\item Country and year fixed effects, robust SE. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_rfcont} reports the reduced form of each instrument on the market Gini estimated separately by continent. The Feyrer reduced form is negative in Africa, Asia, the Middle East and North America and not distinguishable from zero in Europe, Latin America and Oceania. This matches the first stage, which also changes sign across continents (Table~\ref{tab:diag}): within Africa the baseline-exposure measure predicts faster connectivity growth and within the already-connected continents it predicts slower growth, so the reduced form takes the sign of the first stage. The pooled positive 2SLS estimate combines within-continent and between-continent variation, which is the reason the continent by year specification is preferred in Section~\ref{sec:diag}.
+
+\begin{table}[H]\centering\caption{Reduced form on the market Gini, estimated separately by continent.}\label{tab:a_rfcont}
+\begin{threeparttable}\small\input{tables_appendix/tabA_rf_cont}
+\begin{tablenotes}\footnotesize\item Coefficient of the instrument on $\ln G^{mkt}$ with country and year fixed effects and log population; robust SE in parentheses. North America comprises Canada, Greenland and the United States in the regional coding used here. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Tables~\ref{tab:a_es_conn} and \ref{tab:a_es_ineq} report the Open Skies event-study coefficients summarised in Section~\ref{sec:horizon}. The connectivity coefficients rise slowly and none reaches significance. The market and disposable Gini coefficients are negative and significant from six to two years before application and positive after it, so the post-application coefficients continue a pre-existing trend rather than break one. The bottom-half and top-decile shares show no event-time pattern.
+
+\begin{table}[H]\centering\caption{Open Skies event study: connectivity outcomes.}\label{tab:a_es_conn}
+\begin{threeparttable}\small\input{tables_appendix/tabA_es_conn}
+\begin{tablenotes}\footnotesize\item Event time is years since an Open Skies agreement with the United States was first applied; $-1$ is the omitted category and economies treated before 1997 are excluded. Country and year fixed effects, country-clustered SE in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+\begin{table}[H]\centering\caption{Open Skies event study: inequality outcomes.}\label{tab:a_es_ineq}
+\begin{threeparttable}\small\input{tables_appendix/tabA_es_ineq}
+\begin{tablenotes}\footnotesize\item Event time is years since an Open Skies agreement with the United States was first applied; $-1$ is the omitted category and economies treated before 1997 are excluded. Country and year fixed effects, country-clustered SE in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_osfeyrer} uses the Open Skies indicator together with the Feyrer instrument in an over-identified 2SLS. The market-Gini coefficient is $0.427$, close to the $0.495$ of Table~\ref{tab:main}, but the Hansen $J$ test rejects the joint validity of the two instruments for the market Gini ($p=0.03$) while not rejecting it for the other three outcomes. Because Open Skies on its own has a first-stage $F$ of $2.1$, the over-identified specification is close to the Feyrer-only specification, and the rejection does not identify which instrument fails.
+
+\begin{table}[H]\centering\caption{Over-identified 2SLS with the Open Skies indicator and the Feyrer instrument.}\label{tab:a_osfeyrer}
+\begin{threeparttable}\small\input{tables_appendix/tabA_os_feyrer}
+\begin{tablenotes}\footnotesize\item Country and year fixed effects, country-clustered SE in parentheses. Economies treated before 1997 are excluded. Observations are 3,389 for the Gini outcomes and 3,368 for the share outcomes. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_longdiff} reports the complete long-difference battery: five windows, four estimators and the stacked five-year differences. No 2SLS specification in the table has a first-stage $F$ above $3$, and the point estimates range from $-21$ to $39$ with standard errors of the same order. The OLS coefficients are between $-0.04$ and $0.07$ and none is significant. The 1996--2023 window, which adds the pandemic years to the 1996--2019 window used in Section~\ref{sec:horizon}, changes the OLS coefficient from $0.066$ to $0.037$ and leaves the conclusion unchanged. The instruments predict the level of connectivity within countries but not its medium-run change.
+
+\begin{table}[H]\centering\caption{Long differences and stacked differences, complete battery.}\label{tab:a_longdiff}
+\begin{threeparttable}\small\input{tables_appendix/tabA_longdiff_full}
+\begin{tablenotes}\footnotesize\item Cross-sections of changes with continent fixed effects and robust SE; the stacked five-year differences use year and continent effects and country-clustered SE. The both-instrument rows use the Feyrer and tourism instruments jointly. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_fscont} reports the first stage estimated separately within each continent, with standard errors, which Table~\ref{tab:diag} reports without. The Feyrer instrument is a strong predictor within Africa, Asia, Europe and Latin America, with the sign reversal discussed in Section~\ref{sec:diag}, and is uninformative within North America, the Middle East and Oceania. The tourism instrument has the opposite pattern: it is strong within Latin America, Oceania and North America and weak within Africa and Europe. No continent has a strong first stage for both instruments, so the over-identification test in Table~\ref{tab:robust} draws its power from between-continent variation.
+
+\begin{table}[H]\centering\caption{First stage estimated separately by continent.}\label{tab:a_fscont}
+\begin{threeparttable}\small\input{tables_appendix/tabA_fs_cont}
+\begin{tablenotes}\footnotesize\item Coefficient of the instrument on $\ln\mathrm{GACI}_{max}$ with country and year fixed effects and log population; robust SE in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_loocy} drops one continent at a time under continent by year fixed effects, the specification preferred in Section~\ref{sec:diag}. The market-Gini estimate stays between $0.27$ and $1.06$ and is significant in six of the seven cases; the exception is dropping Asia, where the first stage becomes weak ($F=1.4$). Dropping Europe raises the estimate to $1.06$ on a first stage of $F=4.7$. The disposable-Gini estimate is significant only when Europe or Latin America is dropped, which is the same sensitivity reported in Section~\ref{sec:diag}.
+
+\begin{table}[H]\centering\caption{Leave-one-continent-out under continent by year fixed effects (Feyrer instrument).}\label{tab:a_loocy}
+\begin{threeparttable}\small\input{tables_appendix/tabA_loo_contyear}
+\begin{tablenotes}\footnotesize\item Robust SE in parentheses. Country and continent by year fixed effects and log population. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_rfq} reports the coefficients plotted in Figure~\ref{fig:rfq}. The reduced form is positive and significant in the second, fourth and fifth quintiles of baseline inequality and not distinguishable from zero in the first and third. By baseline income it is positive and significant in the first four quintiles and zero in the richest. The association is therefore not driven by the richest or by the most unequal economies.
+
+\begin{table}[H]\centering\caption{Reduced form of the Feyrer instrument on the market Gini, by baseline quintile.}\label{tab:a_rfq}
+\begin{threeparttable}\small\input{tables_appendix/tabA_rfq}
+\begin{tablenotes}\footnotesize\item Country and year fixed effects and log population within each quintile; robust SE in parentheses. Quintiles are fixed at each country's first observed year. These are the coefficients plotted in Figure~\ref{fig:rfq}. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+%=======================================================================
+\section{Country-level quantities}
+\label{app:country}
+%=======================================================================
+Table~\ref{tab:a_country} reports, for each of the 103 countries observed in or before 1998 and in or after 2019, the change in log hub connectivity between its first and last observation, the market Gini at each end, and the implied change in the Gini obtained by applying the pooled OLS and 2SLS coefficients to that country's connectivity change. These are not separately estimated country regressions; cross-country variation enters only through the observed change in connectivity. The table is the country-level detail behind the continent means of Table~\ref{tab:contrib} and the source of the 2SLS-implied changes of 22 Gini points for Korea and Turkey.
+
+\begin{table}[H]\centering\caption{Implied contribution of hub-connectivity growth to the market Gini, by country.}\label{tab:a_country}
+\begin{threeparttable}\scriptsize\input{tables_appendix/tabA_country}
+\begin{tablenotes}\scriptsize\item Sorted by the change in log hub connectivity. Years are each country's first and last observation. Implied changes apply the pooled coefficients on $\ln\mathrm{GACI}_{max}$, $0.061$ for OLS and $0.495$ for 2SLS, to each country's initial Gini. Continent codes: AF Africa, AS Asia, EU Europe, LA Latin America, ME Middle East, NA North America, SW Oceania.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_covid} reports the change in log hub connectivity between 2019 and 2020 for the 115 countries observed in both years, which is the input to the COVID-19 exercise in Section~\ref{sec:contrib}. The mean change is $-0.105$ log points and the largest contractions are in Singapore, Hong Kong, Australia, Japan and Thailand.
+
+\begin{table}[H]\centering\caption{Change in log hub connectivity, 2019 to 2020, by country.}\label{tab:a_covid}
+\begin{threeparttable}\scriptsize\input{tables_appendix/tabA_covid}
+\begin{tablenotes}\scriptsize\item Columns 2 and 3 report $\ln\mathrm{GACI}_{max}$ in 2019 and 2020. Sorted by the change, largest contraction first, and continued in the right-hand block.\end{tablenotes}\end{threeparttable}\end{table}
+
+\section{Growth outcomes}
+\label{app:growth}
+Table~\ref{tab:a_growth_diag} subjects the growth estimates of Table~\ref{tab:growth} to the diagnostics that Section~\ref{sec:diag} applies to the inequality estimates. Under continent by year fixed effects the level estimates change sign, to $-1.07$ for GDP per capita and $-1.68$ for the average income of the bottom half, and dropping Latin America moves them further negative. The top-to-bottom ratio is the exception: it remains positive at $1.21$ and significant under the same fixed effects, and it also survives the exposure-trend and combined controls. Under the tourism-heritage instrument none of the level estimates is distinguishable from zero. The pattern supports reading the incidence rather than the level as the result.
+
+\begin{table}[H]\centering\caption{Identification diagnostics for the growth outcomes.}\label{tab:a_growth_diag}
+\begin{threeparttable}\small\input{tables_appendix/tabA_growth_diag}
+\begin{tablenotes}\footnotesize\item Each cell is a separate 2SLS estimate of the coefficient on $\ln\mathrm{GACI}_{max}$ with log population and the stated fixed effects. Robust SE in parentheses. The exposure rows interact each country's baseline income, baseline Gini, land area and absolute latitude with the global aviation index. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_growth_hzn} reports the growth outcomes with connectivity lagged and led. The level estimates rise with the horizon, from $1.29$ at $k=0$ to $1.73$ at $k=10$ for GDP per capita and from $0.45$ to $1.93$ for the bottom half, so the gap between the two groups closes at long horizons and is near zero by $k=9$. The leads are as large as the contemporaneous estimates and the five-year lead is larger, which is the same persistence pattern that Table~\ref{tab:a_leads} reports for the Gini and which prevents a causal timing reading.
+
+\begin{table}[H]\centering\caption{Growth outcomes with lagged and led connectivity.}\label{tab:a_growth_hzn}
+\begin{threeparttable}\small\input{tables_appendix/tabA_growth_horizon}
+\begin{tablenotes}\footnotesize\item Each row is a separate 2SLS estimate in which connectivity and the instrument are lagged or led by the stated number of years. Robust SE in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_growth_ld} reports the long-difference and stacked-difference designs for the growth outcomes. The OLS long differences are positive in every window, between $0.59$ and $0.92$ for GDP per capita and between $0.21$ and $1.10$ for the bottom half, and the implied gap is positive in four of the five windows. The instrumented versions are uninformative: the first-stage $F$ is below $3$ in every window and below $1$ in four of them, which reproduces the result of Table~\ref{tab:a_longdiff} for the Gini. The stacked five-year differences behave the same way: the OLS estimates are about $0.41$ for both groups with no gap between them, while the instrumented versions rest on a first-stage $F$ of $0.001$ and return coefficients in the hundreds, which are not interpretable. We therefore report the long differences as descriptive.
+
+\begin{table}[H]\centering\caption{Long differences and stacked differences, growth outcomes.}\label{tab:a_growth_ld}
+\begin{threeparttable}\small\input{tables_appendix/tabA_growth_longdiff}
+\begin{tablenotes}\footnotesize\item Long differences are cross sections of country changes between the stated years with continent fixed effects and the change in log population. KP $F$ is reported for the GDP per capita column; the instrument is the change in the Feyrer interaction. Robust SE in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_growth_het} reports how the growth estimates vary across groups. The level response falls monotonically with baseline income, from $2.69$ in the low tercile to $0.38$ in the high tercile for GDP per capita, and the bottom-half response turns negative in the high tercile ($-0.43$) while the top-decile response stays positive ($0.56$). The response is smaller after 2010 for both groups, and the reduction is larger for the top decile. By continent the level response is positive in Africa, Asia and Latin America and negative in Europe, and the Oceania estimates rest on a first stage too weak to interpret. The control battery leaves the GDP per capita estimate between $1.26$ and $1.47$ and the bottom-half estimate between $-0.17$ and $0.60$, so the bottom-half estimate is the less stable of the two.
+
+\begin{table}[H]\centering\caption{Growth outcomes: heterogeneity and control sensitivity.}\label{tab:a_growth_het}
+\begin{threeparttable}\small\input{tables_appendix/tabA_growth_hetero}
+\begin{tablenotes}\footnotesize\item Panels A and B are interaction 2SLS in which both connectivity and the instrument are interacted with fixed baseline group indicators; total rows are linear combinations. Panel C reports separate 2SLS by continent. Panel D reports the GDP per capita and bottom-half estimates under added controls. Robust SE in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_growth_cond} reports the inequality equation with GDP per capita entered as a control, which is the suppressor result of Section~\ref{sec:mech} in table form. Conditional on measured income per head, the hub coefficient rises from $0.50$ to $0.75$ for the market Gini and from $0.65$ to $0.97$ for the disposable Gini, and income per head itself carries a negative coefficient in both equations. The association between connectivity and inequality is therefore not an artefact of the income growth that accompanies it.
+
+\begin{table}[H]\centering\caption{Inequality conditional on measured income per head (2SLS, Feyrer instrument).}\label{tab:a_growth_cond}
+\begin{threeparttable}\small\input{tables_appendix/tabA_growth_condgdp}
+\begin{tablenotes}\footnotesize\item Hub connectivity is instrumented; GDP per capita enters as an exogenous control. Robust SE in parentheses. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+Table~\ref{tab:a_growth_total} reports total GDP rather than GDP per capita as the outcome, with log population entered as a control throughout. The estimates exceed the per capita estimates by between $0.07$ and $0.20$ across the three connectivity measures, which is the population term, and the pattern across instruments is unchanged: the Feyrer estimates are positive and significant, the tourism estimates are not distinguishable from zero. Among the level outcomes, total GDP is the only one for which the Hansen test does not reject ($p=0.13$).
+
+\begin{table}[H]\centering\caption{Total GDP as an outcome.}\label{tab:a_growth_total}
+\begin{threeparttable}\small\input{tables_appendix/tabA_growth_total}
+\begin{tablenotes}\footnotesize\item Outcome is log GDP in constant 2015 US dollars. Log population and country and year fixed effects throughout. Robust SE in parentheses, country-clustered SE in brackets with the corresponding significance level. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+\section*{Data and code availability}
+GACI is derived from proprietary airline-schedule data; the constructed country-year panel, the inequality series (SWIID, WID, World Bank Poverty and Inequality Platform), the instrument inputs (UNESCO, WDI, UNWTO, CERDI) and the replication scripts are available from the authors on request.

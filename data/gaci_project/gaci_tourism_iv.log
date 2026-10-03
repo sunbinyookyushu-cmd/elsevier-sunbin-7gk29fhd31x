@@ -1,0 +1,1007 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do gaci_tourism_iv.do 
+
+. *============================================================================
+> ==
+. * gaci_tourism_iv.do  --  Tourism x UNESCO-heritage instrument, GOODS-trade o
+> utcome
+. *   outcome    : merch_intensity = ln(goods trade / GDP)  [services/tourism E
+> XCLUDED]
+. *                merch_share     = goods trade % GDP
+. *   treatment  : lng (GACI_sum) ; ln_gaci_cwm (hub quality)
+. *   instrument : tourism_int = tour_shift_t * ln(1+natural-heritage endowment
+> )  [Bartik]
+. *                tourism_cum = tour_shift_t * ln(1+cumulative natural heritag
+> e)  [robustness]
+. *   FE         : country + year (absorb isocode y).  Sample 1996-2019.
+. *   Exclusion  : natural heritage -> leisure flights -> connectivity -> GOODS
+>  trade only.
+. *                (tourism receipts are SERVICES, removed by using merchandise
+>  trade.)
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI
+
+. import delimited "gaci_panel_tourism.csv", clear varnames(1) encoding("utf-8")
+(41 vars, 3,953 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y  ln_nat_endow
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_nat_endow already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2019, but with gaps
+                delta:  1 unit
+
+. label var lng         "ln GACI_sum"
+
+. label var tourism_int "tourism shift x heritage endowment (IV)"
+
+. 
+. capture which ivreghdfe
+
+. if _rc {
+.     ssc install ftools, replace
+.     ssc install reghdfe, replace
+.     ssc install ivreghdfe, replace
+. }
+
+. 
+. *------------------------------------------------------------------------------
+. * 1) FIRST-STAGE: does tourism_int predict connectivity under country+year FE?
+. *------------------------------------------------------------------------------
+. di _n "==== 1a tourism_int -> lng, country+year FE (robust) ===="
+
+==== 1a tourism_int -> lng, country+year FE (robust) ====
+
+. reghdfe lng tourism_int lnpop, absorb(isocode y) vce(robust)
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,952
+Absorbing 2 HDFE groups                           F(   2,   3745) =      17.77
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.9657
+                                                  Adj R-squared   =     0.9638
+                                                  Within R-sq.    =     0.0092
+                                                  Root MSE        =     0.2582
+
+------------------------------------------------------------------------------
+             |               Robust
+         lng |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ tourism_int |   .1149821   .0193151     5.95   0.000      .077113    .1528513
+       lnpop |   .1027989    .051296     2.00   0.045     .0022281    .2033696
+       _cons |  -.1288127   .8067088    -0.16   0.873    -1.710444    1.452819
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        24           1          23     |
+-----------------------------------------------------+
+
+. test tourism_int
+
+ ( 1)  tourism_int = 0
+
+       F(  1,  3745) =   35.44
+            Prob > F =    0.0000
+
+. di _n "==== 1b tourism_int -> lng, country+year FE (cluster) ===="
+
+==== 1b tourism_int -> lng, country+year FE (cluster) ====
+
+. reghdfe lng tourism_int lnpop, absorb(isocode y) cluster(isocode)
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,952
+Absorbing 2 HDFE groups                           F(   2,    181) =       2.21
+Statistics robust to heteroskedasticity           Prob > F        =     0.1125
+                                                  R-squared       =     0.9657
+                                                  Adj R-squared   =     0.9638
+                                                  Within R-sq.    =     0.0092
+Number of clusters (isocode) =        182         Root MSE        =     0.2582
+
+                              (Std. Err. adjusted for 182 clusters in isocode)
+------------------------------------------------------------------------------
+             |               Robust
+         lng |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ tourism_int |   .1149821   .0550932     2.09   0.038     .0062746    .2236897
+       lnpop |   .1027989   .1537443     0.67   0.505    -.2005628    .4061605
+       _cons |  -.1288127   2.416496    -0.05   0.958    -4.896938    4.639313
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        24           1          23     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. test tourism_int
+
+ ( 1)  tourism_int = 0
+
+       F(  1,   181) =    4.36
+            Prob > F =    0.0383
+
+. di _n "==== 1c tourism_int -> ln_gaci_cwm, country+year FE (robust) ===="
+
+==== 1c tourism_int -> ln_gaci_cwm, country+year FE (robust) ====
+
+. reghdfe ln_gaci_cwm tourism_int lnpop, absorb(isocode y) vce(robust)
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,952
+Absorbing 2 HDFE groups                           F(   2,   3745) =       8.82
+                                                  Prob > F        =     0.0002
+                                                  R-squared       =     0.9546
+                                                  Adj R-squared   =     0.9521
+                                                  Within R-sq.    =     0.0090
+                                                  Root MSE        =     0.0708
+
+------------------------------------------------------------------------------
+             |               Robust
+ ln_gaci_cwm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ tourism_int |   .0182391    .005984     3.05   0.002     .0065068    .0299713
+       lnpop |   .0644914   .0224662     2.87   0.004     .0204443    .1085385
+       _cons |  -.9943482   .3525562    -2.82   0.005    -1.685569   -.3031272
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        24           1          23     |
+-----------------------------------------------------+
+
+. test tourism_int
+
+ ( 1)  tourism_int = 0
+
+       F(  1,  3745) =    9.29
+            Prob > F =    0.0023
+
+. 
+. *------------------------------------------------------------------------------
+. * 2) 2SLS: connectivity -> GOODS trade, IV = tourism_int
+. *------------------------------------------------------------------------------
+. di _n "===== M1 goods openness (merch_intensity), (lng = tourism_int), ROBUST ====="
+
+===== M1 goods openness (merch_intensity), (lng = tourism_int), ROBUST =====
+
+. ivreghdfe merch_intensity lnpop (lng = tourism_int), absorb(isocode y) robust first
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of lng:
+
+Statistics robust to heteroskedasticity
+Number of obs =                   3952
+------------------------------------------------------------------------------
+             |               Robust
+         lng |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ tourism_int |   .1149821   .0193151     5.95   0.000      .077113    .1528513
+       lnpop |   .1027989    .051296     2.00   0.045     .0022281    .2033696
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  1,  3745) =    35.44
+  Prob > F      =   0.0000
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  1,  3745) =    35.44
+  Prob > F      =   0.0000
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  1,  3745)  P-val | SW Chi-sq(  1) P-val | SW F(  1,  3745)
+lng          |      35.44    0.0000 |       37.40   0.0000 |       35.44
+
+NB: first-stage test statistics heteroskedasticity-robust
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for i.i.d. errors only.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Kleibergen-Paap rk LM statistic          Chi-sq(1)=36.62    P-val=0.0000
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                      32.27
+Kleibergen-Paap Wald rk F statistic                                35.44
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=1:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(1,3745)=     10.39     P-val=0.0013
+Anderson-Rubin Wald test           Chi-sq(1)=     10.96     P-val=0.0009
+Stock-Wright LM S statistic        Chi-sq(1)=     11.15     P-val=0.0008
+
+NB: Underidentification, weak identification and weak-identification-robust
+    test statistics heteroskedasticity-robust
+
+Number of observations               N  =       3952
+Number of regressors                 K  =          2
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          2
+Number of excluded instruments       L1 =          1
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     3952
+                                                      F(  2,  3745) =    14.21
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  176.3775935                Centered R2   =  -0.3891
+Total (uncentered) SS   =  176.3775935                Uncentered R2 =  -0.3891
+Residual SS             =  245.0096624                Root MSE      =    .2558
+
+------------------------------------------------------------------------------
+             |               Robust
+merch_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .4956128   .1803951     2.75   0.006     .1419307     .849295
+       lnpop |  -.2241971   .0445947    -5.03   0.000    -.3116294   -.1367648
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             36.620
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               32.270
+                         (Kleibergen-Paap rk Wald F statistic):         35.438
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop
+Excluded instruments: tourism_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        24           1          23     |
+-----------------------------------------------------+
+
+. di _n "===== M1c same, CLUSTER ====="
+
+===== M1c same, CLUSTER =====
+
+. ivreghdfe merch_intensity lnpop (lng = tourism_int), absorb(isocode y) cluster(isocode) first
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of lng:
+
+Statistics robust to heteroskedasticity and clustering on isocode
+Number of obs =                   3952
+Number of clusters (isocode) =     182
+------------------------------------------------------------------------------
+             |               Robust
+         lng |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ tourism_int |   .1149821   .0550862     2.09   0.037     .0069819    .2229824
+       lnpop |   .1027989   .1537247     0.67   0.504    -.1985889    .4041866
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  1,   181) =     4.36
+  Prob > F      =   0.0383
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  1,   181) =     4.36
+  Prob > F      =   0.0383
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  1,   181)  P-val | SW Chi-sq(  1) P-val | SW F(  1,   181)
+lng          |       4.36    0.0383 |        4.41   0.0358 |        4.36
+
+NB: first-stage test statistics cluster-robust
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for i.i.d. errors only.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Kleibergen-Paap rk LM statistic          Chi-sq(1)=4.22     P-val=0.0399
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                      33.84
+Kleibergen-Paap Wald rk F statistic                                 4.36
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=1:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(1,181)=       1.21     P-val=0.2730
+Anderson-Rubin Wald test           Chi-sq(1)=      1.22     P-val=0.2688
+Stock-Wright LM S statistic        Chi-sq(1)=      1.25     P-val=0.2644
+
+NB: Underidentification, weak identification and weak-identification-robust
+    test statistics cluster-robust
+
+Number of clusters             N_clust  =        182
+Number of observations               N  =       3952
+Number of regressors                 K  =          2
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          2
+Number of excluded instruments       L1 =          1
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on isocode
+
+Number of clusters (isocode) =     182                Number of obs =     3952
+                                                      F(  2,   181) =     1.55
+                                                      Prob > F      =   0.2155
+Total (centered) SS     =  176.3775935                Centered R2   =  -0.3891
+Total (uncentered) SS   =  176.3775935                Uncentered R2 =  -0.3891
+Residual SS             =  245.0096624                Root MSE      =    .2498
+
+------------------------------------------------------------------------------
+             |               Robust
+merch_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .4956128   .5272689     0.94   0.348    -.5447715    1.535997
+       lnpop |  -.2241971   .1310513    -1.71   0.089    -.4827819    .0343877
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              4.221
+                                                   Chi-sq(1) P-val =    0.0399
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               33.839
+                         (Kleibergen-Paap rk Wald F statistic):          4.357
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop
+Excluded instruments: tourism_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182         182           0    *|
+           y |        24           1          23     |
+-----------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+. 
+. di _n "===== M2 goods share % (merch_share), (lng = tourism_int), ROBUST ====="
+
+===== M2 goods share % (merch_share), (lng = tourism_int), ROBUST =====
+
+. ivreghdfe merch_share lnpop (lng = tourism_int), absorb(isocode y) robust first
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of lng:
+
+Statistics robust to heteroskedasticity
+Number of obs =                   3952
+------------------------------------------------------------------------------
+             |               Robust
+         lng |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ tourism_int |   .1149821   .0193151     5.95   0.000      .077113    .1528513
+       lnpop |   .1027989    .051296     2.00   0.045     .0022281    .2033696
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  1,  3745) =    35.44
+  Prob > F      =   0.0000
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  1,  3745) =    35.44
+  Prob > F      =   0.0000
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  1,  3745)  P-val | SW Chi-sq(  1) P-val | SW F(  1,  3745)
+lng          |      35.44    0.0000 |       37.40   0.0000 |       35.44
+
+NB: first-stage test statistics heteroskedasticity-robust
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for i.i.d. errors only.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Kleibergen-Paap rk LM statistic          Chi-sq(1)=36.62    P-val=0.0000
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                      32.27
+Kleibergen-Paap Wald rk F statistic                                35.44
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=1:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(1,3745)=      5.37     P-val=0.0206
+Anderson-Rubin Wald test           Chi-sq(1)=      5.66     P-val=0.0173
+Stock-Wright LM S statistic        Chi-sq(1)=      6.08     P-val=0.0137
+
+NB: Underidentification, weak identification and weak-identification-robust
+    test statistics heteroskedasticity-robust
+
+Number of observations               N  =       3952
+Number of regressors                 K  =          2
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          2
+Number of excluded instruments       L1 =          1
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     3952
+                                                      F(  2,  3745) =    31.55
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1188249.603                Centered R2   =  -0.1877
+Total (uncentered) SS   =  1188249.603                Uncentered R2 =  -0.1877
+Residual SS             =  1411337.286                Root MSE      =    19.41
+
+------------------------------------------------------------------------------
+             |               Robust
+ merch_share |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   28.43081   13.26312     2.14   0.032     2.427172    54.43446
+       lnpop |   -22.3396   2.856582    -7.82   0.000    -27.94021   -16.73899
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             36.620
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               32.270
+                         (Kleibergen-Paap rk Wald F statistic):         35.438
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop
+Excluded instruments: tourism_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        24           1          23     |
+-----------------------------------------------------+
+
+. 
+. di _n "===== M3 robustness: IV = tourism_cum (time-varying stock) ====="
+
+===== M3 robustness: IV = tourism_cum (time-varying stock) =====
+
+. ivreghdfe merch_intensity lnpop (lng = tourism_cum), absorb(isocode y) robust first
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of lng:
+
+Statistics robust to heteroskedasticity
+Number of obs =                   3952
+------------------------------------------------------------------------------
+             |               Robust
+         lng |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ tourism_cum |   .0723277   .0196387     3.68   0.000     .0338242    .1108312
+       lnpop |   .0930429   .0511013     1.82   0.069    -.0071463    .1932321
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  1,  3745) =    13.56
+  Prob > F      =   0.0002
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  1,  3745) =    13.56
+  Prob > F      =   0.0002
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  1,  3745)  P-val | SW Chi-sq(  1) P-val | SW F(  1,  3745)
+lng          |      13.56    0.0002 |       14.31   0.0002 |       13.56
+
+NB: first-stage test statistics heteroskedasticity-robust
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for i.i.d. errors only.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Kleibergen-Paap rk LM statistic          Chi-sq(1)=14.06    P-val=0.0002
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                      13.73
+Kleibergen-Paap Wald rk F statistic                                13.56
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=1:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(1,3745)=     15.71     P-val=0.0001
+Anderson-Rubin Wald test           Chi-sq(1)=     16.58     P-val=0.0000
+Stock-Wright LM S statistic        Chi-sq(1)=     17.04     P-val=0.0000
+
+NB: Underidentification, weak identification and weak-identification-robust
+    test statistics heteroskedasticity-robust
+
+Number of observations               N  =       3952
+Number of regressors                 K  =          2
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          2
+Number of excluded instruments       L1 =          1
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     3952
+                                                      F(  2,  3745) =     8.83
+                                                      Prob > F      =   0.0001
+Total (centered) SS     =  176.3775935                Centered R2   =  -1.4044
+Total (uncentered) SS   =  176.3775935                Uncentered R2 =  -1.4044
+Residual SS             =   424.090041                Root MSE      =    .3365
+
+------------------------------------------------------------------------------
+             |               Robust
+merch_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .9627103   .3753094     2.57   0.010     .2268795    1.698541
+       lnpop |  -.2561191   .0635346    -4.03   0.000    -.3806849   -.1315532
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             14.062
+                                                   Chi-sq(1) P-val =    0.0002
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               13.733
+                         (Kleibergen-Paap rk Wald F statistic):         13.564
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng
+Included instruments: lnpop
+Excluded instruments: tourism_cum
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        24           1          23     |
+-----------------------------------------------------+
+
+. 
+. di _n "===== M4 treatment = hub quality (ln_gaci_cwm = tourism_int) ====="
+
+===== M4 treatment = hub quality (ln_gaci_cwm = tourism_int) =====
+
+. ivreghdfe merch_intensity lnpop (ln_gaci_cwm = tourism_int), absorb(isocode y) robust first
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+First-stage regressions
+-----------------------
+
+
+First-stage regression of ln_gaci_cwm:
+
+Statistics robust to heteroskedasticity
+Number of obs =                   3952
+------------------------------------------------------------------------------
+             |               Robust
+ ln_gaci_cwm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ tourism_int |   .0182391    .005984     3.05   0.002     .0065068    .0299713
+       lnpop |   .0644914   .0224662     2.87   0.004     .0204443    .1085385
+------------------------------------------------------------------------------
+F test of excluded instruments:
+  F(  1,  3745) =     9.29
+  Prob > F      =   0.0023
+Sanderson-Windmeijer multivariate F test of excluded instruments:
+  F(  1,  3745) =     9.29
+  Prob > F      =   0.0023
+
+
+
+Summary results for first-stage regressions
+-------------------------------------------
+
+                                           (Underid)            (Weak id)
+Variable     | F(  1,  3745)  P-val | SW Chi-sq(  1) P-val | SW F(  1,  3745)
+ln_gaci_cwm  |       9.29    0.0023 |        9.80   0.0017 |        9.29
+
+NB: first-stage test statistics heteroskedasticity-robust
+
+Stock-Yogo weak ID F test critical values for single endogenous regressor:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for i.i.d. errors only.
+
+Underidentification test
+Ho: matrix of reduced form coefficients has rank=K1-1 (underidentified)
+Ha: matrix has rank=K1 (identified)
+Kleibergen-Paap rk LM statistic          Chi-sq(1)=9.52     P-val=0.0020
+
+Weak identification test
+Ho: equation is weakly identified
+Cragg-Donald Wald F statistic                                      10.80
+Kleibergen-Paap Wald rk F statistic                                 9.29
+
+Stock-Yogo weak ID test critical values for K1=1 and L1=1:
+                                   10% maximal IV size             16.38
+                                   15% maximal IV size              8.96
+                                   20% maximal IV size              6.66
+                                   25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+
+Weak-instrument-robust inference
+Tests of joint significance of endogenous regressors B1 in main equation
+Ho: B1=0 and orthogonality conditions are valid
+Anderson-Rubin Wald test           F(1,3745)=     10.39     P-val=0.0013
+Anderson-Rubin Wald test           Chi-sq(1)=     10.96     P-val=0.0009
+Stock-Wright LM S statistic        Chi-sq(1)=     11.15     P-val=0.0008
+
+NB: Underidentification, weak identification and weak-identification-robust
+    test statistics heteroskedasticity-robust
+
+Number of observations               N  =       3952
+Number of regressors                 K  =          2
+Number of endogenous regressors      K1 =          1
+Number of instruments                L  =          2
+Number of excluded instruments       L1 =          1
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     3952
+                                                      F(  2,  3745) =     4.98
+                                                      Prob > F      =   0.0069
+Total (centered) SS     =  176.3775935                Centered R2   =  -0.9995
+Total (uncentered) SS   =  176.3775935                Uncentered R2 =  -0.9995
+Residual SS             =  352.6606436                Root MSE      =    .3069
+
+------------------------------------------------------------------------------
+             |               Robust
+merch_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   3.124427   1.469276     2.13   0.034     .2437684    6.005086
+       lnpop |  -.3747474   .1199102    -3.13   0.002    -.6098431   -.1396517
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):              9.519
+                                                   Chi-sq(1) P-val =    0.0020
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               10.801
+                         (Kleibergen-Paap rk Wald F statistic):          9.290
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop
+Excluded instruments: tourism_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        24           1          23     |
+-----------------------------------------------------+
+
+. 
+. di _n "===== M5 OLS benchmark (goods openness on lng) ====="
+
+===== M5 OLS benchmark (goods openness on lng) =====
+
+. reghdfe merch_intensity lng lnpop, absorb(isocode y) vce(robust)
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,952
+Absorbing 2 HDFE groups                           F(   2,   3745) =      14.41
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.8531
+                                                  Adj R-squared   =     0.8451
+                                                  Within R-sq.    =     0.0083
+                                                  Root MSE        =     0.2161
+
+------------------------------------------------------------------------------
+             |               Robust
+merch_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |  -.0318951   .0178713    -1.78   0.074    -.0669335    .0031433
+       lnpop |  -.1881466   .0375697    -5.01   0.000    -.2618058   -.1144875
+       _cons |   2.420899   .5892766     4.11   0.000     1.265565    3.576234
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        24           1          23     |
+-----------------------------------------------------+
+
+. 
+. di _n "===== M6 reduced form: goods openness on tourism_int directly ====="
+
+===== M6 reduced form: goods openness on tourism_int directly =====
+
+. reghdfe merch_intensity tourism_int lnpop, absorb(isocode y) vce(robust)
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,952
+Absorbing 2 HDFE groups                           F(   2,   3745) =      19.97
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.8534
+                                                  Adj R-squared   =     0.8453
+                                                  Within R-sq.    =     0.0098
+                                                  Root MSE        =     0.2160
+
+------------------------------------------------------------------------------
+             |               Robust
+merch_inte~y |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ tourism_int |   .0569866   .0176814     3.22   0.001     .0223205    .0916528
+       lnpop |  -.1732487   .0381474    -4.54   0.000    -.2480404   -.0984569
+       _cons |   2.119812   .5999288     3.53   0.000     .9435933    3.296031
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       182           0         182     |
+           y |        24           1          23     |
+-----------------------------------------------------+
+
+. di "DONE_TOURISM"
+DONE_TOURISM
+
+. 
+end of do-file

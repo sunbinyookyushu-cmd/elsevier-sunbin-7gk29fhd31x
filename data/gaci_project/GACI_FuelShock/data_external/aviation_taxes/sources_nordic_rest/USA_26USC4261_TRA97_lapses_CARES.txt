@@ -1,0 +1,46 @@
+USA: federal air passenger excise taxes (26 U.S.C. 4261), key legal excerpts
+Accessed 2026-10-02
+
+[1] Pub. L. 104-188 (Small Business Job Protection Act of 1996), Approved August 20, 1996, sec. 1609(b)
+URL: https://www.congress.gov/104/plaws/publ188/PLAW-104publ188.htm
+"(b) Ticket Taxes.--Sections 4261(g) and 4271(d) are each amended by striking ``January 1, 1996'' and inserting ``January 1, 1996, and to transportation beginning on or after the date which is 7 calendar days after the date of the enactment of the Small Business Job Protection Act of 1996 and before January 1, 1997''."
+
+[2] GAO/RCED-96-130 (1996)
+URL: https://www.govinfo.gov/content/pkg/GAOREPORTS-RCED-96-130/html/GAOREPORTS-RCED-96-130.htm
+"the taxes that finance the Trust Fund lapsed on December 31, 1995."
+"10 percent of the amount paid on airline tickets for travel in the United States, $6 per passenger on each flight from the United States to an international destination"
+
+[3] Pub. L. 105-2 (Airport and Airway Trust Fund Tax Reinstatement Act of 1997), enacted February 28, 1997, sec. 2(b)
+URL: https://www.congress.gov/105/plaws/publ2/PLAW-105publ2.htm
+"The taxes imposed by this section shall apply to--(A) transportation beginning during the period--(i) beginning on the 7th day after the date of the enactment of the Airport and Airway Trust Fund Tax Reinstatement Act of 1997, and (ii) ending on September 30, 1997, and (B) amounts paid during such period for transportation beginning after such period."
+
+[4] Pub. L. 105-34 (Taxpayer Relief Act of 1997), sec. 1031(c) and (e)
+URL: https://www.congress.gov/105/plaws/publ34/PLAW-105publ34.htm
+"(a) In General.--There is hereby imposed on the amount paid for taxable transportation of any person a tax equal to 7.5 percent of the amount so paid."
+Segment table: After September 30, 1997, and before October 1, 1998 $1.00; After September 30, 1998, and before October 1, 1999 $2.00; After September 30, 1999, and before January 1, 2000 $2.25; During 2000 $2.50; During 2001 $2.75; During 2002 or thereafter $3.00.
+"(c) Use of International Travel Facilities.--(1) In general.--There is hereby imposed a tax of $12.00 on any amount paid (whether within or without the United States) for any transportation of any person by air, if such transportation begins or ends in the United States."
+"(3) Special rule for alaska and hawaii.--In any case in which the tax imposed by paragraph (1) applies to a domestic segment beginning or ending in Alaska or Hawaii, such tax shall apply only to departures and shall be at the rate of $6."
+"(B) Last nonindexed year.--... (i) 2002 in the case of the $3.00 amount contained in subsection (b), and (ii) 1998 in the case of the dollar amounts contained in subsection (c)."
+"(5) Rates of ticket tax for transportation beginning before october 1, 1999.--Subsection (a) shall be applied by substituting for `7.5 percent'--(A) `9 percent' in the case of transportation beginning after September 30, 1997, and before October 1, 1998, and (B) `8 percent' in the case of transportation beginning after September 30, 1998, and before October 1, 1999."
+"(A) In general.--Except as otherwise provided in this paragraph, the amendments made by subsections (b) and (c) shall apply to transportation beginning on or after October 1, 1997. (B) ... The amendments made by subsection (c) shall not apply to amounts paid before October 1, 1997; except that-- (i) the amendment made to section 4261(c) ... shall apply to amounts paid more than 7 days after the date of the enactment of this Act for transportation beginning on or after October 1, 1997"
+
+[5] 26 U.S.C. 4262(c)(3) / IRS Publication 510 (12-2025)
+URL: https://www.irs.gov/pub/irs-pdf/p510.pdf
+"Uninterrupted international air transportation. This means transportation entirely by air that doesn't begin and end in the United States or in the 225-mile zone if there isn't more than a 12-hour scheduled interval between arrival and departure at any station in the United States."
+"A tax per person is imposed (whether in or outside the United States) for international flights that begin or end in the United States."
+
+[6] IRS Notice 2011-69
+URL: https://www.irs.gov/pub/irs-drop/n-11-69.pdf
+"On July 23, 2011, the taxes imposed by §§ 4261 and 4271 expired under the terms of the Airport and Airway Extension Act of 2011, Part III (Pub. L. 112-21) and did not apply to amounts paid on and after that date."
+"On August 5, 2011, the President signed the Extension Act, Part IV, into law, reinstating the taxes imposed by §§ 4261 and 4271 ... as if they had never expired."
+"... will not be required to collect and pay over, taxes imposed by §§ 4261 and 4271 on purchases of air transportation services ... for which payment was made after July 22, 2011, and before August 8, 2011."
+
+[7] Pub. L. 116-136 (CARES Act), Approved March 27, 2020, sec. 4007
+URL: https://www.congress.gov/116/plaws/publ136/PLAW-116publ136.htm
+"(a) Transportation by Air.--In the case of any amount paid for transportation by air ... during the excise tax holiday period, no tax shall be imposed under section 4261 or 4271 of such Code."
+"(c) ... the term ``excise tax holiday period'' means the period beginning after the date of the enactment of this section and ending before January 1, 2021."
+IRS FAQ (https://www.irs.gov/newsroom/faqs-aviation-excise-tax-holiday-under-the-cares-act): "The excise tax holiday began on March 28, 2020 and will end on December 31, 2020."
+
+[8] Rev. Proc. 2023-34, sec. 3.45 (2024 indexed amounts)
+URL: https://www.irs.gov/pub/irs-drop/rp-23-34.pdf
+"For calendar year 2024, the tax under § 4261(b)(1) on the amount paid for each domestic segment of taxable air transportation is $5.00. For calendar year 2024, the tax under § 4261(c)(1) ... generally is $22.20. ... For calendar year 2024, the rate of tax is $11.10."

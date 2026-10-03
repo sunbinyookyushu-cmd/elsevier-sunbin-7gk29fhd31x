@@ -1,0 +1,17 @@
+part,spec,term,b,se,p,F,n,note
+first stage,M = GACI,Z geo x foreign growth,0.1834889998481134,0.10455171418223506,0.08882932044442637,,8358,
+first stage,M = GACI,treated x post,-0.013314207560743042,0.006088662322762109,0.03618774675659542,,8358,
+"2SLS, M instrumented by Z, tp exogenous","Y = CO2, M = GACI",ln GACI (b_M),6.670122847304068,6.550003242945742,0.3161547489837524,3.0800498922160693,8358,KP F 3.1; indirect = pi x b_M = -0.0888
+"2SLS, M instrumented by Z, tp exogenous","Y = CO2, M = GACI",treated x post (direct),1.7869688563566307e-05,0.08968125815581476,0.9998422523218671,,8358,KP F 3.1; indirect = pi x b_M = -0.0888
+"2SLS, M instrumented by Z and tp (over-identified)","Y = CO2, M = GACI",ln GACI (b_M),6.669298525902777,2.9027807109773005,0.0282746609524247,4.97219584352333,8358,KP F 5.0
+"2SLS, M instrumented by Z, tp exogenous","Y = CO2 per seat-km, M = GACI",ln GACI (b_M),-1.1257016707727063,1.9247242262875095,0.5627407814520453,3.0800498922160693,8358,KP F 3.1; indirect = pi x b_M = 0.0150
+"2SLS, M instrumented by Z, tp exogenous","Y = CO2 per seat-km, M = GACI",treated x post (direct),-0.00248903855826129,0.033407693470851076,0.9410724141344113,,8358,KP F 3.1; indirect = pi x b_M = 0.0150
+"2SLS, M instrumented by Z and tp (over-identified)","Y = CO2 per seat-km, M = GACI",ln GACI (b_M),-1.0108833433627857,0.7467738230691716,0.18532713303854464,4.97219584352333,8358,KP F 5.0
+first stage,M = destinations,Z geo x foreign growth,1.5362364521583547,0.5328057203146159,0.006980446854103706,,8358,
+first stage,M = destinations,treated x post,-0.07911566303843097,0.040182136091824854,0.05767314495824971,,8358,
+"2SLS, M instrumented by Z, tp exogenous","Y = CO2, M = destinations",ln destinations (b_M),0.7966834587191107,0.8434701185970894,0.3519760251313233,8.313394200135503,8358,KP F 8.3; indirect = pi x b_M = -0.0630
+"2SLS, M instrumented by Z, tp exogenous","Y = CO2, M = destinations",treated x post (direct),-0.025759390287784293,0.07464866778585698,0.7322959442006463,,8358,KP F 8.3; indirect = pi x b_M = -0.0630
+"2SLS, M instrumented by Z and tp (over-identified)","Y = CO2, M = destinations",ln destinations (b_M),0.9448792547180704,0.46904925070387826,0.052430710944878056,6.873345541001859,8358,KP F 6.9
+"2SLS, M instrumented by Z, tp exogenous","Y = CO2 per seat-km, M = destinations",ln destinations (b_M),-0.13445448023787768,0.2294106785866557,0.5619289691205469,8.313394200135503,8358,KP F 8.3; indirect = pi x b_M = 0.0106
+"2SLS, M instrumented by Z, tp exogenous","Y = CO2 per seat-km, M = destinations",treated x post (direct),0.0018613317853744622,0.02589356815222422,0.9431416796256578,,8358,KP F 8.3; indirect = pi x b_M = 0.0106
+"2SLS, M instrumented by Z and tp (over-identified)","Y = CO2 per seat-km, M = destinations",ln destinations (b_M),-0.14516286822649177,0.1112009073858422,0.20106129800275196,6.873345541001859,8358,KP F 6.9

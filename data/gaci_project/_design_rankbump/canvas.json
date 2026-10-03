@@ -1,0 +1,25 @@
+{
+ "artboards": [
+  {
+   "file": "Main.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1660,
+   "h": 1160,
+   "title": "With title",
+   "print": "fixed"
+  },
+  {
+   "file": "FigureOnly.dc.html",
+   "x": 0,
+   "y": 1300,
+   "w": 1660,
+   "h": 980,
+   "title": "Figure only",
+   "print": "fixed"
+  }
+ ],
+ "launch": {
+  "view": "canvas"
+ }
+}

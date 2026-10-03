@@ -1,0 +1,324 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do gaci_tourism_hetero.do 
+
+. *============================================================================
+> ==
+. * gaci_tourism_hetero.do  --  Heterogeneity of the tourism-IV goods-trade eff
+> ect
+. *   spec     : ivreghdfe <goods outcome> lnpop (lng = tourism_int), absorb(is
+> ocode y) robust
+. *   outcomes : merch_intensity = ln(goods trade/GDP) ; merch_share = goods % 
+> GDP
+. *   moderators (time-invariant): heritage endowment / income / size / contine
+> nt / landlocked
+. *   each cell: beta(lng) / SE / p / KP first-stage F / N   (split-sample, rob
+> ust)
+. *   NB countries with zero natural heritage have tourism_int = 0 (no identifi
+> cation);
+. *      the low-heritage cell is therefore weak by construction and flagged.
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI
+
+. import delimited "gaci_panel_tourism.csv", clear varnames(1) encoding("utf-8")
+(41 vars, 3,953 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y  ln_nat_endow
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_nat_endow already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2019, but with gaps
+                delta:  1 unit
+
+. 
+. * ---- moderators ----
+. bysort isocode (y): gen first_lnpc  = lnpc[1]
+
+. bysort isocode (y): gen first_lnpop = lnpop[1]
+
+. gen cont = substr(reg,1,2)
+
+. encode cont, gen(contc)
+
+. summarize nat_endow,   detail
+
+                          nat_endow
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs               3,953
+25%            0              0       Sum of Wgt.       3,953
+
+50%            1                      Mean           1.826714
+                        Largest       Std. Dev.      2.776615
+75%            2             18
+90%            4             18       Variance        7.70959
+95%            8             18       Skewness       3.187552
+99%           16             18       Kurtosis       15.31375
+
+. gen hi_her  = (nat_endow   > r(p50)) if !missing(nat_endow)
+
+. summarize first_lnpc,  detail
+
+                         first_lnpc
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     5.674047       5.425824
+ 5%      6.12589       5.425824
+10%     6.405906       5.425824       Obs               3,953
+25%     7.146812       5.425824       Sum of Wgt.       3,953
+
+50%     8.207564                      Mean           8.342691
+                        Largest       Std. Dev.       1.46871
+75%     9.608736       11.68168
+90%     10.42059       11.68168       Variance       2.157108
+95%     10.57375       11.68168       Skewness       .1605345
+99%     11.11668       11.68168       Kurtosis       1.958864
+
+. gen hi_inc  = (first_lnpc  > r(p50)) if !missing(first_lnpc)
+
+. summarize first_lnpop, detail
+
+                         first_lnpop
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     10.79497       9.281917
+ 5%     11.39375       9.281917
+10%     12.60577       9.281917       Obs               3,953
+25%     14.51491       9.281917       Sum of Wgt.       3,953
+
+50%     15.77163                      Mean           15.53407
+                        Largest       Std. Dev.      2.025029
+75%     16.85287       20.92011
+90%     17.90852       20.92011       Variance       4.100743
+95%     18.64272       20.92011       Skewness      -.3847761
+99%     20.70274       20.92011       Kurtosis       3.207608
+
+. gen lg_size = (first_lnpop > r(p50)) if !missing(first_lnpop)
+
+. gen lockd = 0
+
+. foreach iso in AFG AND ARM AUT AZE BLR BTN BOL BWA BFA BDI CAF TCD CZE SWZ ETH ///
+>                HUN KAZ KGZ LAO LSO LIE LUX MWI MLI MDA MNG NPL NER MKD PRY RWA ///
+>                SMR SRB SVK SSD CHE TJK TKM UGA UZB ZMB ZWE {
+  2.     replace lockd = 1 if c == "`iso'"
+  3. }
+(0 real changes made)
+(0 real changes made)
+(24 real changes made)
+(24 real changes made)
+(22 real changes made)
+(24 real changes made)
+(24 real changes made)
+(24 real changes made)
+(24 real changes made)
+(24 real changes made)
+(0 real changes made)
+(24 real changes made)
+(24 real changes made)
+(24 real changes made)
+(7 real changes made)
+(9 real changes made)
+(24 real changes made)
+(24 real changes made)
+(23 real changes made)
+(21 real changes made)
+(13 real changes made)
+(0 real changes made)
+(20 real changes made)
+(3 real changes made)
+(24 real changes made)
+(0 real changes made)
+(24 real changes made)
+(24 real changes made)
+(24 real changes made)
+(24 real changes made)
+(24 real changes made)
+(24 real changes made)
+(0 real changes made)
+(14 real changes made)
+(24 real changes made)
+(0 real changes made)
+(24 real changes made)
+(24 real changes made)
+(24 real changes made)
+(24 real changes made)
+(23 real changes made)
+(24 real changes made)
+(24 real changes made)
+
+. 
+. capture program drop _hcell
+
+. program define _hcell
+  1.     args lbl cond
+  2.     foreach yv in merch_intensity merch_share {
+  3.         capture noisily quietly ivreghdfe `yv' lnpop (lng = tourism_int) if `cond', absorb(isocode y) robust
+  4.         if _rc == 0 {
+  5.             local b  = _b[lng]
+  6.             local se = _se[lng]
+  7.             local p  = 2*ttail(e(df_r), abs(`b'/`se'))
+  8.             local F  = e(widstat)
+  9.             noisily di "REST|" %-16s "`yv'" "|" %-12s "`lbl'" "|b=" %10.4f `b' "|se=" %9.4f `se' "|p=" %6.4f `p' "|KPF=" %8.2f `F' "|N=" %5.0f e(N)
+ 10.         }
+ 11.         else noisily di "REST|`yv'|`lbl'|FAILED rc=" _rc
+ 12.     }
+ 13. end
+
+. 
+. di _n "############### 1) HERITAGE endowment (native dimension) ###############"
+
+############### 1) HERITAGE endowment (native dimension) ###############
+
+. _hcell "her_HIGH" "hi_her==1"
+REST|merch_intensity |her_HIGH    |b=   -1.1709|se=   4.1573|p=0.7782|KPF=    0.09|N= 1563
+REST|merch_share     |her_HIGH    |b=  493.5721|se=1647.6292|p=0.7646|KPF=    0.09|N= 1563
+
+. _hcell "her_LOW"  "hi_her==0"
+REST|merch_intensity |her_LOW     |b=    1.3700|se=   0.4418|p=0.0020|KPF=   13.44|N= 2389
+REST|merch_share     |her_LOW     |b=  100.9182|se=  32.7359|p=0.0021|KPF=   13.44|N= 2389
+
+. di _n "############### 2) DEVELOPMENT (baseline pc-GDP) ###############"
+
+############### 2) DEVELOPMENT (baseline pc-GDP) ###############
+
+. _hcell "inc_LOW"  "hi_inc==0"
+REST|merch_intensity |inc_LOW     |b=   -0.2777|se=   0.0894|p=0.0019|KPF=  106.50|N= 1994
+REST|merch_share     |inc_LOW     |b=  -13.4248|se=   4.4692|p=0.0027|KPF=  106.50|N= 1994
+
+. _hcell "inc_HIGH" "hi_inc==1"
+REST|merch_intensity |inc_HIGH    |b=   -9.4626|se=  12.8274|p=0.4608|KPF=    0.56|N= 1958
+REST|merch_share     |inc_HIGH    |b= -487.1763|se= 680.2736|p=0.4740|KPF=    0.56|N= 1958
+
+. di _n "############### 3) COUNTRY SIZE (baseline pop) ###############"
+
+############### 3) COUNTRY SIZE (baseline pop) ###############
+
+. _hcell "size_SMALL" "lg_size==0"
+REST|merch_intensity |size_SMALL  |b=    2.0217|se=   1.3604|p=0.1374|KPF=    2.59|N= 1993
+REST|merch_share     |size_SMALL  |b=  191.4179|se= 128.0745|p=0.1352|KPF=    2.59|N= 1993
+
+. _hcell "size_LARGE" "lg_size==1"
+REST|merch_intensity |size_LARGE  |b=   -0.1476|se=   0.3289|p=0.6537|KPF=    5.59|N= 1959
+REST|merch_share     |size_LARGE  |b=  -69.5526|se=  33.1730|p=0.0362|KPF=    5.59|N= 1959
+
+. di _n "############### 4) LANDLOCKED ###############"
+
+############### 4) LANDLOCKED ###############
+
+. _hcell "coastal"    "lockd==0"
+REST|merch_intensity |coastal     |b=    0.5756|se=   0.2076|p=0.0056|KPF=   29.81|N= 3173
+REST|merch_share     |coastal     |b=   30.9748|se=  14.9728|p=0.0387|KPF=   29.81|N= 3173
+
+. _hcell "landlocked" "lockd==1"
+REST|merch_intensity |landlocked  |b=    0.2839|se=   0.3299|p=0.3897|KPF=    6.42|N=  779
+REST|merch_share     |landlocked  |b=   60.4241|se=  32.1506|p=0.0606|KPF=    6.42|N=  779
+
+. di _n "############### 5) CONTINENT ###############"
+
+############### 5) CONTINENT ###############
+
+. levelsof contc, local(lvls)
+1 2 3 4 5 6 7
+
+. foreach L of local lvls {
+  2.     local nm : label (contc) `L'
+  3.     _hcell "cont_`nm'" "contc==`L'"
+  4. }
+REST|merch_intensity |cont_AF     |b=    1.0689|se=   1.0414|p=0.3050|KPF=    1.96|N= 1039
+REST|merch_share     |cont_AF     |b=   -0.8601|se=  29.4977|p=0.9767|KPF=    1.96|N= 1039
+REST|merch_intensity |cont_AS     |b=   -0.4097|se=   0.1220|p=0.0008|KPF=   79.42|N=  637
+REST|merch_share     |cont_AS     |b=  -75.4892|se=  14.9245|p=0.0000|KPF=   79.42|N=  637
+REST|merch_intensity |cont_EU     |b=  -60.3827|se= 813.3111|p=0.9408|KPF=    0.01|N= 1014
+REST|merch_share     |cont_EU     |b=-3940.8739|se= 5.31e+04|p=0.9408|KPF=    0.01|N= 1014
+REST|merch_intensity |cont_LA     |b=    1.4709|se=   0.6444|p=0.0228|KPF=   10.34|N=  594
+REST|merch_share     |cont_LA     |b=  116.0420|se=  54.7754|p=0.0346|KPF=   10.34|N=  594
+REST|merch_intensity |cont_ME     |b=   -0.6140|se=   0.3083|p=0.0474|KPF=   14.39|N=  298
+REST|merch_share     |cont_ME     |b=  -26.9748|se=  12.9607|p=0.0384|KPF=   14.39|N=  298
+REST|merch_intensity |cont_NA     |b=   -3.4677|se=   3.7843|p=0.3654|KPF=    1.02|N=   65
+REST|merch_share     |cont_NA     |b= -140.6578|se= 153.1096|p=0.3642|KPF=    1.02|N=   65
+REST|merch_intensity |cont_SW     |b=   -0.4514|se=   0.3645|p=0.2167|KPF=    3.31|N=  305
+REST|merch_share     |cont_SW     |b=  -25.1186|se=  21.3646|p=0.2408|KPF=    3.31|N=  305
+
+. di "DONE_TOURISM_HET"
+DONE_TOURISM_HET
+
+. 
+end of do-file

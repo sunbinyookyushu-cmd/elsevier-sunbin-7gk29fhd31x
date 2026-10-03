@@ -1,0 +1,143 @@
+JP_ways: elements 13,302 (overpass-api.de)
+JP_stations: elements 9,188 (overpass-api.de)
+KR_ways: elements 4,917 (overpass-api.de)
+KR_stations: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+KR_stations: attempt 2 failed on overpass.private.coffee: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+KR_stations: elements 1,353 (overpass.kumi.systems)
+TW_ways: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+JP_ways cached
+JP_stations: elements 9,188 (overpass-api.de)
+KR_ways cached
+KR_stations: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+KR_stations: elements 0 (overpass.private.coffee)
+TW_ways: elements 631 (overpass-api.de)
+TW_stations: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+TW_stations: attempt 2 failed on overpass.private.coffee: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+TW_stations: elements 0 (overpass.kumi.systems)
+ES_ways: elements 7,887 (overpass-api.de)
+ES_stations: elements 2,268 (overpass-api.de)
+FR_ways: elements 7,285 (overpass-api.de)
+FR_stations: elements 3,635 (overpass-api.de)
+DE_ways: elements 9,333 (overpass-api.de)
+DE_stations: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+DE_stations: elements 8,612 (overpass.private.coffee)
+IT_ways: elements 3,284 (overpass-api.de)
+IT_stations: elements 3,912 (overpass-api.de)
+TR_ways: elements 3,060 (overpass-api.de)
+TR_stations: elements 1,346 (overpass-api.de)
+GB_ways: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+GB_ways: elements 0 (overpass.private.coffee)
+GB_stations: elements 3,648 (overpass-api.de)
+BE_ways: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+BE_ways: attempt 2 failed on overpass.private.coffee: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+BE_ways: attempt 3 failed on overpass.kumi.systems: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+BE_ways: attempt 4 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+BE_ways: elements 0 (overpass.private.coffee)
+BE_stations: elements 717 (overpass-api.de)
+NL_ways: elements 545 (overpass-api.de)
+NL_stations: elements 609 (overpass-api.de)
+AT_ways: elements 1,797 (overpass-api.de)
+AT_stations: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+AT_stations: attempt 2 failed on overpass.private.coffee: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+AT_stations: elements 1,682 (overpass.kumi.systems)
+CH_ways: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+CH_ways: attempt 2 failed on overpass.private.coffee: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+CH_ways: attempt 3 failed on overpass.kumi.systems: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+CH_ways: attempt 4 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+CH_ways: attempt 5 failed on overpass.private.coffee: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+CH_ways: attempt 6 failed on overpass.kumi.systems: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+CH_ways FAILED
+CH_stations: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+CH_stations: elements 1,966 (overpass.private.coffee)
+SE_ways: elements 553 (overpass-api.de)
+SE_stations: elements 1,030 (overpass-api.de)
+FI_ways: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+FI_ways: attempt 2 failed on overpass.private.coffee: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+FI_ways: elements 830 (overpass.kumi.systems)
+FI_stations: elements 318 (overpass-api.de)
+DK_ways: elements 426 (overpass-api.de)
+DK_stations: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+DK_stations: attempt 2 failed on overpass.private.coffee: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+DK_stations: attempt 3 failed on overpass.kumi.systems: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+DK_stations: elements 625 (overpass-api.de)
+PL_ways: elements 443 (overpass-api.de)
+PL_stations: elements 3,297 (overpass-api.de)
+SA_ways: elements 348 (overpass-api.de)
+SA_stations: elements 126 (overpass-api.de)
+MA_ways: elements 149 (overpass-api.de)
+MA_stations: elements 146 (overpass-api.de)
+RS_ways: elements 102 (overpass-api.de)
+RS_stations: elements 491 (overpass-api.de)
+US_ways: elements 1,705 (overpass-api.de)
+US_stations: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+US_stations: elements 1,098 (overpass.private.coffee)
+CN_W_ways: elements 6,373 (overpass-api.de)
+CN_W_stations: elements 10,834 (overpass-api.de)
+CN_C1_ways: elements 31,819 (overpass-api.de)
+CN_C1_stations: elements 3,230 (overpass-api.de)
+CN_C2_ways: elements 3,321 (overpass-api.de)
+CN_C2_stations: elements 1,141 (overpass-api.de)
+CN_E1_ways: attempt 1 failed on overpass-api.de: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+CN_E1_ways: attempt 2 failed on overpass.private.coffee: HTTP 504: <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns
+CN_E1_ways: elements 16,129 (overpass.kumi.systems)
+CN_E1_stations: elements 2,786 (overpass-api.de)
+CN_E2_ways: elements 20,486 (overpass-api.de)
+CN_E2_stations: elements 4,765 (overpass-api.de)
+CN_E3_ways: elements 22,851 (overpass-api.de)
+CN_E3_stations: elements 8,022 (overpass-api.de)
+done
+JP_ways cached
+JP_stations cached
+KR_ways cached
+KR_stations: elements 1,341 (overpass-api.de)
+TW_ways cached
+TW_stations: elements 584 (overpass-api.de)
+ES_ways cached
+ES_stations cached
+FR_ways cached
+FR_stations cached
+DE_ways cached
+DE_stations cached
+IT_ways cached
+IT_stations cached
+TR_ways cached
+TR_stations cached
+GB_ways: elements 3,334 (overpass-api.de)
+GB_stations cached
+BE_ways: elements 504 (overpass-api.de)
+BE_stations cached
+NL_ways cached
+NL_stations cached
+AT_ways cached
+AT_stations cached
+CH_ways: elements 152 (overpass-api.de)
+CH_stations cached
+SE_ways cached
+SE_stations cached
+FI_ways cached
+FI_stations cached
+DK_ways cached
+DK_stations cached
+PL_ways cached
+PL_stations cached
+SA_ways cached
+SA_stations cached
+MA_ways cached
+MA_stations cached
+RS_ways cached
+RS_stations cached
+US_ways cached
+US_stations cached
+CN_W_ways cached
+CN_W_stations cached
+CN_C1_ways cached
+CN_C1_stations cached
+CN_C2_ways cached
+CN_C2_stations cached
+CN_E1_ways cached
+CN_E1_stations cached
+CN_E2_ways cached
+CN_E2_stations cached
+CN_E3_ways cached
+CN_E3_stations cached
+done

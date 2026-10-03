@@ -1,0 +1,16 @@
+contig: actual joint-IV nbr b = 1.854 (t 7.18); RF b = 0.021 (t 7.51)
+contig perm 0
+contig perm 100
+contig perm 200
+contig perm 300
+contig perm 400
+contig: permutation p (|t|) = 0.000; p (|RF t|) = 0.002; p (|b|) = 0.034; sd(t_perm) = 2.59
+knn5: actual joint-IV nbr b = 3.238 (t 5.35); RF b = 0.786 (t 4.87)
+knn5 perm 0
+knn5 perm 100
+knn5 perm 200
+knn5 perm 300
+knn5 perm 400
+knn5: permutation p (|t|) = 0.018; p (|RF t|) = 0.066; p (|b|) = 0.076; sd(t_perm) = 2.36
+saved CO2_spill_placebo.png
+DONE_21b

@@ -1,0 +1,86 @@
+Source: Lok Sabha Q&A API (sansad.in) record retrieved 2026-10-02
+Lok Sabha: 14; Session: 14; Question No: 182; Type: STARRED; Date: 11.12.2008
+Ministry: CIVIL AVIATION
+Subject: GROWTH RATE OF CIVIL AVIATION SECTOR
+Members: ['KIREN RIJIJU', 'VIJAY KUMAR MALHOTRA']
+Official file path (if any):  
+API: https://sansad.in/api_ls/question/qetFilteredQuestionsAns?loksabhaNo=14&pageNo=1&locale=en&keyWord=...  (record: LS 14, Q 182, STARRED, date 11.12.2008)
+
+QUESTION:
+ 
+ 
+
+
+(a) whether the growth rate of aviation sector has declined due to the rise in oil and fuel 
+prices and lack of infrastructure; 
+ 
+
+
+(b) if so,the details thereof;and 
+ 
+
+
+(c) the concrete steps taken by the Government to meet the challenges of slow down in the 
+aviation industry and to sustain the growth rate? 
+
+ANSWER:
+ 
+
+
+
+MINISTER OF STATE (INDEPENDENT CHARGE) OF THE MINISTRY OF CIVIL AVIATION(SHRI PRAFUL PATEL) 
+
+
+
+(a)to(c):- A Statement is laid on the Table of the House. 
+
+
+
+STATEMENT IN REPLY TO PARTS (a), (b) and (c) OF THE LOK SABHA STARRED QUESTION NO.182 FOR 
+ANSWER ON 11.12.2008 REGARDING GROWTH RATE OF CIVIL AVIATION SECTOR. 
+ 
+
+
+ 
+(a)and(b):- Yes,Sir.The domestic passenger growth has declined to negative 1.94% during the 
+period January to October 2008 as compare to growth of 46.5% and 32.5% in the full calender year 
+2006 and 2007 respectively. 
+
+
+ 
+Aviation Sector was first greatly affected due to rise in fuel prices.Thereafter the slowdown 
+of the global economy has caused decline of aviation sector growth.The decline in Indian aviation 
+growth is not due to lack of infrastructure since there is adequate capacity at Indian airports 
+to handle the existing demand. 
+ 
+
+
+ 
+(c):- To meet the challenges of slow down in the aviation industry,the Government has taken 
+various steps which inter-alia are as under: 
+ 
+
+
+(1) Custom duty on import of ATF has been abolished. 
+ 
+
+
+(2) The State Governments have been persuaded to reduce the sales tax on ATF.Government of 
+Andhra Pradesh and in certain cases Government of Rajasthan have reduced the sales tax on ATF to 
+4%.Government of Maharashtra has also reduced sales tax on ATF from 25% to 4% for flights 
+originating from airports other than Pune and Mumbai. 
+ 
+
+
+(3) The Oil Companies have also staggered the dues of Airline Companies over six months. 
+ 
+
+
+(4) With the fall in global crude prices, the Oil Companies have been reducing ATF prices since 
+September,2008. 
+ 
+
+
+(5) The infrastructure at the airports and Air Traffic Control and Navigation is being 
+constantly upgraded to meet the future demand of the airlines.
+

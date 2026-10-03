@@ -1,0 +1,72 @@
+ways 155939 stations within 300 m of a high-speed way 3406
+AT UIC sections 16 fully matched 5
+BE UIC sections 8 fully matched 0
+CH UIC sections 8 fully matched 4
+CN UIC sections 298 fully matched 192
+DE UIC sections 27 fully matched 14
+DK UIC sections 1 fully matched 1
+ES UIC sections 53 fully matched 23
+FI UIC sections 6 fully matched 0
+FR UIC sections 27 fully matched 0
+GB UIC sections 4 fully matched 0
+IT UIC sections 23 fully matched 17
+JP UIC sections 36 fully matched 24
+KR UIC sections 10 fully matched 7
+MA UIC sections 1 fully matched 1
+NL UIC sections 4 fully matched 0
+PL UIC sections 2 fully matched 0
+RS UIC sections 1 fully matched 0
+SA UIC sections 2 fully matched 0
+SE UIC sections 5 fully matched 0
+TR UIC sections 10 fully matched 4
+TW UIC sections 2 fully matched 2
+US UIC sections 2 fully matched 0
+dated stations 2341
+    stations_on_hsr   dated  share_dated
+cc                                      
+AT               50    26.0         0.52
+BE                7     2.0         0.29
+CH                4     1.0         0.25
+CN             1611  1306.0         0.81
+DE              442    94.0         0.21
+DK                3     2.0         0.67
+ES              162   103.0         0.64
+FI               15     NaN          NaN
+FR               48    44.0         0.92
+GB              118    27.0         0.23
+IT               87    50.0         0.57
+JP              514   480.0         0.93
+KR              124   116.0         0.94
+MA                4     NaN          NaN
+NL                6     5.0         0.83
+PL               29     NaN          NaN
+RS                8     NaN          NaN
+SA                4     3.0         0.75
+SE                6     5.0         0.83
+TR              117    36.0         0.31
+TW               43    41.0         0.95
+US                4     NaN          NaN
+date_source  OSM start_date  OSM start_date (CN priority)     UIC  UIC (parallel track)  UIC via line name     none
+cc                                                                                                                 
+AT                    348.0                           NaN    60.0                  52.0                NaN    385.0
+BE                    124.0                           NaN     NaN                   1.0                NaN    300.0
+CH                    124.0                           NaN   100.0                   1.0                NaN     86.0
+CN                      NaN                       83792.0  8007.0                4772.0                NaN  18584.0
+DE                   1073.0                           NaN   881.0                 303.0                NaN   3647.0
+DK                    223.0                           NaN    53.0                   NaN                NaN     28.0
+ES                    431.0                           NaN  1657.0                1277.0                NaN   5023.0
+FI                      NaN                           NaN     NaN                   NaN                NaN    593.0
+FR                   2722.0                           NaN     NaN                  17.0             2588.0     52.0
+GB                    220.0                           NaN     NaN                   0.0                8.0   1916.0
+IT                     65.0                           NaN   637.0                 580.0                NaN   1434.0
+JP                   2704.0                           NaN  2688.0                 774.0                NaN   1121.0
+KR                   1635.0                           NaN  1004.0                 129.0                NaN    455.0
+MA                      NaN                           NaN   184.0                  48.0                NaN    676.0
+NL                      NaN                           NaN     NaN                   1.0              194.0      1.0
+PL                      NaN                           NaN     NaN                   NaN                NaN    646.0
+RS                      NaN                           NaN     NaN                   NaN                NaN    271.0
+SA                    941.0                           NaN     NaN                   NaN                NaN     11.0
+SE                    174.0                           NaN     NaN                   NaN                NaN    333.0
+TR                    678.0                           NaN   567.0                 565.0                NaN   3928.0
+TW                    338.0                           NaN   366.0                   2.0                NaN     13.0
+US                    401.0                           NaN     NaN                   NaN                NaN   1199.0

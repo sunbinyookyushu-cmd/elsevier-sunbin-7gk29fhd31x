@@ -1,0 +1,414 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do gaci_shock_export2.do 
+
+. *============================================================================
+> ==
+. * gaci_shock_export2.do  --  COVID/Russia shock interaction across ALL 5 outc
+> omes
+. *   model: IV with both shocks, lng + lng#covid + lng#russia instrumented by
+. *          tourism_int + its interactions. Outcomes as columns (parallel to T
+> ables 1-2).
+. *   emits SHOCK2|outcome|term|b|se|p|F|N   (term = lng / gaci_c / gaci_r)
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI
+
+. import delimited "gaci_panel_tourism_ext.csv", clear varnames(1) encoding("utf-8")
+(40 vars, 4,643 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. gen g_int = merch_intensity
+
+. gen g_shr = merch_share
+
+. gen g_vol = merch_intensity + lngdp
+
+. gen covid=inrange(y,2020,2021)
+
+. gen russia=(y>=2022)
+
+. gen gaci_c=lng*covid
+
+. gen gaci_r=lng*russia
+
+. gen z=tourism_int
+
+. gen z_c=tourism_int*covid
+
+. gen z_r=tourism_int*russia
+
+. 
+. capture program drop _emit
+
+. program define _emit
+  1.     args yv v F
+  2.     di "SHOCK2|`yv'|`v'|" _b[`v'] "|" _se[`v'] "|" 2*ttail(e(df_r),abs(_b[`v']/_se[`v'])) "|`F'|" e(N)
+  3. end
+
+. 
+. foreach yv in g_vol g_int g_shr lnpc lngdp {
+  2.     capture noisily ivreghdfe `yv' lnpop (lng gaci_c gaci_r = z z_c z_r), absorb(isocode y) robust
+  3.     if _rc==0 {
+  4.         local F=e(widstat)
+  5.         foreach v in lng gaci_c gaci_r {
+  6.             _emit `yv' `v' `F'
+  7.         }
+  8.     }
+  9. }
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4642
+                                                      F(  4,  4428) =    22.05
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  422.5217806                Centered R2   =  -0.3835
+Total (uncentered) SS   =  422.5217806                Uncentered R2 =  -0.3835
+Residual SS             =  584.5524434                Root MSE      =    .3633
+
+------------------------------------------------------------------------------
+             |               Robust
+       g_vol |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |    1.02586   .2683519     3.82   0.000     .4997562    1.551964
+      gaci_c |  -.0114524   .0241853    -0.47   0.636    -.0588677    .0359628
+      gaci_r |  -.0053861   .0231029    -0.23   0.816    -.0506793    .0399071
+       lnpop |   .3722879   .0661137     5.63   0.000     .2426721    .5019037
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             23.838
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                7.156
+                         (Kleibergen-Paap rk Wald F statistic):          7.494
+Stock-Yogo weak ID test critical values:                       <not available>
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng gaci_c gaci_r
+Included instruments: lnpop
+Excluded instruments: z z_c z_r
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SHOCK2|g_vol|lng|1.02586|.26835186|.00013375|7.49365718681381|4642
+SHOCK2|g_vol|gaci_c|-.01145244|.02418527|.63585881|7.49365718681381|4642
+SHOCK2|g_vol|gaci_r|-.00538608|.02310288|.81566773|7.49365718681381|4642
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4642
+                                                      F(  4,  4428) =     8.45
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =    232.53389                Centered R2   =  -0.3086
+Total (uncentered) SS   =    232.53389                Uncentered R2 =  -0.3086
+Residual SS             =  304.3031608                Root MSE      =    .2621
+
+------------------------------------------------------------------------------
+             |               Robust
+       g_int |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .4616015   .2123279     2.17   0.030     .0453326    .8778703
+      gaci_c |  -.0170154   .0200845    -0.85   0.397     -.056391    .0223603
+      gaci_r |  -.0121078   .0196465    -0.62   0.538    -.0506247    .0264091
+       lnpop |  -.2687254   .0487411    -5.51   0.000    -.3642822   -.1731685
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             23.838
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                7.156
+                         (Kleibergen-Paap rk Wald F statistic):          7.494
+Stock-Yogo weak ID test critical values:                       <not available>
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng gaci_c gaci_r
+Included instruments: lnpop
+Excluded instruments: z z_c z_r
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SHOCK2|g_int|lng|.46160147|.2123279|.02975771|7.49365718681381|4642
+SHOCK2|g_int|gaci_c|-.01701536|.0200845|.39693595|7.49365718681381|4642
+SHOCK2|g_int|gaci_r|-.01210778|.01964648|.53773985|7.49365718681381|4642
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4642
+                                                      F(  4,  4428) =    17.50
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  1553800.897                Centered R2   =  -0.0982
+Total (uncentered) SS   =  1553800.897                Uncentered R2 =  -0.0982
+Residual SS             =   1706336.01                Root MSE      =    19.63
+
+------------------------------------------------------------------------------
+             |               Robust
+       g_shr |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   21.98341   15.12169     1.45   0.146    -7.662667    51.62948
+      gaci_c |   -.771363   1.499687    -0.51   0.607    -3.711499    2.168773
+      gaci_r |  -.5529985   1.499795    -0.37   0.712    -3.493346    2.387348
+       lnpop |  -23.77011   3.236805    -7.34   0.000    -30.11587   -17.42436
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             23.838
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                7.156
+                         (Kleibergen-Paap rk Wald F statistic):          7.494
+Stock-Yogo weak ID test critical values:                       <not available>
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng gaci_c gaci_r
+Included instruments: lnpop
+Excluded instruments: z z_c z_r
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SHOCK2|g_shr|lng|21.983407|15.121692|.14608195|7.49365718681381|4642
+SHOCK2|g_shr|gaci_c|-.771363|1.4996869|.60703342|7.49365718681381|4642
+SHOCK2|g_shr|gaci_r|-.55299855|1.4997946|.7123569|7.49365718681381|4642
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4642
+                                                      F(  4,  4428) =    67.08
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =   125.423582                Centered R2   =   0.0897
+Total (uncentered) SS   =   125.423582                Uncentered R2 =   0.0897
+Residual SS             =  114.1673117                Root MSE      =    .1606
+
+------------------------------------------------------------------------------
+             |               Robust
+        lnpc |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |    .370781    .152267     2.44   0.015     .0722615    .6693005
+      gaci_c |   .0116993   .0138161     0.85   0.397    -.0153873    .0387858
+      gaci_r |   .0182331   .0138077     1.32   0.187    -.0088368     .045303
+       lnpop |  -.4621905   .0339686   -13.61   0.000     -.528786    -.395595
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             23.838
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                7.156
+                         (Kleibergen-Paap rk Wald F statistic):          7.494
+Stock-Yogo weak ID test critical values:                       <not available>
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng gaci_c gaci_r
+Included instruments: lnpop
+Excluded instruments: z z_c z_r
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SHOCK2|lnpc|lng|.37078101|.15226702|.01492809|7.49365718681381|4642
+SHOCK2|lnpc|gaci_c|.01169927|.01381614|.39716175|7.49365718681381|4642
+SHOCK2|lnpc|gaci_r|.01823308|.01380766|.18673501|7.49365718681381|4642
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4642
+                                                      F(  4,  4428) =    75.64
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  313.8682971                Centered R2   =   0.0588
+Total (uncentered) SS   =  313.8682971                Uncentered R2 =   0.0588
+Residual SS             =  295.4113433                Root MSE      =    .2583
+
+------------------------------------------------------------------------------
+             |               Robust
+       lngdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         lng |   .5642591   .2234911     2.52   0.012     .1261047    1.002413
+      gaci_c |   .0055629   .0204669     0.27   0.786    -.0345624    .0456882
+      gaci_r |   .0067217    .019055     0.35   0.724    -.0306356    .0440789
+       lnpop |   .6410133   .0533732    12.01   0.000      .536375    .7456515
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             23.838
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):                7.156
+                         (Kleibergen-Paap rk Wald F statistic):          7.494
+Stock-Yogo weak ID test critical values:                       <not available>
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         lng gaci_c gaci_r
+Included instruments: lnpop
+Excluded instruments: z z_c z_r
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+SHOCK2|lngdp|lng|.56425905|.22349114|.01161274|7.49365718681381|4642
+SHOCK2|lngdp|gaci_c|.00556289|.02046689|.78578878|7.49365718681381|4642
+SHOCK2|lngdp|gaci_r|.00672167|.01905496|.72429152|7.49365718681381|4642
+
+. di "DONE_SHOCK2"
+DONE_SHOCK2
+
+. 
+end of do-file

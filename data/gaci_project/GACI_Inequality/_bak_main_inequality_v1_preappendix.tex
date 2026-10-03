@@ -1,0 +1,209 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,threeparttable,graphicx,float,natbib,setspace,hyperref}
+\newcommand{\sym}[1]{\ensuremath{^{#1}}}
+\onehalfspacing
+\title{Growth for Whom? Airport Connectivity and the Distribution of National Income}
+\author{Sunbin Yoo \and [coauthors]}
+\date{Draft v1, 16 September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Gateway airports are associated with national income growth, but the distribution of that growth within countries is not known. We combine the Global Airport Connectivity Index (GACI) for 1996--2023 with market and disposable income Gini coefficients from the Standardized World Income Inequality Database and pretax income shares from the World Inequality Database for 166 economies. Within-country changes in the connectivity of a country's primary hub are positively associated with the market-income Gini coefficient. The association is present in OLS with country and year fixed effects, and larger in two-stage least squares that instrument connectivity with a Feyrer-type interaction between a global aviation-intensity index and baseline geographic air market access, and with a tourism-heritage instrument. The two instruments give statistically indistinguishable estimates. The market-Gini association survives continent by year fixed effects, controls for baseline exposures interacted with the aviation index, and income and inequality tercile by year fixed effects; the disposable-income association does not survive continent by year fixed effects. The distributional response is concentrated at the bottom: the pretax income share of the bottom half of the distribution falls, the top decile share rises modestly, and the top percentile share does not respond. Connectivity raises GDP per capita, industrial employment and urbanisation, and these gains are inequality reducing; the residual association with inequality is therefore larger than the total. Holding total national connectivity fixed, a more concentrated airport network is associated with higher inequality. Long-difference and Open Skies liberalisation designs have no statistical power to move connectivity, so the evidence identifies within-country co-movement rather than a shock response. The findings indicate that gateway-led connectivity growth accompanies rising market inequality, most clearly in Asia and in the period after 2010.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+Whether air connectivity raises national income is a settled question in the accessibility literature; whether the resulting income is shared is not. Recent global evidence links the connectivity of a country's most connected airport to GDP per capita, inbound tourism and service exports, and finds the largest GDP association in the lowest development quartile \citep{Yue_2026}. National aggregates cannot reveal who receives these gains. A gateway hub concentrates high-skill business services, tourism employment and land rents in one metropolitan area, while the traffic it carries is national in origin. The distributional consequences of this concentration are the subject of this paper.
+
+We ask a simple question: does hub connectivity make national income more unequal? We measure connectivity with the Global Airport Connectivity Index (GACI), which combines degree, eigenvector, closeness and flow-betweenness centrality with regional importance for 5,428 airports over 1996--2024 \citep{Cheung_2020}. We measure inequality with the market and disposable income Gini coefficients of the Standardized World Income Inequality Database (SWIID) and with the pretax and post-tax income shares of the World Inequality Database (WID). The estimation sample covers 166 economies and 3,735 country-years.
+
+Three features of the design deserve emphasis. First, we treat market and disposable inequality separately, so that the distributional response can be decomposed into a market component and a redistribution component. Second, we complement the Gini with the income shares of the bottom half, the top decile and the top percentile, so that the location of the response along the distribution is observed rather than inferred. Third, we use two instruments that exploit different sources of variation, a Feyrer-type interaction between a global aviation-intensity index and each country's baseline geographic air market access \citep{Feyrer_2019} and a tourism-heritage interaction between world tourist arrivals and a country's fixed endowment of natural World Heritage sites, and we report an extensive set of exposure-trend diagnostics because both instruments share the shift-share structure whose validity depends on baseline exposures being unrelated to differential inequality trends.
+
+The paper makes three contributions. First, it provides the first global panel estimates of the association between airport connectivity and the within-country distribution of income. Second, it locates the response along the distribution and separates the market response from redistribution. Third, it documents that the composition of a national airport network matters for the distribution of income conditional on the total amount of connectivity, which speaks directly to the policy debate on hub concentration versus distributed airport investment.
+
+\section{Hypothesis development}
+\label{sec:framework}
+Four channels connect the connectivity of a national gateway to the distribution of income, and they do not all point the same way, which is why the question is empirical.
+
+The first channel is skill-biased demand. Hub connectivity lowers the cost of face-to-face interaction and therefore raises the demand for tradable business services, finance and professional occupations, which are concentrated among high earners \citep{Allen_2014,Brueckner_2003}. If this channel dominates, the top of the distribution gains. The second channel is tourism employment. Connectivity raises inbound tourism, whose direct employment is concentrated in accommodation and food services and is low-wage \citep{Khadaroo_2008}. If this channel dominates, the bottom of the distribution gains and inequality falls. The third channel is spatial concentration. A gateway city captures the location rents and agglomeration gains of connectivity, while the rest of the country supplies migrants and demand; the resulting interregional gap shows up in national personal inequality \citep{Redding_2004}. The fourth channel is redistribution. Market inequality may rise while disposable inequality rises less if governments redistribute part of the gains.
+
+\begin{quote}
+\textbf{Hypothesis 1 (Distribution).} Higher hub connectivity increases the market-income Gini coefficient. The disposable-income response is smaller than the market-income response.
+\end{quote}
+\begin{quote}
+\textbf{Hypothesis 2 (Location).} The response is located at the tails: the pretax income share of the top decile rises and the share of the bottom half falls.
+\end{quote}
+\begin{quote}
+\textbf{Hypothesis 3 (Concentration).} Conditional on total national connectivity, a network in which connectivity is concentrated in a single gateway is associated with higher inequality than a distributed network.
+\end{quote}
+\begin{quote}
+\textbf{Hypothesis 4 (Mechanisms).} The association operates net of the income growth, structural transformation and urbanisation that connectivity induces; these induced changes are themselves inequality reducing, so that the residual association exceeds the total.
+\end{quote}
+
+\section{Data}
+\label{sec:data}
+The panel combines the airport-year GACI data of the companion papers with three inequality sources. Connectivity is aggregated to the country-year in three ways: the maximum across the country's airports (hub connectivity, $\mathrm{GACI}_{max}$), the seat-capacity-weighted mean (hub quality, $\mathrm{GACI}_{cwm}$) and the sum across airports (total connectivity, $\mathrm{GACI}_{sum}$). Two concentration measures summarise the composition of the network: the share of the top airport in the national sum and the Herfindahl index of airport shares.
+
+Inequality is measured in three ways. The SWIID (version 9) provides market-income and disposable-income Gini coefficients for 199 economies with model-based standard errors; we use the point estimates and report clustered inference throughout \citep{Solt_2020}. The WID provides pretax and post-tax national income shares for the bottom 50 percent, the middle 40 percent, the top 10 percent and the top 1 percent of equal-split adults, together with a Gini derived from the same distributions \citep{WID_2024}. The World Bank Poverty and Inequality Platform provides survey-based Gini coefficients and decile shares for survey years only and is used as an independent check. Controls and mechanism variables (population, GDP per capita, sectoral employment shares, urbanisation, urban primacy, unemployment, trade, FDI, tax revenue and tertiary enrolment) come from the World Development Indicators.
+
+The estimation sample is the intersection of the connectivity panel with the SWIID: 166 economies and 3,735 country-years over 1996--2023. Table~\ref{tab:sumstat} reports summary statistics. Two features matter for what follows. First, inequality is slow moving: the within-country standard deviation of the market Gini is 1.7 points against a cross-sectional standard deviation of 6.4. Second, hub connectivity also varies mostly across countries: the within standard deviation of $\ln\mathrm{GACI}_{max}$ is 0.16 against 0.61 overall. Both facts limit the information available in short differences, which we return to in Section~\ref{sec:horizon}.
+
+\begin{table}[H]\centering\caption{Summary statistics, estimation sample (166 economies, 1996--2023).}\label{tab:sumstat}
+\begin{threeparttable}\small\input{tables/tab_sumstat}
+\begin{tablenotes}\footnotesize\item Within SD is the standard deviation after removing country means. Gini coefficients in points; income shares as fractions.\end{tablenotes}\end{threeparttable}\end{table}
+
+\section{Empirical strategy}
+\label{sec:strategy}
+The baseline specification relates within-country changes in inequality to within-country changes in connectivity:
+\begin{equation}
+\ln G_{ct} = \beta \ln \mathrm{GACI}_{ct} + \gamma \ln \mathrm{Pop}_{ct} + \mu_c + \lambda_t + \varepsilon_{ct},
+\label{eq:base}
+\end{equation}
+where $G_{ct}$ is the Gini coefficient or an income share of country $c$ in year $t$, and $\mu_c$ and $\lambda_t$ are country and year fixed effects. Following the companion papers, the baseline controls only for population; GDP per capita, trade and the sectoral structure are outcomes of connectivity and enter as candidate mechanisms rather than as controls. Standard errors are heteroskedasticity-robust in the main tables, with country-clustered standard errors reported in brackets and used for the two-stage least squares (2SLS) inference in the text.
+
+Connectivity is not assigned at random. Route development follows expected demand, and the same policy reforms that attract airlines may change the distribution of income. We therefore instrument $\ln\mathrm{GACI}_{ct}$ with the Feyrer interaction $Z^{F}_{ct} = a_t \times \ln\mathrm{MA}^{air}_{c,1996}$, where $a_t$ is a global aviation-intensity index normalised to $[0,1]$ and $\mathrm{MA}^{air}_{c,1996}$ is the population-weighted great-circle market access of the country's airports in the base year \citep{Feyrer_2019}. The identifying assumption is that, conditional on fixed effects, countries whose geography made them better placed to benefit from the global expansion of aviation did not experience differential inequality trends for other reasons. The tourism-heritage instrument $Z^{T}_{ct}$ interacts world international tourist arrivals with the country's fixed endowment of natural and mixed World Heritage sites and identifies connectivity growth on the leisure margin. The two instruments differ in the exposure they use, so agreement between them is informative and the Hansen $J$ test of over-identification is reported.
+
+Both instruments are shift-share instruments with a single global shifter. Their validity therefore rests on the exposure variable, and we probe it in four ways in Section~\ref{sec:diag}: continent by year fixed effects, controls for other baseline exposures (income, inequality, land area, latitude, sea market access) interacted with the same aviation index, income and inequality tercile by year fixed effects, and first stages estimated separately by continent.
+
+\section{Main results}
+\label{sec:results}
+We first ask whether hub connectivity is associated with the level of inequality. Table~\ref{tab:main} reports, for each connectivity measure, the OLS association, the first stage of each instrument and the 2SLS estimate for the market and disposable Gini coefficients.
+
+Panel A uses hub connectivity, the headline measure. The Feyrer instrument is a strong predictor of connectivity (first-stage coefficient $0.146$, Kleibergen--Paap $F=98.5$; $F=10.6$ with country-clustered errors), and the tourism instrument is weaker ($F=13.6$). In OLS, a one-percent increase in hub connectivity is associated with a $0.061$ percent increase in the market Gini ($p<0.01$). The 2SLS estimate with the Feyrer instrument is $0.495$ ($p<0.01$ robust, $p=0.011$ clustered), and the estimate with the tourism instrument is $0.468$ ($p<0.01$ robust, $p=0.07$ clustered). The two instruments therefore agree on the sign and the magnitude, and the Hansen $J$ test does not reject their joint validity for the market Gini ($p=0.88$, Table~\ref{tab:robust}). The disposable Gini responds by a similar amount in OLS ($0.050$) and by more in 2SLS ($0.651$ with the Feyrer instrument, $0.391$ with the tourism instrument). The first half of Hypothesis~1 is supported; the second half, that redistribution attenuates the response, is not: the disposable response is not smaller than the market response.
+
+Panel B uses hub quality and Panel C total connectivity. The pattern of signs and significance is unchanged. The sum measure has the smallest coefficients because it scales with the number of airports, and the capacity-weighted mean has the largest, consistent with the interpretation that connectivity concentrated at large airports is the relevant margin. The three measures are on different scales, and what carries over is the common pattern: positive in OLS, larger in 2SLS, and present for both instruments.
+
+The 2SLS estimates are roughly eight times the OLS estimates. Three explanations are consistent with the data. First, measurement error in the aggregated index attenuates OLS. Second, the instruments identify the response of countries whose connectivity growth was driven by global aviation expansion and geography, which may be the countries in which connectivity growth was least accompanied by compensating policy. Third, the instruments may partly capture differential trends, which we examine in Section~\ref{sec:diag}. We report both estimates throughout and treat the OLS estimate as a lower bound and the 2SLS estimate as an upper bound when quantifying the association.
+
+\begin{table}[H]\centering\caption{Main results: OLS, first stage, and 2SLS, by connectivity measure.}\label{tab:main}
+\begin{threeparttable}\small\input{tables/tab_main}
+\begin{tablenotes}\footnotesize\item Robust SE in parentheses; country-clustered SE in brackets with the corresponding significance level. The first-stage rows regress the connectivity measure on the instrument with population and two-way fixed effects; KP $F$ is the Kleibergen--Paap statistic with robust errors. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+\subsection{Heterogeneity: whose inequality rises?}
+\label{sec:hetero}
+We next ask whether the association varies with the level of development, the initial level of inequality and the period. Table~\ref{tab:hetero} reports interaction 2SLS estimates in which both the connectivity measure and the instrument are interacted with fixed baseline group indicators, together with separate 2SLS by continent.
+
+Panel A shows that the response is not monotone in development. The estimate is $0.47$ in the low-income tercile, $0.20$ in the middle tercile and $0.51$ in the high-income tercile, and the middle-tercile interaction is negative and significant. The separate regressions confirm that the low-income first stage is weak ($F=3.6$), so the U-shape rests mainly on the contrast between middle and high income. Panel B shows that the response is largest where inequality was initially low or moderate: the estimate is $0.43$ in the lowest baseline-Gini tercile, $0.52$ in the middle and $0.33$ in the highest. Panel C shows that the response strengthened after 2010 by $0.08$ ($p=0.02$), the period in which low-cost and Gulf-carrier network expansion was concentrated.
+
+Panel D reveals the geography of the result. The positive association is an Asian phenomenon in the continent-specific estimates ($0.48$, $F=27$). The African estimate is negative ($-0.21$, $F=41$), the European and Latin American estimates are close to zero, and the Middle East and Oceania estimates are imprecise. The African sign reversal is consistent with aviation substituting for missing surface transport in the least connected economies, where the first arrivals of scheduled connectivity benefit rural and peripheral incomes. The continent estimates also show that the first stage changes sign across continents (Table~\ref{tab:diag}), which we discuss in Section~\ref{sec:diag}.
+
+\begin{table}[H]\centering\caption{Heterogeneity: interaction 2SLS with the Feyrer instrument (robust SE).}\label{tab:hetero}
+\begin{threeparttable}\small\input{tables/tab_hetero}
+\begin{tablenotes}\footnotesize\item Terciles are fixed at each country's first observed year. Total rows are linear combinations of the base and interaction coefficients. Panel D reports separate 2SLS by continent with the Kleibergen--Paap $F$ in brackets. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+\subsection{Network concentration}
+\label{sec:conc}
+We now ask whether the composition of the national airport network matters for inequality once its total connectivity is held fixed. Table~\ref{tab:conc} reports three designs.
+
+Panel A holds total connectivity fixed in OLS. The share of the top airport in the national index is not associated with inequality on its own, but conditional on total connectivity it is: a one-percent increase in the top-airport share is associated with a $0.062$ percent increase in the market Gini, the same magnitude as the coefficient on total connectivity itself. The Herfindahl index gives the same answer ($0.087$). Entering the maximum and the mean jointly, both are positive, with the maximum larger. Panel B instruments hub connectivity with the Feyrer instrument while controlling for total connectivity. The hub coefficient rises to $0.76$ and the coefficient on total connectivity turns negative ($-0.105$). Conditional on the connectivity of the gateway, spreading connectivity across more airports is associated with lower inequality. Panel C interacts the instrumented hub measure with an indicator for a concentrated baseline network (top airport share above one half). The response is larger in distributed systems ($0.62$) than in concentrated systems ($0.46$), and the difference is significant. The marginal gateway gain is most unequalising where it creates a new gap between the gateway and the rest of the network.
+
+Hypothesis~3 is supported on the composition margin: at a given total, concentration is associated with higher inequality, and dispersion with lower.
+
+\begin{table}[H]\centering\caption{Network concentration and inequality.}\label{tab:conc}
+\begin{threeparttable}\small\input{tables/tab_conc}
+\begin{tablenotes}\footnotesize\item Robust SE in parentheses. Country and year fixed effects and log population throughout. Concentrated systems are those whose top airport accounted for more than one half of the national index in the first observed year. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+\subsection{Where along the distribution?}
+\label{sec:tails}
+The Gini is a summary statistic, so we ask which part of the distribution moves. Table~\ref{tab:tails} reports OLS and 2SLS estimates for the WID pretax and post-tax income shares and for the redistribution wedge.
+
+The response is at the bottom. The pretax income share of the bottom half falls by $0.77$ percent per percent of hub connectivity in 2SLS ($p=0.06$ clustered), the top decile share rises by $0.22$ percent ($p=0.24$ clustered) and the top percentile share does not respond ($0.07$, $p=0.86$). The ratio of the top decile to the bottom half rises by about one percent per percent of connectivity. The post-tax shares move in the same direction and by more: the post-tax bottom-half share falls by $1.09$ percent ($p=0.02$ clustered). The redistribution wedge, defined as the pretax minus the post-tax top-decile share or Gini, narrows ($-0.09$ percentage points per log point, $p<0.05$ clustered), and the SWIID market-minus-disposable gap narrows by $6$ Gini points per log point. Redistribution therefore does not buffer the market response; it weakens as connectivity grows, which is consistent with the disposable Gini responding by more than the market Gini in Table~\ref{tab:main}. Hypothesis~2 is supported for the bottom half and the top decile, and rejected for the top percentile.
+
+\begin{table}[H]\centering\caption{Distributional location: WID income shares and the redistribution wedge (hub connectivity, Feyrer instrument).}\label{tab:tails}
+\begin{threeparttable}\small\input{tables/tab_tails}
+\begin{tablenotes}\footnotesize\item Shares are for equal-split adults aged 20 and over. The wedge rows use levels (share points or Gini points). \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+\subsection{Mechanisms}
+\label{sec:mech}
+We ask which induced changes carry the association. Table~\ref{tab:mech} reports, for each candidate, the 2SLS effect of hub connectivity on the candidate ($a$), the hub coefficient in the market-Gini equation without ($c$) and with ($c'$) the candidate, and the candidate's own coefficient ($b$), all on a common sample.
+
+Hub connectivity raises GDP per capita (elasticity $1.29$), shifts employment from agriculture to industry ($-22$ and $+19$ percentage points per log point), raises urbanisation and trade, lowers urban primacy and raises unemployment. Three of these induced changes, income growth, industrialisation and urbanisation, are inequality reducing in the Gini equation, and controlling for them raises the hub coefficient: $c'$ exceeds $c$ by $0.26$ for GDP per capita, by $0.11$ for the industrial share and by $0.07$ for the agricultural share. These channels are suppressors, not mediators. The association with inequality is therefore not the by-product of growth; it is what remains after the equalising effects of growth and structural change are removed. The one channel that operates in the same direction is unemployment, which accounts for about six percent of the total. Tourism-related service employment, trade, FDI, tax revenue and tertiary enrolment do not carry the association. Hypothesis~4 is supported.
+
+\begin{table}[H]\centering\caption{Mechanisms: induced changes and the residual association with the market Gini (2SLS, Feyrer instrument, robust SE).}\label{tab:mech}
+\begin{threeparttable}\small\input{tables/tab_mech}
+\begin{tablenotes}\footnotesize\item Each row uses the common sample with non-missing candidate. $c-c'$ is the change in the hub coefficient when the candidate is added; negative values indicate a suppressor. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+\subsection{Aggregate contribution and the COVID-19 collapse}
+\label{sec:contrib}
+We translate the estimates into implied changes in the market Gini over the sample period. Table~\ref{tab:contrib} multiplies each country's change in log hub connectivity between its first and last observation (1996--2023 where available) by the OLS and 2SLS coefficients and reports continent means.
+
+Hub connectivity rose in three quarters of the 103 countries with full coverage, by $0.15$ log points on average and by $0.23$ in Asia and Europe. The OLS coefficient implies a rise in the market Gini of $0.4$ points on average and $0.6$ points in Asia and Europe. The 2SLS coefficient implies $3.8$ points on average and $5$ to $6$ points in Asia and Europe. Actual market Gini coefficients fell by $1.1$ points on average over the same period, and by $6$ points in Latin America. The 2SLS-implied contributions therefore exceed the observed changes for most regions and reach $22$ points for Korea and Turkey, which is not a plausible ceteris paribus quantity. We read this as evidence that the 2SLS coefficient overstates the structural elasticity, for the reasons given in Section~\ref{sec:results}, and we regard the OLS-implied contribution of about half a Gini point as the credible order of magnitude.
+
+The COVID-19 collapse provides a reverse check. Hub connectivity fell by $0.105$ log points on average between 2019 and 2020 (by $0.3$ to $0.4$ in Singapore, Hong Kong, Australia, Japan and Thailand). The OLS coefficient implies a fall in the market Gini of $0.6$ percent, or about a quarter of a point, from the connectivity collapse alone, an amount well within the year-to-year noise of the inequality series. The available inequality data for 2020--2023 do not show a corresponding fall.
+
+\begin{table}[H]\centering\caption{Implied contribution of hub-connectivity growth to the market Gini, first to last observation.}\label{tab:contrib}
+\begin{threeparttable}\small\input{tables/tab_contribution}
+\begin{tablenotes}\footnotesize\item Countries observed in or before 1998 and in or after 2019. Implied changes apply the OLS ($0.061$) and 2SLS ($0.495$) coefficients on $\ln\mathrm{GACI}_{max}$ to each country's initial Gini.\end{tablenotes}\end{threeparttable}\end{table}
+
+\section{Identification diagnostics and robustness}
+\label{sec:diag}
+Because both instruments are shift-share interactions with a single global shifter, the credibility of the 2SLS estimates depends on baseline exposure being unrelated to differential inequality trends. This section reports the checks.
+
+\subsection{Exposure-trend diagnostics}
+Table~\ref{tab:diag} tightens the fixed-effects structure in steps. With continent by year fixed effects, which absorb any continent-level inequality trend, the market-Gini estimate is $0.48$ with the Feyrer instrument and $0.48$ with the tourism instrument ($F=16.7$ and $8.6$). Adding baseline income, inequality, land area, latitude and sea market access, each interacted with the aviation index, lowers the estimate to $0.38$ (Feyrer) and $0.44$ (tourism) with year fixed effects and to $0.28$ and $0.23$ with continent by year fixed effects. Income tercile and inequality tercile by year fixed effects give $0.34$ and $0.40$. With all of these together the Feyrer estimate is $0.33$ ($p<0.01$) and the tourism estimate $0.21$ ($p=0.13$). Using both instruments with continent by year fixed effects and exposure controls gives $0.31$ ($p<0.01$) with a Hansen $J$ $p$-value of $0.95$. The OLS estimate with the full interacted fixed-effects structure is $0.025$ ($p<0.01$). The market-Gini result is therefore not an artefact of continent-level or income-group-level inequality trends, although its magnitude falls by about a third once other exposures are allowed their own trends.
+
+The disposable-Gini result is less robust. It is $0.13$ and not significant with continent by year fixed effects under the Feyrer instrument, $0.05$ with exposure controls and continent by year effects, and $0.08$ in the full specification; the tourism instrument gives $0.34$ ($p=0.03$) in the full specification and the two instruments are rejected jointly ($J$ $p=0.04$). We therefore treat the market-income result as the finding and the disposable result as suggestive.
+
+The first stage differs in sign across continents. Baseline air market access predicts faster hub-connectivity growth in Africa (first-stage coefficient $0.37$) and slower growth in Asia, Europe and Latin America ($-0.23$, $-0.33$ and $-0.21$), a pattern consistent with convergence within the already-connected continents and catch-up in Africa. The pooled first stage is positive because it combines within-continent and between-continent variation. Sign heterogeneity in the first stage means that the pooled 2SLS estimate is not a convex average of continent-specific effects, which is a further reason to prefer the continent by year specification and to report the continent-specific estimates in Table~\ref{tab:hetero}.
+
+Dropping one continent at a time under continent by year fixed effects leaves the market estimate between $0.27$ and $0.58$ and significant except when Asia is dropped, where the first stage collapses ($F=1.4$). Under year fixed effects only, dropping Latin America reverses the sign, because Latin America combines low baseline air market access with the largest inequality decline in the sample; the reversal disappears once continent by year effects are included ($0.58$, $p<0.01$).
+
+\begin{table}[H]\centering\caption{Identification diagnostics for the shift-share instruments.}\label{tab:diag}
+\begin{threeparttable}\small\input{tables/tab_diag}
+\begin{tablenotes}\footnotesize\item Robust SE in parentheses. Exposures interacted with the aviation index $a_t$: baseline ln GDP per capita, baseline market Gini, ln land area, absolute latitude and ln sea market access. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+\subsection{Horizon, long differences and liberalisation episodes}
+\label{sec:horizon}
+The panel estimates are contemporaneous. Table~\ref{tab:horizon} and Figure~\ref{fig:horizon} examine the timing. The 2SLS coefficient on connectivity lagged one to ten years is stable between $0.40$ and $0.52$, and the coefficient on connectivity led one to five years is as large or larger. A joint specification with current and three-year-ahead connectivity is uninformative because the two instruments are nearly collinear ($F=0.3$). The lead pattern is what a persistent regressor and a trending instrument produce, and it does not distinguish anticipation from persistence.
+
+Long differences are the natural design for a slow-moving outcome, and they are where the instruments fail. In cross-sections of changes over 1996--2019, 2000--2019, 2005--2019 and 2010--2019 with continent fixed effects, the OLS coefficient is positive and imprecise ($0.03$ to $0.07$ for the market Gini). The first-stage $F$ of the differenced Feyrer instrument is below $2.1$ in every window, and that of the differenced tourism instrument is below $3$; stacked five-year differences give $F=12.8$ for the tourism instrument and an estimate of $0.06$ ($p=0.46$). The instruments therefore predict the level of connectivity within countries, through the interaction of a trending shifter with fixed exposure, but not its medium-run change. The 2SLS evidence is evidence on within-country co-movement, not on the response to discrete connectivity shocks.
+
+Bilateral liberalisation is the third design. We collected the year in which each of 139 Open Skies agreements with the United States was first applied and estimate staggered difference-in-differences and event-study specifications, excluding the thirteen economies treated before 1997 (Table~\ref{tab:openskies}). Open Skies application does not move the connectivity measures: the post-treatment coefficient on ln hub connectivity is $0.02$ ($p=0.15$) and the event-study coefficients rise slowly to $0.05$ ten years after application without becoming significant. The market Gini rises by $0.024$ log points after application, but the event study shows a monotone pre-trend from $-0.018$ six years before to $-0.008$ one year before, so the post-treatment coefficients continue a trend rather than break one. The Callaway--Sant'Anna estimator with not-yet-treated controls gives the same picture: an average treatment effect of $0.025$ ($p=0.22$) on ln hub connectivity and $0.017$ ($p=0.07$) on the market Gini. As an instrument, Open Skies has $F=2.1$. The liberalisation design therefore neither confirms nor overturns the panel result; it has no power.
+
+\begin{figure}[H]\centering\includegraphics[width=0.75\textwidth]{fig_horizon.png}
+\caption{2SLS coefficient on hub connectivity by horizon, market Gini, Feyrer instrument. Negative horizons are leads of connectivity; positive horizons are lags. Bars are 95 percent robust confidence intervals.}\label{fig:horizon}\end{figure}
+
+\begin{table}[H]\centering\caption{Timing: lagged connectivity, long differences and stacked differences.}\label{tab:horizon}
+\begin{threeparttable}\small\input{tables/tab_horizon}
+\begin{tablenotes}\footnotesize\item Panel A: country and year fixed effects, robust SE. Panel B: cross-sections of changes with continent fixed effects, robust SE; stacked five-year differences with year and continent effects and country-clustered SE. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+\begin{table}[H]\centering\caption{Open Skies agreements: staggered difference-in-differences and instrument.}\label{tab:openskies}
+\begin{threeparttable}\small\input{tables/tab_openskies}
+\begin{tablenotes}\footnotesize\item Treatment is the year an Open Skies agreement with the United States was first applied; economies treated before 1997 are excluded. Country-clustered SE. Pre-trend $F$ tests the joint significance of event-time coefficients $-6$ to $-2$. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+\subsection{Robustness}
+Table~\ref{tab:robust} reports the remaining checks. Adding GDP per capita, urbanisation, tertiary enrolment, trade, tax revenue or sea market access as controls leaves the market estimate between $0.49$ and $0.81$; the increase with GDP per capita is the suppression documented in Table~\ref{tab:mech}. Two-way clustering by continent and year widens the confidence interval to include zero ($0.50$, SE $0.42$) with only seven continent clusters; Driscoll--Kraay errors give $p<0.01$. Dropping the ten leading hub economies raises the estimate to $0.57$, restricting to 1996--2019 lowers it to $0.44$, and dropping the crisis years 2008--09 and 2020--21 gives $0.48$. Country-specific linear trends remove the identifying variation of an instrument that is nearly linear in time ($F=1.3$) and give an uninformative estimate. The survey-based World Bank Gini and decile shares, available for 1,877 country-years, give the same signs: the Gini and the top-decile share rise and the bottom-quintile share falls in both OLS and 2SLS.
+
+Figure~\ref{fig:rfq} shows the reduced form by quintile of baseline inequality and baseline income. The reduced-form coefficient of the Feyrer instrument on the market Gini is positive in every income quintile except the richest, where it is zero, and positive in the second, fourth and fifth baseline-inequality quintiles. The association is not driven by the rich or by the most unequal economies.
+
+\begin{table}[H]\centering\caption{Robustness of the hub-connectivity estimate (2SLS, Feyrer instrument).}\label{tab:robust}
+\begin{threeparttable}\small\input{tables/tab_robust}
+\begin{tablenotes}\footnotesize\item Robust SE in parentheses unless the row states otherwise. \sym{*}~$p<0.10$, \sym{**}~$p<0.05$, \sym{***}~$p<0.01$.\end{tablenotes}\end{threeparttable}\end{table}
+
+\begin{figure}[H]\centering\includegraphics[width=0.85\textwidth]{fig_rf_quintile.png}
+\caption{Reduced-form coefficient of the Feyrer instrument on the market Gini by quintile of baseline inequality (left) and baseline income (right). Country and year fixed effects; 95 percent robust confidence intervals.}\label{fig:rfq}\end{figure}
+
+\section{Synthesis: the hypotheses revisited}
+\label{sec:synthesis}
+Hypothesis~1 is supported for market inequality and not for the attenuation by redistribution. Within countries, rising hub connectivity accompanies a rising market Gini in OLS, in 2SLS with two different instruments, and under continent by year and income-group by year fixed effects. The disposable Gini rises by at least as much, and the redistribution wedge narrows.
+
+Hypothesis~2 is supported at the bottom and the top decile and rejected at the top percentile. The bottom half of the pretax distribution loses share; the top decile gains modestly; the top percentile does not move. The distributional footprint of connectivity is a widening between the middle-upper class and the bottom half, not a surge at the very top.
+
+Hypothesis~3 is supported. At a given total connectivity, a network concentrated in one gateway is associated with higher inequality, dispersion across airports with lower inequality, and the marginal gateway gain is most unequalising where the network was previously distributed.
+
+Hypothesis~4 is supported. Connectivity raises income, industrial employment and urbanisation, and each of these is inequality reducing, so the residual association is larger than the total; unemployment is the only channel that works in the same direction.
+
+Two qualifications bound these conclusions. First, the 2SLS magnitudes are too large to be structural elasticities, as the aggregate contribution exercise shows, and the credible order of magnitude is the OLS one: about half a Gini point for the average country's connectivity growth since 1996. Second, neither long differences nor liberalisation episodes have the statistical power to move connectivity, so the evidence is on co-movement within countries rather than on the response to identified shocks.
+
+\section{Conclusion}
+\label{sec:conclusion}
+Gateway connectivity is associated with growth, and this paper asks who receives it. Using a global panel of 166 economies over 1996--2023, we find that within-country increases in the connectivity of the primary hub accompany increases in market-income inequality, located in a falling income share of the bottom half and a rising share of the top decile, with no response at the top percentile. The association is present under continent by year and income-group by year fixed effects, is larger in Asia and after 2010, is reversed in Africa, and is larger in networks where connectivity is concentrated in a single gateway at a given total. It is not a by-product of growth: the income, industrial employment and urbanisation that connectivity induces are equalising, and the residual association is larger than the total.
+
+The policy reading follows the companion paper's distinction between hub concentration and distributed access. If the objective is the aggregate, the gateway is where connectivity pays; if the objective includes the distribution, the same connectivity spread across secondary airports is associated with a smaller distributional cost. The evidence is on co-movement rather than shock responses, and the next step is subnational: airport-level connectivity matched to local income and night-light data would identify whether the gateway region's gain is the rest of the country's loss, which is the mechanism this paper's national estimates imply but cannot observe.
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{refs_inequality}
+\end{document}

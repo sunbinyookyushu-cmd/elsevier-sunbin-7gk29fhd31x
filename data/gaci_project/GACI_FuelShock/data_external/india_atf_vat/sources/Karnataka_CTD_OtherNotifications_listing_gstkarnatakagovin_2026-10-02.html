@@ -1,0 +1,730 @@
+
+
+ <!DOCTYPE html>
+ <html>
+
+<head><link rel="icon" href="images/favicon.png" />
+       
+    <!-- CSS FILES -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" /><link rel="stylesheet" href="css/style.css" /><link rel="stylesheet" href="css/font-awesome.min.css" /><link rel="stylesheet" href="css/fractionslider.css" /><link rel="stylesheet" href="css/style-fraction.css" /><link rel="stylesheet" href="css/animate.css" /><link href="css/jquery.littlelightbox.css" rel="stylesheet" type="text/css" /><link rel="alternate stylesheet" type="text/css" media="screen" title="high" href="css/high.css" /><link href="App_Themes/Default/animate.min.css" type="text/css" rel="stylesheet" /><link href="App_Themes/Default/login_css.css" type="text/css" rel="stylesheet" /><link href="App_Themes/Default/style.css" type="text/css" rel="stylesheet" /><title>
+	Other Notifications
+</title></head>
+  
+<body>
+
+<form name="aspnetForm" method="post" action="./OtherNotifications.aspx" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEyNTMyMjY0MzUPZBYCZg9kFgICAw9kFgICBw9kFgYCAQ8PFgIeB1Zpc2libGVnZGQCAw8PFgIfAGhkZAIFDw8WAh4EVGV4dAXUASZjb3B5OyAyMDE4IOCynOCyv+CyjuCyuOCzjSDgsp/gsr8g4LKV4LKw4LON4LKo4LK+4LKf4LKVIHwg4LKo4LON4LKv4LK+4LK34LKo4LKy4LONIOCyh+CyqOCzjeCyq+CyvuCysOCzjeCyruCzjeCyr+CyvuCyn+Cyv+CyleCzjeCyuOCzjSDgsrjgs4bgsoLgsp/gsrDgs43gsqjgsr/gsoLgsqYg4LKo4LKh4LOG4LK44LKy4LON4LKq4LKh4LOB4LKk4LON4LKk4LK/4LKm4LOGZGRk83fnVoZ0PQGi9Dgt2RcPkQQKzZjdpR7LWbn0ejF58WQ=" />
+</div>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="834ECDD4" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAJkSm1V32BNK2c1SBSxNxK3LL1H+Tg/X6iT9jnAfhVCxWZZ9t4MAk7GcfAMlUmr/px7+vQgm3GFB8Wc2UYG8HD0" />
+</div>
+
+<div id="topPanel">
+  <div class="container-fluid">
+   <div class="row">
+      
+	<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+		<ul>
+    		<li>Text Size &nbsp;&nbsp;
+                <a id="btn-decrease" href="javascript:void(0);" class="small decreaseFont" title="Decrease Font">A-</a>
+                <a id="btn-orig" href="javascript:void(0);" class="medium resetFont" title="Reset Font">A</a>
+                <a id="btn-increase" href="javascript:void(0);" class="large increaseFont" title="Increase Font">A+</a>
+           	</li>
+			<li></li>
+            <li><a href="javascript:chooseStyle('none', 60);" class="light" title="Normal Theme"></a></li>
+            <li><a href="javascript:chooseStyle('high', 60);"  class="dark" title="Blue Theme"></a></li>
+            
+	   </ul>
+	 </div>
+   </div>
+  </div>
+</div>
+
+<!--Start Header-->
+
+<header id="header">
+    <div id="top-bar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <div>
+              <a href="#">
+              <img id="ctl00_logo_service1" class="img-responsive Karnataka-logo" src="images/logo_service1.png" alt="Karnataka-logo" style="border-width:0px;" />
+              
+                       </a>
+                 </div>
+                </div>
+                <div class="col-md-8 col-lg-8 col-sm-7">
+                   <div>
+          <a href="#">
+          <img id="ctl00_karnataka_gst_logo_new" class="img-responsive Karnataka-GST-logo" src="images/karnataka-gst-logo-new.png" alt="Karnataka-GST-logo" style="border-width:0px;" />
+
+          </a>
+                    </div>
+                   
+                </div>
+                
+                <div class="col-md-2 col-lg-2 col-sm-3">
+                   <div>
+                        <a href="#">
+                        <img id="ctl00_Image1" class="img-responsive GST-logo" src="images/catx_logo.png" alt="GST-logo" style="border-width:0px;" />
+                        
+                        </a>
+
+                        
+                    </div>
+                   
+                </div>
+             
+          </div>
+        </div>
+    </div>
+       
+</header>
+<!--End Header-->
+
+           
+
+<!-- js files starts -->
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+
+<style type="text/css"> 
+ td{padding:5px;vertical-align:middle !important;}
+  th {
+    background: #337AB7;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle !important;
+  }
+</style>
+
+<script type="text/javascript">
+    $(function ($) {
+        $(".dataContent tr td:first-child").css("text-align", "center");
+        $(".dataContent td:nth-child(5)").css("text-align", "center");
+        $('.dataContent').each(function () {
+            $("tr:even").css("background-color", "#F1F4F9");
+            $("tr:odd").css("background-color", "#FFFBD6");
+        });
+    });
+</script>
+
+<!-- Navigation -->
+
+ <div class="navbar navbar-default navbar-static-top container-fluid">
+        <div class="row menumobilerow">
+                  
+       <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+       <ul class="backhomelink">
+          <li><a href="index.aspx"><i style="font-size: 24px;" class="fa fa-home"></i></a></li>
+          </ul>
+       </div>
+            
+      <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+         <ul class="translatelanguage">
+          <li> 
+          <input type="submit" name="ctl00$ContentPlaceHolder1$btneng" value="English" id="ctl00_ContentPlaceHolder1_btneng" class="btn-link" />
+           
+          </li>
+        </ul>
+     </div>   
+        
+        </div>
+    </div>
+
+ <div class="container-fluid">
+
+         <div class="row page_css">
+
+       <div class="col-md-12">
+         <div class="content notificationsscroll">
+            <div style="margin:0px auto;">
+
+            <h3 class="style1"><strong>Other Notifications</strong></h3>           
+              
+          <table class="dataContent topics table-bordered table table-responsive">                
+              <tr>
+                <th style="width: 80px; text-align:center;">
+                        <strong>Sl. NO.</strong>
+                    </th>
+                    <th style="text-align:center;">
+                        <strong>Subject</strong>
+                    </th>
+                    <th style="text-align:center;">
+                        <strong>Notification No.</strong>
+                    </th>
+                    <th style="width: 150px; text-align: center;">
+                        <strong>Date of Issue</strong>
+                    </th>
+                    <th style="width: 100px; text-align: center;">
+                        <strong>English</strong>
+                    </th> 
+                </tr>
+
+<tr>
+                <td style="text-align:center">56</td>
+                <td>Notification regarding Appointment of Deputy Commissioners as Authorized Representatives for GSTAT Proceedings</td>
+                <td>No. FD 34 CSL 2026</td>
+                <td style="text-align:center">16/07/2026</td>                
+                <td><a href="latestupdates/GSTATProceedings16072026.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+                     <tr>
+                <td style="text-align:center">55</td>
+                <td>Group C Draft Notification of the Karnataka Civil Services (Regulation of Transfer or Movement of Commercial Taxes Department Officials) Rules, 2026.</td>
+                <td>No. FD 189 (ii) CSE 2025</td>
+                <td style="text-align:center">26/05/2026</td>                
+                <td><a href="latestupdates/civilservicesgroupc26526.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+
+                   <tr>
+                <td style="text-align:center">54</td>
+                <td>Group A Draft Notification of the Karnataka Civil Services (Regulation of Transfer or Movement of Commercial Taxes Department Officials) Rules, 2026.</td>
+                <td>No. FD 189 (i) CSE 2025</td>
+                <td style="text-align:center">26/05/2026</td>                
+                <td><a href="latestupdates/civilservicesgroupa26526.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+
+                  <tr>
+                <td style="text-align:center">53</td>
+                <td>Mandatory generation of E-way bill for movement of Minor minerals - Notification issued by Department of Mines and Geology.</td>
+                <td>No.CI-MMN/137/2025</td>
+                <td style="text-align:center">20/09/2025</td>                
+                <td><a href="latestupdates/CIMMN8526.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+
+                  <tr>
+                <td style="text-align:center">52</td>
+                <td>KST Notification-‘TRUALT-Oil Company’</td>
+                <td>FD 19 CSL 2025</td>
+                <td style="text-align:center">08/04/2026</td>                
+                <td><a href="latestupdates/KST09426.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+                 
+                 <tr>
+                <td style="text-align:center">51</td>
+                <td>Notification to reduce the KST rate on LNG from 14.34% to 5%.</td>
+                <td>FD 20 CSL 2026</td>
+                <td style="text-align:center">24/03/2026</td>                
+                <td><a href="latestupdates/LNGnotification250326.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+               <tr>
+                        <td style="text-align: center"></td>
+                        <td>Notification(LNG) CORRIGENDUM</td>
+                      
+                         <td > </td>
+                        <td style="text-align: center">27/03/2026</td>                                               
+                         <td style="text-align: center"><a href="Documents/NOTIFICATIONS/corriLNG30326.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20" /></a></td>
+                    </tr>
+
+                  <tr>
+                <td style="text-align:center">50</td>
+                <td>Reimbursement of State GST (SGST) on cinematographic shows of Cinema titled “Land Lord” – reg.</td>
+                <td></td>
+                <td style="text-align:center">06/02/2026</td>                
+                <td><a href="latestupdates/landlord07022026.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+
+
+                   <tr>
+                <td style="text-align:center">49</td>
+                <td>IMC LTD Oil COMPANY</td>
+                <td>FD 21 CSL 2024</td>
+                <td style="text-align:center">15/09/2025</td>                
+                <td><a href="latestupdates/OTHERNOTIFICATION22925.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+               
+
+                
+                  <tr>
+                <td style="text-align:center">48</td>
+                <td>Change of Rate  of tax on Diesel.</td>
+                <td>FD 16 CSL 2025</td>
+                <td style="text-align:center">01/04/2025</td>                
+                <td><a href="latestupdates/dieselnotification2425.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+
+                  <tr>
+                <td style="text-align:center">47</td>
+                <td>GST exemption to 'Anna' Kannada Movie.</td>
+                <td></td>
+                <td style="text-align:center">21/10/2024</td>                
+                <td><a href="latestupdates/moviegstexmp221024.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+
+
+                  <tr>
+                <td style="text-align:center">46</td>
+                <td>Change of Rate  of tax on Petrol and Motor spirits falling under item (ii) of Serial No.12 of Part ‘M’ of the second schedule of the KST Act. </td>
+                <td>FD 31 CSL 2024</td>
+                <td style="text-align:center">15/06/2024</td>                
+                <td><a href="latestupdates/othernotification15624.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+
+
+
+                   <tr>
+                <td style="text-align:center">45</td>
+                <td>Fisheries Notifications.</td>
+                <td>FD 45 CSL 2023</td>
+                <td style="text-align:center">08/08/2023</td>                
+                <td><a href="latestupdates/fisheriesnotification10823.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+
+                    <tr>
+                <td style="text-align:center">44</td>
+                <td>Reimbursement of State GST (SGST) on Cinematographic shows of Cinema titled "Kanakamarga" - reg.</td>
+                <td></td>
+                <td style="text-align:center">21/06/2023</td>                
+                <td><a href="latestupdates/othernotification26623.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+                  <tr>
+                <td style="text-align:center">43</td>
+                <td>Extension of date of payment of Professional Tax under KTPTCE Act, 1976.</td>
+                <td>FD 06 CPT 2023 </td>
+                <td style="text-align:center">06/05/2023</td>                
+                <td><a href="latestupdates/othernoti16523.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+                
+                  <tr>
+                <td style="text-align:center">42</td>
+                <td>GST exemption to 'September 13' Kannada Movie.</td>
+                <td> </td>
+                <td style="text-align:center">19/10/2022</td>                
+                <td><a href="latestupdates/statenotification201022.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+
+                  <tr>
+                <td style="text-align:center">41</td>
+                <td>Notification specifying reduction in the rate of tax for Compressed Natural Gas(CNG).</td>
+                <td>FD 57 CSL 2022 </td>
+                <td style="text-align:center">01/09/2022</td>                
+                <td><a href="latestupdates/stateothernotification1922.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+
+                
+                <tr>
+                <td style="text-align:center">40</td>
+                <td>Notification specifying reduction in the rate of tax for Aviation Turbine Fuel under Karnataka Sales Tax Act 1957 .</td>
+                <td>FD 96 CSL 2021 </td>
+                <td style="text-align:center">27/07/2022</td>                
+                <td><a href="latestupdates/othernotification30072022.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>
+
+                <tr>
+                <td style="text-align:center">39</td>
+                <td>GST exemption to '777 Charlie' Kannada Movie.</td>
+                <td> </td>
+                <td style="text-align:center">18/06/2022</td>                
+                <td><a href="latestupdates/notificationcharlee20522.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+
+                   <tr>
+                <td style="text-align:center">38</td>
+                <td>Constitution of Standing Committee for Consumer Welfare Fund Established under Goods and Services Tax Act and Rules – reg.</td>
+                <td>FD 17 CSL 2022 </td>
+                <td style="text-align:center">21/04/2022</td>                
+                <td><a href="latestupdates/notification25042022.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+
+                   <tr>
+                <td style="text-align:center">37</td>
+                <td>Application for certificate of registration electronically under the Karnataka Tax on Professions, Trades, Callings and Employments Acts, 1976.</td>
+                <td>PT.CR-01/2017-18 </td>
+                <td style="text-align:center">31/03/2022</td>                
+                <td><a href="latestupdates/notification5422.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+
+
+                    <tr>
+                <td style="text-align:center">36</td>
+                <td>Reimbursement of State GST (SGST) on cinematographic shows of Cinema titled “The Kashmir Files” – reg.</td>
+                <td>FD 11 CSL 2022 </td>
+                <td style="text-align:center">18/03/2022</td>                
+                <td><a href="latestupdates/othernotification21032022.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+                 <tr>
+                <td style="text-align:center">35</td>
+                <td>The powers conferred by section 96 of the Karnataka Goods and Services Tax Act, 2017(Karnataka Act 27 of 2017), the Government of Karnataka, hereby make the following amendment in the Notification of Government of Karnataka, No. FD 64 CSL 2021 dated the 24th August, 2021 published in the Karnataka Gazette, Extraordinary, Part IVA, No.749, dated the 24th August, 2021.</td>
+                <td>FD 64 CSL 2021 </td>
+                <td style="text-align:center">09/02/2022</td>                
+                <td><a href="latestupdates/notification9222.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+
+                <tr>
+                <td style="text-align:center">34</td>
+                <td>The Government of Karnataka hereby defers the tax payable under the Central Sales Tax Act, 1956, in respect of finished products manufactured and sold by MRPL,for the period of 3 years from 1st day of January, 2022.</td>
+                <td>FD 42 CSL 2020 </td>
+                <td style="text-align:center">11/01/2022</td>                
+                <td><a href="latestupdates/notificationother13012022.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+
+                 <tr>
+                <td style="text-align:center">33</td>
+                <td>The Government of Karnataka, hereby reduces the Tax payable by a dealer under Section 5 of the said Act on the sale of Aviation Fuel to 18% with effect from the 1st day of January, 2022.</td>
+                <td>FD 97 CSL 2021 </td>
+                <td style="text-align:center">22/12/2021</td>                
+                <td><a href="latestupdates/othernotification231221.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+
+
+                 <tr>
+                <td style="text-align:center">32</td>
+                <td>Government of Karnataka appoints the class of officers namely CCT, Addl.CCTs, JCCTs, DCCTs ,ACCTs & CTOs as the State tax officers for the purpose of GST Act w.e.f 28/06/2017.</td>
+                <td>FD 16 CSL 2021 </td>
+                <td style="text-align:center">10/12/2021</td>                
+                <td><a href="latestupdates/othernotification22122021.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+
+                  <tr>
+                <td style="text-align:center">31</td>
+                <td>Notifcaton No. FD 97 CSL 2021 Dated 04-11-2021-Reduction in State Tax Rate on Petrol,Motor spirits,Aviation Fuel,Piped Natural Gas (PNG)  With Efect From 04-11-2021.</td>
+                <td>FD 97 CSL 2021</td>
+                <td style="text-align:center">04/11/2021</td>                
+                <td><a href="latestupdates/PetrolDiesel04112021.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+
+
+
+                    <tr>
+                <td style="text-align:center">30</td>
+                <td>The Government of Karnataka  constitute the Karnataka Authority for Advance Ruling for the State of Karnataka.</td>
+                <td>FD 64 CSL 2021</td>
+                <td style="text-align:center">24/08/2021</td>                
+                <td><a href="latestupdates/Notificatio26082021.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+
+                    <tr>
+                <td style="text-align:center">29</td>
+                <td>Sales Tax Exemption - Supply of Diesel to Fishermen.</td>
+                <td>FD 58 CSL 2021</td>
+                <td style="text-align:center">30/06/2021</td>                
+                <td><a href="latestupdates/fishernotification01072021.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+                
+                 <tr>
+                <td style="text-align:center">28</td>
+                <td>Creation of GST Helpdesks and Service Centers - reg</td>
+                <td>Adcom (e-Gov)/PA/CR-1012020</td>
+                <td style="text-align:center">11/02/2021</td>                
+                <td><a href="latestupdates/RevisedHELPDESKNotification11012021.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+
+                 <tr>
+                <td style="text-align:center">27</td>
+                <td>Audit Jurisdiction under GST Act 2017.</td>
+                <td> Order No. Adcom(Audit)/JDN/CR-27/2018-19</td>
+                <td style="text-align:center">10/09/2020</td>                
+                <td><a href="latestupdates/AuditJDNunderGSTAct2017.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+                 
+                <tr>
+                <td style="text-align:center">26</td>
+                <td>Extension of Timeframe under KTEG Act, 1979</td>
+                <td>ROD Order No. (02/2020)  FD 27 CSL 2020</td>
+                <td style="text-align:center">17/04/2020</td>                
+                <td><a href="latestupdates/KTEG_ORDER.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+               <tr>
+                <td style="text-align:center">25</td>
+                <td>Extension of Timeframe under KVAT Act, 2003.</td>
+                <td>ROD Order No. (01/2020)  FD 27 CSL 2020</td>
+                <td style="text-align:center">17/04/2020</td>                
+                <td><a href="latestupdates/KVATRODORDER012020.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+               <tr>
+                <td style="text-align:center">24</td>
+                <td>Extension of date of payment of Professional Tax under KTPTCE Act, 1976.</td>
+                <td>ROD Order No. (01/2020) FD 03 CPT 2020</td>
+                <td style="text-align:center">16/04/2020</td>                
+                <td><a href="latestupdates/PTRODORDER012020.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+               <tr>
+                <td style="text-align:center">23</td>
+                <td>Special procedure for filing of returns under KST Act, 1957 - No extension of timeline.</td>
+                <td> FD 26 CSL 2020</td>
+                <td style="text-align:center">16/04/2020</td>                
+                <td><a href="latestupdates/KSTRODORDER012020.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+
+                <tr>
+                <td style="text-align:center">22</td>
+                <td>Rate of tax on Aviation Fuel, Piped Natural Gas (PNG) & Motor spirits falling under item (ii) of Serial No. 12 of Part 'M' of the second schedule of the KST Act, 1957</td>
+                <td> FD 23 CSL 2020(e)</td>
+                <td style="text-align:center">30/03/2020</td>                
+                <td><a href="Documents/General/Notification_2020_03_30.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr> 
+                <tr>
+                <td style="text-align:center">21</td>
+                <td>Amendment Of Notification No FD 60 CSL 2007, dated 21-03-2007 w.e.f 25/11/2008.</td>
+                <td> FD 09 CSL 2020</td>
+                <td style="text-align:center">13/03/2020</td>                
+                <td><a href="Documents/General/Notification16032020.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>  
+                
+                <tr>
+                <td style="text-align:center">20</td>
+                <td>KST(Amendment) Rules, 2019 - Retrospective amendment to Explanation - IV in Rule 6 of KST Rules, 1957(Applicable to Oil Marketing Companies)</td>
+                <td> FD 10 CSL 2017</td>
+                <td style="text-align:center">06/07/2019</td>                
+                <td><a href="Documents/General/NOTIFICATOINII17072019.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>  
+                  
+              <tr>
+                <td style="text-align:center">19</td>
+                <td>KVAT(Amendment) Rules, 2019 - Retrospective amendment to Explanation - IV in Rule 3 of KVAT Rules, 2005(Applicable to Oil Marketing Companies)</td>
+                <td> FD 10 CSL 2017</td>
+                <td style="text-align:center">06/07/2019</td>                
+                <td><a href="Documents/General/NOTIFICATIONI17072019.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>  
+
+               <tr>
+                <td style="text-align:center">18</td>
+                <td>Granting of Unique Identity Number to Karnataka State Highway Improvement Projects(KSHIP).</td>
+                <td>KGST.CR.01/2019-20</td>
+                <td style="text-align:center">02/04/2019</td>                
+                <td><a href="Documents/General/UINKSHIPBNG.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>  
+
+               <tr>
+                <td style="text-align:center">17</td>
+                <td> Guidelines issued by the Government for implementation of "SECRET SERVICE FUND" in the Department.</td>
+                <td> ADCOM (AUDIT)/PA/CR-83/2018-19 </td>
+                <td style="text-align:center">18/12/2018</td>                
+                <td><a href="Documents/General/17GuidlinesissuedbyCCT.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+               </tr>   
+                              
+                <tr>
+                <td style="text-align:center">16</td>
+                <td>Government Order and CCT's proceedings relating to Secret Service Fund (SSF).</td>
+                <td>Govt. Order No. FD 114 CTD 2018</td>
+                <td style="text-align:center">22/11/2018</td>                
+                <td><a href="Documents/General/16GO_CCT_proceedings.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+                </tr> 
+
+                <tr>
+                <td style="text-align:center">15</td>
+                <td>Karnataka Value Added Tax (Amendment) Rules 2018 - Regarding filing of FORM VAT 240 for the period from 1st April 2017 to 30th June 2017.</td>
+                <td>FD 53  CSL 2018 </td>
+                <td style="text-align:center">27/09/2018</td>                
+                <td><a href="Documents/General/notification_fomvat240.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+                </tr> 
+
+                <tr>
+                <td style="text-align:center">14</td>
+                <td>Jurisdiction to Additional Commissioner of Commerical Taxes to function as Additional commissioner of Commercial Taxes (appeals) as specified under Rule 109A of Karnataka Goods and serives Rules,2017.</td>
+                <td>ADCOM (AUDIT)/JDN/CR-02/2018-19 </td>
+                <td style="text-align:center">16/05/2018</td>                
+                <td><a href="Documents/General/ADCOMAUDITJDNCR02.201819.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+                </tr> 
+                <tr>
+                <td style="text-align:center">13</td>
+                <td>Appellate Authority for Advance Ruling for Goods and Services Tax.</td>
+                <td>FD 47  CSL 2017 </td>
+                <td style="text-align:center">25/04/2018</td>                
+                <td><a href="Documents/General/Advance_Ruling_Notification.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+                </tr>  
+                <tr>
+                <td style="text-align:center">12</td>
+                <td>Extension of reward to informants for the Financial Years 2017-18 to 2019-20.</td>
+                <td>FD 28  CSL 2017 </td>
+                <td style="text-align:center">03/01/2018</td>                
+                <td><a href="Documents/General/Reward_to_Informats0001.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+                </tr>                    
+                <tr>
+                <td style="text-align:center">11</td>
+                <td>Appointment of Nodal Officerrs for manual processing of Refund.</td>
+                <td>JCCT (EIU)/RFD/CR-01/2017-18</td>
+                <td style="text-align:center">01/01/2018</td>                
+                <td><a href="Documents/General/Refund_nodal officers0001.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>
+                </tr>                    
+                <tr>
+                <td style="text-align:center">10</td>
+                <td>Assigning geographical and statutory jurisidiction to LGSTOs and SGSTOs in the State under GST Act, 2017.</td>
+                <td>ADCOM (Audit)/JDN/CR-83/2017-18</td>
+                <td style="text-align:center">15/12/2017</td>                
+                <td><a href="Documents/General/JDN_LVOS.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>                
+                </tr>                 
+                <tr>
+                <td style="text-align:center">09</td>
+                    <td>Amendment to assigning Pecuniary Jurisdiction under KGST Act, 2017 to all the Enforcement and Vigilance Officers in the State.</td>
+                    <td>Proceedings of CCT(K) Bengaluru No.Adcom(Audit)/JDN/CR/36/2017-18</td>
+                    <td style="text-align:center">15/12/2017</td>
+                    <td><a href="Documents/General/JDN TO AMENDMENT.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>                    
+                </tr>
+                <tr>
+                <td style="text-align:center">08</td>
+                    <td>Division of Taxpayer base between the Central Government and Government of Karnataka.</td>
+                    <td>Order No. 01/2017-GST/KARNATAKA</td>
+                    <td style="text-align:center">21/11/2017</td>
+                    <td><a href="Documents/General/taxpayer_divn.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>                    
+                </tr>
+                <tr>
+                <td style="text-align:center">07</td>
+                    <td>e-Way Bill Notificaiton</td>
+                    <td>FD47 CSL 2017, Bengaluru</td>
+                    <td style="text-align:center">06/09/2017</td>
+                    <td><a href="Documents/General/ewb_notification.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>                    
+                </tr>
+               <tr>
+                <td style="text-align:center">06</td>
+                    <td>Assigning Pecuniary Jurisdiction under KGST Act, 2017 to all the Enforcement and Vigilance Officers in the State.</td>
+                    <td>Proceedings of CCT(K) Bengaluru No.Adcom(Audit)/JDN/CR/36/2017-18</td>
+                    <td style="text-align:center">30/08/2017</td>
+                    <td><a href="Documents/General/Proceedings_CCT.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>                    
+                </tr>
+               
+                <tr>
+                <td style="text-align:center">05</td>
+                    <td>Re-naming of certain posts in Commercial Taxes Department</td>
+                    <td> EST3/3F/CR 08/2017-18</td>
+                    <td style="text-align:center">07/08/2017</td>
+                    <td><a href="Documents/General/07082017_gazettpost0001.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>                    
+                </tr>                 
+                <tr>
+                <td style="text-align:center">04</td>
+                    <td>Notification specifying the document to be carried for movement of Goods.</td>
+                    <td> FD 47 CSL 2017, Bengaluru</td>
+                    <td style="text-align:center">05/07/2017</td>
+                    <td><a href="Documents/General/05072017_FD47_CSL2017.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>                    
+                </tr>                
+                <tr>
+                <td style="text-align:center">03</td>
+                    <td>Creation of Help Desk </td>
+                    <td>Creation of Help Desk </td>
+                    <td style="text-align:center">01/07/2017</td>
+                    <td><a href="Documents/General/01072017_helpdesk0001.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>                    
+                </tr>
+                 <tr>
+                <td style="text-align:center">02</td>
+                    <td>Abolition of Checkposts.</td>
+                    <td> EST3/3F/CR 06/2017-18</td>
+                    <td style="text-align:center">29/06/2017</td>
+                   <td><a href="Documents/General/29062017_620_III_CT_3F_CR06_17_18.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>                    
+                </tr>
+                <tr>
+                <td style="text-align:center">01</td>
+                    <td>Renaming of DVO/LVO/VSO and assigning jurisdiction.</td>
+                    <td>Proceedings of CCT(K) Bengaluru No.Adcom(I&C)/JDN/REG/CR/15/2017-18</td>
+                    <td style="text-align:center">29/06/2017</td>
+                    <td><a href="Documents/General/29062017_621_I_CT_CR15_17_18.pdf" target="_blank">View<img src="images/pdficon.jpg" width="20" height="20"> </img></a></td>                    
+                </tr> 
+                </table>
+                </div>
+                </div>
+       </div>
+
+        </div>
+       </div>
+
+
+<!-- starts footer bottom -->
+<section class="footer_bottom footermaster">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="copyright mastercopyright"><span id="ctl00_ContentPlaceHolder1_copyrightright_text">&copy; 2018 ಜಿಎಸ್ ಟಿ ಕರ್ನಾಟಕ | ನ್ಯಾಷನಲ್ ಇನ್ಫಾರ್ಮ್ಯಾಟಿಕ್ಸ್ ಸೆಂಟರ್ನಿಂದ ನಡೆಸಲ್ಪಡುತ್ತಿದೆ</span> </p>
+                </div>
+
+             </div>
+        </div>
+    </section>
+
+    <!-- ends footer bottom -->
+
+
+        
+ </form>
+
+ <!-- js files starts -->
+
+    <script type="text/javascript" src="js/switcher.js"></script>
+    <script type="text/javascript" src="js/jquery1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="js/retina-1.1.0.min.js"></script>
+    <script type="text/javascript" src="js/jflickrfeed.js"></script>
+    <script type="text/javascript" src="js/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="js/swipe.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/jquery.littlelightbox.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+
+
+     <script type="text/javascript">
+         $('.lightbox').littleLightBox();
+    </script>
+
+    <script type="text/javascript">
+
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-36251023-1']);
+            _gaq.push(['_setDomainName', 'jqueryscript.net']);
+            _gaq.push(['_trackPageview']);
+
+            (function () {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+
+    </script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            var $affectedElements = $("p, h1, h2, ul, li, li span, a, h3, h4, h5, h6, table"); // Can be extended, ex. $("div, p, span.someClass")
+
+            // Storing the original size in a data attribute so size can be reset
+            $affectedElements.each(function () {
+                var $this = $(this);
+                $this.data("orig-size", $this.css("font-size"));
+            });
+
+            $("#btn-increase").click(function () {
+                changeFontSize(1);
+            })
+
+            $("#btn-decrease").click(function () {
+                changeFontSize(-1);
+            })
+
+            $("#btn-orig").click(function () {
+                $affectedElements.each(function () {
+                    var $this = $(this);
+                    $this.css("font-size", $this.data("orig-size"));
+                });
+            })
+
+            function changeFontSize(direction) {
+                $affectedElements.each(function () {
+                    var $this = $(this);
+                    $this.css("font-size", parseInt($this.css("font-size")) + direction);
+                });
+            }
+        });
+</script>
+
+
+</body>
+</html>
+
+     

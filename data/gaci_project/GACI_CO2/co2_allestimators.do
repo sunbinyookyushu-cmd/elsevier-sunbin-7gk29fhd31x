@@ -1,0 +1,90 @@
+*==============================================================================
+* co2_allestimators.do
+* One tidy export for the combined main-results page:
+*   OLS / Heritage-tourism IV / Feyrer IV / ASN accident IV / Feyrer+ASN overID
+*   x 6 outcomes (total, LTO, 50-50, intl CO2, seat-km, intensity)
+* Controls follow each estimator's published spec:
+*   OLS, Feyrer, ASN, overID: lnpop + ln_sea_ma
+*   Heritage IV: lnpop (co2_main.do spec, KPF ~ 18)
+* -> _allest_results.csv
+*==============================================================================
+clear all
+set more off
+set varabbrev off
+set linesize 255
+version 14
+cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_CO2"
+
+import delimited "co2_country_year.csv", clear varnames(1) encoding("utf-8")
+keep iso3 year co2_bunker co2_bunker_intl co2_lto co2_5050 dep_seat_km
+rename iso3 c
+rename year y
+tempfile co2
+save `co2'
+
+import delimited "asn_country_year.csv", clear varnames(1) encoding("utf-8")
+tempfile asn
+save `asn'
+
+import delimited "../gaci_panel_combined.csv", clear varnames(1) encoding("utf-8")
+ds c reg, not
+destring `r(varlist)', replace force
+merge 1:1 c y using `co2', keep(1 3) nogenerate
+merge 1:1 c y using `asn', keep(1 3) nogenerate
+encode c, gen(isocode)
+xtset isocode y
+
+gen ln_co2_tot = ln(co2_bunker) if co2_bunker > 0
+gen ln_co2_lto = ln(co2_lto) if co2_lto > 0
+gen ln_co2_5050 = ln(co2_5050) if co2_5050 > 0
+gen ln_co2_intl = ln(co2_bunker_intl) if co2_bunker_intl > 0
+gen ln_skm = ln(dep_seat_km) if dep_seat_km > 0
+gen ln_intensity = ln_co2_tot - ln_skm
+
+tempname R
+postfile `R' str16 est str16 outc double(b se p kpf jp) long(nn) using "_allest_tmp", replace
+
+foreach yv in ln_co2_tot ln_co2_lto ln_co2_5050 ln_co2_intl ln_skm ln_intensity {
+    * OLS
+    quietly reghdfe `yv' ln_gaci_cwm lnpop ln_sea_ma, absorb(isocode y) vce(robust)
+    local bb = _b[ln_gaci_cwm]
+    local ss = _se[ln_gaci_cwm]
+    post `R' ("OLS") ("`yv'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (.) (.) (e(N))
+    di "OLS `yv': " %8.3f `bb'
+
+    * Heritage tourism IV (published spec: lnpop only)
+    quietly ivreghdfe `yv' lnpop (ln_gaci_cwm = tourism_int), absorb(isocode y) robust
+    local bb = _b[ln_gaci_cwm]
+    local ss = _se[ln_gaci_cwm]
+    post `R' ("HeritageIV") ("`yv'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (e(widstat)) (.) (e(N))
+    di "HER `yv': " %8.3f `bb' "  F " %6.1f e(widstat)
+
+    * Feyrer IV
+    quietly ivreghdfe `yv' lnpop ln_sea_ma (ln_gaci_cwm = feyrer_int), absorb(isocode y) robust
+    local bb = _b[ln_gaci_cwm]
+    local ss = _se[ln_gaci_cwm]
+    post `R' ("FeyrerIV") ("`yv'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (e(widstat)) (.) (e(N))
+    di "FEY `yv': " %8.3f `bb' "  F " %6.1f e(widstat)
+
+    * ASN accident IV (L.n_fatal, weak by construction)
+    quietly ivreghdfe `yv' lnpop ln_sea_ma (ln_gaci_cwm = L.n_fatal), absorb(isocode y) robust
+    local bb = _b[ln_gaci_cwm]
+    local ss = _se[ln_gaci_cwm]
+    post `R' ("AccidentIV") ("`yv'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (e(widstat)) (.) (e(N))
+    di "ASN `yv': " %8.3f `bb' "  F " %6.1f e(widstat)
+
+    * Feyrer + accident over-ID
+    quietly ivreghdfe `yv' lnpop ln_sea_ma (ln_gaci_cwm = feyrer_int L.n_fatal), absorb(isocode y) robust
+    local bb = _b[ln_gaci_cwm]
+    local ss = _se[ln_gaci_cwm]
+    post `R' ("Fey+AccOverID") ("`yv'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (e(widstat)) (e(jp)) (e(N))
+    di "OID `yv': " %8.3f `bb' "  F " %6.1f e(widstat) "  Jp " %6.3f e(jp)
+}
+postclose `R'
+preserve
+use "_allest_tmp", clear
+export delimited "_allest_results.csv", replace
+restore
+erase "_allest_tmp.dta"
+
+di _n "DONE_ALLEST"

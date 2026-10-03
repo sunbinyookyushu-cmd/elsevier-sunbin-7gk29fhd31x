@@ -1,0 +1,102 @@
+% ===== tab:spillover (main) =====
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Connectivity spillovers: own and neighbouring countries' connectivity, jointly instrumented}
+\label{tab:spillover}
+\footnotesize
+\begin{tabular}{lccccc}
+\toprule
+\multicolumn{6}{l}{\textit{Panel A. Log bunker CO$_2$; own and neighbour connectivity both instrumented}} \\
+Neighbour definition & Own ln GACI & Neighbour ln GACI & SW $F$ (own / nbr) & KP $F$ & $N$ \\
+\midrule
+  Contiguous countries (land border) & 3.48$^{***}$ (0.47) & 1.93$^{***}$ (0.27) & 66 / 124 & 32.7 & 4,623 \\
+  \quad s.e.\ clustered by country & (1.29) & (0.69) & & & \\
+  Five nearest countries & 1.23$^{*}$ (0.64) & 3.51$^{***}$ (0.66) & 48 / 49 & 23.5 & 4,623 \\
+  \quad s.e.\ clustered by country & (1.84) & (1.94) & & & \\
+  Countries within 500 km & 4.89$^{***}$ (0.52) & 0.62$^{**}$ (0.26) & 104 / 224 & 51.2 & 4,623 \\
+  \quad s.e.\ clustered by country & (1.34) & (0.66) & & & \\
+  Kernel $\exp(-d/1000\,\mathrm{km})$ & -0.08 (0.66) & 4.97$^{***}$ (0.77) & 41 / 49 & 20.5 & 4,623 \\
+  \quad s.e.\ clustered by country & (1.91) & (2.29) & & & \\
+  Inverse distance, all countries & -2.35 (1.69) & 16.18$^{***}$ (3.74) & 10 / 11 & 5.1 & 4,623 \\
+\midrule
+\multicolumn{6}{l}{\textit{Neighbour connectivity instrumented, own shifter in reduced form; s.e.\ clustered by country; AR = Anderson--Rubin 95\% set}} \\
+Neighbour definition & Own shifter (RF) & Neighbour ln GACI & AR set & KP $F$ & $N$ \\
+  Contiguous countries & controlled & 2.05$^{***}$ (0.61) & [0.9, 3.2] & 175.2 & 4,623 \\
+  Contiguous, sub-region $\times$ year FE & controlled & 2.07$^{**}$ (0.83) & -- & 97.5 & 4,621 \\
+  Countries within 500 km & controlled & 0.09 (0.90) & [-1.7, 1.8] & 88.3 & 4,623 \\
+  Five nearest countries & controlled & 7.05 (5.59) & [-0.1, 12.0] & 1.5 & 4,623 \\
+  Contiguous, joint 2SLS (own and neighbour instrumented) & own 3.48$^{***}$ (1.29) & 1.93$^{***}$ (0.69) & [0.1, 3.1] & 3.3 (SW 6.7 / 13.2) & 4,623 \\
+  Within 500 km, joint 2SLS & own 4.84$^{***}$ (1.33) & 0.67 (0.65) & [-0.7, 1.9] & 6.6 (SW 13.3 / 31.3) & 4,623 \\
+  Inverse distance, own shifter in reduced form (previous specification) & RF 0.25$^{**}$ (0.12) & 7.45$^{***}$ (1.99) & -- & 134.1 & 4,623 \\
+  \quad s.e.\ clustered by country & & (5.66) & & & \\
+\midrule
+\multicolumn{6}{l}{\textit{Panel B. Margins of the response, contiguity definition, joint 2SLS}} \\
+Outcome & Own ln GACI & Neighbour ln GACI & & KP $F$ & $N$ \\
+\midrule
+  Bunker CO$_2$ & 3.48$^{***}$ (0.47) [1.29] & 1.93$^{***}$ (0.27) [0.69] & & 32.7 & 4,623 \\
+  International CO$_2$ & 3.15$^{***}$ (0.46) [1.24] & 2.23$^{***}$ (0.26) [0.63] & & 32.5 & 4,622 \\
+  Domestic CO$_2$ & -2.72 (1.77) [4.63] & 2.02$^{**}$ (0.90) [2.34] & & 26.2 & 3,567 \\
+  Seat-km & 3.16$^{***}$ (0.49) [1.39] & 2.56$^{***}$ (0.27) [0.69] & & 32.7 & 4,623 \\
+  Flights & 5.61$^{***}$ (0.79) [2.10] & 1.22$^{**}$ (0.54) [1.41] & & 32.7 & 4,623 \\
+  Seats per flight & -0.65$^{*}$ (0.34) [0.84] & 0.30 (0.25) [0.61] & & 32.7 & 4,623 \\
+  Km per flight & -1.80$^{***}$ (0.40) [1.21] & 1.04$^{***}$ (0.25) [0.71] & & 32.7 & 4,623 \\
+  CO$_2$ per seat-km & 0.32$^{**}$ (0.16) [0.40] & -0.63$^{***}$ (0.10) [0.23] & & 32.7 & 4,623 \\
+  International share of seat-km & 0.01 (0.07) [0.17] & 0.07$^{*}$ (0.04) [0.09] & & 32.7 & 4,623 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: Neighbour connectivity is the leave-out average of other countries' log GACI (capacity-weighted mean) under the stated weighting; it is instrumented by the identically weighted average of their Feyrer shifters, and own connectivity by the own shifter. All specifications include country and year fixed effects, log population, log sea market access and an indicator for countries with no neighbour under the definition (31 countries have no land neighbour). SW $F$ is the Sanderson--Windmeijer conditional first-stage statistic for each endogenous regressor. Heteroskedasticity-robust standard errors in parentheses; country-clustered standard errors in brackets or on the following line. The middle block of Panel A instruments neighbour connectivity only, with the own shifter as a control, and reports country-clustered standard errors and Anderson--Rubin 95 percent sets obtained by grid inversion (for the joint rows, the subset Anderson--Rubin set for the neighbour coefficient with own connectivity instrumented under each null); SW $F$ in that block is cluster-robust. The last row is the specification of the previous draft with all-country inverse-distance weights. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent (robust).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+% ===== tab:spill_ext (ED) =====
+\begin{table}[htbp]
+\centering
+\begin{threeparttable}
+\caption{Extended Data Table: Spatial structure of the connectivity spillover}
+\label{tab:spill_ext}
+\scriptsize
+\begin{tabular}{lcccc}
+\toprule
+\multicolumn{5}{l}{\textit{Panel A. One neighbour definition at a time (neighbour connectivity instrumented; own shifter in reduced form)}} \\
+ & Neighbour ln GACI & KP $F$ & RMSE & $N$ \\
+\midrule
+  Contiguous countries & 2.05$^{***}$ (0.26) & 1456.4 & & 4,623 \\
+  0--500 km & 0.09 (0.37) & 603.4 & & 4,623 \\
+  500--1,000 km & -0.11 (0.41) & 394.4 & & 4,623 \\
+  1,000--2,000 km & 2.51$^{***}$ (0.80) & 122.0 & & 4,623 \\
+  2,000--5,000 km & 3.06 (2.02) & 38.0 & & 4,623 \\
+  Beyond 5,000 km & -7.00$^{***}$ (2.32) & 991.1 & & 4,623 \\
+  Kernel $\exp(-d/\lambda)$, $\lambda$ = 250 km & 2.22$^{***}$ (0.63) & 62.2 & 0.4358 & 4,623 \\
+  Kernel $\exp(-d/\lambda)$, $\lambda$ = 500 km & 3.18$^{***}$ (0.71) & 83.0 & 0.4344 & 4,623 \\
+  Kernel $\exp(-d/\lambda)$, $\lambda$ = 1,000 km & 4.75$^{***}$ (1.02) & 116.9 & 0.4256 & 4,623 \\
+  Kernel $\exp(-d/\lambda)$, $\lambda$ = 2,000 km & 5.07$^{***}$ (1.64) & 104.4 & 0.4175 & 4,623 \\
+  Kernel $\exp(-d/\lambda)$, $\lambda$ = 5,000 km & 6.18$^{**}$ (3.02) & 140.4 & 0.4177 & 4,623 \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel B. Regional exposure and region-by-year fixed effects}} \\
+ & Coefficient & KP $F$ & & $N$ \\
+  Within aviation bloc (leave-out mean) & 2.35$^{***}$ (0.32) & 107.3 & & 4,623 \\
+  Outside bloc (inverse-distance weighted), same regression & 13.62$^{***}$ (2.17) & & & \\
+  Within UN sub-region (leave-out mean) & 4.19 (3.53) & 0.8 & & 4,623 \\
+  Outside sub-region, same regression & 8.23 (8.17) & & & \\
+  Contiguous, joint 2SLS, sub-region $\times$ year FE & 1.95$^{***}$ (0.47) [1.37] \{1.09\} & 3.4 & & 4,621 \\
+  Contiguous, own shifter in reduced form, sub-region $\times$ year FE & 2.07$^{***}$ (0.28) & 651.8 & & 4,621 \\
+  Kernel 500 km, own shifter in reduced form, sub-region $\times$ year FE & 3.49$^{***}$ (1.07) & 76.0 & & 4,621 \\
+  Inverse distance, own shifter in reduced form, sub-region $\times$ year FE & 16.54$^{***}$ (3.81) & 167.2 & & 4,621 \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel C. Permutation placebo: countries relabelled at random in the weight matrix (500 draws)}} \\
+ & Actual $t$ & Permutation $p$ & s.d.\ of permuted $t$ & \\
+  Inverse distance (reduced form on the neighbour shifter) & 3.81 & 0.146 & 2.64 & \\
+  Contiguous countries (joint 2SLS, neighbour coefficient) & 7.26 & 0.004 & 2.59 & \\
+  Five nearest countries (joint 2SLS, neighbour coefficient) & 5.40 & 0.010 & 2.24 & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\scriptsize
+\item Notes: Panel A enters one neighbour exposure at a time (each instrumented by its own weighted shifter) with the own Feyrer shifter as a control; bands are leave-out means over countries whose aviation centroids fall in the stated distance range, with an indicator for empty bands. Panel B: aviation blocs are the EU/EEA single market, ASEAN, GCC, Mercosur, North America, ECOWAS, EAC/SADC, CIS, the Andean and Central American group, South Asia and Oceania; sub-regions follow the UN M49 classification. Robust standard errors in parentheses, country-clustered in brackets and sub-region-clustered in braces. Panel C permutes country labels in the weight matrix, rebuilds the exposures and re-estimates; the $p$-value is the share of draws whose $|t|$ exceeds the actual. $^{***}$, $^{**}$, $^{*}$: significance at 1, 5, and 10 percent (robust).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

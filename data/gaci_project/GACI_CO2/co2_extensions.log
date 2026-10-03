@@ -1,0 +1,453 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do co2_extensions.do 
+
+. *============================================================================
+> ==
+. * co2_extensions.do
+. * A) Measures x 6 outcomes under Feyrer IV: sum (lng) / max / mean
+. *    -> _measures6.csv   (panels C/D/E of the main sheet)
+. * B) Mediation, two flavours:
+. *    B1: IV product-of-coefficients + Sobel (treatment instrumented)
+. *    B2: Imai et al. (2010) causal mediation via medeff (quasi-Bayesian ACME)
+> ,
+. *        OLS with country + year dummies
+. *    mediators: ln_flights, ln_skm, intl_share; outcome ln_co2_tot
+. *    -> _mediation_co2.csv
+. * C) Temporal heterogeneity: pre-2010 vs 2010+ (Feyrer IV)
+. *    -> _temporal_co2.csv
+. * D) Spatial spillovers: neighbour connectivity (inverse-distance weighted),
+. *    own + neighbour GACI both instrumented (own Feyrer + neighbour Feyrer)
+. *    -> _spillover_co2.csv
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. set seed 20260826
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_CO2"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2
+
+. 
+. * ---- build merged dataset ----
+. import delimited "co2_country_year.csv", clear varnames(1) encoding("utf-8")
+(20 vars, 6,777 obs)
+
+. keep iso3 year co2_bunker co2_bunker_intl co2_lto co2_5050 dep_seat_km n_dep_flights dep_seats dep_seat_km_intl
+
+. rename iso3 c
+
+. rename year y
+
+. tempfile co2
+
+. save `co2'
+file C:\Users\sunbi\AppData\Local\Temp\ST_feb8_000001.tmp saved
+
+. 
+. import delimited "../gaci_panel_measures.csv", clear varnames(1) encoding("utf-8")
+(49 vars, 4,643 obs)
+
+. keep c y ln_gaci_max
+
+. tempfile mx
+
+. save `mx'
+file C:\Users\sunbi\AppData\Local\Temp\ST_feb8_000002.tmp saved
+
+. 
+. import delimited "spillover_vars.csv", clear varnames(1) encoding("utf-8")
+(4 vars, 4,624 obs)
+
+. tempfile sp
+
+. save `sp'
+file C:\Users\sunbi\AppData\Local\Temp\ST_feb8_000003.tmp saved
+
+. 
+. import delimited "../gaci_panel_combined.csv", clear varnames(1) encoding("utf-8")
+(44 vars, 4,643 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int   feyrer_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum   ln_sea_ma
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y  ln_remote     ln_air_ma
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+feyrer_int already numeric; no replace
+ln_sea_ma already numeric; no replace
+ln_air_ma already numeric; no replace
+
+. merge 1:1 c y using `co2', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                             4,643  
+    -----------------------------------------
+
+. merge 1:1 c y using `mx', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                             4,643  
+    -----------------------------------------
+
+. merge 1:1 c y using `sp', keep(1 3) nogenerate
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                            19
+        from master                        19  
+        from using                          0  
+
+    matched                             4,624  
+    -----------------------------------------
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. 
+. gen ln_co2_tot = ln(co2_bunker) if co2_bunker > 0
+
+. gen ln_co2_lto = ln(co2_lto) if co2_lto > 0
+
+. gen ln_co2_5050 = ln(co2_5050) if co2_5050 > 0
+
+. gen ln_co2_intl = ln(co2_bunker_intl) if co2_bunker_intl > 0
+
+. gen ln_skm = ln(dep_seat_km) if dep_seat_km > 0
+
+. gen ln_intensity = ln_co2_tot - ln_skm
+
+. gen ln_flights = ln(n_dep_flights) if n_dep_flights > 0
+
+. gen intl_share = dep_seat_km_intl/dep_seat_km if dep_seat_km > 0
+
+. replace intl_share = 1 if intl_share > 1 & !missing(intl_share)
+(0 real changes made)
+
+. gen g_vol = merch_intensity + lngdp
+
+. 
+. * =====================================================================
+. * A) measures x 6 outcomes
+. * =====================================================================
+. tempname M
+
+. postfile `M' str16 meas str16 outc double(b se p kpf) long(nn) using "_m6_tmp", replace
+(note: file _m6_tmp.dta not found)
+
+. foreach tr in lng ln_gaci_max ln_gaci_mean {
+  2.     foreach yv in ln_co2_tot ln_co2_lto ln_co2_5050 ln_co2_intl ln_skm ln_intensity {
+  3.         quietly ivreghdfe `yv' lnpop ln_sea_ma (`tr' = feyrer_int), absorb(isocode y) robust
+  4.         local bb = _b[`tr']
+  5.         local ss = _se[`tr']
+  6.         di "M6 `tr' `yv': b = " %9.3f `bb' "  KP F = " %7.1f e(widstat)
+  7.         post `M' ("`tr'") ("`yv'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (e(widstat)) (e(N))
+  8.     }
+  9. }
+M6 lng ln_co2_tot: b =     2.153  KP F =    90.3
+M6 lng ln_co2_lto: b =     2.296  KP F =    90.3
+M6 lng ln_co2_5050: b =     2.134  KP F =    90.3
+M6 lng ln_co2_intl: b =     2.091  KP F =    90.3
+M6 lng ln_skm: b =     2.272  KP F =    90.3
+M6 lng ln_intensity: b =    -0.118  KP F =    90.3
+M6 ln_gaci_max ln_co2_tot: b =     4.548  KP F =   172.0
+M6 ln_gaci_max ln_co2_lto: b =     4.850  KP F =   172.0
+M6 ln_gaci_max ln_co2_5050: b =     4.508  KP F =   172.0
+M6 ln_gaci_max ln_co2_intl: b =     4.416  KP F =   172.0
+M6 ln_gaci_max ln_skm: b =     4.798  KP F =   172.0
+M6 ln_gaci_max ln_intensity: b =    -0.250  KP F =   172.0
+M6 ln_gaci_mean ln_co2_tot: b =     5.562  KP F =   136.2
+M6 ln_gaci_mean ln_co2_lto: b =     5.931  KP F =   136.2
+M6 ln_gaci_mean ln_co2_5050: b =     5.514  KP F =   136.2
+M6 ln_gaci_mean ln_co2_intl: b =     5.401  KP F =   136.2
+M6 ln_gaci_mean ln_skm: b =     5.868  KP F =   136.2
+M6 ln_gaci_mean ln_intensity: b =    -0.306  KP F =   136.2
+
+. postclose `M'
+
+. preserve
+
+. use "_m6_tmp", clear
+
+. export delimited "_measures6.csv", replace
+file _measures6.csv saved
+
+. restore
+
+. erase "_m6_tmp.dta"
+
+. 
+. * =====================================================================
+. * B) mediation
+. * =====================================================================
+. tempname D
+
+. postfile `D' str12 method str16 med double(a sa b sb cprime scp ctot acme sobel_se sobel_p prop) using "_med_tmp", replace
+(note: file _med_tmp.dta not found)
+
+. 
+. * --- B1: IV product of coefficients ---
+. foreach mv in ln_flights ln_skm intl_share {
+  2.     quietly ivreghdfe ln_co2_tot lnpop ln_sea_ma (ln_gaci_cwm = feyrer_int), absorb(isocode y) robust
+  3.     local ctot = _b[ln_gaci_cwm]
+  4.     quietly ivreghdfe `mv' lnpop ln_sea_ma (ln_gaci_cwm = feyrer_int), absorb(isocode y) robust
+  5.     local aa = _b[ln_gaci_cwm]
+  6.     local sa = _se[ln_gaci_cwm]
+  7.     quietly ivreghdfe ln_co2_tot `mv' lnpop ln_sea_ma (ln_gaci_cwm = feyrer_int), absorb(isocode y) robust
+  8.     local bb = _b[`mv']
+  9.     local sb = _se[`mv']
+ 10.     local cp = _b[ln_gaci_cwm]
+ 11.     local scp = _se[ln_gaci_cwm]
+ 12.     local acme = `aa'*`bb'
+ 13.     local sse = sqrt(`aa'^2*`sb'^2 + `bb'^2*`sa'^2)
+ 14.     local sz = `acme'/`sse'
+ 15.     local sp2 = 2*normal(-abs(`sz'))
+ 16.     local pr = `acme'/`ctot'
+ 17.     di "MED-IV `mv': a=" %7.3f `aa' " b=" %7.3f `bb' " ACME=" %7.3f `acme' " Sobel p=" %6.4f `sp2' " prop=" %6.3f `pr'
+ 18.     post `D' ("IV_product") ("`mv'") (`aa') (`sa') (`bb') (`sb') (`cp') (`scp') (`ctot') (`acme') (`sse') (`sp2') (`pr')
+ 19. }
+MED-IV ln_flights: a=  6.760 b=  0.667 ACME=  4.508 Sobel p=0.0000 prop= 0.843
+MED-IV ln_skm: a=  5.641 b=  0.801 ACME=  4.521 Sobel p=0.0000 prop= 0.845
+MED-IV intl_share: a=  0.019 b= -1.605 ACME= -0.031 Sobel p=     . prop=-0.006
+
+. 
+. * --- B2: Imai et al. (2010) medeff, OLS with country+year dummies ---
+. foreach mv in ln_flights ln_skm intl_share {
+  2.     capture noisily medeff (regress `mv' ln_gaci_cwm lnpop ln_sea_ma i.isocode i.y) ///
+>         (regress ln_co2_tot ln_gaci_cwm `mv' lnpop ln_sea_ma i.isocode i.y), ///
+>         treat(ln_gaci_cwm) mediate(`mv') sims(200)
+  3.     if _rc == 0 {
+  4.         local d1 = r(delta1)
+  5.         local z1 = r(zeta1)
+  6.         local tau = r(tau)
+  7.         local pr = `d1'/`tau'
+  8.         di "MED-IMAI `mv': ACME=" %7.3f `d1' " ADE=" %7.3f `z1' " total=" %7.3f `tau' " prop=" %6.3f `pr'
+  9.         post `D' ("Imai_medeff") ("`mv'") (.) (.) (.) (.) (`z1') (.) (`tau') (`d1') (.) (.) (`pr')
+ 10.     }
+ 11. }
+Using 0 and 1 as treatment values
+factor-variable operators not allowed
+Using 0 and 1 as treatment values
+factor-variable operators not allowed
+Using 0 and 1 as treatment values
+factor-variable operators not allowed
+
+. postclose `D'
+
+. preserve
+
+. use "_med_tmp", clear
+
+. list, clean
+
+           method          med           a          sa            b          sb      cprime         scp        ctot         acme    sobel_se     sobel_p        prop  
+  1.   IV_product   ln_flights   6.7595267    .5630788    .66697095   .05103684   .83861377   .52870718   5.3470217    4.5084079   .50995859   9.509e-19   .84316245  
+  2.   IV_product       ln_skm   5.6411681   .42468929    .80136995    .0370531   .82635909   .29819708   5.3470217    4.5206626   .39939607   1.060e-29   .84545432  
+  3.   IV_product   intl_share   .01905203   .04257468   -1.6052269   .19211938   5.3776045   .39471204   5.3470217   -.03058283           .           .   -.0057196  
+
+. export delimited "_mediation_co2.csv", replace
+file _mediation_co2.csv saved
+
+. restore
+
+. erase "_med_tmp.dta"
+
+. 
+. * =====================================================================
+. * C) temporal heterogeneity
+. * =====================================================================
+. tempname T
+
+. postfile `T' str12 period str16 outc double(b se p kpf) long(nn) using "_tmp_tmp", replace
+(note: file _tmp_tmp.dta not found)
+
+. foreach yv in ln_co2_tot ln_co2_intl ln_skm ln_intensity {
+  2.     quietly ivreghdfe `yv' lnpop ln_sea_ma (ln_gaci_cwm = feyrer_int), absorb(isocode y) robust
+  3.     local bb = _b[ln_gaci_cwm]
+  4.     local ss = _se[ln_gaci_cwm]
+  5.     post `T' ("full") ("`yv'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (e(widstat)) (e(N))
+  6.     quietly ivreghdfe `yv' lnpop ln_sea_ma (ln_gaci_cwm = feyrer_int) if y < 2010, absorb(isocode y) robust
+  7.     local bb = _b[ln_gaci_cwm]
+  8.     local ss = _se[ln_gaci_cwm]
+  9.     di "TEMP pre `yv': b=" %8.3f `bb' " F=" %7.1f e(widstat)
+ 10.     post `T' ("1996-2009") ("`yv'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (e(widstat)) (e(N))
+ 11.     quietly ivreghdfe `yv' lnpop ln_sea_ma (ln_gaci_cwm = feyrer_int) if y >= 2010, absorb(isocode y) robust
+ 12.     local bb = _b[ln_gaci_cwm]
+ 13.     local ss = _se[ln_gaci_cwm]
+ 14.     di "TEMP post `yv': b=" %8.3f `bb' " F=" %7.1f e(widstat)
+ 15.     post `T' ("2010-2023") ("`yv'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (e(widstat)) (e(N))
+ 16. }
+TEMP pre ln_co2_tot: b=   5.907 F=  127.7
+TEMP post ln_co2_tot: b=   1.100 F=    7.0
+TEMP pre ln_co2_intl: b=   5.818 F=  127.7
+TEMP post ln_co2_intl: b=   0.931 F=    7.0
+TEMP pre ln_skm: b=   5.250 F=  127.7
+TEMP post ln_skm: b=   1.717 F=    7.0
+TEMP pre ln_intensity: b=   0.657 F=  127.7
+TEMP post ln_intensity: b=  -0.617 F=    7.0
+
+. postclose `T'
+
+. preserve
+
+. use "_tmp_tmp", clear
+
+. export delimited "_temporal_co2.csv", replace
+file _temporal_co2.csv saved
+
+. restore
+
+. erase "_tmp_tmp.dta"
+
+. 
+. * =====================================================================
+. * D) spatial spillovers
+. * =====================================================================
+. tempname S
+
+. postfile `S' str8 stage str16 outc str12 var double(b se p kpf) long(nn) using "_sp_tmp", replace
+(note: file _sp_tmp.dta not found)
+
+. foreach yv in ln_co2_tot ln_co2_intl ln_intensity g_vol {
+  2.     * reduced form
+.     quietly reghdfe `yv' feyrer_int nbr_feyrer lnpop ln_sea_ma, absorb(isocode y) vce(robust)
+  3.     foreach v in feyrer_int nbr_feyrer {
+  4.         local bb = _b[`v']
+  5.         local ss = _se[`v']
+  6.         post `S' ("RF") ("`yv'") ("`v'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (.) (e(N))
+  7.     }
+  8.     * 2SLS, own + neighbour connectivity both endogenous
+.     capture noisily quietly ivreghdfe `yv' lnpop ln_sea_ma (ln_gaci_cwm nbr_lngaci = feyrer_int nbr_feyrer), absorb(isocode y) robust
+  9.     if _rc == 0 {
+ 10.         foreach v in ln_gaci_cwm nbr_lngaci {
+ 11.             local bb = _b[`v']
+ 12.             local ss = _se[`v']
+ 13.             di "SPILL IV `yv' `v': b=" %8.3f `bb' " se=" %8.3f `ss' " F=" %7.1f e(widstat)
+ 14.             post `S' ("IV") ("`yv'") ("`v'") (`bb') (`ss') (2*normal(-abs(`bb'/`ss'))) (e(widstat)) (e(N))
+ 15.         }
+ 16.     }
+ 17. }
+SPILL IV ln_co2_tot ln_gaci_cwm: b=  -2.378 se=   1.684 F=    5.1
+SPILL IV ln_co2_tot nbr_lngaci: b=  15.587 se=   3.703 F=    5.1
+SPILL IV ln_co2_intl ln_gaci_cwm: b=  -0.927 se=   1.338 F=    5.1
+SPILL IV ln_co2_intl nbr_lngaci: b=  12.353 se=   2.978 F=    5.1
+SPILL IV ln_intensity ln_gaci_cwm: b=   1.196 se=   0.524 F=    5.1
+SPILL IV ln_intensity nbr_lngaci: b=  -2.992 se=   1.193 F=    5.1
+SPILL IV g_vol ln_gaci_cwm: b=  -1.457 se=   1.324 F=    5.1
+SPILL IV g_vol nbr_lngaci: b=   7.475 se=   2.822 F=    5.1
+
+. postclose `S'
+
+. preserve
+
+. use "_sp_tmp", clear
+
+. list, clean
+
+       stage           outc           var            b          se           p         kpf     nn  
+  1.      RF     ln_co2_tot    feyrer_int    .34541357   .09842531   .00044912           .   4623  
+  2.      RF     ln_co2_tot    nbr_feyrer    .93546763   .26817725    .0004862           .   4623  
+  3.      IV     ln_co2_tot   ln_gaci_cwm   -2.3782513   1.6840603   .15788736   5.1288072   4623  
+  4.      IV     ln_co2_tot    nbr_lngaci    15.586914   3.7030397   .00002563   5.1288072   4623  
+  5.      RF    ln_co2_intl    feyrer_int    .21680228   .09779599   .02663109           .   4623  
+  6.      RF    ln_co2_intl    nbr_feyrer    1.2322637   .26631584   3.709e-06           .   4623  
+  7.      IV    ln_co2_intl   ln_gaci_cwm   -.92727492   1.3379615   .48827784   5.1288072   4623  
+  8.      IV    ln_co2_intl    nbr_lngaci    12.353414    2.977773   .00003346   5.1288072   4623  
+  9.      RF   ln_intensity    feyrer_int   -.11026758   .02915274   .00015532           .   4623  
+ 10.      RF   ln_intensity    nbr_feyrer    .19926535    .0719583   .00561979           .   4623  
+ 11.      IV   ln_intensity   ln_gaci_cwm    1.1956411   .52442731    .0226137   5.1288072   4623  
+ 12.      IV   ln_intensity    nbr_lngaci   -2.9922228   1.1934661   .01217021   5.1288072   4623  
+ 13.      RF          g_vol    feyrer_int     .1844749   .09975205   .06440955           .   4623  
+ 14.      RF          g_vol    nbr_feyrer    .28642811   .27923897   .30501157           .   4623  
+ 15.      IV          g_vol   ln_gaci_cwm   -1.4570081    1.324286   .27123555   5.1288072   4623  
+ 16.      IV          g_vol    nbr_lngaci    7.4751942   2.8222109   .00808017   5.1288072   4623  
+
+. export delimited "_spillover_co2.csv", replace
+file _spillover_co2.csv saved
+
+. restore
+
+. erase "_sp_tmp.dta"
+
+. 
+. di _n "DONE_EXTENSIONS"
+
+DONE_EXTENSIONS
+
+. 
+end of do-file

@@ -1,0 +1,67 @@
+pass1 2024: rows=10,580,049 -> exp cells=505,935 imp cells=781,438
+concordance: 5,021 HS92 codes | rauch matched=100.0%
+unit values: 5,017 products, median=5.59 $1000/ton (=5.59 $/kg); high-V/W products=2,509
+pass2 1996: countries=214
+pass2 1997: countries=213
+pass2 1998: countries=214
+pass2 1999: countries=214
+pass2 2000: countries=223
+pass2 2001: countries=223
+pass2 2002: countries=223
+pass2 2003: countries=222
+pass2 2004: countries=222
+pass2 2005: countries=222
+pass2 2006: countries=223
+pass2 2007: countries=223
+pass2 2008: countries=223
+pass2 2009: countries=223
+pass2 2010: countries=223
+pass2 2011: countries=225
+pass2 2012: countries=226
+pass2 2013: countries=227
+pass2 2014: countries=226
+pass2 2015: countries=226
+pass2 2016: countries=226
+pass2 2017: countries=226
+pass2 2018: countries=226
+pass2 2019: countries=226
+pass2 2020: countries=226
+pass2 2021: countries=226
+pass2 2022: countries=226
+pass2 2023: countries=226
+pass2 2024: countries=226
+WROTE C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\ext2024\baci_mechanism_panel.csv: 6,469 country-years, 232 countries, 1996-2024
+unit-value terciles: cuts 2.74 / 10.12 $/kg; top=1673 bottom=1673 products
+1996 done (214 countries)
+1997 done (213 countries)
+1998 done (214 countries)
+1999 done (214 countries)
+2000 done (223 countries)
+2001 done (223 countries)
+2002 done (223 countries)
+2003 done (222 countries)
+2004 done (222 countries)
+2005 done (222 countries)
+2006 done (223 countries)
+2007 done (223 countries)
+2008 done (223 countries)
+2009 done (223 countries)
+2010 done (223 countries)
+2011 done (225 countries)
+2012 done (226 countries)
+2013 done (227 countries)
+2014 done (226 countries)
+2015 done (226 countries)
+2016 done (226 countries)
+2017 done (226 countries)
+2018 done (226 countries)
+2019 done (226 countries)
+2020 done (226 countries)
+2021 done (226 countries)
+2022 done (226 countries)
+2023 done (226 countries)
+2024 done (226 countries)
+WROTE baci_mechanism_extra.csv: 6,469 rows
+panel rows=4,816  BACI matched=99.4%
+wrote gaci_panel_mechanism.csv  cols=87
+EXIT 0

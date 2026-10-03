@@ -1,0 +1,10 @@
+ESP and HRV (also HUN, GRC, MLT, PRT for cross-check): CE Delft for European Commission DG MOVE (June 2019), "Taxes in the Field of Aviation and their impact", Final report.
+URL: https://cedelft.eu/wp-content/uploads/sites/2/2021/03/CE_Delft_7M16_taxes_in_the_field_of_aviation_and_their_impact.pdf (fetched 2026-10-02; publication page https://cedelft.eu/publications/taxes-in-the-field-of-aviation-and-their-impact/ ; EU Publications Office record https://op.europa.eu/en/publication-detail/-/publication/0b1c6cdd-88d3-11e9-9369-01aa75ed71a1)
+
+s.4.4 Croatia (PDF p.68): "Croatia does not impose a ticket tax on air passengers. The country levies a VAT of 25% on domestic flights, but no excise duty on kerosene."
+s.4.12 Greece (p.82): "Greece does not impose a ticket tax on air passengers. The country levies a VAT of 24% on domestic flights, but no excise duty on kerosene."  [note: the study does not treat the state TEAA/airport development fee as a ticket tax]
+s.4.13 Hungary (p.84): "Hungary does not impose a ticket tax on air passengers."
+s.4.19 Malta (p.94): "Malta levies no aviation taxes: neither a passenger ticket tax, nor a VAT on air tickets, nor an excise duty on kerosene."
+s.4.22 Portugal (p.99): "Portugal does not impose a ticket tax on air passengers."
+s.4.26 Spain (p.106): "Spain does not impose a ticket tax on air passengers. The country levies a VAT of 10% on domestic flights, except to/from the Canary Islands, Ceuta and Melilla. There is no excise duty on kerosene."
+Caveat: snapshot as of 2018/2019 only.

@@ -1,0 +1,541 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user 12-core  perpetual
+Serial number: 501606210961
+  Licensed to: Sunbin Yoo
+               Kyushu University
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. do co2_conley.do 
+
+. *============================================================================
+> ==
+. * co2_conley.do
+. * Conley plausibly-exogenous UCI bounds for the CO2 outcome (mirror of the
+. * trade paper gaci_conley.do). Outcome = ln_co2_bunker, treatment = ln_gaci_c
+> wm.
+. * gamma in [0, gmax] (violation channels raise both travel and emissions).
+. * Output: batch log + _co2_conley_results.csv
+. *============================================================================
+> ==
+. clear all
+
+. set more off
+
+. set varabbrev off
+
+. set linesize 255
+
+. version 14
+
+. cd "C:/Users/sunbi/managi-lab Dropbox/Sunbin Yoo/Research Box ^-^/2026/GACI/GACI_CO2"
+C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\GACI_CO2
+
+. 
+. import delimited "gaci_co2_panel.csv", clear varnames(1) encoding("utf-8")
+(73 vars, 4,643 obs)
+
+. ds c reg, not
+y             lng           gaci_cwmean   unesco_cum~t  lnpop         deg_sum       close_sum     regimp_sum    tour_shift    tourism_int   mix_e         z_cult        dep_seats     arr_co2_cr~g  n_dep_flig~l  dep_co2_cr~l  co2_5050_i~l  ln_co2_bun~l
+trade_share   ln_gaci_cwm   gaci_mean     lnz           lnland        deg_mean      close_mean    regimp_mean   nat_endow     tourism_cum   cult_e        gaci_max      dep_seat_km   co2_lto       dep_seats_~l  arr_co2_cr~l  ln_co2_bun~r  ln_seatkm
+ln_tradevol   ln_gaci_mean  ln_unesco     lnz_own       abslat        eig_sum       betw_sum      cap_sum       merch_share   ln_remote     z_nat         ln_gaci_max   n_arr_flig~s  co2_bunker    dep_seat_k~l  co2_lto_intl  ln_co2_lto    ln_flights
+lngdp         lncap         unesco_cum    lnpc          n_air         eig_mean      betw_mean     cap_mean      merch_inte~y  nat_e         z_mix         n_dep_flig~s  dep_co2_cr~g  co2_5050      n_arr_flig~l  co2_bunker~l  ln_co2_5050
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+ln_remote already numeric; no replace
+nat_e already numeric; no replace
+mix_e already numeric; no replace
+cult_e already numeric; no replace
+z_nat already numeric; no replace
+z_mix already numeric; no replace
+z_cult already numeric; no replace
+gaci_max already numeric; no replace
+ln_gaci_max already numeric; no replace
+n_dep_flights already numeric; no replace
+dep_seats already numeric; no replace
+dep_seat_km already numeric; no replace
+n_arr_flights already numeric; no replace
+dep_co2_cruise_kg already numeric; no replace
+arr_co2_cruise_kg already numeric; no replace
+co2_lto already numeric; no replace
+co2_bunker already numeric; no replace
+co2_5050 already numeric; no replace
+n_dep_flights_intl already numeric; no replace
+dep_seats_intl already numeric; no replace
+dep_seat_km_intl already numeric; no replace
+n_arr_flights_intl already numeric; no replace
+dep_co2_cruise_kg_intl already numeric; no replace
+arr_co2_cruise_kg_intl already numeric; no replace
+co2_lto_intl already numeric; no replace
+co2_bunker_intl already numeric; no replace
+co2_5050_intl already numeric; no replace
+ln_co2_bunker already numeric; no replace
+ln_co2_lto already numeric; no replace
+ln_co2_5050 already numeric; no replace
+ln_co2_bunker_intl already numeric; no replace
+ln_seatkm already numeric; no replace
+ln_flights already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+       panel variable:  isocode (unbalanced)
+        time variable:  y, 1996 to 2023, but with gaps
+                delta:  1 unit
+
+. gen ln_intensity = ln_co2_bunker - ln_seatkm
+
+. 
+. capture which ivreghdfe
+
+. if _rc {
+.     ssc install ftools, replace
+.     ssc install reghdfe, replace
+.     ssc install ivreghdfe, replace
+. }
+
+. 
+. tempname R
+
+. postfile `R' str20 outc double(betaiv seiv rfcoef rfse lb10 ub10 lb20 ub20 lb30 ub30 fstar nn) using "_co2_conley_tmp", replace
+(note: file _co2_conley_tmp.dta not found)
+
+. 
+. foreach yv in ln_co2_bunker_intl ln_intensity ln_co2_bunker {
+  2.     di _n "==================== OUTCOME: `yv' ===================="
+  3.     reghdfe `yv' tourism_int lnpop, absorb(isocode y) vce(robust)
+  4.     local rfc = _b[tourism_int]
+  5.     local rfs = _se[tourism_int]
+  6.     ivreghdfe `yv' lnpop (ln_gaci_cwm = tourism_int), absorb(isocode y) robust
+  7.     local biv = _b[ln_gaci_cwm]
+  8.     local siv = _se[ln_gaci_cwm]
+  9.     local nn = e(N)
+ 10.     local ub0 = `biv' + 1.959964*`siv'
+ 11.     foreach f in 10 20 30 {
+ 12.         local g = (`f'/100)*`rfc'
+ 13.         capture drop ytil
+ 14.         gen ytil = `yv' - `g'*tourism_int
+ 15.         quietly ivreghdfe ytil lnpop (ln_gaci_cwm = tourism_int), absorb(isocode y) robust
+ 16.         local lb`f' = _b[ln_gaci_cwm] - 1.959964*_se[ln_gaci_cwm]
+ 17.         local ub`f' = `ub0'
+ 18.         drop ytil
+ 19.         di "  gmax = `f'% of RF: UCI = [" %9.3f `lb`f'' ", " %9.3f `ub`f'' "]"
+ 20.     }
+ 21.     local fstar = 0
+ 22.     local f = 0
+ 23.     local go = 1
+ 24.     while `go' {
+ 25.         local f = `f' + 0.01
+ 26.         if `f' > 2.001 {
+ 27.             local go = 0
+ 28.         }
+ 29.         else {
+ 30.             local g = `f'*`rfc'
+ 31.             capture drop ytil
+ 32.             gen ytil = `yv' - `g'*tourism_int
+ 33.             quietly ivreghdfe ytil lnpop (ln_gaci_cwm = tourism_int), absorb(isocode y) robust
+ 34.             local lbf = _b[ln_gaci_cwm] - 1.959964*_se[ln_gaci_cwm]
+ 35.             drop ytil
+ 36.             if `lbf' > 0 {
+ 37.                 local fstar = `f'
+ 38.             }
+ 39.             else {
+ 40.                 local go = 0
+ 41.             }
+ 42.         }
+ 43.     }
+ 44.     di "  breakdown fraction f* = " %6.2f `fstar'
+ 45.     post `R' ("`yv'") (`biv') (`siv') (`rfc') (`rfs') (`lb10') (`ub10') (`lb20') (`ub20') (`lb30') (`ub30') (`fstar') (`nn')
+ 46. }
+
+==================== OUTCOME: ln_co2_bunker_intl ====================
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,641
+Absorbing 2 HDFE groups                           F(   2,   4429) =      13.39
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.9535
+                                                  Adj R-squared   =     0.9512
+                                                  Within R-sq.    =     0.0108
+                                                  Root MSE        =     0.4579
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_co2_bun~l |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ tourism_int |   .1032188   .0310411     3.33   0.001     .0423627    .1640749
+       lnpop |   .4317022   .0962401     4.49   0.000     .2430235    .6203809
+       _cons |   12.83614   1.514514     8.48   0.000     9.866938    15.80534
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4641
+                                                      F(  2,  4429) =    30.39
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  938.6940914                Centered R2   =   0.3975
+Total (uncentered) SS   =  938.6940914                Uncentered R2 =   0.3975
+Residual SS             =  565.5896743                Root MSE      =    .3574
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_co2_bun~l |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |    3.16449   .7664551     4.13   0.000     1.661855    4.667125
+       lnpop |   .2293907   .0715233     3.21   0.001     .0891692    .3696122
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             17.972
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               26.623
+                         (Kleibergen-Paap rk Wald F statistic):         18.152
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop
+Excluded instruments: tourism_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+(1 missing value generated)
+  gmax = 10% of RF: UCI = [    1.369,     4.667]
+(1 missing value generated)
+  gmax = 20% of RF: UCI = [    1.061,     4.667]
+(1 missing value generated)
+  gmax = 30% of RF: UCI = [    0.739,     4.667]
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+(1 missing value generated)
+  breakdown fraction f* =   0.51
+
+==================== OUTCOME: ln_intensity ====================
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,642
+Absorbing 2 HDFE groups                           F(   2,   4430) =      29.58
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.8164
+                                                  Adj R-squared   =     0.8076
+                                                  Within R-sq.    =     0.0128
+                                                  Root MSE        =     0.1242
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_intensity |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ tourism_int |   .0399065    .010098     3.95   0.000     .0201093    .0597037
+       lnpop |   .1205428   .0201274     5.99   0.000      .081083    .1600025
+       _cons |  -4.152787   .3158166   -13.15   0.000    -4.771945   -3.533628
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4642
+                                                      F(  2,  4430) =    10.34
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  69.25912918                Centered R2   =  -0.8802
+Total (uncentered) SS   =  69.25912918                Uncentered R2 =  -0.8802
+Residual SS             =  130.2224629                Root MSE      =    .1715
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_intensity |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |    1.22809   .4601765     2.67   0.008     .3259137    2.130266
+       lnpop |   .0426165   .0458278     0.93   0.352    -.0472289    .1324618
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             17.830
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               26.198
+                         (Kleibergen-Paap rk Wald F statistic):         18.006
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop
+Excluded instruments: tourism_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+  gmax = 10% of RF: UCI = [    0.245,     2.130]
+  gmax = 20% of RF: UCI = [    0.162,     2.130]
+  gmax = 30% of RF: UCI = [    0.077,     2.130]
+  breakdown fraction f* =   0.38
+
+==================== OUTCOME: ln_co2_bunker ====================
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,642
+Absorbing 2 HDFE groups                           F(   2,   4430) =      11.91
+                                                  Prob > F        =     0.0000
+                                                  R-squared       =     0.9612
+                                                  Adj R-squared   =     0.9593
+                                                  Within R-sq.    =     0.0126
+                                                  Root MSE        =     0.4324
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_co2_bun~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ tourism_int |   .0377705    .033286     1.13   0.257    -.0274867    .1030278
+       lnpop |   .4660513   .0957172     4.87   0.000     .2783978    .6537047
+       _cons |   12.52176   1.506596     8.31   0.000      9.56808    15.47544
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+(dropped 1 singleton observations)
+(MWFE estimator converged in 5 iterations)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =     4642
+                                                      F(  2,  4430) =    17.43
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  839.0220226                Centered R2   =   0.2248
+Total (uncentered) SS   =  839.0220226                Uncentered R2 =   0.2248
+Residual SS             =  650.4193763                Root MSE      =    .3832
+
+------------------------------------------------------------------------------
+             |               Robust
+ln_co2_bun~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ ln_gaci_cwm |   1.162357    .862797     1.35   0.178    -.5291558     2.85387
+       lnpop |   .3922959   .0879706     4.46   0.000     .2198295    .5647623
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             17.830
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):               26.198
+                         (Kleibergen-Paap rk Wald F statistic):         18.006
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         ln_gaci_cwm
+Included instruments: lnpop
+Excluded instruments: tourism_int
+Partialled-out:       _cons
+                      nb: total SS, model F and R2s are after partialling-out;
+                          any small-sample adjustments include partialled-out
+                          variables in regressor count K
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+     isocode |       183           0         183     |
+           y |        28           1          27     |
+-----------------------------------------------------+
+  gmax = 10% of RF: UCI = [   -0.672,     2.853]
+  gmax = 20% of RF: UCI = [   -0.816,     2.853]
+  gmax = 30% of RF: UCI = [   -0.961,     2.853]
+  breakdown fraction f* =   0.00
+
+. 
+. postclose `R'
+
+. use "_co2_conley_tmp", clear
+
+. list, clean
+
+                     outc      betaiv        seiv      rfcoef        rfse         lb10        ub10         lb20        ub20         lb30        ub30   fstar     nn  
+  1.   ln_co2_bunker_intl     3.16449   .76645506   .10321877   .03104111    1.3687872   4.6667143    1.0611933   4.6667143    .73921919   4.6667143     .51   4641  
+  2.         ln_intensity   1.2280896   .46017653   .03990648   .01009803    .24489267    2.130019    .16180544    2.130019    .07662083    2.130019     .38   4642  
+  3.        ln_co2_bunker   1.1623573   .86279698   .03777052   .03328602   -.67168093   2.8534083   -.81589245   2.8534083   -.96130833   2.8534083       0   4642  
+
+. export delimited "_co2_conley_results.csv", replace
+file _co2_conley_results.csv saved
+
+. erase "_co2_conley_tmp.dta"
+
+. di _n "DONE_CO2_CONLEY"
+
+DONE_CO2_CONLEY
+
+. 
+end of do-file

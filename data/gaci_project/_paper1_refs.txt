@@ -1,0 +1,116 @@
+References
+Anderson, J., van Wincoop, E., 2003. Gravity with gravitas: a solution to the border
+puzzle. The American Economic Review 93 (1), 170 – 192 Mar.
+Antras, Pol, 2003. Firms, contracts and trade structure. Quarterly Journal of Economics
+4, 1375 – 1418.
+Arkolakis, Konstantinos, forthcoming. Market penetration costs and the new con-
+sumers margin in international trade. Journal of Political Economy.
+Audretsch, D., Stephen, P., 1996. Company-scientists locational links: the case of
+biotechnologies. The American Economic Review 86, 64 – 652.
+Brueckner, Jan, 2003. International airfares in the age of alliances: the effects of codesharing
+and antitrust immunity. The Review of Economics and Statistics 85, 105– 118.
+Cassey, Andrew, 2009. State export data: origin of movement vs. origin of production.
+Journal of Economic and Social Measurement 34, 241 – 268.
+Cristea, A., Hummels, D., 2010. Estimating the Gains from Liberalizing Services Trade:
+The Case of Air Passenger Transport, University of Oregon, mimeo.
+Crosby, L., Evans, K., Cowles, D., 1990. Relationship quality in services selling: an
+interpersonal in ﬂuence perspective. Journal of Marketing 54, 68 – 81.
+Disdier, A., Head, K., 2008. The puzzling persistence of the distance effect on bilateral
+trade. The Review of Economics and Statistics 90, 37 – 48.
+Duranton, G., Storper, M., 2008. Rising trade costs? Agglomeration and trade with
+endogenous transaction costs. Canadian Journal of Economics 41, 292 – 319.
+Egan, M.L., Mody, A., 1992. Buyer-seller links in export development. World
+Development 20, 321 – 334.
+Fink, C., Mattoo, A., Neagu, I., 2005. Assessing the impact of communication costs on
+international trade. Journal of International Economics 67, 428 – 445.
+Freund, C., Weinhold, D., 2004. The effect of the internet on international trade. Journal
+of International Economics 62, 171 – 189.
+Gaspar, J., Glaeser, E., 1998. Information technology and the future of cities. Journal of
+Urban Economics 43, 136 – 156.
+Grossman, G.M., 1998. Comment on Alan V. Deardorff, Determinants of bilateral trade:
+does gravity work in a neoclassical world. In: Frankel, J.A. (Ed.), The Regionalization
+of the World Economy for NBER. University of Chicago Press, Chicago, pp. 29 – 31.
+Grossman, G., Helpman, E., 2002. Integration versus outsourcing in industry
+equilibrium. Quarterly Journal of Economics 117, 85 – 120.
+Grossman, G., Rossi-Hansberg, E., 2008. Trading tasks: a simple theory of offshoring.
+The American Economic Review 98, 1978 – 1997.
+Grossman, G., Shapiro, C., 1984. Informative advertising with differentiated products.
+The Review of Economic Studies 51, 63 – 81.
+Hanson, G., Xiang, C., 2011. Trade barriers and tradeﬂows with product heterogeneity: an
+application to us motion picture exports.Journal of International Economics 83, 14–26.
+Hart, P.E., 1975. Moment distributions in economics: an exposition. The Journal of the
+Royal Statistical Society, Series A 138, 423 – 434.
+Harvard Business Review, 2009. Managing across distance in today's economic climate:
+the value of face-to-face communication.
+Head, K., Mayer, T., Ries, J., 2009. How remote is the offshoring threat? European
+Economic Review 53, 429 – 444.
+Herander, M., Saavedra, L., 2005. Exports and the structure of immigrant-based networks: the
+role of geographic proximity. The Review of Economics and Statistics 87, 323–335.
+Hillberry, R., Hummels, D., 2008. Trade responses to geographic frictions: a
+decomposition using MicroData. European Economic Review 52, 527 – 550.
+Hovhannisyan, N., Keller, W., 2010. International business travel: an engine of
+innovation? CEPR Discussion Paper # 7829.
+Hummels, D., Ishii, J., Yi, K., 2001. The nature and growth of vertical specialization in
+world trade. Journal of International Economics 54, 75 – 96.
+IBM, 2006. ÒExpanding the Innovation Horizon Global CEO StudyÓ.
+Jaffe, A., Trajtenberg, M., Henderson, R., 1993. Geographic localization ofknowledge spillovers
+as evidenced by patent citations. Quarterly Journal of Economics 108, 577–598.
+Keller, W., Yeaple, S., 2010. Gravity in the weightless economy. University of Colorado, mimeo.
+Leamer, E., Storper, M., 2001. The economic geography of the internet age. Journal of
+International Business Studies 32, 641 – 665.
+Moenius, Johannes, 2005. Information versus product adaptation: the role of standards
+in trade. University of Redlands, mimeo.
+National Science Foundation, 2003. Survey of Industrial Research and Development.
+Nunn, Nathan, 2007. Relationship-speci ﬁcity, incomplete contracts and the pattern of
+trade. Quarterly Journal of Economics 122, 569 – 600.
+Oxford Economics, 2009. The Return on Investment of U.S. Business Travel.
+Poole, Jennifer P., 2010. Business Travel as an Input to International Trade. UC Santa
+Cruz, mimeo.
+Rauch, James, 1999. Network versus markets in international trade. Journal of
+International Economics 48, 7 – 35.
+Rauch, James, 2001. Business and social networks in international trade. Journal of
+Economic Literature 39, 1177 – 1203.
+Rauch, J., Trindade, V., 2002. Ethnic Chinese networks in international trade. The
+Review of Economics and Statistics 84, 116 – 130.
+Silva, S., Tenreyro, S., 2006. The log of gravity. The Review of Economics and Statistics
+88, 641 – 658.
+Volpe Martincus, C., Carballo, J., 2008. Is export promotion effective in developing
+countries? Firm-level evidence on the intensive and the extensive margins of
+exports. Journal of International Economics 76, 89 – 106.
+Whalen, W.T., 2007. A panel data analysis of code-sharing, antitrust immunity, and open
+skies treaties in international aviation markets. Review of Industrial Organization 30,
+39–61.
+Table A3
+List of countries.
+1 Argentina 32 Honduras 63 Other Northern Europe
+2 Armenia 33 Hong Kong 64 Other South America
+3 Australia 34 Hungary 65 Other South Central Asia
+4 Austria 35 India 66 Other South Eastern Asia
+5 Bangladesh 36 Indonesia 67 Other Southern Africa
+6 Barbados 37 Iran 68 Other Southern Europe
+7 Belarus 38 Ireland 69 Other Western Africa
+8 Belgium 39 Israel 70 Other Western Asia
+9 Belize 40 Italy 71 Pakistan
+10 Bolivia 41 Jamaica 72 Panama
+11 Bosnia and Herzegovina 42 Japan 73 Peru
+12 Brazil 43 Jordan 74 Philippines
+13 Cambodia 44 Korea 75 Poland
+14 Canada 45 Laos 76 Polynesia
+15 Chile 46 Lebanon 77 Portugal
+16 China 47 Luxembourg 78 Romania
+17 Colombia 48 Malaysia 79 Russia
+18 Costa Rica 49 Melanesia 80 South Africa
+19 Czechoslovakia 50 Mexico 81 Spain
+20 Dominican Republic 51 Micronesia 82 Sweden
+21 Ecuador 52 Middle Africa 83 Switzerland
+22 Egypt 53 Netherlands 84 Syria
+23 El Salvador 54 New Zealand 85 Taiwan
+24 Ethiopia 55 Nicaragua 86 Thailand
+25 France 56 Nigeria 87 Trinidad and Tobago
+26 Germany 57 Other Caribbean 88 Turkey
+27 Ghana 58 Other Eastern Africa 89 Ukraine
+28 Greece 59 Other Eastern Asia 90 United Kingdom
+29 Guatemala 60 Other Eastern Europe 91 Venezuela
+30 Guyana 61 Other Northern Africa 92 Vietnam
+31 Haiti 62 Other Northern America 93 Yugoslavia
+220 A.D. Cristea / Journal of International Economics 84 (2011) 207 –220

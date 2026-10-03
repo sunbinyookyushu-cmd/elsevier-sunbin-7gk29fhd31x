@@ -1,0 +1,255 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\gaci_tourism_hetero2.log
+  log type:  text
+ opened on:  18 Jun 2026, 16:04:34
+
+. import delimited "gaci_panel_tourism_ext.csv", clear varnames(1) encoding("utf-8")
+(40 vars, 4,643 obs)
+
+. ds c reg, not
+y             lngdp         ln_gaci_mean  gaci_mean     unesco_cum~t  lnpc          abslat        deg_mean      close_sum     betw_mean     cap_sum       nat_endow     tourism_int
+trade_share   lng           lncap         ln_unesco     lnz           lnpop         n_air         eig_sum       close_mean    regimp_sum    cap_mean      merch_share   tourism_cum
+ln_tradevol   ln_gaci_cwm   gaci_cwmean   unesco_cum    lnz_own       lnland        deg_sum       eig_mean      betw_sum      regimp_mean   tour_shift    merch_inte~y
+
+. destring `r(varlist)', replace force
+y already numeric; no replace
+trade_share already numeric; no replace
+ln_tradevol already numeric; no replace
+lngdp already numeric; no replace
+lng already numeric; no replace
+ln_gaci_cwm already numeric; no replace
+ln_gaci_mean already numeric; no replace
+lncap already numeric; no replace
+gaci_cwmean already numeric; no replace
+gaci_mean already numeric; no replace
+ln_unesco already numeric; no replace
+unesco_cum already numeric; no replace
+unesco_cum_nat already numeric; no replace
+lnz already numeric; no replace
+lnz_own already numeric; no replace
+lnpc already numeric; no replace
+lnpop already numeric; no replace
+lnland already numeric; no replace
+abslat already numeric; no replace
+n_air already numeric; no replace
+deg_sum already numeric; no replace
+deg_mean already numeric; no replace
+eig_sum already numeric; no replace
+eig_mean already numeric; no replace
+close_sum already numeric; no replace
+close_mean already numeric; no replace
+betw_sum already numeric; no replace
+betw_mean already numeric; no replace
+regimp_sum already numeric; no replace
+regimp_mean already numeric; no replace
+cap_sum already numeric; no replace
+cap_mean already numeric; no replace
+tour_shift already numeric; no replace
+nat_endow already numeric; no replace
+merch_share already numeric; no replace
+merch_intensity already numeric; no replace
+tourism_int already numeric; no replace
+tourism_cum already numeric; no replace
+
+. encode c, gen(isocode)
+
+. xtset isocode y
+
+Panel variable: isocode (unbalanced)
+ Time variable: y, 1996 to 2023, but with gaps
+         Delta: 1 unit
+
+. 
+. * goods outcomes
+. gen g_int = merch_intensity                       // ln(goods/GDP)
+
+. gen g_shr = merch_share                           // goods % GDP
+
+. gen g_vol = merch_intensity + lngdp               // ln(goods trade value)
+
+. 
+. * baseline (1996) splits  -- baseline hub quality (ln_gaci_cwm) to match the main treatment
+. gen tmp_g = ln_gaci_cwm if y==1996
+(4,493 missing values generated)
+
+. gen tmp_y = lngdp       if y==1996
+(4,493 missing values generated)
+
+. bysort isocode: egen base_gaci = max(tmp_g)
+(522 missing values generated)
+
+. bysort isocode: egen base_gdp  = max(tmp_y)
+(522 missing values generated)
+
+. bysort isocode: gen firstobs = (_n==1)
+
+. summarize base_gaci if firstobs, detail
+
+                          base_gaci
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -.4947933      -.5463412
+ 5%    -.4007577      -.4947933
+10%     -.340791      -.4529424       Obs                 150
+25%    -.2408893      -.4274126       Sum of wgt.         150
+
+50%    -.0679646                      Mean          -.0222533
+                        Largest       Std. dev.      .2938646
+75%     .1355377       .7577572
+90%     .3908146       .7709112       Variance       .0863564
+95%     .6586553       .8577929       Skewness       .9701882
+99%     .8577929       .9440393       Kurtosis       3.848618
+
+. local mg = r(p50)
+
+. summarize base_gdp  if firstobs, detail
+
+                          base_gdp
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     18.52376       18.21558
+ 5%     20.03407       18.52376
+10%     20.61218       19.19331       Obs                 150
+25%     22.00343       19.21864       Sum of wgt.         150
+
+50%     23.07834                      Mean           23.47716
+                        Largest       Std. dev.      2.301436
+75%     25.27343       28.10033
+90%     26.69532       28.54994       Variance       5.296607
+95%       27.469       29.22502       Skewness       .2768273
+99%     29.22502       29.71956       Kurtosis       2.675793
+
+. local my = r(p50)
+
+. gen gaci_hi = (base_gaci > `mg') if !missing(base_gaci)
+(522 missing values generated)
+
+. gen gdp_hi  = (base_gdp  > `my') if !missing(base_gdp)
+(522 missing values generated)
+
+. gen cont = substr(reg,1,2)
+
+. encode cont, gen(contc)
+
+. 
+. capture program drop _hc
+
+. program define _hc
+  1.     args lbl cond
+  2.     foreach yv in g_vol g_int g_shr lnpc lngdp {
+  3.         capture noisily quietly ivreghdfe `yv' lnpop (ln_gaci_cwm = tourism_int) if `cond', absorb(isocode y) robust
+  4.         if _rc == 0 {
+  5.             local b  = _b[ln_gaci_cwm]
+  6.             local se = _se[ln_gaci_cwm]
+  7.             local p  = 2*ttail(e(df_r), abs(`b'/`se'))
+  8.             noisily di "RES2|" "`yv'" "|" "`lbl'" "|" `b' "|" `se' "|" `p' "|" e(widstat) "|" e(N)
+  9.         }
+ 10.         else noisily di "RES2|`yv'|`lbl'|FAIL|.|.|.|."
+ 11.     }
+ 12. end
+
+. 
+. di _n "############ pooled (all) ############"
+
+############ pooled (all) ############
+
+. _hc all "1==1"
+RES2|g_vol|all|2.3034562|.77649894|.00302855|18.005937|4642
+RES2|g_int|all|1.3024201|.66231718|.04930786|18.005937|4642
+RES2|g_shr|all|61.11146|46.430481|.18817747|18.005937|4642
+RES2|lnpc|all|.51402605|.47466141|.27889752|18.005937|4642
+RES2|lngdp|all|1.0010378|.68017039|.14116062|18.005937|4642
+
+. di _n "############ 1996 GACI median split ############"
+
+############ 1996 GACI median split ############
+
+. _hc gaci_below "gaci_hi==0"
+RES2|g_vol|gaci_below|2.7776732|1.1954235|.02025109|13.542707|2031
+RES2|g_int|gaci_below|1.1148513|.94320543|.2373589|13.542707|2031
+RES2|g_shr|gaci_below|115.68896|62.06748|.0624846|13.542707|2031
+RES2|lnpc|gaci_below|.62309951|.62173452|.31637502|13.542707|2031
+RES2|lngdp|gaci_below|1.6628255|.94069578|.07727685|13.542707|2031
+
+. _hc gaci_above "gaci_hi==1"
+RES2|g_vol|gaci_above|6.0863043|2.6361419|.02105733|4.4541935|2090
+RES2|g_int|gaci_above|2.2665945|1.6016658|.15718184|4.4541935|2090
+RES2|g_shr|gaci_above|74.572689|113.83703|.51249027|4.4541935|2090
+RES2|lnpc|gaci_above|1.8986852|.86241301|.02780848|4.4541935|2090
+RES2|lngdp|gaci_above|3.8197118|1.5993497|.01701987|4.4541935|2090
+
+. di _n "############ 1996 GDP median split ############"
+
+############ 1996 GDP median split ############
+
+. _hc gdp_below "gdp_hi==0"
+RES2|g_vol|gdp_below|387.40787|7893.0472|.9608589|.00239756|2031
+RES2|g_int|gdp_below|222.02262|4535.6895|.96096411|.00239756|2031
+RES2|g_shr|gdp_below|15606.056|318681.41|.96094771|.00239756|2031
+RES2|lnpc|gdp_below|70.92129|1429.4396|.96043453|.00239756|2031
+RES2|lngdp|gdp_below|165.38542|3357.9036|.96072311|.00239756|2031
+
+. _hc gdp_above "gdp_hi==1"
+RES2|g_vol|gdp_above|4.8582416|5.9797944|.4166349|.51756464|2090
+RES2|g_int|gdp_above|-1.313826|2.8427983|.64401764|.51756464|2090
+RES2|g_shr|gdp_above|-536.97348|770.44935|.48590851|.51756464|2090
+RES2|lnpc|gdp_above|3.2734318|3.8396256|.39401762|.51756464|2090
+RES2|lngdp|gdp_above|6.1720721|7.4409251|.40693455|.51756464|2090
+
+. di _n "############ regions ############"
+
+############ regions ############
+
+. levelsof contc, local(lvls)
+1 2 3 4 5 6 7
+
+. foreach L of local lvls {
+  2.     local nm : label (contc) `L'
+  3.     _hc region_`nm' "contc==`L'"
+  4. }
+RES2|g_vol|region_AF|2.341085|6.458533|.71706032|.91331508|1230
+RES2|g_int|region_AF|-.84829004|5.48022|.87701301|.91331508|1230
+RES2|g_shr|region_AF|-345.40247|499.20293|.48913457|.91331508|1230
+RES2|lnpc|region_AF|4.2091742|4.6525425|.36581134|.91331508|1230
+RES2|lngdp|region_AF|3.1893575|5.7615308|.57998689|.91331508|1230
+RES2|g_vol|region_AS|5.3779205|2.650653|.04285098|2.4905187|749
+RES2|g_int|region_AS|1.0447487|1.4475362|.47069682|2.4905187|749
+RES2|g_shr|region_AS|-187.49734|143.9133|.19306024|2.4905187|749
+RES2|lnpc|region_AS|2.280645|1.148493|.04745344|2.4905187|749
+RES2|lngdp|region_AS|4.3331796|1.9607133|.02743209|2.4905187|749
+RES2|g_vol|region_EU|6.5635947|7.3088236|.3693593|.59002675|1190
+RES2|g_int|region_EU|-6.2200049|8.1503625|.44553101|.59002675|1190
+RES2|g_shr|region_EU|-401.46967|542.00993|.45902778|.59002675|1190
+RES2|lnpc|region_EU|10.168625|11.993686|.39671345|.59002675|1190
+RES2|lngdp|region_EU|12.783613|14.938758|.3923281|.59002675|1190
+RES2|g_vol|region_LA|3.1500877|1.2234412|.01025649|20.872464|691
+RES2|g_int|region_LA|1.7583563|1.1769365|.13567099|20.872464|691
+RES2|g_shr|region_LA|143.38859|103.26042|.16543939|20.872464|691
+RES2|lnpc|region_LA|.93739788|.42146457|.02649074|20.872464|691
+RES2|lngdp|region_LA|1.3917328|.74738729|.06304781|20.872464|691
+RES2|g_vol|region_ME|19.339353|76.016721|.79935259|.05496114|344
+RES2|g_int|region_ME|-21.374378|93.607777|.81953664|.05496114|344
+RES2|g_shr|region_ME|-773.12656|3408.6353|.82072175|.05496114|344
+RES2|lnpc|region_ME|5.0488841|17.720809|.77590628|.05496114|344
+RES2|lngdp|region_ME|40.7137|168.60225|.8093487|.05496114|344
+RES2|g_vol|region_NA|1.3993873|.74992351|.06856154|7.8286034|77
+RES2|g_int|region_NA|1.4086305|.76887277|.07356378|7.8286034|77
+RES2|g_shr|region_NA|58.966712|37.316593|.12107132|7.8286034|77
+RES2|lnpc|region_NA|-.10335295|.1771118|.56243913|7.8286034|77
+RES2|lngdp|region_NA|-.00924575|.37714643|.98055019|7.8286034|77
+RES2|g_vol|region_SW|1.4401529|.74839021|.05521046|31.963147|361
+RES2|g_int|region_SW|-.5545335|.35817378|.12256909|31.963147|361
+RES2|g_shr|region_SW|-24.433379|22.751426|.2836746|31.963147|361
+RES2|lnpc|region_SW|.80992242|.44744349|.0712284|31.963147|361
+RES2|lngdp|region_SW|1.9946867|.78024235|.01104046|31.963147|361
+
+. di "DONE_HET2"
+DONE_HET2
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\sunbi\managi-lab Dropbox\Sunbin Yoo\Research Box ^-^\2026\GACI\gaci_tourism_hetero2.log
+  log type:  text
+ closed on:  18 Jun 2026, 16:04:37
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
