@@ -24,3 +24,16 @@ Dyadic staggered DiD in the gravity form of Micco & Serebrisky (2006) / Winston 
 
 ## Data still needed
 - data/raw/oag/seats_co2_by_origin_destcountry_year.csv (same request as the tax paper's band design)
+
+## Status 2026-10-03
+- Agreement tables compiled (agents, WebSearch only; dates flagged by confidence): US bilateral open skies 129 partners
+  (95 confirmed in-force dates), EU comprehensive/horizontal/internal + regional blocs 310 rows (~40 horizontal
+  signature dates UNVERIFIED). Panel: `asa_pair_year.csv`, 3,910 country pairs, 1990-2024, kinds us/eu/bloc/bil/horizontal.
+- Literature: `lit/` 44 studies (25 verified). Closest competitor: Fontagné, Mitaritonna, Orefice & Santoni (2026, CEPII WP)
+  "Air Service Agreements, Connectivity and Emissions" (ticket data 2012-19: distance -1.5%, legs -3-4%, CO2/pax -3.9%,
+  total emissions up). No study at the airport level or with a network-centrality outcome.
+- Country-level results (`analysis_country_level.py`, `_out_country_level.txt`): US-partner DiD not identified once
+  region x year FE are included (effects on a partner's TOTAL international traffic are diluted and confounded by regional
+  growth); exposure index (share of world international seats covered by an agreement in force) with country FE +
+  region x year FE: +0.1 exposure -> CO2 +5.6%*, stage length +2.3%*, GACI +0.8%*, destinations +5%***, intensity 0.
+  Read as suggestive: the dyadic design (`stata/07_asa_did.do`) needs the OAG origin-airport x destination-country file.

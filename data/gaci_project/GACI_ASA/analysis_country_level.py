@@ -41,13 +41,13 @@ for y in ["ln_co2","ln_gaci"]:
 # ---- B. exposure index ----
 w = Y[Y.year==1996].set_index("iso").intl_seats; w = (w/w.sum()).rename("w").reset_index().rename(columns={"iso":"d_iso"})
 E = P.merge(w, on="d_iso", how="left").fillna({"w":0})
-E["exp_any"] = E.open_any*E.w; E["exp_us"] = E.open_us*E.w; E["exp_eu"] = E.open_eu*E.w; E["exp_reg"] = E.open_regional*E.w
-X = E.groupby(["o_iso","year"])[["exp_any","exp_us","exp_eu","exp_reg"]].sum().reset_index().rename(columns={"o_iso":"iso"})
-B = Y.merge(X, on=["iso","year"], how="left").fillna({"exp_any":0,"exp_us":0,"exp_eu":0,"exp_reg":0})
+E["exp_any"] = E.open_any*E.w; E["exp_us"] = E.open_us*E.w; E["exp_eu"] = E.open_eu*E.w; E["exp_bloc"] = E.open_bloc*E.w; E["exp_bil"] = E.open_bil*E.w
+X = E.groupby(["o_iso","year"])[["exp_any","exp_us","exp_eu","exp_bloc","exp_bil"]].sum().reset_index().rename(columns={"o_iso":"iso"})
+B = Y.merge(X, on=["iso","year"], how="left").fillna({"exp_any":0,"exp_us":0,"exp_eu":0,"exp_bloc":0,"exp_bil":0})
 print("\n=== B. exposure index (share of world intl seats covered by an agreement in force), country FE + region x year FE ===")
 for y in ["ln_seats","ln_co2","ln_stage","ln_int","ln_gaci","ln_deg"]:
     d = B.dropna(subset=[y]); m = run(f"B {y}", f"{y} ~ exp_any | iso + ry", d); t = m.tidy().loc["exp_any"]
-    kinds = [k for k in ["exp_us","exp_eu","exp_reg"] if d[k].abs().sum() > 0]
+    kinds = [k for k in ["exp_us","exp_eu","exp_bloc","exp_bil"] if d[k].abs().sum() > 0]
     m3 = run(f"B3 {y}", f"{y} ~ {' + '.join(kinds)} | iso + ry", d); t3 = m3.tidy()
     by = " ".join(f"{k[4:]} {t3.loc[k,'Estimate']:+.2f}({t3.loc[k,'Std. Error']:.2f})" for k in kinds)
     print(f"{y:9s} exp_any {t['Estimate']:+.3f} ({t['Std. Error']:.3f}) p={t['Pr(>|t|)']:.2f} | {by}  N={m._N}")
