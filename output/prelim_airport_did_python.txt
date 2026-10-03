@@ -1,53 +1,71 @@
 Tax-years by country: {'AT': {'min': 2011, 'max': 2024, 'count': 14}, 'BE': {'min': 2022, 'max': 2024, 'count': 3}, 'DE': {'min': 2011, 'max': 2024, 'count': 14}, 'DK': {'min': 1992, 'max': 2006, 'count': 15}, 'FR': {'min': 2006, 'max': 2024, 'count': 19}, 'GB': {'min': 1995, 'max': 2024, 'count': 30}, 'IE': {'min': 2009, 'max': 2013, 'count': 5}, 'NL': {'min': 2008, 'max': 2024, 'count': 5}, 'NO': {'min': 2016, 'max': 2024, 'count': 7}, 'PT': {'min': 2021, 'max': 2024, 'count': 4}, 'SE': {'min': 2018, 'max': 2024, 'count': 7}}
-sample: 624 airports, 17522 airport-years, treated airport-years 3227, spill 2105
+sample: 624 airports, 16315 airport-years | treated 3227, spill150 898, buffer dropped 1207
 
-== ln_seats ==
-                                ln_seats                   
-                                    (1)                (2)
-coef  tax_any        -0.361* \n (0.178)                   
-      spill300        -0.098 \n (0.136)  -0.049 \n (0.133)
-      tax_short_eur                      -0.036 \n (0.021)
-fe    airport                         -                  -
-      ry                              -                  -
-stats Observations               17,522             17,522
-      R²                          0.881               0.88
+[ln_seats: binary + spill150, buffer dropped]  N=16315
+             Estimate  Std. Error  Pr(>|t|)
+Coefficient                                
+tax_any        -0.399       0.185     0.035
+spill150       -0.263       0.191     0.174
 
-== ln_gaci ==
-                                 ln_gaci                    
-                                    (1)                 (2)
-coef  tax_any        -0.041* \n (0.016)                    
-      spill300        -0.003 \n (0.013)    0.001 \n (0.013)
-      tax_short_eur                      -0.005* \n (0.002)
-fe    airport                         -                   -
-      ry                              -                   -
-stats Observations               17,522              17,522
-      R²                          0.942               0.941
+[ln_deg: binary + spill150, buffer dropped]  N=16315
+             Estimate  Std. Error  Pr(>|t|)
+Coefficient                                
+tax_any        -0.291       0.123     0.021
+spill150       -0.058       0.103     0.575
 
-== ln_deg ==
-                                  ln_deg                    
-                                    (1)                 (2)
-coef  tax_any        -0.265* \n (0.117)                    
-      spill300        -0.016 \n (0.077)    0.004 \n (0.069)
-      tax_short_eur                      -0.032* \n (0.012)
-fe    airport                         -                   -
-      ry                              -                   -
-stats Observations               17,522              17,522
-      R²                          0.882               0.882
+[ln_gaci: binary + spill150, buffer dropped]  N=16315
+             Estimate  Std. Error  Pr(>|t|)
+Coefficient                                
+tax_any        -0.045       0.016     0.008
+spill150       -0.018       0.019     0.333
 
-== event study, ln seats ==
-              Estimate  Std. Error  t value  Pr(>|t|)   2.5%  97.5%
-Coefficient                                                       
-et::-5          0.188       0.157    1.196     0.236 -0.126  0.502
-et::-4          0.059       0.052    1.148     0.255 -0.044  0.162
-et::-3          0.021       0.036    0.576     0.567 -0.051  0.093
-et::-2         -0.048       0.038   -1.288     0.202 -0.124  0.027
-et::0          -0.074       0.063   -1.182     0.242 -0.200  0.051
-et::1          -0.236       0.065   -3.648     0.001 -0.365 -0.107
-et::2          -0.248       0.078   -3.184     0.002 -0.403 -0.092
-et::3          -0.360       0.098   -3.663     0.001 -0.557 -0.164
-et::4          -0.199       0.134   -1.487     0.142 -0.466  0.068
-et::5          -0.223       0.135   -1.652     0.103 -0.494  0.047
-et::6          -0.315       0.129   -2.447     0.017 -0.573 -0.058
-et::7          -0.237       0.131   -1.811     0.075 -0.499  0.024
-et::8          -0.454       0.240   -1.892     0.063 -0.933  0.025
-spill300       -0.084       0.141   -0.595     0.554 -0.365  0.197
+[ln_seats: dose (EUR, shortest band) + neighbour tax pressure]  N=16315
+                  Estimate  Std. Error  Pr(>|t|)
+Coefficient                                     
+tax_short_eur       -0.038       0.021     0.069
+nbr_tax_pressure    -0.008       0.008     0.287
+
+[ln_seats: not-yet-treated control only (ever-treated countries)]  N=6252
+             Estimate  Std. Error  Pr(>|t|)
+Coefficient                                
+tax_any        -0.086       0.063     0.201
+spill150        0.050       0.146     0.739
+
+[ln_seats: excl. 2020-2022]  N=14685
+             Estimate  Std. Error  Pr(>|t|)
+Coefficient                                
+tax_any        -0.340       0.175     0.057
+spill150       -0.168       0.180     0.353
+
+[ln_seats: dynamics (years since tax, quadratic)]  N=16315
+                   Estimate  Std. Error  Pr(>|t|)
+Coefficient                                      
+tax_any              -0.368       0.176     0.041
+yrs_since            -0.015       0.017     0.380
+I(yrs_since ** 2)    -0.000       0.000     0.610
+spill150             -0.310       0.217     0.158
+
+[event study, ln seats]  N=16315
+             Estimate  Std. Error  Pr(>|t|)
+Coefficient                                
+et::-5          0.219       0.175     0.215
+et::-4          0.068       0.060     0.262
+et::-3          0.035       0.047     0.463
+et::-2         -0.046       0.038     0.231
+et::0          -0.096       0.057     0.094
+et::1          -0.246       0.065     0.000
+et::2          -0.261       0.075     0.001
+et::3          -0.377       0.102     0.000
+et::4          -0.267       0.127     0.040
+et::5          -0.280       0.137     0.045
+et::6          -0.338       0.144     0.022
+et::7          -0.274       0.126     0.033
+et::8          -0.516       0.239     0.034
+spill150       -0.218       0.182     0.236
+
+[implied CO2] b_tax=-0.399, b_spill=-0.263
+  seats removed in taxed airports (cum. 1996-2024): 8,742 m ; implied CO2 avoided: 414.8 MtCO2e
+  seats added in spill airports: -1,363 m ; implied CO2 leaked: -66.6 MtCO2e ; net: 481.3 MtCO2e
+  value at SCC 100 EUR/t: gross 41.5 bn EUR, net 48.1 bn EUR
+  value at SCC 200 EUR/t: gross 83.0 bn EUR, net 96.3 bn EUR
+  NOTE: intensity = EDGAR *international* aviation GHG / all scheduled seats -> lower bound; assumes unchanged stage length & load factor.
