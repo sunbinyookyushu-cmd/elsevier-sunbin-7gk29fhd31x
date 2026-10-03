@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+data/raw/eurostat/
+data/raw/emissions/*.zip
+.ipynb_checkpoints/

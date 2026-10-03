@@ -1,0 +1,251 @@
+iso2,iso3,country,capital,cap_lat,cap_lon,centroid_lat,centroid_lon,region,subregion,borders_iso3,landlocked,independent,ref_lat,ref_lon
+AW,ABW,Aruba,Oranjestad,12.52398,-70.02703,12.5,-69.96666666,Americas,Caribbean,,False,False,12.52398,-70.02703
+AF,AFG,Afghanistan,Kabul,34.52813,69.17233,33.0,65.0,Asia,Southern Asia,IRN;PAK;TKM;UZB;TJK;CHN,True,True,34.52813,69.17233
+AO,AGO,Angola,Luanda,-8.83682,13.23432,-12.5,18.5,Africa,Middle Africa,COG;COD;ZMB;NAM,False,True,-8.83682,13.23432
+AI,AIA,Anguilla,The Valley,18.21704,-63.05783,18.25,-63.16666666,Americas,Caribbean,,False,False,18.21704,-63.05783
+AX,ALA,Åland Islands,Mariehamn,60.09726,19.93481,60.116667,19.9,Europe,Northern Europe,,False,False,60.09726,19.93481
+AL,ALB,Albania,Tirana,41.32744,19.81866,41.0,20.0,Europe,Southeast Europe,MNE;GRC;MKD;UNK,False,True,41.32744,19.81866
+AD,AND,Andorra,Andorra la Vella,42.50779,1.52109,42.5,1.5,Europe,Southern Europe,FRA;ESP,True,True,42.50779,1.52109
+AE,ARE,United Arab Emirates,Abu Dhabi,24.45118,54.39696,24.0,54.0,Asia,Western Asia,OMN;SAU,False,True,24.45118,54.39696
+AR,ARG,Argentina,Buenos Aires,-34.61315,-58.37723,-34.0,-64.0,Americas,South America,BOL;BRA;CHL;PRY;URY,False,True,-34.61315,-58.37723
+AM,ARM,Armenia,Yerevan,40.17765,44.5126,40.0,45.0,Asia,Western Asia,AZE;GEO;IRN;TUR,True,True,40.17765,44.5126
+AS,ASM,American Samoa,Pago Pago,-14.27806,-170.7025,-14.33333333,-170.0,Oceania,Polynesia,,False,False,-14.27806,-170.7025
+AQ,ATA,Antarctica,,,,-90.0,0.0,Antarctic,,,False,False,-90.0,0.0
+TF,ATF,French Southern and Antarctic Lands,Port-aux-Français,-49.34916,70.21937,-49.25,69.167,Antarctic,,,False,False,-49.34916,70.21937
+AG,ATG,Antigua and Barbuda,Saint John's,17.1175,-61.8456,17.05,-61.8,Americas,Caribbean,,False,True,17.1175,-61.8456
+AU,AUS,Australia,Canberra,-35.28346,149.12807,-27.0,133.0,Oceania,Australia and New Zealand,,False,True,-35.28346,149.12807
+AT,AUT,Austria,Vienna,48.20849,16.37208,47.33333333,13.33333333,Europe,Central Europe,CZE;DEU;HUN;ITA;LIE;SVK;SVN;CHE,True,True,48.20849,16.37208
+AZ,AZE,Azerbaijan,Baku,40.37767,49.89201,40.5,47.5,Asia,Western Asia,ARM;GEO;IRN;RUS;TUR,True,True,40.37767,49.89201
+BI,BDI,Burundi,Gitega,-3.42708,29.92463,-3.5,30.0,Africa,Eastern Africa,COD;RWA;TZA,True,True,-3.42708,29.92463
+BE,BEL,Belgium,Brussels,50.85045,4.34878,50.83333333,4.0,Europe,Western Europe,FRA;DEU;LUX;NLD,False,True,50.85045,4.34878
+BJ,BEN,Benin,Porto-Novo,6.49646,2.60359,9.5,2.25,Africa,Western Africa,BFA;NER;NGA;TGO,False,True,6.49646,2.60359
+BF,BFA,Burkina Faso,Ouagadougou,12.36566,-1.53388,13.0,-2.0,Africa,Western Africa,BEN;CIV;GHA;MLI;NER;TGO,True,True,12.36566,-1.53388
+BD,BGD,Bangladesh,Dhaka,23.7104,90.40744,24.0,90.0,Asia,Southern Asia,MMR;IND,False,True,23.7104,90.40744
+BG,BGR,Bulgaria,Sofia,42.69751,23.32415,43.0,25.0,Europe,Southeast Europe,GRC;MKD;ROU;SRB;TUR,False,True,42.69751,23.32415
+BH,BHR,Bahrain,Manama,26.22787,50.58565,26.0,50.55,Asia,Western Asia,,False,True,26.22787,50.58565
+BS,BHS,Bahamas,Nassau,25.05823,-77.34306,24.25,-76.0,Americas,Caribbean,,False,True,25.05823,-77.34306
+BA,BIH,Bosnia and Herzegovina,Sarajevo,43.84864,18.35644,44.0,18.0,Europe,Southeast Europe,HRV;MNE;SRB,False,True,43.84864,18.35644
+BL,BLM,Saint Barthélemy,Gustavia,17.89618,-62.84978,18.5,-63.41666666,Americas,Caribbean,,False,False,17.89618,-62.84978
+SH,SHN,"Saint Helena, Ascension and Tristan da Cunha",Jamestown,-15.92488,-5.71816,-15.95,-5.72,Africa,Western Africa,,False,False,-15.92488,-5.71816
+BY,BLR,Belarus,Minsk,53.90019,27.56653,53.0,28.0,Europe,Eastern Europe,LVA;LTU;POL;RUS;UKR,True,True,53.90019,27.56653
+BZ,BLZ,Belize,Belmopan,17.25376,-88.76401,17.25,-88.75,Americas,Central America,GTM;MEX,False,True,17.25376,-88.76401
+BM,BMU,Bermuda,Hamilton,32.2949,-64.78303,32.33333333,-64.75,Americas,North America,,False,False,32.2949,-64.78303
+BO,BOL,Bolivia,Sucre,-19.03332,-65.26274,-17.0,-65.0,Americas,South America,ARG;BRA;CHL;PRY;PER,True,True,-19.03332,-65.26274
+BQ,BES,Caribbean Netherlands,Kralendijk,12.15,-68.26667,12.18,-68.25,Americas,Caribbean,,False,False,12.15,-68.26667
+BR,BRA,Brazil,Brasília,-15.77972,-47.92972,-10.0,-55.0,Americas,South America,ARG;BOL;COL;GUF;GUY;PRY;PER;SUR;URY;VEN,False,True,-15.77972,-47.92972
+BB,BRB,Barbados,Bridgetown,13.10732,-59.62021,13.16666666,-59.53333333,Americas,Caribbean,,False,True,13.10732,-59.62021
+BN,BRN,Brunei,Bandar Seri Begawan,4.89035,114.94006,4.5,114.66666666,Asia,South-Eastern Asia,MYS,False,True,4.89035,114.94006
+BT,BTN,Bhutan,Thimphu,27.46609,89.64191,27.5,90.5,Asia,Southern Asia,CHN;IND,True,True,27.46609,89.64191
+BV,BVT,Bouvet Island,,,,-54.43333333,3.4,Antarctic,,,False,False,-54.43333333,3.4
+BW,BWA,Botswana,Gaborone,-24.65451,25.90859,-22.0,24.0,Africa,Southern Africa,NAM;ZAF;ZMB;ZWE,True,True,-24.65451,25.90859
+CF,CAF,Central African Republic,Bangui,4.36122,18.55496,7.0,21.0,Africa,Middle Africa,CMR;TCD;COD;COG;SSD;SDN,True,True,4.36122,18.55496
+CA,CAN,Canada,Ottawa,45.41117,-75.69812,60.0,-95.0,Americas,North America,USA,False,True,45.41117,-75.69812
+CC,CCK,Cocos (Keeling) Islands,West Island,-12.15681,96.82251,-12.5,96.83333333,Oceania,Australia and New Zealand,,False,False,-12.15681,96.82251
+CH,CHE,Switzerland,Bern,46.94809,7.44744,47.0,8.0,Europe,Western Europe,AUT;FRA;ITA;LIE;DEU,True,True,46.94809,7.44744
+CL,CHL,Chile,Santiago,-33.45694,-70.64827,-30.0,-71.0,Americas,South America,ARG;BOL;PER,False,True,-33.45694,-70.64827
+CN,CHN,China,Beijing,39.9075,116.39723,35.0,105.0,Asia,Eastern Asia,AFG;BTN;MMR;HKG;IND;KAZ;NPL;PRK;KGZ;LAO;MAC;MNG;PAK;RUS;TJK;VNM,False,True,39.9075,116.39723
+CI,CIV,Ivory Coast,Yamoussoukro,6.82055,-5.27674,8.0,-5.0,Africa,Western Africa,BFA;GHA;GIN;LBR;MLI,False,True,6.82055,-5.27674
+CM,CMR,Cameroon,Yaoundé,3.86667,11.51667,6.0,12.0,Africa,Middle Africa,CAF;TCD;COG;GNQ;GAB;NGA,False,True,3.86667,11.51667
+CD,COD,DR Congo,Kinshasa,-4.32758,15.31357,0.0,25.0,Africa,Middle Africa,AGO;BDI;CAF;COG;RWA;SSD;TZA;UGA;ZMB,False,True,-4.32758,15.31357
+CG,COG,Congo,Brazzaville,-4.26613,15.28318,-1.0,15.0,Africa,Middle Africa,AGO;CMR;CAF;COD;GAB,False,True,-4.26613,15.28318
+CK,COK,Cook Islands,Avarua,-21.2075,-159.77546,-21.23333333,-159.76666666,Oceania,Polynesia,,False,False,-21.2075,-159.77546
+CO,COL,Colombia,Bogotá,4.60971,-74.08175,4.0,-72.0,Americas,South America,BRA;ECU;PAN;PER;VEN,False,True,4.60971,-74.08175
+KM,COM,Comoros,Moroni,-11.70216,43.25506,-12.16666666,44.25,Africa,Eastern Africa,,False,True,-11.70216,43.25506
+CV,CPV,Cape Verde,Praia,14.93152,-23.51254,16.0,-24.0,Africa,Western Africa,,False,True,14.93152,-23.51254
+CR,CRI,Costa Rica,San José,10.95192,-85.13572,10.0,-84.0,Americas,Central America,NIC;PAN,False,True,10.95192,-85.13572
+CU,CUB,Cuba,Havana,23.13302,-82.38304,21.5,-80.0,Americas,Caribbean,,False,True,23.13302,-82.38304
+CW,CUW,Curaçao,Willemstad,12.12246,-68.88641,12.116667,-68.933333,Americas,Caribbean,,False,False,12.12246,-68.88641
+CX,CXR,Christmas Island,Flying Fish Cove,-10.42172,105.67912,-10.5,105.66666666,Oceania,Australia and New Zealand,,False,False,-10.42172,105.67912
+KY,CYM,Cayman Islands,George Town,19.2866,-81.37436,19.5,-80.5,Americas,Caribbean,,False,False,19.2866,-81.37436
+CY,CYP,Cyprus,Nicosia,35.17284,33.35397,35.0,33.0,Europe,Southern Europe,,False,True,35.17284,33.35397
+CZ,CZE,Czechia,Prague,50.08804,14.42076,49.75,15.5,Europe,Central Europe,AUT;DEU;POL;SVK,True,True,50.08804,14.42076
+DE,DEU,Germany,Berlin,52.52437,13.41053,51.0,9.0,Europe,Western Europe,AUT;BEL;CZE;DNK;FRA;LUX;NLD;POL;CHE,False,True,52.52437,13.41053
+DJ,DJI,Djibouti,Djibouti,11.58901,43.14503,11.5,43.0,Africa,Eastern Africa,ERI;ETH;SOM,False,True,11.58901,43.14503
+DM,DMA,Dominica,Roseau,15.30174,-61.38808,15.41666666,-61.33333333,Americas,Caribbean,,False,True,15.30174,-61.38808
+DK,DNK,Denmark,Copenhagen,55.67594,12.56553,56.0,10.0,Europe,Northern Europe,DEU,False,True,55.67594,12.56553
+DO,DOM,Dominican Republic,Santo Domingo,18.47186,-69.89232,19.0,-70.66666666,Americas,Caribbean,HTI,False,True,18.47186,-69.89232
+DZ,DZA,Algeria,Algiers,36.73225,3.08746,28.0,3.0,Africa,Northern Africa,TUN;LBY;NER;ESH;MRT;MLI;MAR,False,True,36.73225,3.08746
+EC,ECU,Ecuador,Quito,-0.22985,-78.52495,-2.0,-77.5,Americas,South America,COL;PER,False,True,-0.22985,-78.52495
+EG,EGY,Egypt,Cairo,30.06263,31.24967,27.0,30.0,Africa,Northern Africa,ISR;LBY;PSE;SDN,False,True,30.06263,31.24967
+ER,ERI,Eritrea,Asmara,15.33805,38.93184,15.0,39.0,Africa,Eastern Africa,DJI;ETH;SDN,False,True,15.33805,38.93184
+EH,ESH,Western Sahara,El Aaiún,27.1536,-13.2033,24.5,-13.0,Africa,Northern Africa,DZA;MRT;MAR,False,False,27.1536,-13.2033
+ES,ESP,Spain,Madrid,40.4165,-3.70256,40.0,-4.0,Europe,Southern Europe,AND;FRA;GIB;PRT;MAR,False,True,40.4165,-3.70256
+EE,EST,Estonia,Tallinn,59.43696,24.75353,59.0,26.0,Europe,Northern Europe,LVA;RUS,False,True,59.43696,24.75353
+ET,ETH,Ethiopia,Addis Ababa,9.02497,38.74689,8.0,38.0,Africa,Eastern Africa,DJI;ERI;KEN;SOM;SSD;SDN,True,True,9.02497,38.74689
+FI,FIN,Finland,Helsinki,60.16952,24.93545,64.0,26.0,Europe,Northern Europe,NOR;SWE;RUS,False,True,60.16952,24.93545
+FJ,FJI,Fiji,Suva,-18.13683,178.42531,-18.0,175.0,Oceania,Melanesia,,False,True,-18.13683,178.42531
+FK,FLK,Falkland Islands,Stanley,-51.69382,-57.85701,-51.75,-59.0,Americas,South America,,False,False,-51.69382,-57.85701
+FR,FRA,France,Paris,48.85341,2.3488,46.0,2.0,Europe,Western Europe,AND;BEL;DEU;ITA;LUX;MCO;ESP;CHE,False,True,48.85341,2.3488
+FO,FRO,Faroe Islands,Tórshavn,62.00973,-6.77164,62.0,-7.0,Europe,Northern Europe,,False,False,62.00973,-6.77164
+FM,FSM,Micronesia,Palikir,6.92477,158.16109,6.91666666,158.25,Oceania,Micronesia,,False,True,6.92477,158.16109
+GA,GAB,Gabon,Libreville,0.39241,9.45356,-1.0,11.75,Africa,Middle Africa,CMR;COG;GNQ,False,True,0.39241,9.45356
+GB,GBR,United Kingdom,London,51.50853,-0.12574,54.0,-2.0,Europe,Northern Europe,IRL,False,True,51.50853,-0.12574
+GE,GEO,Georgia,Tbilisi,41.69143,44.83412,42.0,43.5,Asia,Western Asia,ARM;AZE;RUS;TUR,False,True,41.69143,44.83412
+GG,GGY,Guernsey,St. Peter Port,49.4555,-2.5368,49.46666666,-2.58333333,Europe,Northern Europe,,False,False,49.4555,-2.5368
+GH,GHA,Ghana,Accra,5.55602,-0.1969,8.0,-2.0,Africa,Western Africa,BFA;CIV;TGO,False,True,5.55602,-0.1969
+GI,GIB,Gibraltar,Gibraltar,36.14474,-5.35257,36.13333333,-5.35,Europe,Southern Europe,ESP,False,False,36.14474,-5.35257
+GN,GIN,Guinea,Conakry,9.53795,-13.67729,11.0,-10.0,Africa,Western Africa,CIV;GNB;LBR;MLI;SEN;SLE,False,True,9.53795,-13.67729
+GP,GLP,Guadeloupe,Basse-Terre,15.99714,-61.73214,16.25,-61.583333,Americas,Caribbean,,False,False,15.99714,-61.73214
+GM,GMB,Gambia,Banjul,13.45274,-16.57803,13.46666666,-16.56666666,Africa,Western Africa,SEN,False,True,13.45274,-16.57803
+GW,GNB,Guinea-Bissau,Bissau,11.86357,-15.59767,12.0,-15.0,Africa,Western Africa,GIN;SEN,False,True,11.86357,-15.59767
+GQ,GNQ,Equatorial Guinea,Malabo,3.75578,8.78166,2.0,10.0,Africa,Middle Africa,CMR;GAB,False,True,3.75578,8.78166
+GR,GRC,Greece,Athens,37.98376,23.72784,39.0,22.0,Europe,Southern Europe,ALB;BGR;TUR;MKD,False,True,37.98376,23.72784
+GD,GRD,Grenada,St. George's,12.0564,-61.7485,12.11666666,-61.66666666,Americas,Caribbean,,False,True,12.0564,-61.7485
+GL,GRL,Greenland,Nuuk,64.18347,-51.72157,72.0,-40.0,Americas,North America,,False,False,64.18347,-51.72157
+GT,GTM,Guatemala,Guatemala City,14.64072,-90.51327,15.5,-90.25,Americas,Central America,BLZ;SLV;HND;MEX,False,True,14.64072,-90.51327
+GF,GUF,French Guiana,Cayenne,4.9381,-52.33455,4.0,-53.0,Americas,South America,BRA;SUR,False,False,4.9381,-52.33455
+GU,GUM,Guam,Hagåtña,13.47567,144.74886,13.46666666,144.78333333,Oceania,Micronesia,,False,False,13.47567,144.74886
+GY,GUY,Guyana,Georgetown,6.80448,-58.15527,5.0,-59.0,Americas,South America,BRA;SUR;VEN,False,True,6.80448,-58.15527
+HK,HKG,Hong Kong,City of Victoria,22.2875,114.14417,22.267,114.188,Asia,Eastern Asia,CHN,False,False,22.2875,114.14417
+HM,HMD,Heard Island and McDonald Islands,,,,-53.1,72.51666666,Antarctic,,,False,False,-53.1,72.51666666
+HN,HND,Honduras,Tegucigalpa,14.0818,-87.20681,15.0,-86.5,Americas,Central America,GTM;SLV;NIC,False,True,14.0818,-87.20681
+HR,HRV,Croatia,Zagreb,45.81444,15.97798,45.16666666,15.5,Europe,Southeast Europe,BIH;HUN;MNE;SRB;SVN,False,True,45.81444,15.97798
+HT,HTI,Haiti,Port-au-Prince,18.54349,-72.33881,19.0,-72.41666666,Americas,Caribbean,DOM,False,True,18.54349,-72.33881
+HU,HUN,Hungary,Budapest,47.49835,19.04045,47.0,20.0,Europe,Central Europe,AUT;HRV;ROU;SRB;SVK;SVN;UKR,True,True,47.49835,19.04045
+ID,IDN,Indonesia,Jakarta,-6.21462,106.84513,-5.0,120.0,Asia,South-Eastern Asia,TLS;MYS;PNG,False,True,-6.21462,106.84513
+IM,IMN,Isle of Man,Douglas,54.15,-4.48333,54.25,-4.5,Europe,Northern Europe,,False,False,54.15,-4.48333
+IN,IND,India,New Delhi,28.62137,77.2148,20.0,77.0,Asia,Southern Asia,BGD;BTN;MMR;CHN;NPL;PAK,False,True,28.62137,77.2148
+IO,IOT,British Indian Ocean Territory,Diego Garcia,-7.3195,72.4229,-6.0,71.5,Africa,Eastern Africa,,False,False,-7.3195,72.4229
+IE,IRL,Ireland,Dublin,53.33306,-6.24889,53.0,-8.0,Europe,Northern Europe,GBR,False,True,53.33306,-6.24889
+IR,IRN,Iran,Tehran,35.69439,51.42151,32.0,53.0,Asia,Southern Asia,AFG;ARM;AZE;IRQ;PAK;TUR;TKM,False,True,35.69439,51.42151
+IQ,IRQ,Iraq,Baghdad,33.34058,44.40088,33.0,44.0,Asia,Western Asia,IRN;JOR;KWT;SAU;SYR;TUR,False,True,33.34058,44.40088
+IS,ISL,Iceland,Reykjavik,64.13548,-21.89541,65.0,-18.0,Europe,Northern Europe,,False,True,64.13548,-21.89541
+IL,ISR,Israel,Jerusalem,31.76904,35.21633,31.47,35.13,Asia,Western Asia,EGY;JOR;LBN;PSE;SYR,False,True,31.76904,35.21633
+IT,ITA,Italy,Rome,41.89193,12.51133,42.83333333,12.83333333,Europe,Southern Europe,AUT;FRA;SMR;SVN;CHE;VAT,False,True,41.89193,12.51133
+JM,JAM,Jamaica,Kingston,17.99702,-76.79358,18.25,-77.5,Americas,Caribbean,,False,True,17.99702,-76.79358
+JE,JEY,Jersey,Saint Helier,49.18804,-2.10491,49.25,-2.16666666,Europe,Northern Europe,,False,False,49.18804,-2.10491
+JO,JOR,Jordan,Amman,31.95522,35.94503,31.0,36.0,Asia,Western Asia,IRQ;ISR;PSE;SAU;SYR,False,True,31.95522,35.94503
+JP,JPN,Japan,Tokyo,35.6895,139.69171,36.0,138.0,Asia,Eastern Asia,,False,True,35.6895,139.69171
+KZ,KAZ,Kazakhstan,Astana,51.1801,71.44598,48.0,68.0,Asia,Central Asia,CHN;KGZ;RUS;TKM;UZB,True,True,51.1801,71.44598
+KE,KEN,Kenya,Nairobi,-1.28333,36.81667,1.0,38.0,Africa,Eastern Africa,ETH;SOM;SSD;TZA;UGA,False,True,-1.28333,36.81667
+KG,KGZ,Kyrgyzstan,Bishkek,42.87,74.59,41.0,75.0,Asia,Central Asia,CHN;KAZ;TJK;UZB,True,True,42.87,74.59
+KH,KHM,Cambodia,Phnom Penh,11.56245,104.91601,13.0,105.0,Asia,South-Eastern Asia,LAO;THA;VNM,False,True,11.56245,104.91601
+KI,KIR,Kiribati,South Tarawa,1.3278,172.9767,1.41666666,173.0,Oceania,Micronesia,,False,True,1.3278,172.9767
+KN,KNA,Saint Kitts and Nevis,Basseterre,17.2955,-62.72499,17.33333333,-62.75,Americas,Caribbean,,False,True,17.2955,-62.72499
+KR,KOR,South Korea,Seoul,37.566,126.9784,37.0,127.5,Asia,Eastern Asia,PRK,False,True,37.566,126.9784
+XK,UNK,Kosovo,Pristina,42.67272,21.16688,42.666667,21.166667,Europe,Southeast Europe,ALB;MKD;MNE;SRB,True,,42.67272,21.16688
+KW,KWT,Kuwait,Kuwait City,29.367,47.97429,29.5,45.75,Asia,Western Asia,IRQ;SAU,False,True,29.367,47.97429
+LA,LAO,Laos,Vientiane,17.96667,102.6,18.0,105.0,Asia,South-Eastern Asia,MMR;KHM;CHN;THA;VNM,True,True,17.96667,102.6
+LB,LBN,Lebanon,Beirut,33.89332,35.50157,33.83333333,35.83333333,Asia,Western Asia,ISR;SYR,False,True,33.89332,35.50157
+LR,LBR,Liberia,Monrovia,6.30054,-10.7969,6.5,-9.5,Africa,Western Africa,GIN;CIV;SLE,False,True,6.30054,-10.7969
+LY,LBY,Libya,Tripoli,32.88743,13.18733,25.0,17.0,Africa,Northern Africa,DZA;TCD;EGY;NER;SDN;TUN,False,True,32.88743,13.18733
+LC,LCA,Saint Lucia,Castries,13.9957,-61.00614,13.88333333,-60.96666666,Americas,Caribbean,,False,True,13.9957,-61.00614
+LI,LIE,Liechtenstein,Vaduz,47.14151,9.52154,47.26666666,9.53333333,Europe,Western Europe,AUT;CHE,True,True,47.14151,9.52154
+LK,LKA,Sri Lanka,Colombo,6.93548,79.84868,7.0,81.0,Asia,Southern Asia,IND,False,True,6.93548,79.84868
+LS,LSO,Lesotho,Maseru,-29.31667,27.48333,-29.5,28.5,Africa,Southern Africa,ZAF,True,True,-29.31667,27.48333
+LT,LTU,Lithuania,Vilnius,54.68916,25.2798,56.0,24.0,Europe,Northern Europe,BLR;LVA;POL;RUS,False,True,54.68916,25.2798
+LU,LUX,Luxembourg,Luxembourg,49.60982,6.13268,49.75,6.16666666,Europe,Western Europe,BEL;FRA;DEU,True,True,49.60982,6.13268
+LV,LVA,Latvia,Riga,56.946,24.10589,57.0,25.0,Europe,Northern Europe,BLR;EST;LTU;RUS,False,True,56.946,24.10589
+MO,MAC,Macau,,22.1987,113.5439,22.16666666,113.55,Asia,Eastern Asia,CHN,False,False,22.1987,113.5439
+MF,MAF,Saint Martin,Marigot,18.06819,-63.08302,18.08333333,-63.95,Americas,Caribbean,SXM,False,False,18.06819,-63.08302
+MA,MAR,Morocco,Rabat,34.01325,-6.83255,32.0,-5.0,Africa,Northern Africa,DZA;ESH;ESP,False,True,34.01325,-6.83255
+MC,MCO,Monaco,Monaco,43.73718,7.42145,43.73333333,7.4,Europe,Western Europe,FRA,False,True,43.73718,7.42145
+MD,MDA,Moldova,Chișinău,47.00902,28.85938,47.0,29.0,Europe,Eastern Europe,ROU;UKR,True,True,47.00902,28.85938
+MG,MDG,Madagascar,Antananarivo,-18.91368,47.53613,-20.0,47.0,Africa,Eastern Africa,,False,True,-18.91368,47.53613
+MV,MDV,Maldives,Malé,4.17521,73.50916,3.25,73.0,Asia,Southern Asia,,False,True,4.17521,73.50916
+MX,MEX,Mexico,Mexico City,19.42847,-99.12766,23.0,-102.0,Americas,North America,BLZ;GTM;USA,False,True,19.42847,-99.12766
+MH,MHL,Marshall Islands,Majuro,7.08971,171.38027,9.0,168.0,Oceania,Micronesia,,False,True,7.08971,171.38027
+MK,MKD,North Macedonia,Skopje,41.99646,21.43141,41.83333333,22.0,Europe,Southeast Europe,ALB;BGR;GRC;UNK;SRB,True,True,41.99646,21.43141
+ML,MLI,Mali,Bamako,12.60915,-7.97522,17.0,-4.0,Africa,Western Africa,DZA;BFA;GIN;CIV;MRT;NER;SEN,True,True,12.60915,-7.97522
+MT,MLT,Malta,Valletta,35.89968,14.5148,35.83333333,14.58333333,Europe,Southern Europe,,False,True,35.89968,14.5148
+MM,MMR,Myanmar,Naypyidaw,19.7633,96.0785,22.0,98.0,Asia,South-Eastern Asia,BGD;CHN;IND;LAO;THA,False,True,19.7633,96.0785
+ME,MNE,Montenegro,Podgorica,42.44124,19.26309,42.5,19.3,Europe,Southeast Europe,ALB;BIH;HRV;UNK;SRB,False,True,42.44124,19.26309
+MN,MNG,Mongolia,Ulan Bator,47.90771,106.88324,46.0,105.0,Asia,Eastern Asia,CHN;RUS,True,True,47.90771,106.88324
+MP,MNP,Northern Mariana Islands,Saipan,15.21233,145.7545,15.2,145.75,Oceania,Micronesia,,False,False,15.21233,145.7545
+MZ,MOZ,Mozambique,Maputo,-25.96553,32.58322,-18.25,35.0,Africa,Eastern Africa,MWI;ZAF;SWZ;TZA;ZMB;ZWE,False,True,-25.96553,32.58322
+MR,MRT,Mauritania,Nouakchott,18.08581,-15.9785,20.0,-12.0,Africa,Western Africa,DZA;MLI;SEN;ESH,False,True,18.08581,-15.9785
+MS,MSR,Montserrat,Plymouth,16.70555,-62.21292,16.75,-62.2,Americas,Caribbean,,False,False,16.70555,-62.21292
+MQ,MTQ,Martinique,Fort-de-France,14.60365,-61.07418,14.666667,-61.0,Americas,Caribbean,,False,False,14.60365,-61.07418
+MU,MUS,Mauritius,Port Louis,-20.16194,57.49889,-20.28333333,57.55,Africa,Eastern Africa,,False,True,-20.16194,57.49889
+MW,MWI,Malawi,Lilongwe,-13.96692,33.78725,-13.5,34.0,Africa,Eastern Africa,MOZ;TZA;ZMB,True,True,-13.96692,33.78725
+MY,MYS,Malaysia,Kuala Lumpur,3.1412,101.68653,2.5,112.5,Asia,South-Eastern Asia,BRN;IDN;THA,False,True,3.1412,101.68653
+YT,MYT,Mayotte,Mamoudzou,-12.78234,45.22878,-12.83333333,45.16666666,Africa,Eastern Africa,,False,False,-12.78234,45.22878
+NA,NAM,Namibia,Windhoek,-22.55941,17.08323,-22.0,17.0,Africa,Southern Africa,AGO;BWA;ZAF;ZMB,False,True,-22.55941,17.08323
+NC,NCL,New Caledonia,Nouméa,-22.27407,166.44884,-21.5,165.5,Oceania,Melanesia,,False,False,-22.27407,166.44884
+NE,NER,Niger,Niamey,13.51366,2.1098,16.0,8.0,Africa,Western Africa,DZA;BEN;BFA;TCD;LBY;MLI;NGA,True,True,13.51366,2.1098
+NF,NFK,Norfolk Island,Kingston,-29.05459,167.96628,-29.03333333,167.95,Oceania,Australia and New Zealand,,False,False,-29.05459,167.96628
+NG,NGA,Nigeria,Abuja,9.05785,7.49508,10.0,8.0,Africa,Western Africa,BEN;CMR;TCD;NER,False,True,9.05785,7.49508
+NI,NIC,Nicaragua,Managua,12.13282,-86.2504,13.0,-85.0,Americas,Central America,CRI;HND,False,True,12.13282,-86.2504
+NU,NIU,Niue,Alofi,-19.05294,-169.91957,-19.03333333,-169.86666666,Oceania,Polynesia,,False,False,-19.05294,-169.91957
+NL,NLD,Netherlands,Amsterdam,52.37403,4.88969,52.5,5.75,Europe,Western Europe,BEL;DEU,False,True,52.37403,4.88969
+NO,NOR,Norway,Oslo,59.91273,10.74609,62.0,10.0,Europe,Northern Europe,FIN;SWE;RUS,False,True,59.91273,10.74609
+NP,NPL,Nepal,Kathmandu,27.70169,85.3206,28.0,84.0,Asia,Southern Asia,CHN;IND,True,True,27.70169,85.3206
+NR,NRU,Nauru,Yaren,-0.55085,166.9252,-0.53333333,166.91666666,Oceania,Micronesia,,False,True,-0.55085,166.9252
+NZ,NZL,New Zealand,Wellington,-41.28664,174.77557,-41.0,174.0,Oceania,Australia and New Zealand,,False,True,-41.28664,174.77557
+OM,OMN,Oman,Muscat,23.58413,58.40778,21.0,57.0,Asia,Western Asia,SAU;ARE;YEM,False,True,23.58413,58.40778
+PK,PAK,Pakistan,Islamabad,33.72148,73.04329,30.0,70.0,Asia,Southern Asia,AFG;CHN;IND;IRN,False,True,33.72148,73.04329
+PA,PAN,Panama,Panama City,8.9936,-79.51973,9.0,-80.0,Americas,Central America,COL;CRI,False,True,8.9936,-79.51973
+PN,PCN,Pitcairn Islands,Adamstown,-25.06597,-130.10147,-25.06666666,-130.1,Oceania,Polynesia,,False,False,-25.06597,-130.10147
+PE,PER,Peru,Lima,-12.04318,-77.02824,-10.0,-76.0,Americas,South America,BOL;BRA;CHL;COL;ECU,False,True,-12.04318,-77.02824
+PH,PHL,Philippines,Manila,14.6042,120.9822,13.0,122.0,Asia,South-Eastern Asia,,False,True,14.6042,120.9822
+PW,PLW,Palau,Ngerulmud,7.50077,134.6238,7.5,134.5,Oceania,Micronesia,,False,True,7.50077,134.6238
+PG,PNG,Papua New Guinea,Port Moresby,-9.47723,147.15089,-6.0,147.0,Oceania,Melanesia,IDN,False,True,-9.47723,147.15089
+PL,POL,Poland,Warsaw,52.22977,21.01178,52.0,20.0,Europe,Central Europe,BLR;CZE;DEU;LTU;RUS;SVK;UKR,False,True,52.22977,21.01178
+PR,PRI,Puerto Rico,San Juan,18.46633,-66.10572,18.25,-66.5,Americas,Caribbean,,False,False,18.46633,-66.10572
+KP,PRK,North Korea,Pyongyang,39.03385,125.75432,40.0,127.0,Asia,Eastern Asia,CHN;KOR;RUS,False,True,39.03385,125.75432
+PT,PRT,Portugal,Lisbon,38.72509,-9.1498,39.5,-8.0,Europe,Southern Europe,ESP,False,True,38.72509,-9.1498
+PY,PRY,Paraguay,Asunción,-25.28646,-57.647,-23.0,-58.0,Americas,South America,ARG;BOL;BRA,True,True,-25.28646,-57.647
+PS,PSE,Palestine,Ramallah,31.89964,35.20422,31.9,35.2,Asia,Western Asia,ISR;EGY;JOR,False,False,31.89964,35.20422
+PF,PYF,French Polynesia,Papeetē,-17.5347,-149.56843,-15.0,-140.0,Oceania,Polynesia,,False,False,-17.5347,-149.56843
+QA,QAT,Qatar,Doha,25.28545,51.53096,25.5,51.25,Asia,Western Asia,SAU,False,True,25.28545,51.53096
+RE,REU,Réunion,Saint-Denis,-20.88231,55.4504,-21.15,55.5,Africa,Eastern Africa,,False,False,-20.88231,55.4504
+RO,ROU,Romania,Bucharest,44.43225,26.10626,46.0,25.0,Europe,Southeast Europe,BGR;HUN;MDA;SRB;UKR,False,True,44.43225,26.10626
+RU,RUS,Russia,Moscow,55.75204,37.61781,60.0,100.0,Europe,Eastern Europe,AZE;BLR;CHN;EST;FIN;GEO;KAZ;PRK;LVA;LTU;MNG;NOR;POL;UKR,False,True,55.75204,37.61781
+RW,RWA,Rwanda,Kigali,-1.94995,30.05885,-2.0,30.0,Africa,Eastern Africa,BDI;COD;TZA;UGA,True,True,-1.94995,30.05885
+SA,SAU,Saudi Arabia,Riyadh,24.68773,46.72185,25.0,45.0,Asia,Western Asia,IRQ;JOR;KWT;OMN;QAT;ARE;YEM,False,True,24.68773,46.72185
+SD,SDN,Sudan,Khartoum,15.55177,32.53241,15.0,30.0,Africa,Northern Africa,CAF;TCD;EGY;ERI;ETH;LBY;SSD,False,True,15.55177,32.53241
+SN,SEN,Senegal,Dakar,14.6937,-17.44406,14.0,-14.0,Africa,Western Africa,GMB;GIN;GNB;MLI;MRT,False,True,14.6937,-17.44406
+SG,SGP,Singapore,Singapore,1.28967,103.85007,1.36666666,103.8,Asia,South-Eastern Asia,,False,True,1.28967,103.85007
+GS,SGS,South Georgia,King Edward Point,,,-54.5,-37.0,Antarctic,,,False,False,-54.5,-37.0
+SJ,SJM,Svalbard and Jan Mayen,Longyearbyen,78.22334,15.64689,78.0,20.0,Europe,Northern Europe,,False,False,78.22334,15.64689
+SB,SLB,Solomon Islands,Honiara,-9.43333,159.95,-8.0,159.0,Oceania,Melanesia,,False,True,-9.43333,159.95
+SL,SLE,Sierra Leone,Freetown,8.48714,-13.2356,8.5,-11.5,Africa,Western Africa,GIN;LBR,False,True,8.48714,-13.2356
+SV,SLV,El Salvador,San Salvador,13.68935,-89.18718,13.83333333,-88.91666666,Americas,Central America,GTM;HND,False,True,13.68935,-89.18718
+SM,SMR,San Marino,City of San Marino,43.9356,12.4473,43.76666666,12.41666666,Europe,Southern Europe,ITA,True,True,43.9356,12.4473
+SO,SOM,Somalia,Mogadishu,2.03711,45.34375,10.0,49.0,Africa,Eastern Africa,DJI;ETH;KEN,False,True,2.03711,45.34375
+PM,SPM,Saint Pierre and Miquelon,Saint-Pierre,46.77914,-56.1773,46.83333333,-56.33333333,Americas,North America,,False,False,46.77914,-56.1773
+RS,SRB,Serbia,Belgrade,44.80401,20.46513,44.0,21.0,Europe,Southeast Europe,BIH;BGR;HRV;HUN;UNK;MKD;MNE;ROU,True,True,44.80401,20.46513
+SS,SSD,South Sudan,Juba,4.85165,31.58247,7.0,30.0,Africa,Middle Africa,CAF;COD;ETH;KEN;SDN;UGA,True,True,4.85165,31.58247
+ST,STP,São Tomé and Príncipe,São Tomé,0.33756,6.7299,1.0,7.0,Africa,Middle Africa,,False,True,0.33756,6.7299
+SR,SUR,Suriname,Paramaribo,5.86638,-55.16682,4.0,-56.0,Americas,South America,BRA;GUF;GUY,False,True,5.86638,-55.16682
+SK,SVK,Slovakia,Bratislava,48.14816,17.10674,48.66666666,19.5,Europe,Central Europe,AUT;CZE;HUN;POL;UKR,True,True,48.14816,17.10674
+SI,SVN,Slovenia,Ljubljana,46.05108,14.50513,46.11666666,14.81666666,Europe,Central Europe,AUT;HRV;ITA;HUN,False,True,46.05108,14.50513
+SE,SWE,Sweden,Stockholm,59.32938,18.06871,62.0,15.0,Europe,Northern Europe,FIN;NOR,False,True,59.32938,18.06871
+SZ,SWZ,Eswatini,Lobamba,-26.46667,31.2,-26.5,31.5,Africa,Southern Africa,MOZ;ZAF,True,True,-26.46667,31.2
+SX,SXM,Sint Maarten,Philipsburg,18.026,-63.04582,18.033333,-63.05,Americas,Caribbean,MAF,False,False,18.026,-63.04582
+SC,SYC,Seychelles,Victoria,-4.62001,55.45501,-4.58333333,55.66666666,Africa,Eastern Africa,,False,True,-4.62001,55.45501
+SY,SYR,Syria,Damascus,33.5102,36.29128,35.0,38.0,Asia,Western Asia,IRQ;ISR;JOR;LBN;TUR,False,True,33.5102,36.29128
+TC,TCA,Turks and Caicos Islands,Cockburn Town,21.46122,-71.14188,21.75,-71.58333333,Americas,Caribbean,,False,False,21.46122,-71.14188
+TD,TCD,Chad,N'Djamena,12.10672,15.0444,15.0,19.0,Africa,Middle Africa,CMR;CAF;LBY;NER;NGA;SDN,True,True,12.10672,15.0444
+TG,TGO,Togo,Lomé,6.12874,1.22154,8.0,1.16666666,Africa,Western Africa,BEN;BFA;GHA,False,True,6.12874,1.22154
+TH,THA,Thailand,Bangkok,13.75398,100.50144,15.0,100.0,Asia,South-Eastern Asia,MMR;KHM;LAO;MYS,False,True,13.75398,100.50144
+TJ,TJK,Tajikistan,Dushanbe,38.53575,68.77905,39.0,71.0,Asia,Central Asia,AFG;CHN;KGZ;UZB,True,True,38.53575,68.77905
+TK,TKL,Tokelau,Fakaofo,-9.38,-171.22,-9.0,-172.0,Oceania,Polynesia,,False,False,-9.38,-171.22
+TM,TKM,Turkmenistan,Ashgabat,37.95,58.38333,40.0,60.0,Asia,Central Asia,AFG;IRN;KAZ;UZB,True,True,37.95,58.38333
+TL,TLS,Timor-Leste,Dili,-8.55861,125.57361,-8.83333333,125.91666666,Asia,South-Eastern Asia,IDN,False,True,-8.55861,125.57361
+TO,TON,Tonga,Nuku'alofa,-21.1393,-175.2049,-20.0,-175.0,Oceania,Polynesia,,False,True,-21.1393,-175.2049
+TT,TTO,Trinidad and Tobago,Port of Spain,10.66668,-61.51889,11.0,-61.0,Americas,Caribbean,,False,True,10.66668,-61.51889
+TN,TUN,Tunisia,Tunis,36.81897,10.16579,34.0,9.0,Africa,Northern Africa,DZA;LBY,False,True,36.81897,10.16579
+TR,TUR,Türkiye,Ankara,39.91987,32.85427,39.0,35.0,Asia,Western Asia,ARM;AZE;BGR;GEO;GRC;IRN;IRQ;SYR,False,True,39.91987,32.85427
+TV,TUV,Tuvalu,Funafuti,-8.52425,179.19417,-8.0,178.0,Oceania,Polynesia,,False,True,-8.52425,179.19417
+TW,TWN,Taiwan,Taipei,25.05306,121.52639,23.5,121.0,Asia,Eastern Asia,,False,False,25.05306,121.52639
+TZ,TZA,Tanzania,Dodoma,-6.17221,35.73947,-6.0,35.0,Africa,Eastern Africa,BDI;COD;KEN;MWI;MOZ;RWA;UGA;ZMB,False,True,-6.17221,35.73947
+UG,UGA,Uganda,Kampala,0.31628,32.58219,1.0,32.0,Africa,Eastern Africa,COD;KEN;RWA;SSD;TZA,True,True,0.31628,32.58219
+UA,UKR,Ukraine,Kyiv,50.45466,30.5238,49.0,32.0,Europe,Eastern Europe,BLR;HUN;MDA;POL;ROU;RUS;SVK,False,True,50.45466,30.5238
+UM,UMI,United States Minor Outlying Islands,,,,19.3,166.633333,Americas,North America,,False,False,19.3,166.633333
+UY,URY,Uruguay,Montevideo,-34.90328,-56.18816,-33.0,-56.0,Americas,South America,ARG;BRA,False,True,-34.90328,-56.18816
+US,USA,United States,Washington D.C.,38.8951,-77.0364,38.0,-97.0,Americas,North America,CAN;MEX,False,True,38.8951,-77.0364
+UZ,UZB,Uzbekistan,Tashkent,41.26465,69.21627,41.0,64.0,Asia,Central Asia,AFG;KAZ;KGZ;TJK;TKM,True,True,41.26465,69.21627
+VA,VAT,Vatican City,Vatican City,41.90268,12.45414,41.9,12.45,Europe,Southern Europe,ITA,True,True,41.90268,12.45414
+VC,VCT,Saint Vincent and the Grenadines,Kingstown,13.15527,-61.22742,13.25,-61.2,Americas,Caribbean,,False,True,13.15527,-61.22742
+VE,VEN,Venezuela,Caracas,10.48801,-66.87919,8.0,-66.0,Americas,South America,BRA;COL;GUY,False,True,10.48801,-66.87919
+VG,VGB,British Virgin Islands,Road Town,18.42693,-64.62079,18.431383,-64.62305,Americas,Caribbean,,False,False,18.42693,-64.62079
+VI,VIR,United States Virgin Islands,Charlotte Amalie,18.3419,-64.9307,18.35,-64.933333,Americas,Caribbean,,False,False,18.3419,-64.9307
+VN,VNM,Vietnam,Hanoi,21.0245,105.84117,16.16666666,107.83333333,Asia,South-Eastern Asia,KHM;CHN;LAO,False,True,21.0245,105.84117
+VU,VUT,Vanuatu,Port Vila,-17.7333,168.3167,-16.0,167.0,Oceania,Melanesia,,False,True,-17.7333,168.3167
+WF,WLF,Wallis and Futuna,Mata-Utu,-13.28163,-176.17453,-13.3,-176.2,Oceania,Polynesia,,False,False,-13.28163,-176.17453
+WS,WSM,Samoa,Apia,-13.83333,-171.76666,-13.58333333,-172.33333333,Oceania,Polynesia,,False,True,-13.83333,-171.76666
+YE,YEM,Yemen,Sana'a,15.3694,44.191,15.0,48.0,Asia,Western Asia,OMN;SAU,False,True,15.3694,44.191
+ZA,ZAF,South Africa,Pretoria,-25.74486,28.18783,-29.0,24.0,Africa,Southern Africa,BWA;LSO;MOZ;NAM;SWZ;ZWE,False,True,-25.74486,28.18783
+ZM,ZMB,Zambia,Lusaka,-15.40669,28.28713,-15.0,30.0,Africa,Eastern Africa,AGO;BWA;COD;MWI;MOZ;NAM;TZA;ZWE,True,True,-15.40669,28.28713
+ZW,ZWE,Zimbabwe,Harare,-17.82772,31.05337,-20.0,30.0,Africa,Eastern Africa,BWA;MOZ;ZAF;ZMB,True,True,-17.82772,31.05337
