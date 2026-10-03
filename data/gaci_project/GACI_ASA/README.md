@@ -37,3 +37,12 @@ Dyadic staggered DiD in the gravity form of Micco & Serebrisky (2006) / Winston 
   growth); exposure index (share of world international seats covered by an agreement in force) with country FE +
   region x year FE: +0.1 exposure -> CO2 +5.6%*, stage length +2.3%*, GACI +0.8%*, destinations +5%***, intensity 0.
   Read as suggestive: the dyadic design (`stata/07_asa_did.do`) needs the OAG origin-airport x destination-country file.
+
+### Airport-level dose design (2026-10-03, `analysis_airport_level.py`)
+Dose = national agreement exposure x airport's predetermined (1996-98) international seat share; airport FE + country x
+year FE. Without further controls the dose coefficients are large and NEGATIVE (intl seats -3.3, CO2 -3.7 per unit dose):
+this is the secular convergence of domestic-oriented airports into international flying (LCC regional expansion), which
+correlates mechanically with rising national exposure. Adding intl_share0 x year dummies removes it and leaves every
+coefficient at zero (seats -0.12 (0.71), CO2 +0.20 (0.78), GACI -0.12 (0.11); domestic placebo also zero; Europe-only
+zero; by agreement type zero). Conclusion: with airport-year data and no destination dimension, the agreement question
+is NOT identified. It needs pair-level (or origin x destination-country) data; see stata/07_asa_did.do.

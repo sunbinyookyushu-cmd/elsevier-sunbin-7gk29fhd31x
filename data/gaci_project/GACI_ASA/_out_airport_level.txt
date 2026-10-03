@@ -1,0 +1,53 @@
+1 ln_seats_i                                     dose_any -3.335 (0.823) p=0.00  N=24427
+1 ln_fl_i                                        dose_any -1.381 (0.772) p=0.08  N=24668
+1 ln_skm_i                                       dose_any -4.633 (0.834) p=0.00  N=24427
+1 ln_co2_i                                       dose_any -3.710 (0.812) p=0.00  N=24668
+1 ln_stage_i                                     dose_any -1.298 (0.255) p=0.00  N=24427
+1 ln_int_i                                       dose_any +0.728 (0.325) p=0.03  N=24427
+1 ln_gaci                                        dose_any +0.204 (0.121) p=0.10  N=45218
+1 ln_deg                                         dose_any +0.454 (0.357) p=0.21  N=45218
+1 ln_eig                                         dose_any -1.365 (0.895) p=0.13  N=45218
+1 ln_betw                                        dose_any +3.331 (2.448) p=0.18  N=45212
+1b ln_seats_i                                    dose_any -0.119 (0.713) p=0.87  N=24427
+1b ln_fl_i                                       dose_any +0.955 (0.761) p=0.21  N=24668
+1b ln_skm_i                                      dose_any -0.677 (0.680) p=0.32  N=24427
+1b ln_co2_i                                      dose_any +0.200 (0.780) p=0.80  N=24668
+1b ln_stage_i                                    dose_any -0.557 (0.283) p=0.05  N=24427
+1b ln_int_i                                      dose_any +0.781 (0.409) p=0.06  N=24427
+1b ln_gaci                                       dose_any -0.117 (0.105) p=0.27  N=45218
+1b ln_deg                                        dose_any -0.063 (0.338) p=0.85  N=45218
+1b ln_eig                                        dose_any +0.065 (1.195) p=0.96  N=45218
+1b ln_betw                                       dose_any +1.378 (2.918) p=0.64  N=45212
+1b ln_seats_d                                    dose_any +0.297 (0.767) p=0.70  N=44819
+1b ln_co2_d                                      dose_any +0.157 (0.712) p=0.83  N=44872
+2 ln_co2_i                                       dose_us -3.520 (2.372) p=0.14 | dose_eu -0.942 (1.016) p=0.36 | dose_bloc -6.667 (2.177) p=0.00 | dose_bil -2.674 (1.327) p=0.05  N=24668
+2 ln_seats_i                                     dose_us -4.429 (1.784) p=0.01 | dose_eu -0.948 (0.980) p=0.34 | dose_bloc -5.394 (1.748) p=0.00 | dose_bil -1.062 (1.044) p=0.31  N=24427
+2 ln_stage_i                                     dose_us -0.957 (0.511) p=0.06 | dose_eu -0.493 (0.343) p=0.15 | dose_bloc -1.513 (0.590) p=0.01 | dose_bil -1.530 (0.391) p=0.00  N=24427
+2 ln_int_i                                       dose_us +1.714 (0.815) p=0.04 | dose_eu +0.342 (0.227) p=0.13 | dose_bloc +0.305 (0.420) p=0.47 | dose_bil -0.053 (0.215) p=0.80  N=24427
+2 ln_gaci                                        dose_us +0.277 (0.263) p=0.29 | dose_eu +0.155 (0.090) p=0.09 | dose_bloc +0.315 (0.211) p=0.14 | dose_bil -0.194 (0.093) p=0.04  N=45218
+2 ln_deg                                         dose_us +0.865 (0.780) p=0.27 | dose_eu +0.444 (0.429) p=0.30 | dose_bloc -0.359 (1.167) p=0.76 | dose_bil +0.060 (0.292) p=0.84  N=45218
+3 ln_co2_i                                       dose_any -4.114 (0.792) p=0.00 | dose_hub +0.658 (0.652) p=0.32  N=24668
+3 ln_seats_i                                     dose_any -3.506 (0.751) p=0.00 | dose_hub +0.270 (0.513) p=0.60  N=24427
+3 ln_gaci                                        dose_any +0.166 (0.176) p=0.35 | dose_hub +0.062 (0.132) p=0.64  N=45218
+3 ln_betw                                        dose_any +3.990 (2.808) p=0.16 | dose_hub -1.076 (1.220) p=0.38  N=45212
+3 ln_eig                                         dose_any -0.956 (1.120) p=0.39 | dose_hub -0.667 (0.559) p=0.23  N=45218
+4 ln_seats_d                                     dose_any +0.895 (0.623) p=0.15  N=44819
+4 ln_co2_d                                       dose_any +0.483 (0.611) p=0.43  N=44872
+5 ln_co2_i                                       dose_any -4.841 (1.302) p=0.00  N=8293
+5 ln_seats_i                                     dose_any -4.225 (1.310) p=0.00  N=8284
+5 ln_stage_i                                     dos                                   dose_any -0.956 (1.120) p=0.39 | dose_hub -0.667 (0.559) p=0.23  N=45218
+
+=== 4. Placebo: DOMESTIC outcomes should not respond ===
+4 ln_seats_d                                     dose_any +0.895 (0.623) p=0.15  N=44819
+4 ln_co2_d                                       dose_any +0.483 (0.611) p=0.43  N=44872
+
+=== 5. Europe-only sample (EU1/EU2 regions) ===
+5 ln_co2_i                                       dose_any -4.841 (1.302) p=0.00  N=8293
+5 ln_seats_i                                     dose_any -4.225 (1.310) p=0.00  N=8284
+5 ln_stage_i                                     dose_any -1.137 (0.493) p=0.03  N=8284
+5 ln_int_i                                       dose_any +0.517 (0.215) p=0.02  N=8284
+5 ln_gaci                                        dose_any +0.474 (0.140) p=0.00  N=10174
+5 ln_deg                                         dose_any +0.720 (0.726) p=0.33  N=10174
+
+=== 6. Elasticity form: dose scaled by its SD among airports (effect of a 1-SD dose change) ===
+SD(dose_any) = 0.086  -> multiply column-1 betas by 0.086
