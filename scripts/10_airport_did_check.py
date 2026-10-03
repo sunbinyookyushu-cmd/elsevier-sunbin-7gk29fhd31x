@@ -12,7 +12,8 @@ not-yet-treated control, and a back-of-envelope CO2 / cost-benefit block (EDGAR 
 import pandas as pd, numpy as np, pathlib, pyfixest as pf, warnings
 warnings.filterwarnings("ignore")
 root = pathlib.Path(__file__).resolve().parents[1]
-g = pd.read_csv(root/"data/processed/gaci_with_country.csv").dropna(subset=["iso_country"])
+g = pd.read_csv(root/"data/processed/airport_panel_co2.csv").dropna(subset=["iso_country"])
+g = g[~((g.Year==2024)&(g.n_months.fillna(0)<12))]   # 2024 partial year in emissions file
 tax = pd.read_csv(root/"data/processed/aviation_taxes_master.csv", dtype=str, keep_default_na=False)
 fx = pd.read_csv(root/"stata/fx_eur.csv")
 
@@ -60,6 +61,8 @@ g["nbr_tax_pressure"] = g.nbr_tax_pressure.fillna(0)
 g["spill150"] = ((g.tax_any==0) & (g.km_to_taxed<=150)).astype(int)
 g["buffer"]   = ((g.tax_any==0) & (g.km_to_taxed>150) & (g.km_to_taxed<=300)).astype(int)
 g["ln_seats"] = np.log(g.seats); g["ln_gaci"] = np.log(g.GACI); g["ln_deg"] = np.log(g.Degree)
+for c,src in [("ln_co2","co2_t"),("ln_co2_intl","co2_intl_t"),("ln_co2_dom","co2_dom_t"),("ln_stage","stage_km"),("ln_co2_skm","co2_per_skm_g"),("ln_co2_seat","co2_per_seat_kg"),("ln_seats_dep","seats_dep")]:
+    g[c] = np.log(g[src].where(g[src]>0))
 g["ry"] = g.region + "_" + g.year.astype(str)
 g["et"] = (g.year - g.first_tax).clip(-5, 8)
 g["yrs_since"] = np.where(g.tax_any==1, (g.year - g.first_tax).clip(0, None), 0)
@@ -71,27 +74,23 @@ def run(label, fml, data):
     print(f"\n[{label}]  N={m._N}"); print(m.tidy()[["Estimate","Std. Error","Pr(>|t|)"]].round(3).to_string())
     return m
 
-for y in ["ln_seats","ln_deg","ln_gaci"]:
+for y in ["ln_co2","ln_co2_intl","ln_co2_dom","ln_seats","ln_deg","ln_gaci"]:
     run(f"{y}: binary + spill150, buffer dropped", f"{y} ~ tax_any + spill150 | airport + ry", base)
-run("ln_seats: dose (EUR, shortest band) + neighbour tax pressure", "ln_seats ~ tax_short_eur + nbr_tax_pressure | airport + ry", base)
-run("ln_seats: not-yet-treated control only (ever-treated countries)", "ln_seats ~ tax_any + spill150 | airport + ry", base[base.ever_treated==1])
-run("ln_seats: seats-weighted", "ln_seats ~ tax_any + spill150 | airport + ry", base.assign(w=base.groupby("airport").seats.transform("first")), ) if False else None
-run("ln_seats: excl. 2020-2022", "ln_seats ~ tax_any + spill150 | airport + ry", base[~base.year.between(2020,2022)])
-run("ln_seats: dynamics (years since tax, quadratic)", "ln_seats ~ tax_any + yrs_since + I(yrs_since**2) + spill150 | airport + ry", base)
+print("\n==== Decomposition: ln CO2 = ln seats_dep + ln stage_km + ln CO2/seat-km (coefficients add up) ====")
+for y in ["ln_seats_dep","ln_stage","ln_co2_skm"]:
+    run(f"{y}", f"{y} ~ tax_any + spill150 | airport + ry", base)
+run("ln_co2: dose (EUR, shortest band) + neighbour tax pressure", "ln_co2 ~ tax_short_eur + nbr_tax_pressure | airport + ry", base)
+run("ln_co2: not-yet-treated control only (ever-treated countries)", "ln_co2 ~ tax_any + spill150 | airport + ry", base[base.ever_treated==1])
+run("ln_co2: excl. 2020-2022", "ln_co2 ~ tax_any + spill150 | airport + ry", base[~base.year.between(2020,2022)])
+run("ln_co2: dynamics (years since tax, quadratic)", "ln_co2 ~ tax_any + yrs_since + I(yrs_since**2) + spill150 | airport + ry", base)
 es = base.copy(); es["et"] = es.et.fillna(-1).astype(int)
-m = run("event study, ln seats", "ln_seats ~ i(et, ref=-1) + spill150 | airport + ry", es)
+m = run("event study, ln CO2", "ln_co2 ~ i(et, ref=-1) + spill150 | airport + ry", es)
 
-# ---- back-of-envelope CO2 / cost-benefit (Li et al. Table 14 analogue) ----
-b_tax = pf.feols("ln_seats ~ tax_any + spill150 | airport + ry", data=base, vcov={"CRV1":"iso_country"}).coef()
-inten = pd.read_csv(root/"data/processed/edgar_intl_aviation_intensity.csv").set_index("year").t_per_seat
-treated_seats = base[base.tax_any==1].groupby("year").seats.sum()
-spill_seats = base[base.spill150==1].groupby("year").seats.sum()
-cf_treated = treated_seats/np.exp(b_tax["tax_any"]) - treated_seats           # counterfactual-minus-actual seats (>0 = seats removed by tax)
-cf_spill   = spill_seats/np.exp(b_tax["spill150"]) - spill_seats
-abated_t = (cf_treated*inten.reindex(cf_treated.index)).sum(); leaked_t = -(cf_spill*inten.reindex(cf_spill.index)).sum()
-print(f"\n[implied CO2] b_tax={b_tax['tax_any']:.3f}, b_spill={b_tax['spill150']:.3f}")
-print(f"  seats removed in taxed airports (cum. 1996-2024): {cf_treated.sum()/1e6:,.0f} m ; implied CO2 avoided: {abated_t/1e6:,.1f} MtCO2e")
-print(f"  seats added in spill airports: {-cf_spill.sum()/1e6:,.0f} m ; implied CO2 leaked: {leaked_t/1e6:,.1f} MtCO2e ; net: {(abated_t-leaked_t)/1e6:,.1f} MtCO2e")
-for scc in (100, 200):
-    print(f"  value at SCC {scc} EUR/t: gross {abated_t*scc/1e9:,.1f} bn EUR, net {(abated_t-leaked_t)*scc/1e9:,.1f} bn EUR")
-print("  NOTE: intensity = EDGAR *international* aviation GHG / all scheduled seats -> lower bound; assumes unchanged stage length & load factor.")
+# ---- back-of-envelope: tonnes abated vs leaked (direct, from the ln_co2 DiD) ----
+b = pf.feols("ln_co2 ~ tax_any + spill150 | airport + ry", data=base, vcov={"CRV1":"iso_country"}).coef()
+tr = base[(base.tax_any==1)&(base.first_tax>1996)]; sp = base[base.spill150==1]   # switchers only: always-treated GB/FR are absorbed by airport FE
+abated = (tr.co2_t/np.exp(b["tax_any"]) - tr.co2_t).sum(); leaked = (sp.co2_t - sp.co2_t/np.exp(b["spill150"])).sum()
+print(f"\n[tonnes] b_tax={b['tax_any']:.3f}, b_spill={b['spill150']:.3f}")
+print(f"  CO2 abated in taxed airport-years (cum.): {abated/1e6:,.1f} Mt | leaked to 150-km ring: {leaked/1e6:,.1f} Mt | net {(abated-leaked)/1e6:,.1f} Mt")
+print(f"  taxed airport-years' actual CO2 (cum.): {tr.co2_t.sum()/1e6:,.0f} Mt -> abated share {abated/(tr.co2_t.sum()+abated):.1%}")
+for scc in (100,200): print(f"  value at SCC {scc} EUR/t: net {(abated-leaked)*scc/1e9:,.1f} bn EUR")
