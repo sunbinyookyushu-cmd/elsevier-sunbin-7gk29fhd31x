@@ -17,11 +17,15 @@ m["valid_from_dt"] = pd.to_datetime(m.valid_from, errors="coerce"); m["valid_to_
 m["rate_num"] = pd.to_numeric(m.rate, errors="coerce")
 import re as _re
 def upper_km(txt):
-    """Upper distance bound of a band in km: '<=2500 ...' -> 2500; '>2500 and <=6000' -> 6000; '>6000' -> 99999; 'any'/'' -> NaN."""
+    """Upper distance bound of a band in km. '<=2500 ...' -> 2500; '>2500 and <=6000' -> 6000; '>6000' -> 99999;
+    'country annex (Europe)' / 'EEA' with no number -> 2500 (proxy for the intra-European band);
+    'non-Europe' -> 99999; 'any' / flat / '' -> NaN."""
     t = str(txt).lower().replace(",", "")
-    le = _re.findall(r"<=\s*(\d+)", t); gt = _re.findall(r">\s*(\d+)", t)
+    le = _re.findall(r"<=?\s*(\d+)", t); gt = _re.findall(r">=?\s*(\d+)", t)
     if le: return float(le[-1])
     if gt: return 99999.0
+    if "non-europe" in t or "non-eea" in t or "outside" in t: return 99999.0
+    if "europe" in t or "eea" in t or "eu " in t or t.strip() in ("eu",): return 2500.0
     return float("nan")
 m["band_upper_km"] = m.distance_rule_km.map(upper_km)
 # Treatment classification: national per-passenger TICKET TAXES (fiscal/environmental) = main treatment.
