@@ -69,6 +69,18 @@ coefplot, keep(ev_*) vertical yline(0) xline(4.5, lpattern(dash)) ///
     ytitle("Effect on ln seats") xtitle("Years since ticket tax introduced") ciopts(recast(rcap))
 graph export "$OUT/fig_event_study_seats.pdf", replace
 
+*--- Robustness (keep it short) ------------------------------------------------
+* (a) weight by baseline seats so the estimate speaks to passenger-weighted exposure
+bys aid (year): gen seats0 = seats[1]
+reghdfe ln_seats tax_any spill300 [aw = seats0], absorb(aid rid#year) vce(cluster iso_country)
+* (b) drop COVID years (treated countries' recovery paths differ from Southern Europe's)
+reghdfe ln_seats tax_any spill300 if !inrange(year, 2020, 2022), absorb(aid rid#year) vce(cluster iso_country)
+* (c) few treated clusters (~9 countries): wild-cluster bootstrap p-values   (ssc install boottest)
+reghdfe ln_seats tax_any spill300, absorb(aid rid#year) vce(cluster iso_country)
+boottest tax_any, reps(9999) seed(1234) nograph
+* (d) staggered-DiD robust estimator (ssc install csdid / did_imputation) — treatment = first_tax, never-treated controls
+*     did_imputation ln_seats aid year first_tax, fe(aid rid#year) cluster(iso_country) autosample
+
 *--- Heterogeneity: hubs vs non-hubs (baseline GACI tercile, 1996 or first year) ----------------------
 bys aid (year): gen gaci0 = GACI[1]
 xtile hubq = gaci0, nq(3)

@@ -13,7 +13,7 @@ gen double vfrom = date(valid_from, "YMD")
 gen double vto   = date(valid_to,   "YMD")
 replace vto = date("2024-12-31", "YMD") if missing(vto)
 destring rate, replace force
-drop if missing(rate)
+drop if missing(rate) | rate <= 0      // zero-rated periods (e.g. NL Jul–Dec 2009) are not "in force"
 * --- FX to EUR (approximate ECB annual averages in stata/fx_eur.csv; EUR per unit of local currency) ----
 preserve
     import delimited "$ROOT/stata/fx_eur.csv", clear varnames(1)
@@ -33,7 +33,7 @@ replace months = 12 if months > 12
 rename currency cur
 merge m:1 cur year using `fx', keep(1 3) nogen
 gen rate_eur = rate * fx * months / 12
-destring distance_rule_km, gen(dkm) force
+destring band_upper_km, gen(dkm) force   // numeric upper bound of the band (99999 = open-ended)
 bys country_iso year: egen dmin = min(dkm)
 bys country_iso year: egen dmax = max(dkm)
 gen is_short = (dkm == dmin) | missing(dkm)
