@@ -54,7 +54,7 @@ def resolve_type(code):
     if c in IATA_ALIAS and IATA_ALIAS[c] in _by_icao.index: return IATA_ALIAS[c], 0
     # family-level substitutes when the exact alias target is absent from FEAT
     FAMILY = {"A339":"A333","A338":"A332","B748":"B744","B779":"B77W","B78X":"B789","A35K":"A359","E190":"E195","E295":"E195","E290":"E195",
-              "DH8A":"DH8C","DH8B":"DH8C","AT45":"AT72","B461":"B462","MD11":"B763","DC10":"B763","L101":"B763","AN26":"AT72","IL96":"A343","IL76":"B763","T134":"MD82","T154":"B752","F50":"AT72","BE20":"BE10","CRJX":"CRJ9","E135":"E145","SB20":"SF34"}
+              "DH8A":"DH8C","DH8B":"DH8C","AT45":"AT72","B461":"B462","MD11":"B763","DC10":"B763","L101":"B763","AN26":"AT72","IL96":"A343","IL76":"B763","T134":"MD82","T154":"B752","F50":"AT72","BE20":"BE10","CRJX":"CRJ9","E135":"E145","SB20":"SF34","DC95":"MD82"}
     tgt = IATA_ALIAS.get(c, c)
     if tgt in FAMILY and FAMILY[tgt] in _by_icao.index: return FAMILY[tgt], 1
     return None, 2
