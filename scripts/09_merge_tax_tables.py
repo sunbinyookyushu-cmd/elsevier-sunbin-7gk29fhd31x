@@ -16,18 +16,23 @@ m = pd.concat(frames, ignore_index=True)
 m["valid_from_dt"] = pd.to_datetime(m.valid_from, errors="coerce"); m["valid_to_dt"] = pd.to_datetime(m.valid_to.replace("", None), errors="coerce")
 m["rate_num"] = pd.to_numeric(m.rate, errors="coerce")
 import re as _re
-def upper_km(txt):
-    """Upper distance bound of a band in km. '<=2500 ...' -> 2500; '>2500 and <=6000' -> 6000; '>6000' -> 99999;
-    'country annex (Europe)' / 'EEA' with no number -> 2500 (proxy for the intra-European band);
-    'non-Europe' -> 99999; 'any' / flat / '' -> NaN."""
-    t = str(txt).lower().replace(",", "")
+def upper_km(txt, band_id=""):
+    """Upper distance bound of a band in km. '<=2500 ...' -> 2500; '>2500 and <=6000' -> 6000; '3219-6436' -> 6436;
+    '>6000' -> 99999; 'Europe'/'EEA' text or band id with no number -> 2500 (intra-European proxy);
+    'non-Europe'/'other'/'non-EEA' -> 99999; 'any' / flat / '' -> NaN."""
+    t = str(txt).lower().replace(",", ""); b = str(band_id).lower().strip()
+    rng = _re.findall(r"(\d+)\s*-\s*(\d+)", t)
+    if rng: return float(rng[-1][1])
     le = _re.findall(r"<=?\s*(\d+)", t); gt = _re.findall(r">=?\s*(\d+)", t)
     if le: return float(le[-1])
     if gt: return 99999.0
-    if "non-europe" in t or "non-eea" in t or "outside" in t: return 99999.0
-    if "europe" in t or "eea" in t or "eu " in t or t.strip() in ("eu",): return 2500.0
+    for src in (t, b):
+        if "non-europe" in src or "non-eea" in src or "non-eu" in src or "outside" in src or src in ("other","others","rest","lointaine","distant"): return 99999.0
+    for src in (t, b):
+        if "europe" in src or "eea" in src or src in ("eu","european","européenne","eu/eea"): return 2500.0
+    if b in ("intermédiaire","intermediate"): return 5500.0
     return float("nan")
-m["band_upper_km"] = m.distance_rule_km.map(upper_km)
+m["band_upper_km"] = [upper_km(t,b) for t,b in zip(m.distance_rule_km, m.band_id)]
 # Treatment classification: national per-passenger TICKET TAXES (fiscal/environmental) = main treatment.
 # Airport/municipal development charges (IT addizionale comunale, GR spatosimo), departure taxes abolished
 # before the window (MT), and 'none' placeholder rows are kept in the table but flagged include_main = 0.
@@ -35,6 +40,7 @@ def classify(r):
     ins = r.instrument.lower()
     if ins.startswith("none") or r.rate == "" : return 0
     if r.country_iso in ("IT","GR","MT"): return 0
+    if ins.startswith("taxe de l'aviation civile") or ins.startswith("taxe de l\u2019aviation civile"): return 0  # FR TAC: DGAC funding charge replacing earlier airport charges (1999); not a new ticket tax
     return 1
 m["include_main"] = m.apply(classify, axis=1)
 bad = m[m.valid_from_dt.isna() | (m.rate_num.isna() & (m.rate!=""))]
