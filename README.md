@@ -15,3 +15,12 @@ data/raw/emissions/    FEAT reduced-order fuel-burn coefficients (Seymour et al.
 data/processed/        airport→country map, GACI with country, capitals, band distances, CO2 lookup
 scripts/               numbered pipeline scripts (01–07) + geo_utils
 ```
+
+## Note (2026-10-03)
+The session scaffold in `scripts/`, `stata/` and `data/processed/` (annual airport DiD, tax master table, FEAT fuel
+model) predates the upload of the full project folder `data/gaci_project/`. The ticket-tax paper lives in
+`data/gaci_project/GACI_FuelShock/` (stacked monthly DiD, SDID, HonestDiD, Stata package in `stata_paper/`), and the
+main-text draft is in `GACI_FuelShock/draft_tax_lean_20261002/`. Still useful from the scaffold:
+`data/processed/aviation_taxes_master.csv` (17 countries, rates to 2026), `tax_by_origin_dest_year.csv` (band logic by
+destination country) and `band_reference_distances.csv`; the annual binary DiD is superseded (see
+`output/robustness_co2_binary_did.txt` for why).

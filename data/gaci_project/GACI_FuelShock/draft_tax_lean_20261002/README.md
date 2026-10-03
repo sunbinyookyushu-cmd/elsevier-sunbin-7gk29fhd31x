@@ -38,3 +38,9 @@
 
 ## 다시 만들기
 `92 → 93 → 94 → 95 → 100 → 101 → 102 → 103 → 104 → 105 → 106 → 107 → 111`
+
+## 본문 초안 (2026-10-03, 클라우드 세션)
+- `main_text_part1.tex` (1 서론, 2 배경·데이터, 3 실증전략), `main_text_part2.tex` (4 결과, 5 결론): Li, Liu, Purevjav & Yang (2019 JEEM) 순서. 본문 숫자는 `tables_tax.tex`와 `_res_tax_*.csv`(10/02~03 버전)에서 가져옴. 92~111을 다시 돌리면 숫자 재확인 필요.
+- `main.tex`: 초록·본문·표·부록 틀을 한 번에 컴파일 (pdflatex → bibtex → pdflatex ×2). `refs_tax.bib`: 인용 23건, `verify` 표시 1건(Butts 2023 출판 상태).
+- 부록 A1~A4는 자리만 잡아 둠(국가 패널 민감도, IV 매개, HonestDiD, 네덜란드 에피소드). HonestDiD 수치는 `stata_tax/tax_honestdid.do` 실행 후 채울 것.
+- 제목·초록·저자는 임시. 3.5절("왜 국가 패널이 아닌가")은 세션 리포 `output/robustness_co2_binary_did.txt`의 결과를 근거로 씀.

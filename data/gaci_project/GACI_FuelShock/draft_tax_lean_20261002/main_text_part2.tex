@@ -1,0 +1,172 @@
+% ---------------------------------------------------------------------------------------------
+% Main text, part 2 (Sections 4-5). Numbers from tables_tax.tex / _res_tax_*.csv (2026-10-03).
+% ---------------------------------------------------------------------------------------------
+
+\section{Results}
+\label{sec:results}
+
+\subsection{Seats: the periphery loses, the hubs do not}
+
+Table~\ref{tab:seats} reports the first-year effect of a ticket tax on log scheduled seats. With equal
+airport weights, seats at taxed airports fall by 10.3 percent relative to control airports (column 1,
+$p<0.05$). With seat weights the effect is 4.1 percent (column 2, $p<0.10$). The difference is the
+distribution of the effect across the size terciles in columns 4 to 6: airports in the smallest tercile of
+the taxing country lose 24.0 percent of their seats, the middle tercile 1.6 percent (not significant)
+and the largest tercile 4.8 percent (not significant). The pre-trend coefficient for the second
+pre-announcement year is $-0.031$ with a standard error of 0.021, and the pooled event study in
+Table~\ref{tab:eventtime} shows pre-period coefficients of $-0.051$ and $-0.031$ (both insignificant)
+against post-period coefficients of $-0.124$ in the first tax year and $-0.153$ in the second (both
+$p<0.01$). Event by event, the first-year coefficients are $-0.18$ for Germany, $-0.12$ for Austria,
+$-0.13$ for Norway and $-0.16$ for Sweden, all significant, against $-0.01$ for the UK rate increase and
+$-0.10$ (not significant) for the Netherlands; the UK pre-period shows a trend and the UK event carries
+the smallest dose.
+
+The border group does not gain. Foreign airports 50 to 300 kilometres from the taxed country show
+coefficients of $+0.009$ (equal weights) and $-0.030$ (seat weights), neither consistent with the
+inflow of passengers that leakage would produce. Table~\ref{tab:robust} shows that the equal-weighted
+estimate lies between $-0.11$ and $-0.15$ across effective-date windows of 12 to 36 months, without the
+two recession-year events, with announcement donuts of two or three years and after removing
+airport-specific pre-trends.
+
+\subsection{Network position: concentration, not contraction}
+
+Table~\ref{tab:network} turns to the annual network outcomes. The connectivity index of taxed airports
+falls by 1.6 percent (equal weights, $p<0.05$), 2.3 percent (seat weights, $p<0.01$) and 2.6 percent at
+hubs with more than one million pre-year seats. The components show where the index moves: taxed
+airports lose 8.9 percent of their destinations, 18.6 percent of eigenvector centrality and 42.7
+percent of betweenness centrality. By size, the index falls by 2.3 percent in the small and mid terciles
+and by an insignificant 0.3 percent in the large tercile; destinations fall by 13.5 and 10.6 percent in
+the small and mid terciles against 3.4 percent (not significant) at large airports; eigenvector
+centrality falls by 32 percent at small airports and 13 percent at mid and large airports. The annual
+event study (Table~\ref{tab:eventtime}, Panel B) is the cleanest evidence in the paper: the GACI
+coefficients are $-0.001$ (SE 0.008) three years and $0.000$ (SE 0.003) two years before the effective
+year, $-0.016$ in the effective year and $-0.018$ the year after (both $p<0.01$). Border airports show
+no change in connectivity.
+
+Two features of these estimates matter for interpretation. First, GACI is standardised within each
+year, so the fall is relative: taxed airports slipped in the world ranking while the ranking of untaxed
+airports improved. Second, the losses in degree and eigenvector centrality at small and mid-sized
+airports, with hubs holding their degree, describe a network that is thinning at the edges and
+concentrating at the centre. The betweenness losses are large in proportional terms because the
+betweenness of small airports is close to zero and volatile; the point estimate for large airports is
+insignificant.
+
+\subsection{Emissions fall where flights disappear}
+
+Table~\ref{tab:emissions} reports the same specifications for emissions. Departure CO$_2$ at taxed
+airports falls by 10.4 percent with equal weights ($p<0.05$) and by 2.1 percent with seat weights (SE
+0.021, not significant). By size, small airports lose 21.2 percent of their emissions ($p<0.01$), mid
+airports 3.1 percent and large airports 6.4 percent (both not significant). Emissions per seat do not
+fall: the seat-weighted coefficient is $+0.021$ ($p<0.05$), and emissions per seat-kilometre rise by
+1.3 percent seat-weighted ($p<0.10$) and by 5.2 percent at small airports ($p<0.05$). Stage length is
+unchanged everywhere. The tax therefore removes flying without making the flying that remains cleaner;
+if anything, the loss of thin routes raises the average emissions intensity of the survivors.
+
+Table~\ref{tab:mechanism} shows how. Panel A applies the exact decomposition \eqref{eq:decomp} to the
+annual stacks. The total CO$_2$ effect of $-0.100$ splits into $-0.097$ from destinations, $-0.010$
+from flights per destination and $+0.007$ from CO$_2$ per flight; for small airports the split is
+$-0.161$, $-0.052$ and $+0.027$ of a total of $-0.186$. The entire emissions reduction is route exit.
+Panel B confirms the margins at monthly frequency: small airports lose 23.7 percent of their flights,
+keep aircraft size unchanged and are 4.4 percentage points more likely to record a month with no
+scheduled departure at all; large airports lose 7.3 percent of flights ($p<0.10$) and raise seats per
+flight by 2.5 percent ($p<0.05$). A flat per-passenger tax raises the fare on a thin, low-fare route by
+a larger fraction than on a trunk route, so airlines cut the thin routes; at hubs, where transfer
+passengers are exempt and the tax is a small share of the fare, they consolidate frequencies onto
+larger aircraft.
+
+\subsection{Connectivity and emissions}
+
+Table~\ref{tab:gaci_co2} links the two sets of results in the manner of Table~9 in
+\citet{li2019subway}, which translates network-density changes into pollution changes with the
+estimated elasticity. Panel A estimates the within-airport elasticity of emissions to connectivity: a
+one percent increase in GACI is associated with a 4.7 percent increase in CO$_2$ with airport and year
+fixed effects and 3.6 percent with airport and country-by-year fixed effects, a 0.5 percent increase in
+seats per flight, a 0.7 percent increase in stage length and a 0.5 percent fall in emissions per
+seat-kilometre: more connected airports emit more in total and less per seat-kilometre. Multiplying
+the tax effect on GACI from Table~\ref{tab:network} ($-0.016$ to $-0.023$) by this elasticity implies a
+CO$_2$ change of 6 to 11 percent, in line with the direct equal-weighted estimate of $-10.4$ percent in
+Table~\ref{tab:emissions}. Panel B makes the same point airport by airport with the
+\citet{gelbach2016} decomposition: for small airports the total effect of $-0.186$ splits into $-0.069$
+through the change in GACI and $-0.116$ holding GACI fixed; for mid airports $-0.073$ runs through
+GACI and the direct part is zero; for large airports the direct part ($-0.052$) dominates a small
+network component. Emissions intensity shows no network component anywhere. Because the elasticity
+in Panel A is not instrumented within the tax stacks, we read Panel B as a consistent accounting of the
+channel rather than as a structural mediation estimate (Appendix).
+
+\subsection{National totals barely move}
+
+The airport-level estimates say that taxes redistribute flying away from the periphery. Whether they
+reduce national flying is a different question, and Table~\ref{tab:sdid} answers it with synthetic
+difference-in-differences on national totals. For seats, the estimates are $-0.005$ for Germany (placebo
+$p=1.00$), $-0.038$ for Austria ($p=0.83$), $-0.009$ for Sweden ($p=1.00$), $-0.016$ for the UK
+($p=0.80$) and $-0.076$ for the Netherlands ($p=0.31$); only Ireland ($-0.159$, $p<0.01$), Malta
+($-0.207$, $p<0.01$) and Norway ($-0.155$, $p=0.07$) show national losses, the first two coinciding with
+the deepest national recessions in the sample and the third with a high flat tax in a market dominated
+by domestic flying. On the seat-weighted national connectivity index, no event moves more than 5
+percent and none is significant at 5 percent. Taken with the airport results, the picture is that of a
+tax that reshuffles seats and network position within the country toward its hubs while leaving the
+national total, and the country's position in the world network, largely where they were.
+
+\subsection{Leakage}
+
+Table~\ref{tab:leakage} splits the border group by distance to the nearest treated airport. Foreign
+airports 50 to 150 kilometres away show $-0.019$ (SE 0.042) and those 150 to 300 kilometres away
+$-0.002$ (SE 0.030); the 0 to 50 kilometre ring, which holds few airports and shows pre-trends, is
+$-0.202$ ($p<0.10$). Splitting the 150 kilometre ring by size gives $0.000$ for foreign hubs with more
+than five million seats and $-0.037$ for secondary airports. The one case with measurable leakage is
+the Netherlands: while the 2008 tax was in force, seats at foreign airports 50 to 150 kilometres from
+the border rose by 16.5 percent ($p<0.01$), and 14.9 percent in the eighteen months after the tax was
+set to zero, consistent with the shift of Dutch passengers to Weeze, D\"usseldorf and Brussels
+documented by \citet{gordijn2011}. The Dutch case combines a high rate, a dense foreign airport system
+within an hour's drive and a one-year horizon; the other eight events show no detectable displacement
+across borders.
+
+\subsection{Cost per tonne}
+
+Table~\ref{tab:abatement} turns the first-year estimates into an accounting of abatement, revenue and
+connectivity lost, in the spirit of the cost-benefit section of \citet{li2019subway}. Applying the size-specific CO$_2$ coefficients to pre-year emissions, the 72 small taxed airports avoided 42 kt of CO$_2$
+in the first tax year while generating EUR 20 million of revenue (at a load factor of 0.8), or EUR 484
+of revenue per tonne avoided; the 67 mid airports avoided 53 kt at EUR 2,598 per tonne; and the 70
+large airports, whose coefficient is not statistically different from zero, account for 3,836 kt and EUR
+972 per tonne at the point estimate. Over all treated airports the revenue per tonne is EUR 988, an
+order of magnitude above the EU allowance price of EUR 5 to 25 in the years of these events and five to
+ten times the social cost of carbon of EUR 100 to 200 used in current appraisal. The abatement is also
+bought with connectivity: small airports lose 0.021 index units and one destination per kilotonne
+avoided, large airports 0.00007 index units and 0.04 destinations. The cost of the abatement a ticket
+tax delivers is paid in the connectivity of peripheral regions.
+
+\section{Discussion and conclusion}
+\label{sec:conclusion}
+
+Using nine European ticket-tax events, a monthly panel of more than 6,000 airports, flight-stage
+emissions and a network-centrality index of airport position, this paper asks whether air passenger
+taxes shrink the air network or concentrate it. The answer is the second. In the first tax year, taxed
+airports lose 10 percent of their seats and emissions with equal weights but 4 and 2 percent with seat
+weights; the smallest third of airports in the taxing country lose a quarter of their seats, a seventh of
+their destinations and a third of their eigenvector centrality, while the largest third lose nothing and
+upgauge. National seat totals and national network position are unchanged in synthetic
+difference-in-differences for six of nine events. Emissions fall only through route exit; emissions per
+seat-kilometre do not fall and rise at the hubs. Leakage across borders is absent except in the Dutch
+episode.
+
+Three implications follow. First, the flat per-passenger design with a transfer exemption is a tax on
+thin, short, low-fare routes. It is therefore a tax on peripheral connectivity rather than on carbon:
+the routes it removes are the ones on which the tax is a large share of the fare, not the ones with
+the highest emissions. A levy proportional to fuel or distance, or an allowance price on emissions,
+would target the intensity margin that the ticket tax leaves untouched, as the EU ETS results of
+\citet{fageda2022pricing} suggest, at the cost of the hub exposure that \citet{fageda2025hub}
+document. Second, the revenue a ticket tax raises per tonne avoided is far above any social cost of
+carbon, which is consistent with the taxes' fiscal origins; if the objective is emissions, the
+instrument is poorly matched to it. Third, because the losses fall on small and mid-sized airports and
+the gains in position accrue to hubs, the tax raises the concentration of the national network. Our
+companion work finds that hub concentration is associated with wider regional disparities, so the
+distributional cost of the tax is likely to be regional as well as sectoral.
+
+The estimates have limits. They are first-year effects on scheduled capacity and schedule-based
+emissions; passengers, load factors and the longer-run adjustment of airline networks are not observed.
+Identification rests on 33 country clusters and eight to nine events, and we therefore report event-by-event estimates, placebo inference for the national totals and sensitivity to parallel-trend violations rather than a single pooled standard error. The connectivity index is a relative measure, so the network result is a statement about position, not about the size of the world network. Finally, the
+connectivity channel in Section~4.4 is an accounting decomposition; a credible instrument for airport
+connectivity within short tax windows would allow the indirect effect to be identified rather than
+described. Within these limits, the results give a clear answer to the question in the title: ticket
+taxes cut carbon at the edges of the network and leave the centre intact, and the carbon they cut is
+paid for in the connectivity of the periphery.

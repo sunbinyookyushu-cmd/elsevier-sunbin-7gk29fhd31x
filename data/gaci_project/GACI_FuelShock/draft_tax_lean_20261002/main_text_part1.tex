@@ -1,0 +1,233 @@
+% ---------------------------------------------------------------------------------------------
+% Main text, part 1 (Sections 1-3). Draft written 2026-10-03 from the lean table set (tables_tax.tex)
+% and the result CSVs in GACI_FuelShock/. Structure follows Li, Liu, Purevjav and Yang (2019, JEEM).
+% Numbers in the text are taken from tables_tax.tex / _res_tax_*.csv; re-check after any re-run of 92-111.
+% ---------------------------------------------------------------------------------------------
+
+\section{Introduction}
+
+Air passenger taxes are the most widely used national instrument for pricing the climate cost of flying.
+Nine European countries introduced or raised a per-passenger ticket tax between 1998 and 2018, several more
+have followed since, and the European Commission's Energy Taxation Directive proposal and the 2027 Dutch
+distance-band reform keep the instrument on the agenda. The tax is simple to collect and raises
+substantial revenue, but what it does to flying is less clear. A per-passenger levy can reduce emissions
+by cutting the number of flights; it can also redistribute flying within the network, because every
+European ticket tax exempts transfer passengers and is a larger share of the fare on short, cheap
+routes than on long ones. Whether a ticket tax shrinks a country's air network or merely concentrates it
+is an empirical question, and the answer determines both the carbon abatement the tax delivers and who
+pays for it.
+
+This paper answers that question with the first evaluation of ticket taxes that treats the air network
+itself as the outcome. We assemble a monthly panel of scheduled seats and flights for more than 6,000
+airports from 1996 to 2024, build flight-stage-resolved CO$_2$ emissions for every departing flight from the
+same schedules, and attach to each airport-year a network-centrality summary of its position in the
+world air network, the Global Air Connectivity Index (GACI) of \citet{cheung2020}. We then evaluate the
+nine European ticket-tax events listed in Table~\ref{tab:events}: the extension of the Danish passenger
+tax to domestic flights (1998), the Maltese departure-tax increase (2005), the doubling of UK Air
+Passenger Duty (2007), the Dutch ticket tax (2008, repealed in 2009), the Irish Air Travel Tax (2009),
+the German and Austrian taxes (2011), and the Norwegian (2016) and Swedish (2018) taxes.
+
+Our empirical framework follows \citet{li2019subway}, who evaluate Beijing's subway expansion with two
+complementary designs: a difference-in-differences comparison of locations near and far from each
+opening, with a buffer zone to keep misclassified locations out of the control group, and a continuous
+network-density measure that captures system-wide effects. We transpose both to the air network. The
+difference-in-differences design compares airports in the taxing country with airports in European
+countries that have no tax event in the same window, around each tax's announcement. Airports in
+untaxed countries that lie within 50 to 300 kilometres of the taxed border enter as a separate exposed
+group rather than as controls, because leakage across the border would otherwise contaminate the
+comparison, and airports within 50 kilometres are dropped. Event time runs from the announcement, with
+the months between announcement and implementation removed, so that anticipation cannot enter either
+the pre- or the post-period. The continuous design uses GACI as the network-density analogue: we
+estimate how an airport's connectivity moves when its country is taxed, how emissions respond to
+connectivity, and how much of the emissions effect runs through the network.
+
+Three results emerge. First, taxes reduce flying at the periphery and leave hubs intact. Across the
+eight non-Dutch events, scheduled seats at taxed airports fall by 10 percent in the first tax year when
+every airport counts equally, but by 4 percent when airports are weighted by seats. The gap is the
+distribution of the effect: airports in the bottom size tercile of the taxing country lose 24 percent of
+their seats, 14 percent of their destinations and 4 percentage points of their months with any service,
+while large airports lose no seats and increase aircraft size by 2.5 percent. Second, the network
+concentrates rather than shrinks. Taxed airports lose 1.6 to 2.3 percent of their connectivity index, 9
+percent of their destinations, 19 percent of eigenvector centrality and 43 percent of betweenness
+centrality, with the losses again concentrated in small and mid-sized airports; yet country-level
+synthetic difference-in-differences estimates on national seat totals and on the seat-weighted national
+connectivity index are indistinguishable from zero for every event except Ireland, Malta and Norway.
+Third, emissions fall only where flights disappear. Departure CO$_2$ at taxed airports falls by 10
+percent unweighted and 2 percent (not significant) seat-weighted; CO$_2$ per seat and per seat-kilometre
+do not fall and rise slightly at the hubs that upgauge. An exact decomposition of the CO$_2$ change
+attributes all of it to the route-exit margin, with no contribution from flight frequency on surviving
+routes or from aircraft and distance. Cross-border leakage is absent in the pooled sample and
+measurable only in the Dutch episode, where seats at foreign airports within 150 kilometres rose by 16
+percent while the tax was in force.
+
+The paper contributes to three literatures. The first evaluates ticket taxes directly. Synthetic-control,
+panel and route-level studies of the German, Austrian, Dutch, Swedish and UK taxes find passenger or
+flight reductions of 2 to 12 percent concentrated in low-cost and secondary airports and little or no
+effect at hubs \citep{borbely2019,falk2019,bernardo2024flight,oesingmann2022,seetaram2014,gordijn2011}.
+We confirm the size gradient on a common footing across nine events, add emissions and an exact
+decomposition of how they fall, and show that the gradient is a reallocation of network position, not
+just of volume. The second literature evaluates carbon pricing in aviation, chiefly the inclusion of
+intra-EEA flights in the EU Emissions Trading System, which lowered emissions on regulated routes by
+about 5 percent \citep{fageda2022pricing} and shifted intercontinental connecting passengers toward
+hubs outside the system \citep{fageda2025hub}. Ticket taxes differ from allowance prices in two ways
+that our results make precise: they are flat per passenger rather than proportional to fuel, so they do
+not touch emissions intensity, and they exempt transfers, so they protect the hub function that carbon
+pricing is found to erode. The third literature measures air networks with centrality indices
+\citep{cheung2020} but has not used them as the outcome of a policy evaluation; the only causal designs
+with centrality outcomes concern airline mergers. Our companion work estimates the emissions elasticity
+of connectivity at the global level \citep{yoo2026co2} and its trade effects \citep{yoo2026trade}; here
+we close the loop by estimating how a specific policy moves connectivity and how the connectivity
+change maps into emissions.
+
+The rest of the paper proceeds as in \citet{li2019subway}. Section~\ref{sec:background} describes the
+tax events and the data. Section~\ref{sec:strategy} sets out the stacked difference-in-differences,
+event-study, synthetic difference-in-differences and decomposition designs. Section~\ref{sec:results}
+presents the results for seats, network position and emissions, the mechanism, the national totals,
+leakage and the cost per tonne. Section~\ref{sec:conclusion} concludes.
+
+\section{Background and data}
+\label{sec:background}
+
+\subsection{Ticket taxes in Europe}
+
+Table~\ref{tab:events} lists the nine events. Every tax is levied per departing passenger on scheduled
+commercial flights, is paid by the airline and passed into the fare, and exempts transfer passengers
+who connect within a stated time at the taxed airport. Six taxes differentiate by destination distance
+in two or three bands (Germany, Austria, Sweden, the Netherlands, Ireland and the United Kingdom); the
+Norwegian, Danish and Maltese taxes are flat. Rates at introduction range from about EUR 2 on Irish
+short-haul departures to EUR 45 on Dutch and German long-haul departures. Two features of the
+institutional setting matter for the design. First, announcement and implementation are separated by
+two to eighteen months, and in Germany the tax applied to tickets sold from September 2010 for flights
+from January 2011, so demand could react before the effective date. We date events from the
+announcement, verified in primary sources (budget speeches, draft bills and official gazettes), and
+drop the months between announcement and implementation. Second, the taxes are national, so the
+natural control group is airports in European countries without a tax event in the same window, and
+the natural threat to that control group is leakage to foreign airports within driving distance of the
+taxed country.
+
+\subsection{Airports, schedules and emissions}
+
+The unit of observation is the airport-month. Scheduled seats, flights and seat-kilometres for every
+departing flight are taken from the OAG schedule database for January 1996 to June 2024, aggregated to
+the airport and month and split into domestic and international departures. CO$_2$ emissions are
+computed for each scheduled flight from aircraft-type fuel burn by flight stage (taxi-out, take-off,
+climb-out and cruise) and the great-circle distance of the segment, then summed to the airport-month;
+the inventory and its validation against EDGAR and national totals are described in
+\citet{yoo2026co2}. Attributing cruise emissions to the departure airport avoids double counting and
+follows the departure convention of national inventories. We use departure CO$_2$, CO$_2$ per seat and
+CO$_2$ per seat-kilometre (emissions intensity), and the average stage length (seat-kilometres per
+seat) as outcomes.
+
+\subsection{Network position}
+
+An airport's position in the world air network is measured by the Global Air Connectivity Index
+\citep{cheung2020}, recomputed for every year from 1996 to 2024 on the full schedule network of
+3,200 to 3,900 active airports. GACI is the first principal component of five standardised centrality
+indicators: degree (number of destinations), closeness, eigenvector centrality (connections to
+well-connected airports), flow betweenness (transfer flows routed through the airport, computed from an
+electrical-circuit representation of the weighted network) and regional importance (intensity of
+intra-regional links). The loadings are stable across years and the index is standardised so that
+relative scores are comparable over time. We use the index and its degree, eigenvector and betweenness
+components as annual outcomes. GACI is a relative measure of position within the year's network, so a
+fall at taxed airports means they lost ground relative to other airports, not that the network shrank.
+
+\subsection{Sample and descriptive patterns}
+
+The estimation sample contains airports in 21 European countries for which tax histories were coded
+from legal texts (Italy, whose municipal surcharge taxes transfer passengers and has no verified
+dates, is excluded from both groups). For each event the treated group is every airport in the taxing
+country with scheduled service in the year before the announcement; the control group is every airport
+in a coded European country with no tax event within the window; airports in untaxed countries within
+50 to 300 kilometres of the nearest treated airport form a border group, and those within 50
+kilometres are dropped. Within each taxing country, airports are split into size terciles by seats in
+the year before the announcement. The pooled sample has 112,876 airport-months in 33 countries.
+
+A first look at the data follows \citet{li2019subway}. In the twelve months before and after the
+effective date, log seats at taxed airports fall from 9.86 to 9.80 while seats at control airports rise
+from 9.65 to 9.69. After partialling out airport-by-calendar-month fixed effects, the residual at taxed
+airports moves from $+0.034$ to $-0.034$, at control airports from $-0.013$ to $+0.013$, and at border
+airports from $-0.015$ to $+0.015$: a raw difference-in-differences of about 7 percent against
+controls, with border airports moving with the controls rather than against them. The regressions below
+sharpen this comparison.
+
+\section{Empirical strategy}
+\label{sec:strategy}
+
+\subsection{Stacked difference-in-differences with a buffer}
+
+For each event $e$ we build a stack of airport-months from 36 months before the announcement $A_e$ to
+twelve months after the effective date $E_e$, dropping the months in $[A_e, E_e)$. The main
+specification is
+\begin{equation}
+\ln y_{imt}^{e} = \beta\, T_i^{e} \times \text{Post}_t^{e} + \gamma\, B_i^{e} \times \text{Post}_t^{e}
+ + \delta\, X_{c(i)t} + \alpha_{i m}^{e} + \lambda_{t}^{e} + \varepsilon_{imt}^{e},
+\label{eq:did}
+\end{equation}
+where $y$ is seats, flights, seats per flight, CO$_2$, CO$_2$ per seat or CO$_2$ per seat-kilometre at
+airport $i$ in calendar month $m$ of month $t$; $T_i^e$ marks airports in the taxing country and
+$B_i^e$ airports in the 50--300 km border group; $\text{Post}_t^e$ equals one from $E_e$ onward;
+$X_{c(i)t}$ are log GDP and log population of the airport's country; $\alpha_{im}^e$ are airport-by-calendar-month-by-event fixed effects, which absorb each airport's seasonal profile within each stack; and
+$\lambda_t^e$ are month-by-event fixed effects. Stacking events with their own fixed effects avoids the
+negative weights of two-way fixed-effects estimators under staggered adoption \citep{cengiz2019,goodmanbacon2021}.
+Standard errors are clustered by country, the level at which the tax varies. We report equal-weighted
+estimates, which describe the typical airport, and seat-weighted estimates, which describe the national
+total, and we interact the treatment with the within-country size tercile.
+
+The buffer-and-ring treatment of foreign airports is the analogue of the 2--20 km buffer in
+\citet{li2019subway}. Airports just across the border are the ones most likely to gain passengers who
+drive to avoid the tax; treating them as controls would bias the estimate toward larger losses, and
+dropping them would discard the leakage margin. Entering them as their own group identifies the leakage
+coefficient $\gamma$ directly and keeps the control group clean \citep{butts2023}. The Dutch episode,
+in which the tax was introduced in July 2008 and set to zero in July 2009, is analysed separately as an
+introduction followed by a removal and excluded from the pooled stacks.
+
+\subsection{Event time and sensitivity to pre-trends}
+
+The identifying assumption is that, absent the tax, seats at taxed airports would have followed the
+control path. We test it with event-time versions of \eqref{eq:did} in twelve-month bins so that
+seasonality cannot enter: two pre-announcement bins ($[A{-}36, A{-}25]$ and $[A{-}24, A{-}13]$),
+the reference bin $[A{-}12, A{-}1]$, and post bins $[E, E{+}11]$ and $[E{+}12, E{+}23]$, pooled and event by
+event. For annual outcomes (GACI and its components, and the decomposition of CO$_2$) the stacks run
+from three years before to one year after the effective year with airport-by-event and year-by-event
+fixed effects. We complement the pre-trend tests with the sensitivity analysis of \citet{rambachan2023},
+which reports the set of post-period estimates consistent with post-treatment violations of parallel
+trends up to a multiple $\bar M$ of the largest pre-period violation.
+
+\subsection{Synthetic difference-in-differences for national totals}
+
+The airport-level estimates describe the distribution of the effect across airports. To ask whether a
+country's total flying and its national network position changed, we estimate the synthetic
+difference-in-differences of \citet{arkhangelsky2021} event by event on the country-by-month log of
+national seats and on the country-by-year seat-weighted mean of log GACI. Donors are the coded European
+countries without a tax event in the window; unit weights match the treated country's pre-announcement
+path and time weights match the pre-period to the post-period; inference uses placebo estimates that
+treat each donor in turn.
+
+\subsection{Decomposing the emissions effect and the network channel}
+
+Annual departure CO$_2$ at an airport satisfies the identity
+\begin{equation}
+\ln \text{CO}_2 = \ln(\text{destinations}) + \ln(\text{flights per destination}) + \ln(\text{CO}_2 \text{ per flight}),
+\label{eq:decomp}
+\end{equation}
+and CO$_2$ per flight further equals seats per flight times stage length times emissions per
+seat-kilometre. Estimating \eqref{eq:did} on each term splits the emissions effect into a network
+margin (routes dropped), a frequency margin (flights on surviving routes) and an aircraft-and-distance
+margin, with coefficients that add up by construction. To relate the tax effect to connectivity, we
+estimate the within-airport elasticity of CO$_2$ to GACI with airport and country-by-year fixed
+effects, and apply the decomposition of \citet{gelbach2016} to split the tax effect into the part that
+runs through the change in GACI and the part that does not. We treat this as a descriptive channel
+analysis rather than a causal mediation estimate: an instrument for connectivity that is excludable from
+the emissions equation and strong in the tax stacks is not available (Appendix), so we do not claim
+that the network share identifies a structural indirect effect.
+
+\subsection{Why not a country panel}
+
+A natural alternative is a country-year panel of national emissions on a tax indicator with country and
+year fixed effects. We report in the Appendix that such a regression is not robust: taxing countries are
+concentrated in Northern and Central Europe, whose air markets grew more slowly after 2010 than the
+Southern and Eastern European leisure markets that make up the never-taxed group, for reasons unrelated
+to the tax, and the sign of the country-level coefficient depends on whether country trends are
+included. The stacked design with announcement timing, a short window, airport-by-calendar-month fixed
+effects and the buffer group is what removes this confounding, which is why we follow the local
+comparison of \citet{li2019subway} rather than a cross-country regression.
