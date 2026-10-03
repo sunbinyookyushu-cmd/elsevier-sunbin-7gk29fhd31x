@@ -23,14 +23,18 @@ d = g.merge(o, on=["c","y"], how="inner"); d = d[d.y.between(1996,2023)].copy()
 def L(x): return np.log(x.where(x > 0))
 d["ln_ci"]=L(d.co2_per_gdp); d["ln_ei"]=L(d.energy_per_gdp); d["ln_ce"]=L(d.co2_per_unit_energy); d["ln_co2"]=L(d.co2); d["ln_co2pc"]=L(d.co2_per_capita)
 d["coal_sh"]=d.coal_co2/d.co2; d["cement_sh"]=d.cement_co2/d.co2; d["ln_cement"]=L(d.cement_co2)
+pol = pd.read_csv(here/"pollution_country_year.csv").rename(columns={"iso3":"c","year":"y"})
+d = d.merge(pol, on=["c","y"], how="left")
+d["gdp"] = np.exp(d.lngdp); d["pop"] = np.exp(d.lnpop)
+d["ln_so2pc"]=L(d.so2_total/d["pop"]); d["ln_noxpc"]=L(d.nox_total/d["pop"]); d["ln_so2gdp"]=L(d.so2_total/d.gdp); d["ln_noxgdp"]=L(d.nox_total/d.gdp); d["ln_pm25"]=L(d.pm25_exposure)
 d["air"]=d.ln_gaci_cwm; d["sea"]=d.ln_sea_ma
 base = d[d.y==1996].set_index("c").lnpc; d["inc96"]=d.c.map(base); d["inc_ter"]=pd.qcut(d.inc96, 3, labels=["low","mid","high"])
-OUT=["ln_ci","ln_ei","ln_ce","coal_sh","cement_sh","ln_co2","ln_co2pc"]
+OUT=["ln_ci","ln_ei","ln_ce","coal_sh","cement_sh","ln_co2","ln_co2pc","ln_so2pc","ln_so2gdp","ln_noxpc","ln_noxgdp","ln_pm25"]
 res=[]; lines=[]
 def say(s): print(s); lines.append(s)
 def fit(y, rhs, dd, iv=None, label=""):
     fml = f"{y} ~ {rhs} | c + y" + (f" | air ~ {iv}" if iv else "")
-    m = pf.feols(fml, data=dd, vcov="hetero"); t = m.tidy()
+    m = pf.feols(fml, data=dd, vcov={"CRV1":"c"}); t = m.tidy()
     row = {"outcome":y,"spec":label,"n":m._N}
     for k in ["air","sea","lnpc"]:
         if k in t.index: row[f"b_{k}"]=t.loc[k,"Estimate"]; row[f"se_{k}"]=t.loc[k,"Std. Error"]
@@ -38,7 +42,7 @@ def fit(y, rhs, dd, iv=None, label=""):
         try: row["kp_f"] = float(m._f_stat_1st_stage) if hasattr(m,"_f_stat_1st_stage") else np.nan
         except Exception: row["kp_f"]=np.nan
     res.append(row); return t, m
-say("=== (1)-(3): air = ln GACI_cwm, sea = ln sea market access; country + year FE; robust SE ===")
+say("=== (1)-(3): air = ln GACI_cwm, sea = ln sea market access; country + year FE; country-clustered SE ===")
 say(f"{'outcome':10s} | {'OLS air':>14s} {'OLS sea':>14s} | {'+lnpc air':>14s} {'+lnpc sea':>14s} | {'2SLS air':>14s} {'2SLS sea':>14s} | N")
 for y in OUT:
     dd = d.dropna(subset=[y,"air","sea","lnpop","lnpc","tourism_int","feyrer_int"])
@@ -49,7 +53,7 @@ for y in OUT:
 fs = pf.feols("air ~ tourism_int + feyrer_int + sea + lnpop + lnpc | c + y", data=d.dropna(subset=["air","sea","lnpop","lnpc","tourism_int","feyrer_int"]), vcov="hetero")
 say("\nfirst stage: " + "; ".join(f"{k} {fs.tidy().loc[k,'Estimate']:+.4f} (t={fs.tidy().loc[k,'Estimate']/fs.tidy().loc[k,'Std. Error']:.1f})" for k in ["tourism_int","feyrer_int"]) + f"; F-stat(2) ~ {fs.wald_test(R=None) if False else ''}")
 say("\n=== (4) heterogeneity by 1996 income tercile (OLS + lnpc): air coefficient ===")
-for y in ["ln_ci","ln_ei","ln_ce","cement_sh"]:
+for y in ["ln_ci","ln_ei","ln_ce","cement_sh","ln_so2gdp","ln_noxgdp"]:
     parts=[]
     for ter in ["low","mid","high"]:
         dd=d[(d.inc_ter==ter)].dropna(subset=[y,"air","sea","lnpop","lnpc"])
