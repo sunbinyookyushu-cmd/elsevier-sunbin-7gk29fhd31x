@@ -17,6 +17,10 @@ Project: aviation ticket taxes → route-level CO2 and network connectivity (GAC
 | Fuel-burn / CO2 model | `scripts/02_fuel_burn_model.py`, `data/processed/co2_per_flight_lookup.csv` | done | FEAT reduced-order model (Seymour et al. 2020), 133 ICAO types + IATA alias table for OAG codes; CO2 = 3.16 × fuel; detour +5% +40 km (parameters) |
 | Aviation tax event tables | `data/raw/taxes/taxes_*.csv` → `data/processed/aviation_taxes_master.csv` (391 rows, 17 countries, `include_main` flag; narratives in `docs/taxes_*.md`) | done (verify low/medium cells) | compiled from WebSearch snippets of official sources; every row carries a confidence flag and source URL — **verify high-stakes cells against the primary legal texts before estimation** |
 
+| Tax payable by origin country × destination country × year | `data/processed/tax_by_origin_dest_year.csv` (`scripts/12`) | done | band rules per tax (UK miles bands incl. 2015/2023 reforms, DE/AT 2,500/6,000 km, SE/NO/DK Europe annex, FR EU/EEA + 2025 bands, NL 2008 EU/2,500 km, IE 300 km, BE 500 km); EU/EEA membership by year |
+| Country-year CO2 + GACI aggregates | `data/processed/country_panel_co2_gaci.csv` (`scripts/13`) | done | cap-weighted mean / sum / max GACI, CO2 total & intl; waiting for tourism_int from the trade paper for the IV |
+| OAG seats/CO2 by origin airport × destination country × year | `data/raw/oag/seats_co2_by_origin_destcountry_year.csv` | **requested** | spec in `docs/data_request_oag_destcountry.md`; input for `stata/06_band_did.do` |
+
 ## 2. What is blocked by the session network policy (scripts are ready)
 
 The cloud session can reach GitHub (raw/clone) and PyPI only. These hosts returned 403 from the egress

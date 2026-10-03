@@ -1,0 +1,17 @@
+airport: ln CO2 ~ ln GACI | airport + region x year                    b=+4.544 se=0.391 N=96248
+airport: ln CO2 ~ ln GACI | airport + country x year                   b=+3.766 se=0.325 N=94310
+airport: ln CO2 ~ ln_deg | airport + country x year                    b=+0.596 se=0.083 N=94310
+airport: ln CO2 ~ ln_betw | airport + country x year                   b=+0.024 se=0.002 N=94236
+airport: ln CO2 ~ ln_eig | airport + country x year                    b=+0.372 se=0.030 N=94301
+airport: ln CO2 ~ ln_close | airport + country x year                  b=+4.407 se=0.379 N=94310
+airport, all components jointly:
+             Estimate  Std. Error
+Coefficient                      
+ln_deg          0.458       0.064
+ln_betw        -0.004       0.001
+ln_eig          0.445       0.030
+ln_close       -5.014       0.532
+country: ln CO2 ~ ln gaci_cwm | country + year                         b=+3.741 se=0.336 N=6511
+country: ln CO2 ~ ln gaci_sum | country + year                         b=+0.757 se=0.109 N=6511
+country: ln CO2 ~ ln gaci_max | country + year                         b=+3.701 se=0.302 N=6511
+country: ln CO2 intl ~ ln gaci_cwm | country + year                    b=+3.892 se=0.333 N=6494
