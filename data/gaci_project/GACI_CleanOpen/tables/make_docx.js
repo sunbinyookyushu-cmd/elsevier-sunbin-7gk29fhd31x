@@ -1,6 +1,6 @@
 // Build results_tables.docx from _tables.json (landscape A4, one table per section)
 const fs = require("fs");
-const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType, BorderStyle, PageOrientation, HeadingLevel, ShadingType, PageBreak } = require("docx");
+const { ImageRun, Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType, BorderStyle, PageOrientation, HeadingLevel, ShadingType, PageBreak } = require("docx");
 const tables = JSON.parse(fs.readFileSync(__dirname + "/_tables.json", "utf8"));
 const interp = JSON.parse(fs.readFileSync(__dirname + "/_interp.json", "utf8"));
 const clean = s => String(s).replace(/\$\\times\$/g, "×").replace(/\$\^2\$/g, "²").replace(/\\%/g, "%").replace(/\$/g, "").replace(/--/g, "–").replace(/\\/g, "");
@@ -22,6 +22,16 @@ children.push(new Paragraph({ spacing: { before: 240 }, heading: HeadingLevel.HE
 for (const p of interp.rq) children.push(new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: p, size: 20, font: "Times New Roman" })] }));
 children.push(new Paragraph({ pageBreakBefore: true, heading: HeadingLevel.HEADING_2, children: [new TextRun({ text: interp.why_title, font: "Times New Roman" })] }));
 for (const p of interp.why) children.push(new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: p, size: 20, font: "Times New Roman" })] }));
+children.push(new Paragraph({ pageBreakBefore: true, heading: HeadingLevel.HEADING_2, children: [new TextRun({ text: interp.gaci_title, font: "Times New Roman" })] }));
+const sizeOf = require("image-size"); const FIGDIR = __dirname + "/../figures/";
+for (const blk of interp.gaci) {
+  children.push(new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: blk.text, size: 20, font: "Times New Roman" })] }));
+  if (blk.fig) {
+    const buf = fs.readFileSync(FIGDIR + blk.fig); const dim = (sizeOf.imageSize || sizeOf)(buf); const W = 620; const H = Math.round(W * dim.height / dim.width);
+    children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 120 }, children: [new ImageRun({ type: "png", data: buf, transformation: { width: W, height: H } })] }));
+    children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 240 }, children: [new TextRun({ text: blk.cap, size: 17, italics: true, font: "Times New Roman" })] }));
+  }
+}
 for (const t of tables) {
   const isMain = t.name.startsWith("T");
   const ncol = t.cols.length; const labW = Math.min(4200, Math.round(PAGE_W * 0.28)); const colW = Math.floor((PAGE_W - labW) / ncol);

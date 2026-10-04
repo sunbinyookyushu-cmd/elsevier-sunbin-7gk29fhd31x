@@ -20,5 +20,36 @@
   "Air connectivity isolates the people-and-knowledge channel. Business travel is a documented engine of technology diffusion (Hovhannisyan and Keller 2015), new direct air links raise firm-to-firm connections and local growth (Campante and Yanagizawa-Drott 2018), face-to-face contact is necessary for trading complex goods and services (Cristea 2011), and the opening of airspace increased trade in exactly the goods that need in-person coordination (Söderlund 2023). Abatement technology is this kind of knowledge: flue-gas desulphurisation, low-sulphur refining, combined-cycle plants and wind and solar projects are installed by vendors, engineers, consultants and financiers who travel, and the standards that mandate them are copied by regulators who meet. If air connectivity transmits anything to the environment, the technique effect is where it should appear.",
   "The question matters for policy because aviation is regulated for its own emissions. Ticket taxes, ETS coverage and route restrictions are justified by aircraft CO2, which is about 2.5% of the global total. Our companion paper on European aviation taxes finds that these taxes reduce seats and connectivity at small airports. Whether that is a net environmental gain depends on whether connectivity has an economy-wide clean effect that the aircraft-only accounting omits. For developing countries the same question arises in reverse: open-skies agreements and airport investment are evaluated on tourism and trade, and an environmental co-benefit through faster adoption of clean technology would change that evaluation.",
   "GACI is the right measure for this question because it captures a country's position in the network, not the volume of its traffic. It is a within-year standardised composite of degree, betweenness, closeness, eigenvector and regional-importance centrality of each airport, so a country's value rises when its airports become better connected to the rest of the network relative to other countries' airports. That is the relevant object for knowledge flows: what matters is who a country's firms, engineers and officials can reach in a day, not how many seats depart. Seat volume (Appendix Table 2) and the geographic sea-connectivity controls (Appendix Table 1) are reported to show that the results come from network position rather than from traffic or from maritime access."
+ ],
+ "gaci_title": "What GACI is and how to read it",
+ "gaci": [
+  {
+   "text": "GACI (Global Air Connectivity Index) is an airport-level index of position in the world air network, built from OAG scheduled-service data for about 3,500 airports a year, 1996–2024. For each year the scheduled network is a weighted graph: nodes are airports, edges are routes, edge weights are seat capacity. Five centrality measures are computed for every airport: degree (number of destinations), flow betweenness (how much indirect traffic routes through the airport, the hub measure), closeness (how few connections are needed to reach the rest of the network), eigenvector centrality (connection to other well-connected airports) and regional importance (the airport's share of its region's capacity). Figure 1(a) illustrates the objects on a toy network; a hub such as HKG scores high on betweenness because flows between Europe and Australasia pass through it.",
+   "fig": null
+  },
+  {
+   "text": "The five measures are combined by principal components within each year. Figure 1(b) shows that the first component carries 73–77% of the variance and loads almost equally on the five measures (weights 0.38–0.49) in every year, so GACI is in effect an equally weighted standardised average of the five centralities. Because the PCA is run year by year on standardised inputs, GACI is a relative measure: it tells us where an airport stands in that year's network, not how many flights it has. An airport whose traffic grows at the world average rate keeps a constant GACI; GACI rises only when the airport becomes more central relative to others.",
+   "fig": "fig1_gaci_construction.png",
+   "cap": "Figure 1. Construction of GACI. (a) Network objects on a toy graph. (b) Year-by-year first-principal-component loadings and variance share, 1996–2023."
+  },
+  {
+   "text": "For the country-level analysis we take the seat-weighted mean of GACI across a country's airports (cwm) and use its log. Weighting by seats means the index describes the airports that actually carry the country's traffic; Appendix Table 2 shows that the unweighted mean, which gives a small regional field the same weight as the main hub, is a weaker regressor. Figure 2 shows the country series for six economies. Germany and the United States are flat, because their position was already central and grew with the world. The UAE, Türkiye, China and Ethiopia rise steeply as Dubai, Istanbul, the Chinese secondary cities and Addis Ababa became hubs. This is the within-country variation the fixed-effects regressions use: a country's GACI changes when its network position changes relative to the rest of the world.",
+   "fig": "fig2_gaci_countries.png",
+   "cap": "Figure 2. ln GACI (seat-weighted country mean) for six countries, 1996–2019."
+  },
+  {
+   "text": "Two consequences for reading the tables. First, the within-country standard deviation of ln GACI is small, 0.07, because most countries' relative position moves slowly; coefficients therefore look large per log unit and should be read as effects of a 7% change in connectivity, which is roughly what Türkiye or China achieved in a typical five-year window. Second, because GACI is relative and within-year standardised, designs that compare countries only within their own region-year or income-group-year remove much of its variation (Appendix Table 1); we report them as the boundary of the country panel.",
+   "fig": null
+  },
+  {
+   "text": "Figure 3 shows the main result as a binned scatter. Both axes are residuals after country and year fixed effects and the income and population controls (Frisch–Waugh–Lovell), so each point is the mean of about 140 country-years with similar connectivity residuals. The downward slope in panel (a) is the Table 1 coefficient on SO2 intensity; panel (b) shows the same relation for SO2 per unit of oil burned, the emission-factor outcome of Table 2 that isolates the technique effect. The relation is approximately linear and is not driven by a few extreme bins.",
+   "fig": "fig3_binscatter_so2.png",
+   "cap": "Figure 3. Binned scatter of the within-country relation between ln GACI and (a) ln SO2/GDP, (b) ln SO2 per unit of oil CO2. Unified sample, 25 bins; line is the regression slope."
+  },
+  {
+   "text": "Figure 4 maps the tables onto the scale–composition–technique decomposition that organises the paper. Scale and composition are tested and rejected in Tables 2 and 3; technique is where the effect appears. Table 4 says where (goods-producing economies), Table 5 confirms the direction with an instrument.",
+   "fig": "fig4_mechanism_map.png",
+   "cap": "Figure 4. Which table tests which channel."
+  }
  ]
 }
