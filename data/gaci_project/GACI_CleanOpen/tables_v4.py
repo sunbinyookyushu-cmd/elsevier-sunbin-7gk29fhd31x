@@ -10,7 +10,7 @@ D=pd.read_csv(here/"panel_v4.csv"); d=D[D.in_unified==1].copy()
 print("UNIFIED v4:", len(d), d.c.nunique(), d.y.min(), d.y.max())
 d["ty"]=d.inc_ter+"_"+d.y.astype(str); d["ry"]=d.region+"_"+d.y.astype(str); d["cy"]=d.continent.astype(str)+"_"+d.y.astype(str); d["sy"]=d.subregion.astype(str)+"_"+d.y.astype(str); d["trend"]=d.y-1996
 BASE="air + lnpop + lnpc + lnpc2"; XIV="lnpop + lnpc + lnpc2"
-LAB={"ln_so2gdp":"ln SO2/GDP","ln_so2pc":"ln SO2 pc","ln_noxgdp":"ln NOx/GDP","renew_sh":"Renewable share (pp)","ln_ci":"ln CO2/GDP","ln_co2pc":"ln CO2 pc","ln_ei":"ln energy/GDP","ln_ce":"ln CO2/energy","ln_so2co2":"ln SO2/CO2","ln_noxco2":"ln NOx/CO2","ln_co2":"ln CO2","ln_so2":"ln SO2",
+LAB={"renewables_share_elec":"Renewables, \\% of electricity","ln_so2gdp_v22":"ln SO2/GDP (CEDS 2022)","ln_so2gdp":"ln SO2/GDP","ln_so2pc":"ln SO2 pc","ln_noxgdp":"ln NOx/GDP","renew_sh":"Renewable share (pp)","ln_ci":"ln CO2/GDP","ln_co2pc":"ln CO2 pc","ln_ei":"ln energy/GDP","ln_ce":"ln CO2/energy","ln_so2co2":"ln SO2/CO2","ln_noxco2":"ln NOx/CO2","ln_co2":"ln CO2","ln_so2":"ln SO2",
      "ln_coal_cons":"ln coal use (TWh)","ln_so2_coal_cons":"ln SO2/coal use","ln_so2_oil_cons":"ln SO2/oil use","ln_so2_coal_ef":"ln SO2/coal CO2","ln_so2_oil_ef":"ln SO2/oil CO2","ln_so2_fossil_ef":"ln SO2/fossil CO2","ln_so2_process":"ln process SO2","so2_coal_sh":"Coal share of SO2",
      "air":"ln GACI","lnpc":"ln GDP pc","lnpc2":"(ln GDP pc)$^2$","lnpop":"ln population","air_goods":"ln GACI $\\times$ goods economy","feyrer_int":"Air market access (reduced form)"}
 coefs=[]; txt=[]; TABLES=[]
@@ -46,7 +46,7 @@ def table(name,title,cols,panels,note=""):
         for c_,m in zip(cols,pms):
             t=m.tidy()
             for k in t.index: coefs.append({"table":name,"panel":plab or "A","column":c_,"var":k,"b":t.loc[k,"Estimate"],"se":t.loc[k,"Std. Error"],"n":m._N})
-NOTE_BASE="Unified sample: 173 countries, 1996--2019, country-years with all Table 1 outcomes and the instrument observed. All denominators from one source (WDI GDP in constant 2015 US\\$ = GDP per capita $\\times$ population), so log identities hold exactly. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country. *, **, *** : 10, 5, 1\\%."
+NOTE_BASE="Unified sample: 176 countries, 1996--2023, country-years with ln GACI, the controls, SO2, NOx, CO2 and energy intensities and the instrument observed (renewable shares are reported where available: WDI to 2021, electricity share to 2023). SO2 and NOx from CEDS v\\_2025\\_03\\_18. All denominators from one source (WDI GDP in constant 2015 US\\$ = GDP per capita $\\times$ population), so log identities hold exactly. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country. *, **, *** : 10, 5, 1\\%."
 NOTE_IV=" Panel B instruments ln GACI with Feyrer-type air market access (country geography $\\times$ world air-traffic growth); first-stage F is the cluster-robust F on the excluded instrument."
 def AB(ys,extraA=None,extraB_fn=None,sample=None):
     msA=[];msB=[];Fs=[]
@@ -55,9 +55,9 @@ def AB(ys,extraA=None,extraB_fn=None,sample=None):
     return msA,msB,[("First-stage F (clustered)",Fs)]
 sd_w=pf.feols("air ~ 1 | c + y",data=d,fixef_rm="none").resid().std()
 # ---------- T1 ----------
-Y1=["ln_so2gdp","ln_so2pc","ln_noxgdp","renew_sh","ln_ci","ln_co2pc","ln_ei","ln_ce"]; msA,msB,exB=AB(Y1)
-exA=[("1 within-SD effect",[f"{m.tidy().loc['air','Estimate']*sd_w*(100 if y!='renew_sh' else 1):+.1f}{'%' if y!='renew_sh' else 'pp'}" for m,y in zip(msA,Y1)])]
-table("T1","Air connectivity and the pollution and carbon intensity of the economy, 1996--2019",[LAB[y] for y in Y1],[("Panel A: OLS, country and year FE",msA,["air","lnpc","lnpc2"],exA),("Panel B: 2SLS, ln GACI instrumented by air market access",msB,["air"],exB)],note=NOTE_BASE+f" Within-country SD of ln GACI = {sd_w:.3f}. Because ln GDP per capita is a regressor, the ln GACI coefficient is identical for the per-GDP and per-capita versions of each outcome (ln X/GDP = ln X/pop $-$ ln GDP/pop)."+NOTE_IV)
+Y1=["ln_so2gdp","ln_so2pc","ln_noxgdp","renew_sh","renewables_share_elec","ln_ci","ln_co2pc","ln_ei","ln_ce"]; msA,msB,exB=AB(Y1)
+exA=[("1 within-SD effect",[f"{m.tidy().loc['air','Estimate']*sd_w*(100 if y not in ('renew_sh','renewables_share_elec') else 1):+.1f}{'%' if y not in ('renew_sh','renewables_share_elec') else 'pp'}" for m,y in zip(msA,Y1)])]
+table("T1","Air connectivity and the pollution and carbon intensity of the economy, 1996--2023",[LAB[y] for y in Y1],[("Panel A: OLS, country and year FE",msA,["air","lnpc","lnpc2"],exA),("Panel B: 2SLS, ln GACI instrumented by air market access",msB,["air"],exB)],note=NOTE_BASE+f" Within-country SD of ln GACI = {sd_w:.3f}. Because ln GDP per capita is a regressor, the ln GACI coefficient is identical for the per-GDP and per-capita versions of each outcome (ln X/GDP = ln X/pop $-$ ln GDP/pop)."+NOTE_IV)
 # ---------- T1b identity decompositions ----------
 Yd=["ln_so2gdp","ln_ei","ln_ce","ln_so2co2","ln_noxgdp","ln_noxco2","ln_co2"]; msA,msB,exB=AB(Yd)
 def sums(ms): 
@@ -118,11 +118,11 @@ table("T5","Instrumental-variable diagnostics",cols,[(None,ms,["air","feyrer_int
 # ---------- A1 robustness ----------
 for y,nm in [("ln_so2gdp","A1a"),("ln_ci","A1b")]:
     cols=[];ms=[]; s=d.dropna(subset=[y,"air","lnpop","lnpc"]); sk=s.dropna(subset=["lnkl"]); ss=s.dropna(subset=["ln_sea_ma"]); sl=s[s.y>=2006].dropna(subset=["ln_lsci"])
-    specs=[("base",fe(y,BASE,s)),("+K/L",fe(y,BASE+" + lnkl + lnkl2",sk)),("+sea MA",fe(y,BASE+" + ln_sea_ma",ss)),("+LSCI 06-",fe(y,BASE+" + ln_lsci",sl)),("GACI-region$\\times$yr",fe(y,BASE,s,fe="c + ry")),("continent$\\times$yr",fe(y,BASE,s,fe="c + cy")),("subregion$\\times$yr",fe(y,BASE,s,fe="c + sy")),("region trends",fe(y,BASE+" + i(region, trend)",s)),("tercile$\\times$yr",fe(y,BASE,s,fe="c + ty")),("1996-2009",fe(y,BASE,s[s.y<=2009])),("2010-2019",fe(y,BASE,s[s.y>=2010]))]
-    if y=="ln_ci":
-        sx=D.dropna(subset=["ln_ci","air","lnpop","lnpc"]); specs.append(("1996-2023 (all)",fe(y,BASE,sx))); specs.append(("2010-2023",fe(y,BASE,sx[sx.y>=2010])))
+    specs=[("base",fe(y,BASE,s)),("+K/L",fe(y,BASE+" + lnkl + lnkl2",sk)),("+sea MA",fe(y,BASE+" + ln_sea_ma",ss)),("+LSCI 06-",fe(y,BASE+" + ln_lsci",sl)),("GACI-region$\\times$yr",fe(y,BASE,s,fe="c + ry")),("continent$\\times$yr",fe(y,BASE,s,fe="c + cy")),("subregion$\\times$yr",fe(y,BASE,s,fe="c + sy")),("region trends",fe(y,BASE+" + i(region, trend)",s)),("tercile$\\times$yr",fe(y,BASE,s,fe="c + ty")),("excl. 2020-21",fe(y,BASE,s[~s.y.isin([2020,2021])])),("1996-2009",fe(y,BASE,s[s.y<=2009])),("2010-2023",fe(y,BASE,s[s.y>=2010])),("1996-2019",fe(y,BASE,s[s.y<=2019]))]
+    if y=="ln_so2gdp":
+        s22=s.dropna(subset=["ln_so2gdp_v22"]); specs.append(("CEDS 2022, 1996-2019",fe("ln_so2gdp_v22",BASE,s22)))
     for lab,m in specs: ms.append(m); cols.append(lab)
-    table(nm,f"Robustness of the ln GACI coefficient: {LAB[y]}",cols,[(None,ms,["air"],None)],note=NOTE_BASE+" K/L from PWT 11. GACI-region = the 7 macro-regions of the GACI panel (AF, AS, EU, LA, ME, NA, SW); continent = 5 UN continents; subregion = 22 UN subregions; region trends = region-specific linear trends. CO2 columns 12--13 extend the sample to 2023 (CEDS ends 2019).")
+    table(nm,f"Robustness of the ln GACI coefficient: {LAB[y]}",cols,[(None,ms,["air"],None)],note=NOTE_BASE+" K/L from PWT 11. GACI-region = the 7 macro-regions of the GACI panel (AF, AS, EU, LA, ME, NA, SW); continent = 5 UN continents; subregion = 22 UN subregions; region trends = region-specific linear trends. Last SO2 column re-estimates with the CEDS 2022 release (ends 2019) on its own sample.")
 # ---------- A2 aggregates ----------
 cols=[];ms=[]
 for y in ["ln_so2gdp","ln_ci"]:

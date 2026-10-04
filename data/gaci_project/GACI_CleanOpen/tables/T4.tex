@@ -6,24 +6,24 @@
 \midrule
 \midrule
 \multicolumn{5}{l}{\textit{Panel A: OLS, country and year FE}} \\
-ln GACI & -0.391 & -0.015 & -3.475 & 0.188 \\
- & (0.355) & (0.177) & (3.645) & (0.150) \\
-ln GACI $\times$ goods economy & -0.679 & -0.396** & 16.746*** & -0.523*** \\
- & (0.472) & (0.197) & (4.572) & (0.203) \\
-ln GACI, low-income tercile (separate reg.) & -0.186 (0.342) & 0.240 (0.301) & -0.073 (6.258) & -0.055 (0.290) \\
-ln GACI, mid-income tercile (separate reg.) & -0.150 (0.335) & 0.300 (0.204) & -3.310 (5.828) & 0.303* (0.156) \\
-ln GACI, high-income tercile (separate reg.) & -0.303 (0.644) & -0.189 (0.246) & 2.660 (5.246) & -0.032 (0.193) \\
+ln GACI & -0.041 & -0.095 & -2.016 & 0.160 \\
+ & (0.342) & (0.161) & (3.310) & (0.146) \\
+ln GACI $\times$ goods economy & -0.728 & -0.252 & 15.039*** & -0.417** \\
+ & (0.474) & (0.180) & (4.185) & (0.192) \\
+ln GACI, low-income tercile (separate reg.) & 0.609 (0.397) & 0.045 (0.193) & 2.579 (5.444) & 0.077 (0.209) \\
+ln GACI, mid-income tercile (separate reg.) & -0.348 (0.345) & 0.055 (0.199) & -0.552 (4.642) & 0.163 (0.158) \\
+ln GACI, high-income tercile (separate reg.) & -0.444 (0.703) & -0.297 (0.220) & 4.578 (4.634) & -0.094 (0.163) \\
 \midrule
-Observations & 3,520 & 3,520 & 3,520 & 3,520 \\
+Observations & 4,089 & 4,089 & 3,833 & 4,089 \\
 \midrule
 \multicolumn{5}{l}{\textit{Panel B: 2SLS by subsample (model row = goods economies)}} \\
-ln GACI & -4.901 & -3.594 & 58.645 & 0.308 \\
- & (4.272) & (2.584) & (46.961) & (1.631) \\
-First-stage F, goods economies & 3.3 & 3.3 & 3.3 & 3.3 \\
-ln GACI, service economies (separate IV) & -5.100 (3.942)  [F 3.4] & -3.563 (2.399)  [F 3.4] & 8.514 (32.959)  [F 3.4] & 0.161 (1.358)  [F 3.4] \\
+ln GACI & -2.640 & -2.977* & 55.351 & -0.155 \\
+ & (4.031) & (1.787) & (43.798) & (1.410) \\
+First-stage F, goods economies & 3.9 & 3.9 & 3.6 & 3.9 \\
+ln GACI, service economies (separate IV) & -4.782 (4.073)  [F 2.8] & -2.397 (1.929)  [F 2.8] & 9.466 (33.058)  [F 2.5] & -0.141 (1.419)  [F 2.8] \\
 \midrule
-Observations & 1,724 & 1,724 & 1,724 & 1,724 \\
+Observations & 1,997 & 1,997 & 1,869 & 1,997 \\
 \bottomrule
 \end{tabular}
-\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 173 countries, 1996--2019, country-years with all Table 1 outcomes and the instrument observed. All denominators from one source (WDI GDP in constant 2015 US\$ = GDP per capita $\times$ population), so log identities hold exactly. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country. *, **, *** : 10, 5, 1\%. Goods economy = merchandise trade share of GDP above the 1996 cross-country median. Tercile rows: separate regressions by 1996 income tercile (tercile-level IV not reported: first-stage F below 1 in low and mid terciles). Panel B instruments ln GACI with Feyrer-type air market access (country geography $\times$ world air-traffic growth); first-stage F is the cluster-robust F on the excluded instrument.\end{minipage}
+\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 176 countries, 1996--2023, country-years with ln GACI, the controls, SO2, NOx, CO2 and energy intensities and the instrument observed (renewable shares are reported where available: WDI to 2021, electricity share to 2023). SO2 and NOx from CEDS v\_2025\_03\_18. All denominators from one source (WDI GDP in constant 2015 US\$ = GDP per capita $\times$ population), so log identities hold exactly. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country. *, **, *** : 10, 5, 1\%. Goods economy = merchandise trade share of GDP above the 1996 cross-country median. Tercile rows: separate regressions by 1996 income tercile (tercile-level IV not reported: first-stage F below 1 in low and mid terciles). Panel B instruments ln GACI with Feyrer-type air market access (country geography $\times$ world air-traffic growth); first-stage F is the cluster-robust F on the excluded instrument.\end{minipage}
 \end{table}

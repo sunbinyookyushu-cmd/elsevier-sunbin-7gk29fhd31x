@@ -4,15 +4,15 @@
 \toprule
  & ln SO2/GDP: OLS & ln SO2/GDP: reduced form & ln SO2/GDP: IV: market access & ln SO2/GDP: IV: unweighted GACI mean (ME) & ln SO2/GDP: IV: both & ln NOx/GDP: OLS & ln NOx/GDP: reduced form & ln NOx/GDP: IV: market access & ln NOx/GDP: IV: unweighted GACI mean (ME) & ln NOx/GDP: IV: both & Renewable share (pp): OLS & Renewable share (pp): reduced form & Renewable share (pp): IV: market access & Renewable share (pp): IV: unweighted GACI mean (ME) & Renewable share (pp): IV: both & ln CO2/GDP: OLS & ln CO2/GDP: reduced form & ln CO2/GDP: IV: market access & ln CO2/GDP: IV: unweighted GACI mean (ME) & ln CO2/GDP: IV: both \\
 \midrule
-ln GACI & -1.024*** &  & -5.816*** & -2.010** & -6.029*** & -0.296** &  & -4.198*** & -0.841** & -4.540*** & 8.120** &  & 57.505** & 15.656** & 59.365** & -0.201 &  & -1.325 & -0.682** & -1.396* \\
- & (0.334) &  & (2.130) & (0.887) & (2.101) & (0.139) &  & (1.517) & (0.337) & (1.492) & (3.280) &  & (24.742) & (7.777) & (25.796) & (0.162) &  & (0.834) & (0.312) & (0.817) \\
-Air market access (reduced form) &  & -0.600*** &  &  &  &  & -0.433*** &  &  &  &  & 5.932*** &  &  &  &  & -0.137* &  &  &  \\
- &  & (0.183) &  &  &  &  & (0.095) &  &  &  &  & (2.034) &  &  &  &  & (0.077) &  &  &  \\
-Sargan J p (both IVs) &  &  &  &  & 0.196 &  &  &  &  & 0.003 &  &  &  &  & 0.294 &  &  &  &  & 0.275 \\
-First-stage F &  &  & 11.6 & 9.3 & 7.3 &  &  & 11.6 & 9.3 & 7.3 &  &  & 11.6 & 9.3 & 7.3 &  &  & 11.6 & 9.3 & 7.3 \\
+ln GACI & -0.705** &  & -4.939** & -1.385* & -4.236*** & -0.302*** &  & -3.114*** & -0.768*** & -2.871*** & 8.068*** &  & 56.367** & 13.363** & 44.071** & -0.170 &  & -1.536* & -0.522* & -1.283** \\
+ & (0.316) &  & (2.037) & (0.813) & (1.529) & (0.117) &  & (1.136) & (0.253) & (0.865) & (2.955) &  & (24.291) & (6.373) & (18.578) & (0.135) &  & (0.838) & (0.275) & (0.633) \\
+Air market access (reduced form) &  & -0.478*** &  &  &  &  & -0.301*** &  &  &  &  & 5.272*** &  &  &  &  & -0.149** &  &  &  \\
+ &  & (0.171) &  &  &  &  & (0.080) &  &  &  &  & (1.762) &  &  &  &  & (0.071) &  &  &  \\
+Sargan J p (both IVs) &  &  &  &  & 0.034 &  &  &  &  & 0.178 &  &  &  &  & 0.001 &  &  &  &  & 0.064 \\
+First-stage F &  &  & 11.7 & 18.2 & 13.0 &  &  & 11.7 & 18.2 & 13.0 &  &  & 11.0 & 16.4 & 12.8 &  &  & 11.7 & 18.2 & 13.0 \\
 \midrule
-Observations & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 \\
+Observations & 4,515 & 4,515 & 4,515 & 4,515 & 4,515 & 4,515 & 4,515 & 4,515 & 4,515 & 4,515 & 4,224 & 4,224 & 4,224 & 4,224 & 4,224 & 4,515 & 4,515 & 4,515 & 4,515 & 4,515 \\
 \bottomrule
 \end{tabular}
-\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 173 countries, 1996--2019, country-years with all Table 1 outcomes and the instrument observed. All denominators from one source (WDI GDP in constant 2015 US\$ = GDP per capita $\times$ population), so log identities hold exactly. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country. *, **, *** : 10, 5, 1\%. Reduced form regresses the outcome directly on the instrument. The measurement-error IV instruments the seat-weighted ln GACI with the unweighted country mean of airport GACI: a classical-measurement-error correction that uses no exclusion restriction beyond independent measurement error; if the OLS coefficient is attenuated, this estimate should exceed OLS. Sargan J from the over-identified model.\end{minipage}
+\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 176 countries, 1996--2023, country-years with ln GACI, the controls, SO2, NOx, CO2 and energy intensities and the instrument observed (renewable shares are reported where available: WDI to 2021, electricity share to 2023). SO2 and NOx from CEDS v\_2025\_03\_18. All denominators from one source (WDI GDP in constant 2015 US\$ = GDP per capita $\times$ population), so log identities hold exactly. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country. *, **, *** : 10, 5, 1\%. Reduced form regresses the outcome directly on the instrument. The measurement-error IV instruments the seat-weighted ln GACI with the unweighted country mean of airport GACI: a classical-measurement-error correction that uses no exclusion restriction beyond independent measurement error; if the OLS coefficient is attenuated, this estimate should exceed OLS. Sargan J from the over-identified model.\end{minipage}
 \end{table}

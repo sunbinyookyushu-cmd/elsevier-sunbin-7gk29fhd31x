@@ -9,7 +9,7 @@ from matplotlib.colors import TwoSlopeNorm, LinearSegmentedColormap
 here=pathlib.Path(__file__).resolve().parent; F=here/"figures"
 plt.rcParams.update({"font.family":"DejaVu Serif","font.size":10})
 d=pd.read_csv(here/"panel_v4.csv"); d=d[d.in_unified==1].copy()
-B,SE=-1.024,0.334
+B,SE=-0.705,0.316
 g=d.sort_values("y").groupby("c"); first=g.first(); last=g.last(); ok=(last.y-first.y)>=15
 ch=pd.DataFrame({"y0":first.y,"y1":last.y,"d_air":last.air-first.air,"d_so2gdp":last.ln_so2gdp-first.ln_so2gdp,"so2_0":first.so2_total,"so2_1":last.so2_total,"reg":last.reg.str[:2]})[ok]
 lines=[]
@@ -32,7 +32,7 @@ def iso(r):
 w["iso3"]=w.apply(iso,axis=1); w=w[w["NAME"]!="Antarctica"].merge(ch.reset_index().rename(columns={"c":"iso3"}),on="iso3",how="left").to_crs("+proj=robin")
 blue_red=LinearSegmentedColormap.from_list("br",["#0d366b","#2a78d6","#9ec5f4","#f0efec","#f3a59a","#e34948","#7a1f1e"])
 fig,axes=plt.subplots(2,1,figsize=(9,8.6),dpi=200)
-for ax,(col,title,cm,lim,lab) in zip(axes,[("d_air","(a) Change in ln GACI, first to last sample year (1996 → 2019)",blue_red.reversed(),0.6,"Δ ln GACI"),("d_so2gdp","(b) Observed change in ln SO2/GDP over the same window",blue_red,3.0,"Δ ln SO2/GDP")]):
+for ax,(col,title,cm,lim,lab) in zip(axes,[("d_air","(a) Change in ln GACI, first to last sample year (1996 → 2023)",blue_red.reversed(),0.6,"Δ ln GACI"),("d_so2gdp","(b) Observed change in ln SO2/GDP over the same window",blue_red,3.0,"Δ ln SO2/GDP")]):
     norm=TwoSlopeNorm(vmin=-lim,vcenter=0,vmax=lim)
     w.plot(column=col,ax=ax,cmap=cm,norm=norm,missing_kwds={"color":"#ededed","edgecolor":"#b3b8bd","linewidth":0.2},edgecolor="#ffffff",linewidth=0.25)
     ax.axis("off"); ax.set_title(title,loc="left",fontsize=10.5,color="#0b0b0b")
