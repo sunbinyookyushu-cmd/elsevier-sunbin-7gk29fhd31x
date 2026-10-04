@@ -8,9 +8,8 @@ matplotlib.use("Agg"); import matplotlib.pyplot as plt
 from matplotlib.colors import TwoSlopeNorm, LinearSegmentedColormap
 here=pathlib.Path(__file__).resolve().parent; F=here/"figures"
 plt.rcParams.update({"font.family":"DejaVu Serif","font.size":10})
-d=pd.read_csv(here/"clean_open_panel.csv")
-CORE=["air","lnpop","lnpc","ln_so2gdp","ln_noxgdp","renew_sh","ln_ci","ln_ei","ln_ce","tourism_int","feyrer_int"]; d=d.dropna(subset=CORE)
-B,SE=-0.935,0.381
+d=pd.read_csv(here/"panel_v4.csv"); d=d[d.in_unified==1].copy()
+B,SE=-1.024,0.334
 g=d.sort_values("y").groupby("c"); first=g.first(); last=g.last(); ok=(last.y-first.y)>=15
 ch=pd.DataFrame({"y0":first.y,"y1":last.y,"d_air":last.air-first.air,"d_so2gdp":last.ln_so2gdp-first.ln_so2gdp,"so2_0":first.so2_total,"so2_1":last.so2_total,"reg":last.reg.str[:2]})[ok]
 lines=[]
@@ -38,5 +37,5 @@ for ax,(col,title,cm,lim,lab) in zip(axes,[("d_air","(a) Change in ln GACI, firs
     w.plot(column=col,ax=ax,cmap=cm,norm=norm,missing_kwds={"color":"#ededed","edgecolor":"#b3b8bd","linewidth":0.2},edgecolor="#ffffff",linewidth=0.25)
     ax.axis("off"); ax.set_title(title,loc="left",fontsize=10.5,color="#0b0b0b")
     sm=plt.cm.ScalarMappable(cmap=cm,norm=norm); sm.set_array([]); cb=fig.colorbar(sm,ax=ax,orientation="vertical",shrink=0.7,pad=0.01,extend="both"); cb.set_label(lab,fontsize=9); cb.ax.tick_params(labelsize=8)
-fig.text(0.01,0.005,"Grey: outside the unified sample. Blue in both panels points the same way as the paper: (a) connectivity rose, (b) SO2 intensity fell. Sample: 141 countries with ≥15 years.",fontsize=8,color="#52514e")
+fig.text(0.01,0.005,"Grey: outside the unified sample. Blue in both panels points the same way as the paper: (a) connectivity rose, (b) SO2 intensity fell. Sample: countries with ≥15 years in the unified panel.",fontsize=8,color="#52514e")
 fig.tight_layout(); fig.savefig(F/"fig5_map_gaci_so2.png",bbox_inches="tight"); plt.close(fig); print("map written")

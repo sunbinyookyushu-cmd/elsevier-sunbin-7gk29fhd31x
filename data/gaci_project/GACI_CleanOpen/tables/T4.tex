@@ -6,24 +6,24 @@
 \midrule
 \midrule
 \multicolumn{5}{l}{\textit{Panel A: OLS, country and year FE}} \\
-ln GACI & -0.184 & 0.088 & -3.313 & 0.296 \\
- & (0.431) & (0.222) & (3.952) & (0.184) \\
-ln GACI $\times$ goods economy & -0.843 & -0.581** & 16.376*** & -0.859*** \\
- & (0.524) & (0.230) & (4.674) & (0.245) \\
-ln GACI, low-income tercile (separate reg.) & -0.782* (0.401) & -0.403 (0.407) & 0.246 (6.528) & -0.116 (0.349) \\
-ln GACI, mid-income tercile (separate reg.) & 0.202 (0.495) & 0.588** (0.271) & -3.038 (6.244) & 0.211 (0.190) \\
-ln GACI, high-income tercile (separate reg.) & -0.161 (0.685) & -0.178 (0.275) & 2.380 (5.369) & 0.009 (0.227) \\
+ln GACI & -0.391 & -0.015 & -3.475 & 0.188 \\
+ & (0.355) & (0.177) & (3.645) & (0.150) \\
+ln GACI $\times$ goods economy & -0.679 & -0.396** & 16.746*** & -0.523*** \\
+ & (0.472) & (0.197) & (4.572) & (0.203) \\
+ln GACI, low-income tercile (separate reg.) & -0.186 (0.342) & 0.240 (0.301) & -0.073 (6.258) & -0.055 (0.290) \\
+ln GACI, mid-income tercile (separate reg.) & -0.150 (0.335) & 0.300 (0.204) & -3.310 (5.828) & 0.303* (0.156) \\
+ln GACI, high-income tercile (separate reg.) & -0.303 (0.644) & -0.189 (0.246) & 2.660 (5.246) & -0.032 (0.193) \\
 \midrule
-Observations & 3,205 & 3,205 & 3,205 & 3,205 \\
+Observations & 3,520 & 3,520 & 3,520 & 3,520 \\
 \midrule
-\multicolumn{5}{l}{\textit{Panel B: 2SLS by subsample, ln GACI instrumented by air market access (model row = goods economies)}} \\
-ln GACI & -6.182 & -2.490 & 56.395 & -1.332 \\
- & (4.487) & (1.816) & (42.562) & (1.391) \\
-First-stage F, goods economies & 5.1 & 5.1 & 5.1 & 5.1 \\
-ln GACI, service economies (separate IV) & -4.010 (3.870)  [F 2.8] & -4.337 (3.397)  [F 2.8] & -8.508 (34.190)  [F 2.8] & -0.313 (1.704)  [F 2.8] \\
+\multicolumn{5}{l}{\textit{Panel B: 2SLS by subsample (model row = goods economies)}} \\
+ln GACI & -4.901 & -3.594 & 58.645 & 0.308 \\
+ & (4.272) & (2.584) & (46.961) & (1.631) \\
+First-stage F, goods economies & 3.3 & 3.3 & 3.3 & 3.3 \\
+ln GACI, service economies (separate IV) & -5.100 (3.942)  [F 3.4] & -3.563 (2.399)  [F 3.4] & 8.514 (32.959)  [F 3.4] & 0.161 (1.358)  [F 3.4] \\
 \midrule
-Observations & 1,525 & 1,525 & 1,525 & 1,525 \\
+Observations & 1,724 & 1,724 & 1,724 & 1,724 \\
 \bottomrule
 \end{tabular}
-\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 149 countries, 1996--2019, country-years with all Table 1 outcomes and instruments observed. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country in parentheses. *, **, *** : 10, 5, 1\%. ln GACI = log of seat-weighted mean airport GACI. Goods economy = merchandise trade share of GDP above the 1996 cross-country median. Tercile rows: ln GACI coefficient from separate regressions by 1996 income tercile. Panel B runs the IV separately in goods and service economies; bracketed F is the first-stage F of that subsample. Tercile-level IV is not reported because the instrument has no first-stage power within the low- and mid-income terciles (F below 1). Panel B instruments ln GACI with Feyrer-type air market access (country geography $\times$ world air-traffic growth); first-stage F is the cluster-robust F on the excluded instrument.\end{minipage}
+\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 173 countries, 1996--2019, country-years with all Table 1 outcomes and the instrument observed. All denominators from one source (WDI GDP in constant 2015 US\$ = GDP per capita $\times$ population), so log identities hold exactly. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country. *, **, *** : 10, 5, 1\%. Goods economy = merchandise trade share of GDP above the 1996 cross-country median. Tercile rows: separate regressions by 1996 income tercile (tercile-level IV not reported: first-stage F below 1 in low and mid terciles). Panel B instruments ln GACI with Feyrer-type air market access (country geography $\times$ world air-traffic growth); first-stage F is the cluster-robust F on the excluded instrument.\end{minipage}
 \end{table}

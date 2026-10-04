@@ -1,23 +1,23 @@
 \begin{table}[htbp]\centering\small
-\caption{Technique, not scale: SO2 emission factors by fuel}\label{tab:T2}
-\begin{tabular}{lccccccc}
+\caption{Technique, not scale: SO2 per unit of fuel burned}\label{tab:T2}
+\begin{tabular}{lcccccccc}
 \toprule
- & ln SO2/GDP & ln coal CO2 (scale) & ln SO2/coal CO2 & ln SO2/oil CO2 & ln SO2/fossil CO2 & ln process SO2 & Coal share of SO2 \\
+ & ln coal use (TWh) & ln SO2/coal use & ln SO2/oil use & ln SO2/coal CO2 & ln SO2/oil CO2 & ln SO2/fossil CO2 & ln process SO2 & Coal share of SO2 \\
 \midrule
 \midrule
-\multicolumn{8}{l}{\textit{Panel A: OLS, country and year FE}} \\
-ln GACI & -0.935** & 0.779* & -1.105** & -0.862*** & -0.872*** & -0.137 & -0.067 \\
- & (0.381) & (0.418) & (0.437) & (0.316) & (0.313) & (0.333) & (0.046) \\
+\multicolumn{9}{l}{\textit{Panel A: OLS, country and year FE}} \\
+ln GACI & 0.247 & -0.745 & -0.901** & -1.182*** & -0.883*** & -0.897*** & -0.223 & -0.055 \\
+ & (0.573) & (0.482) & (0.426) & (0.457) & (0.306) & (0.310) & (0.313) & (0.043) \\
 \midrule
-Observations & 3,425 & 2,517 & 2,336 & 3,421 & 2,221 & 3,405 & 3,425 \\
+Observations & 1,736 & 1,643 & 1,819 & 2,387 & 3,797 & 2,236 & 3,774 & 3,818 \\
 \midrule
-\multicolumn{8}{l}{\textit{Panel B: 2SLS, ln GACI instrumented by air market access}} \\
-ln GACI & -5.843*** & 7.590* & -3.881 & -7.523*** & -8.317* & -1.524 & 0.349 \\
- & (2.199) & (4.560) & (4.678) & (2.533) & (5.042) & (1.915) & (0.379) \\
-First-stage F (clustered) & 12.5 & 4.9 & 4.6 & 12.6 & 3.2 & 12.9 & 12.5 \\
+\multicolumn{9}{l}{\textit{Panel B: 2SLS}} \\
+ln GACI & 8.688 & -8.486 & -17.348 & -1.191 & -8.009*** & -8.315 & -1.942 & 0.355 \\
+ & (9.441) & (15.090) & (11.674) & (5.140) & (2.544) & (5.068) & (1.987) & (0.368) \\
+First-stage F (clustered) & 1.8 & 0.5 & 2.1 & 3.5 & 11.6 & 3.1 & 11.4 & 11.6 \\
 \midrule
-Observations & 3,425 & 2,517 & 2,336 & 3,421 & 2,221 & 3,405 & 3,425 \\
+Observations & 1,736 & 1,643 & 1,819 & 2,387 & 3,797 & 2,236 & 3,774 & 3,818 \\
 \bottomrule
 \end{tabular}
-\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 149 countries, 1996--2019, country-years with all Table 1 outcomes and instruments observed. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country in parentheses. *, **, *** : 10, 5, 1\%. ln GACI = log of seat-weighted mean airport GACI. Emission factor = CEDS SO2 from a fuel divided by OWID CO2 from the same fuel (CO2 proxies combustion volume; the ratio moves only with sulphur content and abatement). Process SO2 = smelting and refining. Panel B instruments ln GACI with Feyrer-type air market access (country geography $\times$ world air-traffic growth); first-stage F is the cluster-robust F on the excluded instrument.\end{minipage}
+\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 173 countries, 1996--2019, country-years with all Table 1 outcomes and the instrument observed. All denominators from one source (WDI GDP in constant 2015 US\$ = GDP per capita $\times$ population), so log identities hold exactly. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country. *, **, *** : 10, 5, 1\%. SO2 per unit of fuel use: CEDS SO2 from coal (oil) divided by Energy Institute coal (oil) consumption in TWh (77 countries). SO2 per fuel CO2: CEDS SO2 from a fuel divided by OWID CO2 from the same fuel (all countries). Process SO2 = smelting and refining. Panel B instruments ln GACI with Feyrer-type air market access (country geography $\times$ world air-traffic growth); first-stage F is the cluster-robust F on the excluded instrument.\end{minipage}
 \end{table}

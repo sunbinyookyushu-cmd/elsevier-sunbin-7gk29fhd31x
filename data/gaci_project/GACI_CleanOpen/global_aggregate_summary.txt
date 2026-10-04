@@ -1,17 +1,17 @@
-point              elasticity -0.935: SO2 avoided in final year 19,134 kt = 27.5% of final-year SO2 = 52.1% of the observed decline
-lower (b-1.96se)   elasticity -0.188: SO2 avoided in final year 3,309 kt = 4.8% of final-year SO2 = 9.0% of the observed decline
-upper (b+1.96se)   elasticity -1.682: SO2 avoided in final year 40,532 kt = 58.3% of final-year SO2 = 110.3% of the observed decline
-countries 141; mean d ln GACI +0.166 (sd 0.178); world SO2 (sample) 106,318 -> 69,565 kt (-34.6%)
+point              elasticity -1.024: SO2 avoided in final year 21,362 kt = 30.7% of final-year SO2 = 57.7% of the observed decline
+lower (b-1.96se)   elasticity -0.369: SO2 avoided in final year 6,733 kt = 9.7% of final-year SO2 = 18.2% of the observed decline
+upper (b+1.96se)   elasticity -1.679: SO2 avoided in final year 40,440 kt = 58.1% of final-year SO2 = 109.2% of the observed decline
+countries 156; mean d ln GACI +0.156 (sd 0.175); world SO2 (sample) 106,663 -> 69,636 kt (-34.7%)
 
 by region:
      countries  mean_d_lnGACI  implied_pct_SO2_intensity  SO2_avoided_kt
 reg                                                                     
-AF          40           0.09                      -8.02          361.44
-AS          23           0.22                     -17.72        10758.71
-EU          41           0.24                     -19.23         3774.39
-LA          20           0.08                      -6.02         1021.27
-ME          13           0.21                     -15.01         2861.36
-NA           2           0.12                     -10.39          227.71
-SW           2           0.11                      -9.78          129.32
+AF          41           0.09                      -8.62          398.13
+AS          26           0.21                     -18.64        12027.94
+EU          41           0.24                     -20.75         4210.01
+LA          23           0.07                      -6.33         1133.95
+ME          13           0.21                     -16.05         3197.25
+NA           3           0.13                     -12.00          251.51
+SW           9           0.03                      -2.96          142.77
 
-largest implied contributions (kt avoided): CHN 7,224, IND 1,911, RUS 1,703, SAU 1,645, TUR 1,538, IRQ 466, PER 412, MEX 393
+largest implied contributions (kt avoided): CHN 8,104, IND 2,112, RUS 1,892, SAU 1,835, TUR 1,725, IRQ 520, PER 458, MEX 433

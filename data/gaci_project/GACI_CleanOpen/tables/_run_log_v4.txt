@@ -1,3 +1,4 @@
+UNIFIED v4: 3819 173 1996 2019
 
 T1. Air connectivity and the pollution and carbon intensity of the economy, 1996--2019
                                         ln SO2/GDP             ln SO2 pc            ln NOx/GDP  Renewable share (pp)            ln CO2/GDP             ln CO2 pc         ln energy/GDP         ln CO2/energy
@@ -108,3 +109,5 @@ ln GACI                           -6.817**     -7.775***        -0.941      -6.1
                                    (3.056)       (1.930)       (2.560)       (3.064)       (2.809)       (2.184)
 First-stage F                          6.7          17.7           2.8           6.4           8.5           9.8
 Observations                         2,779         3,198         2,816         3,235         3,520         3,607
+
+written ['A1a.tex', 'A1b.tex', 'A2.tex', 'A3.tex', 'T1.tex', 'T1b.tex', 'T2.tex', 'T3.tex', 'T4.tex', 'T5.tex', '_all_tables.txt', '_coefs.csv', '_interp.json', '_run_log.txt', '_run_log_v4.txt', '_tables.json', 'make_docx.js', 'node_modules', 'package-lock.json', 'package.json', 'results_tables.docx']

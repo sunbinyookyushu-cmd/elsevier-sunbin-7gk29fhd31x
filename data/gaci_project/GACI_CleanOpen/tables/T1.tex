@@ -1,28 +1,28 @@
 \begin{table}[htbp]\centering\small
 \caption{Air connectivity and the pollution and carbon intensity of the economy, 1996--2019}\label{tab:T1}
-\begin{tabular}{lccccccc}
+\begin{tabular}{lcccccccc}
 \toprule
- & ln SO2/GDP & ln SO2 pc & ln NOx/GDP & Renewable share (pp) & ln CO2/GDP & ln energy/GDP & ln CO2/energy \\
+ & ln SO2/GDP & ln SO2 pc & ln NOx/GDP & Renewable share (pp) & ln CO2/GDP & ln CO2 pc & ln energy/GDP & ln CO2/energy \\
 \midrule
 \midrule
-\multicolumn{8}{l}{\textit{Panel A: OLS, country and year FE}} \\
-ln GACI & -0.935** & -0.986*** & -0.326* & 7.950** & -0.365* & -0.316* & -0.052 \\
- & (0.381) & (0.352) & (0.171) & (3.530) & (0.203) & (0.191) & (0.099) \\
-ln GDP pc & 3.789*** & 4.976*** & 1.473*** & -59.600*** & 3.122*** & 1.301* & 1.817*** \\
- & (0.838) & (0.840) & (0.441) & (9.606) & (0.591) & (0.747) & (0.366) \\
-(ln GDP pc)$^2$ & -0.267*** & -0.260*** & -0.131*** & 2.947*** & -0.200*** & -0.094** & -0.106*** \\
- & (0.053) & (0.053) & (0.026) & (0.587) & (0.036) & (0.045) & (0.023) \\
-1 within-SD effect & -6.6% & -7.0% & -2.3% & +0.6pp & -2.6% & -2.2% & -0.4% \\
+\multicolumn{9}{l}{\textit{Panel A: OLS, country and year FE}} \\
+ln GACI & -1.024*** & -1.024*** & -0.296** & 8.120** & -0.201 & -0.201 & -0.193 & -0.008 \\
+ & (0.334) & (0.334) & (0.139) & (3.280) & (0.162) & (0.162) & (0.165) & (0.091) \\
+ln GDP pc & 3.939*** & 4.939*** & 1.769*** & -60.262*** & 2.485*** & 3.485*** & 0.853 & 1.633*** \\
+ & (0.700) & (0.700) & (0.372) & (8.326) & (0.416) & (0.416) & (0.530) & (0.320) \\
+(ln GDP pc)$^2$ & -0.261*** & -0.261*** & -0.136*** & 3.029*** & -0.171*** & -0.171*** & -0.074** & -0.097*** \\
+ & (0.043) & (0.043) & (0.022) & (0.488) & (0.025) & (0.025) & (0.031) & (0.020) \\
+1 within-SD effect & -7.1% & -7.1% & -2.1% & +0.6pp & -1.4% & -1.4% & -1.3% & -0.1% \\
 \midrule
-Observations & 3,425 & 3,425 & 3,425 & 3,425 & 3,425 & 3,425 & 3,425 \\
+Observations & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 \\
 \midrule
-\multicolumn{8}{l}{\textit{Panel B: 2SLS, ln GACI instrumented by air market access}} \\
-ln GACI & -5.843*** & -5.557*** & -4.321*** & 49.700** & -2.264** & -1.941* & -0.331 \\
- & (2.199) & (2.069) & (1.567) & (23.368) & (1.035) & (0.999) & (0.516) \\
-First-stage F (clustered) & 12.5 & 12.5 & 12.5 & 12.5 & 12.5 & 12.5 & 12.5 \\
+\multicolumn{9}{l}{\textit{Panel B: 2SLS, ln GACI instrumented by air market access}} \\
+ln GACI & -5.816*** & -5.816*** & -4.198*** & 57.505** & -1.325 & -1.325 & -1.189 & -0.136 \\
+ & (2.130) & (2.130) & (1.517) & (24.742) & (0.834) & (0.834) & (0.853) & (0.490) \\
+First-stage F (clustered) & 11.6 & 11.6 & 11.6 & 11.6 & 11.6 & 11.6 & 11.6 & 11.6 \\
 \midrule
-Observations & 3,425 & 3,425 & 3,425 & 3,425 & 3,425 & 3,425 & 3,425 \\
+Observations & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 & 3,818 \\
 \bottomrule
 \end{tabular}
-\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 149 countries, 1996--2019, country-years with all Table 1 outcomes and instruments observed. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country in parentheses. *, **, *** : 10, 5, 1\%. ln GACI = log of seat-weighted mean airport GACI. Within-country SD of ln GACI = 0.071. SO2 and NOx from CEDS (to 2019); renewable share from WDI; CO2 and energy from OWID/EI. Panel B instruments ln GACI with Feyrer-type air market access (country geography $\times$ world air-traffic growth); first-stage F is the cluster-robust F on the excluded instrument.\end{minipage}
+\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 173 countries, 1996--2019, country-years with all Table 1 outcomes and the instrument observed. All denominators from one source (WDI GDP in constant 2015 US\$ = GDP per capita $\times$ population), so log identities hold exactly. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country. *, **, *** : 10, 5, 1\%. Within-country SD of ln GACI = 0.070. Because ln GDP per capita is a regressor, the ln GACI coefficient is identical for the per-GDP and per-capita versions of each outcome (ln X/GDP = ln X/pop $-$ ln GDP/pop). Panel B instruments ln GACI with Feyrer-type air market access (country geography $\times$ world air-traffic growth); first-stage F is the cluster-robust F on the excluded instrument.\end{minipage}
 \end{table}
