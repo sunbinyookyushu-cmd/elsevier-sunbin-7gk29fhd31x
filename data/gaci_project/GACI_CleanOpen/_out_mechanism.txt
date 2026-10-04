@@ -1,0 +1,26 @@
+MECHANISM 1: technique (emission factors). base spec c+y, lnpop, lnpc, lnpc2; air = ln GACI_cwm
+  ln SO2/GDP (total)                             -0.980(0.357)***  N=3870
+  ln coal SO2 (level)                            -0.631(0.620)   N=2412
+  ln coal CO2 (coal use scale)                   +0.350(0.391)   N=3035
+  ln SO2 per coal CO2 (coal emission factor)     -1.172(0.458)**  N=2404
+  ln SO2 per oil CO2 (oil emission factor)       -0.901(0.306)***  N=3849
+  ln SO2 per fossil CO2 (all fuels)              -0.886(0.310)***  N=2240
+  ln process SO2 (smelters, refineries)          -0.221(0.312)   N=3826
+  coal share of SO2                              -0.054(0.042)   N=3870
+
+MECHANISM 2: absorptive capacity. air x human-capital tercile (PWT hc, 1996), base spec
+  ln_so2gdp        lowHC -0.677(0.445)  | midHC -0.829(0.626)  | highHC +0.233(0.640) 
+  ln_so2_coal_ef   lowHC -0.628(1.136)  | midHC -1.516(0.930)  | highHC -1.134(0.646)*
+  renew_sh         lowHC +1.147(6.720)  | midHC +8.290(4.593)* | highHC +2.440(4.938) 
+  ln_ci            lowHC +0.243(0.346)  | midHC -0.359(0.193)* | highHC +0.051(0.172) 
+
+MECHANISM 3: economy-type interactions (1996 characteristic above median), base spec
+  services share 1996 high       ln_so2gdp  air -0.997(0.462)**  air x high +0.369(0.644) 
+  services share 1996 high       renew_sh   air +8.192(4.656)*  air x high -0.477(5.394) 
+  services share 1996 high       ln_ci      air -0.599(0.323)*  air x high +0.651(0.347)*
+  merch. trade share 1996 high   ln_so2gdp  air -0.242(0.404)   air x high -0.865(0.506)*
+  merch. trade share 1996 high   renew_sh   air -1.864(3.315)   air x high +14.919(4.155)***
+  merch. trade share 1996 high   ln_ci      air +0.289(0.161)*  air x high -0.814(0.241)***
+  human capital 1996 high        ln_so2gdp  air -0.685(0.515)   air x high +0.041(0.620) 
+  human capital 1996 high        renew_sh   air +4.576(5.205)   air x high +5.053(5.711) 
+  human capital 1996 high        ln_ci      air -0.384(0.298)   air x high +0.131(0.329) 
