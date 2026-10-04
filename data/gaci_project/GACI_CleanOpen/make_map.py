@@ -33,10 +33,10 @@ def iso(r):
 w["iso3"]=w.apply(iso,axis=1); w=w[w["NAME"]!="Antarctica"].merge(ch.reset_index().rename(columns={"c":"iso3"}),on="iso3",how="left").to_crs("+proj=robin")
 blue_red=LinearSegmentedColormap.from_list("br",["#0d366b","#2a78d6","#9ec5f4","#f0efec","#f3a59a","#e34948","#7a1f1e"])
 fig,axes=plt.subplots(2,1,figsize=(9,8.6),dpi=200)
-for ax,(col,title,cm,lim,lab) in zip(axes,[("d_air","(a) Change in ln GACI, first to last sample year (1996 → 2019)",blue_red.reversed(),0.6,"Δ ln GACI"),("d_so2gdp","(b) Observed change in ln SO2/GDP over the same window",blue_red,2.0,"Δ ln SO2/GDP")]):
+for ax,(col,title,cm,lim,lab) in zip(axes,[("d_air","(a) Change in ln GACI, first to last sample year (1996 → 2019)",blue_red.reversed(),0.6,"Δ ln GACI"),("d_so2gdp","(b) Observed change in ln SO2/GDP over the same window",blue_red,3.0,"Δ ln SO2/GDP")]):
     norm=TwoSlopeNorm(vmin=-lim,vcenter=0,vmax=lim)
     w.plot(column=col,ax=ax,cmap=cm,norm=norm,missing_kwds={"color":"#ededed","edgecolor":"#b3b8bd","linewidth":0.2},edgecolor="#ffffff",linewidth=0.25)
     ax.axis("off"); ax.set_title(title,loc="left",fontsize=10.5,color="#0b0b0b")
     sm=plt.cm.ScalarMappable(cmap=cm,norm=norm); sm.set_array([]); cb=fig.colorbar(sm,ax=ax,orientation="vertical",shrink=0.7,pad=0.01,extend="both"); cb.set_label(lab,fontsize=9); cb.ax.tick_params(labelsize=8)
-fig.text(0.01,0.005,"Grey: outside the unified sample. Panel (a): red = became more central in the world air network. Panel (b): blue = SO2 intensity fell. Sample: 141 countries with ≥15 years.",fontsize=8,color="#52514e")
+fig.text(0.01,0.005,"Grey: outside the unified sample. Blue in both panels points the same way as the paper: (a) connectivity rose, (b) SO2 intensity fell. Sample: 141 countries with ≥15 years.",fontsize=8,color="#52514e")
 fig.tight_layout(); fig.savefig(F/"fig5_map_gaci_so2.png",bbox_inches="tight"); plt.close(fig); print("map written")
