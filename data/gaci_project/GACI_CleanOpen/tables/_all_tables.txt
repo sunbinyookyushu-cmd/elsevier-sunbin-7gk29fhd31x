@@ -1,0 +1,64 @@
+
+T1. Air connectivity and the pollution and carbon intensity of the economy, 1996--2023
+                                      ln SO2/GDP             ln SO2 pc            ln NOx/GDP  Renewable share (pp)            ln CO2/GDP         ln energy/GDP         ln CO2/energy
+ln GACI                                -0.980***             -1.022***                -0.263              8.141***               -0.337*              -0.320**                -0.036
+                                         (0.357)               (0.329)               (0.161)               (2.911)               (0.177)               (0.162)               (0.085)
+ln GDP pc                               3.690***              4.990***              1.472***            -64.822***              3.269***                1.272*              1.784***
+                                         (0.706)               (0.695)               (0.394)               (8.146)               (0.575)               (0.680)               (0.297)
+(ln GDP pc)$^2$                        -0.264***             -0.265***             -0.134***              3.290***             -0.208***              -0.091**             -0.102***
+                                         (0.043)               (0.042)               (0.022)               (0.465)               (0.035)               (0.041)               (0.018)
+1 within-SD effect                         -7.4%                 -7.7%                 -2.0%                +0.6pp                 -2.5%                 -2.4%                 -0.3%
+Observations                               3,869                 3,869                 3,869                 4,290                 3,867                 3,797                 4,345
+Countries                                    175                   175                   175                   179                   150                   150                   176
+
+T2. Technique, not scale: SO2 emission factors by fuel
+                                     ln SO2/GDP  ln coal CO2 (scale)      ln SO2/coal CO2       ln SO2/oil CO2    ln SO2/fossil CO2       ln process SO2    Coal share of SO2
+ln GACI                               -0.980***                0.350             -1.172**            -0.901***            -0.886***               -0.221               -0.054
+                                        (0.357)              (0.391)              (0.458)              (0.306)              (0.310)              (0.312)              (0.042)
+Observations                              3,869                3,030                2,387                3,848                2,236                3,825                3,869
+Countries                                   175                  128                  114                  174                  104                  173                  175
+
+T3. Gelbach decomposition of the ln GACI coefficient (base spec; mediators added)
+Base coefficient                                          -0.991 (0.408)        -0.362 (0.174)         9.600 (2.918)        -0.439 (0.185)        -0.421 (0.170)
+Full coefficient                                          -0.988 (0.400)        -0.344 (0.165)         8.955 (2.862)        -0.406 (0.182)        -0.373 (0.168)
+Explained (base $-$ full)                                         -0.004                -0.018                +0.646                -0.033                -0.048
+  Composition (manuf., services, agric. % GDP)              -0.033 (+3%)         -0.044 (+12%)          +0.052 (+1%)          -0.016 (+4%)          -0.031 (+7%)
+  Openness (trade, FDI % GDP)                               +0.037 (-4%)          +0.030 (-8%)          +0.419 (+4%)          +0.008 (-2%)          +0.008 (-2%)
+  Urbanisation                                              -0.007 (+1%)          -0.005 (+1%)          +0.175 (+2%)          -0.025 (+6%)          -0.025 (+6%)
+Observations                                                       3,421                 3,421                 3,786                 3,526                 3,462
+
+T4. Where does air connectivity clean? Goods-trading economies and income groups
+                                      ln SO2/GDP            ln NOx/GDP  Renewable share (pp)            ln CO2/GDP
+ln GACI                                   -0.242                 0.134                -1.864                0.289*
+                                         (0.404)               (0.208)               (3.315)               (0.161)
+ln GACI $\times$ goods economy               -0.865*             -0.597***             14.919***             -0.814***
+                                         (0.506)               (0.226)               (4.155)               (0.241)
+ln GACI, low-income tercile (separate reg.)      -0.845** (0.387)        -0.420 (0.391)         2.583 (5.439)        -0.012 (0.285)
+ln GACI, mid-income tercile (separate reg.)         0.137 (0.462)       0.575** (0.251)        -0.198 (4.597)         0.067 (0.164)
+ln GACI, high-income tercile (separate reg.)        -0.237 (0.660)        -0.138 (0.264)         4.490 (4.644)        -0.057 (0.196)
+Observations                               3,548                 3,548                 3,864                 3,599
+Countries                                    150                   150                   150                   134
+
+T5. Instrumental-variable estimates: heritage $\times$ world tourism and air market access
+                                      ln SO2/GDP: tourism             ln SO2/GDP: Feyrer               ln SO2/GDP: both            ln NOx/GDP: tourism             ln NOx/GDP: Feyrer               ln NOx/GDP: both  Renewable share (pp): tourism   Renewable share (pp): Feyrer     Renewable share (pp): both            ln CO2/GDP: tourism             ln CO2/GDP: Feyrer               ln CO2/GDP: both
+ln GACI                                           -14.739                      -6.232***                      -6.569***                        -15.137                      -4.519***                      -4.939***                         11.842                       57.824**                       45.862**                          0.490                       -2.213**                       -1.690**
+                                                 (22.951)                        (2.261)                        (2.248)                       (22.935)                        (1.677)                        (1.667)                       (19.964)                       (23.999)                       (18.300)                        (1.102)                        (1.025)                        (0.768)
+Sargan J p-value                                                                                                  0.062                                                                                        0.001                                                                                        0.002                                                                                        0.001
+First-stage F (clustered)                             0.5                           12.2                            7.8                            0.5                           12.2                            7.8                            9.6                           11.8                           14.0                            5.9                           11.4                           11.5
+Observations                                        3,861                          3,861                          3,861                          3,861                          3,861                          3,861                          4,282                          4,282                          4,282                          3,867                          3,867                          3,867
+Countries                                             174                            174                            174                            174                            174                            174                            178                            178                            178                            150                            150                            150
+
+A1. Robustness of the ln GACI coefficient
+                                         ln SO2/GDP: base        ln SO2/GDP: +K/L, trade            ln SO2/GDP: +sea MA          ln SO2/GDP: +LSCI 06-   ln SO2/GDP: region$\times$yr  ln SO2/GDP: tercile$\times$yr          ln SO2/GDP: 1996-2009          ln SO2/GDP: 2010-2023               ln CO2/GDP: base        ln CO2/GDP: +K/L, trade            ln CO2/GDP: +sea MA          ln CO2/GDP: +LSCI 06-   ln CO2/GDP: region$\times$yr  ln CO2/GDP: tercile$\times$yr          ln CO2/GDP: 1996-2009          ln CO2/GDP: 2010-2023
+ln GACI                                         -0.980***                       -0.952**                       -0.839**                         -0.445                         -0.266                         -0.378                      -1.073***                         -0.338                        -0.337*                        -0.343*                        -0.284*                       -0.194**                         -0.014                         -0.093                         -0.209                         -0.039
+                                                  (0.357)                        (0.372)                        (0.357)                        (0.294)                        (0.320)                        (0.348)                        (0.391)                        (0.311)                        (0.177)                        (0.191)                        (0.168)                        (0.095)                        (0.164)                        (0.151)                        (0.186)                        (0.085)
+Observations                                        3,869                          3,551                          3,861                          1,824                          3,869                          3,548                          2,193                          1,675                          3,867                          3,813                          3,867                          1,917                          3,867                          3,599                          1,958                          1,909
+Countries                                             175                            157                            174                            136                            175                            150                            165                            172                            150                            147                            150                            114                            150                            134                            145                            150
+
+A2. Alternative GACI aggregates (coefficient on the GACI variable)
+  ln SO2/GDP: ln cwm           -0.980*** (0.357)  N=3869
+  ln SO2/GDP: cwm level        -0.684** (0.284)  N=3869
+  ln SO2/GDP: mean level       -0.320 (0.282)  N=3869
+  ln CO2/GDP: ln cwm           -0.337* (0.177)  N=3867
+  ln CO2/GDP: cwm level        -0.232* (0.125)  N=3867
+  ln CO2/GDP: mean level       -0.171 (0.109)  N=3867
