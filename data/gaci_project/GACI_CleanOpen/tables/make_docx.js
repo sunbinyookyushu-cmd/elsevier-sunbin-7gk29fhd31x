@@ -2,6 +2,7 @@
 const fs = require("fs");
 const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType, BorderStyle, PageOrientation, HeadingLevel, ShadingType, PageBreak } = require("docx");
 const tables = JSON.parse(fs.readFileSync(__dirname + "/_tables.json", "utf8"));
+const interp = JSON.parse(fs.readFileSync(__dirname + "/_interp.json", "utf8"));
 const clean = s => String(s).replace(/\$\\times\$/g, "×").replace(/\$\^2\$/g, "²").replace(/\\%/g, "%").replace(/\$/g, "").replace(/--/g, "–").replace(/\\/g, "");
 const PAGE_W = 15840 - 2 * 1080;   // landscape A4-ish width minus margins (DXA)
 const none = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
@@ -17,10 +18,13 @@ function cell(text, w, opts = {}) {
 const children = [];
 children.push(new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun({ text: "Is air connectivity clean connectivity? Core results", font: "Times New Roman" })] }));
 children.push(new Paragraph({ children: [new TextRun({ text: "Unified sample: 149 countries, 1996–2019 (country-years with all Table 1 outcomes and both instruments observed; 3,425 observations). Dependent variables: CEDS SO2 and NOx, WDI renewable share, OWID/EI CO2 and energy. Air connectivity = log of the seat-weighted mean GACI of a country's airports. All regressions include country and year fixed effects, ln population, ln GDP per capita and its square; standard errors clustered by country.", size: 20, font: "Times New Roman" })] }));
+children.push(new Paragraph({ spacing: { before: 240 }, heading: HeadingLevel.HEADING_2, children: [new TextRun({ text: interp.rq_title, font: "Times New Roman" })] }));
+for (const p of interp.rq) children.push(new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: p, size: 20, font: "Times New Roman" })] }));
 for (const t of tables) {
   const isMain = t.name.startsWith("T");
   const ncol = t.cols.length; const labW = Math.min(4200, Math.round(PAGE_W * 0.28)); const colW = Math.floor((PAGE_W - labW) / ncol);
   children.push(new Paragraph({ pageBreakBefore: true, heading: HeadingLevel.HEADING_2, children: [new TextRun({ text: `${isMain ? "Table " + t.name.slice(1) : "Appendix Table " + t.name.slice(1)}. ${clean(t.title)}`, font: "Times New Roman" })] }));
+  if (interp[t.name]) children.push(new Paragraph({ spacing: { after: 160 }, children: [new TextRun({ text: "What it shows. ", bold: true, size: 20, font: "Times New Roman" }), new TextRun({ text: interp[t.name], size: 20, font: "Times New Roman" })] }));
   const rows = [];
   rows.push(new TableRow({ tableHeader: true, children: [cell("", labW, { top: thin, bottom: thin }), ...t.cols.map(c => cell(c, colW, { top: thin, bottom: thin, bold: true }))] }));
   const nObsIdx = t.rows.findIndex(r => r[0] === "Observations");
