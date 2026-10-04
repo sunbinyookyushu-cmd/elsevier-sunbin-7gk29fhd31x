@@ -1,0 +1,25 @@
+DMUs: 4176 countries: 144 years: 1995 2023
+ddf_co2 done 115 s
+farrell done 295 s
+ddf_co2so2 done 391 s
+                 count         mean       std           min           max
+y               4176.0  2009.000000  8.367602  1.995000e+03  2.023000e+03
+ddf_co2         4176.0     0.645136  0.226243 -0.000000e+00  9.982123e-01
+ddf_co2so2      3600.0     0.556883  0.254360 -3.161590e-13  9.976930e-01
+eff_tfp         4176.0     5.749496  8.521382  1.000000e+00  2.147135e+02
+gml_co2         4032.0     1.000312  0.021925  7.980295e-01  1.241247e+00
+gm_tfp          4032.0     1.005261  0.050150  4.428003e-01  1.915375e+00
+ln_gtfp_co2     4176.0     0.006809  0.094766 -5.032222e-01  4.680230e-01
+ln_gtfp_co2so2  3600.0     0.026906  0.130146 -5.166619e-01  5.261249e-01
+ln_tfp_dea      4176.0     0.100281  0.302321 -1.756884e+00  1.580099e+00
+ln_geff_co2     4176.0    -0.487369  0.148556 -6.922529e-01  0.000000e+00
+ln_geff_co2so2  3600.0    -0.428444  0.171867 -6.919930e-01  3.161590e-13
+ln_eff_tfp      4176.0    -1.497708  0.607728 -5.369305e+00 -0.000000e+00
+corr ln_gtfp_co2 vs PWT rtfpna growth:
+Traceback (most recent call last):
+  File "/home/user/elsevier-sunbin-7gk29fhd31x/data/gaci_project/GACI_CleanOpen/gtfp_ml.py", line 94, in <module>
+    dd = d.merge(p[["c","y","rtfpna"]], on=["c","y"]).dropna(subset=["rtfpna"])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/pandas/core/frame.py", line 7803, in dropna
+    raise KeyError(np.array(subset)[check].tolist())
+KeyError: ['rtfpna']

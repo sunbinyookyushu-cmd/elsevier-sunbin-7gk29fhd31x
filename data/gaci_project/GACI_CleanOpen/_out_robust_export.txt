@@ -1,0 +1,12 @@
+air coefficient (+lnpop +lnpc), 2006-2023 | sample: LSCI(coastal) vs all | sea control: LSCI / geo MA / none
+outcome      |   LSCI smp, LSCI  LSCI smp, geoMA   LSCI smp, none |       all, geoMA        all, none
+ln_ci        |    -0.225(0.107)    -0.138(0.095)    -0.175(0.104) |    -0.068(0.099)    -0.134(0.112)   N=1917/2488
+ln_ei        |    -0.081(0.088)    -0.051(0.086)    -0.048(0.087) |    -0.013(0.084)    -0.046(0.088)   N=1870/2418
+ln_ce        |    -0.172(0.067)    -0.134(0.063)    -0.159(0.067) |    -0.100(0.075)    -0.126(0.078)   N=2214/2816
+ln_co2pc     |    -0.191(0.091)    -0.098(0.086)    -0.128(0.090) |    -0.017(0.094)    -0.068(0.100)   N=2378/3032
+ln_so2gdp    |    -0.652(0.291)    -0.429(0.296)    -0.615(0.289) |    -0.309(0.290)    -0.516(0.284)   N=1817/2320
+ln_noxgdp    |    -0.116(0.167)    +0.047(0.182)    -0.112(0.165) |    +0.180(0.188)    -0.039(0.176)   N=1817/2320
+renew_sh     |   +10.826(2.517)    +9.980(2.408)   +10.626(2.485) |    +7.209(2.232)    +8.015(2.369)   N=2147/2738
+
+LSCI sample landlocked share: 0.007  full sample: 0.206
+exported (4585, 60) -> /home/user/elsevier-sunbin-7gk29fhd31x/data/gaci_project/GACI_CleanOpen/stata/clean_open_panel.dta
