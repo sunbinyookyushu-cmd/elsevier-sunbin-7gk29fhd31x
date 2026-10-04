@@ -40,41 +40,53 @@ def cell(m,k):
     if k not in t.index: return ("","")
     b,se=t.loc[k,"Estimate"],t.loc[k,"Std. Error"]; z=abs(b/se); st="***" if z>2.576 else "**" if z>1.96 else "*" if z>1.645 else ""
     return (f"{b:.3f}{st}",f"({se:.3f})")
-def table(name,title,cols,rows,ms,extra=None,note=""):
-    """cols: list of column labels; ms: list of fitted models; rows: list of coefficient keys"""
-    lines=[]; 
-    for k in rows:
-        cs=[cell(m,k) for m in ms]; lines.append((LAB.get(k,k),[c[0] for c in cs])); lines.append(("",[c[1] for c in cs]))
-    if extra: lines+=extra
-    lines.append(("Observations",[f"{m._N:,}" for m in ms])); lines.append(("Countries",[f"{m._data['c'].nunique() if hasattr(m,'_data') and 'c' in getattr(m,'_data',{}) else ''}" for m in ms]))
-    # text
+def fsF(m_or_s, iv="feyrer_int", rhs="lnpop + lnpc + lnpc2"):
+    """clustered first-stage F for the IV spec on sample s"""
+    s=m_or_s; fs=pf.feols(f"air ~ {iv} + {rhs} | c + y",data=s,vcov={"CRV1":"c"}); ks=[k for k in fs.tidy().index if k in iv.split(" + ")]
+    idx=[list(fs.coef().index).index(k) for k in ks]; b=fs.coef().values[idx]; V=fs._vcov[np.ix_(idx,idx)]; return float(b@np.linalg.solve(V,b))/len(ks)
+def table(name,title,cols,rows=None,ms=None,extra=None,note="",panels=None):
+    """panels: list of (panel_label, models, coef_rows, extra_rows). Single-panel call: rows/ms/extra."""
+    if panels is None: panels=[(None,ms,rows,extra)]
+    lines=[]
+    for plab,pms,prows,pextra in panels:
+        if plab: lines.append((f"__PANEL__{plab}",[""]*len(cols)))
+        for k in prows:
+            cs=[cell(m,k) for m in pms]; lines.append((LAB.get(k,k),[c[0] for c in cs])); lines.append(("",[c[1] for c in cs]))
+        if pextra: lines+=pextra
+        lines.append(("Observations",[f"{m._N:,}" for m in pms]))
     w=max(14,max(len(c) for c in cols)+2); say(f"\n{name}. {title}"); say(" "*26+"".join(f"{c:>{w}s}" for c in cols))
-    for lab,vals in lines: say(f"{lab:26s}"+"".join(f"{v:>{w}s}" for v in vals))
-    # latex
+    for lab,vals in lines:
+        if lab.startswith("__PANEL__"): say(f"--- {lab[9:]} ---")
+        else: say(f"{lab:26s}"+"".join(f"{v:>{w}s}" for v in vals))
     tex=["\\begin{table}[htbp]\\centering\\small",f"\\caption{{{title}}}\\label{{tab:{name}}}","\\begin{tabular}{l"+"c"*len(cols)+"}","\\toprule"," & "+" & ".join(cols)+" \\\\","\\midrule"]
     for lab,vals in lines:
+        if lab.startswith("__PANEL__"): tex.append("\\midrule"); tex.append(f"\\multicolumn{{{len(cols)+1}}}{{l}}{{\\textit{{{lab[9:]}}}}} \\\\"); continue
         if lab=="Observations": tex.append("\\midrule")
         tex.append(f"{lab} & "+" & ".join(vals)+" \\\\")
     tex+=["\\bottomrule","\\end{tabular}",f"\\begin{{minipage}}{{0.95\\textwidth}}\\footnotesize {note}\\end{{minipage}}","\\end{table}"]
     (T/f"{name}.tex").write_text("\n".join(tex))
     TABLES.append({"name":name,"title":title,"cols":cols,"rows":[[lab,vals] for lab,vals in lines],"note":note})
-    for c_,m in zip(cols,ms):
-        t=m.tidy()
-        for k in t.index: coefs.append({"table":name,"column":c_,"var":k,"b":t.loc[k,"Estimate"],"se":t.loc[k,"Std. Error"],"n":m._N})
+    for plab,pms,prows,pextra in panels:
+        for c_,m in zip(cols,pms):
+            t=m.tidy()
+            for k in t.index: coefs.append({"table":name,"panel":plab or "A","column":c_,"var":k,"b":t.loc[k,"Estimate"],"se":t.loc[k,"Std. Error"],"n":m._N})
+NOTE_IV=" Panel B instruments ln GACI with Feyrer-type air market access (country geography $\\times$ world air-traffic growth); first-stage F is the cluster-robust F on the excluded instrument."
 NOTE_BASE="Unified sample: 149 countries, 1996--2019, country-years with all Table 1 outcomes and instruments observed. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country in parentheses. *, **, *** : 10, 5, 1\\%. ln GACI = log of seat-weighted mean airport GACI."
 def N_c(s): return s.c.nunique()
 
-# ---- T1 main ----
-Y1=["ln_so2gdp","ln_so2pc","ln_noxgdp","renew_sh","ln_ci","ln_ei","ln_ce"]; ms=[]; ncs=[]
+# ---- T1 main: Panel A OLS, Panel B IV (Feyrer) ----
+Y1=["ln_so2gdp","ln_so2pc","ln_noxgdp","renew_sh","ln_ci","ln_ei","ln_ce"]; msA=[]; msB=[]; Fs=[]
 for y in Y1:
-    s=d.dropna(subset=[y,"air","lnpop","lnpc"]); ms.append(fe(y,BASE,s)); ncs.append(N_c(s))
+    s=d.dropna(subset=[y,"air","lnpop","lnpc"]); msA.append(fe(y,BASE,s)); msB.append(fe(y,"lnpop + lnpc + lnpc2",s,iv="feyrer_int")); Fs.append(f"{fsF(s):.1f}")
 sd_w=pf.feols("air ~ 1 | c + y",data=d.dropna(subset=["air"]),fixef_rm="none").resid().std()
-ex=[("1 within-SD effect",[f"{m.tidy().loc['air','Estimate']*sd_w*(100 if y!='renew_sh' else 1):+.1f}{'%' if y!='renew_sh' else 'pp'}" for m,y in zip(ms,Y1)])]
-table("T1","Air connectivity and the pollution and carbon intensity of the economy, 1996--2019",[LAB[y] for y in Y1],["air","lnpc","lnpc2"],ms,extra=ex,note=NOTE_BASE+f" Within-country SD of ln GACI = {sd_w:.3f}. SO2 and NOx from CEDS (to 2019); renewable share from WDI; CO2 and energy from OWID/EI.")
-# ---- T2 technique ----
-Y2=["ln_so2gdp","ln_coal_co2","ln_so2_coal_ef","ln_so2_oil_ef","ln_so2_fossil_ef","ln_so2_process","so2_coal_sh"]; ms=[]
-for y in Y2: s=d.dropna(subset=[y,"air","lnpop","lnpc"]); ms.append(fe(y,BASE,s))
-table("T2","Technique, not scale: SO2 emission factors by fuel",[LAB[y] for y in Y2],["air"],ms,note=NOTE_BASE+" Emission factor = CEDS SO2 from a fuel divided by OWID CO2 from the same fuel (CO2 proxies combustion volume; the ratio moves only with sulphur content and abatement). Process SO2 = smelting and refining.")
+exA=[("1 within-SD effect",[f"{m.tidy().loc['air','Estimate']*sd_w*(100 if y!='renew_sh' else 1):+.1f}{'%' if y!='renew_sh' else 'pp'}" for m,y in zip(msA,Y1)])]
+exB=[("First-stage F (clustered)",Fs)]
+table("T1","Air connectivity and the pollution and carbon intensity of the economy, 1996--2019",[LAB[y] for y in Y1],panels=[("Panel A: OLS, country and year FE",msA,["air","lnpc","lnpc2"],exA),("Panel B: 2SLS, ln GACI instrumented by air market access",msB,["air"],exB)],note=NOTE_BASE+f" Within-country SD of ln GACI = {sd_w:.3f}. SO2 and NOx from CEDS (to 2019); renewable share from WDI; CO2 and energy from OWID/EI."+NOTE_IV)
+# ---- T2 technique: Panel A OLS, Panel B IV ----
+Y2=["ln_so2gdp","ln_coal_co2","ln_so2_coal_ef","ln_so2_oil_ef","ln_so2_fossil_ef","ln_so2_process","so2_coal_sh"]; msA=[]; msB=[]; Fs=[]
+for y in Y2:
+    s=d.dropna(subset=[y,"air","lnpop","lnpc"]); msA.append(fe(y,BASE,s)); msB.append(fe(y,"lnpop + lnpc + lnpc2",s,iv="feyrer_int")); Fs.append(f"{fsF(s):.1f}")
+table("T2","Technique, not scale: SO2 emission factors by fuel",[LAB[y] for y in Y2],panels=[("Panel A: OLS, country and year FE",msA,["air"],None),("Panel B: 2SLS, ln GACI instrumented by air market access",msB,["air"],[("First-stage F (clustered)",Fs)])],note=NOTE_BASE+" Emission factor = CEDS SO2 from a fuel divided by OWID CO2 from the same fuel (CO2 proxies combustion volume; the ratio moves only with sulphur content and abatement). Process SO2 = smelting and refining."+NOTE_IV)
 # ---- T3 Gelbach ----
 groups={"Composition (manuf., services, agric. \\% GDP)":["manuf_sh","serv_sh","agr_sh"],"Openness (trade, FDI \\% GDP)":["trade_gdp_wdi","fdi_in_gdp"],"Urbanisation":["urban_sh"]}
 meds=sum(groups.values(),[]); Y3=["ln_so2gdp","ln_noxgdp","renew_sh","ln_ci","ln_ei"]
@@ -92,16 +104,26 @@ for r in rws:
 tex+=["\\bottomrule","\\end{tabular}","\\begin{minipage}{0.95\\textwidth}\\footnotesize "+NOTE_BASE+" Income is in the base specification; the decomposition allocates the change in the ln GACI coefficient to mediator groups exactly (Gelbach 2016). Sample restricted to country-years with all mediators.\\end{minipage}","\\end{table}"]
 (T/"T3.tex").write_text("\n".join(tex))
 TABLES.append({"name":"T3","title":"Channels: Gelbach (2016) decomposition of the ln GACI coefficient","cols":cols,"rows":[[r.replace("\\quad ","    "),[mat[y][r] for y in Y3]] for r in rws],"note":NOTE_BASE+" Income is in the base specification; the decomposition allocates the change in the ln GACI coefficient to mediator groups exactly (Gelbach 2016). Sample restricted to country-years with all mediators."})
-# ---- T4 heterogeneity: goods vs service economies; income terciles ----
-Y4=["ln_so2gdp","ln_noxgdp","renew_sh","ln_ci"]; ms=[]
-for y in Y4: s=d.dropna(subset=[y,"air","lnpop","lnpc","merch96"]); ms.append(fe(y,"air + air_goods + lnpop + lnpc + lnpc2",s))
-ex=[]
+# ---- T4 heterogeneity: Panel A OLS (interaction + terciles), Panel B split-sample IV (goods vs service economies, terciles) ----
+Y4=["ln_so2gdp","ln_noxgdp","renew_sh","ln_ci"]; msA=[]; exA=[]; exB=[]
+for y in Y4:
+    s=d.dropna(subset=[y,"air","lnpop","lnpc","merch96"]); msA.append(fe(y,"air + air_goods + lnpop + lnpc + lnpc2",s))
 for ter in ["low","mid","high"]:
-    r=[]
+    rA=[]
     for y in Y4:
-        s=d[d.inc_ter==ter].dropna(subset=[y,"air","lnpop","lnpc"]); c_=cell(fe(y,BASE,s),"air"); r.append(f"{c_[0]} {c_[1]}")
-    ex.append((f"ln GACI, {ter}-income tercile (separate reg.)",r))
-table("T4","Where does air connectivity clean? Goods-trading economies and income groups",[LAB[y] for y in Y4],["air","air_goods"],ms,extra=ex,note=NOTE_BASE+" Goods economy = merchandise trade share of GDP above the 1996 cross-country median. Lower panel: ln GACI coefficient from separate regressions by 1996 income tercile.")
+        s=d[d.inc_ter==ter].dropna(subset=[y,"air","lnpop","lnpc"]); cA=cell(fe(y,BASE,s),"air"); rA.append(f"{cA[0]} {cA[1]}")
+    exA.append((f"ln GACI, {ter}-income tercile (separate reg.)",rA))
+msB=[]  # Panel B: goods-economy subsample IV as the model row; other subsamples as extra rows
+for y in Y4:
+    s=d[(d.goods_econ==1)].dropna(subset=[y,"air","lnpop","lnpc","merch96"]); msB.append(fe(y,"lnpop + lnpc + lnpc2",s,iv="feyrer_int"))
+rF=[]; rS=[]
+for y in Y4:
+    s=d[(d.goods_econ==1)].dropna(subset=[y,"air","lnpop","lnpc","merch96"]); rF.append(f"{fsF(s):.1f}")
+    s2=d[(d.goods_econ==0)].dropna(subset=[y,"air","lnpop","lnpc","merch96"]); cB=cell(fe(y,"lnpop + lnpc + lnpc2",s2,iv="feyrer_int"),"air"); rS.append(f"{cB[0]} {cB[1]}  [F {fsF(s2):.1f}]")
+exB.append(("First-stage F, goods economies",rF)); exB.append(("ln GACI, service economies (separate IV)",rS))
+# tercile-level IV omitted: first-stage F < 1 in the low and mid terciles (reported in _run_log)
+LAB["air_goodsIV"]="ln GACI, goods economies"
+table("T4","Where does air connectivity clean? Goods-trading economies and income groups",[LAB[y] for y in Y4],panels=[("Panel A: OLS, country and year FE",msA,["air","air_goods"],exA),("Panel B: 2SLS by subsample, ln GACI instrumented by air market access (model row = goods economies)",msB,["air"],exB)],note=NOTE_BASE+" Goods economy = merchandise trade share of GDP above the 1996 cross-country median. Tercile rows: ln GACI coefficient from separate regressions by 1996 income tercile. Panel B runs the IV separately in goods and service economies; bracketed F is the first-stage F of that subsample. Tercile-level IV is not reported because the instrument has no first-stage power within the low- and mid-income terciles (F below 1)."+NOTE_IV)
 # ---- T5 IV ----
 Y5=["ln_so2gdp","ln_noxgdp","renew_sh","ln_ci"]; cols=[]; ms=[]; ex_rows={"Sargan J p-value":[],"First-stage F (clustered)":[]}
 for y in Y5:
@@ -113,7 +135,7 @@ for y in Y5:
         if lab=="both":
             mr=pf.feols(f"{y} ~ lnpop + lnpc + lnpc2 | c + y | air ~ {iv}",data=s,fixef_rm="none"); s2=s.copy(); s2["u2"]=mr.resid(); s2=s2.dropna(subset=["u2"]); mj=pf.feols("u2 ~ tourism_int + feyrer_int + lnpop + lnpc + lnpc2 | c + y",data=s2); ex_rows["Sargan J p-value"].append(f"{1-chi2.cdf(mj._N*mj._r2_within,1):.3f}")
         else: ex_rows["Sargan J p-value"].append("")
-table("T5","Instrumental-variable estimates: heritage $\\times$ world tourism and air market access",cols,["air"],ms,extra=[(k,v) for k,v in ex_rows.items()],note=NOTE_BASE+" ln GACI instrumented by UNESCO natural/mixed heritage sites $\\times$ world tourist arrivals (tourism) and Feyrer-type air market access (Feyrer), as in the GACI trade paper. The tourism instrument alone has no first-stage power in the unified sample (clustered F $<$ 1) and is reported only inside the over-identified model. Sargan J from the over-identified model.")
+table("T5","Instrumental-variable diagnostics: single-instrument vs over-identified estimates",cols,["air"],ms,extra=[(k,v) for k,v in ex_rows.items()],note=NOTE_BASE+" ln GACI instrumented by UNESCO natural/mixed heritage sites $\\times$ world tourist arrivals (tourism) and Feyrer-type air market access (Feyrer), as in the GACI trade paper. The tourism instrument alone has no first-stage power in the unified sample (clustered F $<$ 1) and is reported only inside the over-identified model. Sargan J from the over-identified model.")
 # ---- A1 robustness ----
 for y,nm in [("ln_so2gdp","A1a"),("ln_ci","A1b")]:
     cols=[]; ms=[]

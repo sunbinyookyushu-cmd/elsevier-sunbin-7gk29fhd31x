@@ -4,6 +4,8 @@
 \toprule
  & ln SO2/GDP & ln SO2 pc & ln NOx/GDP & Renewable share (pp) & ln CO2/GDP & ln energy/GDP & ln CO2/energy \\
 \midrule
+\midrule
+\multicolumn{8}{l}{\textit{Panel A: OLS, country and year FE}} \\
 ln GACI & -0.935** & -0.986*** & -0.326* & 7.950** & -0.365* & -0.316* & -0.052 \\
  & (0.381) & (0.352) & (0.171) & (3.530) & (0.203) & (0.191) & (0.099) \\
 ln GDP pc & 3.789*** & 4.976*** & 1.473*** & -59.600*** & 3.122*** & 1.301* & 1.817*** \\
@@ -13,8 +15,14 @@ ln GDP pc & 3.789*** & 4.976*** & 1.473*** & -59.600*** & 3.122*** & 1.301* & 1.
 1 within-SD effect & -6.6% & -7.0% & -2.3% & +0.6pp & -2.6% & -2.2% & -0.4% \\
 \midrule
 Observations & 3,425 & 3,425 & 3,425 & 3,425 & 3,425 & 3,425 & 3,425 \\
-Countries & 149 & 149 & 149 & 149 & 149 & 149 & 149 \\
+\midrule
+\multicolumn{8}{l}{\textit{Panel B: 2SLS, ln GACI instrumented by air market access}} \\
+ln GACI & -5.843*** & -5.557*** & -4.321*** & 49.700** & -2.264** & -1.941* & -0.331 \\
+ & (2.199) & (2.069) & (1.567) & (23.368) & (1.035) & (0.999) & (0.516) \\
+First-stage F (clustered) & 12.5 & 12.5 & 12.5 & 12.5 & 12.5 & 12.5 & 12.5 \\
+\midrule
+Observations & 3,425 & 3,425 & 3,425 & 3,425 & 3,425 & 3,425 & 3,425 \\
 \bottomrule
 \end{tabular}
-\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 149 countries, 1996--2019, country-years with all Table 1 outcomes and instruments observed. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country in parentheses. *, **, *** : 10, 5, 1\%. ln GACI = log of seat-weighted mean airport GACI. Within-country SD of ln GACI = 0.071. SO2 and NOx from CEDS (to 2019); renewable share from WDI; CO2 and energy from OWID/EI.\end{minipage}
+\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 149 countries, 1996--2019, country-years with all Table 1 outcomes and instruments observed. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country in parentheses. *, **, *** : 10, 5, 1\%. ln GACI = log of seat-weighted mean airport GACI. Within-country SD of ln GACI = 0.071. SO2 and NOx from CEDS (to 2019); renewable share from WDI; CO2 and energy from OWID/EI. Panel B instruments ln GACI with Feyrer-type air market access (country geography $\times$ world air-traffic growth); first-stage F is the cluster-robust F on the excluded instrument.\end{minipage}
 \end{table}
