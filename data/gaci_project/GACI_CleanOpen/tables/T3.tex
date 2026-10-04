@@ -4,6 +4,8 @@
 \toprule
  & ln SO2/GDP & ln NOx/GDP & Renewable share (pp) & ln CO2/GDP & ln energy/GDP \\
 \midrule
+\midrule
+\multicolumn{6}{l}{\textit{Panel A: OLS, country and year FE}} \\
 Base coefficient & -0.951 (0.434) & -0.453 (0.182) & 9.530 (3.530) & -0.516 (0.216) & -0.464 (0.206) \\
 Full coefficient & -0.951 (0.426) & -0.446 (0.172) & 9.334 (3.427) & -0.506 (0.214) & -0.424 (0.204) \\
 Explained (base $-$ full) & -0.000 & -0.007 & +0.196 & -0.010 & -0.040 \\
@@ -12,7 +14,17 @@ Explained (base $-$ full) & -0.000 & -0.007 & +0.196 & -0.010 & -0.040 \\
 \quad Urbanisation & -0.014 (+1\%) & -0.011 (+2\%) & +0.187 (+2\%) & -0.010 (+2\%) & -0.010 (+2\%) \\
 \midrule
 Observations & 3,108 & 3,108 & 3,108 & 3,108 & 3,108 \\
+\midrule
+\multicolumn{6}{l}{\textit{Panel B: 2SLS, ln GACI instrumented by air market access (auxiliary regressions also 2SLS)}} \\
+Base coefficient & -4.489 (1.713) & -3.028 (1.063) & 38.209 (18.233) & -1.804 (0.785) & -1.466 (0.760) \\
+Full coefficient & -4.853 (1.775) & -3.364 (1.142) & 37.639 (18.741) & -1.924 (0.773) & -1.517 (0.740) \\
+Explained (base $-$ full) & +0.364 & +0.336 & +0.570 & +0.119 & +0.051 \\
+\quad Composition (manuf., services, agric. \% GDP) & +0.056 (-1\%) & -0.123 (+4\%) & -0.329 (-1\%) & -0.031 (+2\%) & -0.148 (+10\%) \\
+\quad Openness (trade, FDI \% GDP) & +0.338 (-8\%) & +0.482 (-16\%) & +0.487 (+1\%) & +0.172 (-10\%) & +0.221 (-15\%) \\
+\quad Urbanisation & -0.029 (+1\%) & -0.023 (+1\%) & +0.412 (+1\%) & -0.021 (+1\%) & -0.023 (+2\%) \\
+\midrule
+Observations & 3,108 & 3,108 & 3,108 & 3,108 & 3,108 \\
 \bottomrule
 \end{tabular}
-\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 149 countries, 1996--2019, country-years with all Table 1 outcomes and instruments observed. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country in parentheses. *, **, *** : 10, 5, 1\%. ln GACI = log of seat-weighted mean airport GACI. Income is in the base specification; the decomposition allocates the change in the ln GACI coefficient to mediator groups exactly (Gelbach 2016). Sample restricted to country-years with all mediators.\end{minipage}
+\begin{minipage}{0.95\textwidth}\footnotesize Unified sample: 149 countries, 1996--2019, country-years with all Table 1 outcomes and instruments observed. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country in parentheses. *, **, *** : 10, 5, 1\%. ln GACI = log of seat-weighted mean airport GACI. Income is in the base specification; the decomposition allocates the change in the ln GACI coefficient to mediator groups exactly (Gelbach 2016). In Panel B the base and full models and the mediator auxiliary regressions are all 2SLS with air market access as the instrument, so the identity holds for the IV coefficient as well. Sample restricted to country-years with all mediators.\end{minipage}
 \end{table}

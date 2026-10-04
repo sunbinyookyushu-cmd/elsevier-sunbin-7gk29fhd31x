@@ -87,23 +87,37 @@ Y2=["ln_so2gdp","ln_coal_co2","ln_so2_coal_ef","ln_so2_oil_ef","ln_so2_fossil_ef
 for y in Y2:
     s=d.dropna(subset=[y,"air","lnpop","lnpc"]); msA.append(fe(y,BASE,s)); msB.append(fe(y,"lnpop + lnpc + lnpc2",s,iv="feyrer_int")); Fs.append(f"{fsF(s):.1f}")
 table("T2","Technique, not scale: SO2 emission factors by fuel",[LAB[y] for y in Y2],panels=[("Panel A: OLS, country and year FE",msA,["air"],None),("Panel B: 2SLS, ln GACI instrumented by air market access",msB,["air"],[("First-stage F (clustered)",Fs)])],note=NOTE_BASE+" Emission factor = CEDS SO2 from a fuel divided by OWID CO2 from the same fuel (CO2 proxies combustion volume; the ratio moves only with sulphur content and abatement). Process SO2 = smelting and refining."+NOTE_IV)
-# ---- T3 Gelbach ----
+# ---- T3 Gelbach: Panel A OLS, Panel B 2SLS (mediator auxiliaries estimated by 2SLS with the same instrument) ----
 groups={"Composition (manuf., services, agric. \\% GDP)":["manuf_sh","serv_sh","agr_sh"],"Openness (trade, FDI \\% GDP)":["trade_gdp_wdi","fdi_in_gdp"],"Urbanisation":["urban_sh"]}
 meds=sum(groups.values(),[]); Y3=["ln_so2gdp","ln_noxgdp","renew_sh","ln_ci","ln_ei"]
-say("\nT3. Gelbach decomposition of the ln GACI coefficient (base spec; mediators added)"); rows=[]; cols=[LAB[y] for y in Y3]; mat={}
-for y in Y3:
-    s=d.dropna(subset=[y,"air","lnpop","lnpc"]+meds); mb=fe(y,BASE,s); mf=fe(y,BASE+" + "+" + ".join(meds),s); tb,tf=mb.tidy(),mf.tidy()
-    bb,bf=tb.loc["air","Estimate"],tf.loc["air","Estimate"]; mat[y]={"Base coefficient":f"{bb:.3f} ({tb.loc['air','Std. Error']:.3f})","Full coefficient":f"{bf:.3f} ({tf.loc['air','Std. Error']:.3f})","Explained (base $-$ full)":f"{bb-bf:+.3f}"}
+say("\nT3. Gelbach decomposition of the ln GACI coefficient (Panel A OLS, Panel B 2SLS)"); cols=[LAB[y] for y in Y3]; rows_out=[]
+def gelbach(y,s,iv=None):
+    rhs_b="air + lnpop + lnpc + lnpc2" if not iv else "lnpop + lnpc + lnpc2"
+    mb=fe(y,rhs_b,s,iv=iv); mf=fe(y,rhs_b+" + "+" + ".join(meds),s,iv=iv); tb,tf=mb.tidy(),mf.tidy()
+    bb,bf=tb.loc["air","Estimate"],tf.loc["air","Estimate"]; out={"Base coefficient":f"{bb:.3f} ({tb.loc['air','Std. Error']:.3f})","Full coefficient":f"{bf:.3f} ({tf.loc['air','Std. Error']:.3f})","Explained (base $-$ full)":f"{bb-bf:+.3f}"}
+    tot=0
     for gn,vs in groups.items():
-        dsum=sum(pf.feols(f"{v} ~ {BASE} | c + y",data=s).tidy().loc["air","Estimate"]*tf.loc[v,"Estimate"] for v in vs); mat[y][f"\\quad {gn}"]=f"{dsum:+.3f} ({100*dsum/bb:+.0f}\\%)"
-    mat[y]["Observations"]=f"{mf._N:,}"
-rws=list(mat[Y3[0]].keys()); tex=["\\begin{table}[htbp]\\centering\\small","\\caption{Channels: Gelbach (2016) decomposition of the ln GACI coefficient}\\label{tab:T3}","\\begin{tabular}{l"+"c"*len(Y3)+"}","\\toprule"," & "+" & ".join(cols)+" \\\\","\\midrule"]
-for r in rws:
-    if r=="Observations": tex.append("\\midrule")
-    tex.append(f"{r} & "+" & ".join(mat[y][r] for y in Y3)+" \\\\"); say(f"{r.replace(chr(92)+'quad ','  ').replace(chr(92),''):50s}"+"".join(f"{mat[y][r].replace(chr(92),''):>22s}" for y in Y3))
-tex+=["\\bottomrule","\\end{tabular}","\\begin{minipage}{0.95\\textwidth}\\footnotesize "+NOTE_BASE+" Income is in the base specification; the decomposition allocates the change in the ln GACI coefficient to mediator groups exactly (Gelbach 2016). Sample restricted to country-years with all mediators.\\end{minipage}","\\end{table}"]
+        dsum=0
+        for v in vs:
+            ta=(pf.feols(f"{v} ~ lnpop + lnpc + lnpc2 | c + y | air ~ {iv}",data=s) if iv else pf.feols(f"{v} ~ air + lnpop + lnpc + lnpc2 | c + y",data=s)).tidy()
+            dsum+=ta.loc["air","Estimate"]*tf.loc[v,"Estimate"]
+        tot+=dsum; out[f"\\quad {gn}"]=f"{dsum:+.3f} ({100*dsum/bb:+.0f}\\%)"
+    out["Observations"]=f"{mf._N:,}"; return out,bb-bf,tot
+matA={}; matB={}
+for y in Y3:
+    s=d.dropna(subset=[y,"air","lnpop","lnpc"]+meds)
+    matA[y],ex,tot=gelbach(y,s); assert abs(ex-tot)<1e-6, (y,ex,tot)
+    matB[y],exB,totB=gelbach(y,s,iv="feyrer_int"); print(f"   IV identity check {y}: explained {exB:+.4f} vs sum of parts {totB:+.4f}")
+rws=list(matA[Y3[0]].keys()); lines=[["__PANEL__Panel A: OLS, country and year FE",[""]*len(cols)]]+[[r,[matA[y][r] for y in Y3]] for r in rws]+[["__PANEL__Panel B: 2SLS, ln GACI instrumented by air market access (auxiliary regressions also 2SLS)",[""]*len(cols)]]+[[r,[matB[y][r] for y in Y3]] for r in rws]
+tex=["\\begin{table}[htbp]\\centering\\small","\\caption{Channels: Gelbach (2016) decomposition of the ln GACI coefficient}\\label{tab:T3}","\\begin{tabular}{l"+"c"*len(Y3)+"}","\\toprule"," & "+" & ".join(cols)+" \\\\","\\midrule"]
+for lab,vals in lines:
+    if lab.startswith("__PANEL__"): tex.append("\\midrule"); tex.append(f"\\multicolumn{{{len(cols)+1}}}{{l}}{{\\textit{{{lab[9:]}}}}} \\\\"); say(f"--- {lab[9:]} ---"); continue
+    if lab=="Observations": tex.append("\\midrule")
+    tex.append(f"{lab} & "+" & ".join(vals)+" \\\\"); say(f"{lab.replace(chr(92)+'quad ','  ').replace(chr(92),''):50s}"+"".join(f"{v.replace(chr(92),''):>22s}" for v in vals))
+NOTE3=NOTE_BASE+" Income is in the base specification; the decomposition allocates the change in the ln GACI coefficient to mediator groups exactly (Gelbach 2016). In Panel B the base and full models and the mediator auxiliary regressions are all 2SLS with air market access as the instrument, so the identity holds for the IV coefficient as well. Sample restricted to country-years with all mediators."
+tex+=["\\bottomrule","\\end{tabular}","\\begin{minipage}{0.95\\textwidth}\\footnotesize "+NOTE3+"\\end{minipage}","\\end{table}"]
 (T/"T3.tex").write_text("\n".join(tex))
-TABLES.append({"name":"T3","title":"Channels: Gelbach (2016) decomposition of the ln GACI coefficient","cols":cols,"rows":[[r.replace("\\quad ","    "),[mat[y][r] for y in Y3]] for r in rws],"note":NOTE_BASE+" Income is in the base specification; the decomposition allocates the change in the ln GACI coefficient to mediator groups exactly (Gelbach 2016). Sample restricted to country-years with all mediators."})
+TABLES.append({"name":"T3","title":"Channels: Gelbach (2016) decomposition of the ln GACI coefficient","cols":cols,"rows":[[lab if lab.startswith("__PANEL__") else lab.replace("\\quad ","    "),vals] for lab,vals in lines],"note":NOTE3})
 # ---- T4 heterogeneity: Panel A OLS (interaction + terciles), Panel B split-sample IV (goods vs service economies, terciles) ----
 Y4=["ln_so2gdp","ln_noxgdp","renew_sh","ln_ci"]; msA=[]; exA=[]; exB=[]
 for y in Y4:
