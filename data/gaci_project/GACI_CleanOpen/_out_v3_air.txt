@@ -1,0 +1,80 @@
+=== A  AIR ONLY, 1996-2023, country + year FE, clustered by country.  air = ln GACI_cwm ===
+outcome                |     air (+lnpop) |  air (+lnpop+lnpc) |           lnpc |    N   C
+ln CO2/GDP             |  -0.557(0.226)** |   -0.617(0.229)*** |  +0.079(0.118) |  3867 150
+ln energy/GDP          | -0.539(0.188)*** |    -0.444(0.183)** |  -0.127(0.110) |  3797 150
+ln CO2/energy          |    -0.023(0.090) |     -0.173(0.092)* |  +0.190(0.067) |  4345 177
+ln CO2 pc              |    +0.255(0.181) |   -0.429(0.158)*** |  +0.833(0.096) |  4584 180
+ln energy int. (WDI)   | -0.448(0.109)*** |      -0.100(0.082) |  -0.519(0.073) |  3682 177
+renewable share pp     |    +1.640(3.455) |  +12.790(3.280)*** | -13.457(1.987) |  4290 180
+coal electricity pp    |    +0.575(3.765) |     -7.242(3.945)* |  +9.933(3.014) |  4257 178
+ln SO2/GDP             | -1.795(0.379)*** |   -1.481(0.371)*** |  -0.381(0.183) |  3869 176
+ln NOx/GDP             | -1.016(0.179)*** |   -0.518(0.164)*** |  -0.602(0.113) |  3869 176
+ln SO2 pc              |  -0.791(0.336)** |   -1.526(0.344)*** |  +0.889(0.167) |  3869 176
+ln PM2.5               |    -0.049(0.089) |      -0.119(0.088) |  +0.088(0.042) |  4452 173
+cement CO2 share       |  +0.032(0.014)** |      +0.004(0.012) |  +0.034(0.009) |  4465 175
+ln GTFP                |    -0.021(0.033) |    -0.069(0.034)** |  +0.061(0.026) |  3596 134
+within-country SD of air = 0.076; between SD = 0.310; 1 within-SD of air on ln CO2/GDP = -4.2% 
+exact decomposition (same sample): ln CO2/GDP = ln energy/GDP + ln CO2/energy
+   ln CO2/GDP       -0.609(0.225)***
+   ln energy/GDP    -0.444(0.183)**
+   ln CO2/energy    -0.166(0.103)
+
+=== B  robustness to sea controls (air coefficient, +lnpop +lnpc) ===
+outcome                |     none 96-23  +geo seaMA 96-23 |     none 06-23    +LSCI 06-23
+ln CO2/GDP             |  -0.617(0.229)     -0.453(0.188) |  -0.175(0.104)  -0.225(0.107)
+ln energy/GDP          |  -0.444(0.183)     -0.303(0.164) |  -0.048(0.087)  -0.081(0.088)
+ln CO2/energy          |  -0.173(0.092)     -0.136(0.089) |  -0.159(0.067)  -0.172(0.067)
+ln SO2/GDP             |  -1.486(0.371)     -1.146(0.360) |  -0.599(0.288)  -0.635(0.290)
+ln NOx/GDP             |  -0.521(0.165)     -0.238(0.169) |  -0.105(0.165)  -0.109(0.166)
+renewable share pp     | +12.794(3.281)    +10.337(2.964) | +10.616(2.480) +10.815(2.513)
+
+=== C  dynamics ===
+  5-year long differences, year FE, clustered by country:
+     ln CO2/GDP       d air -0.259(0.110)**   N=2682
+     ln energy/GDP    d air -0.154(0.102)   N=2682
+     ln CO2/energy    d air -0.106(0.074)   N=2682
+     ln SO2/GDP       d air -0.803(0.213)***   N=2682
+  10-year long differences, year FE, clustered by country:
+     ln CO2/GDP       d air -0.668(0.231)***   N=1949
+     ln energy/GDP    d air -0.456(0.209)**   N=1949
+     ln CO2/energy    d air -0.214(0.110)*   N=1949
+     ln SO2/GDP       d air -1.424(0.449)***   N=1949
+  distributed lag: y ~ air + air_{t-5} + lnpop + lnpc | c + y
+     ln CO2/GDP       air -0.195(0.150)  air_t-5 -0.413(0.146)***  sum -0.608  N=3118
+     ln energy/GDP    air -0.096(0.108)  air_t-5 -0.262(0.126)**  sum -0.357  N=3050
+     ln CO2/energy    air -0.134(0.082)*  air_t-5 -0.145(0.093)  sum -0.279  N=3472
+     ln SO2/GDP       air -0.924(0.319)***  air_t-5 -0.479(0.330)  sum -1.403  N=2994
+
+=== D  Gelbach decomposition of the air coefficient (base: air + lnpop), 1996-2023 ===
+ln CO2/GDP         base -0.655(0.259) -> full -0.667(0.233) | income +0.034 (-5%) | composition +0.024 (-4%) | openness +0.007 (-1%) | urbanisation -0.053 (+8%) | residual +102%  N=3526
+ln energy/GDP      base -0.617(0.205) -> full -0.507(0.196) | income -0.051 (+8%) | composition -0.024 (+4%) | openness +0.009 (-1%) | urbanisation -0.044 (+7%) | residual +82%  N=3462
+ln CO2/energy      base -0.034(0.095) -> full -0.171(0.081) | income +0.101 (-302%) | composition +0.045 (-134%) | openness -0.006 (+18%) | urbanisation -0.003 (+8%) | residual +510%  N=3848
+ln SO2/GDP         base -1.820(0.441) -> full -1.552(0.409) | income -0.239 (+13%) | composition -0.017 (+1%) | openness +0.024 (-1%) | urbanisation -0.037 (+2%) | residual +85%  N=3421
+ln NOx/GDP         base -1.005(0.197) -> full -0.655(0.175) | income -0.290 (+29%) | composition -0.059 (+6%) | openness +0.021 (-2%) | urbanisation -0.024 (+2%) | residual +65%  N=3421
+renewable share pp base +4.364(3.692) -> full +13.344(3.170) | income -8.989 (-206%) | composition -0.644 (-15%) | openness +0.374 (+9%) | urbanisation +0.279 (+6%) | residual +306%  N=3786
+
+=== E  heterogeneity (air coef, +lnpop +lnpc) ===
+ln CO2/GDP         low -0.046(0.267) | mid +0.004(0.154) | high -0.058(0.194)
+ln energy/GDP      low -0.473(0.395) | mid +0.046(0.168) | high +0.109(0.200)
+ln CO2/energy      low +0.376(0.251) | mid -0.051(0.135) | high -0.159(0.121)
+ln SO2/GDP         low -1.001(0.446)** | mid -0.330(0.498) | high -0.240(0.663)
+renewable share pp low +2.620(5.483) | mid +4.717(4.347) | high +4.294(4.583)
+  by region code (first 2 chars of reg):
+ln CO2/GDP         AF(46) -0.246(0.281) | AS(24) +0.485(0.303) | EU(43) -0.317(0.250) | LA(20) +0.165(0.251) | ME(13) +0.285(0.290)
+ln SO2/GDP         AF(49) -0.199(0.773) | AS(27) -0.432(0.642) | EU(43) -1.012(0.813) | LA(28) -0.729(0.617) | ME(13) +0.174(0.665) | SW(13) -0.560(0.680)
+
+=== F  IV (+lnpop +lnpc), 1996-2023 ===
+first stage: tourism_int +0.0336 (t=2.9); feyrer_int +0.1023 (t=3.5)
+outcome            |            OLS |     IV tourism      IV Feyrer        IV both | Sargan p
+ln CO2/GDP         |  -0.617(0.229) |  +0.921(1.412)  -2.070(1.124)  -1.511(0.875) | 0.001
+ln energy/GDP      |  -0.444(0.183) |  -0.358(1.324)  -1.968(1.066)  -1.649(0.829) | 0.067
+ln CO2/energy      |  -0.173(0.092) |  +1.530(1.197)  -0.319(0.601)  +0.095(0.515) | 0.003
+ln SO2/GDP         |  -1.486(0.371) | -15.675(28.134)  -6.340(2.212)  -6.618(2.198) | 0.075
+ln NOx/GDP         |  -0.521(0.165) | -16.779(30.376)  -4.496(1.613)  -4.862(1.609) | 0.001
+renewable share pp | +12.794(3.281) | +4.588(22.440) +60.049(24.390) +47.392(19.341) | 0.000
+
+=== G  sub-periods (air coef, +lnpop +lnpc) ===
+ln CO2/GDP         1996-2005 -0.192(0.143) | 2006-2014 -0.022(0.147) | 2015-2023 +0.149(0.065)**
+ln energy/GDP      1996-2005 -0.210(0.182) | 2006-2014 -0.059(0.134) | 2015-2023 +0.046(0.081)
+ln CO2/energy      1996-2005 +0.070(0.146) | 2006-2014 -0.058(0.128) | 2015-2023 +0.041(0.061)
+ln SO2/GDP         1996-2005 -0.880(0.266)*** | 2006-2014 -0.202(0.251) | 2015-2023 -0.586(0.305)*
