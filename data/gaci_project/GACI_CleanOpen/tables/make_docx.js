@@ -32,6 +32,15 @@ for (const blk of interp.gaci) {
     children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 240 }, children: [new TextRun({ text: blk.cap, size: 17, italics: true, font: "Times New Roman" })] }));
   }
 }
+children.push(new Paragraph({ pageBreakBefore: true, heading: HeadingLevel.HEADING_2, children: [new TextRun({ text: interp.agg_title, font: "Times New Roman" })] }));
+for (const blk of interp.agg) {
+  children.push(new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: blk.text, size: 20, font: "Times New Roman" })] }));
+  if (blk.fig) {
+    const buf = fs.readFileSync(FIGDIR + blk.fig); const dim = (sizeOf.imageSize || sizeOf)(buf); const W = 560; const H = Math.round(W * dim.height / dim.width);
+    children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 120 }, children: [new ImageRun({ type: "png", data: buf, transformation: { width: W, height: H } })] }));
+    children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 240 }, children: [new TextRun({ text: blk.cap, size: 17, italics: true, font: "Times New Roman" })] }));
+  }
+}
 for (const t of tables) {
   const isMain = t.name.startsWith("T");
   const ncol = t.cols.length; const labW = Math.min(4200, Math.round(PAGE_W * 0.28)); const colW = Math.floor((PAGE_W - labW) / ncol);

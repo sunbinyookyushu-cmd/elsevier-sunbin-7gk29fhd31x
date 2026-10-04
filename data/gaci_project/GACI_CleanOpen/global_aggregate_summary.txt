@@ -1,0 +1,17 @@
+point              elasticity -0.935: SO2 avoided in final year 19,134 kt = 27.5% of final-year SO2 = 52.1% of the observed decline
+lower (b-1.96se)   elasticity -0.188: SO2 avoided in final year 3,309 kt = 4.8% of final-year SO2 = 9.0% of the observed decline
+upper (b+1.96se)   elasticity -1.682: SO2 avoided in final year 40,532 kt = 58.3% of final-year SO2 = 110.3% of the observed decline
+countries 141; mean d ln GACI +0.166 (sd 0.178); world SO2 (sample) 106,318 -> 69,565 kt (-34.6%)
+
+by region:
+     countries  mean_d_lnGACI  implied_pct_SO2_intensity  SO2_avoided_kt
+reg                                                                     
+AF          40           0.09                      -8.02          361.44
+AS          23           0.22                     -17.72        10758.71
+EU          41           0.24                     -19.23         3774.39
+LA          20           0.08                      -6.02         1021.27
+ME          13           0.21                     -15.01         2861.36
+NA           2           0.12                     -10.39          227.71
+SW           2           0.11                      -9.78          129.32
+
+largest implied contributions (kt avoided): CHN 7,224, IND 1,911, RUS 1,703, SAU 1,645, TUR 1,538, IRQ 466, PER 412, MEX 393

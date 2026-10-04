@@ -51,5 +51,21 @@
    "fig": "fig4_mechanism_map.png",
    "cap": "Figure 4. Which table tests which channel."
   }
+ ],
+ "agg_title": "Global aggregate: what the elasticity implies",
+ "agg": [
+  {
+   "text": "Figure 5 puts the two sides of the result on a map. Panel (a) is the change in ln GACI between the first and last year a country appears in the unified sample (1996 to 2019 for most). Connectivity gains were largest in the Gulf, Türkiye, China, Korea and Eastern Europe, and were negative in parts of Latin America, the Sahel and conflict countries (Syria, Yemen, Venezuela). Panel (b) is the observed change in ln SO2/GDP over the same window. The two maps are mirror images in East Asia, the Gulf and Europe, where connectivity rose and SO2 intensity collapsed; they also agree in the countries where connectivity fell and SO2 intensity did not improve.",
+   "fig": "fig5_map_gaci_so2.png",
+   "cap": "Figure 5. (a) Change in ln GACI and (b) observed change in ln SO2/GDP, first to last sample year. Grey: outside the unified sample."
+  },
+  {
+   "text": "A back-of-the-envelope aggregate follows from the Table 1 elasticity. Holding each country's connectivity at its initial level and applying the point estimate of −0.94 to its observed change in ln GACI, SO2 emissions in the final year would have been about 19 Mt higher than observed, which is 28% of final-year SO2 in the sample and roughly half of the 37 Mt decline recorded between 1996 and 2019. The 95% band is wide, from 3 Mt (9% of the decline) to 41 Mt, because the elasticity is estimated with a standard error of 0.38. By region the implied reduction in SO2 intensity is 18–19% in Asia and Europe, 15% in the Middle East, 6–8% in Africa and Latin America; in tonnes it is dominated by China (7.2 Mt), India, Russia, Saudi Arabia and Türkiye.",
+   "fig": null
+  },
+  {
+   "text": "This exercise is an accounting illustration, not a causal decomposition of the global SO2 decline: it extrapolates a within-country elasticity linearly to changes two to three times the within-country standard deviation, and it attributes to connectivity whatever the fixed-effects regression attributes to it. Its purpose is to show that the coefficient is economically meaningful at the scale of the actual network changes of the period, not that air connectivity explains half of global desulphurisation.",
+   "fig": null
+  }
  ]
 }
