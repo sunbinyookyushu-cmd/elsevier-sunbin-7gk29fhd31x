@@ -23,11 +23,15 @@ d["ln_coal_co2"]=L(d.coal_co2); d["ln_so2_process"]=L(d.process_so2); d["so2_coa
 d["region"]=d.reg.str[:2]; d["ty"]=d.inc_ter+"_"+d.y.astype(str); d["ry"]=d.region+"_"+d.y.astype(str)
 d["merch96"]=d.c.map(d[d.y==1996].set_index("c").merch_share); d["serv96"]=d.c.map(d[d.y==1996].set_index("c").serv_sh)
 d["goods_econ"]=(d.merch96>d.groupby("c").merch96.first().median()).astype(float); d["air_goods"]=d.air*d.goods_econ
+# ---- unified analysis sample: country-years with all T1 outcomes, controls and both instruments (1996-2019, 149 countries) ----
+CORE=["air","lnpop","lnpc","ln_so2gdp","ln_noxgdp","renew_sh","ln_ci","ln_ei","ln_ce","tourism_int","feyrer_int"]
+d=d.dropna(subset=CORE).copy()
+print("UNIFIED SAMPLE:", len(d), "obs,", d.c.nunique(), "countries,", d.y.min(), "-", d.y.max())
 BASE="air + lnpop + lnpc + lnpc2"
 LAB={"ln_so2gdp":"ln SO2/GDP","ln_so2pc":"ln SO2 pc","ln_noxgdp":"ln NOx/GDP","renew_sh":"Renewable share (pp)","ln_ci":"ln CO2/GDP","ln_ei":"ln energy/GDP","ln_ce":"ln CO2/energy","ln_co2pc":"ln CO2 pc",
      "ln_coal_co2":"ln coal CO2 (scale)","ln_so2_coal_ef":"ln SO2/coal CO2","ln_so2_oil_ef":"ln SO2/oil CO2","ln_so2_fossil_ef":"ln SO2/fossil CO2","ln_so2_process":"ln process SO2","so2_coal_sh":"Coal share of SO2",
      "air":"ln GACI","lnpc":"ln GDP pc","lnpc2":"(ln GDP pc)$^2$","lnpop":"ln population","air_goods":"ln GACI $\\times$ goods economy"}
-coefs=[]; txt=[]
+coefs=[]; txt=[]; TABLES=[]
 def say(s=""): print(s); txt.append(s)
 def fe(y,rhs,s,fe="c + y",iv=None):
     m=pf.feols(f"{y} ~ {rhs} | {fe}"+(f" | air ~ {iv}" if iv else ""),data=s,vcov={"CRV1":"c"}); return m
@@ -53,10 +57,11 @@ def table(name,title,cols,rows,ms,extra=None,note=""):
         tex.append(f"{lab} & "+" & ".join(vals)+" \\\\")
     tex+=["\\bottomrule","\\end{tabular}",f"\\begin{{minipage}}{{0.95\\textwidth}}\\footnotesize {note}\\end{{minipage}}","\\end{table}"]
     (T/f"{name}.tex").write_text("\n".join(tex))
+    TABLES.append({"name":name,"title":title,"cols":cols,"rows":[[lab,vals] for lab,vals in lines],"note":note})
     for c_,m in zip(cols,ms):
         t=m.tidy()
         for k in t.index: coefs.append({"table":name,"column":c_,"var":k,"b":t.loc[k,"Estimate"],"se":t.loc[k,"Std. Error"],"n":m._N})
-NOTE_BASE="Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country in parentheses. *, **, *** : 10, 5, 1\\%. ln GACI = log of seat-weighted mean airport GACI."
+NOTE_BASE="Unified sample: 149 countries, 1996--2019, country-years with all Table 1 outcomes and instruments observed. Country and year fixed effects; controls ln population, ln GDP per capita and its square. Standard errors clustered by country in parentheses. *, **, *** : 10, 5, 1\\%. ln GACI = log of seat-weighted mean airport GACI."
 def N_c(s): return s.c.nunique()
 
 # ---- T1 main ----
@@ -65,7 +70,7 @@ for y in Y1:
     s=d.dropna(subset=[y,"air","lnpop","lnpc"]); ms.append(fe(y,BASE,s)); ncs.append(N_c(s))
 sd_w=pf.feols("air ~ 1 | c + y",data=d.dropna(subset=["air"]),fixef_rm="none").resid().std()
 ex=[("1 within-SD effect",[f"{m.tidy().loc['air','Estimate']*sd_w*(100 if y!='renew_sh' else 1):+.1f}{'%' if y!='renew_sh' else 'pp'}" for m,y in zip(ms,Y1)])]
-table("T1","Air connectivity and the pollution and carbon intensity of the economy, 1996--2023",[LAB[y] for y in Y1],["air","lnpc","lnpc2"],ms,extra=ex,note=NOTE_BASE+f" Within-country SD of ln GACI = {sd_w:.3f}. SO2 and NOx from CEDS (to 2019); renewable share from WDI; CO2 and energy from OWID/EI.")
+table("T1","Air connectivity and the pollution and carbon intensity of the economy, 1996--2019",[LAB[y] for y in Y1],["air","lnpc","lnpc2"],ms,extra=ex,note=NOTE_BASE+f" Within-country SD of ln GACI = {sd_w:.3f}. SO2 and NOx from CEDS (to 2019); renewable share from WDI; CO2 and energy from OWID/EI.")
 # ---- T2 technique ----
 Y2=["ln_so2gdp","ln_coal_co2","ln_so2_coal_ef","ln_so2_oil_ef","ln_so2_fossil_ef","ln_so2_process","so2_coal_sh"]; ms=[]
 for y in Y2: s=d.dropna(subset=[y,"air","lnpop","lnpc"]); ms.append(fe(y,BASE,s))
@@ -86,6 +91,7 @@ for r in rws:
     tex.append(f"{r} & "+" & ".join(mat[y][r] for y in Y3)+" \\\\"); say(f"{r.replace(chr(92)+'quad ','  ').replace(chr(92),''):50s}"+"".join(f"{mat[y][r].replace(chr(92),''):>22s}" for y in Y3))
 tex+=["\\bottomrule","\\end{tabular}","\\begin{minipage}{0.95\\textwidth}\\footnotesize "+NOTE_BASE+" Income is in the base specification; the decomposition allocates the change in the ln GACI coefficient to mediator groups exactly (Gelbach 2016). Sample restricted to country-years with all mediators.\\end{minipage}","\\end{table}"]
 (T/"T3.tex").write_text("\n".join(tex))
+TABLES.append({"name":"T3","title":"Channels: Gelbach (2016) decomposition of the ln GACI coefficient","cols":cols,"rows":[[r.replace("\\quad ","    "),[mat[y][r] for y in Y3]] for r in rws],"note":NOTE_BASE+" Income is in the base specification; the decomposition allocates the change in the ln GACI coefficient to mediator groups exactly (Gelbach 2016). Sample restricted to country-years with all mediators."})
 # ---- T4 heterogeneity: goods vs service economies; income terciles ----
 Y4=["ln_so2gdp","ln_noxgdp","renew_sh","ln_ci"]; ms=[]
 for y in Y4: s=d.dropna(subset=[y,"air","lnpop","lnpc","merch96"]); ms.append(fe(y,"air + air_goods + lnpop + lnpc + lnpc2",s))
@@ -100,21 +106,21 @@ table("T4","Where does air connectivity clean? Goods-trading economies and incom
 Y5=["ln_so2gdp","ln_noxgdp","renew_sh","ln_ci"]; cols=[]; ms=[]; ex_rows={"Sargan J p-value":[],"First-stage F (clustered)":[]}
 for y in Y5:
     s=d.dropna(subset=[y,"air","lnpop","lnpc","tourism_int","feyrer_int"]).copy()
-    for lab,iv in [("tourism","tourism_int"),("Feyrer","feyrer_int"),("both","tourism_int + feyrer_int")]:
+    for lab,iv in [("Feyrer","feyrer_int"),("both","tourism_int + feyrer_int")]:
         m=fe(y,"lnpop + lnpc + lnpc2",s,iv=iv); ms.append(m); cols.append(f"{LAB[y]}: {lab}")
         fs=pf.feols(f"air ~ {iv} + lnpop + lnpc + lnpc2 | c + y",data=s,vcov={"CRV1":"c"}); ks=[k for k in fs.tidy().index if k in ("tourism_int","feyrer_int")]
         b=fs.coef()[ks].values; V=fs._vcov[[list(fs.coef().index).index(k) for k in ks]][:,[list(fs.coef().index).index(k) for k in ks]]; F=float(b@np.linalg.solve(V,b))/len(ks); ex_rows["First-stage F (clustered)"].append(f"{F:.1f}")
         if lab=="both":
             mr=pf.feols(f"{y} ~ lnpop + lnpc + lnpc2 | c + y | air ~ {iv}",data=s,fixef_rm="none"); s2=s.copy(); s2["u2"]=mr.resid(); s2=s2.dropna(subset=["u2"]); mj=pf.feols("u2 ~ tourism_int + feyrer_int + lnpop + lnpc + lnpc2 | c + y",data=s2); ex_rows["Sargan J p-value"].append(f"{1-chi2.cdf(mj._N*mj._r2_within,1):.3f}")
         else: ex_rows["Sargan J p-value"].append("")
-table("T5","Instrumental-variable estimates: heritage $\\times$ world tourism and air market access",cols,["air"],ms,extra=[(k,v) for k,v in ex_rows.items()],note=NOTE_BASE+" ln GACI instrumented by UNESCO natural/mixed heritage sites $\\times$ world tourist arrivals (tourism) and Feyrer-type air market access (Feyrer), as in the GACI trade paper. Sargan J from the over-identified model.")
+table("T5","Instrumental-variable estimates: heritage $\\times$ world tourism and air market access",cols,["air"],ms,extra=[(k,v) for k,v in ex_rows.items()],note=NOTE_BASE+" ln GACI instrumented by UNESCO natural/mixed heritage sites $\\times$ world tourist arrivals (tourism) and Feyrer-type air market access (Feyrer), as in the GACI trade paper. The tourism instrument alone has no first-stage power in the unified sample (clustered F $<$ 1) and is reported only inside the over-identified model. Sargan J from the over-identified model.")
 # ---- A1 robustness ----
-Y6=["ln_so2gdp","ln_ci"]; cols=[]; ms=[]
-for y in Y6:
+for y,nm in [("ln_so2gdp","A1a"),("ln_ci","A1b")]:
+    cols=[]; ms=[]
     s=d.dropna(subset=[y,"air","lnpop","lnpc"]); s_kl=s.dropna(subset=["lnkl","trade_share"]); s_sea=s.dropna(subset=["ln_sea_ma"]); s_l=d[d.y>=2006].dropna(subset=[y,"air","lnpop","lnpc","ln_lsci"])
     for lab,m in [("base",fe(y,BASE,s)),("+K/L, trade",fe(y,BASE+" + lnkl + lnkl2 + trade_share",s_kl)),("+sea MA",fe(y,BASE+" + ln_sea_ma",s_sea)),("+LSCI 06-",fe(y,BASE+" + ln_lsci",s_l)),("region$\\times$yr",fe(y,BASE,s,fe="c + ry")),("tercile$\\times$yr",fe(y,BASE,s,fe="c + ty")),("1996-2009",fe(y,BASE,s[s.y<=2009])),("2010-2023",fe(y,BASE,s[s.y>=2010]))]:
-        ms.append(m); cols.append(f"{LAB[y]}: {lab}")
-table("A1","Robustness of the ln GACI coefficient",cols,["air"],ms,note=NOTE_BASE+" K/L from PWT 11 (rnna/emp). Sea MA = geography-based sea market access; LSCI = UNCTAD liner shipping connectivity (2006--). Region$\\times$year and income-tercile$\\times$year replace year effects.")
+        ms.append(m); cols.append(lab)
+    table(nm,f"Robustness of the ln GACI coefficient: {LAB[y]}",cols,["air"],ms,note=NOTE_BASE+" K/L from PWT 11 (rnna/emp). Sea MA = geography-based sea market access; LSCI = UNCTAD liner shipping connectivity (2006--). Region$\\times$year and income-tercile$\\times$year replace year effects.")
 # ---- A2 alternative aggregates ----
 d["g_cwm"]=d.g_cwm0; d["g_mean"]=d.g_mean0; cols=[]; ms=[]
 for y in ["ln_so2gdp","ln_ci"]:
@@ -125,4 +131,6 @@ for m,c_ in zip(ms,cols):
     k=[i for i in m.tidy().index if i in ("air","g_cwm","g_mean")][0]; cc=cell(m,k); vals.append(f"{cc[0]} {cc[1]}"); say(f"  {c_:28s} {cc[0]} {cc[1]}  N={m._N}")
 tex=["\\begin{table}[htbp]\\centering\\small","\\caption{Alternative country aggregates of airport GACI}\\label{tab:A2}","\\begin{tabular}{l"+"c"*len(cols)+"}","\\toprule"," & "+" & ".join(cols)+" \\\\","\\midrule","GACI aggregate & "+" & ".join(vals)+" \\\\","Observations & "+" & ".join(f"{m._N:,}" for m in ms)+" \\\\","\\bottomrule","\\end{tabular}","\\begin{minipage}{0.95\\textwidth}\\footnotesize "+NOTE_BASE+"\\end{minipage}","\\end{table}"]
 (T/"A2.tex").write_text("\n".join(tex))
+TABLES.append({"name":"A2","title":"Alternative country aggregates of airport GACI","cols":cols,"rows":[["GACI aggregate",vals],["Observations",[f"{m._N:,}" for m in ms]]],"note":NOTE_BASE})
+import json; json.dump(TABLES, open(T/"_tables.json","w"), indent=1)
 pd.DataFrame(coefs).to_csv(T/"_coefs.csv",index=False); (T/"_all_tables.txt").write_text("\n".join(txt)); print("\nwritten", sorted(p.name for p in T.iterdir()))

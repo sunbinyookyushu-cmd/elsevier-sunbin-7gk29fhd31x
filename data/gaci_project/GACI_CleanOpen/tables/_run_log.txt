@@ -1,3 +1,4 @@
+UNIFIED SAMPLE: 3425 obs, 149 countries, 1996 - 2019
 
 T1. Air connectivity and the pollution and carbon intensity of the economy, 1996--2019
                                       ln SO2/GDP             ln SO2 pc            ln NOx/GDP  Renewable share (pp)            ln CO2/GDP         ln energy/GDP         ln CO2/energy
@@ -69,3 +70,5 @@ A2. Alternative GACI aggregates (coefficient on the GACI variable)
   ln CO2/GDP: ln cwm           -0.365* (0.203)  N=3425
   ln CO2/GDP: cwm level        -0.271* (0.143)  N=3425
   ln CO2/GDP: mean level       -0.170 (0.112)  N=3425
+
+written ['A1.tex', 'A1a.tex', 'A1b.tex', 'A2.tex', 'T1.tex', 'T2.tex', 'T3.tex', 'T4.tex', 'T5.tex', '_all_tables.txt', '_coefs.csv', '_run_log.txt', '_tables.json']
