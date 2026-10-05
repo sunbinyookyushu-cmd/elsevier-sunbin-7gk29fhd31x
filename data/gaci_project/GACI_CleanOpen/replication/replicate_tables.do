@@ -1,14 +1,16 @@
 *==============================================================================*
 * Is air connectivity clean connectivity?  -- full replication of Tables 1-5 and Appendix A1-A3
 * Data : gaci_cleanopen_final.dta  (built by export_final_stata.py; see CODEBOOK.md and DECISIONS.md)
-* Needs: ssc install reghdfe ftools ivreghdfe ranktest estout b1x2
+* Needs: ssc install reghdfe ftools ivreg2 ivreghdfe ranktest estout b1x2   (run once)
+* Run  : cd to this folder, then  do replicate_tables.do   -> tables in out/*.rtf, full log in out/replicate_tables.log
 * Base : y = b ln GACI + ln pop + ln pc + (ln pc)^2 + country FE + year FE, SE clustered by country
 * IV   : ln GACI instrumented by Feyrer-type air market access (feyrer_int)
 *==============================================================================*
 clear all
 set more off
-cd "`c(pwd)'"
 cap mkdir out
+cap log close _all
+log using "out/replicate_tables.log", replace text
 use "gaci_cleanopen_final.dta", clear
 keep if in_unified == 1                      // DECISION #1-#5 (DECISIONS.md)
 egen cid = group(c)
@@ -17,6 +19,7 @@ egen ry = group(region y)
 egen cy = group(continent y)
 egen sy = group(subregion y)
 egen ty = group(inc_ter y)
+egen regid = group(region)                  // numeric region id for region-specific trends
 local X   "lnpop lnpc lnpc2"
 local Y1  "ln_so2gdp ln_so2pc ln_noxgdp renew_sh renewables_share_elec ln_ci ln_co2pc ln_ei ln_ce"
 local Yd  "ln_so2gdp ln_ei ln_ce ln_so2co2 ln_noxgdp ln_noxco2 ln_co2"
@@ -24,6 +27,13 @@ local Y2  "ln_coal_cons ln_so2_coal_cons ln_so2_oil_cons ln_so2_coal_ef ln_so2_o
 local Y3  "ln_so2gdp ln_noxgdp renew_sh ln_ci ln_ei"
 local Y4  "ln_so2gdp ln_noxgdp renew_sh ln_ci"
 
+* ---- quick checks against the Python run (tables/_all_tables.txt) ----
+*   unified sample: 4,516 obs (4,515 after singleton drop), 176 countries; within-SD of ln GACI = 0.075
+*   T1 Panel A ln SO2/GDP: b(air) = -0.705 (SE 0.316);  Panel B 2SLS: -4.939 (2.037), KP F about 11-12
+*   T1b identity: -0.705 = -0.152 + -0.019 + -0.535
+count
+qui tab cid
+di as txt "countries: " r(r)
 * within-country SD of ln GACI (for the 1-SD rows)
 qui reghdfe air, absorb(cid y) resid(r_air)
 qui sum r_air
@@ -115,7 +125,7 @@ foreach y in ln_so2gdp ln_ci {
     eststo r5:  reghdfe `y' air `X',                      absorb(cid ry) vce(cluster cid)
     eststo r6:  reghdfe `y' air `X',                      absorb(cid cy) vce(cluster cid)
     eststo r7:  reghdfe `y' air `X',                      absorb(cid sy) vce(cluster cid)
-    eststo r8:  reghdfe `y' air `X',                      absorb(cid y region#c.trend) vce(cluster cid)
+    eststo r8:  reghdfe `y' air `X',                      absorb(cid y regid#c.trend) vce(cluster cid)
     eststo r9:  reghdfe `y' air `X',                      absorb(cid ty) vce(cluster cid)
     eststo r10: reghdfe `y' air `X' if !inlist(y,2020,2021), absorb(cid y) vce(cluster cid)
     eststo r11: reghdfe `y' air `X' if y<=2009,           absorb(cid y)  vce(cluster cid)
@@ -139,4 +149,4 @@ foreach r in AF AS EU LA ME SW {
     qui ivreghdfe ln_so2gdp (air = feyrer_int) `X' if region!="`r'", absorb(cid y) cluster(cid)
     di as txt "A3 drop `r': " %6.3f _b[air] " (" %5.3f _se[air] ")  KP F " %4.1f e(widstat) "  N " e(N)
 }
-log close _all
+cap log close _all
